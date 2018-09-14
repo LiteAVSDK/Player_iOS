@@ -2,7 +2,7 @@
 
 SuperPlayer(超级播放器)是基于[腾讯云移动直播](https://cloud.tencent.com/document/product/454/7873)的播放器，能快速的集成视频信息拉取、横竖屏切换、清晰度选择、弹幕、直播时移等功能。灵活易用，可高度定制和二次开发。
 
-![](http://imgcache.qq.com/open_proj/proj_qcloud_v2/gateway/product/player/css/img/function/function-1.gif)
+![清晰度切换](https://imgcache.qq.com/open_proj/proj_qcloud_v2/gateway/product/player/css/img/function/function-1.gif)
 
 ## 概述
 
@@ -75,6 +75,9 @@ pod 'SuperPlayer', :subspecs => ['Core']
 ```
 > 注意：请确保工程中的TXLiveAVSDK和播放器匹配，否者可能有链接错误或其它bug
 
+
+</b>
+</details>
 
 ## 创建播放器
 
