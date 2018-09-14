@@ -1,0 +1,487 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		91A1D63F214770C900EA9A19 /* UIView+MMLayout.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 91A1D5E5214673F300EA9A19 /* UIView+MMLayout.h */; };
+		91A1D640214770C900EA9A19 /* SuperPlayerControlViewDelegate.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 91A1D5E9214673F400EA9A19 /* SuperPlayerControlViewDelegate.h */; };
+		91A1D641214770C900EA9A19 /* SuperPlayerGlobleConfig.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 91A1D5C3214673F300EA9A19 /* SuperPlayerGlobleConfig.h */; };
+		91A1D642214770C900EA9A19 /* SuperPlayerModel.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 91A1D5C4214673F300EA9A19 /* SuperPlayerModel.h */; };
+		91A1D643214770C900EA9A19 /* SuperPlayerView.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 91A1D5D3214673F300EA9A19 /* SuperPlayerView.h */; };
+		91A1D644214770C900EA9A19 /* SuperPlayerWindow.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 91A1D5C2214673F200EA9A19 /* SuperPlayerWindow.h */; };
+		91A1D645214770C900EA9A19 /* PlayerSlider.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 91A1D5CA214673F300EA9A19 /* PlayerSlider.h */; };
+		91A1D646214770C900EA9A19 /* SuperPlayerControlView.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 91A1D5CC214673F300EA9A19 /* SuperPlayerControlView.h */; };
+		91A1D647214770C900EA9A19 /* SuperPlayerFastView.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 91A1D5CE214673F300EA9A19 /* SuperPlayerFastView.h */; };
+		91A1D6492147749A00EA9A19 /* SuperPlayer.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 91A1D6482147749100EA9A19 /* SuperPlayer.h */; };
+		91A1D64C2147751700EA9A19 /* J2Obj.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 91A1D5D7214673F300EA9A19 /* J2Obj.h */; };
+		91A1D64D2147763900EA9A19 /* UINavigationController+ZFPlayerRotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 91A1D5E4214673F300EA9A19 /* UINavigationController+ZFPlayerRotation.m */; };
+		91A1D64E2147763B00EA9A19 /* UIView+MMLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 91A1D5E6214673F300EA9A19 /* UIView+MMLayout.m */; };
+		91A1D64F2147763E00EA9A19 /* UIViewController+ZFPlayerRotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 91A1D5E8214673F300EA9A19 /* UIViewController+ZFPlayerRotation.m */; };
+		91A1D6502147764400EA9A19 /* CFDanmaku.m in Sources */ = {isa = PBXBuildFile; fileRef = 91A1D5DD214673F300EA9A19 /* CFDanmaku.m */; };
+		91A1D6512147764400EA9A19 /* CFDanmakuInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 91A1D5DF214673F300EA9A19 /* CFDanmakuInfo.m */; };
+		91A1D6522147764400EA9A19 /* CFDanmakuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 91A1D5E1214673F300EA9A19 /* CFDanmakuView.m */; };
+		91A1D6532147765400EA9A19 /* SuperPlayerGlobleConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 91A1D5EA214673F400EA9A19 /* SuperPlayerGlobleConfig.m */; };
+		91A1D6542147765400EA9A19 /* SuperPlayerModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 91A1D5D2214673F300EA9A19 /* SuperPlayerModel.m */; };
+		91A1D6552147765400EA9A19 /* SuperPlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 91A1D5EB214673F400EA9A19 /* SuperPlayerView.m */; };
+		91A1D6562147765400EA9A19 /* SuperPlayerWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 91A1D5C1214673F200EA9A19 /* SuperPlayerWindow.m */; };
+		91A1D6572147768C00EA9A19 /* DataReport.m in Sources */ = {isa = PBXBuildFile; fileRef = 91A1D5D6214673F300EA9A19 /* DataReport.m */; };
+		91A1D6582147768C00EA9A19 /* J2Obj.m in Sources */ = {isa = PBXBuildFile; fileRef = 91A1D5D8214673F300EA9A19 /* J2Obj.m */; };
+		91A1D6592147768C00EA9A19 /* NetWatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 91A1D5DA214673F300EA9A19 /* NetWatcher.m */; };
+		91A1D65A2147769500EA9A19 /* MMMaterialDesignSpinner.m in Sources */ = {isa = PBXBuildFile; fileRef = 91A1D5C7214673F300EA9A19 /* MMMaterialDesignSpinner.m */; };
+		91A1D65B2147769500EA9A19 /* MoreContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 91A1D5C9214673F300EA9A19 /* MoreContentView.m */; };
+		91A1D65C2147769500EA9A19 /* PlayerSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 91A1D5CB214673F300EA9A19 /* PlayerSlider.m */; };
+		91A1D65D2147769500EA9A19 /* SuperPlayerControlView.m in Sources */ = {isa = PBXBuildFile; fileRef = 91A1D5CD214673F300EA9A19 /* SuperPlayerControlView.m */; };
+		91A1D65E2147769500EA9A19 /* SuperPlayerFastView.m in Sources */ = {isa = PBXBuildFile; fileRef = 91A1D5CF214673F300EA9A19 /* SuperPlayerFastView.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		91A1D6342147703B00EA9A19 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+				91A1D64C2147751700EA9A19 /* J2Obj.h in CopyFiles */,
+				91A1D6492147749A00EA9A19 /* SuperPlayer.h in CopyFiles */,
+				91A1D63F214770C900EA9A19 /* UIView+MMLayout.h in CopyFiles */,
+				91A1D640214770C900EA9A19 /* SuperPlayerControlViewDelegate.h in CopyFiles */,
+				91A1D641214770C900EA9A19 /* SuperPlayerGlobleConfig.h in CopyFiles */,
+				91A1D642214770C900EA9A19 /* SuperPlayerModel.h in CopyFiles */,
+				91A1D643214770C900EA9A19 /* SuperPlayerView.h in CopyFiles */,
+				91A1D644214770C900EA9A19 /* SuperPlayerWindow.h in CopyFiles */,
+				91A1D645214770C900EA9A19 /* PlayerSlider.h in CopyFiles */,
+				91A1D646214770C900EA9A19 /* SuperPlayerControlView.h in CopyFiles */,
+				91A1D647214770C900EA9A19 /* SuperPlayerFastView.h in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		91A1D5B12146719900EA9A19 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		91A1D5C1214673F200EA9A19 /* SuperPlayerWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SuperPlayerWindow.m; sourceTree = "<group>"; };
+		91A1D5C2214673F200EA9A19 /* SuperPlayerWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SuperPlayerWindow.h; sourceTree = "<group>"; };
+		91A1D5C3214673F300EA9A19 /* SuperPlayerGlobleConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SuperPlayerGlobleConfig.h; sourceTree = "<group>"; };
+		91A1D5C4214673F300EA9A19 /* SuperPlayerModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SuperPlayerModel.h; sourceTree = "<group>"; };
+		91A1D5C6214673F300EA9A19 /* MMMaterialDesignSpinner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMMaterialDesignSpinner.h; sourceTree = "<group>"; };
+		91A1D5C7214673F300EA9A19 /* MMMaterialDesignSpinner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMMaterialDesignSpinner.m; sourceTree = "<group>"; };
+		91A1D5C8214673F300EA9A19 /* MoreContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoreContentView.h; sourceTree = "<group>"; };
+		91A1D5C9214673F300EA9A19 /* MoreContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoreContentView.m; sourceTree = "<group>"; };
+		91A1D5CA214673F300EA9A19 /* PlayerSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerSlider.h; sourceTree = "<group>"; };
+		91A1D5CB214673F300EA9A19 /* PlayerSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerSlider.m; sourceTree = "<group>"; };
+		91A1D5CC214673F300EA9A19 /* SuperPlayerControlView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SuperPlayerControlView.h; sourceTree = "<group>"; };
+		91A1D5CD214673F300EA9A19 /* SuperPlayerControlView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SuperPlayerControlView.m; sourceTree = "<group>"; };
+		91A1D5CE214673F300EA9A19 /* SuperPlayerFastView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SuperPlayerFastView.h; sourceTree = "<group>"; };
+		91A1D5CF214673F300EA9A19 /* SuperPlayerFastView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SuperPlayerFastView.m; sourceTree = "<group>"; };
+		91A1D5D0214673F300EA9A19 /* SuperPlayerView+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SuperPlayerView+Private.h"; sourceTree = "<group>"; };
+		91A1D5D2214673F300EA9A19 /* SuperPlayerModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SuperPlayerModel.m; sourceTree = "<group>"; };
+		91A1D5D3214673F300EA9A19 /* SuperPlayerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SuperPlayerView.h; sourceTree = "<group>"; };
+		91A1D5D5214673F300EA9A19 /* DataReport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataReport.h; sourceTree = "<group>"; };
+		91A1D5D6214673F300EA9A19 /* DataReport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataReport.m; sourceTree = "<group>"; };
+		91A1D5D7214673F300EA9A19 /* J2Obj.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = J2Obj.h; sourceTree = "<group>"; };
+		91A1D5D8214673F300EA9A19 /* J2Obj.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = J2Obj.m; sourceTree = "<group>"; };
+		91A1D5D9214673F300EA9A19 /* NetWatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetWatcher.h; sourceTree = "<group>"; };
+		91A1D5DA214673F300EA9A19 /* NetWatcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetWatcher.m; sourceTree = "<group>"; };
+		91A1D5DC214673F300EA9A19 /* CFDanmaku.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CFDanmaku.h; sourceTree = "<group>"; };
+		91A1D5DD214673F300EA9A19 /* CFDanmaku.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CFDanmaku.m; sourceTree = "<group>"; };
+		91A1D5DE214673F300EA9A19 /* CFDanmakuInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CFDanmakuInfo.h; sourceTree = "<group>"; };
+		91A1D5DF214673F300EA9A19 /* CFDanmakuInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CFDanmakuInfo.m; sourceTree = "<group>"; };
+		91A1D5E0214673F300EA9A19 /* CFDanmakuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CFDanmakuView.h; sourceTree = "<group>"; };
+		91A1D5E1214673F300EA9A19 /* CFDanmakuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CFDanmakuView.m; sourceTree = "<group>"; };
+		91A1D5E3214673F300EA9A19 /* UINavigationController+ZFPlayerRotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+ZFPlayerRotation.h"; sourceTree = "<group>"; };
+		91A1D5E4214673F300EA9A19 /* UINavigationController+ZFPlayerRotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+ZFPlayerRotation.m"; sourceTree = "<group>"; };
+		91A1D5E5214673F300EA9A19 /* UIView+MMLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+MMLayout.h"; sourceTree = "<group>"; };
+		91A1D5E6214673F300EA9A19 /* UIView+MMLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+MMLayout.m"; sourceTree = "<group>"; };
+		91A1D5E7214673F300EA9A19 /* UIViewController+ZFPlayerRotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+ZFPlayerRotation.h"; sourceTree = "<group>"; };
+		91A1D5E8214673F300EA9A19 /* UIViewController+ZFPlayerRotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+ZFPlayerRotation.m"; sourceTree = "<group>"; };
+		91A1D5E9214673F400EA9A19 /* SuperPlayerControlViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SuperPlayerControlViewDelegate.h; sourceTree = "<group>"; };
+		91A1D5EA214673F400EA9A19 /* SuperPlayerGlobleConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SuperPlayerGlobleConfig.m; sourceTree = "<group>"; };
+		91A1D5EB214673F400EA9A19 /* SuperPlayerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SuperPlayerView.m; sourceTree = "<group>"; };
+		91A1D6362147703B00EA9A19 /* libSuperPlayer.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSuperPlayer.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		91A1D6482147749100EA9A19 /* SuperPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SuperPlayer.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		91A1D6332147703B00EA9A19 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		91A1D5A32146719900EA9A19 = {
+			isa = PBXGroup;
+			children = (
+				91A1D5AF2146719900EA9A19 /* SuperPlayer */,
+				91A1D5AE2146719900EA9A19 /* Products */,
+				91A1D619214697D000EA9A19 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		91A1D5AE2146719900EA9A19 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				91A1D6362147703B00EA9A19 /* libSuperPlayer.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		91A1D5AF2146719900EA9A19 /* SuperPlayer */ = {
+			isa = PBXGroup;
+			children = (
+				91A1D6482147749100EA9A19 /* SuperPlayer.h */,
+				91A1D5E2214673F300EA9A19 /* Category */,
+				91A1D5DB214673F300EA9A19 /* CFDanmaku */,
+				91A1D5E9214673F400EA9A19 /* SuperPlayerControlViewDelegate.h */,
+				91A1D5C3214673F300EA9A19 /* SuperPlayerGlobleConfig.h */,
+				91A1D5EA214673F400EA9A19 /* SuperPlayerGlobleConfig.m */,
+				91A1D5C4214673F300EA9A19 /* SuperPlayerModel.h */,
+				91A1D5D2214673F300EA9A19 /* SuperPlayerModel.m */,
+				91A1D5D3214673F300EA9A19 /* SuperPlayerView.h */,
+				91A1D5EB214673F400EA9A19 /* SuperPlayerView.m */,
+				91A1D5C2214673F200EA9A19 /* SuperPlayerWindow.h */,
+				91A1D5C1214673F200EA9A19 /* SuperPlayerWindow.m */,
+				91A1D5D4214673F300EA9A19 /* Utils */,
+				91A1D5C5214673F300EA9A19 /* Views */,
+				91A1D5B12146719900EA9A19 /* Info.plist */,
+			);
+			path = SuperPlayer;
+			sourceTree = "<group>";
+		};
+		91A1D5C5214673F300EA9A19 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				91A1D5C6214673F300EA9A19 /* MMMaterialDesignSpinner.h */,
+				91A1D5C7214673F300EA9A19 /* MMMaterialDesignSpinner.m */,
+				91A1D5C8214673F300EA9A19 /* MoreContentView.h */,
+				91A1D5C9214673F300EA9A19 /* MoreContentView.m */,
+				91A1D5CA214673F300EA9A19 /* PlayerSlider.h */,
+				91A1D5CB214673F300EA9A19 /* PlayerSlider.m */,
+				91A1D5CC214673F300EA9A19 /* SuperPlayerControlView.h */,
+				91A1D5CD214673F300EA9A19 /* SuperPlayerControlView.m */,
+				91A1D5CE214673F300EA9A19 /* SuperPlayerFastView.h */,
+				91A1D5CF214673F300EA9A19 /* SuperPlayerFastView.m */,
+				91A1D5D0214673F300EA9A19 /* SuperPlayerView+Private.h */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		91A1D5D4214673F300EA9A19 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				91A1D5D5214673F300EA9A19 /* DataReport.h */,
+				91A1D5D6214673F300EA9A19 /* DataReport.m */,
+				91A1D5D7214673F300EA9A19 /* J2Obj.h */,
+				91A1D5D8214673F300EA9A19 /* J2Obj.m */,
+				91A1D5D9214673F300EA9A19 /* NetWatcher.h */,
+				91A1D5DA214673F300EA9A19 /* NetWatcher.m */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		91A1D5DB214673F300EA9A19 /* CFDanmaku */ = {
+			isa = PBXGroup;
+			children = (
+				91A1D5DC214673F300EA9A19 /* CFDanmaku.h */,
+				91A1D5DD214673F300EA9A19 /* CFDanmaku.m */,
+				91A1D5DE214673F300EA9A19 /* CFDanmakuInfo.h */,
+				91A1D5DF214673F300EA9A19 /* CFDanmakuInfo.m */,
+				91A1D5E0214673F300EA9A19 /* CFDanmakuView.h */,
+				91A1D5E1214673F300EA9A19 /* CFDanmakuView.m */,
+			);
+			path = CFDanmaku;
+			sourceTree = "<group>";
+		};
+		91A1D5E2214673F300EA9A19 /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				91A1D5E3214673F300EA9A19 /* UINavigationController+ZFPlayerRotation.h */,
+				91A1D5E4214673F300EA9A19 /* UINavigationController+ZFPlayerRotation.m */,
+				91A1D5E5214673F300EA9A19 /* UIView+MMLayout.h */,
+				91A1D5E6214673F300EA9A19 /* UIView+MMLayout.m */,
+				91A1D5E7214673F300EA9A19 /* UIViewController+ZFPlayerRotation.h */,
+				91A1D5E8214673F300EA9A19 /* UIViewController+ZFPlayerRotation.m */,
+			);
+			path = Category;
+			sourceTree = "<group>";
+		};
+		91A1D619214697D000EA9A19 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		91A1D6352147703B00EA9A19 /* SuperPlayer */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 91A1D63C2147703B00EA9A19 /* Build configuration list for PBXNativeTarget "SuperPlayer" */;
+			buildPhases = (
+				91A1D6322147703B00EA9A19 /* Sources */,
+				91A1D6332147703B00EA9A19 /* Frameworks */,
+				91A1D6342147703B00EA9A19 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SuperPlayer;
+			productName = SuperPlayer;
+			productReference = 91A1D6362147703B00EA9A19 /* libSuperPlayer.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		91A1D5A42146719900EA9A19 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0940;
+				ORGANIZATIONNAME = annidy;
+				TargetAttributes = {
+					91A1D6352147703B00EA9A19 = {
+						CreatedOnToolsVersion = 9.4.1;
+					};
+				};
+			};
+			buildConfigurationList = 91A1D5A72146719900EA9A19 /* Build configuration list for PBXProject "SuperPlayer" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 91A1D5A32146719900EA9A19;
+			productRefGroup = 91A1D5AE2146719900EA9A19 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				91A1D6352147703B00EA9A19 /* SuperPlayer */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		91A1D6322147703B00EA9A19 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				91A1D6532147765400EA9A19 /* SuperPlayerGlobleConfig.m in Sources */,
+				91A1D65E2147769500EA9A19 /* SuperPlayerFastView.m in Sources */,
+				91A1D6512147764400EA9A19 /* CFDanmakuInfo.m in Sources */,
+				91A1D6542147765400EA9A19 /* SuperPlayerModel.m in Sources */,
+				91A1D6552147765400EA9A19 /* SuperPlayerView.m in Sources */,
+				91A1D6592147768C00EA9A19 /* NetWatcher.m in Sources */,
+				91A1D6502147764400EA9A19 /* CFDanmaku.m in Sources */,
+				91A1D64E2147763B00EA9A19 /* UIView+MMLayout.m in Sources */,
+				91A1D6562147765400EA9A19 /* SuperPlayerWindow.m in Sources */,
+				91A1D64F2147763E00EA9A19 /* UIViewController+ZFPlayerRotation.m in Sources */,
+				91A1D65C2147769500EA9A19 /* PlayerSlider.m in Sources */,
+				91A1D64D2147763900EA9A19 /* UINavigationController+ZFPlayerRotation.m in Sources */,
+				91A1D65B2147769500EA9A19 /* MoreContentView.m in Sources */,
+				91A1D65A2147769500EA9A19 /* MMMaterialDesignSpinner.m in Sources */,
+				91A1D6582147768C00EA9A19 /* J2Obj.m in Sources */,
+				91A1D65D2147769500EA9A19 /* SuperPlayerControlView.m in Sources */,
+				91A1D6522147764400EA9A19 /* CFDanmakuView.m in Sources */,
+				91A1D6572147768C00EA9A19 /* DataReport.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		91A1D5B32146719900EA9A19 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_BITCODE = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		91A1D5B42146719900EA9A19 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_BITCODE = NO;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		91A1D63D2147703B00EA9A19 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = QE8PS7F45A;
+				ENABLE_BITCODE = YES;
+				HEADER_SEARCH_PATHS = (
+					"${SRCROOT}/../TXLiteAVDemo/Third/SDWebImage",
+					"${SRCROOT}/../TXLiteAVDemo/Third/AFNetworking",
+					"${SRCROOT}/../TXLiteAVDemo/Third/Masonry",
+					"${SRCROOT}/SuperPlayer/Headers",
+				);
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_CFLAGS = "-fembed-bitcode";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		91A1D63E2147703B00EA9A19 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = QE8PS7F45A;
+				ENABLE_BITCODE = YES;
+				HEADER_SEARCH_PATHS = (
+					"${SRCROOT}/../TXLiteAVDemo/Third/SDWebImage",
+					"${SRCROOT}/../TXLiteAVDemo/Third/AFNetworking",
+					"${SRCROOT}/../TXLiteAVDemo/Third/Masonry",
+					"${SRCROOT}/SuperPlayer/Headers",
+				);
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				OTHER_CFLAGS = "-fembed-bitcode";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		91A1D5A72146719900EA9A19 /* Build configuration list for PBXProject "SuperPlayer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				91A1D5B32146719900EA9A19 /* Debug */,
+				91A1D5B42146719900EA9A19 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		91A1D63C2147703B00EA9A19 /* Build configuration list for PBXNativeTarget "SuperPlayer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				91A1D63D2147703B00EA9A19 /* Debug */,
+				91A1D63E2147703B00EA9A19 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 91A1D5A42146719900EA9A19 /* Project object */;
+}
