@@ -69,7 +69,7 @@
 
 
 - (void)show {
-    _rootView.frame = (CGRect){.origin=SuperPlayerGlobleConfigShared.floatViewOrigin, .size=SuperPlayerGlobleConfigShared.floatViewSize};
+    _rootView.frame = SuperPlayerGlobleConfigShared.floatViewRect;
     [self addSubview:_rootView];
     self.hidden = NO;
     
@@ -91,7 +91,7 @@
 }
 
 - (void)hide {
-    SuperPlayerGlobleConfigShared.floatViewOrigin = _rootView.frame.origin;
+    SuperPlayerGlobleConfigShared.floatViewRect = _rootView.frame;
     
     [_rootView removeFromSuperview];
     self.hidden = YES;

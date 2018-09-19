@@ -43,7 +43,7 @@
     
     NSDictionary *infoDict = [[NSBundle mainBundle] infoDictionary];
     packname = [infoDict objectForKey:@"CFBundleDisplayName"];
-    if ([packname isEqual:@""]) {
+    if (packname == nil || [packname isEqual:@""]) {
         packname = [infoDict objectForKey:@"CFBundleIdentifier"];
     }
     return packname;

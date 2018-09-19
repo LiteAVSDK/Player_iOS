@@ -6,6 +6,7 @@
 #import "J2Obj.h"
 #import "SuperPlayerView+Private.h"
 #import "DataReport.h"
+#import "TXCUrl.h"
 
 static UISlider * _volumeSlider;
 
@@ -397,6 +398,7 @@ static UISlider * _volumeSlider;
         self.controlView.liveUrl = _videoURL;
         // 时移
         [TXLiveBase setAppID:[NSString stringWithFormat:@"%ld", _playerModel.appId]];
+        TXCUrl *curl = [[TXCUrl alloc] initWithString:_videoURL];
         [self.livePlayer prepareLiveSeek];
     } else {
         [self.vodPlayer startPlay:_videoURL];

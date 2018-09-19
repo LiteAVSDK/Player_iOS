@@ -17,22 +17,18 @@
 + (instancetype)sharedInstance;
 
 /** 是否启用悬浮窗 */
-@property BOOL enableFloatWindow;
+@property (nonatomic) BOOL enableFloatWindow;
 /** 悬浮窗位置 */
-@property CGPoint floatViewOrigin;
-@property CGSize floatViewSize;
+@property (nonatomic) CGRect floatViewRect;
 /** 是否开启硬件加速 */
-@property BOOL enableHWAcceleration;
+@property (nonatomic) BOOL enableHWAcceleration;
 /** 默认播放填充模式 */
-@property NSInteger renderMode;
+@property (nonatomic) NSInteger renderMode;
 /** 播放器最大缓存个数 */
-@property NSInteger maxCacheItem;
+@property (nonatomic) NSInteger maxCacheItem;
 /** 多倍速 */
-@property CGFloat playRate;
+@property (nonatomic) CGFloat playRate;
 
-@property (getter=isMirror) BOOL mirror;
-
-
-- (void)synchronize;
+@property (getter=isMirror, nonatomic) BOOL mirror;
 
 @end

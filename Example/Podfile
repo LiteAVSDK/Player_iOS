@@ -7,4 +7,5 @@ target 'Example' do
 
   # Pods for Example
   pod 'SuperPlayer', :path => '../SuperPlayer.podspec', :subspecs => ['Player']
+  pod 'MBProgressHUD'
 end

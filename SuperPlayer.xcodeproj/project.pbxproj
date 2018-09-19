@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9165F738214FCC9300F5BB88 /* TXCUrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 9165F737214FCC9300F5BB88 /* TXCUrl.m */; };
+		9165F739214FCD7000F5BB88 /* TXCUrl.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9165F736214FCC9300F5BB88 /* TXCUrl.h */; };
 		91A1D63F214770C900EA9A19 /* UIView+MMLayout.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 91A1D5E5214673F300EA9A19 /* UIView+MMLayout.h */; };
 		91A1D640214770C900EA9A19 /* SuperPlayerControlViewDelegate.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 91A1D5E9214673F400EA9A19 /* SuperPlayerControlViewDelegate.h */; };
 		91A1D641214770C900EA9A19 /* SuperPlayerGlobleConfig.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 91A1D5C3214673F300EA9A19 /* SuperPlayerGlobleConfig.h */; };
@@ -45,6 +47,7 @@
 			dstPath = "include/$(PRODUCT_NAME)";
 			dstSubfolderSpec = 16;
 			files = (
+				9165F739214FCD7000F5BB88 /* TXCUrl.h in CopyFiles */,
 				91A1D64C2147751700EA9A19 /* J2Obj.h in CopyFiles */,
 				91A1D6492147749A00EA9A19 /* SuperPlayer.h in CopyFiles */,
 				91A1D63F214770C900EA9A19 /* UIView+MMLayout.h in CopyFiles */,
@@ -62,6 +65,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		9165F736214FCC9300F5BB88 /* TXCUrl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TXCUrl.h; sourceTree = "<group>"; };
+		9165F737214FCC9300F5BB88 /* TXCUrl.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TXCUrl.m; sourceTree = "<group>"; };
 		91A1D5B12146719900EA9A19 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		91A1D5C1214673F200EA9A19 /* SuperPlayerWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SuperPlayerWindow.m; sourceTree = "<group>"; };
 		91A1D5C2214673F200EA9A19 /* SuperPlayerWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SuperPlayerWindow.h; sourceTree = "<group>"; };
@@ -182,6 +187,8 @@
 				91A1D5D8214673F300EA9A19 /* J2Obj.m */,
 				91A1D5D9214673F300EA9A19 /* NetWatcher.h */,
 				91A1D5DA214673F300EA9A19 /* NetWatcher.m */,
+				9165F736214FCC9300F5BB88 /* TXCUrl.h */,
+				9165F737214FCC9300F5BB88 /* TXCUrl.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -290,6 +297,7 @@
 				91A1D65B2147769500EA9A19 /* MoreContentView.m in Sources */,
 				91A1D65A2147769500EA9A19 /* MMMaterialDesignSpinner.m in Sources */,
 				91A1D6582147768C00EA9A19 /* J2Obj.m in Sources */,
+				9165F738214FCC9300F5BB88 /* TXCUrl.m in Sources */,
 				91A1D65D2147769500EA9A19 /* SuperPlayerControlView.m in Sources */,
 				91A1D6522147764400EA9A19 /* CFDanmakuView.m in Sources */,
 				91A1D6572147768C00EA9A19 /* DataReport.m in Sources */,
@@ -424,9 +432,9 @@
 				DEVELOPMENT_TEAM = QE8PS7F45A;
 				ENABLE_BITCODE = YES;
 				HEADER_SEARCH_PATHS = (
-					"${SRCROOT}/../TXLiteAVDemo/Third/SDWebImage",
-					"${SRCROOT}/../TXLiteAVDemo/Third/AFNetworking",
-					"${SRCROOT}/../TXLiteAVDemo/Third/Masonry",
+					"${SRCROOT}/../TXLiteAVDemo/Common/Third/SDWebImage",
+					"${SRCROOT}/../TXLiteAVDemo/Common/Third/AFNetworking",
+					"${SRCROOT}/../TXLiteAVDemo/Common/Third/Masonry",
 					"${SRCROOT}/SuperPlayer/Headers",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -446,9 +454,9 @@
 				DEVELOPMENT_TEAM = QE8PS7F45A;
 				ENABLE_BITCODE = YES;
 				HEADER_SEARCH_PATHS = (
-					"${SRCROOT}/../TXLiteAVDemo/Third/SDWebImage",
-					"${SRCROOT}/../TXLiteAVDemo/Third/AFNetworking",
-					"${SRCROOT}/../TXLiteAVDemo/Third/Masonry",
+					"${SRCROOT}/../TXLiteAVDemo/Common/Third/SDWebImage",
+					"${SRCROOT}/../TXLiteAVDemo/Common/Third/AFNetworking",
+					"${SRCROOT}/../TXLiteAVDemo/Common/Third/Masonry",
 					"${SRCROOT}/SuperPlayer/Headers",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;

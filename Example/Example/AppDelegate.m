@@ -7,6 +7,8 @@
 //
 
 #import "AppDelegate.h"
+#import <AFNetworking/AFNetworking.h>
+#import "MainViewController.h"
 
 @interface AppDelegate ()
 
@@ -17,6 +19,34 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    
+    self.window.backgroundColor = [UIColor whiteColor];
+    
+    MainViewController* vc = [[MainViewController alloc] init];
+    
+    [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(-1000, 0)
+                                                         forBarMetrics:UIBarMetricsDefault];
+    
+    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
+    [[UINavigationBar appearance] setBarTintColor:UIColor.blackColor];
+    [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
+    [[UINavigationBar appearance] setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:18],NSForegroundColorAttributeName:[UIColor whiteColor]}];
+    [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"transparent.png"] forBarMetrics:UIBarMetricsDefault];
+    [[UINavigationBar appearance] setShadowImage:[UIImage new]];
+    
+    UINavigationController* nc = [[UINavigationController alloc] initWithRootViewController:vc];
+    
+    
+    nc.navigationBar.hidden = YES;
+    
+    self.window.rootViewController = nc;
+    
+    [self.window makeKeyAndVisible];
+    
+    [[AFNetworkReachabilityManager sharedManager] startMonitoring];
+    
     return YES;
 }
 

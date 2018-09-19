@@ -8,10 +8,16 @@
 
 #import "SuperPlayerGlobleConfig.h"
 #import "SuperPlayer.h"
+#import <Foundation/Foundation.h>
 
 #define FLOAT_VIEW_WIDTH  200
 #define FLOAT_VIEW_HEIGHT 112
 
+#define kEnableFloatWindow      @"sp_enableFloatWindow"
+#define kEnableHWAcceleration   @"sp_enableHWAcceleration"
+#define kPlayRate               @"sp_playRate"
+#define kMirror                 @"sp_mirror"
+#define kFloatViewRect          @"sp_floatViewRect"
 
 @implementation SuperPlayerGlobleConfig {
     NSUserDefaults *_userDefalut;
@@ -28,76 +34,79 @@
 
 - (instancetype)init {
     self = [super init];
-    
-    _floatViewSize = CGSizeMake(FLOAT_VIEW_WIDTH, FLOAT_VIEW_HEIGHT);
-    // 右下角
-    _floatViewOrigin = CGPointMake(ScreenWidth-_floatViewSize.width, ScreenHeight-_floatViewSize.height);
-    
-    if (IsIPhoneX) {
-        _floatViewOrigin = CGPointMake(ScreenWidth-_floatViewSize.width, ScreenHeight-_floatViewSize.height-44);
-    }
-    
+       
     _renderMode = RENDER_MODE_FILL_EDGE;
     
     _userDefalut = [NSUserDefaults standardUserDefaults];
     
+    [self loadDefalut];
+    
     return self;
 }
 
-- (BOOL)enableFloatWindow {
-    if ([_userDefalut objectForKey:@"enableFloatWindow"]) {
-        return [_userDefalut boolForKey:@"enableFloatWindow"];
-    }
-    return YES;
-}
-
 - (void)setEnableFloatWindow:(BOOL)enableFloatWindow {
-    [_userDefalut setBool:enableFloatWindow forKey:@"enableFloatWindow"];
-}
-
-- (BOOL)enableHWAcceleration {
-    if ([_userDefalut objectForKey:@"enableHWAcceleration"]) {
-        return [_userDefalut boolForKey:@"enableHWAcceleration"];
-    }
-#if TARGET_OS_SIMULATOR
-    return NO;
-#else
-    return YES;
-#endif
+    _enableFloatWindow = enableFloatWindow;
+    [_userDefalut setBool:enableFloatWindow forKey:kEnableFloatWindow];
 }
 
 - (void)setEnableHWAcceleration:(BOOL)enableHWAcceleration {
-    [_userDefalut setBool:enableHWAcceleration forKey:@"enableHWAcceleration"];
-}
-
-- (CGFloat)playRate {
-    if ([_userDefalut objectForKey:@"playRate"]) {
-        return [_userDefalut floatForKey:@"playRate"];
-    }
-    return 1.0;
+    _enableHWAcceleration = enableHWAcceleration;
+    [_userDefalut setBool:enableHWAcceleration forKey:kEnableHWAcceleration];
 }
 
 - (void)setPlayRate:(CGFloat)playRate {
-    [_userDefalut setFloat:playRate forKey:@"playRate"];
-}
-
-- (BOOL)isMirror {
-    if ([_userDefalut objectForKey:@"mirror"]) {
-        return [_userDefalut boolForKey:@"mirror"];
-    }
-    return NO;
+    _playRate = playRate;
+    [_userDefalut setFloat:_playRate forKey:kPlayRate];
 }
 
 - (void)setMirror:(BOOL)mirror {
-    [_userDefalut setBool:mirror forKey:@"mirror"];
+    _mirror = mirror;
+    [_userDefalut setBool:mirror forKey:kMirror];
 }
 
-- (void)synchronize
+- (void)setFloatViewRect:(CGRect)floatViewRect
 {
-    [_userDefalut synchronize];
+    _floatViewRect = floatViewRect;
+    [_userDefalut setObject:NSStringFromCGRect(floatViewRect) forKey:kFloatViewRect];
 }
 
-
-
+- (void)loadDefalut
+{
+    if ([_userDefalut objectForKey:kEnableFloatWindow] == nil) {
+        self.enableFloatWindow = YES;
+    } else {
+        self.enableFloatWindow = [_userDefalut boolForKey:kEnableFloatWindow];
+    }
+    if ([_userDefalut objectForKey:kEnableHWAcceleration] == nil) {
+#if TARGET_OS_SIMULATOR
+        self.enableHWAcceleration = NO;
+#else
+        self.enableHWAcceleration = YES;
+#endif
+    } else {
+        self.enableHWAcceleration = [_userDefalut boolForKey:kEnableHWAcceleration];
+    }
+    if ([_userDefalut objectForKey:kPlayRate] == nil) {
+        self.playRate = 1.0;
+    } else {
+        self.playRate = [_userDefalut floatForKey:kPlayRate];
+    }
+    if ([_userDefalut objectForKey:kMirror] == nil) {
+        self.mirror = YES;
+    } else {
+        self.mirror = [_userDefalut boolForKey:kMirror];
+    }
+    if ([_userDefalut objectForKey:kFloatViewRect] == nil) {
+        CGRect rect = CGRectMake(ScreenWidth-FLOAT_VIEW_WIDTH, ScreenHeight-FLOAT_VIEW_HEIGHT, FLOAT_VIEW_WIDTH, FLOAT_VIEW_HEIGHT);
+        
+        if (IsIPhoneX) {
+            rect.origin.y -= 44;
+        }
+        self.floatViewRect = rect;
+    } else {
+        NSString *rect = [_userDefalut objectForKey:kFloatViewRect];
+        self.floatViewRect = CGRectFromString(rect);
+    }
+}
 
 @end
