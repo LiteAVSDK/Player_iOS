@@ -616,7 +616,15 @@ __weak UITextField *urlField;
         //        }
     }
     
-    [self.playerView.danmakuView prepareDanmakus:danmakus];
+    CFDanmakuView *_danmakuView = [[CFDanmakuView alloc] initWithFrame:CGRectZero];
+    _danmakuView.duration = 6.5;
+    _danmakuView.centerDuration = 2.5;
+    _danmakuView.lineHeight = 25;
+    _danmakuView.maxShowLineCount = 15;
+    _danmakuView.maxCenterLineCount = 5;
+    [_danmakuView prepareDanmakus:danmakus];
+    
+    self.playerView.danmakuView = _danmakuView;
 }
 
 - (void)showControlView:(BOOL)isShow {

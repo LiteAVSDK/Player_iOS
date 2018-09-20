@@ -122,31 +122,11 @@ static UISlider * _volumeSlider;
     [self.volumeView removeFromSuperview];
 }
 
-#pragma mark -
-
-- (void)setupDanmakuView
-{
-    _danmakuView = [[CFDanmakuView alloc] initWithFrame:CGRectZero];
-    _danmakuView.duration = 6.5;
-    _danmakuView.centerDuration = 2.5;
-    _danmakuView.lineHeight = 25;
-    _danmakuView.maxShowLineCount = 15;
-    _danmakuView.maxCenterLineCount = 5;
-    
-    _danmakuView.delegate = self;
-    [self addSubview:_danmakuView];
-    
-    [_danmakuView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self);
-        make.bottom.equalTo(self);
-        make.left.equalTo(self);
-        make.right.equalTo(self);
-    }];
-}
+#pragma mark - 弹幕
 
 - (NSTimeInterval)danmakuViewGetPlayTime:(CFDanmakuView *)danmakuView
 {
-    return -[self.danmakuStartTime timeIntervalSinceNow];
+    return -[self.reportTime timeIntervalSinceNow];
 }
 
 - (BOOL)danmakuViewIsBuffering:(CFDanmakuView *)danmakuView
@@ -154,7 +134,25 @@ static UISlider * _volumeSlider;
     return self.state != StatePlaying;
 }
 
-
+- (void)setDanmakuView:(CFDanmakuView *)danmakuView
+{
+    if (_danmakuView) {
+        [_danmakuView removeFromSuperview];
+    }
+    _danmakuView = danmakuView;
+    
+    if (_danmakuView) {
+        _danmakuView.delegate = self;
+        [self addSubview:_danmakuView];
+        
+        [_danmakuView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self);
+            make.bottom.equalTo(self);
+            make.left.equalTo(self);
+            make.right.equalTo(self);
+        }];
+    }
+}
 
 
 #pragma mark - 观察者、通知
@@ -185,10 +183,12 @@ static UISlider * _volumeSlider;
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-    UIView *innerView = self.subviews[0];
-    if ([innerView isKindOfClass:NSClassFromString(@"TXIJKSDLGLView")] ||
-        [innerView isKindOfClass:NSClassFromString(@"TXCAVPlayerView")]) {
-        innerView.frame = self.bounds;
+    if (self.subviews.count > 0) {
+        UIView *innerView = self.subviews[0];
+        if ([innerView isKindOfClass:NSClassFromString(@"TXIJKSDLGLView")] ||
+            [innerView isKindOfClass:NSClassFromString(@"TXCAVPlayerView")]) {
+            innerView.frame = self.bounds;
+        }
     }
 }
 
@@ -284,7 +284,6 @@ static UISlider * _volumeSlider;
     [self reportPlay];
     
     [self.controlView playerIsActivity:NO];
-    
 }
 
 /**
@@ -413,6 +412,7 @@ static UISlider * _volumeSlider;
         [self.controlView playerResolutionArray:nil defaultIndex:0];
     }
     [self.controlView playerControlViewLive:self.isLive];
+    self.controlView.disableDanmakuBtn = (_danmakuView == nil);
 }
 
 /**
@@ -1188,7 +1188,6 @@ static UISlider * _volumeSlider;
     if (sender.isSelected) {
         [_danmakuView start];
         _danmakuView.hidden = NO;
-        self.danmakuStartTime = [NSDate date];
     } else {
         [_danmakuView pause];
         _danmakuView.hidden = YES;

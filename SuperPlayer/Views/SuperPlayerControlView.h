@@ -45,8 +45,12 @@
 @property BOOL                                        disableDanmakuBtn;
 /** 截图按钮 */
 @property (nonatomic, strong) UIButton                *captureBtn;
+/// 是否禁用截图
+@property BOOL                                        disableCaptureBtn;
 /** 更多按钮 */
 @property (nonatomic, strong) UIButton                *moreBtn;
+/// 是否禁用更多
+@property BOOL                                        disableMoreBtn;
 /** 更多的View */
 @property (nonatomic, strong) UIScrollView            *moreView;
 /** 切换分辨率按钮 */

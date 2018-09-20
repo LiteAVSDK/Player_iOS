@@ -34,4 +34,7 @@
 
 @property (getter=isMirror, nonatomic) BOOL mirror;
 
+/// 时移域名，默认为playtimeshift.live.myqcloud.com
+@property NSString *playShiftDomain;
+
 @end

@@ -45,7 +45,7 @@ typedef NS_ENUM(NSInteger, SuperPlayerState) {
 /** 是否是直播流 */
 @property (readonly) BOOL isLive;
 /// 弹幕视图
-@property CFDanmakuView *danmakuView;
+@property (nonatomic) CFDanmakuView *danmakuView;
 /// 超级播放器控制层
 @property SuperPlayerControlView *controlView;
 

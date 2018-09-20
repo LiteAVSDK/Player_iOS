@@ -39,6 +39,8 @@
     
     _userDefalut = [NSUserDefaults standardUserDefaults];
     
+    _playShiftDomain = @"playtimeshift.live.myqcloud.com";
+    
     [self loadDefalut];
     
     return self;

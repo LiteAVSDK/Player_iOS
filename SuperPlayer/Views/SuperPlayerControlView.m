@@ -550,9 +550,9 @@ static const CGFloat SuperPlayerControlBarAutoFadeOutTimeInterval = 0.15f;
         self.resolutionBtn.hidden = YES;
     }
     
-    self.captureBtn.hidden = !_fullScreen;
-    self.danmakuBtn.hidden = !_fullScreen && !self.disableDanmakuBtn;
-    self.moreBtn.hidden = !_fullScreen;
+    self.captureBtn.hidden = !_fullScreen || self.disableCaptureBtn;
+    self.danmakuBtn.hidden = !_fullScreen || self.disableDanmakuBtn;
+    self.moreBtn.hidden = !_fullScreen || self.disableMoreBtn;
 }
 
 #pragma mark - getter

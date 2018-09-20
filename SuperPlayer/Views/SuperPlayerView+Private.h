@@ -67,10 +67,7 @@ TXVodPlayListener, TXLivePlayListener, CFDanmakuDelegate, SuperPlayerControlView
 // add for txvodplayer
 @property BOOL  isLoaded;
 
-@property (nonatomic, strong) NSDate *danmakuStartTime;
-
 @property NSURLSessionDataTask *getInfoHttpTask;
-
 
 @property (nonatomic) BOOL  isShiftPlayback;
 
