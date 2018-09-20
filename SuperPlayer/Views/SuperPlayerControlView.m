@@ -1,7 +1,7 @@
 #import "SuperPlayerControlView.h"
 #import <AVFoundation/AVFoundation.h>
 #import <MediaPlayer/MediaPlayer.h>
-#import "MMMaterialDesignSpinner.h"
+
 #import "MoreContentView.h"
 #import "DataReport.h"
 #import "SuperPlayerFastView.h"
@@ -20,61 +20,7 @@ static const CGFloat SuperPlayerControlBarAutoFadeOutTimeInterval = 0.15f;
 
 @interface SuperPlayerControlView () <UIGestureRecognizerDelegate, PlayerSliderDelegate>
 
-/** 标题 */
-@property (nonatomic, strong) UILabel                 *titleLabel;
-/** 开始播放按钮 */
-@property (nonatomic, strong) UIButton                *startBtn;
-/** 当前播放时长label */
-@property (nonatomic, strong) UILabel                 *currentTimeLabel;
-/** 视频总时长label */
-@property (nonatomic, strong) UILabel                 *totalTimeLabel;
 
-/** 全屏按钮 */
-@property (nonatomic, strong) UIButton                *fullScreenBtn;
-/** 锁定屏幕方向按钮 */
-@property (nonatomic, strong) UIButton                *lockBtn;
-/** 系统菊花 */
-@property (nonatomic, strong) MMMaterialDesignSpinner *activity;
-/** 返回按钮*/
-@property (nonatomic, strong) UIButton                *backBtn;
-/** 关闭按钮*/
-@property (nonatomic, strong) UIButton                *closeBtn;
-/** bottomView*/
-@property (nonatomic, strong) UIImageView             *bottomImageView;
-/** topView */
-@property (nonatomic, strong) UIImageView             *topImageView;
-/** 弹幕按钮 */
-@property (nonatomic, strong) UIButton                *danmakuBtn;
-/** 截图按钮 */
-@property (nonatomic, strong) UIButton                *captureBtn;
-/** 更多按钮 */
-@property (nonatomic, strong) UIButton                *moreBtn;
-/** 更多的View */
-@property (nonatomic, strong) UIScrollView           *moreView;
-/** 切换分辨率按钮 */
-@property (nonatomic, strong) UIButton                *resolutionBtn;
-/** 分辨率的View */
-@property (nonatomic, strong) UIView                  *resolutionView;
-/** 播放按钮 */
-@property (nonatomic, strong) UIButton                *playeBtn;
-/** 加载失败按钮 */
-@property (nonatomic, strong) UIButton                *middleBtn;
-/** 快进快退View*/
-@property (nonatomic, strong) SuperPlayerFastView     *fastView;
-
-/** 当前选中的分辨率btn按钮 */
-@property (nonatomic, weak  ) UIButton                *resoultionCurrentBtn;
-/** 占位图 */
-@property (nonatomic, strong) UIImageView             *placeholderImageView;
-/** 分辨率的名称 */
-@property (nonatomic, strong) NSArray<SuperPlayerUrl *> *resolutionArray;
-/** 更多设置View */
-@property (nonatomic, strong) MoreContentView     *moreContentView;
-/** 返回直播 */
-@property (nonatomic, strong) UIButton               *backLiveBtn;
-
-/** 显示控制层 */
-@property (nonatomic, assign, getter=isShowing) BOOL  showing;
 /** 小屏播放 */
 @property (nonatomic, assign, getter=isShrink ) BOOL  shrink;
 /** 是否拖拽slider控制播放进度 */
@@ -85,9 +31,9 @@ static const CGFloat SuperPlayerControlBarAutoFadeOutTimeInterval = 0.15f;
 @property (nonatomic, assign,getter=isFullScreen)BOOL fullScreen;
 @property (nonatomic, assign,getter=isLockScreen)BOOL isLockScreen;
 
-@property BOOL isLive;
-
 @property (nonatomic, strong) UIButton               *pointJumpBtn;
+
+@property BOOL isLive;
 
 @end
 
@@ -578,14 +524,15 @@ static const CGFloat SuperPlayerControlBarAutoFadeOutTimeInterval = 0.15f;
     
     self.fullScreenBtn.hidden = _fullScreen;
     if (_fullScreen) {
-        if (_resolutionArray > 0) {
+        NSUInteger resolutionSize = _resolutionArray.count;
+        if (resolutionSize > 0) {
             self.resolutionBtn.hidden = NO;
         } else {
             self.resolutionBtn.hidden = YES;
         }
         
         [self.totalTimeLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
-            if (_resolutionArray > 0) {
+            if (resolutionSize > 0) {
                 make.trailing.equalTo(self.resolutionBtn.mas_leading);
             } else {
                 make.trailing.equalTo(self.bottomImageView.mas_trailing);
@@ -604,7 +551,7 @@ static const CGFloat SuperPlayerControlBarAutoFadeOutTimeInterval = 0.15f;
     }
     
     self.captureBtn.hidden = !_fullScreen;
-    self.danmakuBtn.hidden = !_fullScreen;
+    self.danmakuBtn.hidden = !_fullScreen && !self.disableDanmakuBtn;
     self.moreBtn.hidden = !_fullScreen;
 }
 

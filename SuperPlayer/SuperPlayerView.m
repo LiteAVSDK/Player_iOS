@@ -85,13 +85,18 @@ static UISlider * _volumeSlider;
 - (void)initializeThePlayer {
     
     [self setupDanmakuView];
-    [self setupDanmakuData];
+    
     self.netWatcher = [[NetWatcher alloc] init];
     
     CGRect frame = CGRectMake(0, -100, 10, 0);
     self.volumeView = [[MPVolumeView alloc] initWithFrame:frame];
     [self.volumeView sizeToFit];
-    [[[[UIApplication sharedApplication] windows] objectAtIndex:0] addSubview:self.volumeView];
+    for (UIWindow *window in [[UIApplication sharedApplication] windows]) {
+        if (!window.isHidden) {
+            [window addSubview:self.volumeView];
+            break;
+        }
+    }
     
     _fullScreenBlackView = [UIView new];
     _fullScreenBlackView.backgroundColor = [UIColor blackColor];
@@ -137,41 +142,6 @@ static UISlider * _volumeSlider;
         make.left.equalTo(self);
         make.right.equalTo(self);
     }];
-}
-#define kRandomColor [UIColor colorWithRed:arc4random_uniform(256) / 255.0 green:arc4random_uniform(256) / 255.0 blue:arc4random_uniform(256) / 255.0 alpha:1]
-#define font [UIFont systemFontOfSize:15]
-
-- (void)setupDanmakuData
-{
-    NSString *danmakufile = [[NSBundle mainBundle] pathForResource:@"danmakufile" ofType:nil];
-    NSArray *danmakusDicts = [NSArray arrayWithContentsOfFile:danmakufile];
-    
-    NSMutableArray* danmakus = [NSMutableArray array];
-    for (NSDictionary* dict in danmakusDicts) {
-        CFDanmaku* danmaku = [[CFDanmaku alloc] init];
-        NSMutableAttributedString *contentStr = [[NSMutableAttributedString alloc] initWithString:dict[@"m"] attributes:@{NSFontAttributeName : font, NSForegroundColorAttributeName : kRandomColor}];
-        
-        NSString* emotionName = [NSString stringWithFormat:@"smile_%u", arc4random_uniform(90)];
-        UIImage* emotion = [UIImage imageNamed:emotionName];
-        NSTextAttachment* attachment = [[NSTextAttachment alloc] init];
-        attachment.image = emotion;
-        attachment.bounds = CGRectMake(0, -font.lineHeight*0.3, font.lineHeight*1.5, font.lineHeight*1.5);
-        NSAttributedString* emotionAttr = [NSAttributedString attributedStringWithAttachment:attachment];
-        
-        [contentStr appendAttributedString:emotionAttr];
-        danmaku.contentStr = contentStr;
-        
-        NSString* attributesStr = dict[@"p"];
-        NSArray* attarsArray = [attributesStr componentsSeparatedByString:@","];
-        danmaku.timePoint = [[attarsArray firstObject] doubleValue] / 1000;
-        danmaku.position = [attarsArray[1] integerValue];
-        //        if (danmaku.position != 0) {
-        
-        [danmakus addObject:danmaku];
-        //        }
-    }
-    
-    [_danmakuView prepareDanmakus:danmakus];
 }
 
 - (NSTimeInterval)danmakuViewGetPlayTime:(CFDanmakuView *)danmakuView
@@ -304,12 +274,17 @@ static UISlider * _volumeSlider;
     
     [self.vodPlayer stopPlay];
     [self.vodPlayer removeVideoWidget];
+    self.vodPlayer = nil;
     
     [self.livePlayer stopPlay];
     [self.livePlayer removeVideoWidget];
+    self.livePlayer = nil;
     
     [self.controlView playerResolutionArray:nil defaultIndex:0];
     [self reportPlay];
+    
+    [self.controlView playerIsActivity:NO];
+    
 }
 
 /**
@@ -429,7 +404,7 @@ static UISlider * _volumeSlider;
         [self.netWatcher setNotifyBlock:^(NSString *msg) {
             SuperPlayerView *strongSelf = weakSelf;
             if (strongSelf) {
-                if (strongSelf.videoIndex < self.playerModel.multiVideoURLs.count) {
+                if (strongSelf.videoIndex < strongSelf.playerModel.multiVideoURLs.count) {
                     [strongSelf.controlView playerBadNet:msg];
                 }
             }
@@ -1031,17 +1006,6 @@ static UISlider * _volumeSlider;
 - (void)setVideoRatio:(CGFloat)videoRatio {
     _videoRatio = videoRatio;
     self.controlView.videoRatio = videoRatio;
-}
-
-- (void)showControlView:(BOOL)isShow {
-    if (isShow) {
-        [self.controlView playerShowControlView];
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [self.controlView playerCancelAutoFadeOutControlView];
-        });
-    } else {
-        [self.controlView playerHideControlView];
-    }
 }
 
 #pragma mark - Getter

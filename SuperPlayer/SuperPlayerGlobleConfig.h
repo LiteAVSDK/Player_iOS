@@ -22,7 +22,10 @@
 @property (nonatomic) CGRect floatViewRect;
 /** 是否开启硬件加速 */
 @property (nonatomic) BOOL enableHWAcceleration;
-/** 默认播放填充模式 */
+/**
+ * 默认播放填充模式
+ * 可选值 RENDER_MODE_FILL_EDGE, RENDER_MODE_FILL_SCREEN
+ */
 @property (nonatomic) NSInteger renderMode;
 /** 播放器最大缓存个数 */
 @property (nonatomic) NSInteger maxCacheItem;

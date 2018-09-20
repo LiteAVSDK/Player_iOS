@@ -5,6 +5,9 @@
 #import "TXLivePlayer.h"
 #import "TXLiveBase.h"
 #import "TXImageSprite.h"
+#import "CFDanmakuView.h"
+
+@class SuperPlayerControlView;
 
 @protocol SuperPlayerDelegate <NSObject>
 @optional
@@ -41,6 +44,11 @@ typedef NS_ENUM(NSInteger, SuperPlayerState) {
 @property (nonatomic, assign) BOOL isLockScreen;
 /** 是否是直播流 */
 @property (readonly) BOOL isLive;
+/// 弹幕视图
+@property CFDanmakuView *danmakuView;
+/// 超级播放器控制层
+@property SuperPlayerControlView *controlView;
+
 /**
  * 播放model
  */
@@ -61,8 +69,4 @@ typedef NS_ENUM(NSInteger, SuperPlayerState) {
  */
 - (void)pause;
 
-/**
- * 是否显示控制层
- */
-- (void)showControlView:(BOOL)isShow;
 @end

@@ -36,11 +36,6 @@ TXVodPlayListener, TXLivePlayListener, CFDanmakuDelegate, SuperPlayerControlView
 
 /** 定义一个实例变量，保存枚举值 */
 @property (nonatomic, assign) PanDirection           panDirection;
-/** 是否为全屏 */
-//@property (nonatomic, assign) BOOL                   isFullScreen;
-/** 是否锁定屏幕方向 */
-//@property (nonatomic, assign) BOOL                   isLockScreen;
-
 /** 是否在调节音量*/
 @property (nonatomic, assign) BOOL                   isVolume;
 /** 是否被用户暂停 */
@@ -60,10 +55,7 @@ TXVodPlayListener, TXLivePlayListener, CFDanmakuDelegate, SuperPlayerControlView
 
 @property (nonatomic, strong) UIButton               *lockTipsBtn;
 
-
-@property (nonatomic, strong) SuperPlayerControlView *controlView;
 @property (nonatomic, strong) SuperPlayerModel       *playerModel;
-
 
 @property (class, readonly) UISlider *volumeViewSlider;
 @property MPVolumeView *volumeView;
@@ -74,7 +66,7 @@ TXVodPlayListener, TXLivePlayListener, CFDanmakuDelegate, SuperPlayerControlView
 
 // add for txvodplayer
 @property BOOL  isLoaded;
-@property (nonatomic, strong) CFDanmakuView *danmakuView;
+
 @property (nonatomic, strong) NSDate *danmakuStartTime;
 
 @property NSURLSessionDataTask *getInfoHttpTask;

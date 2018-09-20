@@ -138,7 +138,7 @@ __weak UITextField *urlField;
         _guideView.missHandler = ^{
             wplayer.isLockScreen = NO;
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [wplayer showControlView:NO];
+                [self showControlView:NO];
                 
                 [df setBool:YES forKey:@"isShowGuide"];
                 [df synchronize];
@@ -331,7 +331,7 @@ __weak UITextField *urlField;
         if (allList.count > 0) {
             [self.playerView playWithModel:[_liveDataSourceArray[0] getPlayerModel]];
             if (self.guideView) {
-                [self.playerView showControlView:YES];
+                [self showControlView:YES];
             }
         }
         
@@ -377,6 +377,7 @@ __weak UITextField *urlField;
         _playerView.fatherView = _playerFatherView;
         // 设置代理
         _playerView.delegate = self;
+        [self setupDanmakuData];
     }
     return _playerView;
 }
@@ -582,6 +583,52 @@ __weak UITextField *urlField;
     return NO;
 }
 
+#define kRandomColor [UIColor colorWithRed:arc4random_uniform(256) / 255.0 green:arc4random_uniform(256) / 255.0 blue:arc4random_uniform(256) / 255.0 alpha:1]
+#define font [UIFont systemFontOfSize:15]
+
+- (void)setupDanmakuData
+{
+    NSString *danmakufile = [[NSBundle mainBundle] pathForResource:@"danmakufile" ofType:nil];
+    NSArray *danmakusDicts = [NSArray arrayWithContentsOfFile:danmakufile];
+    
+    NSMutableArray* danmakus = [NSMutableArray array];
+    for (NSDictionary* dict in danmakusDicts) {
+        CFDanmaku* danmaku = [[CFDanmaku alloc] init];
+        NSMutableAttributedString *contentStr = [[NSMutableAttributedString alloc] initWithString:dict[@"m"] attributes:@{NSFontAttributeName : font, NSForegroundColorAttributeName : kRandomColor}];
+        
+        NSString* emotionName = [NSString stringWithFormat:@"smile_%u", arc4random_uniform(90)];
+        UIImage* emotion = [UIImage imageNamed:emotionName];
+        NSTextAttachment* attachment = [[NSTextAttachment alloc] init];
+        attachment.image = emotion;
+        attachment.bounds = CGRectMake(0, -font.lineHeight*0.3, font.lineHeight*1.5, font.lineHeight*1.5);
+        NSAttributedString* emotionAttr = [NSAttributedString attributedStringWithAttachment:attachment];
+        
+        [contentStr appendAttributedString:emotionAttr];
+        danmaku.contentStr = contentStr;
+        
+        NSString* attributesStr = dict[@"p"];
+        NSArray* attarsArray = [attributesStr componentsSeparatedByString:@","];
+        danmaku.timePoint = [[attarsArray firstObject] doubleValue] / 1000;
+        danmaku.position = [attarsArray[1] integerValue];
+        //        if (danmaku.position != 0) {
+        
+        [danmakus addObject:danmaku];
+        //        }
+    }
+    
+    [self.playerView.danmakuView prepareDanmakus:danmakus];
+}
+
+- (void)showControlView:(BOOL)isShow {
+    if (isShow) {
+        [self.playerView.controlView playerShowControlView];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self.playerView.controlView playerCancelAutoFadeOutControlView];
+        });
+    } else {
+        [self.playerView.controlView playerHideControlView];
+    }
+}
 
 #pragma mark - ScrollView Delegate
 

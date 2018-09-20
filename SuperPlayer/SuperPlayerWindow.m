@@ -13,7 +13,7 @@
 #import "DataReport.h"
 
 @interface SuperPlayerWindow()<TXVodPlayListener>
-@property UIView *origFatherView;
+@property (weak) UIView *origFatherView;
 @end
 
 @implementation SuperPlayerWindow {

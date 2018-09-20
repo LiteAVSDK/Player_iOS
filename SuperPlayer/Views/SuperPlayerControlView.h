@@ -11,8 +11,66 @@
 #import "SuperPlayerControlViewDelegate.h"
 #import "SuperPlayerModel.h"
 #import "PlayerSlider.h"
+#import "SuperPlayerFastView.h"
+#import "MMMaterialDesignSpinner.h"
+#import "MoreContentView.h"
 
-@interface SuperPlayerControlView : UIView 
+@interface SuperPlayerControlView : UIView
+
+/** 标题 */
+@property (nonatomic, strong) UILabel                 *titleLabel;
+/** 开始播放按钮 */
+@property (nonatomic, strong) UIButton                *startBtn;
+/** 当前播放时长label */
+@property (nonatomic, strong) UILabel                 *currentTimeLabel;
+/** 视频总时长label */
+@property (nonatomic, strong) UILabel                 *totalTimeLabel;
+/** 全屏按钮 */
+@property (nonatomic, strong) UIButton                *fullScreenBtn;
+/** 锁定屏幕方向按钮 */
+@property (nonatomic, strong) UIButton                *lockBtn;
+/** 系统菊花 */
+@property (nonatomic, strong) MMMaterialDesignSpinner *activity;
+/** 返回按钮*/
+@property (nonatomic, strong) UIButton                *backBtn;
+/** 关闭按钮*/
+@property (nonatomic, strong) UIButton                *closeBtn;
+/** bottomView*/
+@property (nonatomic, strong) UIImageView             *bottomImageView;
+/** topView */
+@property (nonatomic, strong) UIImageView             *topImageView;
+/** 弹幕按钮 */
+@property (nonatomic, strong) UIButton                *danmakuBtn;
+/// 是否禁用弹幕
+@property BOOL                                        disableDanmakuBtn;
+/** 截图按钮 */
+@property (nonatomic, strong) UIButton                *captureBtn;
+/** 更多按钮 */
+@property (nonatomic, strong) UIButton                *moreBtn;
+/** 更多的View */
+@property (nonatomic, strong) UIScrollView            *moreView;
+/** 切换分辨率按钮 */
+@property (nonatomic, strong) UIButton                *resolutionBtn;
+/** 分辨率的View */
+@property (nonatomic, strong) UIView                  *resolutionView;
+/** 播放按钮 */
+@property (nonatomic, strong) UIButton                *playeBtn;
+/** 加载失败按钮 */
+@property (nonatomic, strong) UIButton                *middleBtn;
+/** 快进快退View*/
+@property (nonatomic, strong) SuperPlayerFastView     *fastView;
+/** 当前选中的分辨率btn按钮 */
+@property (nonatomic, weak  ) UIButton                *resoultionCurrentBtn;
+/** 占位图 */
+@property (nonatomic, strong) UIImageView             *placeholderImageView;
+/** 分辨率的名称 */
+@property (nonatomic, strong) NSArray<SuperPlayerUrl *> *resolutionArray;
+/** 更多设置View */
+@property (nonatomic, strong) MoreContentView        *moreContentView;
+/** 返回直播 */
+@property (nonatomic, strong) UIButton               *backLiveBtn;
+/** 显示控制层 */
+@property (nonatomic, assign, getter=isShowing) BOOL  showing;
 
 @property NSString *liveUrl;
 
@@ -24,7 +82,7 @@
 @property (nonatomic, strong) PlayerSlider   *videoSlider;
 
 /** 重播按钮 */
-@property (nonatomic, strong) UIButton                *repeatBtn;
+@property (nonatomic, strong) UIButton       *repeatBtn;
 
 /**
  * 取消自动隐藏控制层view
