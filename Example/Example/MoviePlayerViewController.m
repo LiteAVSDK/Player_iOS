@@ -438,7 +438,7 @@ __weak UITextField *urlField;
     // 状态条的方向旋转的方向,来判断当前屏幕的方向
     UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
     // 是竖屏时候响应关
-    if (orientation == UIInterfaceOrientationPortrait && SuperPlayerGlobleConfigShared.enableFloatWindow &&
+    if (orientation == UIInterfaceOrientationPortrait &&
         (self.playerView.state == StatePlaying)) {
         [SuperPlayerWindowShared setSuperPlayer:self.playerView];
         [SuperPlayerWindowShared show];

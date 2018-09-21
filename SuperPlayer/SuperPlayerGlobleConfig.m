@@ -13,7 +13,6 @@
 #define FLOAT_VIEW_WIDTH  200
 #define FLOAT_VIEW_HEIGHT 112
 
-#define kEnableFloatWindow      @"sp_enableFloatWindow"
 #define kEnableHWAcceleration   @"sp_enableHWAcceleration"
 #define kPlayRate               @"sp_playRate"
 #define kMirror                 @"sp_mirror"
@@ -46,10 +45,7 @@
     return self;
 }
 
-- (void)setEnableFloatWindow:(BOOL)enableFloatWindow {
-    _enableFloatWindow = enableFloatWindow;
-    [_userDefalut setBool:enableFloatWindow forKey:kEnableFloatWindow];
-}
+
 
 - (void)setEnableHWAcceleration:(BOOL)enableHWAcceleration {
     _enableHWAcceleration = enableHWAcceleration;
@@ -74,11 +70,6 @@
 
 - (void)loadDefalut
 {
-    if ([_userDefalut objectForKey:kEnableFloatWindow] == nil) {
-        self.enableFloatWindow = YES;
-    } else {
-        self.enableFloatWindow = [_userDefalut boolForKey:kEnableFloatWindow];
-    }
     if ([_userDefalut objectForKey:kEnableHWAcceleration] == nil) {
 #if TARGET_OS_SIMULATOR
         self.enableHWAcceleration = NO;

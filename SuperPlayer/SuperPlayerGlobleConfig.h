@@ -16,8 +16,6 @@
 
 + (instancetype)sharedInstance;
 
-/** 是否启用悬浮窗 */
-@property (nonatomic) BOOL enableFloatWindow;
 /** 悬浮窗位置 */
 @property (nonatomic) CGRect floatViewRect;
 /** 是否开启硬件加速 */
