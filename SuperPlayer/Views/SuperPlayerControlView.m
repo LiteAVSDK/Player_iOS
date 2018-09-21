@@ -35,6 +35,8 @@ static const CGFloat SuperPlayerControlBarAutoFadeOutTimeInterval = 0.15f;
 
 @property BOOL isLive;
 
+- (void)autoFadeOutControlView;
+
 @end
 
 @implementation SuperPlayerControlView
@@ -1126,10 +1128,6 @@ static const CGFloat SuperPlayerControlBarAutoFadeOutTimeInterval = 0.15f;
     [self updateMiddleBtn];
 }
      
- - (void)playerMiddleBtn {
-    self.middleBtn.hidden = YES;
- }
-
 - (void)updateMiddleBtn {
     self.middleBtn.titleLabel.text = [self.middleBtn titleForState:UIControlStateNormal];
     CGFloat width = self.middleBtn.titleLabel.attributedText.size.width;
@@ -1234,7 +1232,7 @@ static const CGFloat SuperPlayerControlBarAutoFadeOutTimeInterval = 0.15f;
     }
 }
 
-- (void)playerControlViewLive:(BOOL)isLive {
+- (void)playerIsLive:(BOOL)isLive {
     self.isLive = isLive;
     [self setFullScreen:_fullScreen];
 }

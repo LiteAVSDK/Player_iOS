@@ -76,10 +76,9 @@
 /** 显示控制层 */
 @property (nonatomic, assign, getter=isShowing) BOOL  showing;
 
-@property NSString *liveUrl;
-
 @property (nonatomic, weak) id<SuperPlayerControlViewDelegate> delegate;
 
+/// 画面比例
 @property CGFloat videoRatio;
 
 /** 滑杆 */
@@ -92,7 +91,6 @@
  * 取消自动隐藏控制层view
  */
 - (void)playerCancelAutoFadeOutControlView;
-
 
 /**
  * 切换分辨率功能
@@ -108,13 +106,16 @@
 - (void)playerPlayableProgress:(CGFloat)progress;
 
 /**
- * 正常播放
+ * 播放进度
  * @param currentTime 当前播放时长
  * @param totalTime   视频总时长
  * @param value       slider的value(0.0~1.0)
  */
 - (void)playerCurrentTime:(NSInteger)currentTime totalTime:(NSInteger)totalTime sliderValue:(CGFloat)value;
 
+/**
+ * 进度条打点
+ */
 - (void)playerRemoveAllPoints;
 - (void)playerAddVideoPoint:(CGFloat)where text:(NSString *)text time:(NSInteger)time;
 
@@ -144,12 +145,16 @@
  */
 - (void)playerBadNet:(NSString *)tips;
 
-- (void)playerMiddleBtn;
 
 /**
  * 开始播放（隐藏placeholderImageView）
  */
 - (void)playerIsPlaying;
+
+/**
+ * 播放完了
+ */
+- (void)playerPlayEnd;
 
 /**
  * 加载的菊花
@@ -164,8 +169,14 @@
  */
 - (void)playerDraggedTime:(NSInteger)draggedTime totalTime:(NSInteger)totalTime sliderValue:(CGFloat)sliderValue thumbnail:(UIImage *)thumbnail;
 
+/**
+ * 拖拽亮度
+ */
 - (void)playerDraggedLight:(CGFloat)draggedValue;
 
+/**
+ * 拖拽声音
+ */
 - (void)playerDraggedVolume:(CGFloat)draggedValue;
 
 /**
@@ -174,17 +185,11 @@
 - (void)playerDraggedEnd;
 
 /**
- * 播放完了
- */
-- (void)playerPlayEnd;
-
-
-- (void)playerShowOrHideControlView;
-
-/**
  * 锁定屏幕方向按钮状态
  */
 - (void)playerLockBtnState:(BOOL)state;
+
+- (void)playerShowOrHideControlView;
 
 /**
  *  隐藏控制层
@@ -199,16 +204,17 @@
 /** 重置ControlView */
 - (void)playerResetControlView;
 
-/** 更多设置中的类容 */
-- (void)playerControlViewLive:(BOOL)isLive;
-
-- (void)autoFadeOutControlView;
+/** 设置是否为直播模式 */
+- (void)playerIsLive:(BOOL)isLive;
 
 /**
  * 时移隐藏
  */
 - (void)playerBackLiveBtnHidden:(BOOL)hidden;
 
+/**
+ * 显示提示信息
+ */
 - (void)playerShowTips:(NSString *)tips delay:(NSTimeInterval)delay;
 
 @end

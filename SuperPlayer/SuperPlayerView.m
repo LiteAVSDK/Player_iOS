@@ -84,8 +84,6 @@ static UISlider * _volumeSlider;
  */
 - (void)initializeThePlayer {
     
-    [self setupDanmakuView];
-    
     self.netWatcher = [[NetWatcher alloc] init];
     
     CGRect frame = CGRectMake(0, -100, 10, 0);
@@ -369,7 +367,7 @@ static UISlider * _volumeSlider;
     
     if (self.isLive) {
         [self.livePlayer startPlay:_videoURL type:liveType];
-        self.controlView.liveUrl = _videoURL;
+        
         // 时移
         [TXLiveBase setAppID:[NSString stringWithFormat:@"%ld", _playerModel.appId]];
         TXCUrl *curl = [[TXCUrl alloc] initWithString:_videoURL];
@@ -378,7 +376,6 @@ static UISlider * _volumeSlider;
         [self.vodPlayer startPlay:_videoURL];
         [self.vodPlayer setBitrateIndex:_videoIndex];
         
-        self.controlView.liveUrl = nil;
         
         [self.vodPlayer setRate:SuperPlayerGlobleConfigShared.playRate];
         [self.vodPlayer setMirror:SuperPlayerGlobleConfigShared.mirror];
@@ -411,7 +408,7 @@ static UISlider * _volumeSlider;
     } else {
         [self.controlView playerResolutionArray:nil defaultIndex:0];
     }
-    [self.controlView playerControlViewLive:self.isLive];
+    [self.controlView playerIsLive:self.isLive];
     self.controlView.disableDanmakuBtn = (_danmakuView == nil);
 }
 
