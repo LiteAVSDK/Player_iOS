@@ -33,5 +33,5 @@
 
 - (void)setDataSource:(ListVideoModel *)source;
 - (SuperPlayerModel *)getPlayerModel;
-
+- (ListVideoModel *)getSource;
 @end

@@ -909,18 +909,6 @@ static const CGFloat SuperPlayerControlBarAutoFadeOutTimeInterval = 0.15f;
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(playerHideControlView) object:nil];
 }
 
-/** 设置播放模型 */
-- (void)playerModel:(SuperPlayerModel *)playerModel {
-
-    if (playerModel.title) { self.titleLabel.text = playerModel.title; }
-    // 设置网络占位图片
-    if (playerModel.placeholderImageURLString) {
-        [self.placeholderImageView sd_setImageWithURL:[NSURL URLWithString:playerModel.placeholderImageURLString] placeholderImage:SuperPlayerImage(@"loading_bgView")];
-    } else {
-        self.placeholderImageView.image = playerModel.placeholderImage;
-    }
-}
-
 /** 正在播放（隐藏placeholderImageView） */
 - (void)playerIsPlaying {
     [UIView animateWithDuration:1.0 animations:^{
@@ -940,19 +928,6 @@ static const CGFloat SuperPlayerControlBarAutoFadeOutTimeInterval = 0.15f;
     }
 }
 
-- (void)playerTitle:(NSString *)title {
-    self.titleLabel.text = title;
-}
-
-- (void)playerBackgroundImage:(UIImage *)image {
-    // 设置网络占位图片
-    self.placeholderImageView.image = image;
-}
-
-- (void)playerBackgroundImageUrl:(NSURL *)imageUrl placeholderImage:(UIImage *)placeholderImage
-{
-    [self.placeholderImageView sd_setImageWithURL:imageUrl placeholderImage:placeholderImage];
-}
 
 /**
  *  显示控制层
@@ -1094,7 +1069,7 @@ static const CGFloat SuperPlayerControlBarAutoFadeOutTimeInterval = 0.15f;
 /** 视频加载失败 */
 - (void)playerIsFailed:(NSString *)error {
     self.middleBtn.hidden = NO;
-    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(playerMiddleBtn) object:nil];
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(hiddenMiddleBtn) object:nil];
     [self.middleBtn setTitle:error forState:UIControlStateNormal];
     
     [self.middleBtn removeTarget:self action:nil forControlEvents:UIControlEventAllEvents];
@@ -1104,11 +1079,11 @@ static const CGFloat SuperPlayerControlBarAutoFadeOutTimeInterval = 0.15f;
 
 - (void)playerBadNet:(NSString *)tips {
     self.middleBtn.hidden = NO;
-    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(playerMiddleBtn) object:nil];
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(hiddenMiddleBtn) object:nil];
     [self.middleBtn setTitle:tips forState:UIControlStateNormal];
     
     
-    [self performSelector:@selector(playerMiddleBtn) withObject:nil afterDelay:5];
+    [self performSelector:@selector(hiddenMiddleBtn) withObject:nil afterDelay:5];
     
     [self.middleBtn removeTarget:self action:nil forControlEvents:UIControlEventAllEvents];
     [self.middleBtn addTarget:self action:@selector(badNetBtnClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -1117,14 +1092,14 @@ static const CGFloat SuperPlayerControlBarAutoFadeOutTimeInterval = 0.15f;
 
 - (void)playerShowTips:(NSString *)tips delay:(NSTimeInterval)delay {
     self.middleBtn.hidden = NO;
-    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(playerMiddleBtn) object:nil];
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(hiddenMiddleBtn) object:nil];
     [self.middleBtn setTitle:tips forState:UIControlStateNormal];
     if (delay > 0) {
-        [self performSelector:@selector(playerMiddleBtn) withObject:nil afterDelay:delay];
+        [self performSelector:@selector(hiddenMiddleBtn) withObject:nil afterDelay:delay];
     }
     
     [self.middleBtn removeTarget:self action:nil forControlEvents:UIControlEventAllEvents];
-    [self.middleBtn addTarget:self action:@selector(playerMiddleBtn) forControlEvents:UIControlEventTouchUpInside];
+    [self.middleBtn addTarget:self action:@selector(hiddenMiddleBtn) forControlEvents:UIControlEventTouchUpInside];
     [self updateMiddleBtn];
 }
      
@@ -1136,6 +1111,10 @@ static const CGFloat SuperPlayerControlBarAutoFadeOutTimeInterval = 0.15f;
         make.width.equalTo(@(width+10));
     }];
  }
+
+- (void)hiddenMiddleBtn {
+    self.middleBtn.hidden = YES;
+}
 
 /** 加载的菊花 */
 - (void)playerIsActivity:(BOOL)animated {

@@ -10,6 +10,7 @@
 #import "MainTableViewCell.h"
 #import <SuperPlayer/SuperPlayer.h>
 #import <SuperPlayer/UIView+MMLayout.h>
+#import "TXWeiboListViewController.h"
 
 #define STATUS_BAR_HEIGHT [UIApplication sharedApplication].statusBarFrame.size.height
 
@@ -60,6 +61,13 @@ UIAlertViewDelegate
         scellInfo.title = @"超级播放器";
         scellInfo.navigateToController = @"MoviePlayerViewController";
         [subCells addObject:scellInfo];
+        
+        
+        scellInfo = [CellInfo new];
+        scellInfo.title = @"列表播放";
+        scellInfo.navigateToController = @"TXWeiboListViewController";
+        [subCells addObject:scellInfo];
+        
         subCells;
     
     });

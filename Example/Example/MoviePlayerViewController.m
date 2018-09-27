@@ -464,10 +464,10 @@ __weak UITextField *urlField;
 {
     self.textView.text = result;
     SuperPlayerModel *model = [SuperPlayerModel new];
-    model.title            = @"这是新播放的视频";
+    
     model.videoURL         = result;
     
-    
+    [self.playerView setTitle:@"这是新播放的视频"];
     [self.playerView playWithModel:model];
     
     ListVideoModel *m = [ListVideoModel new];
@@ -574,6 +574,8 @@ __weak UITextField *urlField;
 {
     ListVideoCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     if (cell) {
+        [self.playerView setTitle:[cell getSource].title];
+        [self.playerView setCoverImage:nil imageUrl:[NSURL URLWithString:[cell getSource].coverUrl]];
         [self.playerView playWithModel:[cell getPlayerModel]];
     }
 }

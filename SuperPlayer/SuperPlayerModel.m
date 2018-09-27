@@ -6,10 +6,4 @@
 
 @implementation SuperPlayerModel
 
-- (UIImage *)placeholderImage {
-    if (!_placeholderImage) {
-        _placeholderImage = SuperPlayerImage(@"loading_bgView");
-    }
-    return _placeholderImage;
-}
 @end

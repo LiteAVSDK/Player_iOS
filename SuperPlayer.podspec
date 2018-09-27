@@ -1,11 +1,11 @@
 Pod::Spec.new do |spec|
     spec.name = 'SuperPlayer'
-    spec.version = '1.0.4'
+    spec.version = '1.1.0'
     spec.license = { :type => 'MIT' }
     spec.homepage = 'https://cloud.tencent.com/product/mlvb'
     spec.authors = { 'annidyfeng' => 'annidyfeng@tencent.com' }
     spec.summary = 'Tencent Cloud Player'
-    spec.source = { :git => 'https://github.com/tencentyun/SuperPlayer.git', :tag => 'v1.0.4' }
+    spec.source = { :git => 'https://github.com/tencentyun/SuperPlayer.git', :tag => 'v1.1.0' }
 
     spec.ios.deployment_target = '8.0'
     spec.requires_arc = true
@@ -26,7 +26,7 @@ Pod::Spec.new do |spec|
     spec.subspec "Player" do |s|
         s.source_files = 'SuperPlayer/**/*.{h,m}'
         s.resource = 'SuperPlayer/Resource/*'
-        s.dependency 'TXLiteAVSDK_Player', '~> 5.2.5539'
+        s.dependency 'TXLiteAVSDK_Player', '= 5.2.5541'
 #        s.vendored_framework = "Frameworks/TXLiteAVSDK_Player.framework"
     end
 #     spec.subspec "Professional" do |s|

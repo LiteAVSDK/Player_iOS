@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		9165F738214FCC9300F5BB88 /* TXCUrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 9165F737214FCC9300F5BB88 /* TXCUrl.m */; };
 		9165F739214FCD7000F5BB88 /* TXCUrl.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9165F736214FCC9300F5BB88 /* TXCUrl.h */; };
+		919D18F521533DAC00947BF5 /* UINavigationController+SuperPlayerRotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 919D18F221533DAB00947BF5 /* UINavigationController+SuperPlayerRotation.m */; };
+		919D18F621533DAC00947BF5 /* UIViewController+SuperPlayerRotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 919D18F421533DAB00947BF5 /* UIViewController+SuperPlayerRotation.m */; };
 		91A1D63F214770C900EA9A19 /* UIView+MMLayout.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 91A1D5E5214673F300EA9A19 /* UIView+MMLayout.h */; };
 		91A1D640214770C900EA9A19 /* SuperPlayerControlViewDelegate.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 91A1D5E9214673F400EA9A19 /* SuperPlayerControlViewDelegate.h */; };
 		91A1D641214770C900EA9A19 /* SuperPlayerGlobleConfig.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 91A1D5C3214673F300EA9A19 /* SuperPlayerGlobleConfig.h */; };
@@ -20,12 +22,7 @@
 		91A1D647214770C900EA9A19 /* SuperPlayerFastView.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 91A1D5CE214673F300EA9A19 /* SuperPlayerFastView.h */; };
 		91A1D6492147749A00EA9A19 /* SuperPlayer.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 91A1D6482147749100EA9A19 /* SuperPlayer.h */; };
 		91A1D64C2147751700EA9A19 /* J2Obj.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 91A1D5D7214673F300EA9A19 /* J2Obj.h */; };
-		91A1D64D2147763900EA9A19 /* UINavigationController+ZFPlayerRotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 91A1D5E4214673F300EA9A19 /* UINavigationController+ZFPlayerRotation.m */; };
 		91A1D64E2147763B00EA9A19 /* UIView+MMLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 91A1D5E6214673F300EA9A19 /* UIView+MMLayout.m */; };
-		91A1D64F2147763E00EA9A19 /* UIViewController+ZFPlayerRotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 91A1D5E8214673F300EA9A19 /* UIViewController+ZFPlayerRotation.m */; };
-		91A1D6502147764400EA9A19 /* CFDanmaku.m in Sources */ = {isa = PBXBuildFile; fileRef = 91A1D5DD214673F300EA9A19 /* CFDanmaku.m */; };
-		91A1D6512147764400EA9A19 /* CFDanmakuInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 91A1D5DF214673F300EA9A19 /* CFDanmakuInfo.m */; };
-		91A1D6522147764400EA9A19 /* CFDanmakuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 91A1D5E1214673F300EA9A19 /* CFDanmakuView.m */; };
 		91A1D6532147765400EA9A19 /* SuperPlayerGlobleConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 91A1D5EA214673F400EA9A19 /* SuperPlayerGlobleConfig.m */; };
 		91A1D6542147765400EA9A19 /* SuperPlayerModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 91A1D5D2214673F300EA9A19 /* SuperPlayerModel.m */; };
 		91A1D6552147765400EA9A19 /* SuperPlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 91A1D5EB214673F400EA9A19 /* SuperPlayerView.m */; };
@@ -67,6 +64,10 @@
 /* Begin PBXFileReference section */
 		9165F736214FCC9300F5BB88 /* TXCUrl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TXCUrl.h; sourceTree = "<group>"; };
 		9165F737214FCC9300F5BB88 /* TXCUrl.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TXCUrl.m; sourceTree = "<group>"; };
+		919D18F121533DAB00947BF5 /* UINavigationController+SuperPlayerRotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+SuperPlayerRotation.h"; sourceTree = "<group>"; };
+		919D18F221533DAB00947BF5 /* UINavigationController+SuperPlayerRotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+SuperPlayerRotation.m"; sourceTree = "<group>"; };
+		919D18F321533DAB00947BF5 /* UIViewController+SuperPlayerRotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+SuperPlayerRotation.h"; sourceTree = "<group>"; };
+		919D18F421533DAB00947BF5 /* UIViewController+SuperPlayerRotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+SuperPlayerRotation.m"; sourceTree = "<group>"; };
 		91A1D5B12146719900EA9A19 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		91A1D5C1214673F200EA9A19 /* SuperPlayerWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SuperPlayerWindow.m; sourceTree = "<group>"; };
 		91A1D5C2214673F200EA9A19 /* SuperPlayerWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SuperPlayerWindow.h; sourceTree = "<group>"; };
@@ -91,18 +92,8 @@
 		91A1D5D8214673F300EA9A19 /* J2Obj.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = J2Obj.m; sourceTree = "<group>"; };
 		91A1D5D9214673F300EA9A19 /* NetWatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetWatcher.h; sourceTree = "<group>"; };
 		91A1D5DA214673F300EA9A19 /* NetWatcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetWatcher.m; sourceTree = "<group>"; };
-		91A1D5DC214673F300EA9A19 /* CFDanmaku.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CFDanmaku.h; sourceTree = "<group>"; };
-		91A1D5DD214673F300EA9A19 /* CFDanmaku.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CFDanmaku.m; sourceTree = "<group>"; };
-		91A1D5DE214673F300EA9A19 /* CFDanmakuInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CFDanmakuInfo.h; sourceTree = "<group>"; };
-		91A1D5DF214673F300EA9A19 /* CFDanmakuInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CFDanmakuInfo.m; sourceTree = "<group>"; };
-		91A1D5E0214673F300EA9A19 /* CFDanmakuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CFDanmakuView.h; sourceTree = "<group>"; };
-		91A1D5E1214673F300EA9A19 /* CFDanmakuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CFDanmakuView.m; sourceTree = "<group>"; };
-		91A1D5E3214673F300EA9A19 /* UINavigationController+ZFPlayerRotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+ZFPlayerRotation.h"; sourceTree = "<group>"; };
-		91A1D5E4214673F300EA9A19 /* UINavigationController+ZFPlayerRotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+ZFPlayerRotation.m"; sourceTree = "<group>"; };
 		91A1D5E5214673F300EA9A19 /* UIView+MMLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+MMLayout.h"; sourceTree = "<group>"; };
 		91A1D5E6214673F300EA9A19 /* UIView+MMLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+MMLayout.m"; sourceTree = "<group>"; };
-		91A1D5E7214673F300EA9A19 /* UIViewController+ZFPlayerRotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+ZFPlayerRotation.h"; sourceTree = "<group>"; };
-		91A1D5E8214673F300EA9A19 /* UIViewController+ZFPlayerRotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+ZFPlayerRotation.m"; sourceTree = "<group>"; };
 		91A1D5E9214673F400EA9A19 /* SuperPlayerControlViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SuperPlayerControlViewDelegate.h; sourceTree = "<group>"; };
 		91A1D5EA214673F400EA9A19 /* SuperPlayerGlobleConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SuperPlayerGlobleConfig.m; sourceTree = "<group>"; };
 		91A1D5EB214673F400EA9A19 /* SuperPlayerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SuperPlayerView.m; sourceTree = "<group>"; };
@@ -143,7 +134,6 @@
 			children = (
 				91A1D6482147749100EA9A19 /* SuperPlayer.h */,
 				91A1D5E2214673F300EA9A19 /* Category */,
-				91A1D5DB214673F300EA9A19 /* CFDanmaku */,
 				91A1D5E9214673F400EA9A19 /* SuperPlayerControlViewDelegate.h */,
 				91A1D5C3214673F300EA9A19 /* SuperPlayerGlobleConfig.h */,
 				91A1D5EA214673F400EA9A19 /* SuperPlayerGlobleConfig.m */,
@@ -193,28 +183,15 @@
 			path = Utils;
 			sourceTree = "<group>";
 		};
-		91A1D5DB214673F300EA9A19 /* CFDanmaku */ = {
-			isa = PBXGroup;
-			children = (
-				91A1D5DC214673F300EA9A19 /* CFDanmaku.h */,
-				91A1D5DD214673F300EA9A19 /* CFDanmaku.m */,
-				91A1D5DE214673F300EA9A19 /* CFDanmakuInfo.h */,
-				91A1D5DF214673F300EA9A19 /* CFDanmakuInfo.m */,
-				91A1D5E0214673F300EA9A19 /* CFDanmakuView.h */,
-				91A1D5E1214673F300EA9A19 /* CFDanmakuView.m */,
-			);
-			path = CFDanmaku;
-			sourceTree = "<group>";
-		};
 		91A1D5E2214673F300EA9A19 /* Category */ = {
 			isa = PBXGroup;
 			children = (
-				91A1D5E3214673F300EA9A19 /* UINavigationController+ZFPlayerRotation.h */,
-				91A1D5E4214673F300EA9A19 /* UINavigationController+ZFPlayerRotation.m */,
+				919D18F121533DAB00947BF5 /* UINavigationController+SuperPlayerRotation.h */,
+				919D18F221533DAB00947BF5 /* UINavigationController+SuperPlayerRotation.m */,
+				919D18F321533DAB00947BF5 /* UIViewController+SuperPlayerRotation.h */,
+				919D18F421533DAB00947BF5 /* UIViewController+SuperPlayerRotation.m */,
 				91A1D5E5214673F300EA9A19 /* UIView+MMLayout.h */,
 				91A1D5E6214673F300EA9A19 /* UIView+MMLayout.m */,
-				91A1D5E7214673F300EA9A19 /* UIViewController+ZFPlayerRotation.h */,
-				91A1D5E8214673F300EA9A19 /* UIViewController+ZFPlayerRotation.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -283,23 +260,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				91A1D6532147765400EA9A19 /* SuperPlayerGlobleConfig.m in Sources */,
+				919D18F621533DAC00947BF5 /* UIViewController+SuperPlayerRotation.m in Sources */,
 				91A1D65E2147769500EA9A19 /* SuperPlayerFastView.m in Sources */,
-				91A1D6512147764400EA9A19 /* CFDanmakuInfo.m in Sources */,
 				91A1D6542147765400EA9A19 /* SuperPlayerModel.m in Sources */,
 				91A1D6552147765400EA9A19 /* SuperPlayerView.m in Sources */,
 				91A1D6592147768C00EA9A19 /* NetWatcher.m in Sources */,
-				91A1D6502147764400EA9A19 /* CFDanmaku.m in Sources */,
 				91A1D64E2147763B00EA9A19 /* UIView+MMLayout.m in Sources */,
 				91A1D6562147765400EA9A19 /* SuperPlayerWindow.m in Sources */,
-				91A1D64F2147763E00EA9A19 /* UIViewController+ZFPlayerRotation.m in Sources */,
+				919D18F521533DAC00947BF5 /* UINavigationController+SuperPlayerRotation.m in Sources */,
 				91A1D65C2147769500EA9A19 /* PlayerSlider.m in Sources */,
-				91A1D64D2147763900EA9A19 /* UINavigationController+ZFPlayerRotation.m in Sources */,
 				91A1D65B2147769500EA9A19 /* MoreContentView.m in Sources */,
 				91A1D65A2147769500EA9A19 /* MMMaterialDesignSpinner.m in Sources */,
 				91A1D6582147768C00EA9A19 /* J2Obj.m in Sources */,
 				9165F738214FCC9300F5BB88 /* TXCUrl.m in Sources */,
 				91A1D65D2147769500EA9A19 /* SuperPlayerControlView.m in Sources */,
-				91A1D6522147764400EA9A19 /* CFDanmakuView.m in Sources */,
 				91A1D6572147768C00EA9A19 /* DataReport.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -435,6 +409,7 @@
 					"${SRCROOT}/../TXLiteAVDemo/Common/Third/SDWebImage",
 					"${SRCROOT}/../TXLiteAVDemo/Common/Third/AFNetworking",
 					"${SRCROOT}/../TXLiteAVDemo/Common/Third/Masonry",
+					"${SRCROOT}/../TXLiteAVDemo/Common/Third/CFDanmaku",
 					"${SRCROOT}/SuperPlayer/Headers",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -457,6 +432,7 @@
 					"${SRCROOT}/../TXLiteAVDemo/Common/Third/SDWebImage",
 					"${SRCROOT}/../TXLiteAVDemo/Common/Third/AFNetworking",
 					"${SRCROOT}/../TXLiteAVDemo/Common/Third/Masonry",
+					"${SRCROOT}/../TXLiteAVDemo/Common/Third/CFDanmaku",
 					"${SRCROOT}/SuperPlayer/Headers",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;

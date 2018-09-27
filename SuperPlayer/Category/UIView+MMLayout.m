@@ -402,6 +402,15 @@ const void *_layoutKey;
     };
 }
 
+- (UIView *(^)(void))m_sizeToFit{
+    @m_weakify(self);
+    return ^(void){
+        @m_strongify(self);
+        [self sizeToFit];
+        return self;
+    };
+}
+
 - (NSData *)mm_createPDF{
     CGRect bounds = self.bounds;
     NSMutableData *data = [NSMutableData data];

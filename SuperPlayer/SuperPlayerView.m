@@ -192,6 +192,21 @@ static UISlider * _volumeSlider;
 
 #pragma mark - Public Method
 
+- (void)setTitle:(NSString *)title {
+    _title = title;
+    self.controlView.titleLabel.text = title;
+}
+
+- (void)setCoverImage:(UIImage *)image imageUrl:(NSURL *)imageUrl
+{
+    if (imageUrl) {
+        [self.controlView.placeholderImageView sd_setImageWithURL:imageUrl placeholderImage:image];
+    } else {
+        self.controlView.placeholderImageView.image = image;
+    }
+}
+
+
 - (void)playWithModel:(SuperPlayerModel *)playerModel {
     self.imageSprite = nil;
     self.keyFrameDescList = nil;
@@ -210,14 +225,8 @@ static UISlider * _volumeSlider;
     } else {
         [self.controlView playerResetControlView];
     }
-    [self.controlView playerTitle:playerModel.title];
+    
     [self pause];
-    // 设置网络占位图片
-    if (playerModel.placeholderImageURLString) {
-        [self.controlView playerBackgroundImageUrl:[NSURL URLWithString:playerModel.placeholderImageURLString] placeholderImage:playerModel.placeholderImage];
-    } else {
-        [self.controlView playerBackgroundImage:playerModel.placeholderImage];
-    }
     
     self.videoURL = playerModel.videoURL;
     if (self.videoURL == nil && playerModel.multiVideoURLs.count >= 1) {
@@ -237,9 +246,8 @@ static UISlider * _volumeSlider;
  *  player添加到fatherView上
  */
 - (void)addPlayerToFatherView:(UIView *)view {
-    // 这里应该添加判断，因为view有可能为空，当view为空时[view addSubview:self]会crash
+    [self removeFromSuperview];
     if (view) {
-        [self removeFromSuperview];
         [view addSubview:self];
         [self mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.edges.mas_offset(UIEdgeInsetsZero);
@@ -371,7 +379,7 @@ static UISlider * _volumeSlider;
         // 时移
         [TXLiveBase setAppID:[NSString stringWithFormat:@"%ld", _playerModel.appId]];
         TXCUrl *curl = [[TXCUrl alloc] initWithString:_videoURL];
-        [self.livePlayer prepareLiveSeek];
+        [self.livePlayer prepareLiveSeek:SuperPlayerGlobleConfigShared.playShiftDomain bizId:[curl bizid]];
     } else {
         [self.vodPlayer startPlay:_videoURL];
         [self.vodPlayer setBitrateIndex:_videoIndex];

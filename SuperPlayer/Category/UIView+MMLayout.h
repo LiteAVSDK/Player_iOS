@@ -53,9 +53,9 @@
 - (UIView * (^)(CGFloat height))m_height;      ///< set frame height
 - (UIView * (^)(CGSize  size))m_size;           ///< set frame size
 - (UIView * (^)(CGPoint center))m__center;      ///< set frame point
-- (UIView * (^)())m_center;                    ///< set frame center  前提是有w h 调用次方法居中父类
-- (UIView * (^)())m_centerY;                    ///< set frame Ycenter  前提是有h调用次方法居中父类
-- (UIView * (^)())m_centerX;                    ///< set frame Xcenter  前提是有w调用次方法居中父类
+- (UIView * (^)(void))m_center;                    ///< set frame center  前提是有w h 调用次方法居中父类
+- (UIView * (^)(void))m_centerY;                    ///< set frame Ycenter  前提是有h调用次方法居中父类
+- (UIView * (^)(void))m_centerX;                    ///< set frame Xcenter  前提是有w调用次方法居中父类
 
 
 - (UIView * (^)(UIView *obj))m_equalToFrame;   ///  equalTo frame
@@ -68,6 +68,7 @@
 - (UIView * (^)(UIView *obj))m_equalToSize;    ///  equalTo size
 - (UIView * (^)(UIView *obj))m_equalToCenter;  ///  equalTo center
 
+- (UIView * (^)(void))m_sizeToFit;             ///  call sizeToFit
 
 - (NSData *)mm_createPDF;/// create self PDF
 

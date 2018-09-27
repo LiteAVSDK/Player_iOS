@@ -49,6 +49,16 @@ typedef NS_ENUM(NSInteger, SuperPlayerState) {
 /// 超级播放器控制层
 @property SuperPlayerControlView *controlView;
 
+/** 视频标题 */
+@property (nonatomic) NSString     *title;
+
+/**
+ * 设置封面图片
+ * @param image 默认图片
+ * @param imageUrl 图片url，可为nil
+ */
+- (void)setCoverImage:(UIImage *)image imageUrl:(NSURL *)imageUrl;
+
 /**
  * 播放model
  */

@@ -34,9 +34,7 @@
     SuperPlayerModel *model = [SuperPlayerModel new];
     model.appId = [self appId];
     model.fileId = [self fileId];
-    model.title = [self title];
     model.videoURL = self.url;
-    model.placeholderImageURLString = [self coverUrl];
     
     if (self.hdUrl) {
         NSMutableArray *array = @[].mutableCopy;
@@ -134,6 +132,11 @@
 - (SuperPlayerModel *)getPlayerModel
 {
     return [_source getPlayerModel];
+}
+
+- (ListVideoModel *)getSource
+{
+    return _source;
 }
 
 @end

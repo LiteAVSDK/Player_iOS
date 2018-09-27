@@ -18,6 +18,8 @@
 		919D189A2151F05F00947BF5 /* SuperPlayerGuideView.m in Sources */ = {isa = PBXBuildFile; fileRef = 919D18932151F05E00947BF5 /* SuperPlayerGuideView.m */; };
 		919D189D2151F16A00947BF5 /* ScanQRController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 919D189C2151F16A00947BF5 /* ScanQRController.mm */; };
 		919D18A12151F1F800947BF5 /* TCHttpUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 919D18A02151F1F700947BF5 /* TCHttpUtil.m */; };
+		919D1A592159DCA700947BF5 /* TXWeiboListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 919D1A582159DCA700947BF5 /* TXWeiboListViewController.m */; };
+		919D1A5C2159E29400947BF5 /* TXWeiboListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 919D1A5B2159E29400947BF5 /* TXWeiboListTableViewCell.m */; };
 		91A1D6C82147C0D200EA9A19 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 91A1D6C72147C0D200EA9A19 /* AppDelegate.m */; };
 		91A1D6CB2147C0D200EA9A19 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 91A1D6CA2147C0D200EA9A19 /* ViewController.m */; };
 		91A1D6CE2147C0D200EA9A19 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 91A1D6CC2147C0D200EA9A19 /* Main.storyboard */; };
@@ -52,6 +54,10 @@
 		919D189F2151F1F700947BF5 /* TCHttpUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCHttpUtil.h; sourceTree = "<group>"; };
 		919D18A02151F1F700947BF5 /* TCHttpUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCHttpUtil.m; sourceTree = "<group>"; };
 		919D18A22151F2EF00947BF5 /* NSString+Common.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+Common.h"; sourceTree = "<group>"; };
+		919D1A572159DCA700947BF5 /* TXWeiboListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TXWeiboListViewController.h; sourceTree = "<group>"; };
+		919D1A582159DCA700947BF5 /* TXWeiboListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TXWeiboListViewController.m; sourceTree = "<group>"; };
+		919D1A5A2159E29400947BF5 /* TXWeiboListTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TXWeiboListTableViewCell.h; sourceTree = "<group>"; };
+		919D1A5B2159E29400947BF5 /* TXWeiboListTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TXWeiboListTableViewCell.m; sourceTree = "<group>"; };
 		91A1D6C32147C0D200EA9A19 /* Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		91A1D6C62147C0D200EA9A19 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		91A1D6C72147C0D200EA9A19 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -120,6 +126,17 @@
 			path = Utils;
 			sourceTree = "<group>";
 		};
+		919D1A562159DBED00947BF5 /* VideoList */ = {
+			isa = PBXGroup;
+			children = (
+				919D1A572159DCA700947BF5 /* TXWeiboListViewController.h */,
+				919D1A582159DCA700947BF5 /* TXWeiboListViewController.m */,
+				919D1A5A2159E29400947BF5 /* TXWeiboListTableViewCell.h */,
+				919D1A5B2159E29400947BF5 /* TXWeiboListTableViewCell.m */,
+			);
+			path = VideoList;
+			sourceTree = "<group>";
+		};
 		91A1D6BA2147C0D200EA9A19 = {
 			isa = PBXGroup;
 			children = (
@@ -141,6 +158,7 @@
 		91A1D6C52147C0D200EA9A19 /* Example */ = {
 			isa = PBXGroup;
 			children = (
+				919D1A562159DBED00947BF5 /* VideoList */,
 				919D18A32151F43C00947BF5 /* Utils */,
 				919D188E2151F05E00947BF5 /* ListUI */,
 				919D188A2151F05D00947BF5 /* MoviePlayerViewController.h */,
@@ -289,6 +307,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				919D18962151F05F00947BF5 /* TXMoviePlayerNetApi.m in Sources */,
+				919D1A5C2159E29400947BF5 /* TXWeiboListTableViewCell.m in Sources */,
 				919D18972151F05F00947BF5 /* TXMoviePlayInfoResponse.m in Sources */,
 				91A1D6CB2147C0D200EA9A19 /* ViewController.m in Sources */,
 				919D18852151E9F100947BF5 /* AppLogMgr.m in Sources */,
@@ -301,6 +320,7 @@
 				919D18992151F05F00947BF5 /* MoviePlayerViewController.m in Sources */,
 				91A1D6C82147C0D200EA9A19 /* AppDelegate.m in Sources */,
 				919D189D2151F16A00947BF5 /* ScanQRController.mm in Sources */,
+				919D1A592159DCA700947BF5 /* TXWeiboListViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -124,16 +124,7 @@
  */
 - (void)playerPlayBtnState:(BOOL)state;
 
-/**
- * 视频标题
- */
-- (void)playerTitle:(NSString *)title;
 
-/**
- * 背景图片
- */
-- (void)playerBackgroundImage:(UIImage *)image;
-- (void)playerBackgroundImageUrl:(NSURL *)imageUrl placeholderImage:(UIImage *)placeholderImage;
 
 /**
  * 视频加载失败提示
