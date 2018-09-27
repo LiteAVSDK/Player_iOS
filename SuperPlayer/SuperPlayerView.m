@@ -774,19 +774,31 @@ static UISlider * _volumeSlider;
 }
 
 #pragma mark - UIPanGestureRecognizer手势方法
-
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
+{
+    if ([gestureRecognizer isKindOfClass:[UIPanGestureRecognizer class]]) {
+        if (!self.isLoaded) { return NO; }
+        if (self.isLockScreen) { return NO; }
+        if (SuperPlayerWindowShared.isShowing) { return NO; }
+        
+        if (self.disableGesture) {
+            UIDeviceOrientation orientation = [UIDevice currentDevice].orientation;
+            if (UIDeviceOrientationIsPortrait(orientation)) {
+                return NO;
+            }
+        }
+        return YES;
+    }
+    
+    return NO;
+}
 /**
  *  pan手势事件
  *
  *  @param pan UIPanGestureRecognizer
  */
 - (void)panDirection:(UIPanGestureRecognizer *)pan {
-    
-    if (!self.isLoaded) { return; }
-    if (self.isLockScreen) { return; }
-    if (self.didEnterBackground) { return; };
-    if (SuperPlayerWindowShared.isShowing) { return; }
-    
+
     //根据在view上Pan的位置，确定是调音量还是亮度
     CGPoint locationPoint = [pan locationInView:self];
     

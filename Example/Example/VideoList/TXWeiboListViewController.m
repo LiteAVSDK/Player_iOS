@@ -43,6 +43,7 @@
     
     
     self.superPlayer = [[SuperPlayerView alloc] initWithFrame:CGRectZero];
+    self.superPlayer.disableGesture = YES;
     self.fileIdArray = @[@"5285890781763144364",
                          @"5285890780806831790",
                          @"5285890780806783838",
@@ -73,6 +74,13 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)didMoveToParentViewController:(nullable UIViewController *)parent
+{
+    if (parent == nil) {
+        [self.superPlayer resetPlayer];
+    }
 }
 
 
@@ -125,7 +133,7 @@
 - (void)tableView:(UITableView *)tableView didEndDisplayingCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (self.superPlayer.fatherView == cell.contentView) {
         self.superPlayer.fatherView = nil;
-        [self.superPlayer resetPlayer];
+        [self.superPlayer pause];
     }
 }
 

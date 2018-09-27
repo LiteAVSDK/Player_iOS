@@ -48,7 +48,8 @@ typedef NS_ENUM(NSInteger, SuperPlayerState) {
 @property (nonatomic) CFDanmakuView *danmakuView;
 /// 超级播放器控制层
 @property SuperPlayerControlView *controlView;
-
+/// 是否允许竖屏手势
+@property (nonatomic) BOOL disableGesture;
 /** 视频标题 */
 @property (nonatomic) NSString     *title;
 
