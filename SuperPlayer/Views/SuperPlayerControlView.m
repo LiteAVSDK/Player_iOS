@@ -22,8 +22,6 @@ static const CGFloat SuperPlayerControlBarAutoFadeOutTimeInterval = 0.15f;
 @interface SuperPlayerControlView () <UIGestureRecognizerDelegate, PlayerSliderDelegate>
 
 
-/** 小屏播放 */
-@property (nonatomic, assign, getter=isShrink ) BOOL  shrink;
 /** 是否拖拽slider控制播放进度 */
 @property BOOL  isDragging;
 /** 是否播放结束 */
@@ -62,11 +60,9 @@ static const CGFloat SuperPlayerControlBarAutoFadeOutTimeInterval = 0.15f;
         [self addSubview:self.lockBtn];
         [self.topImageView addSubview:self.backBtn];
         [self addSubview:self.activity];
-        [self addSubview:self.repeatBtn];
         [self addSubview:self.playeBtn];
         
         [self.topImageView addSubview:self.titleLabel];
-        [self addSubview:self.closeBtn];
 
         
         [self addSubview:self.backLiveBtn];
@@ -94,12 +90,6 @@ static const CGFloat SuperPlayerControlBarAutoFadeOutTimeInterval = 0.15f;
 - (void)makeSubViewsConstraints {
     [self.placeholderImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.mas_equalTo(UIEdgeInsetsZero);
-    }];
-    
-    [self.closeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.trailing.equalTo(self.mas_trailing).offset(7);
-        make.top.equalTo(self.mas_top).offset(-7);
-        make.width.height.mas_equalTo(20);
     }];
     
     [self.topImageView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -190,9 +180,6 @@ static const CGFloat SuperPlayerControlBarAutoFadeOutTimeInterval = 0.15f;
         make.width.height.mas_equalTo(32);
     }];
     
-    [self.repeatBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-         make.center.equalTo(self);
-    }];
     
     [self.playeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.height.mas_equalTo(50);
@@ -276,12 +263,6 @@ static const CGFloat SuperPlayerControlBarAutoFadeOutTimeInterval = 0.15f;
     }
 }
 
-- (void)closeBtnClick:(UIButton *)sender {
-    if ([self.delegate respondsToSelector:@selector(onControlView:closeAction:)]) {
-        [self.delegate onControlView:self closeAction:sender];
-    }
-}
-
 - (void)fullScreenBtnClick:(UIButton *)sender {
     sender.selected = !sender.selected;
     if ([self.delegate respondsToSelector:@selector(onControlView:fullScreenAction:)]) {
@@ -289,14 +270,6 @@ static const CGFloat SuperPlayerControlBarAutoFadeOutTimeInterval = 0.15f;
     }
 }
 
-- (void)repeatBtnClick:(UIButton *)sender {
-    // 重置控制层View
-    [self playerResetControlView];
-    [self playerShowControlView];
-    if ([self.delegate respondsToSelector:@selector(onControlView:repeatPlayAction:)]) {
-        [self.delegate onControlView:self repeatPlayAction:sender];
-    }
-}
 
 - (void)captureBtnClick:(UIButton *)sender {
     if ([self.delegate respondsToSelector:@selector(onControlView:captureAction:)]) {
@@ -481,11 +454,6 @@ static const CGFloat SuperPlayerControlBarAutoFadeOutTimeInterval = 0.15f;
 
 #pragma mark - setter
 
-- (void)setShrink:(BOOL)shrink {
-    _shrink = shrink;
-    self.closeBtn.hidden = !shrink;
-}
-
 - (void)setFullScreen:(BOOL)fullScreen {
     _fullScreen = fullScreen;
     
@@ -583,16 +551,6 @@ static const CGFloat SuperPlayerControlBarAutoFadeOutTimeInterval = 0.15f;
     return _startBtn;
 }
 
-- (UIButton *)closeBtn {
-    if (!_closeBtn) {
-        _closeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_closeBtn setImage:SuperPlayerImage(@"close") forState:UIControlStateNormal];
-        [_closeBtn addTarget:self action:@selector(closeBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-        _closeBtn.hidden = YES;
-    }
-    return _closeBtn;
-}
-
 - (UILabel *)currentTimeLabel {
     if (!_currentTimeLabel) {
         _currentTimeLabel               = [[UILabel alloc] init];
@@ -658,14 +616,7 @@ static const CGFloat SuperPlayerControlBarAutoFadeOutTimeInterval = 0.15f;
     return _activity;
 }
 
-- (UIButton *)repeatBtn {
-    if (!_repeatBtn) {
-        _repeatBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_repeatBtn setImage:SuperPlayerImage(@"repeat_video") forState:UIControlStateNormal];
-        [_repeatBtn addTarget:self action:@selector(repeatBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-    }
-    return _repeatBtn;
-}
+
 
 - (UIButton *)captureBtn {
     if (!_captureBtn) {
@@ -830,13 +781,11 @@ static const CGFloat SuperPlayerControlBarAutoFadeOutTimeInterval = 0.15f;
     self.videoSlider.progressView.progress = 0;
     self.currentTimeLabel.text       = @"00:00";
     self.totalTimeLabel.text         = @"00:00";
-    self.repeatBtn.hidden            = YES;
     self.playeBtn.hidden             = YES;
     self.resolutionView.hidden       = YES;
     self.moreView.hidden             = YES;
     self.backgroundColor             = [UIColor clearColor];
     self.moreBtn.enabled         = YES;
-    self.shrink                      = NO;
     self.showing                     = NO;
     self.playeEnd                    = NO;
     self.lockBtn.hidden              = !self.isFullScreen;
@@ -964,7 +913,6 @@ static const CGFloat SuperPlayerControlBarAutoFadeOutTimeInterval = 0.15f;
 
 /** 播放完了 */
 - (void)playerPlayEnd {
-    self.repeatBtn.hidden = NO;
     self.playeEnd         = YES;
     self.showing          = NO;
     self.placeholderImageView.alpha = 1;
@@ -1055,7 +1003,6 @@ static const CGFloat SuperPlayerControlBarAutoFadeOutTimeInterval = 0.15f;
 /** 播放按钮状态 */
 - (void)playerPlayBtnState:(BOOL)state {
     self.startBtn.selected = state;
-    self.repeatBtn.hidden = YES;
 }
 
 /** 锁定屏幕方向按钮状态 */

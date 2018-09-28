@@ -33,8 +33,6 @@
 @property (nonatomic, strong) MMMaterialDesignSpinner *activity;
 /** 返回按钮*/
 @property (nonatomic, strong) UIButton                *backBtn;
-/** 关闭按钮*/
-@property (nonatomic, strong) UIButton                *closeBtn;
 /** bottomView*/
 @property (nonatomic, strong) UIImageView             *bottomImageView;
 /** topView */

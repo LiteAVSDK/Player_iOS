@@ -233,13 +233,6 @@ static UISlider * _volumeSlider;
  *  重置player
  */
 - (void)resetPlayer {
-    // 改为为播放完
-    self.playDidEnd         = NO;
-    self.didEnterBackground = NO;
-    // 视频跳转秒数置0
-    self.seekTime           = 0;
-    
-
     // 移除通知
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     // 暂停
@@ -386,6 +379,8 @@ static UISlider * _volumeSlider;
     }
     [self.controlView playerIsLive:self.isLive];
     self.controlView.disableDanmakuBtn = (_danmakuView == nil);
+    self.repeatBtn.hidden = YES;
+    self.playDidEnd = NO;
 }
 
 /**
@@ -684,6 +679,8 @@ static UISlider * _volumeSlider;
     }
     [self.controlView playerPlayEnd];
     [self.netWatcher stopWatch];
+    
+    self.repeatBtn.hidden = NO;
 }
 
 /**
@@ -977,8 +974,7 @@ static UISlider * _volumeSlider;
 - (void)setVideoURL:(NSString *)videoURL {
     _videoURL = videoURL;
     
-    // 每次加载视频URL都设置重播为NO
-    self.repeatToPlay = NO;
+
     self.playDidEnd   = NO;
     
     // 添加通知
@@ -1110,32 +1106,12 @@ static UISlider * _volumeSlider;
     }
 }
 
-- (void)onControlView:(UIView *)controlView closeAction:(UIButton *)sender {
-    [self resetPlayer];
-    [self removeFromSuperview];
-}
-
 - (void)onControlView:(UIView *)controlView fullScreenAction:(UIButton *)sender {
     [self _fullScreenAction];
 }
 
 - (void)onControlView:(UIView *)controlView lockScreenAction:(UIButton *)sender {
     self.isLockScreen = sender.selected;
-}
-
-
-- (void)onControlView:(UIView *)controlView repeatPlayAction:(UIButton *)sender {
-    // 没有播放完
-    self.playDidEnd   = NO;
-    // 重播改为NO
-    self.repeatToPlay = NO;
-    
-    self.state = StateBuffering;
-    // 开始播放
-    [self configTXPlayer];
-    self.isPauseByUser = NO;
-    
-    self.state = StateBuffering;
 }
 
 - (void)onControlView:(UIView *)controlView resolutionAction:(SuperPlayerUrl *)model {
@@ -1242,8 +1218,6 @@ static UISlider * _volumeSlider;
 - (void)onControlView:(SuperPlayerControlView *)controlView progressSliderValueChanged:(UISlider *)slider {
     // 拖动改变视频播放进度
     if (self.isLoaded) {
-        
-        self.sliderLastValue  = slider.value;
         // 视频总时间长度
         CGFloat totalTime = [self getTotalTime];
         //计算出拖动的当前秒数
@@ -1633,5 +1607,22 @@ static UISlider * _volumeSlider;
     [btn fadeOut:0.2];
 }
 
+- (UIButton *)repeatBtn {
+    if (!_repeatBtn) {
+        _repeatBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_repeatBtn setImage:SuperPlayerImage(@"repeat_video") forState:UIControlStateNormal];
+        [_repeatBtn addTarget:self action:@selector(repeatBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:_repeatBtn];
+        [_repeatBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.center.equalTo(self);
+        }];
+    }
+    return _repeatBtn;
+}
+
+- (void)repeatBtnClick:(UIButton *)sender {
+    [self configTXPlayer];
+    [self.controlView playerResetControlView];
+}
 
 @end

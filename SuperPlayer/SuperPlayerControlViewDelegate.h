@@ -9,17 +9,12 @@
 @optional
 /** 返回按钮事件 */
 - (void)onControlView:(UIView *)controlView backAction:(UIButton *)sender;
-/** 关闭按钮事件 */
-- (void)onControlView:(UIView *)controlView closeAction:(UIButton *)sender;
 /** 播放按钮事件 */
 - (void)onControlView:(UIView *)controlView playAction:(UIButton *)sender;
 /** 全屏按钮事件 */
 - (void)onControlView:(UIView *)controlView fullScreenAction:(UIButton *)sender;
 /** 锁定屏幕方向按钮时间 */
 - (void)onControlView:(UIView *)controlView lockScreenAction:(UIButton *)sender;
-/** 重播按钮事件 */
-- (void)onControlView:(UIView *)controlView repeatPlayAction:(UIButton *)sender;
-
 /** 截屏按钮事件 */
 - (void)onControlView:(UIView *)controlView captureAction:(UIButton *)sender;
 /** 弹幕按钮事件 */

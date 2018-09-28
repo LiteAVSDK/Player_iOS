@@ -40,10 +40,6 @@ TXVodPlayListener, TXLivePlayListener, CFDanmakuDelegate, SuperPlayerControlView
 @property (nonatomic, assign) BOOL                   isVolume;
 /** 是否被用户暂停 */
 @property (nonatomic, assign) BOOL                   isPauseByUser;
-/** slider上次的值 */
-@property (nonatomic, assign) CGFloat                sliderLastValue;
-/** 是否再次设置URL播放视频 */
-@property (nonatomic, assign) BOOL                   repeatToPlay;
 /** 播放完了*/
 @property (nonatomic, assign) BOOL                   playDidEnd;
 /** 进入后台*/
@@ -56,6 +52,8 @@ TXVodPlayListener, TXLivePlayListener, CFDanmakuDelegate, SuperPlayerControlView
 @property (nonatomic, strong) SuperPlayerFastView    *fastView;
 /// 中间的提示按钮
 @property (nonatomic, strong) UIButton               *middleBlackBtn;
+/** 重播按钮 */
+@property (nonatomic, strong) UIButton               *repeatBtn;
 
 @property (nonatomic, setter=setDragging:) BOOL isDragging;
 
