@@ -61,8 +61,7 @@
 @property (nonatomic, strong) UIButton                *playeBtn;
 /** 加载失败按钮 */
 @property (nonatomic, strong) UIButton                *middleBtn;
-/** 快进快退View*/
-@property (nonatomic, strong) SuperPlayerFastView     *fastView;
+
 /** 当前选中的分辨率btn按钮 */
 @property (nonatomic, weak  ) UIButton                *resoultionCurrentBtn;
 /** 占位图 */
@@ -153,14 +152,6 @@
 - (void)playerIsActivity:(BOOL)animated;
 
 /**
- * 拖拽快进 快退
- * @param draggedTime 拖拽的时长
- * @param totalTime   视频总时长
- * @param sliderValue 进度条位置
- */
-- (void)playerDraggedTime:(NSInteger)draggedTime totalTime:(NSInteger)totalTime sliderValue:(CGFloat)sliderValue thumbnail:(UIImage *)thumbnail;
-
-/**
  * 拖拽亮度
  */
 - (void)playerDraggedLight:(CGFloat)draggedValue;
@@ -207,5 +198,7 @@
  * 显示提示信息
  */
 - (void)playerShowTips:(NSString *)tips delay:(NSTimeInterval)delay;
+
+
 
 @end

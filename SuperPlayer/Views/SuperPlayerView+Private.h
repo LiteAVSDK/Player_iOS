@@ -52,6 +52,10 @@ TXVodPlayListener, TXLivePlayListener, CFDanmakuDelegate, SuperPlayerControlView
 @property (nonatomic, strong) UITapGestureRecognizer *singleTap;
 /** 双击 */
 @property (nonatomic, strong) UITapGestureRecognizer *doubleTap;
+/** 快进快退、View*/
+@property (nonatomic, strong) SuperPlayerFastView    *fastView;
+
+@property (nonatomic, setter=setDragging:) BOOL isDragging;
 
 @property (nonatomic, strong) UIButton               *lockTipsBtn;
 

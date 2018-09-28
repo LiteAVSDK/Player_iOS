@@ -50,6 +50,8 @@ typedef NS_ENUM(NSInteger, SuperPlayerState) {
 @property SuperPlayerControlView *controlView;
 /// 是否允许竖屏手势
 @property (nonatomic) BOOL disableGesture;
+/// 是否在手势中
+@property (readonly)  BOOL isDragging;
 /** 视频标题 */
 @property (nonatomic) NSString     *title;
 

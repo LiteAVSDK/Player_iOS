@@ -7,44 +7,11 @@
 #import "SuperPlayerView+Private.h"
 #import "DataReport.h"
 #import "TXCUrl.h"
+#import "StrUtils.h"
+#import "UIView+Fade.h"
+#import "TXBitrateItemHelper.h"
 
 static UISlider * _volumeSlider;
-
-@interface TXBitrateItemHelper : NSObject
-@property NSInteger bitrate;
-@property NSString *title;
-@property int index;
-@end
-
-@implementation TXBitrateItemHelper
-
-+ (NSArray<SuperPlayerUrl *> *)sortWithBitrate:(NSArray<TXBitrateItem *> *)bitrates defaultIndex:(int *)defaultIndex; {
-    NSMutableArray *origin = [NSMutableArray new];
-    NSArray *titles = @[@"流畅",@"高清",@"超清",@"原画",@"2K",@"4K"];
-    NSMutableArray *retArray = [[NSMutableArray alloc] initWithCapacity:bitrates.count];
-    
-    for (int i = 0; i < bitrates.count; i++) {
-        TXBitrateItemHelper *h = [TXBitrateItemHelper new];
-        h.bitrate = bitrates[i].bitrate;
-        h.index = i;
-        [origin addObject:h];
-        [retArray addObject:[NSNull null]];
-    }
-    
-    NSArray *sorted = [origin sortedArrayUsingDescriptors:@[[[NSSortDescriptor alloc] initWithKey:@"bitrate" ascending:YES]]];
-    
-    *defaultIndex = -1;
-    [sorted enumerateObjectsUsingBlock:^(TXBitrateItemHelper *h, NSUInteger idx, BOOL *stop) {
-        SuperPlayerUrl *sub = [SuperPlayerUrl new];
-        sub.title = titles[idx];
-        retArray[h.index] = sub;
-        *defaultIndex = h.index;
-     }];
-    return retArray;
-}
-
-@end
-
 
 #define CellPlayerFatherViewTag  200
 
@@ -750,7 +717,6 @@ static UISlider * _volumeSlider;
  */
 - (void)seekToTime:(NSInteger)dragedSeconds {
     if (!self.isLoaded || self.state == StateStopped) {
-        [self.controlView playerDraggedEnd];
         return;
     }
     if (self.isLive) {
@@ -770,12 +736,15 @@ static UISlider * _volumeSlider;
         self.seekTime = 0;
         [self.vodPlayer resume];
     }
-    [self.controlView playerDraggedEnd];
 }
 
 #pragma mark - UIPanGestureRecognizer手势方法
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
 {
+    if ([gestureRecognizer isKindOfClass:[UITapGestureRecognizer class]]) {
+        return YES;
+    }
+
     if ([gestureRecognizer isKindOfClass:[UIPanGestureRecognizer class]]) {
         if (!self.isLoaded) { return NO; }
         if (self.isLockScreen) { return NO; }
@@ -826,6 +795,8 @@ static UISlider * _volumeSlider;
                     self.isVolume = NO;
                 }
             }
+            self.isDragging = YES;
+            [self.controlView playerHideControlView];
             break;
         }
         case UIGestureRecognizerStateChanged:{ // 正在移动
@@ -841,6 +812,7 @@ static UISlider * _volumeSlider;
                 default:
                     break;
             }
+            self.isDragging = YES;
             break;
         }
         case UIGestureRecognizerStateEnded:{ // 移动停止
@@ -852,18 +824,18 @@ static UISlider * _volumeSlider;
                     [self seekToTime:self.sumTime];
                     // 把sumTime滞空，不然会越加越多
                     self.sumTime = 0;
-                    [self.controlView playerDraggedEnd];
                     break;
                 }
                 case PanDirectionVerticalMoved:{
                     // 垂直移动结束后，把状态改为不再控制音量
                     self.isVolume = NO;
-                    [self.controlView playerDraggedEnd];
                     break;
                 }
                 default:
                     break;
             }
+            [self fastViewUnavaliable];
+            self.isDragging = NO;
             break;
         }
         default:
@@ -881,9 +853,9 @@ static UISlider * _volumeSlider;
     self.isVolume ? ([[self class] volumeViewSlider].value -= value / 10000) : ([UIScreen mainScreen].brightness -= value / 10000);
 
     if (self.isVolume) {
-        [self.controlView playerDraggedVolume:[[self class] volumeViewSlider].value];
+        [self fastViewImageAvaliable:SuperPlayerImage(@"sound_max") progress:[[self class] volumeViewSlider].value];
     } else {
-        [self.controlView playerDraggedLight:[UIScreen mainScreen].brightness];
+        [self fastViewImageAvaliable:SuperPlayerImage(@"light_max") progress:[UIScreen mainScreen].brightness];
     }
 }
 
@@ -900,32 +872,76 @@ static UISlider * _volumeSlider;
     if (self.sumTime > totalMovieDuration) { self.sumTime = totalMovieDuration;}
     if (self.sumTime < 0) { self.sumTime = 0; }
     
-    CGFloat slider = self.sumTime / totalMovieDuration;
-    if (self.isLive && totalMovieDuration > MAX_SHIFT_TIME) {
-        CGFloat base = totalMovieDuration - MAX_SHIFT_TIME;
-        if (self.sumTime < base)
-            self.sumTime = base;
-        slider = (self.sumTime - base) / MAX_SHIFT_TIME;
-        NSLog(@"%f",slider);
-    }
-    UIImage *thumbnail;
-    if (self.isFullScreen) {
-        thumbnail = [self.imageSprite getThumbnail:self.sumTime];
-    }
-    [self.controlView playerDraggedTime:self.sumTime totalTime:totalMovieDuration sliderValue:slider thumbnail:thumbnail];
+    [self fastViewProgressAvaliable:self.sumTime];
 }
 
 - (void)volumeChanged:(NSNotification *)notification
 {
-    if (self.isVolume)
+    if (self.isDragging)
         return; // 正在拖动，不响应音量事件
     
     if (![[[notification userInfo] objectForKey:@"AVSystemController_AudioVolumeChangeReasonNotificationParameter"] isEqualToString:@"ExplicitVolumeChange"]) {
         return;
     }
-    float volume = [[[notification userInfo]      objectForKey:@"AVSystemController_AudioVolumeNotificationParameter"] floatValue];
-    [self.controlView playerDraggedVolume:volume];
-    [self.controlView playerDraggedEnd];
+    float volume = [[[notification userInfo] objectForKey:@"AVSystemController_AudioVolumeNotificationParameter"] floatValue];
+    [self fastViewImageAvaliable:SuperPlayerImage(@"sound_max") progress:volume];
+    [self.fastView fadeOut:1];
+}
+
+- (SuperPlayerFastView *)fastView
+{
+    if (_fastView == nil) {
+        _fastView = [[SuperPlayerFastView alloc] init];
+        [self addSubview:_fastView];
+        [_fastView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.edges.mas_equalTo(UIEdgeInsetsZero);
+        }];
+    }
+    return _fastView;
+}
+
+- (void)fastViewImageAvaliable:(UIImage *)image progress:(CGFloat)draggedValue {
+    [self.fastView showImg:image withProgress:draggedValue];
+    [self.fastView fadeShow];
+}
+
+- (void)fastViewProgressAvaliable:(NSInteger)draggedTime
+{
+    NSInteger totalTime = [self getTotalTime];
+    NSString *currentTimeStr = [StrUtils timeFormat:draggedTime];
+    NSString *totalTimeStr   = [StrUtils timeFormat:totalTime];
+    NSString *timeStr        = [NSString stringWithFormat:@"%@ / %@", currentTimeStr, totalTimeStr];
+    if (self.isLive) {
+        timeStr = [NSString stringWithFormat:@"%@", currentTimeStr];
+    }
+    
+    UIImage *thumbnail;
+    if (self.isFullScreen) {
+        thumbnail = [self.imageSprite getThumbnail:self.sumTime];
+    }
+    if (thumbnail) {
+        self.fastView.videoRatio = self.videoRatio;
+        [self.fastView showThumbnail:thumbnail withText:timeStr];
+    } else {
+        CGFloat sliderValue = 1;
+        if (totalTime > 0) {
+            sliderValue = (CGFloat)draggedTime/totalTime;
+        }
+        if (self.isLive && totalTime > MAX_SHIFT_TIME) {
+            CGFloat base = totalTime - MAX_SHIFT_TIME;
+            if (self.sumTime < base)
+                self.sumTime = base;
+            sliderValue = (self.sumTime - base) / MAX_SHIFT_TIME;
+            NSLog(@"%f",sliderValue);
+        }
+        [self.fastView showText:timeStr withText:sliderValue];
+    }
+    [self.fastView fadeShow];
+}
+
+- (void)fastViewUnavaliable
+{
+    [self.fastView fadeOut:0.1];
 }
 
 #pragma mark - UIGestureRecognizerDelegate
@@ -1023,6 +1039,24 @@ static UISlider * _volumeSlider;
 - (void)setVideoRatio:(CGFloat)videoRatio {
     _videoRatio = videoRatio;
     self.controlView.videoRatio = videoRatio;
+}
+
+- (void)setDragging:(BOOL)dragging
+{
+    _isDragging = dragging;
+    if (dragging) {
+        [[NSNotificationCenter defaultCenter]
+         removeObserver:self name:@"AVSystemController_SystemVolumeDidChangeNotification"
+         object:nil];
+    } else {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [[NSNotificationCenter defaultCenter]
+             addObserver:self
+             selector:@selector(volumeChanged:)
+             name:@"AVSystemController_SystemVolumeDidChangeNotification"
+             object:nil];
+        });
+    }
 }
 
 #pragma mark - Getter
@@ -1216,8 +1250,8 @@ static UISlider * _volumeSlider;
     CGFloat total = [self getTotalTime];
     //计算出拖动的当前秒数
     NSInteger dragedSeconds = floorf(total * value);
-    [self.controlView playerPlayBtnState:YES];
     [self seekToTime:dragedSeconds];
+    [self fastViewUnavaliable];
 }
 
 - (void)onControlView:(SuperPlayerControlView *)controlView progressSliderValueChanged:(UISlider *)slider {
@@ -1235,11 +1269,7 @@ static UISlider * _volumeSlider;
         }
 
         if (totalTime > 0) { // 当总时长 > 0时候才能拖动slider
-            UIImage *thumbnail;
-            if (self.isFullScreen) {
-                thumbnail = [self.imageSprite getThumbnail:dragedSeconds];
-            }
-            [self.controlView playerDraggedTime:dragedSeconds totalTime:totalTime sliderValue:slider.value thumbnail:thumbnail];
+            [self fastViewProgressAvaliable:dragedSeconds];
         }
     }
 }
@@ -1346,10 +1376,6 @@ static UISlider * _volumeSlider;
      });
 }
 
-- (void)onNetStatus:(TXVodPlayer *)player withParam:(NSDictionary *)param {
-    
-}
-
 - (void)updateBitrates:(NSArray<TXBitrateItem *> *)bitrates;
 {
     if (bitrates.count > 0) {
@@ -1442,11 +1468,6 @@ static UISlider * _volumeSlider;
         }
     });
 }
-
-- (void)onNetStatus:(NSDictionary *)param {
-    
-}
-
 
 #pragma mark - Net
 - (void)getPlayInfo:(NSInteger)appid withFileId:(NSString *)fileId {

@@ -8,6 +8,7 @@
 #import "PlayerSlider.h"
 #import "UIView+MMLayout.h"
 #import "SuperPlayerView+Private.h"
+#import "StrUtils.h"
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored"-Wdeprecated-declarations"
@@ -24,7 +25,7 @@ static const CGFloat SuperPlayerControlBarAutoFadeOutTimeInterval = 0.15f;
 /** 小屏播放 */
 @property (nonatomic, assign, getter=isShrink ) BOOL  shrink;
 /** 是否拖拽slider控制播放进度 */
-@property (nonatomic, assign, getter=isDragged) BOOL  dragged;
+@property BOOL  isDragging;
 /** 是否播放结束 */
 @property (nonatomic, assign, getter=isPlayEnd) BOOL  playeEnd;
 /** 是否全屏播放 */
@@ -64,8 +65,6 @@ static const CGFloat SuperPlayerControlBarAutoFadeOutTimeInterval = 0.15f;
         [self addSubview:self.repeatBtn];
         [self addSubview:self.playeBtn];
         [self addSubview:self.middleBtn];
-        
-        [self addSubview:self.fastView];
         
         [self.topImageView addSubview:self.titleLabel];
         [self addSubview:self.closeBtn];
@@ -209,10 +208,6 @@ static const CGFloat SuperPlayerControlBarAutoFadeOutTimeInterval = 0.15f;
     [self.middleBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.center.equalTo(self);
         make.height.mas_equalTo(33);
-    }];
-    
-    [self.fastView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.mas_equalTo(UIEdgeInsetsZero);
     }];
     
     [self.backLiveBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -364,6 +359,7 @@ static const CGFloat SuperPlayerControlBarAutoFadeOutTimeInterval = 0.15f;
 
 - (void)progressSliderTouchBegan:(UISlider *)sender {
     [self playerCancelAutoFadeOutControlView];
+    self.isDragging = YES;
 }
 
 - (void)progressSliderValueChanged:(UISlider *)sender {
@@ -377,6 +373,8 @@ static const CGFloat SuperPlayerControlBarAutoFadeOutTimeInterval = 0.15f;
     if ([self.delegate respondsToSelector:@selector(onControlView:progressSliderTouchEnded:)]) {
         [self.delegate onControlView:self progressSliderTouchEnded:sender];
     }
+    self.isDragging = NO;
+    [self autoFadeOutControlView];
 }
 
 - (void)backLiveClick:(UIButton *)sender {
@@ -504,14 +502,6 @@ static const CGFloat SuperPlayerControlBarAutoFadeOutTimeInterval = 0.15f;
     [self performSelector:@selector(playerHideControlView) withObject:nil afterDelay:SuperPlayerAnimationTimeInterval];
 }
 
-- (void)playerHideFastView {
-    self.fastView.hidden = YES;
-}
-
-- (void)autoFadeOutFastView {
-    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(playerHideFastView) object:nil];
-    [self performSelector:@selector(playerHideFastView) withObject:nil afterDelay:1];
-}
 
 
 #pragma mark - setter
@@ -801,13 +791,6 @@ static const CGFloat SuperPlayerControlBarAutoFadeOutTimeInterval = 0.15f;
     return _middleBtn;
 }
 
-- (SuperPlayerFastView *)fastView {
-    if (!_fastView) {
-        _fastView = [[SuperPlayerFastView alloc] init];
-    }
-    return _fastView;
-}
-
 - (UIImageView *)placeholderImageView {
     if (!_placeholderImageView) {
         _placeholderImageView = [[UIImageView alloc] init];
@@ -882,7 +865,6 @@ static const CGFloat SuperPlayerControlBarAutoFadeOutTimeInterval = 0.15f;
     self.videoSlider.progressView.progress = 0;
     self.currentTimeLabel.text       = @"00:00";
     self.totalTimeLabel.text         = @"00:00";
-    self.fastView.hidden             = YES;
     self.repeatBtn.hidden            = YES;
     self.playeBtn.hidden             = YES;
     self.resolutionView.hidden       = YES;
@@ -954,20 +936,6 @@ static const CGFloat SuperPlayerControlBarAutoFadeOutTimeInterval = 0.15f;
     }];
 }
 
-- (NSString *)timeFormat:(NSInteger)totalTime {
-    if (totalTime < 0) {
-        return @"";
-    }
-    NSInteger durHour = totalTime / 3600;
-    NSInteger durMin = (totalTime / 60) % 60;
-    NSInteger durSec = totalTime % 60;
-    
-    if (durHour > 0) {
-        return [NSString stringWithFormat:@"%zd:%02zd:%02zd", durHour, durMin, durSec];
-    } else {
-        return [NSString stringWithFormat:@"%02zd:%02zd", durMin, durSec];
-    }
-}
 
 - (void)playerRemoveAllPoints {
     for (PlayerPoint *holder in self.videoSlider.pointArray) {
@@ -985,7 +953,7 @@ static const CGFloat SuperPlayerControlBarAutoFadeOutTimeInterval = 0.15f;
 - (void)onPlayerPointSelected:(PlayerPoint *)point {
     // TODO: show
     
-    NSString *text = [NSString stringWithFormat:@"  %@ %@  ", [self timeFormat:point.timeOffset/1000],
+    NSString *text = [NSString stringWithFormat:@"  %@ %@  ", [StrUtils timeFormat:point.timeOffset/1000],
                       point.content];
     
     [self.pointJumpBtn setTitle:text forState:UIControlStateNormal];
@@ -1004,62 +972,16 @@ static const CGFloat SuperPlayerControlBarAutoFadeOutTimeInterval = 0.15f;
 }
 
 - (void)playerCurrentTime:(NSInteger)currentTime totalTime:(NSInteger)totalTime sliderValue:(CGFloat)value {
-    if (!self.isDragged) {
+    if (!self.isDragging) {
         // 更新slider
         self.videoSlider.value           = value;
         // 更新当前播放时间
-        self.currentTimeLabel.text = [self timeFormat:currentTime];
+        self.currentTimeLabel.text = [StrUtils timeFormat:currentTime];
     }
-    
     // 更新总时间
-    self.totalTimeLabel.text = [self timeFormat:totalTime];
+    self.totalTimeLabel.text = [StrUtils timeFormat:totalTime];
 }
 
-- (void)playerDraggedTime:(NSInteger)draggedTime totalTime:(NSInteger)totalTime sliderValue:(CGFloat)sliderValue thumbnail:(UIImage *)thumbnail {
-    // 快进快退时候停止菊花
-    [self.activity stopAnimating];
-
-    
-    NSString *currentTimeStr = [self timeFormat:draggedTime];
-    NSString *totalTimeStr   = [self timeFormat:totalTime];
-    NSString *timeStr        = [NSString stringWithFormat:@"%@ / %@", currentTimeStr, totalTimeStr];
-    if (self.isLive) {
-        timeStr = [NSString stringWithFormat:@"%@", currentTimeStr];
-    }
-    
-    // 更新slider的值
-    self.videoSlider.value            = sliderValue;
-    // 更新当前时间
-    self.currentTimeLabel.text        = currentTimeStr;
-    // 正在拖动控制播放进度
-    self.dragged = YES;
-    
-    self.fastView.hidden           = NO;
-    if (thumbnail) {
-        self.fastView.videoRatio = self.videoRatio;
-        [self.fastView showThumbnail:thumbnail withText:timeStr];
-    } else {
-        [self.fastView showText:timeStr withText:sliderValue];
-    }
-}
-
-- (void)playerDraggedLight:(CGFloat)draggedValue {
-    self.fastView.hidden           = NO;
-    [self.fastView showImg:SuperPlayerImage(@"light_max") withProgress:draggedValue];
-}
-
-- (void)playerDraggedVolume:(CGFloat)draggedValue {
-    self.fastView.hidden           = NO;
-    [self.fastView showImg:SuperPlayerImage(@"sound_max") withProgress:draggedValue];
-}
-
-- (void)playerDraggedEnd {
-    self.dragged = NO;
-    // 结束滑动时候把开始播放按钮改为播放状态
-    self.startBtn.selected = YES;
-    // 滑动结束延时隐藏controlView
-    [self autoFadeOutFastView];
-}
 
 /** progress显示缓冲进度 */
 - (void)playerPlayableProgress:(CGFloat)progress {
@@ -1120,7 +1042,6 @@ static const CGFloat SuperPlayerControlBarAutoFadeOutTimeInterval = 0.15f;
 - (void)playerIsActivity:(BOOL)animated {
     if (animated) {
         [self.activity startAnimating];
-        self.fastView.hidden = YES;
     } else {
         [self.activity stopAnimating];
     }
