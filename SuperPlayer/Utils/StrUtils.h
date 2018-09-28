@@ -12,3 +12,9 @@
 + (NSString *)timeFormat:(NSInteger)totalTime;
 
 @end
+
+extern NSString *kStrLoadFaildRetry;
+extern NSString *kStrBadNetRetry;
+extern NSString *kStrTimeShiftFailed;
+extern NSString *kStrHDSwitchFailed;
+extern NSString *kStrWeakNet;

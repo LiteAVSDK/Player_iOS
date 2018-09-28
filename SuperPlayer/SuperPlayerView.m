@@ -376,7 +376,8 @@ static UISlider * _volumeSlider;
             SuperPlayerView *strongSelf = weakSelf;
             if (strongSelf) {
                 if (strongSelf.videoIndex < strongSelf.playerModel.multiVideoURLs.count) {
-                    [strongSelf.controlView playerBadNet:msg];
+                    [strongSelf showMiddleBtnMsg:kStrWeakNet];
+                    [strongSelf.middleBlackBtn fadeOut:2];
                 }
             }
         }];
@@ -723,7 +724,8 @@ static UISlider * _volumeSlider;
         [DataReport report:@"timeshift" param:nil];
         int ret = [self.livePlayer seek:dragedSeconds];
         if (ret != 0) {
-            [self.controlView playerShowTips:@"时移失败，返回直播" delay:2];
+            [self showMiddleBtnMsg:kStrTimeShiftFailed];
+            [self.middleBlackBtn fadeOut:2];
             [self.controlView playerResolutionArray:self.playerModel.multiVideoURLs defaultIndex:_videoIndex];
         } else {
             self.isShiftPlayback = YES;
@@ -1121,9 +1123,6 @@ static UISlider * _volumeSlider;
     self.isLockScreen = sender.selected;
 }
 
-- (void)onControlView:(UIView *)controlView cneterPlayAction:(UIButton *)sender {
-    [self configTXPlayer];
-}
 
 - (void)onControlView:(UIView *)controlView repeatPlayAction:(UIButton *)sender {
     // 没有播放完
@@ -1139,19 +1138,6 @@ static UISlider * _volumeSlider;
     self.state = StateBuffering;
 }
 
-/** 加载失败按钮事件 */
-- (void)onControlView:(UIView *)controlView failAction:(UIButton *)sender {
-     [self configTXPlayer];
-}
-
-- (void)onControlView:(UIView *)controlView badNetAction:(UIButton *)sender {
-    NSUInteger idx = _videoIndex+1;
-    if (idx < self.playerModel.multiVideoURLs.count) {
-        [self onControlView:controlView resolutionAction:self.playerModel.multiVideoURLs[idx]];
-        [self.controlView playerResolutionIndex:idx];
-    }
-}
-
 - (void)onControlView:(UIView *)controlView resolutionAction:(SuperPlayerUrl *)model {
     NSUInteger index = [self.playerModel.multiVideoURLs indexOfObject:model];
     if (index == _videoIndex || index == NSNotFound)
@@ -1159,8 +1145,7 @@ static UISlider * _volumeSlider;
     _videoIndex = (int)index;
     if (self.isLive) {
         [self.livePlayer switchStream:model.url];
-    
-        [self.controlView playerShowTips:[NSString stringWithFormat:@"正在切换到%@...", model.title] delay:30];
+        [self showMiddleBtnMsg:[NSString stringWithFormat:@"正在切换到%@...", model.title]];
     } else {
         if (model.url == nil) {
             [self.vodPlayer setBitrateIndex:index];
@@ -1287,6 +1272,7 @@ static UISlider * _volumeSlider;
         }
         [self seekToTime:dragedSeconds];
     }
+    [self fastViewUnavaliable];
 }
 
 - (void)onControlView:(UIView *)controlView backLiveAction:(UIButton *)sender {
@@ -1359,9 +1345,9 @@ static UISlider * _volumeSlider;
             [self moviePlayDidEnd];
         } else if (EvtID == PLAY_ERR_NET_DISCONNECT || EvtID == PLAY_ERR_FILE_NOT_FOUND || EvtID == PLAY_ERR_HLS_KEY) {
             if (EvtID == PLAY_ERR_NET_DISCONNECT) {
-                [self.controlView playerIsFailed:@"网络不给力,点击重试"];
+                [self showMiddleBtnMsg:kStrBadNetRetry];
             } else {
-                [self.controlView playerIsFailed:@"加载失败,点击重试"];
+                [self showMiddleBtnMsg:kStrLoadFaildRetry];
             }
             self.state = StateFailed;
             [player stopPlay];
@@ -1426,9 +1412,10 @@ static UISlider * _volumeSlider;
         } else if (EvtID == PLAY_ERR_NET_DISCONNECT) {
             if (self.isShiftPlayback) {
                 [self onControlView:nil backLiveAction:nil];
-                [self.controlView playerShowTips:@"时移失败，返回直播" delay:2];
+                [self showMiddleBtnMsg:kStrTimeShiftFailed];
+                [self.middleBlackBtn fadeOut:2];
             } else {
-                [self.controlView playerIsFailed:@"网络不给力,点击重试"];
+                [self showMiddleBtnMsg:kStrBadNetRetry];
                 self.state = StateFailed;
             }
         } else if (EvtID == PLAY_EVT_PLAY_LOADING){
@@ -1442,9 +1429,10 @@ static UISlider * _volumeSlider;
 //            _videoHeight = [dict[EVT_PARAM2] intValue];
 
         } else if (EvtID == PLAY_EVT_STREAM_SWITCH_SUCC) {
-            [self.controlView playerShowTips:[NSString stringWithFormat:@"已切换为%@", self.playerModel.multiVideoURLs[_videoIndex].title] delay:2];
+            [self showMiddleBtnMsg:[NSString stringWithFormat:@"已切换为%@", self.playerModel.multiVideoURLs[_videoIndex].title]];
+            [self.middleBlackBtn fadeOut:1];
         } else if (EvtID == PLAY_ERR_STREAM_SWITCH_FAIL) {
-            [self.controlView playerIsFailed:@"清晰度切换失败"];
+            [self showMiddleBtnMsg:kStrHDSwitchFailed];
             self.state = StateFailed;
         } else if (EvtID == PLAY_EVT_PLAY_PROGRESS) {
             if (self.state == StateStopped)
@@ -1570,7 +1558,7 @@ static UISlider * _volumeSlider;
                                     
                                 } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
                                     // error 错误信息
-                                    [self.controlView playerIsFailed:[error localizedDescription]];
+                                    [self showMiddleBtnMsg:kStrLoadFaildRetry];
                                 }];
     [manager invalidateSessionCancelingTasks:NO];
 }
@@ -1598,5 +1586,52 @@ static UISlider * _volumeSlider;
     }
     self.reportTime = nil;
 }
+
+#pragma mark - middle btn
+
+- (UIButton *)middleBlackBtn
+{
+    if (_middleBlackBtn == nil) {
+        _middleBlackBtn = [UIButton buttonWithType:UIButtonTypeSystem];
+        [_middleBlackBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        _middleBlackBtn.titleLabel.font = [UIFont systemFontOfSize:14.0];
+        _middleBlackBtn.backgroundColor = RGBA(0, 0, 0, 0.7);
+        [_middleBlackBtn addTarget:self action:@selector(middleBlackBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:_middleBlackBtn];
+        [_middleBlackBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.center.equalTo(self);
+            make.height.mas_equalTo(33);
+        }];
+    }
+    return _middleBlackBtn;
+}
+
+- (void)showMiddleBtnMsg:(NSString *)msg {
+    [self.middleBlackBtn setTitle:msg forState:UIControlStateNormal];
+    self.middleBlackBtn.titleLabel.text = msg;
+    CGFloat width = self.middleBlackBtn.titleLabel.attributedText.size.width;
+    
+    [self.middleBlackBtn mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.width.equalTo(@(width+10));
+    }];
+    [self.middleBlackBtn fadeShow];
+}
+
+- (void)middleBlackBtnClick:(UIButton *)btn
+{
+    NSString *msg = [btn titleForState:UIControlStateNormal];
+    if (msg == kStrLoadFaildRetry || msg == kStrBadNetRetry) {
+        [self configTXPlayer];
+    }
+    if (msg == kStrWeakNet) {
+        NSUInteger idx = _videoIndex+1;
+        if (idx < self.playerModel.multiVideoURLs.count) {
+            [self onControlView:self.controlView resolutionAction:self.playerModel.multiVideoURLs[idx]];
+            [self.controlView playerResolutionIndex:idx];
+        }
+    }
+    [btn fadeOut:0.2];
+}
+
 
 @end

@@ -19,12 +19,7 @@
 - (void)onControlView:(UIView *)controlView lockScreenAction:(UIButton *)sender;
 /** 重播按钮事件 */
 - (void)onControlView:(UIView *)controlView repeatPlayAction:(UIButton *)sender;
-/** 中间播放按钮事件 */
-- (void)onControlView:(UIView *)controlView cneterPlayAction:(UIButton *)sender;
-/** 加载失败按钮事件 */
-- (void)onControlView:(UIView *)controlView failAction:(UIButton *)sender;
-/** 网络不好按钮事件 */
-- (void)onControlView:(UIView *)controlView badNetAction:(UIButton *)sender;
+
 /** 截屏按钮事件 */
 - (void)onControlView:(UIView *)controlView captureAction:(UIButton *)sender;
 /** 弹幕按钮事件 */

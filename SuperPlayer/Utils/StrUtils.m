@@ -7,6 +7,12 @@
 
 #import "StrUtils.h"
 
+NSString *kStrLoadFaildRetry = @"加载失败,点击重试";
+NSString *kStrBadNetRetry = @"网络不给力,点击重试";
+NSString *kStrTimeShiftFailed = @"时移失败，返回直播";
+NSString *kStrHDSwitchFailed = @"清晰度切换失败";
+NSString *kStrWeakNet = @"检测到你的网络较差，建议切换清晰度";
+
 @implementation StrUtils
 
 + (NSString *)timeFormat:(NSInteger)totalTime {

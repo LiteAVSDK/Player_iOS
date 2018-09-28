@@ -64,7 +64,6 @@ static const CGFloat SuperPlayerControlBarAutoFadeOutTimeInterval = 0.15f;
         [self addSubview:self.activity];
         [self addSubview:self.repeatBtn];
         [self addSubview:self.playeBtn];
-        [self addSubview:self.middleBtn];
         
         [self.topImageView addSubview:self.titleLabel];
         [self addSubview:self.closeBtn];
@@ -205,11 +204,6 @@ static const CGFloat SuperPlayerControlBarAutoFadeOutTimeInterval = 0.15f;
         make.width.with.height.mas_equalTo(45);
     }];
     
-    [self.middleBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.center.equalTo(self);
-        make.height.mas_equalTo(33);
-    }];
-    
     [self.backLiveBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.mas_equalTo(self.startBtn.mas_top).mas_offset(-15);
         make.width.mas_equalTo(70);
@@ -337,25 +331,6 @@ static const CGFloat SuperPlayerControlBarAutoFadeOutTimeInterval = 0.15f;
     [self playerCancelAutoFadeOutControlView];
 }
 
-- (void)centerPlayBtnClick:(UIButton *)sender {
-    if ([self.delegate respondsToSelector:@selector(onControlView:cneterPlayAction:)]) {
-        [self.delegate onControlView:self cneterPlayAction:sender];
-    }
-}
-
-- (void)failBtnClick:(UIButton *)sender {
-    sender.hidden = YES;
-    if ([self.delegate respondsToSelector:@selector(onControlView:failAction:)]) {
-        [self.delegate onControlView:self failAction:sender];
-    }
-}
-
-- (void)badNetBtnClick:(UIButton *)sender {
-    sender.hidden = YES;
-    if ([self.delegate respondsToSelector:@selector(onControlView:badNetAction:)]) {
-        [self.delegate onControlView:self badNetAction:sender];
-    }
-}
 
 - (void)progressSliderTouchBegan:(UISlider *)sender {
     [self playerCancelAutoFadeOutControlView];
@@ -781,16 +756,6 @@ static const CGFloat SuperPlayerControlBarAutoFadeOutTimeInterval = 0.15f;
     return _playeBtn;
 }
 
-- (UIButton *)middleBtn {
-    if (!_middleBtn) {
-        _middleBtn = [UIButton buttonWithType:UIButtonTypeSystem];
-        [_middleBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        _middleBtn.titleLabel.font = [UIFont systemFontOfSize:14.0];
-        _middleBtn.backgroundColor = RGBA(0, 0, 0, 0.7);
-    }
-    return _middleBtn;
-}
-
 - (UIImageView *)placeholderImageView {
     if (!_placeholderImageView) {
         _placeholderImageView = [[UIImageView alloc] init];
@@ -875,7 +840,6 @@ static const CGFloat SuperPlayerControlBarAutoFadeOutTimeInterval = 0.15f;
     self.showing                     = NO;
     self.playeEnd                    = NO;
     self.lockBtn.hidden              = !self.isFullScreen;
-    self.middleBtn.hidden              = YES;
     self.placeholderImageView.alpha  = 1;
     self.danmakuBtn.enabled = YES;
     self.captureBtn.enabled = YES;
@@ -988,55 +952,6 @@ static const CGFloat SuperPlayerControlBarAutoFadeOutTimeInterval = 0.15f;
     [self.videoSlider.progressView setProgress:progress animated:NO];
 }
 
-/** 视频加载失败 */
-- (void)playerIsFailed:(NSString *)error {
-    self.middleBtn.hidden = NO;
-    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(hiddenMiddleBtn) object:nil];
-    [self.middleBtn setTitle:error forState:UIControlStateNormal];
-    
-    [self.middleBtn removeTarget:self action:nil forControlEvents:UIControlEventAllEvents];
-    [self.middleBtn addTarget:self action:@selector(failBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-    [self updateMiddleBtn];
-}
-
-- (void)playerBadNet:(NSString *)tips {
-    self.middleBtn.hidden = NO;
-    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(hiddenMiddleBtn) object:nil];
-    [self.middleBtn setTitle:tips forState:UIControlStateNormal];
-    
-    
-    [self performSelector:@selector(hiddenMiddleBtn) withObject:nil afterDelay:5];
-    
-    [self.middleBtn removeTarget:self action:nil forControlEvents:UIControlEventAllEvents];
-    [self.middleBtn addTarget:self action:@selector(badNetBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-    [self updateMiddleBtn];
-}
-
-- (void)playerShowTips:(NSString *)tips delay:(NSTimeInterval)delay {
-    self.middleBtn.hidden = NO;
-    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(hiddenMiddleBtn) object:nil];
-    [self.middleBtn setTitle:tips forState:UIControlStateNormal];
-    if (delay > 0) {
-        [self performSelector:@selector(hiddenMiddleBtn) withObject:nil afterDelay:delay];
-    }
-    
-    [self.middleBtn removeTarget:self action:nil forControlEvents:UIControlEventAllEvents];
-    [self.middleBtn addTarget:self action:@selector(hiddenMiddleBtn) forControlEvents:UIControlEventTouchUpInside];
-    [self updateMiddleBtn];
-}
-     
-- (void)updateMiddleBtn {
-    self.middleBtn.titleLabel.text = [self.middleBtn titleForState:UIControlStateNormal];
-    CGFloat width = self.middleBtn.titleLabel.attributedText.size.width;
-    
-    [self.middleBtn mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(@(width+10));
-    }];
- }
-
-- (void)hiddenMiddleBtn {
-    self.middleBtn.hidden = YES;
-}
 
 /** 加载的菊花 */
 - (void)playerIsActivity:(BOOL)animated {

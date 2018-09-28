@@ -126,17 +126,6 @@
 
 
 /**
- * 视频加载失败提示
- */
-- (void)playerIsFailed:(NSString *)error;
-
-/**
- * 视频网络不好提示
- */
-- (void)playerBadNet:(NSString *)tips;
-
-
-/**
  * 开始播放（隐藏placeholderImageView）
  */
 - (void)playerIsPlaying;
@@ -193,12 +182,6 @@
  * 时移隐藏
  */
 - (void)playerBackLiveBtnHidden:(BOOL)hidden;
-
-/**
- * 显示提示信息
- */
-- (void)playerShowTips:(NSString *)tips delay:(NSTimeInterval)delay;
-
 
 
 @end
