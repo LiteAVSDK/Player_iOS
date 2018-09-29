@@ -29,8 +29,7 @@
 @property (nonatomic, strong) UIButton                *fullScreenBtn;
 /** 锁定屏幕方向按钮 */
 @property (nonatomic, strong) UIButton                *lockBtn;
-/** 系统菊花 */
-@property (nonatomic, strong) MMMaterialDesignSpinner *activity;
+
 /** 返回按钮*/
 @property (nonatomic, strong) UIButton                *backBtn;
 /** bottomView*/
@@ -132,26 +131,6 @@
  * 播放完了
  */
 - (void)playerPlayEnd;
-
-/**
- * 加载的菊花
- */
-- (void)playerIsActivity:(BOOL)animated;
-
-/**
- * 拖拽亮度
- */
-- (void)playerDraggedLight:(CGFloat)draggedValue;
-
-/**
- * 拖拽声音
- */
-- (void)playerDraggedVolume:(CGFloat)draggedValue;
-
-/**
- * 滑动调整进度结束结束
- */
-- (void)playerDraggedEnd;
 
 /**
  * 锁定屏幕方向按钮状态

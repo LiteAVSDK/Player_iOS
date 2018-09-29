@@ -50,12 +50,14 @@ TXVodPlayListener, TXLivePlayListener, CFDanmakuDelegate, SuperPlayerControlView
 @property (nonatomic, strong) UITapGestureRecognizer *doubleTap;
 /** 快进快退、View*/
 @property (nonatomic, strong) SuperPlayerFastView    *fastView;
+
+@property (nonatomic, setter=setDragging:) BOOL isDragging;
 /// 中间的提示按钮
 @property (nonatomic, strong) UIButton               *middleBlackBtn;
 /** 重播按钮 */
 @property (nonatomic, strong) UIButton               *repeatBtn;
-
-@property (nonatomic, setter=setDragging:) BOOL isDragging;
+/** 系统菊花 */
+@property (nonatomic, strong) MMMaterialDesignSpinner *spinner;
 
 @property (nonatomic, strong) UIButton               *lockTipsBtn;
 

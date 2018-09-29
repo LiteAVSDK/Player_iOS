@@ -249,7 +249,7 @@ static UISlider * _volumeSlider;
     [self.controlView playerResolutionArray:nil defaultIndex:0];
     [self reportPlay];
     
-    [self.controlView playerIsActivity:NO];
+    self.state = StateStopped;
 }
 
 /**
@@ -995,7 +995,11 @@ static UISlider * _volumeSlider;
 - (void)setState:(SuperPlayerState)state {
     _state = state;
     // 控制菊花显示、隐藏
-    [self.controlView playerIsActivity:state == StateBuffering];
+    if (state == StateBuffering) {
+        [self.spinner startAnimating];
+    } else {
+        [self.spinner stopAnimating];
+    }
     if (state == StatePlaying || state == StateBuffering) {
         // 隐藏占位图
         [self.controlView playerPlayBtnState:YES];
@@ -1625,4 +1629,18 @@ static UISlider * _volumeSlider;
     [self.controlView playerResetControlView];
 }
 
+- (MMMaterialDesignSpinner *)spinner {
+    if (!_spinner) {
+        _spinner = [[MMMaterialDesignSpinner alloc] init];
+        _spinner.lineWidth = 1;
+        _spinner.duration  = 1;
+        _spinner.tintColor = [[UIColor whiteColor] colorWithAlphaComponent:0.9];
+        [self addSubview:_spinner];
+        [_spinner mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.center.equalTo(self);
+            make.width.with.height.mas_equalTo(45);
+        }];
+    }
+    return _spinner;
+}
 @end

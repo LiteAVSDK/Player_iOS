@@ -59,7 +59,7 @@ static const CGFloat SuperPlayerControlBarAutoFadeOutTimeInterval = 0.15f;
         [self.topImageView addSubview:self.moreBtn];
         [self addSubview:self.lockBtn];
         [self.topImageView addSubview:self.backBtn];
-        [self addSubview:self.activity];
+
         [self addSubview:self.playeBtn];
         
         [self.topImageView addSubview:self.titleLabel];
@@ -185,11 +185,7 @@ static const CGFloat SuperPlayerControlBarAutoFadeOutTimeInterval = 0.15f;
         make.width.height.mas_equalTo(50);
         make.center.equalTo(self);
     }];
-    
-    [self.activity mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.center.equalTo(self);
-        make.width.with.height.mas_equalTo(45);
-    }];
+
     
     [self.backLiveBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.mas_equalTo(self.startBtn.mas_top).mas_offset(-15);
@@ -606,15 +602,7 @@ static const CGFloat SuperPlayerControlBarAutoFadeOutTimeInterval = 0.15f;
     return _fullScreenBtn;
 }
 
-- (MMMaterialDesignSpinner *)activity {
-    if (!_activity) {
-        _activity = [[MMMaterialDesignSpinner alloc] init];
-        _activity.lineWidth = 1;
-        _activity.duration  = 1;
-        _activity.tintColor = [[UIColor whiteColor] colorWithAlphaComponent:0.9];
-    }
-    return _activity;
-}
+
 
 
 
@@ -776,7 +764,6 @@ static const CGFloat SuperPlayerControlBarAutoFadeOutTimeInterval = 0.15f;
 
 /** 重置ControlView */
 - (void)playerResetControlView {
-    [self.activity stopAnimating];
     self.videoSlider.value           = 0;
     self.videoSlider.progressView.progress = 0;
     self.currentTimeLabel.text       = @"00:00";
@@ -899,16 +886,6 @@ static const CGFloat SuperPlayerControlBarAutoFadeOutTimeInterval = 0.15f;
 /** progress显示缓冲进度 */
 - (void)playerPlayableProgress:(CGFloat)progress {
     [self.videoSlider.progressView setProgress:progress animated:NO];
-}
-
-
-/** 加载的菊花 */
-- (void)playerIsActivity:(BOOL)animated {
-    if (animated) {
-        [self.activity startAnimating];
-    } else {
-        [self.activity stopAnimating];
-    }
 }
 
 /** 播放完了 */
