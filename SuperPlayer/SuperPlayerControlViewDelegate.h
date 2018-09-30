@@ -21,7 +21,7 @@
 /** 弹幕按钮事件 */
 - (void)controlViewDanmaku:(UIView *)controlView withShow:(BOOL)show;
 /** 切换分辨率按钮事件 */
-- (void)controlViewSwitch:(UIView *)controlView withModel:(SuperPlayerUrl *)model;
+- (void)controlViewSwitch:(UIView *)controlView withDefinition:(NSString *)definition;
 /** 修改速度 */
 - (void)controlViewSetSpeed:(UIView *)controlView withSpeed:(CGFloat)value;
 /** 修改镜像 */

@@ -7,15 +7,20 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "SuperPlayerModel.h"
 
 @interface NetWatcher : NSObject
 
-@property (copy) void (^notifyBlock)(NSString *);
+@property (copy) void (^notifyTipsBlock)(NSString *);
+
+@property (nonatomic) SuperPlayerModel *playerModel;
 
 - (void)startWatch;
 - (void)stopWatch;
 
 - (void)loadingEvent;
 - (void)loadingEndEvent;
+
+@property NSString *adviseDefinition;
 
 @end

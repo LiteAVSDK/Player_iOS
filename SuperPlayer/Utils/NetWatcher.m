@@ -7,6 +7,11 @@
 //
 
 #import "NetWatcher.h"
+#import <AFNetworking.h>
+
+@interface NetWatcher()
+@property NSArray *definitions;
+@end
 
 @implementation NetWatcher {
     NSDate  *_startTime;
@@ -15,18 +20,34 @@
     BOOL    _onFire;
 }
 
-- (void)dealloc
+- (void)setPlayerModel:(SuperPlayerModel *)playerModel
 {
+    _playerModel = playerModel;
     
+    self.definitions = [self.playerModel.playDefinitions sortedArrayUsingComparator:^NSComparisonResult(NSString *obj1, NSString *obj2) {
+        return [NetWatcher weightOfDefinition:obj1] < [NetWatcher weightOfDefinition:obj2];
+    }];
+    
+    if (AFNetworkReachabilityManager.sharedManager.networkReachabilityStatus == AFNetworkReachabilityStatusReachableViaWWAN) {
+        self.adviseDefinition = self.definitions.lastObject;
+    } else {
+        self.adviseDefinition = self.definitions.firstObject;
+    }
 }
 
 - (void)startWatch
 {
     [self stopWatch];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(networkChanged:) name:AFNetworkingReachabilityDidChangeNotification object:nil];
+
+    if (self.definitions.count <= 1) {
+        return;
+    }
+    
     _startTime = [NSDate date];
     _loadingCount = 0;
-    
+
     NSLog(@"NetWatcher: startWatch");
 }
 
@@ -41,6 +62,7 @@
         _timer1 = nil;
     }
     _onFire = NO;
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)loadingEvent
@@ -86,8 +108,14 @@
     
     // 暂定30秒缓冲次数超过2次，为网络不好
     if (_loadingCount >= 2) {
-        if (self.notifyBlock) {
-            self.notifyBlock(@"检测到你的网络较差，建议切换清晰度");
+        
+        NSUInteger i = [self.definitions indexOfObject:self.adviseDefinition];
+        if (i < self.definitions.count-1) {
+            self.adviseDefinition = self.definitions[i+1];
+        }
+        
+        if (self.notifyTipsBlock) {
+            self.notifyTipsBlock(@"检测到你的网络较差，建议切换清晰度");
         }
         _loadingCount = 0;
         [self stopWatch];
@@ -96,5 +124,46 @@
     
     return NO;
 }
+
+- (void)networkChanged:(NSNotification *)noti
+{
+    if (AFNetworkReachabilityManager.sharedManager.networkReachabilityStatus == AFNetworkReachabilityStatusReachableViaWWAN) {
+        self.adviseDefinition = self.definitions.lastObject;
+        
+        if (![self.playerModel.playingDefinition isEqualToString:self.adviseDefinition]) {
+            self.notifyTipsBlock([@"当前网络为4G，建议切换到" stringByAppendingString:self.adviseDefinition]);
+        }
+    }
+}
+
++(int)weightOfDefinition:(NSString *)def
+{
+    if ([def isEqualToString:@"流畅"]) {
+        return 10;
+    }
+    if ([def isEqualToString:@"标清"]) {
+        return 15;
+    }
+    if ([def isEqualToString:@"高清"]) {
+        return 20;
+    }
+    if ([def isEqualToString:@"全高清"]) {
+        return 40;
+    }
+    if ([def isEqualToString:@"超清"]) {
+        return 50;
+    }
+    if ([def isEqualToString:@"原画"]) {
+        return 60;
+    }
+    if ([def isEqualToString:@"2K"]) {
+        return 70;
+    }
+    if ([def isEqualToString:@"4K"]) {
+        return 80;
+    }
+    return 10000;
+}
+
 
 @end

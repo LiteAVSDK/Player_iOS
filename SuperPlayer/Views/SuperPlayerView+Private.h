@@ -24,6 +24,12 @@ typedef NS_ENUM(NSInteger, PanDirection){
     PanDirectionVerticalMoved    // 纵向移动
 };
 
+typedef NS_ENUM(NSInteger, ButtonAction) {
+    ActionNone,
+    ActionReplay,
+    ActionSwitch,
+    ActionIgnore,
+};
 
 
 @interface SuperPlayerView () <UIGestureRecognizerDelegate,UIAlertViewDelegate,
@@ -54,6 +60,7 @@ TXVodPlayListener, TXLivePlayListener, CFDanmakuDelegate, SuperPlayerControlView
 @property (nonatomic, setter=setDragging:) BOOL isDragging;
 /// 中间的提示按钮
 @property (nonatomic, strong) UIButton               *middleBlackBtn;
+@property ButtonAction                               middleBlackBtnAction;
 /** 重播按钮 */
 @property (nonatomic, strong) UIButton               *repeatBtn;
 /** 系统菊花 */
@@ -69,7 +76,6 @@ TXVodPlayListener, TXLivePlayListener, CFDanmakuDelegate, SuperPlayerControlView
 // 播放的数据
 @property (nonatomic, assign) float                  seekTime;
 @property (nonatomic, strong) NSString               *videoURL;
-@property int                                        videoIndex;   // 多码率播放
 
 // add for txvodplayer
 @property BOOL  isLoaded;
@@ -80,6 +86,7 @@ TXVodPlayListener, TXLivePlayListener, CFDanmakuDelegate, SuperPlayerControlView
 
 @property CGFloat maxLiveProgressTime;    // 直播最大进度/总时间
 @property CGFloat liveProgressTime;       // 直播播放器回调过来的时间
+@property CGFloat liveProgressBase;       // 直播播放器超出时移的最大时间
 #define MAX_SHIFT_TIME  (2*60*60)
 /** 是否是直播流 */
 @property BOOL isLive;

@@ -20,8 +20,8 @@
 
 @property UISlider *lightSlider;
 
-- (void)updateContents:(BOOL)isLive;
+@property (nonatomic) BOOL isLive;
 
-- (void)updateData;
+- (void)update;
 
 @end

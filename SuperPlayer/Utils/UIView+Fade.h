@@ -9,7 +9,7 @@
 
 @interface UIView (Fade)
 
-- (void)fadeShow;
+- (UIView *)fadeShow;
 - (void)fadeOut:(NSTimeInterval)delay;
-
+- (void)cancelFadeOut;
 @end

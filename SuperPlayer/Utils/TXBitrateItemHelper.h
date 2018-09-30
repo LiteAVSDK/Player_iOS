@@ -14,7 +14,7 @@
 @property NSString *title;
 @property int index;
 
-+ (NSArray<SuperPlayerUrl *> *)sortWithBitrate:(NSArray<TXBitrateItem *> *)bitrates defaultIndex:(int *)defaultIndex;
++ (NSArray<SuperPlayerUrl *> *)sortWithBitrate:(NSArray<TXBitrateItem *> *)bitrates;
 
 
 @end

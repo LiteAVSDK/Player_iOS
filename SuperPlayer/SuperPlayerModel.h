@@ -32,4 +32,15 @@
  */
 @property NSString *fileId;
 
+/**
+ *
+ */
+@property NSString *playingDefinition;
+
+@property (readonly) NSString *playingDefinitionUrl;
+
+@property (readonly) NSInteger playingDefinitionIndex;
+
+@property (readonly) NSArray *playDefinitions;
+
 @end

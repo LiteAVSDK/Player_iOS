@@ -10,7 +10,7 @@
 
 @implementation TXBitrateItemHelper
 
-+ (NSArray<SuperPlayerUrl *> *)sortWithBitrate:(NSArray<TXBitrateItem *> *)bitrates defaultIndex:(int *)defaultIndex; {
++ (NSArray<SuperPlayerUrl *> *)sortWithBitrate:(NSArray<TXBitrateItem *> *)bitrates {
     NSMutableArray *origin = [NSMutableArray new];
     NSArray *titles = @[@"流畅",@"高清",@"超清",@"原画",@"2K",@"4K"];
     NSMutableArray *retArray = [[NSMutableArray alloc] initWithCapacity:bitrates.count];
@@ -25,12 +25,10 @@
     
     NSArray *sorted = [origin sortedArrayUsingDescriptors:@[[[NSSortDescriptor alloc] initWithKey:@"bitrate" ascending:YES]]];
     
-    *defaultIndex = -1;
     [sorted enumerateObjectsUsingBlock:^(TXBitrateItemHelper *h, NSUInteger idx, BOOL *stop) {
         SuperPlayerUrl *sub = [SuperPlayerUrl new];
         sub.title = titles[idx];
         retArray[h.index] = sub;
-        *defaultIndex = h.index;
     }];
     return retArray;
 }

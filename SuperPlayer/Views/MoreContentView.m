@@ -40,6 +40,9 @@
 {
     self = [super initWithFrame:frame];
     
+    self.mm_h = ScreenHeight;
+    self.mm_w = MoreViewWidth;
+    
     [self addSubview:[self soundCell]];
     [self addSubview:[self lightCell]];
     [self addSubview:[self speedCell]];
@@ -49,7 +52,12 @@
     return self;
 }
 
-- (void)updateContents:(BOOL)isLive
+- (void)layoutSubviews
+{
+    [super layoutSubviews];
+}
+
+- (void)sizeToFit
 {
     _contentHeight = 20;
     
@@ -60,7 +68,7 @@
     _contentHeight += _ligthCell.mm_h;
 
     
-    if (!isLive) {
+    if (!self.isLive) {
         _speedCell.m_top(_contentHeight);
         _contentHeight += _speedCell.mm_h;
         
@@ -76,17 +84,7 @@
     
     _hwCell.m_top(_contentHeight);
     _contentHeight += _hwCell.mm_h;
-    
-    self.mm_h = _contentHeight;
-    self.mm_w = MoreViewWidth;
 }
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-*/
 
 - (UIView *)soundCell
 {
@@ -355,7 +353,7 @@
     [DataReport report:sender.on?@"hw_decode":@"soft_decode" param:nil];
 }
 
-- (void)updateData
+- (void)update
 {
     self.soundSlider.value = [SuperPlayerView volumeViewSlider].value;
     self.lightSlider.value = [UIScreen mainScreen].brightness;
@@ -382,6 +380,8 @@
     
     _mirrorSwitch.on = SuperPlayerGlobleConfigShared.mirror;
     _hwSwitch.on = SuperPlayerGlobleConfigShared.enableHWAcceleration;
+    
+    [self sizeToFit];
 }
 
 @end

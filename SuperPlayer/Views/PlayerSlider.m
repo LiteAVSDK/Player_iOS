@@ -73,6 +73,10 @@
 
 - (PlayerPoint *)addPoint:(GLfloat)where
 {
+    for (PlayerPoint *pp in self.pointArray) {
+        if (fabsf(pp.where - where) < 0.0001)
+            return pp;
+    }
     PlayerPoint *point = [PlayerPoint new];
     point.where = where;
     point.holder.center = [self holderCenter:where];
