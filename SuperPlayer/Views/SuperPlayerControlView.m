@@ -220,12 +220,10 @@ static const CGFloat SuperPlayerControlBarAutoFadeOutTimeInterval = 0.15f;
     self.resolutionBtn.selected = NO;
     // topImageView上的按钮的文字
     [self.resolutionBtn setTitle:sender.titleLabel.text forState:UIControlStateNormal];
-    if ([self.delegate respondsToSelector:@selector(onControlView:resolutionAction:)]) {
-        SuperPlayerUrl *model = [_resolutionArray objectAtIndex:sender.tag-MODEL_TAG_BEGIN];
-        if (model) {
-            [self.delegate onControlView:self resolutionAction:model];
-        }
-    }
+    
+    SuperPlayerUrl *model = [_resolutionArray objectAtIndex:sender.tag-MODEL_TAG_BEGIN];
+    [self.delegate controlViewSwitch:self withModel:model];
+    
     sender.selected = YES;
     if (sender.isSelected) {
         sender.backgroundColor = RGBA(34, 30, 24, 1);
@@ -237,9 +235,14 @@ static const CGFloat SuperPlayerControlBarAutoFadeOutTimeInterval = 0.15f;
 }
 
 - (void)backBtnClick:(UIButton *)sender {
-    
-    if ([self.delegate respondsToSelector:@selector(onControlView:backAction:)]) {
-        [self.delegate onControlView:self backAction:sender];
+    if ([self.delegate respondsToSelector:@selector(controlViewBack:)]) {
+        [self.delegate controlViewBack:self];
+    }
+}
+
+- (void)exitFullScreen:(UIButton *)sender {
+    if ([self.delegate respondsToSelector:@selector(controlViewChangeScreen:withFullScreen:)]) {
+        [self.delegate controlViewChangeScreen:self withFullScreen:NO];
     }
 }
 
@@ -247,37 +250,31 @@ static const CGFloat SuperPlayerControlBarAutoFadeOutTimeInterval = 0.15f;
     sender.selected = !sender.selected;
     self.isLockScreen = sender.selected;
     [self showOrHideLockView];
-    if ([self.delegate respondsToSelector:@selector(onControlView:lockScreenAction:)]) {
-        [self.delegate onControlView:self lockScreenAction:sender];
-    }
+    [self.delegate controlViewLockScreen:self withLock:self.isLockScreen];
 }
 
 - (void)playBtnClick:(UIButton *)sender {
     sender.selected = !sender.selected;
-    if ([self.delegate respondsToSelector:@selector(onControlView:playAction:)]) {
-        [self.delegate onControlView:self playAction:sender];
+    if (sender.selected) {
+        [self.delegate controlViewPlay:self];
+    } else {
+        [self.delegate controlViewPause:self];
     }
 }
 
 - (void)fullScreenBtnClick:(UIButton *)sender {
     sender.selected = !sender.selected;
-    if ([self.delegate respondsToSelector:@selector(onControlView:fullScreenAction:)]) {
-        [self.delegate onControlView:self fullScreenAction:sender];
-    }
+    [self.delegate controlViewChangeScreen:self withFullScreen:YES];
 }
 
 
 - (void)captureBtnClick:(UIButton *)sender {
-    if ([self.delegate respondsToSelector:@selector(onControlView:captureAction:)]) {
-        [self.delegate onControlView:self captureAction:sender];
-    }
+    [self.delegate controlViewSnapshot:self];
 }
 
 - (void)danmakuBtnClick:(UIButton *)sender {
     sender.selected = !sender.selected;
-    if ([self.delegate respondsToSelector:@selector(onControlView:captureAction:)]) {
-        [self.delegate onControlView:self danmakuAction:sender];
-    }
+    [self.delegate controlViewDanmaku:self withShow:sender.selected];
 }
 
 - (void)moreBtnClick:(UIButton *)sender {
@@ -307,32 +304,23 @@ static const CGFloat SuperPlayerControlBarAutoFadeOutTimeInterval = 0.15f;
 }
 
 - (void)progressSliderValueChanged:(UISlider *)sender {
-    if ([self.delegate respondsToSelector:@selector(onControlView:progressSliderValueChanged:)]) {
-        [self.delegate onControlView:self progressSliderValueChanged:sender];
-    }
+    [self.delegate controlViewPreview:self where:sender.value];
 }
 
 - (void)progressSliderTouchEnded:(UISlider *)sender {
     self.showing = YES;
-    if ([self.delegate respondsToSelector:@selector(onControlView:progressSliderTouchEnded:)]) {
-        [self.delegate onControlView:self progressSliderTouchEnded:sender];
-    }
+    [self.delegate controlViewSeek:self where:sender.value];
     self.isDragging = NO;
     [self autoFadeOutControlView];
 }
 
 - (void)backLiveClick:(UIButton *)sender {
-    if ([self.delegate respondsToSelector:@selector(onControlView:backLiveAction:)]) {
-        [self.delegate onControlView:self backLiveAction:sender];
-    }
+    [self.delegate controlViewReload:self];
 }
 
-- (void)pointJumpClick:(UIButton *)sender {
-    // TODO: JUMP
-    if ([self.delegate respondsToSelector:@selector(onControlView:progressSliderTap:)]) {
-        PlayerPoint *point = [self.videoSlider.pointArray objectAtIndex:self.pointJumpBtn.tag];
-        [self.delegate onControlView:self progressSliderTap:point.where];
-    }
+- (void)pointJumpClick:(UIButton *)sender {    
+    PlayerPoint *point = [self.videoSlider.pointArray objectAtIndex:self.pointJumpBtn.tag];
+    [self.delegate controlViewSeek:self where:point.where];
     [self playerHideControlView];
 }
 
@@ -363,6 +351,9 @@ static const CGFloat SuperPlayerControlBarAutoFadeOutTimeInterval = 0.15f;
         make.width.height.mas_equalTo(40);
     }];
     
+    [self.backBtn removeTarget:self action:@selector(backBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+    [self.backBtn addTarget:self action:@selector(exitFullScreen:) forControlEvents:UIControlEventTouchUpInside];
+    
     if (IsIPhoneX) {
         [self.startBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.leading.equalTo(self.bottomImageView.mas_leading).offset(5);
@@ -386,6 +377,9 @@ static const CGFloat SuperPlayerControlBarAutoFadeOutTimeInterval = 0.15f;
         make.leading.equalTo(self.topImageView.mas_leading).offset(5);
         make.width.height.mas_equalTo(40);
     }];
+    
+    [self.backBtn removeTarget:self action:@selector(exitFullScreen:) forControlEvents:UIControlEventTouchUpInside];
+    [self.backBtn addTarget:self action:@selector(backBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     
     if (IsIPhoneX) {
         [self.startBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
@@ -484,6 +478,7 @@ static const CGFloat SuperPlayerControlBarAutoFadeOutTimeInterval = 0.15f;
     self.captureBtn.hidden = !_fullScreen || self.disableCaptureBtn;
     self.danmakuBtn.hidden = !_fullScreen || self.disableDanmakuBtn;
     self.moreBtn.hidden = !_fullScreen || self.disableMoreBtn;
+    self.backBtn.hidden = !_fullScreen || self.disableBackBtn;
 }
 
 #pragma mark - getter
@@ -596,7 +591,6 @@ static const CGFloat SuperPlayerControlBarAutoFadeOutTimeInterval = 0.15f;
     if (!_fullScreenBtn) {
         _fullScreenBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [_fullScreenBtn setImage:SuperPlayerImage(@"fullscreen") forState:UIControlStateNormal];
-        [_fullScreenBtn setImage:SuperPlayerImage(@"fullscreen_pressed") forState:UIControlStateSelected];
         [_fullScreenBtn addTarget:self action:@selector(fullScreenBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _fullScreenBtn;
@@ -781,6 +775,7 @@ static const CGFloat SuperPlayerControlBarAutoFadeOutTimeInterval = 0.15f;
     self.captureBtn.enabled = YES;
     self.moreBtn.enabled = YES;
     self.backLiveBtn.hidden              = YES;
+    self.backBtn.hidden = !self.disableBackBtn;
     [self hideControlView];
 }
 

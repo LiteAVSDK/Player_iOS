@@ -406,9 +406,9 @@
 				DEVELOPMENT_TEAM = QE8PS7F45A;
 				ENABLE_BITCODE = YES;
 				HEADER_SEARCH_PATHS = (
-					"${SRCROOT}/../TXLiteAVDemo/Common/Third/SDWebImage",
-					"${SRCROOT}/../TXLiteAVDemo/Common/Third/AFNetworking",
-					"${SRCROOT}/../TXLiteAVDemo/Common/Third/Masonry",
+					"${SRCROOT}/../TXLiteAVDemo/Third/SDWebImage",
+					"${SRCROOT}/../TXLiteAVDemo/Third/AFNetworking",
+					"${SRCROOT}/../TXLiteAVDemo/Third/Masonry",
 					"${SRCROOT}/../TXLiteAVDemo/Common/Third/CFDanmaku",
 					"${SRCROOT}/SuperPlayer/Headers",
 				);
@@ -429,9 +429,9 @@
 				DEVELOPMENT_TEAM = QE8PS7F45A;
 				ENABLE_BITCODE = YES;
 				HEADER_SEARCH_PATHS = (
-					"${SRCROOT}/../TXLiteAVDemo/Common/Third/SDWebImage",
-					"${SRCROOT}/../TXLiteAVDemo/Common/Third/AFNetworking",
-					"${SRCROOT}/../TXLiteAVDemo/Common/Third/Masonry",
+					"${SRCROOT}/../TXLiteAVDemo/Third/SDWebImage",
+					"${SRCROOT}/../TXLiteAVDemo/Third/AFNetworking",
+					"${SRCROOT}/../TXLiteAVDemo/Third/Masonry",
 					"${SRCROOT}/../TXLiteAVDemo/Common/Third/CFDanmaku",
 					"${SRCROOT}/SuperPlayer/Headers",
 				);

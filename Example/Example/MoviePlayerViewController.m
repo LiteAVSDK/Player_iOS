@@ -364,7 +364,7 @@ __weak UITextField *urlField;
 
 #pragma mark - SuperPlayerDelegate
 
-- (void)onPlayerBackAction {
+- (void)superPlayerBackAction:(SuperPlayerView *)player {
     [self backClick];
 }
 

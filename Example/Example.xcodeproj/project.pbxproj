@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		6DE361D3E934B160CD914E97 /* libPods-Example.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 94D274746C756B9432C45AF4 /* libPods-Example.a */; };
+		912A617B216074B700C16E41 /* danmakufile in Resources */ = {isa = PBXBuildFile; fileRef = 912A617A216074B700C16E41 /* danmakufile */; };
 		919D18852151E9F100947BF5 /* AppLogMgr.m in Sources */ = {isa = PBXBuildFile; fileRef = 919D187D2151E9F100947BF5 /* AppLogMgr.m */; };
 		919D18862151E9F100947BF5 /* MainTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 919D187F2151E9F100947BF5 /* MainTableViewCell.m */; };
 		919D18872151E9F100947BF5 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 919D18812151E9F100947BF5 /* MainViewController.m */; };
@@ -30,6 +31,7 @@
 
 /* Begin PBXFileReference section */
 		129BAA86323ECF5FE269806B /* Pods-Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Example/Pods-Example.debug.xcconfig"; sourceTree = "<group>"; };
+		912A617A216074B700C16E41 /* danmakufile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = danmakufile; sourceTree = "<group>"; };
 		919D187C2151E9F100947BF5 /* AppLogMgr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppLogMgr.h; sourceTree = "<group>"; };
 		919D187D2151E9F100947BF5 /* AppLogMgr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppLogMgr.m; sourceTree = "<group>"; };
 		919D187E2151E9F100947BF5 /* MainTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainTableViewCell.h; sourceTree = "<group>"; };
@@ -182,6 +184,7 @@
 				91A1D6D12147C0D500EA9A19 /* LaunchScreen.storyboard */,
 				91A1D6D42147C0D500EA9A19 /* Info.plist */,
 				91A1D6D52147C0D500EA9A19 /* main.m */,
+				912A617A216074B700C16E41 /* danmakufile */,
 			);
 			path = Example;
 			sourceTree = "<group>";
@@ -254,6 +257,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				912A617B216074B700C16E41 /* danmakufile in Resources */,
 				91A1D6D32147C0D500EA9A19 /* LaunchScreen.storyboard in Resources */,
 				91A1D6D02147C0D500EA9A19 /* Assets.xcassets in Resources */,
 				91A1D6CE2147C0D200EA9A19 /* Main.storyboard in Resources */,

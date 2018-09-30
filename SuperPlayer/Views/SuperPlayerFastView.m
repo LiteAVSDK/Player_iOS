@@ -49,11 +49,27 @@
 - (UIImageView *)thumbView {
     if (!_thumbView) {
         _thumbView = [[UIImageView alloc] init];
-        self.thumbView.contentMode = UIViewContentModeScaleAspectFit;
-        self.thumbView.backgroundColor = [UIColor blackColor];
+        _thumbView.contentMode = UIViewContentModeScaleAspectFit;
+        _thumbView.backgroundColor = [UIColor blackColor];
         [self addSubview:_thumbView];
     }
     return _thumbView;
+}
+
+- (UIImageView *)snapshotView {
+    if (!_snapshotView) {
+        _snapshotView = [[UIImageView alloc] init];
+        _snapshotView.contentMode = UIViewContentModeScaleAspectFit;
+        _snapshotView.backgroundColor = [UIColor blackColor];
+        [self addSubview:_snapshotView];
+        
+        [_snapshotView mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.width.mas_equalTo(THUMB_VIEW_WIDTH);
+            make.height.mas_equalTo(THUMB_VIEW_HEIGHT);
+            make.center.equalTo(self);
+        }];
+    }
+    return _snapshotView;
 }
 
 - (UIProgressView *)progressView {
@@ -73,7 +89,7 @@
     switch (style) {
         case ImgWithProgress: {
             self.imgView.hidden = self.progressView.hidden = NO;
-            self.textLabel.hidden = self.thumbView.hidden = YES;
+            self.textLabel.hidden = self.thumbView.hidden = self.snapshotView.hidden = YES;
             self.imgView.contentMode = UIViewContentModeScaleAspectFit;
             
             [self.imgView mas_remakeConstraints:^(MASConstraintMaker *make) {
@@ -88,7 +104,7 @@
             break;
         case ImgWithText: {
             self.thumbView.hidden = self.textLabel.hidden = NO;
-            self.progressView.hidden = self.imgView.hidden = YES;
+            self.progressView.hidden = self.imgView.hidden = self.snapshotView.hidden = YES;
             
             [self.thumbView mas_remakeConstraints:^(MASConstraintMaker *make) {
                 make.centerX.mas_equalTo(self);
@@ -105,7 +121,7 @@
             break;
         case TextWithProgress: {
             self.progressView.hidden = self.textLabel.hidden = NO;
-            self.imgView.hidden = self.thumbView.hidden = YES;
+            self.imgView.hidden = self.thumbView.hidden = self.snapshotView.hidden = YES;
             
             [self.textLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
                 make.center.equalTo(self);
@@ -116,6 +132,12 @@
                 make.width.mas_equalTo(120);
             }];
         }
+            break;
+        case SnapshotImg: {
+            self.progressView.hidden = self.textLabel.hidden = self.imgView.hidden = self.thumbView.hidden = YES;
+            self.snapshotView.hidden = NO;
+        }
+            break;
         default:
             break;
     }
@@ -142,6 +164,12 @@
     [self.textLabel sizeToFit];
     self.progressView.progress = progress;
     self.style = TextWithProgress;
+}
+
+- (void)showSnapshot:(UIImage *)img
+{
+    self.snapshotView.image = img;
+    self.style = SnapshotImg;
 }
 
 - (UIImage *)imageWithImage:(UIImage *)image {

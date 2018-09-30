@@ -32,6 +32,8 @@
 
 /** 返回按钮*/
 @property (nonatomic, strong) UIButton                *backBtn;
+/// 是否禁用返回
+@property BOOL                                        disableBackBtn;
 /** bottomView*/
 @property (nonatomic, strong) UIImageView             *bottomImageView;
 /** topView */

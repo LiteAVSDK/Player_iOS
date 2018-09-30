@@ -6,35 +6,32 @@
 
 @protocol SuperPlayerControlViewDelegate <NSObject>
 
-@optional
 /** 返回按钮事件 */
-- (void)onControlView:(UIView *)controlView backAction:(UIButton *)sender;
-/** 播放按钮事件 */
-- (void)onControlView:(UIView *)controlView playAction:(UIButton *)sender;
-/** 全屏按钮事件 */
-- (void)onControlView:(UIView *)controlView fullScreenAction:(UIButton *)sender;
-/** 锁定屏幕方向按钮时间 */
-- (void)onControlView:(UIView *)controlView lockScreenAction:(UIButton *)sender;
-/** 截屏按钮事件 */
-- (void)onControlView:(UIView *)controlView captureAction:(UIButton *)sender;
+- (void)controlViewBack:(UIView *)controlView;
+/** 播放 */
+- (void)controlViewPlay:(UIView *)controlView;
+/** 暂停 */
+- (void)controlViewPause:(UIView *)controlView;
+/** 播放器全屏 */
+- (void)controlViewChangeScreen:(UIView *)controlView withFullScreen:(BOOL)isFullScreen;
+/** 锁定屏幕方向 */
+- (void)controlViewLockScreen:(UIView *)controlView withLock:(BOOL)islock;
+/** 截屏事件 */
+- (void)controlViewSnapshot:(UIView *)controlView;
 /** 弹幕按钮事件 */
-- (void)onControlView:(UIView *)controlView danmakuAction:(UIButton *)sender;
+- (void)controlViewDanmaku:(UIView *)controlView withShow:(BOOL)show;
 /** 切换分辨率按钮事件 */
-- (void)onControlView:(UIView *)controlView resolutionAction:(SuperPlayerUrl *)model;
+- (void)controlViewSwitch:(UIView *)controlView withModel:(SuperPlayerUrl *)model;
 /** 修改速度 */
-- (void)onControlView:(UIView *)controlView changeSpeed:(CGFloat)value;
+- (void)controlViewSetSpeed:(UIView *)controlView withSpeed:(CGFloat)value;
 /** 修改镜像 */
-- (void)onControlView:(UIView *)controlView changeMirror:(BOOL)value;
-/** 修改加速 */
-- (void)onControlView:(UIView *)controlView changeHWAccelerate:(BOOL)value;
-/** slider的点击事件（点击slider控制进度） */
-- (void)onControlView:(UIView *)controlView progressSliderTap:(CGFloat)value;
-/** slider触摸中 */
-- (void)onControlView:(UIView *)controlView progressSliderValueChanged:(UISlider *)slider;
-/** slider触摸结束 */
-- (void)onControlView:(UIView *)controlView progressSliderTouchEnded:(UISlider *)slider;
-/** 返回直播事件 */
-- (void)onControlView:(UIView *)controlView backLiveAction:(UIButton *)sender;
+- (void)controlViewSetMirror:(UIView *)controlView withMirror:(BOOL)on;
+/** 重新播放 */
+- (void)controlViewReload:(UIView *)controlView;
+/** seek事件，pos 0~1 */
+- (void)controlViewSeek:(UIView *)controlView where:(CGFloat)pos;
+/** 滑动预览，pos 0~1 */
+- (void)controlViewPreview:(UIView *)controlView where:(CGFloat)pos;
 
 @end
 

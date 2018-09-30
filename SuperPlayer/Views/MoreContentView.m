@@ -319,36 +319,40 @@
     }
     sender.selected = YES;
     
-    if ([self.controlView.delegate respondsToSelector:@selector(onControlView:changeSpeed:)]) {
-        if (sender.tag == TAG_1_SPEED)
-            [self.controlView.delegate onControlView:self changeSpeed:1];
-        if (sender.tag == TAG_2_SPEED)
-            [self.controlView.delegate onControlView:self changeSpeed:1.25];
-        if (sender.tag == TAG_3_SPEED)
-            [self.controlView.delegate onControlView:self changeSpeed:1.5];
-        if (sender.tag == TAG_4_SPEED)
-            [self.controlView.delegate onControlView:self changeSpeed:2];
-        
 
-        [DataReport report:@"change_speed" param:nil];
+    if (sender.tag == TAG_1_SPEED) {
+        [self.controlView.delegate controlViewSetSpeed:self withSpeed:1];
+        SuperPlayerGlobleConfigShared.playRate = 1;
     }
+    if (sender.tag == TAG_2_SPEED) {
+        [self.controlView.delegate controlViewSetSpeed:self withSpeed:1.25];
+        SuperPlayerGlobleConfigShared.playRate = 1.25;
+    }
+    if (sender.tag == TAG_3_SPEED) {
+        [self.controlView.delegate controlViewSetSpeed:self withSpeed:1.5];
+        SuperPlayerGlobleConfigShared.playRate = 1.5;
+    }
+    if (sender.tag == TAG_4_SPEED) {
+        [self.controlView.delegate controlViewSetSpeed:self withSpeed:2];
+        SuperPlayerGlobleConfigShared.playRate = 2;
+    }
+    
+    
+    [DataReport report:@"change_speed" param:nil];
 }
 
 - (void)changeMirror:(UISwitch *)sender {
-    if ([self.controlView.delegate respondsToSelector:@selector(onControlView:changeSpeed:)]) {
-        [self.controlView.delegate onControlView:self.controlView changeMirror:sender.on];
-        if (sender.on) {
-            [DataReport report:@"mirror" param:nil];
-        }
+    [self.controlView.delegate controlViewSetMirror:self.controlView withMirror:sender.on];
+    SuperPlayerGlobleConfigShared.mirror = sender.on;
+    if (sender.on) {
+        [DataReport report:@"mirror" param:nil];
     }
 }
 
 - (void)changeHW:(UISwitch *)sender {
-    if ([self.controlView.delegate respondsToSelector:@selector(onControlView:changeHWAccelerate:)]) {
-        [self.controlView.delegate onControlView:self.controlView changeHWAccelerate:sender.on];
-        
-        [DataReport report:sender.on?@"hw_decode":@"soft_decode" param:nil];
-    }
+    SuperPlayerGlobleConfigShared.enableHWAcceleration = sender.on;
+    [self.controlView.delegate controlViewReload:self.controlView];
+    [DataReport report:sender.on?@"hw_decode":@"soft_decode" param:nil];
 }
 
 - (void)updateData

@@ -10,7 +10,7 @@
 #import <SuperPlayer.h>
 #import <UIView+MMLayout.h>
 #import "TXWeiboListTableViewCell.h"
-@interface TXWeiboListViewController ()<UITableViewDelegate,UITableViewDataSource,TXWeiboListTableViewCellDelegate>
+@interface TXWeiboListViewController ()<UITableViewDelegate,UITableViewDataSource,TXWeiboListTableViewCellDelegate, SuperPlayerDelegate>
 @property UITableView *tableView;
 @property SuperPlayerView *superPlayer;
 @property NSArray *fileIdArray;
@@ -44,6 +44,8 @@
     
     self.superPlayer = [[SuperPlayerView alloc] initWithFrame:CGRectZero];
     self.superPlayer.disableGesture = YES;
+    self.superPlayer.controlView.disableBackBtn = YES;
+    self.superPlayer.delegate = self;
     self.fileIdArray = @[@"5285890781763144364",
                          @"5285890780806831790",
                          @"5285890780806783838",
@@ -151,5 +153,10 @@
     model.fileId = self.fileIdArray[[self.tempIndexPath row]];
     [self.superPlayer playWithModel:model];
     tempCell.playButton.hidden = YES;
+}
+
+- (void)superPlayerFullScreenChanged:(SuperPlayerView *)player
+{
+    player.controlView.backBtn.hidden = !player.isFullScreen;
 }
 @end

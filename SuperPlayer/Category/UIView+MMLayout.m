@@ -298,7 +298,7 @@ const void *_layoutKey;
     };
 
 }
--(UIView *(^)())m_center{
+-(UIView *(^)(void))m_center{
     @m_weakify(self);
     return ^{
         @m_strongify(self);
@@ -307,7 +307,7 @@ const void *_layoutKey;
     };
 }
 
--(UIView *(^)())m_centerY{
+-(UIView *(^)(void))m_centerY{
     @m_weakify(self);
     return ^{
         @m_strongify(self);
@@ -316,7 +316,7 @@ const void *_layoutKey;
     };
 }
 
--(UIView *(^)())m_centerX{
+-(UIView *(^)(void))m_centerX{
     @m_weakify(self);
     return ^{
         @m_strongify(self);

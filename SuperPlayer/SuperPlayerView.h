@@ -8,11 +8,14 @@
 #import "CFDanmakuView.h"
 
 @class SuperPlayerControlView;
+@class SuperPlayerView;
 
 @protocol SuperPlayerDelegate <NSObject>
 @optional
-/** 返回按钮事件 */
-- (void)onPlayerBackAction;
+/** 返回事件 */
+- (void)superPlayerBackAction:(SuperPlayerView *)player;
+/// 全屏改变通知
+- (void)superPlayerFullScreenChanged:(SuperPlayerView *)player;
 // 需要通知到父view的事件在此添加
 @end
 
