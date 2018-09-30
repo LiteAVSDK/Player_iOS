@@ -63,6 +63,7 @@ TXVodPlayListener, TXLivePlayListener, CFDanmakuDelegate, SuperPlayerControlView
 
 @property (nonatomic, strong) SuperPlayerModel       *playerModel;
 
+
 @property (class, readonly) UISlider *volumeViewSlider;
 @property MPVolumeView *volumeView;
 // 播放的数据

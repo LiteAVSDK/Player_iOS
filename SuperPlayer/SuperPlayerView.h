@@ -50,20 +50,17 @@ typedef NS_ENUM(NSInteger, SuperPlayerState) {
 /// 弹幕视图
 @property (nonatomic) CFDanmakuView *danmakuView;
 /// 超级播放器控制层
-@property SuperPlayerControlView *controlView;
+@property (nonatomic) SuperPlayerControlView *controlView;
 /// 是否允许竖屏手势
 @property (nonatomic) BOOL disableGesture;
 /// 是否在手势中
 @property (readonly)  BOOL isDragging;
 /** 视频标题 */
 @property (nonatomic) NSString     *title;
-
 /**
  * 设置封面图片
- * @param image 默认图片
- * @param imageUrl 图片url，可为nil
  */
-- (void)setCoverImage:(UIImage *)image imageUrl:(NSURL *)imageUrl;
+@property (nonatomic) UIImageView *coverImageView;
 
 /**
  * 播放model

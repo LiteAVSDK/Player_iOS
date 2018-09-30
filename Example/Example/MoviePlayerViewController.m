@@ -21,6 +21,7 @@
 #import "AppDelegate.h"
 #import "SuperPlayerGuideView.h"
 #import "AFNetworking.h"
+#import "UIImageView+WebCache.h"
 #define LIST_VIDEO_CELL_ID @"LIST_VIDEO_CELL_ID"
 #define LIST_LIVE_CELL_ID @"LIST_LIVE_CELL_ID"
 
@@ -335,7 +336,7 @@ __weak UITextField *urlField;
             }
         }
         
-        
+        [self showControlView:YES];
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         [manager invalidateSessionCancelingTasks:YES];
@@ -575,7 +576,8 @@ __weak UITextField *urlField;
     ListVideoCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     if (cell) {
         [self.playerView setTitle:[cell getSource].title];
-        [self.playerView setCoverImage:nil imageUrl:[NSURL URLWithString:[cell getSource].coverUrl]];
+        
+        [self.playerView.coverImageView sd_setImageWithURL:[NSURL URLWithString:[cell getSource].coverUrl]];
         [self.playerView playWithModel:[cell getPlayerModel]];
     }
 }
@@ -631,12 +633,9 @@ __weak UITextField *urlField;
 
 - (void)showControlView:(BOOL)isShow {
     if (isShow) {
-        [self.playerView.controlView playerShowControlView];
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [self.playerView.controlView playerCancelAutoFadeOutControlView];
-        });
+        [self.playerView.controlView showControlView];
     } else {
-        [self.playerView.controlView playerHideControlView];
+        [self.playerView.controlView hideControlView];
     }
 }
 

@@ -11,6 +11,7 @@
 #import "UIView+Fade.h"
 #import "TXBitrateItemHelper.h"
 #import "UIView+MMLayout.h"
+#import "SPDefaultControlView.h"
 
 static UISlider * _volumeSlider;
 
@@ -25,6 +26,7 @@ static UISlider * _volumeSlider;
 
 @implementation SuperPlayerView {
     UIView *_fullScreenBlackView;
+    SuperPlayerControlView *_controlView;
 }
 
 
@@ -78,7 +80,6 @@ static UISlider * _volumeSlider;
 }
 
 - (void)dealloc {
-    [self.controlView playerCancelAutoFadeOutControlView];
     // 移除通知
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [[UIDevice currentDevice] endGeneratingDeviceOrientationNotifications];
@@ -162,37 +163,23 @@ static UISlider * _volumeSlider;
 
 - (void)setTitle:(NSString *)title {
     _title = title;
-    self.controlView.titleLabel.text = title;
+    self.controlView.title = title;
 }
-
-- (void)setCoverImage:(UIImage *)image imageUrl:(NSURL *)imageUrl
-{
-    if (imageUrl) {
-        [self.controlView.placeholderImageView sd_setImageWithURL:imageUrl placeholderImage:image];
-    } else {
-        self.controlView.placeholderImageView.image = image;
-    }
-}
-
 
 - (void)playWithModel:(SuperPlayerModel *)playerModel {
     self.imageSprite = nil;
     self.keyFrameDescList = nil;
+    self.isShiftPlayback = NO;
     [self reportPlay];
     self.reportTime = [NSDate date];
     [self _removeOldPlayer];
     [self _playWithModel:playerModel];
+    self.coverImageView.alpha = 1;
 }
 
 - (void)_playWithModel:(SuperPlayerModel *)playerModel {
     _playerModel = playerModel;
     _videoIndex  = 0;
-    
-    if (self.controlView == nil) {
-        self.controlView = [SuperPlayerControlView new];
-    } else {
-        [self.controlView playerResetControlView];
-    }
     
     [self pause];
     
@@ -247,7 +234,6 @@ static UISlider * _volumeSlider;
     [self.livePlayer removeVideoWidget];
     self.livePlayer = nil;
     
-    [self.controlView playerResolutionArray:nil defaultIndex:0];
     [self reportPlay];
     
     self.state = StateStopped;
@@ -257,7 +243,7 @@ static UISlider * _volumeSlider;
  *  播放
  */
 - (void)resume {
-    [self.controlView playerPlayBtnState:YES];
+    [self.controlView setPlayState:YES];
     self.isPauseByUser = NO;
     if (self.isLive) {
         [_livePlayer resume];
@@ -270,7 +256,7 @@ static UISlider * _volumeSlider;
  * 暂停
  */
 - (void)pause {
-    [self.controlView playerPlayBtnState:NO];
+    [self.controlView setPlayState:NO];
     self.isPauseByUser = YES;
     if (self.isLive) {
         [_livePlayer pause];
@@ -361,7 +347,7 @@ static UISlider * _volumeSlider;
             }
         }
         
-        [self.controlView playerResolutionArray:self.playerModel.multiVideoURLs defaultIndex:_videoIndex];
+        [self.controlView playerBegin:self.playerModel.multiVideoURLs defaultIndex:_videoIndex isLive:self.isLive isTimeShifting:self.isShiftPlayback];
         
         // 多码率启用网络监听
         [self.netWatcher startWatch];
@@ -376,10 +362,9 @@ static UISlider * _volumeSlider;
             }
         }];
     } else {
-        [self.controlView playerResolutionArray:nil defaultIndex:0];
+        [self.controlView playerBegin:nil defaultIndex:0 isLive:self.isLive isTimeShifting:self.isShiftPlayback];
     }
-    [self.controlView playerIsLive:self.isLive];
-    self.controlView.disableDanmakuBtn = (_danmakuView == nil);
+
     self.repeatBtn.hidden = YES;
     self.playDidEnd = NO;
 }
@@ -593,14 +578,6 @@ static UISlider * _volumeSlider;
     }
 }
 
-/**
- *  解锁屏幕方向锁定
- */
-- (void)unLockTheScreen {
-    [self.controlView playerLockBtnState:NO];
-    self.isLockScreen = NO;
-    [self interfaceOrientation:UIInterfaceOrientationPortrait];
-}
 
 
 #pragma mark - Action
@@ -619,7 +596,7 @@ static UISlider * _volumeSlider;
         if (SuperPlayerWindowShared.isShowing)
             return;
         
-        [self.controlView playerShowOrHideControlView];
+        [self.controlView taggleControlView];
     }
 }
 
@@ -631,7 +608,7 @@ static UISlider * _volumeSlider;
 - (void)doubleTapAction:(UIGestureRecognizer *)gesture {
     if (self.playDidEnd) { return;  }
     // 显示控制层
-    [self.controlView playerShowControlView];
+    [self.controlView showControlView];
     if (self.isPauseByUser) {
         [self resume];
     } else {
@@ -670,7 +647,7 @@ static UISlider * _volumeSlider;
         [SuperPlayerWindowShared hide];
         [self resetPlayer];
     }
-    [self.controlView playerPlayEnd];
+    [self.controlView hideControlView];
     [self.netWatcher stopWatch];
     
     self.repeatBtn.hidden = NO;
@@ -716,12 +693,12 @@ static UISlider * _volumeSlider;
         if (ret != 0) {
             [self showMiddleBtnMsg:kStrTimeShiftFailed];
             [self.middleBlackBtn fadeOut:2];
-            [self.controlView playerResolutionArray:self.playerModel.multiVideoURLs defaultIndex:_videoIndex];
+            [self.controlView playerBegin:self.playerModel.multiVideoURLs defaultIndex:_videoIndex isLive:self.isLive isTimeShifting:self.isShiftPlayback];
         } else {
             self.isShiftPlayback = YES;
             self.state = StateBuffering;
             self.isLoaded = NO;
-            [self.controlView playerResolutionArray:nil defaultIndex:0];    //时移播放不能切码率
+            [self.controlView playerBegin:nil defaultIndex:0 isLive:YES isTimeShifting:self.isShiftPlayback];    //时移播放不能切码率
         }
     } else {
         [self.vodPlayer seek:dragedSeconds];
@@ -787,7 +764,7 @@ static UISlider * _volumeSlider;
                 }
             }
             self.isDragging = YES;
-            [self.controlView playerHideControlView];
+            [self.controlView hideControlView];
             break;
         }
         case UIGestureRecognizerStateChanged:{ // 正在移动
@@ -993,9 +970,7 @@ static UISlider * _volumeSlider;
         [self.spinner stopAnimating];
     }
     if (state == StatePlaying || state == StateBuffering) {
-        // 隐藏占位图
-        [self.controlView playerPlayBtnState:YES];
-        [self.controlView playerIsPlaying];
+
         
         [[NSNotificationCenter defaultCenter]
          addObserver:self
@@ -1003,6 +978,11 @@ static UISlider * _volumeSlider;
          name:@"AVSystemController_SystemVolumeDidChangeNotification"
          object:nil];
         
+        if (self.coverImageView.alpha == 1) {
+            [UIView animateWithDuration:0.2 animations:^{
+                self.coverImageView.alpha = 0;
+            }];
+        }
     } else if (state == StateFailed) {
         
     } else if (state == StateStopped) {
@@ -1010,13 +990,14 @@ static UISlider * _volumeSlider;
         [[NSNotificationCenter defaultCenter]
          removeObserver:self name:@"AVSystemController_SystemVolumeDidChangeNotification" object:nil];
         
+        self.coverImageView.alpha = 1;
+        
     } else if (state == StatePause) {
-        [self.controlView playerPlayBtnState:NO];
+
     }
 }
 
 - (void)setControlView:(SuperPlayerControlView *)controlView {
-    if (_controlView) { return; }
     _controlView = controlView;
     controlView.delegate = self;
     [self addSubview:controlView];
@@ -1025,14 +1006,12 @@ static UISlider * _volumeSlider;
     }];
 }
 
-- (void)setIsShiftPlayback:(BOOL)isShiftPlayback {
-    _isShiftPlayback = isShiftPlayback;
-    [self.controlView playerBackLiveBtnHidden:!isShiftPlayback];
-}
-
-- (void)setVideoRatio:(CGFloat)videoRatio {
-    _videoRatio = videoRatio;
-    self.controlView.videoRatio = videoRatio;
+- (SuperPlayerControlView *)controlView
+{
+    if (_controlView == nil) {
+        self.controlView = [[SPDefaultControlView alloc] initWithFrame:CGRectZero];
+    }
+    return _controlView;
 }
 
 - (void)setDragging:(BOOL)dragging
@@ -1137,7 +1116,7 @@ static UISlider * _volumeSlider;
         self.isShiftPlayback = NO;
         self.isLoaded = NO;
         [self.livePlayer resumeLive];
-        [self.controlView playerResolutionArray:self.playerModel.multiVideoURLs defaultIndex:_videoIndex];
+        [self.controlView playerBegin:self.playerModel.multiVideoURLs defaultIndex:_videoIndex isLive:self.isLive isTimeShifting:self.isShiftPlayback];
     } else {
         self.seekTime = [self.vodPlayer currentPlaybackTime];
         [self configTXPlayer];
@@ -1206,16 +1185,6 @@ static UISlider * _volumeSlider;
 }
 
 
-
-- (void)onControlView:(UIView *)controlView backLiveAction:(UIButton *)sender {
-    if (self.isLive) {
-        self.isShiftPlayback = NO;
-        self.isLoaded = NO;
-        [self.livePlayer resumeLive];
-        [self.controlView playerResolutionArray:self.playerModel.multiVideoURLs defaultIndex:_videoIndex];
-    }
-}
-
 #pragma clang diagnostic pop
 #pragma mark - 点播回调
 
@@ -1261,7 +1230,6 @@ static UISlider * _volumeSlider;
         if (EvtID == PLAY_EVT_PLAY_BEGIN) {
             if (self.state == StateBuffering)
                 self.state = StatePlaying;
-            [self.controlView playerPlayBtnState:YES];
         } else if (EvtID == PLAY_EVT_PLAY_PROGRESS) {
             if (self.state == StateStopped)
                 return;
@@ -1269,9 +1237,9 @@ static UISlider * _volumeSlider;
             NSInteger currentTime = player.currentPlaybackTime;
             CGFloat totalTime     = player.duration;
             CGFloat value         = player.currentPlaybackTime / player.duration;
-            [self.controlView playerCurrentTime:currentTime totalTime:totalTime sliderValue:value];
-            NSTimeInterval playableDuration = player.playableDuration;
-            [self.controlView playerPlayableProgress:playableDuration / totalTime];
+
+            [self.controlView setProgressTime:currentTime totalTime:totalTime progressValue:value playableValue:player.playableDuration / player.duration];
+
         } else if (EvtID == PLAY_EVT_PLAY_END) {
             self.state = StateStopped;
             [self moviePlayDidEnd];
@@ -1300,12 +1268,11 @@ static UISlider * _volumeSlider;
         int defaultIndex;
         NSArray *titles = [TXBitrateItemHelper sortWithBitrate:bitrates defaultIndex:&defaultIndex];
         _playerModel.multiVideoURLs = titles;
-        [self.controlView playerResolutionArray:titles defaultIndex:defaultIndex];
+        [self.controlView playerBegin:titles defaultIndex:defaultIndex isLive:self.isLive isTimeShifting:self.isShiftPlayback];
     }
 }
 
 - (void)updatePlayerPoint {
-    [self.controlView playerRemoveAllPoints];
     
     for (NSDictionary *keyFrameDesc in self.keyFrameDescList) {
         NSInteger time = [J2Num([keyFrameDesc valueForKeyPath:@"timeOffset"]) intValue];
@@ -1336,7 +1303,6 @@ static UISlider * _volumeSlider;
         if (EvtID == PLAY_EVT_PLAY_BEGIN) {
             if (self.state == StateBuffering)
                 self.state = StatePlaying;
-            [self.controlView playerPlayBtnState:YES];
             [self.netWatcher loadingEndEvent];
         } else if (EvtID == PLAY_EVT_PLAY_END) {
             self.state = StateStopped;
@@ -1381,9 +1347,9 @@ static UISlider * _volumeSlider;
                 } else {
                     sv = self.liveProgressTime / (self.maxLiveProgressTime + 1);
                 }
-                [self.controlView playerCurrentTime:self.liveProgressTime totalTime:-1 sliderValue:sv];
+                [self.controlView setProgressTime:self.liveProgressTime totalTime:-1 progressValue:sv playableValue:0];
             } else {
-                [self.controlView playerCurrentTime:self.maxLiveProgressTime totalTime:-1 sliderValue:1];
+                [self.controlView setProgressTime:self.maxLiveProgressTime totalTime:-1 progressValue:1 playableValue:0];
             }
         }
     });
@@ -1559,7 +1525,7 @@ static UISlider * _volumeSlider;
         NSUInteger idx = _videoIndex+1;
         if (idx < self.playerModel.multiVideoURLs.count) {
             [self controlViewSwitch:self.controlView withModel:self.playerModel.multiVideoURLs[idx]];
-            [self.controlView playerResolutionIndex:idx];
+            [self.controlView playerBegin:self.playerModel.multiVideoURLs defaultIndex:idx isLive:self.isLive isTimeShifting:self.isShiftPlayback];
         }
     }
     [btn fadeOut:0.2];
@@ -1580,7 +1546,6 @@ static UISlider * _volumeSlider;
 
 - (void)repeatBtnClick:(UIButton *)sender {
     [self configTXPlayer];
-    [self.controlView playerResetControlView];
 }
 
 - (MMMaterialDesignSpinner *)spinner {
@@ -1597,4 +1562,19 @@ static UISlider * _volumeSlider;
     }
     return _spinner;
 }
+
+- (UIImageView *)coverImageView {
+    if (!_coverImageView) {
+        _coverImageView = [[UIImageView alloc] init];
+        _coverImageView.userInteractionEnabled = YES;
+        _coverImageView.contentMode = UIViewContentModeScaleAspectFit;
+        _coverImageView.alpha = 0;
+        [self addSubview:_coverImageView];
+        [_coverImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.edges.mas_equalTo(UIEdgeInsetsZero);
+        }];
+    }
+    return _coverImageView;
+}
+
 @end

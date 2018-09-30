@@ -1,21 +1,14 @@
 //
-//  SuperPlayerControlView.h
-//  TXLiteAVDemo
+//  SPDefaultControlView.h
+//  SuperPlayer
 //
-//  Created by annidyfeng on 2018/6/25.
-//  Copyright © 2018年 Tencent. All rights reserved.
+//  Created by annidyfeng on 2018/9/30.
 //
-#import <UIKit/UIKit.h>
 
-#import "SuperPlayer.h"
-#import "SuperPlayerControlViewDelegate.h"
-#import "SuperPlayerModel.h"
-#import "PlayerSlider.h"
-#import "SuperPlayerFastView.h"
-#import "MMMaterialDesignSpinner.h"
-#import "MoreContentView.h"
+#import "SuperPlayerControlView.h"
 
-@interface SuperPlayerControlView : UIView
+@interface SPDefaultControlView : SuperPlayerControlView
+
 
 /** 标题 */
 @property (nonatomic, strong) UILabel                 *titleLabel;
@@ -63,8 +56,7 @@
 
 /** 当前选中的分辨率btn按钮 */
 @property (nonatomic, weak  ) UIButton                *resoultionCurrentBtn;
-/** 占位图 */
-@property (nonatomic, strong) UIImageView             *placeholderImageView;
+
 /** 分辨率的名称 */
 @property (nonatomic, strong) NSArray<SuperPlayerUrl *> *resolutionArray;
 /** 更多设置View */
@@ -74,7 +66,7 @@
 /** 显示控制层 */
 @property (nonatomic, assign, getter=isShowing) BOOL  showing;
 
-@property (nonatomic, weak) id<SuperPlayerControlViewDelegate> delegate;
+
 
 /// 画面比例
 @property CGFloat videoRatio;
@@ -84,83 +76,6 @@
 
 /** 重播按钮 */
 @property (nonatomic, strong) UIButton       *repeatBtn;
-
-/**
- * 取消自动隐藏控制层view
- */
-- (void)playerCancelAutoFadeOutControlView;
-
-/**
- * 切换分辨率功能
- * @param resolutionArray 分辨率名称的数组
- * @param defualtIndex 当前分辨率
- */
-- (void)playerResolutionArray:(NSArray<SuperPlayerUrl *> *)resolutionArray defaultIndex:(NSInteger)defualtIndex;
-- (void)playerResolutionIndex:(NSInteger)defualtIndex;
-
-/**
- * progress显示缓冲进度
- */
-- (void)playerPlayableProgress:(CGFloat)progress;
-
-/**
- * 播放进度
- * @param currentTime 当前播放时长
- * @param totalTime   视频总时长
- * @param value       slider的value(0.0~1.0)
- */
-- (void)playerCurrentTime:(NSInteger)currentTime totalTime:(NSInteger)totalTime sliderValue:(CGFloat)value;
-
-/**
- * 进度条打点
- */
-- (void)playerRemoveAllPoints;
-- (void)playerAddVideoPoint:(CGFloat)where text:(NSString *)text time:(NSInteger)time;
-
-/**
- * 播放按钮状态 (播放、暂停状态)
- */
-- (void)playerPlayBtnState:(BOOL)state;
-
-
-
-/**
- * 开始播放（隐藏placeholderImageView）
- */
-- (void)playerIsPlaying;
-
-/**
- * 播放完了
- */
-- (void)playerPlayEnd;
-
-/**
- * 锁定屏幕方向按钮状态
- */
-- (void)playerLockBtnState:(BOOL)state;
-
-- (void)playerShowOrHideControlView;
-
-/**
- *  隐藏控制层
- */
-- (void)playerHideControlView;
-
-/**
- *  显示控制层
- */
-- (void)playerShowControlView;
-
-/** 重置ControlView */
-- (void)playerResetControlView;
-
-/** 设置是否为直播模式 */
-- (void)playerIsLive:(BOOL)isLive;
-
-/**
- * 时移隐藏
- */
-- (void)playerBackLiveBtnHidden:(BOOL)hidden;
 
 
 @end

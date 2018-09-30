@@ -78,7 +78,7 @@
         self.superPlayer.fatherView = _rootView;
     }
     
-    [self.superPlayer.controlView playerHideControlView];
+    [self.superPlayer.controlView hideControlView];
     
     [_rootView bringSubviewToFront:_backBtn];
     [_rootView bringSubviewToFront:_closeBtn];
