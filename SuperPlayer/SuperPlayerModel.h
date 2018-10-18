@@ -35,7 +35,7 @@
 /**
  *
  */
-@property NSString *playingDefinition;
+@property (nonatomic) NSString *playingDefinition;
 
 @property (readonly) NSString *playingDefinitionUrl;
 

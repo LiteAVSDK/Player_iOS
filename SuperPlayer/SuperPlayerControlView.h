@@ -14,8 +14,11 @@
 #import "SuperPlayerFastView.h"
 #import "MMMaterialDesignSpinner.h"
 #import "MoreContentView.h"
+#import "SuperPlayerModel.h"
 
-@protocol SuperPlayerControlViewInterface <NSObject>
+
+
+@interface SuperPlayerControlView : UIView
 
 
 /**
@@ -61,16 +64,16 @@
 /**
  * 切换分辨率功能
  */
-- (void)playerBegin:(NSArray<SuperPlayerUrl *> *)resolutionArray
-       defaultIndex:(NSInteger)defualtIndex
+- (void)playerBegin:(SuperPlayerModel *)model
              isLive:(BOOL)isLive
      isTimeShifting:(BOOL)isTimeShifting;
 
-@end
-
-@interface SuperPlayerControlView : UIView<SuperPlayerControlViewInterface>
-
+// ---------------------------------------------------------------------------------------------------------------------
 @property NSString *title;
+@property BOOL  isDragging;
 @property (nonatomic, weak) id<SuperPlayerControlViewDelegate> delegate;
+
+- (void)setOrientationPortraitConstraint;
+- (void)setOrientationLandscapeConstraint;
 
 @end

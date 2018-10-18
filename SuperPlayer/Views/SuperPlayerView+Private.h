@@ -75,7 +75,6 @@ TXVodPlayListener, TXLivePlayListener, CFDanmakuDelegate, SuperPlayerControlView
 @property MPVolumeView *volumeView;
 // 播放的数据
 @property (nonatomic, assign) float                  seekTime;
-@property (nonatomic, strong) NSString               *videoURL;
 
 // add for txvodplayer
 @property BOOL  isLoaded;

@@ -10,6 +10,7 @@
 #import "SuperPlayerView+Private.h"
 #import "StrUtils.h"
 #import "SPDefaultControlView.h"
+#import "UIView+Fade.h"
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored"-Wdeprecated-declarations"
@@ -24,7 +25,7 @@ static const CGFloat SuperPlayerControlBarAutoFadeOutTimeInterval = 0.15f;
 
 
 /** 是否拖拽slider控制播放进度 */
-@property BOOL  isDragging;
+
 /** 是否播放结束 */
 @property (nonatomic, assign, getter=isPlayEnd) BOOL  playeEnd;
 /** 是否全屏播放 */
@@ -75,10 +76,9 @@ static const CGFloat SuperPlayerControlBarAutoFadeOutTimeInterval = 0.15f;
         self.danmakuBtn.hidden = YES;
         self.moreBtn.hidden     = YES;
         self.resolutionBtn.hidden   = YES;
+        self.moreContentView.hidden = YES;
         // 初始化时重置controlView
         [self playerResetControlView];
-        
-        [self listeningRotating];
     }
     return self;
 }
@@ -192,16 +192,7 @@ static const CGFloat SuperPlayerControlBarAutoFadeOutTimeInterval = 0.15f;
     }];
 }
 
-- (void)layoutSubviews {
-    [super layoutSubviews];
-    
-    UIInterfaceOrientation currentOrientation = [UIApplication sharedApplication].statusBarOrientation;
-    if (currentOrientation == UIDeviceOrientationPortrait) {
-        [self setOrientationPortraitConstraint];
-    } else {
-        [self setOrientationLandscapeConstraint];
-    }
-}
+
 
 
 #pragma mark - Action
@@ -214,13 +205,9 @@ static const CGFloat SuperPlayerControlBarAutoFadeOutTimeInterval = 0.15f;
     self.resoultionCurrentBtn.selected = NO;
     self.resoultionCurrentBtn.backgroundColor = [UIColor clearColor];
     self.resoultionCurrentBtn = sender;
-    // 分辨率Btn改为normal状态
-    self.resolutionBtn.selected = NO;
     // topImageView上的按钮的文字
     [self.resolutionBtn setTitle:sender.titleLabel.text forState:UIControlStateNormal];
-    
-    SuperPlayerUrl *model = [_resolutionArray objectAtIndex:sender.tag-MODEL_TAG_BEGIN];
-    [self.delegate controlViewSwitch:self withModel:model];
+    [self.delegate controlViewSwitch:self withDefinition:sender.titleLabel.text];
     
     sender.selected = YES;
     if (sender.isSelected) {
@@ -276,14 +263,14 @@ static const CGFloat SuperPlayerControlBarAutoFadeOutTimeInterval = 0.15f;
 }
 
 - (void)moreBtnClick:(UIButton *)sender {
-    [self hideControlView];
     
-    [self.moreContentView updateContents:self.isLive];
+    self.topImageView.hidden = YES;
+    self.bottomImageView.hidden = YES;
+    self.lockBtn.hidden = YES;
+    self.moreContentView.hidden = NO;
     self.moreView.contentSize = self.moreView.bounds.size;
-    self.moreView.hidden = NO;
-    [self.moreContentView updateData];
     
-    [self playerCancelAutoFadeOutControlView];
+    [self cancelFadeOut];
 }
 
 - (void)playerShowResolutionView {
@@ -299,6 +286,7 @@ static const CGFloat SuperPlayerControlBarAutoFadeOutTimeInterval = 0.15f;
 - (void)progressSliderTouchBegan:(UISlider *)sender {
     [self playerCancelAutoFadeOutControlView];
     self.isDragging = YES;
+    [self cancelFadeOut];
 }
 
 - (void)progressSliderValueChanged:(UISlider *)sender {
@@ -309,7 +297,7 @@ static const CGFloat SuperPlayerControlBarAutoFadeOutTimeInterval = 0.15f;
     self.showing = YES;
     [self.delegate controlViewSeek:self where:sender.value];
     self.isDragging = NO;
-    [self autoFadeOutControlView];
+    [self fadeOut:5];
 }
 
 - (void)backLiveClick:(UIButton *)sender {
@@ -325,22 +313,12 @@ static const CGFloat SuperPlayerControlBarAutoFadeOutTimeInterval = 0.15f;
 /**
  *  屏幕方向发生变化会调用这里
  */
-- (void)onDeviceOrientationChange {
-    if (self.isLockScreen) { return; }
-    self.lockBtn.hidden         = !self.isFullScreen;
-    self.fullScreenBtn.selected = self.isFullScreen;
-    UIDeviceOrientation orientation = [UIDevice currentDevice].orientation;
-    if (orientation == UIDeviceOrientationPortrait) {
-        self.moreView.hidden = YES;
-        self.resolutionView.hidden = YES;
-        [self removePointJumpBtn];
-    }
-}
-
 - (void)setOrientationLandscapeConstraint {
     self.fullScreen             = YES;
-    self.lockBtn.hidden         = !self.isFullScreen;
-    self.fullScreenBtn.selected = self.isFullScreen;
+    self.lockBtn.hidden         = NO;
+    self.fullScreenBtn.selected = self.isLockScreen;
+    self.fullScreenBtn.hidden   = YES;
+    self.resolutionBtn.hidden   = NO;
     
     [self.backBtn setImage:SuperPlayerImage(@"back_full") forState:UIControlStateNormal];
     [self.backBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
@@ -351,6 +329,16 @@ static const CGFloat SuperPlayerControlBarAutoFadeOutTimeInterval = 0.15f;
     
     [self.backBtn removeTarget:self action:@selector(backBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     [self.backBtn addTarget:self action:@selector(exitFullScreen:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.totalTimeLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+        if (self.resolutionArray.count > 0) {
+            make.trailing.equalTo(self.resolutionBtn.mas_leading);
+        } else {
+            make.trailing.equalTo(self.bottomImageView.mas_trailing);
+        }
+        make.centerY.equalTo(self.startBtn.mas_centerY);
+        make.width.mas_equalTo(self.isLive?10:60);
+    }];
     
     if (IsIPhoneX) {
         [self.startBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
@@ -367,9 +355,15 @@ static const CGFloat SuperPlayerControlBarAutoFadeOutTimeInterval = 0.15f;
  */
 - (void)setOrientationPortraitConstraint {
     self.fullScreen             = NO;
-    self.lockBtn.hidden         = !self.isFullScreen;
-    self.fullScreenBtn.selected = self.isFullScreen;
+    self.lockBtn.hidden         = YES;
+    self.fullScreenBtn.selected = NO;
+    self.resolutionBtn.hidden   = YES;
     
+    [self.totalTimeLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.trailing.equalTo(self.fullScreenBtn.mas_leading);
+        make.centerY.equalTo(self.startBtn.mas_centerY);
+        make.width.mas_equalTo(self.isLive?10:60);
+    }];
     [self.backBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.topImageView.mas_top).offset(3);
         make.leading.equalTo(self.topImageView.mas_leading).offset(5);
@@ -388,6 +382,7 @@ static const CGFloat SuperPlayerControlBarAutoFadeOutTimeInterval = 0.15f;
     }
     
     self.videoSlider.hiddenPoints = YES;
+    [self removePointJumpBtn];
 }
 
 #pragma mark - Private Method
@@ -421,17 +416,6 @@ static const CGFloat SuperPlayerControlBarAutoFadeOutTimeInterval = 0.15f;
     self.bottomImageView.alpha = !self.isLockScreen;
     self.backLiveBtn.alpha     = !self.isLockScreen;
 }
-/**
- *  监听设备旋转通知
- */
-- (void)listeningRotating {
-    [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(onDeviceOrientationChange)
-                                                 name:UIDeviceOrientationDidChangeNotification
-                                               object:nil];
-}
-
 
 - (void)autoFadeOutControlView {
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(hideControlView) object:nil];
@@ -441,49 +425,6 @@ static const CGFloat SuperPlayerControlBarAutoFadeOutTimeInterval = 0.15f;
 
 
 #pragma mark - setter
-
-- (void)setFullScreen:(BOOL)fullScreen {
-    _fullScreen = fullScreen;
-    
-    self.fullScreenBtn.hidden = _fullScreen;
-    if (_fullScreen) {
-        NSUInteger resolutionSize = _resolutionArray.count;
-        if (resolutionSize > 0) {
-            self.resolutionBtn.hidden = NO;
-        } else {
-            self.resolutionBtn.hidden = YES;
-        }
-        
-        [self.totalTimeLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
-            if (resolutionSize > 0) {
-                make.trailing.equalTo(self.resolutionBtn.mas_leading);
-            } else {
-                make.trailing.equalTo(self.bottomImageView.mas_trailing);
-            }
-            make.centerY.equalTo(self.startBtn.mas_centerY);
-            make.width.mas_equalTo(self.isLive?10:60);
-        }];
-        
-    } else {
-        [self.totalTimeLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.trailing.equalTo(self.fullScreenBtn.mas_leading);
-            make.centerY.equalTo(self.startBtn.mas_centerY);
-            make.width.mas_equalTo(self.isLive?10:60);
-        }];
-        self.resolutionBtn.hidden = YES;
-    }
-    
-    self.captureBtn.hidden = !_fullScreen || self.disableCaptureBtn;
-    self.danmakuBtn.hidden = !_fullScreen || self.disableDanmakuBtn;
-    self.moreBtn.hidden = !_fullScreen || self.disableMoreBtn;
-    if (_fullScreen) {
-        self.backBtn.hidden = NO;
-    } else {
-        self.backBtn.hidden = self.disableBackBtn;
-    }
-}
-
-#pragma mark - getter
 
 - (UILabel *)titleLabel {
     if (!_titleLabel) {
@@ -598,10 +539,6 @@ static const CGFloat SuperPlayerControlBarAutoFadeOutTimeInterval = 0.15f;
     return _fullScreenBtn;
 }
 
-
-
-
-
 - (UIButton *)captureBtn {
     if (!_captureBtn) {
         _captureBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -632,27 +569,6 @@ static const CGFloat SuperPlayerControlBarAutoFadeOutTimeInterval = 0.15f;
     return _moreBtn;
 }
 
-- (UIScrollView *)moreView {
-    if (!_moreView) {
-        
-        _moreView = [[UIScrollView alloc] initWithFrame:CGRectZero];
-        _moreView.hidden = YES;
-        [self addSubview:_moreView];
-        [_moreView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.width.mas_equalTo(330);
-            make.height.mas_equalTo(self.mas_height);
-            make.right.equalTo(self.mas_right);
-            make.top.equalTo(self.mas_top);
-        }];
-        _moreView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
-    }
-    return _moreView;
-}
-
-- (void)resetMoreView {
-    
-}
-
 - (UIButton *)resolutionBtn {
     if (!_resolutionBtn) {
         _resolutionBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -681,16 +597,6 @@ static const CGFloat SuperPlayerControlBarAutoFadeOutTimeInterval = 0.15f;
     }
     return _resolutionView;
 }
-
-- (UIButton *)playeBtn {
-    if (!_playeBtn) {
-        _playeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_playeBtn setImage:SuperPlayerImage(@"play_btn") forState:UIControlStateNormal];
-        [_playeBtn addTarget:self action:@selector(centerPlayBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-    }
-    return _playeBtn;
-}
-
 
 - (UIButton *)backLiveBtn {
     if (!_backLiveBtn) {
@@ -868,12 +774,7 @@ static const CGFloat SuperPlayerControlBarAutoFadeOutTimeInterval = 0.15f;
     [self.videoSlider.progressView setProgress:playable animated:NO];
 }
 
-
-
-/**
- 是否有切换分辨率功能
- */
-- (void)playerBegin:(NSArray<SuperPlayerUrl *> *)resolutionArray defaultIndex:(NSInteger)defualtIndex
+- (void)playerBegin:(SuperPlayerModel *)model
              isLive:(BOOL)isLive
      isTimeShifting:(BOOL)isTimeShifting
 {
@@ -881,19 +782,13 @@ static const CGFloat SuperPlayerControlBarAutoFadeOutTimeInterval = 0.15f;
     [self playerIsLive:isLive];
     [self setPlayState:YES];
     [self playerBackLiveBtnHidden:!isTimeShifting];
+    self.moreContentView.isLive = isLive;
     
-    _resolutionArray = resolutionArray;
+    _resolutionArray = model.playDefinitions;
     for (UIView *subview in self.resolutionView.subviews)
         [subview removeFromSuperview];
-    [_resolutionBtn setTitle:@"" forState:UIControlStateNormal];
-    self.resolutionView.hidden = YES;
-    if (resolutionArray == nil || resolutionArray.count == 0) {
-        return;
-    }
-    if (defualtIndex < 0 || defualtIndex >= resolutionArray.count) {
-        return;
-    }
-    [_resolutionBtn setTitle:resolutionArray[defualtIndex].title forState:UIControlStateNormal];
+   
+    [self.resolutionBtn setTitle:model.playingDefinition forState:UIControlStateNormal];
     
     UILabel *lable = [UILabel new];
     lable.text = @"清晰度";
@@ -908,28 +803,20 @@ static const CGFloat SuperPlayerControlBarAutoFadeOutTimeInterval = 0.15f;
     }];
     
     // 分辨率View上边的Btn
-    for (NSInteger i = 0 ; i < resolutionArray.count; i++) {
+    for (NSInteger i = 0 ; i < _resolutionArray.count; i++) {
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [btn setTitle:resolutionArray[i].title forState:UIControlStateNormal];
+        [btn setTitle:_resolutionArray[i] forState:UIControlStateNormal];
         [btn setTitleColor:RGBA(252, 89, 81, 1) forState:UIControlStateSelected];
-        if (i == defualtIndex) {
-            self.resoultionCurrentBtn = btn;
-            btn.selected = YES;
-            btn.backgroundColor = RGBA(34, 30, 24, 1);
-        }
         [self.resolutionView addSubview:btn];
         [btn addTarget:self action:@selector(changeResolution:) forControlEvents:UIControlEventTouchUpInside];
         [btn mas_makeConstraints:^(MASConstraintMaker *make) {
             make.width.equalTo(self.resolutionView.mas_width);
             make.height.mas_equalTo(45);
             make.left.equalTo(self.resolutionView.mas_left);
-            make.centerY.equalTo(self.resolutionView.mas_centerY).offset((i-resolutionArray.count/2.0+0.5)*45);
+            make.centerY.equalTo(self.resolutionView.mas_centerY).offset((i-_resolutionArray.count/2.0+0.5)*45);
         }];
         btn.tag = MODEL_TAG_BEGIN+i;
     }
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self changeResolution:self.resoultionCurrentBtn];
-    });
 }
 
 

@@ -58,7 +58,7 @@
 @property (nonatomic, weak  ) UIButton                *resoultionCurrentBtn;
 
 /** 分辨率的名称 */
-@property (nonatomic, strong) NSArray<SuperPlayerUrl *> *resolutionArray;
+@property (nonatomic, strong) NSArray<NSString *>    *resolutionArray;
 /** 更多设置View */
 @property (nonatomic, strong) MoreContentView        *moreContentView;
 /** 返回直播 */
