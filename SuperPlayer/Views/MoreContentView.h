@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SuperPlayerViewConfig.h"
 
 #define MoreViewWidth 330
 
@@ -22,6 +23,7 @@
 
 @property (nonatomic) BOOL isLive;
 
+@property SuperPlayerViewConfig *playerConfig;
 - (void)update;
 
 @end

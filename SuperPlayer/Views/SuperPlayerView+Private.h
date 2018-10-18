@@ -16,7 +16,7 @@
 
 #import "Masonry/Masonry.h"
 #import "AFNetworking/AFNetworking.h"
-#import "SDWebImage/UIImageView+WebCache.h"    // SDWebImage
+#import "SuperPlayerViewConfig.h"
 
 // 枚举值，包含水平移动方向和垂直移动方向
 typedef NS_ENUM(NSInteger, PanDirection){
@@ -69,6 +69,7 @@ TXVodPlayListener, TXLivePlayListener, CFDanmakuDelegate, SuperPlayerControlView
 @property (nonatomic, strong) UIButton               *lockTipsBtn;
 
 @property (nonatomic, strong) SuperPlayerModel       *playerModel;
+@property SuperPlayerViewConfig                      *playerConfig;
 
 
 @property (class, readonly) UISlider *volumeViewSlider;

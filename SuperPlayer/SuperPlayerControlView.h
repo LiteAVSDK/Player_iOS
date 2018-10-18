@@ -15,7 +15,7 @@
 #import "MMMaterialDesignSpinner.h"
 #import "MoreContentView.h"
 #import "SuperPlayerModel.h"
-
+#import "SuperPlayerViewConfig.h"
 
 
 @interface SuperPlayerControlView : UIView
@@ -30,7 +30,6 @@
  */
 - (void)setProgressTime:(NSInteger)currentTime totalTime:(NSInteger)totalTime
           progressValue:(CGFloat)progress playableValue:(CGFloat)playable;
-
 
 
 /**
@@ -57,6 +56,7 @@
 @property NSString *title;
 @property BOOL  isDragging;
 @property (nonatomic, weak) id<SuperPlayerControlViewDelegate> delegate;
+@property SuperPlayerViewConfig *playerConfig;
 
 - (void)setOrientationPortraitConstraint;
 - (void)setOrientationLandscapeConstraint;

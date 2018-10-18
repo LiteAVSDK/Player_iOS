@@ -3,6 +3,7 @@
 
 
 @class SuperPlayerUrl;
+@class SuperPlayerControlView;
 
 @protocol SuperPlayerControlViewDelegate <NSObject>
 
@@ -22,10 +23,8 @@
 - (void)controlViewDanmaku:(UIView *)controlView withShow:(BOOL)show;
 /** 切换分辨率按钮事件 */
 - (void)controlViewSwitch:(UIView *)controlView withDefinition:(NSString *)definition;
-/** 修改速度 */
-- (void)controlViewSetSpeed:(UIView *)controlView withSpeed:(CGFloat)value;
-/** 修改镜像 */
-- (void)controlViewSetMirror:(UIView *)controlView withMirror:(BOOL)on;
+/** 修改配置 */
+- (void)controlViewConfigUpdate:(SuperPlayerControlView *)controlView;
 /** 重新播放 */
 - (void)controlViewReload:(UIView *)controlView;
 /** seek事件，pos 0~1 */

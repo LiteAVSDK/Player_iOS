@@ -221,7 +221,11 @@
 - (void)lockScrrenBtnClick:(UIButton *)sender {
     sender.selected = !sender.selected;
     self.isLockScreen = sender.selected;
-    [self showOrHideLockView];
+    self.topImageView.hidden    = self.isLockScreen;
+    self.bottomImageView.hidden = self.isLockScreen;
+    if (self.isLive) {
+        self.backLiveBtn.hidden = self.isLockScreen;
+    }
     [self.delegate controlViewLockScreen:self withLock:self.isLockScreen];
 }
 
@@ -253,6 +257,9 @@
     self.topImageView.hidden = YES;
     self.bottomImageView.hidden = YES;
     self.lockBtn.hidden = YES;
+    
+    self.moreContentView.playerConfig = self.playerConfig;
+    [self.moreContentView update];
     self.moreContentView.hidden = NO;
     
     [self cancelFadeOut];
@@ -263,14 +270,12 @@
     self.bottomImageView.hidden = YES;
     self.lockBtn.hidden = YES;
     
-    
     // 显示隐藏分辨率View
     self.resolutionView.hidden = NO;
     [DataReport report:@"change_resolution" param:nil];
     
     [self cancelFadeOut];
 }
-
 
 - (void)progressSliderTouchBegan:(UISlider *)sender {
     self.isDragging = YES;
@@ -347,10 +352,13 @@
     self.fullScreen             = NO;
     self.lockBtn.hidden         = YES;
     self.fullScreenBtn.selected = NO;
+    self.fullScreenBtn.hidden   = NO;
     self.resolutionBtn.hidden   = YES;
     self.moreBtn.hidden         = YES;
     self.captureBtn.hidden      = YES;
     self.danmakuBtn.hidden      = YES;
+    self.moreContentView.hidden = YES;
+    self.resolutionView.hidden  = YES;
     
     [self.totalTimeLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.trailing.equalTo(self.fullScreenBtn.mas_leading);
@@ -380,13 +388,6 @@
 
 #pragma mark - Private Method
 
-- (void)showOrHideLockView {
-    self.topImageView.hidden    = !self.isLockScreen;
-    self.bottomImageView.hidden = !self.isLockScreen;
-    if (self.isLive) {
-        self.backLiveBtn.hidden     = !self.isLockScreen;
-    }
-}
 #pragma mark - setter
 
 - (UILabel *)titleLabel {
@@ -565,10 +566,8 @@
         [_backLiveBtn setTitle:@"返回直播" forState:UIControlStateNormal];
         _backLiveBtn.titleLabel.font = [UIFont systemFontOfSize:14];
         UIImage *image = SuperPlayerImage(@"qg_online_bg");
-        CGFloat width = image.size.width;
-        CGFloat height = image.size.height;
         
-        UIImage *resizableImage = [image resizableImageWithCapInsets:UIEdgeInsetsMake(height * 0.5, height * 0.5, height * 0.5, height * 0.5)];
+        UIImage *resizableImage = [image resizableImageWithCapInsets:UIEdgeInsetsMake(33 * 0.5, 33 * 0.5, 33 * 0.5, 33 * 0.5)];
         [_backLiveBtn setBackgroundImage:resizableImage forState:UIControlStateNormal];
         
         [_backLiveBtn addTarget:self action:@selector(backLiveClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -607,6 +606,7 @@
             make.trailing.equalTo(self.mas_trailing).offset(0);
             make.top.equalTo(self.mas_top).offset(0);
         }];
+        _moreContentView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
     }
     return _moreContentView;
 }
@@ -627,16 +627,16 @@
 - (void)setHidden:(BOOL)hidden
 {
     [super setHidden:hidden];
-    if (hidden) {
-        [self removePointJumpBtn];
-        
+    if (hidden) {        
         self.resolutionView.hidden = YES;
         self.moreContentView.hidden = YES;
-        self.topImageView.hidden = NO;
-        self.bottomImageView.hidden = NO;
-        
-    } else {
+        if (!self.isLockScreen) {
+            self.topImageView.hidden = NO;
+            self.bottomImageView.hidden = NO;
+        }
     }
+    
+    self.lockBtn.hidden = !self.isFullScreen;
 }
 
 /** 重置ControlView */
@@ -695,9 +695,9 @@
     if (!self.isDragging) {
         // 更新slider
         self.videoSlider.value           = progress;
-        // 更新当前播放时间
-        self.currentTimeLabel.text = [StrUtils timeFormat:currentTime];
     }
+    // 更新当前播放时间
+    self.currentTimeLabel.text = [StrUtils timeFormat:currentTime];
     // 更新总时间
     self.totalTimeLabel.text = [StrUtils timeFormat:totalTime];
     [self.videoSlider.progressView setProgress:playable animated:NO];

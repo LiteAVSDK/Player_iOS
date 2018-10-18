@@ -252,7 +252,6 @@
 
         UISwitch *switcher = [UISwitch new];
         _mirrorSwitch = switcher;
-        switcher.on = SuperPlayerGlobleConfigShared.mirror;
         [switcher addTarget:self action:@selector(changeMirror:) forControlEvents:UIControlEventValueChanged];
         [_mirrorCell addSubview:switcher];
         switcher.m_right(30).m_centerY();
@@ -276,7 +275,6 @@
         
         UISwitch *switcher = [UISwitch new];
         _hwSwitch = switcher;
-        switcher.on = SuperPlayerGlobleConfigShared.enableHWAcceleration;
         [switcher addTarget:self action:@selector(changeHW:) forControlEvents:UIControlEventValueChanged];
         [_hwCell addSubview:switcher];
         switcher.m_right(30).m_centerY();
@@ -316,40 +314,23 @@
             b.selected = NO;
     }
     sender.selected = YES;
-    
-
-    if (sender.tag == TAG_1_SPEED) {
-        [self.controlView.delegate controlViewSetSpeed:self withSpeed:1];
-        SuperPlayerGlobleConfigShared.playRate = 1;
-    }
-    if (sender.tag == TAG_2_SPEED) {
-        [self.controlView.delegate controlViewSetSpeed:self withSpeed:1.25];
-        SuperPlayerGlobleConfigShared.playRate = 1.25;
-    }
-    if (sender.tag == TAG_3_SPEED) {
-        [self.controlView.delegate controlViewSetSpeed:self withSpeed:1.5];
-        SuperPlayerGlobleConfigShared.playRate = 1.5;
-    }
-    if (sender.tag == TAG_4_SPEED) {
-        [self.controlView.delegate controlViewSetSpeed:self withSpeed:2];
-        SuperPlayerGlobleConfigShared.playRate = 2;
-    }
-    
-    
+    self.playerConfig.playRate = [sender.titleLabel.text floatValue];
+    [self.controlView.delegate controlViewConfigUpdate:self.controlView];
     [DataReport report:@"change_speed" param:nil];
 }
 
 - (void)changeMirror:(UISwitch *)sender {
-    [self.controlView.delegate controlViewSetMirror:self.controlView withMirror:sender.on];
-    SuperPlayerGlobleConfigShared.mirror = sender.on;
+    self.playerConfig.mirror = sender.on;
+    [self.controlView.delegate controlViewConfigUpdate:self.controlView];
     if (sender.on) {
         [DataReport report:@"mirror" param:nil];
     }
 }
 
 - (void)changeHW:(UISwitch *)sender {
-    SuperPlayerGlobleConfigShared.enableHWAcceleration = sender.on;
-    [self.controlView.delegate controlViewReload:self.controlView];
+    self.playerConfig.hwAccelerationChanged = YES;
+    self.playerConfig.hwAcceleration = sender.on;
+    [self.controlView.delegate controlViewConfigUpdate:self.controlView];
     [DataReport report:sender.on?@"hw_decode":@"soft_decode" param:nil];
 }
 
@@ -358,7 +339,7 @@
     self.soundSlider.value = [SuperPlayerView volumeViewSlider].value;
     self.lightSlider.value = [UIScreen mainScreen].brightness;
     
-    CGFloat rate = SuperPlayerGlobleConfigShared.playRate;
+    CGFloat rate = self.playerConfig.playRate;
     
     for (int i = TAG_1_SPEED; i <= TAG_4_SPEED; i++) {
         UIButton *b = [_speedCell viewWithTag:i];
@@ -378,8 +359,8 @@
         [[_speedCell viewWithTag:TAG_4_SPEED] setSelected:YES];
     }
     
-    _mirrorSwitch.on = SuperPlayerGlobleConfigShared.mirror;
-    _hwSwitch.on = SuperPlayerGlobleConfigShared.enableHWAcceleration;
+    _mirrorSwitch.on = self.playerConfig.mirror;
+    _hwSwitch.on = self.playerConfig.hwAcceleration;
     
     [self sizeToFit];
 }

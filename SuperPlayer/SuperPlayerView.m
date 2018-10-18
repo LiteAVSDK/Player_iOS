@@ -78,6 +78,7 @@ static UISlider * _volumeSlider;
         }
     }
     
+    _playerConfig = [[SuperPlayerViewConfig alloc] init];
     // 添加通知
     [self addNotifications];
     // 添加手势
@@ -266,15 +267,13 @@ static UISlider * _volumeSlider;
     if (_vodPlayer == nil) {
         _vodPlayer = [[TXVodPlayer alloc] init];
         TXVodPlayConfig *config = [[TXVodPlayConfig alloc] init];
-        config.maxCacheItems = 5;
+        config.maxCacheItems = (int)SuperPlayerGlobleConfigShared.maxCacheItem;
         config.cacheFolderPath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingString:@"/TXCache"];
         config.progressInterval = 0.02;
 //        config.playerType = PLAYER_AVPLAYER;
         [_vodPlayer setConfig:config];
+        _vodPlayer.vodDelegate = self;
     }
-    _vodPlayer.vodDelegate = self;
-    _vodPlayer.enableHWAcceleration = SuperPlayerGlobleConfigShared.enableHWAcceleration;
-    [_vodPlayer setRenderMode:SuperPlayerGlobleConfigShared.renderMode];
     return _vodPlayer;
 }
 
@@ -289,8 +288,6 @@ static UISlider * _volumeSlider;
         [_livePlayer setConfig:config];
         _livePlayer.delegate = self;
     }
-    _livePlayer.enableHWAcceleration = SuperPlayerGlobleConfigShared.enableHWAcceleration;
-    [_livePlayer setRenderMode:SuperPlayerGlobleConfigShared.renderMode];
     return _livePlayer;
 }
 
@@ -323,17 +320,24 @@ static UISlider * _volumeSlider;
     NSString *videoURL = self.playerModel.playingDefinitionUrl;
     
     if (self.isLive) {
+        self.livePlayer.enableHWAcceleration = self.playerConfig.hwAcceleration;
         [self.livePlayer startPlay:videoURL type:liveType];
         // 时移
         [TXLiveBase setAppID:[NSString stringWithFormat:@"%ld", _playerModel.appId]];
         TXCUrl *curl = [[TXCUrl alloc] initWithString:videoURL];
         [self.livePlayer prepareLiveSeek:SuperPlayerGlobleConfigShared.playShiftDomain bizId:[curl bizid]];
+        
+        [self.livePlayer setMute:self.playerConfig.mute];
+        [self.livePlayer setRenderMode:self.playerConfig.renderMode];
     } else {
+        self.vodPlayer.enableHWAcceleration = self.playerConfig.hwAcceleration;
         [self.vodPlayer startPlay:videoURL];
         [self.vodPlayer setBitrateIndex:self.playerModel.playingDefinitionIndex];
         
-        [self.vodPlayer setRate:SuperPlayerGlobleConfigShared.playRate];
-        [self.vodPlayer setMirror:SuperPlayerGlobleConfigShared.mirror];
+        [self.vodPlayer setRate:self.playerConfig.playRate];
+        [self.vodPlayer setMirror:self.playerConfig.mirror];
+        [self.vodPlayer setMute:self.playerConfig.mute];
+        [self.vodPlayer setRenderMode:self.playerConfig.renderMode];
     }
     [self.netWatcher startWatch];
     __weak SuperPlayerView *weakSelf = self;
@@ -347,6 +351,7 @@ static UISlider * _volumeSlider;
     self.state = StateBuffering;
     self.isPauseByUser = NO;
     [self.controlView playerBegin:self.playerModel isLive:self.isLive isTimeShifting:self.isShiftPlayback];
+    self.controlView.playerConfig = self.playerConfig;
     self.repeatBtn.hidden = YES;
     self.playDidEnd = NO;
 }
@@ -936,12 +941,12 @@ static UISlider * _volumeSlider;
     }
     if (state == StatePlaying || state == StateBuffering) {
 
-        
-        [[NSNotificationCenter defaultCenter]
-         addObserver:self
-         selector:@selector(volumeChanged:)
-         name:@"AVSystemController_SystemVolumeDidChangeNotification"
-         object:nil];
+        [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                        name:@"AVSystemController_SystemVolumeDidChangeNotification"
+                                                      object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(volumeChanged:)         name:@"AVSystemController_SystemVolumeDidChangeNotification"
+                                                   object:nil];
         
         if (self.coverImageView.alpha == 1) {
             [UIView animateWithDuration:0.2 animations:^{
@@ -952,8 +957,9 @@ static UISlider * _volumeSlider;
         
     } else if (state == StateStopped) {
         
-        [[NSNotificationCenter defaultCenter]
-         removeObserver:self name:@"AVSystemController_SystemVolumeDidChangeNotification" object:nil];
+        [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                        name:@"AVSystemController_SystemVolumeDidChangeNotification"
+                                                      object:nil];
         
         self.coverImageView.alpha = 1;
         
@@ -1023,33 +1029,33 @@ static UISlider * _volumeSlider;
 }
 #pragma mark - SuperPlayerControlViewDelegate
 
-- (void)controlViewPlay:(UIView *)controlView
+- (void)controlViewPlay:(SuperPlayerControlView *)controlView
 {
     [self resume];
     if (self.state == StatePause) { self.state = StatePlaying; }
 }
 
-- (void)controlViewPause:(UIView *)controlView
+- (void)controlViewPause:(SuperPlayerControlView *)controlView
 {
     [self pause];
     if (self.state == StatePlaying) { self.state = StatePause;}
 }
 
-- (void)controlViewBack:(UIView *)controlView {
+- (void)controlViewBack:(SuperPlayerControlView *)controlView {
     if ([self.delegate respondsToSelector:@selector(superPlayerBackAction:)]) {
         [self.delegate superPlayerBackAction:self];
     }
 }
 
-- (void)controlViewChangeScreen:(UIView *)controlView withFullScreen:(BOOL)isFullScreen {
+- (void)controlViewChangeScreen:(SuperPlayerControlView *)controlView withFullScreen:(BOOL)isFullScreen {
     [self _fullScreenAction:isFullScreen];
 }
 
-- (void)controlViewLockScreen:(UIView *)controlView withLock:(BOOL)isLock {
+- (void)controlViewLockScreen:(SuperPlayerControlView *)controlView withLock:(BOOL)isLock {
     self.isLockScreen = isLock;
 }
 
-- (void)controlViewSwitch:(UIView *)controlView withDefinition:(NSString *)definition {
+- (void)controlViewSwitch:(SuperPlayerControlView *)controlView withDefinition:(NSString *)definition {
     if ([self.playerModel.playingDefinition isEqualToString:definition])
         return;
     
@@ -1068,13 +1074,23 @@ static UISlider * _volumeSlider;
     }
 }
 
-- (void)controlViewSetSpeed:(UIView *)controlView withSpeed:(CGFloat)value {
-    [self.vodPlayer setRate:value];
+- (void)controlViewConfigUpdate:(SuperPlayerView *)controlView {
+    if (self.isLive) {
+        [self.livePlayer setMute:self.playerConfig.mute];
+        [self.livePlayer setRenderMode:self.playerConfig.renderMode];
+    } else {
+        [self.vodPlayer setRate:self.playerConfig.playRate];
+        [self.vodPlayer setMirror:self.playerConfig.mirror];
+        [self.vodPlayer setMute:self.playerConfig.mute];
+        [self.vodPlayer setRenderMode:self.playerConfig.renderMode];
+    }
+    if (self.playerConfig.hwAccelerationChanged) {
+        if (!self.isLive)
+            self.seekTime = [self.vodPlayer currentPlaybackTime];
+        [self configTXPlayer]; // 软硬解需要重启
+    }
 }
 
-- (void)controlViewSetMirror:(UIView *)controlView withMirror:(BOOL)on {
-    [self.vodPlayer setMirror:on];
-}
 
 - (void)controlViewReload:(UIView *)controlView {
     if (self.isLive) {
@@ -1088,7 +1104,7 @@ static UISlider * _volumeSlider;
     }
 }
 
-- (void)controlViewSnapshot:(UIView *)controlView {
+- (void)controlViewSnapshot:(SuperPlayerControlView *)controlView {
     
     void (^block)(UIImage *img) = ^(UIImage *img) {
         [self.fastView showSnapshot:img];
@@ -1115,7 +1131,7 @@ static UISlider * _volumeSlider;
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"photos-redirect://"]];
 }
 
-- (void)controlViewDanmaku:(UIView *)controlView withShow:(BOOL)show {
+- (void)controlViewDanmaku:(SuperPlayerControlView *)controlView withShow:(BOOL)show {
     if (show) {
         [_danmakuView start];
         _danmakuView.hidden = NO;
@@ -1125,7 +1141,7 @@ static UISlider * _volumeSlider;
     }
 }
 
-- (void)controlViewSeek:(UIView *)controlView where:(CGFloat)pos {
+- (void)controlViewSeek:(SuperPlayerControlView *)controlView where:(CGFloat)pos {
     // 视频总时间长度
     CGFloat total = [self getTotalTime];
     //计算出拖动的当前秒数
@@ -1134,7 +1150,7 @@ static UISlider * _volumeSlider;
     [self fastViewUnavaliable];
 }
 
-- (void)controlViewPreview:(UIView *)controlView where:(CGFloat)pos {
+- (void)controlViewPreview:(SuperPlayerControlView *)controlView where:(CGFloat)pos {
     // 视频总时间长度
     CGFloat totalTime = [self getTotalTime];
     //计算出拖动的当前秒数

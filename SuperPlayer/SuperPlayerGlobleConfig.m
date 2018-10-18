@@ -33,8 +33,6 @@
 
 - (instancetype)init {
     self = [super init];
-       
-    _renderMode = RENDER_MODE_FILL_EDGE;
     
     _userDefalut = [NSUserDefaults standardUserDefaults];
     
@@ -45,23 +43,6 @@
     return self;
 }
 
-
-
-- (void)setEnableHWAcceleration:(BOOL)enableHWAcceleration {
-    _enableHWAcceleration = enableHWAcceleration;
-    [_userDefalut setBool:enableHWAcceleration forKey:kEnableHWAcceleration];
-}
-
-- (void)setPlayRate:(CGFloat)playRate {
-    _playRate = playRate;
-    [_userDefalut setFloat:_playRate forKey:kPlayRate];
-}
-
-- (void)setMirror:(BOOL)mirror {
-    _mirror = mirror;
-    [_userDefalut setBool:mirror forKey:kMirror];
-}
-
 - (void)setFloatViewRect:(CGRect)floatViewRect
 {
     _floatViewRect = floatViewRect;
@@ -70,25 +51,6 @@
 
 - (void)loadDefalut
 {
-    if ([_userDefalut objectForKey:kEnableHWAcceleration] == nil) {
-#if TARGET_OS_SIMULATOR
-        self.enableHWAcceleration = NO;
-#else
-        self.enableHWAcceleration = YES;
-#endif
-    } else {
-        self.enableHWAcceleration = [_userDefalut boolForKey:kEnableHWAcceleration];
-    }
-    if ([_userDefalut objectForKey:kPlayRate] == nil) {
-        self.playRate = 1.0;
-    } else {
-        self.playRate = [_userDefalut floatForKey:kPlayRate];
-    }
-    if ([_userDefalut objectForKey:kMirror] == nil) {
-        self.mirror = YES;
-    } else {
-        self.mirror = [_userDefalut boolForKey:kMirror];
-    }
     if ([_userDefalut objectForKey:kFloatViewRect] == nil) {
         CGRect rect = CGRectMake(ScreenWidth-FLOAT_VIEW_WIDTH, ScreenHeight-FLOAT_VIEW_HEIGHT, FLOAT_VIEW_WIDTH, FLOAT_VIEW_HEIGHT);
         
