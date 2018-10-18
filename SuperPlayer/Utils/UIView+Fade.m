@@ -43,8 +43,9 @@
             [UIView animateWithDuration:0.2 delay:UIViewAnimationOptionCurveEaseOut options:0 animations:^{
                 self.hidden = YES;
             } completion:^(BOOL finished) {
-                [self cancelFadeOut];
+                
             }];
+            [self cancelFadeOut];
         }
     });
 }

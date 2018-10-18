@@ -43,8 +43,6 @@
 @property (nonatomic, strong) UIButton                *moreBtn;
 /// 是否禁用更多
 @property BOOL                                        disableMoreBtn;
-/** 更多的View */
-@property (nonatomic, strong) UIScrollView            *moreView;
 /** 切换分辨率按钮 */
 @property (nonatomic, strong) UIButton                *resolutionBtn;
 /** 分辨率的View */
@@ -63,10 +61,6 @@
 @property (nonatomic, strong) MoreContentView        *moreContentView;
 /** 返回直播 */
 @property (nonatomic, strong) UIButton               *backLiveBtn;
-/** 显示控制层 */
-@property (nonatomic, assign, getter=isShowing) BOOL  showing;
-
-
 
 /// 画面比例
 @property CGFloat videoRatio;

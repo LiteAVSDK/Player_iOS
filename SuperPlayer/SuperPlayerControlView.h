@@ -41,25 +41,10 @@
 
 
 /**
- * 单击时控制显示or隐藏
- */
-- (void)taggleControlView;
-
-/**
- *  隐藏控制层
- */
-- (void)hideControlView;
-
-/**
- *  显示控制层
- */
-- (void)showControlView;
-
-/**
  * 进度条打点
  */
-- (void)playerAddVideoPoint:(CGFloat)where text:(NSString *)text time:(NSInteger)time;
-
+- (void)addVideoPoint:(CGFloat)where text:(NSString *)text time:(NSInteger)time;
+- (void)removeAllVideoPoints;
 
 /**
  * 切换分辨率功能

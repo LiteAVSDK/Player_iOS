@@ -17,26 +17,13 @@
 
 #define MODEL_TAG_BEGIN 20
 
-
-static const CGFloat SuperPlayerAnimationTimeInterval             = 7.0f;
-static const CGFloat SuperPlayerControlBarAutoFadeOutTimeInterval = 0.15f;
-
 @interface SPDefaultControlView () <UIGestureRecognizerDelegate, PlayerSliderDelegate>
-
-
-/** 是否拖拽slider控制播放进度 */
-
-/** 是否播放结束 */
-@property (nonatomic, assign, getter=isPlayEnd) BOOL  playeEnd;
 /** 是否全屏播放 */
 @property (nonatomic, assign,getter=isFullScreen)BOOL fullScreen;
 @property (nonatomic, assign,getter=isLockScreen)BOOL isLockScreen;
-
 @property (nonatomic, strong) UIButton               *pointJumpBtn;
 
 @property BOOL isLive;
-
-- (void)autoFadeOutControlView;
 
 @end
 
@@ -263,28 +250,29 @@ static const CGFloat SuperPlayerControlBarAutoFadeOutTimeInterval = 0.15f;
 }
 
 - (void)moreBtnClick:(UIButton *)sender {
-    
     self.topImageView.hidden = YES;
     self.bottomImageView.hidden = YES;
     self.lockBtn.hidden = YES;
     self.moreContentView.hidden = NO;
-    self.moreView.contentSize = self.moreView.bounds.size;
     
     [self cancelFadeOut];
 }
 
 - (void)playerShowResolutionView {
-    [self hideControlView];
+    self.topImageView.hidden = YES;
+    self.bottomImageView.hidden = YES;
+    self.lockBtn.hidden = YES;
+    
+    
     // 显示隐藏分辨率View
     self.resolutionView.hidden = NO;
     [DataReport report:@"change_resolution" param:nil];
     
-    [self playerCancelAutoFadeOutControlView];
+    [self cancelFadeOut];
 }
 
 
 - (void)progressSliderTouchBegan:(UISlider *)sender {
-    [self playerCancelAutoFadeOutControlView];
     self.isDragging = YES;
     [self cancelFadeOut];
 }
@@ -294,7 +282,6 @@ static const CGFloat SuperPlayerControlBarAutoFadeOutTimeInterval = 0.15f;
 }
 
 - (void)progressSliderTouchEnded:(UISlider *)sender {
-    self.showing = YES;
     [self.delegate controlViewSeek:self where:sender.value];
     self.isDragging = NO;
     [self fadeOut:5];
@@ -307,7 +294,7 @@ static const CGFloat SuperPlayerControlBarAutoFadeOutTimeInterval = 0.15f;
 - (void)pointJumpClick:(UIButton *)sender {
     PlayerPoint *point = [self.videoSlider.pointArray objectAtIndex:self.pointJumpBtn.tag];
     [self.delegate controlViewSeek:self where:point.where];
-    [self hideControlView];
+    [self fadeOut:0.1];
 }
 
 /**
@@ -319,6 +306,9 @@ static const CGFloat SuperPlayerControlBarAutoFadeOutTimeInterval = 0.15f;
     self.fullScreenBtn.selected = self.isLockScreen;
     self.fullScreenBtn.hidden   = YES;
     self.resolutionBtn.hidden   = NO;
+    self.moreBtn.hidden         = NO;
+    self.captureBtn.hidden      = NO;
+    self.danmakuBtn.hidden      = NO;
     
     [self.backBtn setImage:SuperPlayerImage(@"back_full") forState:UIControlStateNormal];
     [self.backBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
@@ -358,6 +348,9 @@ static const CGFloat SuperPlayerControlBarAutoFadeOutTimeInterval = 0.15f;
     self.lockBtn.hidden         = YES;
     self.fullScreenBtn.selected = NO;
     self.resolutionBtn.hidden   = YES;
+    self.moreBtn.hidden         = YES;
+    self.captureBtn.hidden      = YES;
+    self.danmakuBtn.hidden      = YES;
     
     [self.totalTimeLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.trailing.equalTo(self.fullScreenBtn.mas_leading);
@@ -387,43 +380,13 @@ static const CGFloat SuperPlayerControlBarAutoFadeOutTimeInterval = 0.15f;
 
 #pragma mark - Private Method
 
-- (void)_showControlView {
-    self.showing = YES;
-    
-    if (!self.isLockScreen || !self.fullScreen) {
-        self.topImageView.alpha    = 1;
-        self.bottomImageView.alpha = 1;
-        self.backLiveBtn.alpha     = 1;
-    }
-    self.backgroundColor       = RGBA(0, 0, 0, 0.3);
-    self.lockBtn.alpha             = 1;
-}
-
-- (void)_hideControlView {
-    self.showing = NO;
-    self.backgroundColor          = RGBA(0, 0, 0, 0);
-    self.topImageView.alpha       = self.playeEnd;
-    self.bottomImageView.alpha    = 0;
-    self.lockBtn.alpha            = 0;
-    self.backLiveBtn.alpha            = 0;
-    self.moreView.hidden = YES;
-    self.resolutionView.hidden = YES;
-    [self removePointJumpBtn];
-}
-
 - (void)showOrHideLockView {
-    self.topImageView.alpha    = !self.isLockScreen;
-    self.bottomImageView.alpha = !self.isLockScreen;
-    self.backLiveBtn.alpha     = !self.isLockScreen;
+    self.topImageView.hidden    = !self.isLockScreen;
+    self.bottomImageView.hidden = !self.isLockScreen;
+    if (self.isLive) {
+        self.backLiveBtn.hidden     = !self.isLockScreen;
+    }
 }
-
-- (void)autoFadeOutControlView {
-    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(hideControlView) object:nil];
-    [self performSelector:@selector(hideControlView) withObject:nil afterDelay:SuperPlayerAnimationTimeInterval];
-}
-
-
-
 #pragma mark - setter
 
 - (UILabel *)titleLabel {
@@ -448,7 +411,6 @@ static const CGFloat SuperPlayerControlBarAutoFadeOutTimeInterval = 0.15f;
     if (!_topImageView) {
         _topImageView                        = [[UIImageView alloc] init];
         _topImageView.userInteractionEnabled = YES;
-        _topImageView.alpha                  = 0;
         _topImageView.image                  = SuperPlayerImage(@"top_shadow");
     }
     return _topImageView;
@@ -458,7 +420,6 @@ static const CGFloat SuperPlayerControlBarAutoFadeOutTimeInterval = 0.15f;
     if (!_bottomImageView) {
         _bottomImageView                        = [[UIImageView alloc] init];
         _bottomImageView.userInteractionEnabled = YES;
-        _bottomImageView.alpha                  = 0;
         _bottomImageView.image                  = SuperPlayerImage(@"bottom_shadow");
     }
     return _bottomImageView;
@@ -637,8 +598,15 @@ static const CGFloat SuperPlayerControlBarAutoFadeOutTimeInterval = 0.15f;
 - (MoreContentView *)moreContentView {
     if (!_moreContentView) {
         _moreContentView = [[MoreContentView alloc] initWithFrame:CGRectZero];
-        [self.moreView addSubview:self.moreContentView];
         _moreContentView.controlView = self;
+        _moreContentView.hidden = YES;
+        [self addSubview:_moreContentView];
+        [_moreContentView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.width.mas_equalTo(330);
+            make.height.mas_equalTo(self.mas_height);
+            make.trailing.equalTo(self.mas_trailing).offset(0);
+            make.top.equalTo(self.mas_top).offset(0);
+        }];
     }
     return _moreContentView;
 }
@@ -656,6 +624,21 @@ static const CGFloat SuperPlayerControlBarAutoFadeOutTimeInterval = 0.15f;
 
 #pragma mark - Public method
 
+- (void)setHidden:(BOOL)hidden
+{
+    [super setHidden:hidden];
+    if (hidden) {
+        [self removePointJumpBtn];
+        
+        self.resolutionView.hidden = YES;
+        self.moreContentView.hidden = YES;
+        self.topImageView.hidden = NO;
+        self.bottomImageView.hidden = NO;
+        
+    } else {
+    }
+}
+
 /** 重置ControlView */
 - (void)playerResetControlView {
     self.videoSlider.value           = 0;
@@ -664,77 +647,24 @@ static const CGFloat SuperPlayerControlBarAutoFadeOutTimeInterval = 0.15f;
     self.totalTimeLabel.text         = @"00:00";
     self.playeBtn.hidden             = YES;
     self.resolutionView.hidden       = YES;
-    self.moreView.hidden             = YES;
     self.backgroundColor             = [UIColor clearColor];
     self.moreBtn.enabled         = YES;
-    self.showing                     = NO;
-    self.playeEnd                    = NO;
     self.lockBtn.hidden              = !self.isFullScreen;
     
     self.danmakuBtn.enabled = YES;
     self.captureBtn.enabled = YES;
     self.moreBtn.enabled = YES;
     self.backLiveBtn.hidden              = YES;
-    self.backBtn.hidden = !self.disableBackBtn;
-    [self hideControlView];
 }
 
-/**
- *  取消延时隐藏controlView的方法
- */
-- (void)playerCancelAutoFadeOutControlView {
-    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(hideControlView) object:nil];
-}
-
-
-- (void)taggleControlView {
-    if (!self.moreView.hidden || !self.resolutionView.hidden) {
-        [self hideControlView];
-        return;
-    }
-    if (self.isShowing) {
-        [self hideControlView];
-    } else {
-        [self showControlView];
-    }
-}
-
-
-/**
- *  显示控制层
- */
-- (void)showControlView {
-    [self playerCancelAutoFadeOutControlView];
-    [UIView animateWithDuration:SuperPlayerControlBarAutoFadeOutTimeInterval animations:^{
-        [self _showControlView];
-    } completion:^(BOOL finished) {
-        self.showing = YES;
-        [self autoFadeOutControlView];
-    }];
-}
-
-/**
- *  隐藏控制层
- */
-- (void)hideControlView {
-    [self playerCancelAutoFadeOutControlView];
-    [UIView animateWithDuration:SuperPlayerControlBarAutoFadeOutTimeInterval animations:^{
-        [self _hideControlView];
-    } completion:^(BOOL finished) {
-        self.showing = NO;
-    }];
-    [self.videoSlider cancelTrackingWithEvent:nil];
-}
-
-
-- (void)playerRemoveAllPoints {
+- (void)removeAllVideoPoints {
     for (PlayerPoint *holder in self.videoSlider.pointArray) {
         [holder.holder removeFromSuperview];
     }
     [self.videoSlider.pointArray removeAllObjects];
 }
 
-- (void)playerAddVideoPoint:(CGFloat)where text:(NSString *)text time:(NSInteger)time {
+- (void)addVideoPoint:(CGFloat)where text:(NSString *)text time:(NSInteger)time {
     PlayerPoint *point = [self.videoSlider addPoint:where];
     point.content = text;
     point.timeOffset = time;
@@ -742,8 +672,6 @@ static const CGFloat SuperPlayerControlBarAutoFadeOutTimeInterval = 0.15f;
 
 
 - (void)onPlayerPointSelected:(PlayerPoint *)point {
-    // TODO: show
-    
     NSString *text = [NSString stringWithFormat:@"  %@ %@  ", [StrUtils timeFormat:point.timeOffset/1000],
                       point.content];
     
@@ -757,12 +685,13 @@ static const CGFloat SuperPlayerControlBarAutoFadeOutTimeInterval = 0.15f;
     self.pointJumpBtn.tag = [self.videoSlider.pointArray indexOfObject:point];
     self.pointJumpBtn.m_left(x).m_bottom(self.videoSlider.mm_h);
     
-    [self autoFadeOutControlView];
-    
     [DataReport report:@"player_point" param:nil];
 }
 
-- (void)setProgressTime:(NSInteger)currentTime totalTime:(NSInteger)totalTime progressValue:(CGFloat)progress playableValue:(CGFloat)playable {
+- (void)setProgressTime:(NSInteger)currentTime
+              totalTime:(NSInteger)totalTime
+          progressValue:(CGFloat)progress
+          playableValue:(CGFloat)playable {
     if (!self.isDragging) {
         // 更新slider
         self.videoSlider.value           = progress;
@@ -778,10 +707,8 @@ static const CGFloat SuperPlayerControlBarAutoFadeOutTimeInterval = 0.15f;
              isLive:(BOOL)isLive
      isTimeShifting:(BOOL)isTimeShifting
 {
-    [self playerRemoveAllPoints];
-    [self playerIsLive:isLive];
     [self setPlayState:YES];
-    [self playerBackLiveBtnHidden:!isTimeShifting];
+    self.backLiveBtn.hidden = !isTimeShifting;
     self.moreContentView.isLive = isLive;
     
     _resolutionArray = model.playDefinitions;
@@ -813,28 +740,25 @@ static const CGFloat SuperPlayerControlBarAutoFadeOutTimeInterval = 0.15f;
             make.width.equalTo(self.resolutionView.mas_width);
             make.height.mas_equalTo(45);
             make.left.equalTo(self.resolutionView.mas_left);
-            make.centerY.equalTo(self.resolutionView.mas_centerY).offset((i-_resolutionArray.count/2.0+0.5)*45);
+            make.centerY.equalTo(self.resolutionView.mas_centerY).offset((i-self.resolutionArray.count/2.0+0.5)*45);
         }];
         btn.tag = MODEL_TAG_BEGIN+i;
+        
+        if ([_resolutionArray[i] isEqualToString:model.playingDefinition]) {
+            btn.selected = YES;
+            btn.backgroundColor = RGBA(34, 30, 24, 1);
+            self.resoultionCurrentBtn = btn;
+        }
     }
-}
-
-
-- (void)playerIsLive:(BOOL)isLive {
-    self.isLive = isLive;
-    [self setFullScreen:_fullScreen];
+    if (self.isLive != isLive) {
+        self.isLive = isLive;
+        [self setNeedsLayout];
+    }
 }
 
 /** 播放按钮状态 */
 - (void)setPlayState:(BOOL)state {
     self.startBtn.selected = state;
-}
-
-
-
-- (void)playerBackLiveBtnHidden:(BOOL)hidden;
-{
-    self.backLiveBtn.hidden = hidden;
 }
 
 - (void)setTitle:(NSString *)title

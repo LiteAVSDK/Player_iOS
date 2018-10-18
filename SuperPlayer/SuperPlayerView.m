@@ -166,11 +166,6 @@ static UISlider * _volumeSlider;
 
 #pragma mark - Public Method
 
-- (void)setTitle:(NSString *)title {
-    _title = title;
-    self.controlView.title = title;
-}
-
 - (void)playWithModel:(SuperPlayerModel *)playerModel {
     self.imageSprite = nil;
     self.keyFrameDescList = nil;
@@ -583,7 +578,11 @@ static UISlider * _volumeSlider;
         if (SuperPlayerWindowShared.isShowing)
             return;
         
-        [self.controlView taggleControlView];
+        if (self.controlView.hidden) {
+            [[self.controlView fadeShow] fadeOut:5];
+        } else {
+            [self.controlView fadeOut:0.2];
+        }
     }
 }
 
@@ -595,7 +594,7 @@ static UISlider * _volumeSlider;
 - (void)doubleTapAction:(UIGestureRecognizer *)gesture {
     if (self.playDidEnd) { return;  }
     // 显示控制层
-    [self.controlView showControlView];
+    [self.controlView fadeShow];
     if (self.isPauseByUser) {
         [self resume];
     } else {
@@ -634,9 +633,8 @@ static UISlider * _volumeSlider;
         [SuperPlayerWindowShared hide];
         [self resetPlayer];
     }
-    [self.controlView hideControlView];
+    [self.controlView fadeOut:0.2];
     [self.netWatcher stopWatch];
-    
     self.repeatBtn.hidden = NO;
 }
 
@@ -751,7 +749,7 @@ static UISlider * _volumeSlider;
                 }
             }
             self.isDragging = YES;
-            [self.controlView hideControlView];
+            [self.controlView fadeOut:0.2];
             break;
         }
         case UIGestureRecognizerStateChanged:{ // 正在移动
@@ -1182,7 +1180,7 @@ static UISlider * _volumeSlider;
             [self layoutSubviews];  // 防止横屏状态下添加view显示不全
             self.state = StatePlaying;
             
-            if (player.supportedBitrates.count != self.playerModel.multiVideoURLs.count) {
+            if (self.playerModel.playDefinitions.count == 0) {
                 [self updateBitrates:player.supportedBitrates];
             }
             [self updatePlayerPoint];
@@ -1237,6 +1235,9 @@ static UISlider * _volumeSlider;
         self.netWatcher.playerModel = _playerModel;
         _playerModel.playingDefinition = self.netWatcher.adviseDefinition;
         [self.controlView playerBegin:_playerModel isLive:self.isLive isTimeShifting:self.isShiftPlayback];
+        [self.vodPlayer setBitrateIndex:_playerModel.playingDefinitionIndex];
+    } else {
+        [self.controlView removeAllVideoPoints];
     }
 }
 
@@ -1245,9 +1246,9 @@ static UISlider * _volumeSlider;
     for (NSDictionary *keyFrameDesc in self.keyFrameDescList) {
         NSInteger time = [J2Num([keyFrameDesc valueForKeyPath:@"timeOffset"]) intValue];
         NSString *content = J2Str([keyFrameDesc valueForKeyPath:@"content"]);
-        [self.controlView playerAddVideoPoint:time/1000.0/([self getTotalTime]+1)
-                                         text:[content stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]
-                                         time:time];
+        [self.controlView addVideoPoint:time/1000.0/([self getTotalTime]+1)
+                                   text:[content stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]
+                                   time:time];
     }
 }
 #pragma mark - 直播回调

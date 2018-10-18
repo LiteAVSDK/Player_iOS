@@ -330,6 +330,7 @@ __weak UITextField *urlField;
         [_liveListView reloadData];
         
         if (allList.count > 0) {
+            [self.playerView.controlView setTitle:[_liveDataSourceArray[0] title]];
             [self.playerView playWithModel:[_liveDataSourceArray[0] getPlayerModel]];
             if (self.guideView) {
                 [self showControlView:YES];
@@ -468,7 +469,7 @@ __weak UITextField *urlField;
     
     model.videoURL         = result;
     
-    [self.playerView setTitle:@"这是新播放的视频"];
+    [self.playerView.controlView setTitle:@"这是新播放的视频"];
     [self.playerView playWithModel:model];
     
     ListVideoModel *m = [ListVideoModel new];
@@ -575,7 +576,7 @@ __weak UITextField *urlField;
 {
     ListVideoCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     if (cell) {
-        [self.playerView setTitle:[cell getSource].title];
+        [self.playerView.controlView setTitle:[cell getSource].title];
         
         [self.playerView.coverImageView sd_setImageWithURL:[NSURL URLWithString:[cell getSource].coverUrl]];
         [self.playerView playWithModel:[cell getPlayerModel]];
@@ -633,9 +634,9 @@ __weak UITextField *urlField;
 
 - (void)showControlView:(BOOL)isShow {
     if (isShow) {
-        [self.playerView.controlView showControlView];
+        self.playerView.controlView.hidden = NO;
     } else {
-        [self.playerView.controlView hideControlView];
+        self.playerView.controlView.hidden = YES;
     }
 }
 

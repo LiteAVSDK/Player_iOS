@@ -11,6 +11,7 @@
 #import "SuperPlayerView+Private.h"
 #import "UIView+MMLayout.h"
 #import "DataReport.h"
+#import "UIView+Fade.h"
 
 @interface SuperPlayerWindow()<TXVodPlayListener>
 @property (weak) UIView *origFatherView;
@@ -78,7 +79,7 @@
         self.superPlayer.fatherView = _rootView;
     }
     
-    [self.superPlayer.controlView hideControlView];
+    [self.superPlayer.controlView fadeOut:0.01];
     
     [_rootView bringSubviewToFront:_backBtn];
     [_rootView bringSubviewToFront:_closeBtn];
