@@ -1065,7 +1065,7 @@ static UISlider * _volumeSlider;
         [self.livePlayer switchStream:url];
         [self showMiddleBtnMsg:[NSString stringWithFormat:@"正在切换到%@...", definition] withAction:ActionNone];
     } else {
-        if (url == nil) {
+        if ([self.vodPlayer supportedBitrates].count > 0) {
             [self.vodPlayer setBitrateIndex:self.playerModel.playingDefinitionIndex];
         } else {
             self.seekTime = [self.vodPlayer currentPlaybackTime];
@@ -1252,12 +1252,11 @@ static UISlider * _volumeSlider;
         _playerModel.playingDefinition = self.netWatcher.adviseDefinition;
         [self.controlView playerBegin:_playerModel isLive:self.isLive isTimeShifting:self.isShiftPlayback];
         [self.vodPlayer setBitrateIndex:_playerModel.playingDefinitionIndex];
-    } else {
-        [self.controlView removeAllVideoPoints];
     }
 }
 
 - (void)updatePlayerPoint {
+    [self.controlView removeAllVideoPoints];
     
     for (NSDictionary *keyFrameDesc in self.keyFrameDescList) {
         NSInteger time = [J2Num([keyFrameDesc valueForKeyPath:@"timeOffset"]) intValue];
@@ -1308,7 +1307,7 @@ static UISlider * _volumeSlider;
                 [self.netWatcher loadingEvent];
             }
         } else if (EvtID == PLAY_EVT_STREAM_SWITCH_SUCC) {
-            [self showMiddleBtnMsg:[@"已切换为%@" stringByAppendingString:self.playerModel.playingDefinition] withAction:ActionNone];
+            [self showMiddleBtnMsg:[@"已切换为" stringByAppendingString:self.playerModel.playingDefinition] withAction:ActionNone];
             [self.middleBlackBtn fadeOut:1];
         } else if (EvtID == PLAY_ERR_STREAM_SWITCH_FAIL) {
             [self showMiddleBtnMsg:kStrHDSwitchFailed withAction:ActionReplay];
@@ -1538,6 +1537,8 @@ static UISlider * _volumeSlider;
         _spinner = [[MMMaterialDesignSpinner alloc] init];
         _spinner.lineWidth = 1;
         _spinner.duration  = 1;
+        _spinner.hidden    = YES;
+        _spinner.hidesWhenStopped = YES;
         _spinner.tintColor = [[UIColor whiteColor] colorWithAlphaComponent:0.9];
         [self addSubview:_spinner];
         [_spinner mas_makeConstraints:^(MASConstraintMaker *make) {

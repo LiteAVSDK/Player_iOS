@@ -9,7 +9,7 @@
 
 @interface SPWeiboControlView : SuperPlayerControlView
 /** 分辨率的名称 */
-@property (nonatomic, strong) NSArray<SuperPlayerUrl *> *resolutionArray;
+@property (nonatomic, strong) NSArray<NSString *> *resolutionArray;
 /** 开始播放按钮 */
 @property (nonatomic, strong) UIButton                *startBtn;
 /** 当前播放时长label */
@@ -31,5 +31,10 @@
 
 /** 切换分辨率按钮 */
 @property (nonatomic, strong) UIButton                *resolutionBtn;
-
+@property (nonatomic, strong) UIButton                *resoultionCurrentBtn;
+/** 分辨率的View */
+@property (nonatomic, strong) UIView                  *resolutionView;
+/** 更多设置View */
+@property (nonatomic, strong) MoreContentView         *moreContentView;
+@property BOOL isLive;
 @end

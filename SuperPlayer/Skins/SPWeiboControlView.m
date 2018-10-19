@@ -6,9 +6,10 @@
 //
 
 #import "SPWeiboControlView.h"
-#import "Masonry.h"
+#import <Masonry/Masonry.h>
 #import "UIView+Fade.h"
 #import "StrUtils.h"
+#import "DataReport.h"
 
 @implementation SPWeiboControlView
 
@@ -36,6 +37,8 @@
 - (void)makeSubViewsConstraints {
     [self.startBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.center.equalTo(self);
+//        make.leading.equalTo(self).offset(5);
+//        make.top.equalTo(self).offset(50);
     }];
     [self.currentTimeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self).offset(-8);
@@ -68,12 +71,14 @@
     }];
 
     [self.moreBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.trailing.equalTo(self).offset(-5);
+        make.trailing.equalTo(self).offset(-10);
         make.centerY.equalTo(self.backBtn);
+        make.width.mas_equalTo(@40);
     }];
     [self.muteBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.trailing.equalTo(self.moreBtn.mas_leading).offset(-5);
+        make.trailing.equalTo(self.moreBtn.mas_leading).offset(-10);
         make.centerY.equalTo(self.backBtn);
+        make.width.mas_equalTo(@40);
     }];
 }
 
@@ -103,7 +108,7 @@
         _resolutionBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         _resolutionBtn.titleLabel.font = [UIFont systemFontOfSize:12];
         _resolutionBtn.backgroundColor = [UIColor clearColor];
-        [_resolutionBtn addTarget:self action:@selector(playerShowResolutionView) forControlEvents:UIControlEventTouchUpInside];
+        [_resolutionBtn addTarget:self action:@selector(resolutionBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _resolutionBtn;
 }
@@ -164,19 +169,56 @@
     if (!_moreBtn) {
         _moreBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [_moreBtn setImage:SuperPlayerImage(@"wb_more") forState:UIControlStateNormal];
-        [_moreBtn addTarget:self action:@selector(fullScreenBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+        [_moreBtn addTarget:self action:@selector(moreBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _moreBtn;
 }
 - (UIButton *)muteBtn {
     if (!_muteBtn) {
         _muteBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_muteBtn setImage:SuperPlayerImage(@"wb_volume_off") forState:UIControlStateNormal];
-        [_muteBtn setImage:SuperPlayerImage(@"wb_volume_on") forState:UIControlStateSelected];
-        [_muteBtn addTarget:self action:@selector(fullScreenBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+        [_muteBtn setImage:SuperPlayerImage(@"wb_volume_on") forState:UIControlStateNormal];
+        [_muteBtn setImage:SuperPlayerImage(@"wb_volume_off") forState:UIControlStateSelected];
+        [_muteBtn addTarget:self action:@selector(muteBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _muteBtn;
 }
+
+- (UIView *)resolutionView {
+    if (!_resolutionView) {
+        // 添加分辨率按钮和分辨率下拉列表
+        
+        _resolutionView = [[UIView alloc] initWithFrame:CGRectZero];
+        _resolutionView.hidden = YES;
+        [self addSubview:_resolutionView];
+        [_resolutionView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.width.mas_equalTo(330);
+            make.height.mas_equalTo(self.mas_height);
+            make.trailing.equalTo(self.mas_trailing).offset(0);
+            make.top.equalTo(self.mas_top).offset(0);
+        }];
+        
+        _resolutionView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
+    }
+    return _resolutionView;
+}
+
+- (MoreContentView *)moreContentView {
+    if (!_moreContentView) {
+        _moreContentView = [[MoreContentView alloc] initWithFrame:CGRectZero];
+        _moreContentView.controlView = self;
+        _moreContentView.hidden = YES;
+        [self addSubview:_moreContentView];
+        [_moreContentView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.width.mas_equalTo(330);
+            make.height.mas_equalTo(self.mas_height);
+            make.trailing.equalTo(self.mas_trailing).offset(0);
+            make.top.equalTo(self.mas_top).offset(0);
+        }];
+        _moreContentView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
+    }
+    return _moreContentView;
+}
+
 - (void)playBtnClick:(UIButton *)sender {
     sender.selected = !sender.selected;
     if (sender.selected) {
@@ -184,6 +226,7 @@
     } else {
         [self.delegate controlViewPause:self];
     }
+    [self cancelFadeOut];
 }
 
 - (void)fullScreenBtnClick:(UIButton *)sender {
@@ -220,6 +263,14 @@
     [self.videoSlider.progressView setProgress:playable animated:NO];
 }
 
+- (void)muteBtnClick:(UIButton *)sender
+{
+    sender.selected = self.playerConfig.mute = !self.playerConfig.mute;
+    [self.delegate controlViewConfigUpdate:self];
+    [self fadeOut:3];
+}
+
+
 /** 重置ControlView */
 - (void)resetControlView {
     self.videoSlider.value           = 0;
@@ -228,29 +279,112 @@
     self.totalTimeLabel.text         = @"00:00";
 }
 
+- (void)setHidden:(BOOL)hidden
+{
+    [super setHidden:hidden];
+    
+    for (UIView *view in self.subviews) {
+        if (view != self.resolutionView && view != self.moreContentView) {
+            if (!self.isFullScreen && (view == self.backBtn || view == self.moreBtn || view == self.muteBtn))
+                view.hidden = YES;
+            else
+                view.hidden = NO;
+        } else {
+            view.hidden = YES;
+        }}
+}
+
 /** 播放按钮状态 */
 - (void)setPlayState:(BOOL)isPlay {
     self.startBtn.selected = isPlay;
 }
 
-- (void)playerShowResolutionView {
-
+- (void)resolutionBtnClick:(UIButton *)sender {
+    for (UIView *view in self.subviews) {
+        view.hidden = YES;
+    }
+   
+    // 显示分辨率View
+    self.resolutionView.hidden = NO;
+    [DataReport report:@"change_resolution" param:nil];
+    
+    [self cancelFadeOut];
 }
 
-
+- (void)moreBtnClick:(UIButton *)sender {
+    for (UIView *view in self.subviews) {
+        view.hidden = YES;
+    }
+    
+    self.moreContentView.playerConfig = self.playerConfig;
+    self.moreContentView.isLive = self.isLive;
+    [self.moreContentView update];
+    self.moreContentView.hidden = NO;
+    
+    [self cancelFadeOut];
+}
 
 - (void)playerBegin:(SuperPlayerModel *)model
              isLive:(BOOL)isLive
      isTimeShifting:(BOOL)isTimeShifting
 {
     [self setPlayState:YES];
-    
-    [_resolutionBtn setTitle:@"" forState:UIControlStateNormal];
-    
-    if (model.playingDefinition == nil) {
-        return;
+
+    _resolutionArray = model.playDefinitions;
+    if (model.playingDefinition != nil) {
+        [_resolutionBtn setTitle:model.playingDefinition forState:UIControlStateNormal];
     }
-    [_resolutionBtn setTitle:model.playingDefinition forState:UIControlStateNormal];
+    UILabel *lable = [UILabel new];
+    lable.text = @"清晰度";
+    lable.textAlignment = NSTextAlignmentCenter;
+    lable.textColor = [UIColor whiteColor];
+    [self.resolutionView addSubview:lable];
+    [lable mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.equalTo(self.resolutionView.mas_width);
+        make.height.mas_equalTo(30);
+        make.left.equalTo(self.resolutionView.mas_left);
+        make.top.equalTo(self.resolutionView.mas_top).mas_offset(20);
+    }];
+    
+    // 分辨率View上边的Btn
+    for (NSInteger i = 0 ; i < _resolutionArray.count; i++) {
+        UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [btn setTitle:_resolutionArray[i] forState:UIControlStateNormal];
+        [btn setTitleColor:RGBA(252, 89, 81, 1) forState:UIControlStateSelected];
+        [self.resolutionView addSubview:btn];
+        [btn addTarget:self action:@selector(changeResolution:) forControlEvents:UIControlEventTouchUpInside];
+        [btn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.width.equalTo(self.resolutionView.mas_width);
+            make.height.mas_equalTo(45);
+            make.left.equalTo(self.resolutionView.mas_left);
+            make.centerY.equalTo(self.resolutionView.mas_centerY).offset((i-self.resolutionArray.count/2.0+0.5)*45);
+        }];
+        
+        if ([_resolutionArray[i] isEqualToString:model.playingDefinition]) {
+            btn.selected = YES;
+            btn.backgroundColor = RGBA(34, 30, 24, 1);
+            self.resoultionCurrentBtn = btn;
+        }
+    }
+    if (self.isLive != isLive) {
+        self.isLive = isLive;
+        [self setNeedsLayout];
+    }
+}
+
+/**
+ *  点击切换分别率按钮
+ */
+- (void)changeResolution:(UIButton *)sender {
+    self.resoultionCurrentBtn.selected = NO;
+    self.resoultionCurrentBtn.backgroundColor = [UIColor clearColor];
+    self.resoultionCurrentBtn = sender;
+    self.resoultionCurrentBtn.selected = YES;
+    self.resoultionCurrentBtn.backgroundColor = RGBA(34, 30, 24, 1);
+    
+    // topImageView上的按钮的文字
+    [self.resolutionBtn setTitle:sender.titleLabel.text forState:UIControlStateNormal];
+    [self.delegate controlViewSwitch:self withDefinition:sender.titleLabel.text];
 }
 
 - (void)setOrientationLandscapeConstraint {

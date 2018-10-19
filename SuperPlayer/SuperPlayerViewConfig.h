@@ -7,6 +7,7 @@
 
 #import <Foundation/Foundation.h>
 #import "TXLiveSDKTypeDef.h"
+#import <UIKit/UIKit.h>
 
 @interface SuperPlayerViewConfig : NSObject
 /// 是否镜像，默认NO

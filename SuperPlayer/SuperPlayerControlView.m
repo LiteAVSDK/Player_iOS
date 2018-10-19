@@ -22,4 +22,13 @@
 {
     
 }
+
+- (void)addVideoPoint:(CGFloat)where text:(NSString *)text time:(NSInteger)time
+{
+    
+}
+- (void)removeAllVideoPoints
+{
+    
+}
 @end

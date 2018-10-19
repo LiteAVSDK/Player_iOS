@@ -18,12 +18,7 @@
 #define MODEL_TAG_BEGIN 20
 
 @interface SPDefaultControlView () <UIGestureRecognizerDelegate, PlayerSliderDelegate>
-/** 是否全屏播放 */
-@property (nonatomic, assign,getter=isFullScreen)BOOL fullScreen;
-@property (nonatomic, assign,getter=isLockScreen)BOOL isLockScreen;
-@property (nonatomic, strong) UIButton               *pointJumpBtn;
 
-@property BOOL isLive;
 
 @end
 
@@ -188,22 +183,15 @@
  *  点击切换分别率按钮
  */
 - (void)changeResolution:(UIButton *)sender {
-    
     self.resoultionCurrentBtn.selected = NO;
     self.resoultionCurrentBtn.backgroundColor = [UIColor clearColor];
     self.resoultionCurrentBtn = sender;
+    self.resoultionCurrentBtn.selected = YES;
+    self.resoultionCurrentBtn.backgroundColor = RGBA(34, 30, 24, 1);
+    
     // topImageView上的按钮的文字
     [self.resolutionBtn setTitle:sender.titleLabel.text forState:UIControlStateNormal];
     [self.delegate controlViewSwitch:self withDefinition:sender.titleLabel.text];
-    
-    sender.selected = YES;
-    if (sender.isSelected) {
-        sender.backgroundColor = RGBA(34, 30, 24, 1);
-    } else {
-        sender.backgroundColor = [UIColor clearColor];
-    }
-    
-    self.resolutionView.hidden = YES;
 }
 
 - (void)backBtnClick:(UIButton *)sender {
@@ -227,6 +215,7 @@
         self.backLiveBtn.hidden = self.isLockScreen;
     }
     [self.delegate controlViewLockScreen:self withLock:self.isLockScreen];
+    [self fadeOut:3];
 }
 
 - (void)playBtnClick:(UIButton *)sender {
@@ -236,21 +225,25 @@
     } else {
         [self.delegate controlViewPause:self];
     }
+    [self cancelFadeOut];
 }
 
 - (void)fullScreenBtnClick:(UIButton *)sender {
     sender.selected = !sender.selected;
     [self.delegate controlViewChangeScreen:self withFullScreen:YES];
+    [self fadeOut:3];
 }
 
 
 - (void)captureBtnClick:(UIButton *)sender {
     [self.delegate controlViewSnapshot:self];
+    [self fadeOut:3];
 }
 
 - (void)danmakuBtnClick:(UIButton *)sender {
     sender.selected = !sender.selected;
     [self.delegate controlViewDanmaku:self withShow:sender.selected];
+    [self fadeOut:3];
 }
 
 - (void)moreBtnClick:(UIButton *)sender {
@@ -265,7 +258,26 @@
     [self cancelFadeOut];
 }
 
-- (void)playerShowResolutionView {
+- (UIView *)resolutionView {
+    if (!_resolutionView) {
+        // 添加分辨率按钮和分辨率下拉列表
+        
+        _resolutionView = [[UIView alloc] initWithFrame:CGRectZero];
+        _resolutionView.hidden = YES;
+        [self addSubview:_resolutionView];
+        [_resolutionView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.width.mas_equalTo(330);
+            make.height.mas_equalTo(self.mas_height);
+            make.trailing.equalTo(self.mas_trailing).offset(0);
+            make.top.equalTo(self.mas_top).offset(0);
+        }];
+        
+        _resolutionView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
+    }
+    return _resolutionView;
+}
+
+- (void)resolutionBtnClick:(UIButton *)sender {
     self.topImageView.hidden = YES;
     self.bottomImageView.hidden = YES;
     self.lockBtn.hidden = YES;
@@ -536,28 +548,9 @@
         _resolutionBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         _resolutionBtn.titleLabel.font = [UIFont systemFontOfSize:12];
         _resolutionBtn.backgroundColor = [UIColor clearColor];
-        [_resolutionBtn addTarget:self action:@selector(playerShowResolutionView) forControlEvents:UIControlEventTouchUpInside];
+        [_resolutionBtn addTarget:self action:@selector(resolutionBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _resolutionBtn;
-}
-
-- (UIView *)resolutionView {
-    if (!_resolutionView) {
-        // 添加分辨率按钮和分辨率下拉列表
-        
-        _resolutionView = [[UIView alloc] initWithFrame:CGRectZero];
-        _resolutionView.hidden = YES;
-        [self addSubview:_resolutionView];
-        [_resolutionView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.width.mas_equalTo(330);
-            make.height.mas_equalTo(self.mas_height);
-            make.trailing.equalTo(self.mas_trailing).offset(0);
-            make.top.equalTo(self.mas_top).offset(0);
-        }];
-        
-        _resolutionView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
-    }
-    return _resolutionView;
 }
 
 - (UIButton *)backLiveBtn {
