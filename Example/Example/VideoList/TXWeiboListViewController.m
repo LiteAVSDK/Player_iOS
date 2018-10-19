@@ -69,6 +69,18 @@
 
 }
 
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    // 这里设置横竖屏不同颜色的statusbar
+    // if (SuperPlayerShared.isLandscape) {
+    //    return UIStatusBarStyleDefault;
+    // }
+    return UIStatusBarStyleLightContent;
+}
+
+- (BOOL)prefersStatusBarHidden {
+    return self.superPlayer.isFullScreen;
+}
+
 - (IBAction)backClick {
     [self.superPlayer resetPlayer];  //非常重要
     [self.navigationController popViewControllerAnimated:YES];
@@ -156,8 +168,10 @@
     tempCell.playButton.hidden = YES;
 }
 
-- (void)superPlayerFullScreenChanged:(SuperPlayerView *)player
-{
-    
+- (void)superPlayerFullScreenChanged:(SuperPlayerView *)player {
+    if (!player.isFullScreen) {
+        CGRect windowFrame = [UIScreen mainScreen].applicationFrame;
+        self.navigationController.navigationBar.frame = CGRectMake(0, 0, windowFrame.size.width, 64);
+    }
 }
 @end

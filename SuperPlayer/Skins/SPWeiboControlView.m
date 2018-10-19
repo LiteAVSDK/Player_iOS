@@ -291,7 +291,9 @@
                 view.hidden = NO;
         } else {
             view.hidden = YES;
-        }}
+        }
+    }
+    self.isShowSecondView = NO;
 }
 
 /** 播放按钮状态 */
@@ -309,6 +311,7 @@
     [DataReport report:@"change_resolution" param:nil];
     
     [self cancelFadeOut];
+    self.isShowSecondView = YES;
 }
 
 - (void)moreBtnClick:(UIButton *)sender {
@@ -322,6 +325,7 @@
     self.moreContentView.hidden = NO;
     
     [self cancelFadeOut];
+    self.isShowSecondView = YES;
 }
 
 - (void)playerBegin:(SuperPlayerModel *)model

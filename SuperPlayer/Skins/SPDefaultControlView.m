@@ -256,6 +256,7 @@
     self.moreContentView.hidden = NO;
     
     [self cancelFadeOut];
+    self.isShowSecondView = YES;
 }
 
 - (UIView *)resolutionView {
@@ -287,6 +288,7 @@
     [DataReport report:@"change_resolution" param:nil];
     
     [self cancelFadeOut];
+    self.isShowSecondView = YES;
 }
 
 - (void)progressSliderTouchBegan:(UISlider *)sender {
@@ -329,7 +331,7 @@
     
     [self.backBtn setImage:SuperPlayerImage(@"back_full") forState:UIControlStateNormal];
     [self.backBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.topImageView.mas_top).offset(23);
+        make.top.equalTo(self.topImageView.mas_top).offset(5);
         make.leading.equalTo(self.topImageView.mas_leading).offset(5);
         make.width.height.mas_equalTo(40);
     }];
@@ -378,7 +380,7 @@
         make.width.mas_equalTo(self.isLive?10:60);
     }];
     [self.backBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.topImageView.mas_top).offset(3);
+        make.top.equalTo(self.topImageView.mas_top).offset(5);
         make.leading.equalTo(self.topImageView.mas_leading).offset(5);
         make.width.height.mas_equalTo(40);
     }];
@@ -630,6 +632,7 @@
     }
     
     self.lockBtn.hidden = !self.isFullScreen;
+    self.isShowSecondView = NO;
 }
 
 /** 重置ControlView */

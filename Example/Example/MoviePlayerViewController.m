@@ -668,4 +668,11 @@ __weak UITextField *urlField;
     [self.scrollView scrollRectToVisible:CGRectMake(0, 0, ScreenWidth, self.scrollView.mm_h) animated:YES];
 }
 
+- (void)superPlayerFullScreenChanged:(SuperPlayerView *)player {
+    if (!player.isFullScreen) {
+        CGRect windowFrame = [UIScreen mainScreen].applicationFrame;
+        self.navigationController.navigationBar.frame = CGRectMake(0, 0, windowFrame.size.width, 64);
+    }
+}
+
 @end

@@ -467,6 +467,7 @@ static UISlider * _volumeSlider;
     if ([self.delegate respondsToSelector:@selector(superPlayerFullScreenChanged:)]) {
         [self.delegate superPlayerFullScreenChanged:self];
     }
+    [self.fatherView.viewController setNeedsStatusBarAppearanceUpdate];
 }
 
 /**
@@ -859,6 +860,8 @@ static UISlider * _volumeSlider;
 }
 
 - (void)fastViewImageAvaliable:(UIImage *)image progress:(CGFloat)draggedValue {
+    if (self.controlView.isShowSecondView)
+        return;
     [self.fastView showImg:image withProgress:draggedValue];
     [self.fastView fadeShow];
 }

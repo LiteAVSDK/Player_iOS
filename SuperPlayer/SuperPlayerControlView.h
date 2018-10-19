@@ -54,7 +54,10 @@
 
 // ---------------------------------------------------------------------------------------------------------------------
 @property NSString *title;
+/// 是否在拖动进度
 @property BOOL  isDragging;
+/// 是否显示二级菜单
+@property BOOL  isShowSecondView;
 @property (nonatomic, weak) id<SuperPlayerControlViewDelegate> delegate;
 @property SuperPlayerViewConfig *playerConfig;
 
