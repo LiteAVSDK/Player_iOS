@@ -7,7 +7,6 @@
 //
 #import <UIKit/UIKit.h>
 
-#import "SuperPlayer.h"
 #import "SuperPlayerControlViewDelegate.h"
 #import "SuperPlayerModel.h"
 #import "PlayerSlider.h"

@@ -5,7 +5,8 @@
 #import "SuperPlayerControlViewDelegate.h"
 #import "SuperPlayerGlobleConfig.h"
 #import "SuperPlayerWindow.h"
-
+#import "SPDefaultControlView.h"
+#import "SPWeiboControlView.h"
 
 // player的单例
 #define SuperPlayerShared                   [SuperPlayerSharedView sharedInstance]

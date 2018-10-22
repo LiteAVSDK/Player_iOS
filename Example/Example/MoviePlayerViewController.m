@@ -57,6 +57,8 @@ __weak UITextField *urlField;
 
 @property UIScrollView  *scrollView;    //视频列表滑动scrollview
 
+@property UIButton *playerBackBtn;
+
 @end
 
 @implementation MoviePlayerViewController
@@ -326,12 +328,13 @@ __weak UITextField *urlField;
             
             [allList addObject:m];
         }
-        _liveDataSourceArray = allList;
-        [_liveListView reloadData];
+        self.liveDataSourceArray = allList;
+        [self.liveListView reloadData];
         
         if (allList.count > 0) {
-            [self.playerView.controlView setTitle:[_liveDataSourceArray[0] title]];
-            [self.playerView playWithModel:[_liveDataSourceArray[0] getPlayerModel]];
+            [self.playerView.controlView setTitle:[self.liveDataSourceArray[0] title]];
+            [self.playerView playWithModel:[self.liveDataSourceArray[0] getPlayerModel]];
+            
             if (self.guideView) {
                 [self showControlView:YES];
             }
@@ -345,6 +348,9 @@ __weak UITextField *urlField;
     
     [self getNextInfo];
 
+    self.playerBackBtn = ((SPDefaultControlView *)self.playerView.controlView).backBtn;
+    // 直接获取controlview，想怎样控制界面都行。记得在全屏事件里也要处理，不然内部可能会设其它状态
+//    self.playerBackBtn.hidden = YES;
 }
 
 // 返回值要必须为NO
@@ -394,7 +400,7 @@ __weak UITextField *urlField;
     m.coverUrl = obj.playInfo.coverUrl;
     [_vodDataSourceArray addObject:m];
     dispatch_async(dispatch_get_main_queue(), ^{
-        [_vodListView reloadData];
+        [self.vodListView reloadData];
         [self getNextInfo];
     });
 }
@@ -515,7 +521,7 @@ __weak UITextField *urlField;
             TXPlayerAuthParams *p = [TXPlayerAuthParams new];
             p.appId = [appField.text intValue];
             p.fileId = fileidField.text;
-            [_authParamArray addObject:p];
+            [self.authParamArray addObject:p];
             
             [self getNextInfo];
         } else {
@@ -526,10 +532,10 @@ __weak UITextField *urlField;
             
             ListVideoModel *m = [ListVideoModel new];
             m.url = urlField.text;
-            m.title = [NSString stringWithFormat:@"视频%lu",_liveDataSourceArray.count+1];
+            m.title = [NSString stringWithFormat:@"视频%lu",self.liveDataSourceArray.count+1];
             m.type = 1;
-            [_liveDataSourceArray addObject:m];
-            [_liveListView reloadData];
+            [self.liveDataSourceArray addObject:m];
+            [self.liveListView reloadData];
         }
         
         self.playerView.isLockScreen = isLock;
@@ -670,9 +676,9 @@ __weak UITextField *urlField;
 
 - (void)superPlayerFullScreenChanged:(SuperPlayerView *)player {
     if (!player.isFullScreen) {
-        CGRect windowFrame = [UIScreen mainScreen].applicationFrame;
-        self.navigationController.navigationBar.frame = CGRectMake(0, 0, windowFrame.size.width, 64);
+        self.navigationController.navigationBar.frame = CGRectMake(0, 0, ScreenWidth, 64);
     }
+//    self.playerBackBtn.hidden = !player.isFullScreen;
 }
 
 @end

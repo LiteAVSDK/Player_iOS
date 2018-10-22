@@ -10,6 +10,7 @@
 #import "UIView+Fade.h"
 #import "StrUtils.h"
 #import "DataReport.h"
+#import "SuperPlayer.h"
 
 @implementation SPWeiboControlView
 
