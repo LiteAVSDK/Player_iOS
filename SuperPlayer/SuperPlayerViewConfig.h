@@ -6,7 +6,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "TXLiveSDKTypeDef.h"
 #import <UIKit/UIKit.h>
 
 @interface SuperPlayerViewConfig : NSObject
@@ -19,6 +18,6 @@
 @property CGFloat playRate;
 /// 是否静音，默认NO
 @property BOOL mute;
-/// 填充模式，默认铺满
-@property TX_Enum_Type_RenderMode renderMode;
+/// 填充模式，默认铺满。 参见 TXLiveSDKTypeDef.h
+@property NSInteger renderMode;
 @end

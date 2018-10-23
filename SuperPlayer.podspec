@@ -15,6 +15,7 @@ Pod::Spec.new do |spec|
     spec.dependency 'Masonry', '~> 1.1.0'
     spec.dependency 'CFDanmaku', '~> 0.0.1'
 
+    spec.static_framework = true
     spec.default_subspec = 'Player'
 
     # spec.subspec "Core" do |s|
@@ -25,6 +26,7 @@ Pod::Spec.new do |spec|
     
     spec.subspec "Player" do |s|
         s.source_files = 'SuperPlayer/**/*.{h,m}'
+        s.public_header_files = 'SuperPlayer/SuperPlayer/Category/*.h', 'SuperPlayer/SuperPlayer/Skins/*.h', 'SuperPlayer/SuperPlayer/Utils/J2Obj.h'
         s.resource = 'SuperPlayer/Resource/*'
         s.dependency 'TXLiteAVSDK_Player', '= 5.2.5541'
 #        s.vendored_framework = "Frameworks/TXLiteAVSDK_Player.framework"

@@ -1,10 +1,6 @@
 #import <UIKit/UIKit.h>
 #import "SuperPlayer.h"
 #import "SuperPlayerModel.h"
-#import "TXVodPlayer.h"
-#import "TXLivePlayer.h"
-#import "TXLiveBase.h"
-#import "TXImageSprite.h"
 #import "CFDanmakuView.h"
 
 @class SuperPlayerControlView;

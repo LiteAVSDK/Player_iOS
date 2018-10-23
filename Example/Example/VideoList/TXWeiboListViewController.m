@@ -7,8 +7,8 @@
 //
 
 #import "TXWeiboListViewController.h"
-#import <SuperPlayer.h>
-#import <UIView+MMLayout.h>
+#import "SuperPlayer.h"
+#import "UIView+MMLayout.h"
 #import "TXWeiboListTableViewCell.h"
 #import "SPWeiboControlView.h"
 @interface TXWeiboListViewController ()<UITableViewDelegate,UITableViewDataSource,TXWeiboListTableViewCellDelegate, SuperPlayerDelegate>
