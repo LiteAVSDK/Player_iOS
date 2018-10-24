@@ -11,10 +11,13 @@
 #import "UIView+MMLayout.h"
 #import "TXWeiboListTableViewCell.h"
 #import "SPWeiboControlView.h"
+#import "UIImageView+WebCache.h"
 @interface TXWeiboListViewController ()<UITableViewDelegate,UITableViewDataSource,TXWeiboListTableViewCellDelegate, SuperPlayerDelegate>
 @property UITableView *tableView;
 @property SuperPlayerView *superPlayer;
 @property NSArray *fileIdArray;
+@property NSArray *imgUrlArray;
+
 @property NSIndexPath *tempIndexPath;
 @end
 
@@ -53,6 +56,13 @@
                          @"4564972818648683188",
                          @"4564972819281746829",
                          @"7447398156520498412"
+                         ];
+    self.imgUrlArray = @[@"http://1252463788.vod2.myqcloud.com/95576ef5vodtransgzp1252463788/e1ab85305285890781763144364/1536584350_1812858038.100_0.jpg",
+                         @"http://1252463788.vod2.myqcloud.com/95576ef5vodtransgzp1252463788/bfc18e335285890780806831790/1532932505_1444491654.100_0.jpg",
+                         @"http://1252463788.vod2.myqcloud.com/95576ef5vodtransgzp1252463788/bdc7fc5c5285890780806783838/1532932505_266901704.100_0.jpg",
+                         @"http://1252463788.vod2.myqcloud.com/95576ef5vodtransgzp1252463788/7c38b6ff4564972818648683188/snapshot/1513048301_383738552.100_0.jpg",
+                         @"http://1252463788.vod2.myqcloud.com/95576ef5vodtransgzp1252463788/468fb71b4564972819281746829/snapshot/1517834590_4022014289.100_0.jpg",
+                         @"http://1252463788.vod2.myqcloud.com/95576ef5vodtransgzp1252463788/1bfa444e7447398156520498412/1528701306_891656471.100_0.jpg"
                          ];
     
     
@@ -134,6 +144,7 @@
     cell.cellDelegate = self;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.contentView.backgroundColor = [UIColor grayColor];
+    [cell.backgroundImageView sd_setImageWithURL:[NSURL URLWithString:self.imgUrlArray[indexPath.row]]];
     
     return cell;
 }
@@ -165,6 +176,7 @@
     model.appId = 1252463788;
     model.fileId = self.fileIdArray[[self.tempIndexPath row]];
     [self.superPlayer playWithModel:model];
+    [self.superPlayer.coverImageView sd_setImageWithURL:[NSURL URLWithString:self.imgUrlArray[self.tempIndexPath.row]]];
     tempCell.playButton.hidden = YES;
 }
 
@@ -172,6 +184,17 @@
     if (!player.isFullScreen) {
         CGRect windowFrame = [UIScreen mainScreen].applicationFrame;
         self.navigationController.navigationBar.frame = CGRectMake(0, 0, windowFrame.size.width, 64);
+    }
+}
+
+- (void)superPlayerDidEnd:(SuperPlayerView *)player
+{
+    int i = self.tempIndexPath.row + 1;
+    if (i < [self.tableView numberOfRowsInSection:0]) {
+        NSIndexPath *path = [NSIndexPath indexPathForRow:i inSection:0];
+        TXWeiboListTableViewCell *cell = [self.tableView cellForRowAtIndexPath:path];
+        [self cellStartPlay:cell];
+        [self.tableView scrollRectToVisible:cell.frame animated:YES];
     }
 }
 @end

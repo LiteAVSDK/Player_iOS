@@ -178,6 +178,7 @@ static UISlider * _volumeSlider;
     [self _removeOldPlayer];
     [self _playWithModel:playerModel];
     self.coverImageView.alpha = 1;
+    self.repeatBtn.hidden = YES;
 }
 
 - (void)_playWithModel:(SuperPlayerModel *)playerModel {
@@ -645,6 +646,9 @@ static UISlider * _volumeSlider;
     [self fastViewUnavaliable];
     [self.netWatcher stopWatch];
     self.repeatBtn.hidden = NO;
+    if ([self.delegate respondsToSelector:@selector(superPlayerDidEnd:)]) {
+        [self.delegate superPlayerDidEnd:self];
+    }
 }
 
 /**
@@ -1249,7 +1253,6 @@ static UISlider * _volumeSlider;
             [self.controlView setProgressTime:currentTime totalTime:totalTime progressValue:value playableValue:player.playableDuration / player.duration];
 
         } else if (EvtID == PLAY_EVT_PLAY_END) {
-            self.state = StateStopped;
             [self moviePlayDidEnd];
         } else if (EvtID == PLAY_ERR_NET_DISCONNECT || EvtID == PLAY_ERR_FILE_NOT_FOUND || EvtID == PLAY_ERR_HLS_KEY) {
             if (EvtID == PLAY_ERR_NET_DISCONNECT) {
@@ -1319,7 +1322,6 @@ static UISlider * _volumeSlider;
                 self.state = StatePlaying;
             [self.netWatcher loadingEndEvent];
         } else if (EvtID == PLAY_EVT_PLAY_END) {
-            self.state = StateStopped;
             [self moviePlayDidEnd];
         } else if (EvtID == PLAY_ERR_NET_DISCONNECT) {
             if (self.isShiftPlayback) {

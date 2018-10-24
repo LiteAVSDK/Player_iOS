@@ -12,6 +12,8 @@
 - (void)superPlayerBackAction:(SuperPlayerView *)player;
 /// 全屏改变通知
 - (void)superPlayerFullScreenChanged:(SuperPlayerView *)player;
+/// 播放结束通知
+- (void)superPlayerDidEnd:(SuperPlayerView *)player;
 // 需要通知到父view的事件在此添加
 @end
 

@@ -18,4 +18,5 @@
 @interface TXWeiboListTableViewCell : UITableViewCell
 @property (nonatomic, strong) UIButton *playButton;
 @property (nonatomic, weak)id<TXWeiboListTableViewCellDelegate> cellDelegate;
+@property UIImageView *backgroundImageView;
 @end

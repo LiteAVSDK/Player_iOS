@@ -42,9 +42,18 @@
     return _playButton;
 }
 
+- (UIImageView *)backgroundImageView {
+    if (_backgroundImageView == nil) {
+        _backgroundImageView = [[UIImageView alloc] initWithFrame:CGRectZero];
+        [self.contentView addSubview:_backgroundImageView];
+    }
+    return _backgroundImageView;
+}
+
 - (void)layoutSubviews
 {
-    
+    self.backgroundImageView.m_flexToRight(0).m_flexToBottom(0);
+    [self.contentView sendSubviewToBack:self.backgroundImageView];
     self.playButton.m_sizeToFit().m_center();
 }
 

@@ -206,7 +206,6 @@
     if (!_moreContentView) {
         _moreContentView = [[MoreContentView alloc] initWithFrame:CGRectZero];
         _moreContentView.controlView = self;
-        _moreContentView.hidden = YES;
         [self addSubview:_moreContentView];
         [_moreContentView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.width.mas_equalTo(330);
@@ -277,6 +276,7 @@
     self.videoSlider.progressView.progress = 0;
     self.currentTimeLabel.text       = @"00:00";
     self.totalTimeLabel.text         = @"00:00";
+    self.moreContentView.hidden      = YES;
 }
 
 - (void)setHidden:(BOOL)hidden
