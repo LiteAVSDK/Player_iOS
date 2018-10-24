@@ -83,6 +83,8 @@ static UISlider * _volumeSlider;
     [self addNotifications];
     // 添加手势
     [self createGesture];
+    
+    self.autoPlay = YES;
 }
 
 - (void)dealloc {
@@ -350,7 +352,7 @@ static UISlider * _volumeSlider;
     }];
     self.state = StateBuffering;
     self.isPauseByUser = NO;
-    [self.controlView playerBegin:self.playerModel isLive:self.isLive isTimeShifting:self.isShiftPlayback];
+    [self.controlView playerBegin:self.playerModel isLive:self.isLive isTimeShifting:self.isShiftPlayback isAutoPlay:self.autoPlay];
     self.controlView.playerConfig = self.playerConfig;
     self.repeatBtn.hidden = YES;
     self.playDidEnd = NO;
@@ -640,6 +642,7 @@ static UISlider * _volumeSlider;
         [self resetPlayer];
     }
     [self.controlView fadeOut:0.2];
+    [self fastViewUnavaliable];
     [self.netWatcher stopWatch];
     self.repeatBtn.hidden = NO;
 }
@@ -684,12 +687,12 @@ static UISlider * _volumeSlider;
         if (ret != 0) {
             [self showMiddleBtnMsg:kStrTimeShiftFailed withAction:ActionNone];
             [self.middleBlackBtn fadeOut:2];
-            [self.controlView playerBegin:self.playerModel isLive:self.isLive isTimeShifting:self.isShiftPlayback];
+            [self.controlView playerBegin:self.playerModel isLive:self.isLive isTimeShifting:self.isShiftPlayback isAutoPlay:YES];
         } else {
             self.isShiftPlayback = YES;
             self.state = StateBuffering;
             self.isLoaded = NO;
-            [self.controlView playerBegin:self.playerModel isLive:YES isTimeShifting:self.isShiftPlayback];    //时移播放不能切码率
+            [self.controlView playerBegin:self.playerModel isLive:YES isTimeShifting:self.isShiftPlayback isAutoPlay:YES];    //时移播放不能切码率
         }
     } else {
         [self.vodPlayer seek:dragedSeconds];
@@ -733,6 +736,9 @@ static UISlider * _volumeSlider;
     // 我们要响应水平移动和垂直移动
     // 根据上次和本次移动的位置，算出一个速率的point
     CGPoint veloctyPoint = [pan velocityInView:self];
+    
+    if (self.state == StateStopped)
+        return;
     
     // 判断是垂直移动还是水平移动
     switch (pan.state) {
@@ -796,6 +802,12 @@ static UISlider * _volumeSlider;
             [self fastViewUnavaliable];
             self.isDragging = NO;
             break;
+        }
+        case UIGestureRecognizerStateCancelled: {
+            self.sumTime = 0;
+            self.isVolume = NO;
+            [self fastViewUnavaliable];
+            self.isDragging = NO;
         }
         default:
             break;
@@ -1100,7 +1112,7 @@ static UISlider * _volumeSlider;
         self.isShiftPlayback = NO;
         self.isLoaded = NO;
         [self.livePlayer resumeLive];
-        [self.controlView playerBegin:self.playerModel isLive:self.isLive isTimeShifting:self.isShiftPlayback];
+        [self.controlView playerBegin:self.playerModel isLive:self.isLive isTimeShifting:self.isShiftPlayback isAutoPlay:YES];
     } else {
         self.seekTime = [self.vodPlayer currentPlaybackTime];
         [self configTXPlayer];
@@ -1189,7 +1201,10 @@ static UISlider * _volumeSlider;
     NSDictionary* dict = param;
     
     dispatch_async(dispatch_get_main_queue(), ^{
-        
+        if (EvtID != PLAY_EVT_PLAY_PROGRESS) {
+            NSString *desc = [param description];
+            NSLog(@"%@", [NSString stringWithCString:[desc cStringUsingEncoding:NSUTF8StringEncoding] encoding:NSNonLossyASCIIStringEncoding]);
+        }
         if (EvtID == PLAY_EVT_RCV_FIRST_I_FRAME) {
             [self setNeedsLayout];
             [self layoutIfNeeded];
@@ -1203,12 +1218,21 @@ static UISlider * _volumeSlider;
                 [self updateBitrates:player.supportedBitrates];
             }
             [self updatePlayerPoint];
+            
+            // 不使用vodPlayer.autoPlay的原因是暂停的时候会黑屏，影响体验
+            if (!self.autoPlay) {
+                self.autoPlay = YES; // 下次用户设置自动播放失效
+                [self pause];
+            }
         }
         if (EvtID == PLAY_EVT_VOD_PLAY_PREPARED) {
             if (self.seekTime > 0) {
                 [player seek:self.seekTime];
                 self.seekTime = 0;
             }
+            // 防止暂停导致加载进度不消失
+            if (self.isPauseByUser)
+                [self.spinner stopAnimating];
         }
         
         if (EvtID == PLAY_EVT_PLAY_BEGIN) {
@@ -1238,6 +1262,8 @@ static UISlider * _volumeSlider;
         } else if (EvtID == PLAY_EVT_PLAY_LOADING){
             // 当缓冲是空的时候
             self.state = StateBuffering;
+        } else if (EvtID == PLAY_EVT_VOD_LOADING_END) {
+            [self.spinner stopAnimating];
         } else if (EvtID == PLAY_EVT_CHANGE_RESOLUTION) {
             if (player.height != 0) {
                 self.videoRatio = (GLfloat)player.width / player.height;
@@ -1252,8 +1278,9 @@ static UISlider * _volumeSlider;
         NSArray *titles = [TXBitrateItemHelper sortWithBitrate:bitrates];
         _playerModel.multiVideoURLs = titles;
         self.netWatcher.playerModel = _playerModel;
-        _playerModel.playingDefinition = self.netWatcher.adviseDefinition;
-        [self.controlView playerBegin:_playerModel isLive:self.isLive isTimeShifting:self.isShiftPlayback];
+        if (_playerModel.playingDefinition == nil)
+            _playerModel.playingDefinition = self.netWatcher.adviseDefinition;
+        [self.controlView playerBegin:_playerModel isLive:self.isLive isTimeShifting:self.isShiftPlayback isAutoPlay:self.autoPlay];
         [self.vodPlayer setBitrateIndex:_playerModel.playingDefinitionIndex];
     }
 }
@@ -1509,7 +1536,7 @@ static UISlider * _volumeSlider;
             [self configTXPlayer];
         case ActionSwitch:
             [self controlViewSwitch:self.controlView withDefinition:self.netWatcher.adviseDefinition];
-            [self.controlView playerBegin:self.playerModel isLive:self.isLive isTimeShifting:self.isShiftPlayback];
+            [self.controlView playerBegin:self.playerModel isLive:self.isLive isTimeShifting:self.isShiftPlayback isAutoPlay:YES];
         case ActionIgnore:
             return;
         default:

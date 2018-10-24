@@ -38,8 +38,6 @@
 - (void)makeSubViewsConstraints {
     [self.startBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.center.equalTo(self);
-//        make.leading.equalTo(self).offset(5);
-//        make.top.equalTo(self).offset(50);
     }];
     [self.currentTimeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self).offset(-8);
@@ -69,6 +67,7 @@
     [self.backBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.leading.equalTo(self).offset(5);
         make.top.equalTo(self).offset(3);
+        make.width.mas_equalTo(@60);
     }];
 
     [self.moreBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -121,10 +120,10 @@
         _videoSlider.progressView.progressTintColor = [UIColor colorWithRed:1 green:1 blue:1 alpha:0.5];
         _videoSlider.progressView.trackTintColor    = [UIColor clearColor];
         
-        [_videoSlider setThumbImage:SuperPlayerImage(@"slider_thumb") forState:UIControlStateNormal];
+        [_videoSlider setThumbImage:SuperPlayerImage(@"wb_thumb") forState:UIControlStateNormal];
         
         _videoSlider.maximumValue          = 1;
-        _videoSlider.minimumTrackTintColor = TintColor;
+        _videoSlider.minimumTrackTintColor = [UIColor whiteColor];
         _videoSlider.maximumTrackTintColor = [UIColor colorWithRed:0.5 green:0.5 blue:0.5 alpha:0.5];
         
         // slider开始滑动事件
@@ -332,8 +331,9 @@
 - (void)playerBegin:(SuperPlayerModel *)model
              isLive:(BOOL)isLive
      isTimeShifting:(BOOL)isTimeShifting
+         isAutoPlay:(BOOL)isAutoPlay
 {
-    [self setPlayState:YES];
+    [self setPlayState:isAutoPlay];
 
     _resolutionArray = model.playDefinitions;
     if (model.playingDefinition != nil) {

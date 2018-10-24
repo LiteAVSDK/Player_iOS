@@ -49,7 +49,8 @@
  */
 - (void)playerBegin:(SuperPlayerModel *)model
              isLive:(BOOL)isLive
-     isTimeShifting:(BOOL)isTimeShifting;
+     isTimeShifting:(BOOL)isTimeShifting
+         isAutoPlay:(BOOL)isAutoPlay;
 
 // ---------------------------------------------------------------------------------------------------------------------
 @property NSString *title;

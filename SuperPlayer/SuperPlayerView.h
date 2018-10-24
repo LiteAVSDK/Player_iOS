@@ -55,7 +55,8 @@ typedef NS_ENUM(NSInteger, SuperPlayerState) {
  * 设置封面图片
  */
 @property (nonatomic) UIImageView *coverImageView;
-
+/// 是否自动播放（在playWithModel前设置)
+@property BOOL autoPlay;
 /**
  * 播放model
  */

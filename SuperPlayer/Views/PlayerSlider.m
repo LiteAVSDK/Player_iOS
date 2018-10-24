@@ -58,6 +58,16 @@
     
     self.pointArray = [NSMutableArray new];
     self.maximumTrackTintColor = [UIColor colorWithRed:0.5 green:0.5 blue:0.5 alpha:0.1];
+    
+    
+    self.progressView.translatesAutoresizingMaskIntoConstraints = NO;
+    
+    NSLayoutConstraint *left = [NSLayoutConstraint constraintWithItem:self.progressView attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeLeft multiplier:1 constant:0];
+    NSLayoutConstraint *centerY = [NSLayoutConstraint constraintWithItem:self.progressView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterY multiplier:1 constant:0.8];  // edit the constant value based on the thumb image
+    NSLayoutConstraint *right = [NSLayoutConstraint constraintWithItem:self.progressView attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeTrailing multiplier:1 constant:0];
+    
+    [self addConstraints:@[left,right,centerY]];
+    [self sendSubviewToBack:self.progressView];
 }
 
 - (void)layoutSubviews {
@@ -67,8 +77,8 @@
         point.holder.center = [self holderCenter:point.where];
         [self insertSubview:point.holder belowSubview:self.tracker];
     }
-    _progressView.frame = CGRectMake(2, 0, self.frame.size.width-4, _progressView.frame.size.height);
-    _progressView.center = CGPointMake(self.frame.size.width/2, self.frame.size.height/2+0.5);
+//    _progressView.frame = CGRectMake(2, 0, self.frame.size.width-4, _progressView.frame.size.height);
+//    _progressView.center = CGPointMake(self.frame.size.width/2, self.frame.size.height/2+0.5);
 }
 
 - (PlayerPoint *)addPoint:(GLfloat)where

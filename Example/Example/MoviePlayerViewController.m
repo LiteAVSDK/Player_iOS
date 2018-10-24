@@ -201,14 +201,14 @@ __weak UITextField *urlField;
     [self.liveBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
     [self.liveBtn setTitleColor:[UIColor lightTextColor] forState:UIControlStateNormal];
     [self.liveBtn addTarget:self action:@selector(clickLiveList:) forControlEvents:UIControlEventTouchUpInside];
-    [self.liveBtn setSelected:YES];
+    [self.vodBtn setSelected:YES];
     
     CGFloat btnWidth = self.vodBtn.titleLabel.attributedText.size.width;
-    [self.liveBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.vodBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.playerFatherView.mas_bottom).offset(10);
         make.centerX.mas_equalTo(self.view.mas_centerX).mas_offset(-btnWidth);
     }];
-    [self.vodBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.liveBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.playerFatherView.mas_bottom).offset(10);
         make.centerX.mas_equalTo(self.view.mas_centerX).mas_offset(btnWidth);
     }];
@@ -245,7 +245,7 @@ __weak UITextField *urlField;
     [container addSubview:self.liveListView];
     [self.liveListView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(0);
-        make.left.mas_equalTo(0);
+        make.left.mas_equalTo(@(ScreenWidth));
         make.width.equalTo(@(ScreenWidth));
         make.bottom.mas_equalTo(container.mas_bottom);
     }];
@@ -260,7 +260,7 @@ __weak UITextField *urlField;
     [container addSubview:self.vodListView];
     [self.vodListView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(0);
-        make.left.mas_equalTo(@(ScreenWidth));
+        make.left.mas_equalTo(0);
         make.width.equalTo(@(ScreenWidth));
         make.bottom.mas_equalTo(container.mas_bottom);
     }];
@@ -331,17 +331,6 @@ __weak UITextField *urlField;
         self.liveDataSourceArray = allList;
         [self.liveListView reloadData];
         
-        if (allList.count > 0) {
-            [self.playerView.controlView setTitle:[self.liveDataSourceArray[0] title]];
-            [self.playerView playWithModel:[self.liveDataSourceArray[0] getPlayerModel]];
-            
-            if (self.guideView) {
-                [self showControlView:YES];
-            }
-        }
-        
-        [self showControlView:YES];
-        
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         [manager invalidateSessionCancelingTasks:YES];
     }];
@@ -403,6 +392,12 @@ __weak UITextField *urlField;
         [self.vodListView reloadData];
         [self getNextInfo];
     });
+    
+    if (_vodDataSourceArray.count == 1) {
+        [self.playerView.controlView setTitle:[self.vodDataSourceArray[0] title]];
+        [self.playerView playWithModel:[self.vodDataSourceArray[0] getPlayerModel]];
+        [self showControlView:YES];
+    }
 }
 
 - (void)hudMessage:(NSString *)msg {

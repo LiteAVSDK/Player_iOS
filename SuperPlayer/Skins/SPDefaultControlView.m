@@ -693,8 +693,9 @@
 - (void)playerBegin:(SuperPlayerModel *)model
              isLive:(BOOL)isLive
      isTimeShifting:(BOOL)isTimeShifting
+         isAutoPlay:(BOOL)isAutoPlay
 {
-    [self setPlayState:YES];
+    [self setPlayState:isAutoPlay];
     self.backLiveBtn.hidden = !isTimeShifting;
     self.moreContentView.isLive = isLive;
     
