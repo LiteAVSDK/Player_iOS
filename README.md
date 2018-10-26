@@ -32,21 +32,16 @@
 - [x] 支持多码率HLS
 - [x] 支持软硬解自动切换
 - [x] 支持 HLS 和 MP4 边播边下
-- [x] 支持 HLS 离线下载
-- [x] 支持断点下载
-- [x] 支持 SEI 数据回调
-- [x] 支持纯音频播放
 - [x] 支持后台播放
 - [x] 支持播放器静音
 - [x] 支持循环播放
-- [x] 支持自定义渲染
-- [x] 支持自定义声音处理
 - [x] 支持自定义HTTP Headers
 - [x] 支持快速seek
 - [x] 支持设置进度回调间隔
 - [x] 支持视频缩略图
 - [x] 支持进度打点
 - [x] 支持根据网络选择清晰度
+- [x] 支持之定义皮肤
 
 ## 快速开始
 
@@ -66,4 +61,4 @@ https://github.com/tencentyun/SuperPlayer/wiki
 
 ## 联系方式
 + Issues: https://github.com/tencentyun/SuperPlayer/issues
-+ QQ群: 781719018
++ 专人解答/技术交流 QQ群: 781719018 
