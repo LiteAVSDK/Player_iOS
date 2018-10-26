@@ -7,6 +7,7 @@
 #import <AVFoundation/AVFoundation.h>
 #import <MediaPlayer/MediaPlayer.h>
 #import <Masonry/Masonry.h>
+#import "CFDanmakuView.h"
 #import "SuperPlayer.h"
 #import "ScanQRController.h"
 #import "UIImage+Additions.h"
@@ -58,6 +59,8 @@ __weak UITextField *urlField;
 @property UIScrollView  *scrollView;    //视频列表滑动scrollview
 
 @property UIButton *playerBackBtn;
+
+@property CFDanmakuView *danmakuView;
 
 @end
 
@@ -622,7 +625,7 @@ __weak UITextField *urlField;
         //        }
     }
     
-    CFDanmakuView *_danmakuView = [[CFDanmakuView alloc] initWithFrame:CGRectZero];
+    _danmakuView = [[CFDanmakuView alloc] initWithFrame:CGRectZero];
     _danmakuView.duration = 6.5;
     _danmakuView.centerDuration = 2.5;
     _danmakuView.lineHeight = 25;
@@ -630,7 +633,18 @@ __weak UITextField *urlField;
     _danmakuView.maxCenterLineCount = 5;
     [_danmakuView prepareDanmakus:danmakus];
     
-    self.playerView.danmakuView = _danmakuView;
+    _danmakuView.delegate = self;
+    [self.playerView addSubview:_danmakuView];
+    
+    [_danmakuView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.playerView);
+        make.bottom.equalTo(self.playerView);
+        make.left.equalTo(self.playerView);
+        make.right.equalTo(self.playerView);
+    }];
+    
+    SPDefaultControlView *dv = self.playerView.controlView;
+    [dv.danmakuBtn addTarget:self action:@selector(danmakuShow:) forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (void)showControlView:(BOOL)isShow {
@@ -660,13 +674,13 @@ __weak UITextField *urlField;
 - (void)clickVodList:(id)sender {
     [self.vodBtn setSelected:YES];
     [self.liveBtn setSelected:NO];
-    [self.scrollView scrollRectToVisible:CGRectMake(ScreenWidth, 0, ScreenWidth, self.scrollView.mm_h) animated:YES];
+    [self.scrollView scrollRectToVisible:CGRectMake(0, 0, ScreenWidth, self.scrollView.mm_h) animated:YES];
 }
 
 - (void)clickLiveList:(id)sender {
     [self.vodBtn setSelected:NO];
     [self.liveBtn setSelected:YES];
-    [self.scrollView scrollRectToVisible:CGRectMake(0, 0, ScreenWidth, self.scrollView.mm_h) animated:YES];
+    [self.scrollView scrollRectToVisible:CGRectMake(ScreenWidth, 0, ScreenWidth, self.scrollView.mm_h) animated:YES];
 }
 
 - (void)superPlayerFullScreenChanged:(SuperPlayerView *)player {
@@ -674,6 +688,33 @@ __weak UITextField *urlField;
         self.navigationController.navigationBar.frame = CGRectMake(0, 0, ScreenWidth, 64);
     }
 //    self.playerBackBtn.hidden = !player.isFullScreen;
+}
+
+- (void)superPlayerDidEnd:(SuperPlayerView *)player
+{
+
+}
+#pragma mark - 弹幕
+
+
+- (NSTimeInterval)danmakuViewGetPlayTime:(CFDanmakuView *)danmakuView
+{
+    return self.playerView.playCurrentTime;
+}
+
+- (BOOL)danmakuViewIsBuffering:(CFDanmakuView *)danmakuView
+{
+    return self.playerView.state != StatePlaying;
+}
+
+- (void)danmakuShow:(UIButton *)btn {
+    if (btn.selected) {
+        [_danmakuView start];
+        _danmakuView.hidden = NO;
+    } else {
+        [_danmakuView pause];
+        _danmakuView.hidden = YES;
+    }
 }
 
 @end

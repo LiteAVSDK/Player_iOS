@@ -9,7 +9,6 @@
 #ifndef SuperPlayerView_Private_h
 #define SuperPlayerView_Private_h
 #import "SuperPlayer.h"
-#import "CFDanmakuView.h"
 
 #import "TXVodPlayer.h"
 #import "TXLivePlayer.h"
@@ -24,6 +23,7 @@
 #import "Masonry/Masonry.h"
 #import "AFNetworking/AFNetworking.h"
 #import "SuperPlayerViewConfig.h"
+
 
 // 枚举值，包含水平移动方向和垂直移动方向
 typedef NS_ENUM(NSInteger, PanDirection){
@@ -40,7 +40,7 @@ typedef NS_ENUM(NSInteger, ButtonAction) {
 
 
 @interface SuperPlayerView () <UIGestureRecognizerDelegate,UIAlertViewDelegate,
-TXVodPlayListener, TXLivePlayListener, CFDanmakuDelegate, SuperPlayerControlViewDelegate>
+TXVodPlayListener, TXLivePlayListener, SuperPlayerControlViewDelegate>
 
 
 /** 用来保存快进的总时长 */

@@ -9,7 +9,7 @@
 #import "ViewController.h"
 #import <SuperPlayer/SuperPlayer.h>
 #import <SuperPlayer/UIView+MMLayout.h>
-#import <Masonry.h>
+#import "Masonry.h"
 
 @interface ViewController () <UIGestureRecognizerDelegate>
 @property UIView *backView;

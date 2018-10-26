@@ -1,7 +1,6 @@
 #import <UIKit/UIKit.h>
 #import "SuperPlayer.h"
 #import "SuperPlayerModel.h"
-#import "CFDanmakuView.h"
 
 @class SuperPlayerControlView;
 @class SuperPlayerView;
@@ -14,6 +13,8 @@
 - (void)superPlayerFullScreenChanged:(SuperPlayerView *)player;
 /// 播放结束通知
 - (void)superPlayerDidEnd:(SuperPlayerView *)player;
+/// 播放错误通知
+- (void)superPlayerError:(SuperPlayerView *)player errCode:(int)code errMessage:(NSString *)why;
 // 需要通知到父view的事件在此添加
 @end
 
@@ -45,8 +46,6 @@ typedef NS_ENUM(NSInteger, SuperPlayerState) {
 @property (nonatomic, assign) BOOL isLockScreen;
 /** 是否是直播流 */
 @property (readonly) BOOL isLive;
-/// 弹幕视图
-@property (nonatomic) CFDanmakuView *danmakuView;
 /// 超级播放器控制层
 @property (nonatomic) SuperPlayerControlView *controlView;
 /// 是否允许竖屏手势
@@ -59,6 +58,10 @@ typedef NS_ENUM(NSInteger, SuperPlayerState) {
 @property (nonatomic) UIImageView *coverImageView;
 /// 是否自动播放（在playWithModel前设置)
 @property BOOL autoPlay;
+/// 视频总时长
+@property (nonatomic) CGFloat playDuration;
+/// 视频当前播放时间
+@property (nonatomic) CGFloat playCurrentTime;
 /**
  * 播放model
  */

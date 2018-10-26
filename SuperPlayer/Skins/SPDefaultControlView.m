@@ -242,7 +242,6 @@
 
 - (void)danmakuBtnClick:(UIButton *)sender {
     sender.selected = !sender.selected;
-    [self.delegate controlViewDanmaku:self withShow:sender.selected];
     [self fadeOut:3];
 }
 

@@ -1,7 +1,6 @@
 #import "SuperPlayerView.h"
 #import <AVFoundation/AVFoundation.h>
 #import "SuperPlayer.h"
-#import "CFDanmakuView.h"
 #import "SuperPlayerControlViewDelegate.h"
 #import "J2Obj.h"
 #import "SuperPlayerView+Private.h"
@@ -96,39 +95,6 @@ static UISlider * _volumeSlider;
     [self.netWatcher stopWatch];
     [self.volumeView removeFromSuperview];
 }
-
-#pragma mark - 弹幕
-
-- (NSTimeInterval)danmakuViewGetPlayTime:(CFDanmakuView *)danmakuView
-{
-    return -[self.reportTime timeIntervalSinceNow];
-}
-
-- (BOOL)danmakuViewIsBuffering:(CFDanmakuView *)danmakuView
-{
-    return self.state != StatePlaying;
-}
-
-- (void)setDanmakuView:(CFDanmakuView *)danmakuView
-{
-    if (_danmakuView) {
-        [_danmakuView removeFromSuperview];
-    }
-    _danmakuView = danmakuView;
-    
-    if (_danmakuView) {
-        _danmakuView.delegate = self;
-        [self addSubview:_danmakuView];
-        
-        [_danmakuView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self);
-            make.bottom.equalTo(self);
-            make.left.equalTo(self);
-            make.right.equalTo(self);
-        }];
-    }
-}
-
 
 #pragma mark - 观察者、通知
 
@@ -753,7 +719,7 @@ static UISlider * _volumeSlider;
             if (x > y) { // 水平移动
                 // 取消隐藏
                 self.panDirection = PanDirectionHorizontalMoved;
-                self.sumTime      = [self getCurrentTime];
+                self.sumTime      = [self playCurrentTime];
             }
             else if (x < y){ // 垂直移动
                 self.panDirection = PanDirectionVerticalMoved;
@@ -841,7 +807,7 @@ static UISlider * _volumeSlider;
  */
 - (void)horizontalMoved:(CGFloat)value {
     // 每次滑动需要叠加时间
-    CGFloat totalMovieDuration = [self getTotalTime];
+    CGFloat totalMovieDuration = [self playDuration];
     self.sumTime += value / 10000 * totalMovieDuration;
     
     if (self.sumTime > totalMovieDuration) { self.sumTime = totalMovieDuration;}
@@ -884,7 +850,7 @@ static UISlider * _volumeSlider;
 
 - (void)fastViewProgressAvaliable:(NSInteger)draggedTime
 {
-    NSInteger totalTime = [self getTotalTime];
+    NSInteger totalTime = [self playDuration];
     NSString *currentTimeStr = [StrUtils timeFormat:draggedTime];
     NSString *totalTimeStr   = [StrUtils timeFormat:totalTime];
     NSString *timeStr        = [NSString stringWithFormat:@"%@ / %@", currentTimeStr, totalTimeStr];
@@ -1024,7 +990,7 @@ static UISlider * _volumeSlider;
 
 #pragma mark - Getter
 
-- (CGFloat)getTotalTime {
+- (CGFloat)playDuration {
     if (self.isLive) {
         return self.maxLiveProgressTime;
     }
@@ -1032,7 +998,7 @@ static UISlider * _volumeSlider;
     return self.vodPlayer.duration;
 }
 
-- (CGFloat)getCurrentTime {
+- (CGFloat)playCurrentTime {
     if (self.isLive) {
         if (self.isShiftPlayback) {
             return self.liveProgressTime;
@@ -1150,19 +1116,9 @@ static UISlider * _volumeSlider;
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"photos-redirect://"]];
 }
 
-- (void)controlViewDanmaku:(SuperPlayerControlView *)controlView withShow:(BOOL)show {
-    if (show) {
-        [_danmakuView start];
-        _danmakuView.hidden = NO;
-    } else {
-        [_danmakuView pause];
-        _danmakuView.hidden = YES;
-    }
-}
-
 - (void)controlViewSeek:(SuperPlayerControlView *)controlView where:(CGFloat)pos {
     // 视频总时间长度
-    CGFloat total = [self getTotalTime];
+    CGFloat total = [self playDuration];
     //计算出拖动的当前秒数
     NSInteger dragedSeconds = floorf(total * pos);
     [self seekToTime:dragedSeconds];
@@ -1171,7 +1127,7 @@ static UISlider * _volumeSlider;
 
 - (void)controlViewPreview:(SuperPlayerControlView *)controlView where:(CGFloat)pos {
     // 视频总时间长度
-    CGFloat totalTime = [self getTotalTime];
+    CGFloat totalTime = [self playDuration];
     //计算出拖动的当前秒数
     CGFloat dragedSeconds = floorf(totalTime * pos);
     if (self.isLive && totalTime > MAX_SHIFT_TIME) {
@@ -1262,6 +1218,9 @@ static UISlider * _volumeSlider;
             }
             self.state = StateFailed;
             [player stopPlay];
+            if ([self.delegate respondsToSelector:@selector(superPlayerError:errCode:errMessage:)]) {
+                [self.delegate superPlayerError:self errCode:EvtID errMessage:param[EVT_MSG]];
+            }
         } else if (EvtID == PLAY_EVT_PLAY_LOADING){
             // 当缓冲是空的时候
             self.state = StateBuffering;
@@ -1294,7 +1253,7 @@ static UISlider * _volumeSlider;
     for (NSDictionary *keyFrameDesc in self.keyFrameDescList) {
         NSInteger time = [J2Num([keyFrameDesc valueForKeyPath:@"timeOffset"]) intValue];
         NSString *content = J2Str([keyFrameDesc valueForKeyPath:@"content"]);
-        [self.controlView addVideoPoint:time/1000.0/([self getTotalTime]+1)
+        [self.controlView addVideoPoint:time/1000.0/([self playDuration]+1)
                                    text:[content stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]
                                    time:time];
     }
@@ -1331,6 +1290,9 @@ static UISlider * _volumeSlider;
             } else {
                 [self showMiddleBtnMsg:kStrBadNetRetry withAction:ActionReplay];
                 self.state = StateFailed;
+            }
+            if ([self.delegate respondsToSelector:@selector(superPlayerError:errCode:errMessage:)]) {
+                [self.delegate superPlayerError:self errCode:EvtID errMessage:param[EVT_MSG]];
             }
         } else if (EvtID == PLAY_EVT_PLAY_LOADING){
             // 当缓冲是空的时候
@@ -1469,6 +1431,9 @@ static UISlider * _volumeSlider;
                                 } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
                                     // error 错误信息
                                     [self showMiddleBtnMsg:kStrLoadFaildRetry withAction:ActionIgnore];
+                                    if ([self.delegate respondsToSelector:@selector(superPlayerError:errCode:errMessage:)]) {
+                                        [self.delegate superPlayerError:self errCode:-1000 errMessage:@"网络请求失败"];
+                                    }
                                 }];
     [manager invalidateSessionCancelingTasks:NO];
 }
