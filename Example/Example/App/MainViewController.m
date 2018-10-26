@@ -11,6 +11,7 @@
 #import <SuperPlayer/SuperPlayer.h>
 #import <SuperPlayer/UIView+MMLayout.h>
 #import "TXWeiboListViewController.h"
+#import "ViewController.h"
 
 #define STATUS_BAR_HEIGHT [UIApplication sharedApplication].statusBarFrame.size.height
 
@@ -68,6 +69,11 @@ UIAlertViewDelegate
         scellInfo.navigateToController = @"TXWeiboListViewController";
         [subCells addObject:scellInfo];
         
+        scellInfo = [CellInfo new];
+        scellInfo.title = @"全屏模式";
+        scellInfo.navigateToController = @"ViewController";
+        [subCells addObject:scellInfo];
+        
         subCells;
     
     });
@@ -82,7 +88,7 @@ UIAlertViewDelegate
     
     //大标题
     UILabel* lbHeadLine = [[UILabel alloc] initWithFrame:CGRectMake(originX, 50, width, 48)];
-    lbHeadLine.text = @"腾讯视频云";
+    lbHeadLine.text = @"超级播放器";
     lbHeadLine.textColor = RGBA(0xff, 0xff, 0xff, 1);
     lbHeadLine.font = [UIFont systemFontOfSize:24];
     [lbHeadLine sizeToFit];
@@ -102,7 +108,7 @@ UIAlertViewDelegate
     //副标题
     UILabel* lbSubHead = [[UILabel alloc] initWithFrame:CGRectMake(originX, lbHeadLine.frame.origin.y + lbHeadLine.frame.size.height + 15, width, 30)];
     NSString *version = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
-    lbSubHead.text = [NSString stringWithFormat:@"视频云工具包 v%@", version];
+    lbSubHead.text = [NSString stringWithFormat:@"超级播放器 v%@", version];
     lbSubHead.text = [lbSubHead.text stringByAppendingString:@"\n本APP用于展示腾讯视频云终端产品的各类功能"];
     lbSubHead.numberOfLines = 2;
     lbSubHead.textColor = UIColor.grayColor;
@@ -240,13 +246,18 @@ UIAlertViewDelegate
         return;
     }
     
-    NSString* controllerClassName = cellInfo.navigateToController;
-    Class controllerClass = NSClassFromString(controllerClassName);
-    id controller = [[controllerClass alloc] init];
-    
-
-    [self.navigationController pushViewController:controller animated:YES];
+    if ([cellInfo.navigateToController isEqualToString:@"ViewController"]) {
+        ViewController *c = [[ViewController alloc] init];
+        [self.view addSubview:c.view];
+        [self addChildViewController:c];
+    } else {
+        NSString* controllerClassName = cellInfo.navigateToController;
+        Class controllerClass = NSClassFromString(controllerClassName);
+        id controller = [[controllerClass alloc] init];
+        [self.navigationController pushViewController:controller animated:YES];
+    }
 }
+
 
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath

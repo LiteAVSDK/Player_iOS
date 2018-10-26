@@ -8,27 +8,108 @@
 
 #import "ViewController.h"
 #import <SuperPlayer/SuperPlayer.h>
+#import <SuperPlayer/UIView+MMLayout.h>
+#import <Masonry.h>
 
-@interface ViewController ()
+@interface ViewController () <UIGestureRecognizerDelegate>
+@property UIView *backView;
+@property UIView *playerContainer;
+@property SuperPlayerView *playerView;
+@property CGPoint startPoint;
+@property CGPoint originPoint;
 
 @end
 
 @implementation ViewController {
-    SuperPlayerView *_playerView;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
+
+    
+    self.backView = [[UIView alloc] initWithFrame:self.view.frame];
+    [self.view addSubview:self.backView];
+    self.view.backgroundColor = RGBA(0, 0, 0, 1);
+   
+    self.playerContainer = [[UIView alloc] init];
+    self.playerContainer.backgroundColor = [UIColor blackColor];
+    [self.backView addSubview:self.playerContainer];
+    self.backView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    self.playerContainer.m_width(self.view.mm_w).m_height(self.view.mm_w*9.0f/16.0f).m_center();
+    
     _playerView = [[SuperPlayerView alloc] init];
     // 设置父View
-    _playerView.fatherView = self.view;
-    
+    _playerView.disableGesture = YES;
+
     SuperPlayerModel *playerModel = [[SuperPlayerModel alloc] init];
-    // 设置播放地址，直播、点播都可以
-    playerModel.videoURL = @"http://200024424.vod.myqcloud.com/200024424_709ae516bdf811e6ad39991f76a4df69.f20.mp4";
-    // 开始播放
+    playerModel.videoURL = @"http://1253131631.vod2.myqcloud.com/26f327f9vodgzp1253131631/f4c0c9e59031868222924048327/f0.mp4";
+
+    self.playerView.fatherView = self.playerContainer;
+
+     // 开始播放
     [_playerView playWithModel:playerModel];
+    
+    UIPanGestureRecognizer *panRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panGesWindow:)];
+    panRecognizer.delegate = self;
+    [panRecognizer setMaximumNumberOfTouches:1];
+    [panRecognizer setDelaysTouchesBegan:YES];
+    [panRecognizer setDelaysTouchesEnded:YES];
+    [panRecognizer setCancelsTouchesInView:YES];
+    [self.view addGestureRecognizer:panRecognizer];
+    
+    self.view.userInteractionEnabled = YES;
 }
 
+- (void)panGesWindow:(UIPanGestureRecognizer *)pan
+{
+    
+    if (pan.state == UIGestureRecognizerStateBegan) {
+        self.startPoint = [pan translationInView:self.view];
+        self.originPoint = self.playerContainer.frame.origin;
+        
+        
+    } else if (pan.state == UIGestureRecognizerStateChanged) {
+        CGPoint point = [pan translationInView:self.view];
+        float dx = point.x - self.startPoint.x;
+        float dy = point.y - self.startPoint.y;
+        
+        int progressIndex = (int)dx;
+        int moveIndex = (int)dy;
+
+
+
+        
+        CGFloat alpha = 1- (sqrt(dx*dx+dy*dy) / 500.0);
+        if (alpha < 0) alpha = 0;
+        if (alpha > 1) alpha = 1;
+        self.view.backgroundColor = RGBA(0, 0, 0, alpha);
+        
+        self.backView.m_left(progressIndex).m_top(moveIndex);
+        self.backView.transform = CGAffineTransformScale(CGAffineTransformIdentity, alpha/2+0.5, alpha/2+0.5);
+        
+    } else if (pan.state == UIGestureRecognizerStateEnded) {
+
+        CGFloat alpha;
+        [self.view.backgroundColor getWhite:nil alpha:&alpha];
+            if (alpha < 0.1) {
+                [UIView animateWithDuration:0.2 animations:^{
+                    self.backView.transform = CGAffineTransformScale(CGAffineTransformIdentity, 0.1, 0.1);
+                } completion:^(BOOL finished) {
+                    [self.playerView resetPlayer];
+                    [self.view removeFromSuperview];
+                }];
+            } else {
+                [UIView animateWithDuration:0.2 animations:^{
+                    self.backView.transform = CGAffineTransformIdentity;
+                    self.backView.m_left(0).m_top(0);
+                    self.view.backgroundColor = RGBA(0, 0, 0, 1);
+                }];
+            }
+    }
+}
+
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
+{
+    return YES;
+}
 @end
