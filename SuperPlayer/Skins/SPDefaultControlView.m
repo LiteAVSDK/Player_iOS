@@ -698,10 +698,11 @@
     self.backLiveBtn.hidden = !isTimeShifting;
     self.moreContentView.isLive = isLive;
     
-    _resolutionArray = model.playDefinitions;
+    
     for (UIView *subview in self.resolutionView.subviews)
         [subview removeFromSuperview];
-   
+
+   _resolutionArray = model.playDefinitions;
     [self.resolutionBtn setTitle:model.playingDefinition forState:UIControlStateNormal];
     
     UILabel *lable = [UILabel new];
@@ -741,6 +742,8 @@
         self.isLive = isLive;
         [self setNeedsLayout];
     }
+    // 时移的时候不能切清晰度
+    self.resolutionBtn.userInteractionEnabled = !isTimeShifting;
 }
 
 /** 播放按钮状态 */

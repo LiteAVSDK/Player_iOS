@@ -662,11 +662,11 @@ __weak UITextField *urlField;
     if (scrollView == self.scrollView) {
     CGPoint p = [scrollView contentOffset];
         if (p.x >= ScreenWidth) {
-            [self.vodBtn setSelected:YES];
-            [self.liveBtn setSelected:NO];
-        } else {
-            [self.vodBtn setSelected:NO];
             [self.liveBtn setSelected:YES];
+            [self.vodBtn setSelected:NO];
+        } else {
+            [self.liveBtn setSelected:NO];
+            [self.vodBtn setSelected:YES];
         }
     }
 }

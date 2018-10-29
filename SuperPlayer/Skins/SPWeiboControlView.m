@@ -375,6 +375,8 @@
         self.isLive = isLive;
         [self setNeedsLayout];
     }
+    // 时移的时候不能切清晰度
+    self.resolutionBtn.userInteractionEnabled = !isTimeShifting;
 }
 
 /**

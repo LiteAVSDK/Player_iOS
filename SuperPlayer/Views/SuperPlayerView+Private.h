@@ -82,7 +82,7 @@ TXVodPlayListener, TXLivePlayListener, SuperPlayerControlViewDelegate>
 @property (class, readonly) UISlider *volumeViewSlider;
 @property MPVolumeView *volumeView;
 // 播放的数据
-@property (nonatomic, assign) float                  seekTime;
+
 
 // add for txvodplayer
 @property BOOL  isLoaded;

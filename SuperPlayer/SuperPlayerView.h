@@ -62,6 +62,8 @@ typedef NS_ENUM(NSInteger, SuperPlayerState) {
 @property (nonatomic) CGFloat playDuration;
 /// 视频当前播放时间
 @property (nonatomic) CGFloat playCurrentTime;
+/// 起始播放时间
+@property CGFloat startTime;
 /**
  * 播放model
  */

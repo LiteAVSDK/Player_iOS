@@ -300,6 +300,7 @@ static UISlider * _volumeSlider;
         [self.livePlayer setRenderMode:self.playerConfig.renderMode];
     } else {
         self.vodPlayer.enableHWAcceleration = self.playerConfig.hwAcceleration;
+        [self.vodPlayer setStartTime:self.startTime]; self.startTime = 0;
         [self.vodPlayer startPlay:videoURL];
         [self.vodPlayer setBitrateIndex:self.playerModel.playingDefinitionIndex];
         
@@ -666,7 +667,6 @@ static UISlider * _volumeSlider;
         }
     } else {
         [self.vodPlayer seek:dragedSeconds];
-        self.seekTime = 0;
         [self.vodPlayer resume];
     }
 }
@@ -924,8 +924,9 @@ static UISlider * _volumeSlider;
     } else {
         [self.spinner stopAnimating];
     }
-    if (state == StatePlaying || state == StateBuffering) {
-
+    if (state == StatePlaying) {
+        [[self.controlView fadeShow] fadeOut:5];
+        
         [[NSNotificationCenter defaultCenter] removeObserver:self
                                                         name:@"AVSystemController_SystemVolumeDidChangeNotification"
                                                       object:nil];
@@ -1053,7 +1054,8 @@ static UISlider * _volumeSlider;
         if ([self.vodPlayer supportedBitrates].count > 0) {
             [self.vodPlayer setBitrateIndex:self.playerModel.playingDefinitionIndex];
         } else {
-            self.seekTime = [self.vodPlayer currentPlaybackTime];
+            CGFloat startTime = [self.vodPlayer currentPlaybackTime];
+            [self.vodPlayer setStartTime:startTime];
             [self.vodPlayer startPlay:url];
         }
     }
@@ -1071,7 +1073,7 @@ static UISlider * _volumeSlider;
     }
     if (self.playerConfig.hwAccelerationChanged) {
         if (!self.isLive)
-            self.seekTime = [self.vodPlayer currentPlaybackTime];
+            self.startTime = [self.vodPlayer currentPlaybackTime];
         [self configTXPlayer]; // 软硬解需要重启
     }
 }
@@ -1084,7 +1086,7 @@ static UISlider * _volumeSlider;
         [self.livePlayer resumeLive];
         [self.controlView playerBegin:self.playerModel isLive:self.isLive isTimeShifting:self.isShiftPlayback isAutoPlay:YES];
     } else {
-        self.seekTime = [self.vodPlayer currentPlaybackTime];
+        self.startTime = [self.vodPlayer currentPlaybackTime];
         [self configTXPlayer];
     }
 }
@@ -1186,10 +1188,6 @@ static UISlider * _volumeSlider;
             }
         }
         if (EvtID == PLAY_EVT_VOD_PLAY_PREPARED) {
-            if (self.seekTime > 0) {
-                [player seek:self.seekTime];
-                self.seekTime = 0;
-            }
             // 防止暂停导致加载进度不消失
             if (self.isPauseByUser)
                 [self.spinner stopAnimating];

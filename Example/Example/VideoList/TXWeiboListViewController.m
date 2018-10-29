@@ -19,6 +19,7 @@
 @property NSArray *imgUrlArray;
 
 @property NSIndexPath *tempIndexPath;
+@property NSMutableDictionary *startTimeDict;
 @end
 
 @implementation TXWeiboListViewController
@@ -76,7 +77,7 @@
     [_tableView reloadData];
     _tableView.frame = self.view.frame;
     
-
+    self.startTimeDict = @{}.mutableCopy;
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
@@ -168,6 +169,13 @@
     TXWeiboListTableViewCell *tempCell = nil;
     tempCell = [self.tableView cellForRowAtIndexPath:self.tempIndexPath];
     tempCell.playButton.hidden = NO;
+    if (self.tempIndexPath) {
+        if (self.superPlayer.state == StatePlaying) {
+            self.startTimeDict[self.tempIndexPath] = @(self.superPlayer.playCurrentTime);
+        } else {
+            [self.startTimeDict removeObjectForKey:self.tempIndexPath];
+        }
+    }
     
     self.tempIndexPath = [self.tableView indexPathForCell:cell];
     tempCell = (TXWeiboListTableViewCell *)cell;
@@ -175,6 +183,10 @@
     SuperPlayerModel *model = [SuperPlayerModel new];
     model.appId = 1252463788;
     model.fileId = self.fileIdArray[[self.tempIndexPath row]];
+    NSNumber *startTime = [self.startTimeDict objectForKey:self.tempIndexPath];
+    if (startTime) {
+        self.superPlayer.startTime = startTime.floatValue;
+    }
     [self.superPlayer playWithModel:model];
     [self.superPlayer.coverImageView sd_setImageWithURL:[NSURL URLWithString:self.imgUrlArray[self.tempIndexPath.row]]];
     tempCell.playButton.hidden = YES;
