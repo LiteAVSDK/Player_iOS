@@ -151,7 +151,6 @@
         make.leading.equalTo(self.currentTimeLabel.mas_trailing);
         make.trailing.equalTo(self.totalTimeLabel.mas_leading);
         make.centerY.equalTo(self.currentTimeLabel.mas_centerY).offset(-1);
-        make.height.mas_equalTo(60);
     }];
     
     [self.lockBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -310,6 +309,7 @@
 }
 
 - (void)pointJumpClick:(UIButton *)sender {
+    self.pointJumpBtn.hidden = YES;
     PlayerPoint *point = [self.videoSlider.pointArray objectAtIndex:self.pointJumpBtn.tag];
     [self.delegate controlViewSeek:self where:point.where];
     [self fadeOut:0.1];
@@ -387,7 +387,7 @@
     }
     
     self.videoSlider.hiddenPoints = YES;
-    [self removePointJumpBtn];
+    self.pointJumpBtn.hidden = YES;
 }
 
 #pragma mark - Private Method
@@ -464,23 +464,14 @@
 - (PlayerSlider *)videoSlider {
     if (!_videoSlider) {
         _videoSlider                       = [[PlayerSlider alloc] init];
-        
-        _videoSlider.progressView.progressTintColor = [UIColor colorWithRed:1 green:1 blue:1 alpha:0.5];
-        _videoSlider.progressView.trackTintColor    = [UIColor clearColor];
-        
         [_videoSlider setThumbImage:SuperPlayerImage(@"slider_thumb") forState:UIControlStateNormal];
-        
-        _videoSlider.maximumValue          = 1;
         _videoSlider.minimumTrackTintColor = TintColor;
-        _videoSlider.maximumTrackTintColor = [UIColor colorWithRed:0.5 green:0.5 blue:0.5 alpha:0.5];
-        
         // slider开始滑动事件
         [_videoSlider addTarget:self action:@selector(progressSliderTouchBegan:) forControlEvents:UIControlEventTouchDown];
         // slider滑动中事件
         [_videoSlider addTarget:self action:@selector(progressSliderValueChanged:) forControlEvents:UIControlEventValueChanged];
         // slider结束滑动事件
         [_videoSlider addTarget:self action:@selector(progressSliderTouchEnded:) forControlEvents:UIControlEventTouchUpInside | UIControlEventTouchUpOutside];
-        
         _videoSlider.delegate = self;
     }
     return _videoSlider;
@@ -573,12 +564,6 @@
     return _pointJumpBtn;
 }
 
-- (void)removePointJumpBtn
-{
-    [_pointJumpBtn removeFromSuperview];
-    _pointJumpBtn = nil;
-}
-
 - (MoreContentView *)moreContentView {
     if (!_moreContentView) {
         _moreContentView = [[MoreContentView alloc] initWithFrame:CGRectZero];
@@ -623,6 +608,7 @@
     
     self.lockBtn.hidden = !self.isFullScreen;
     self.isShowSecondView = NO;
+    self.pointJumpBtn.hidden = YES;
 }
 
 /** 重置ControlView */
@@ -643,22 +629,26 @@
     self.backLiveBtn.hidden              = YES;
 }
 
-- (void)removeAllVideoPoints {
+- (void)setPointArray:(NSArray *)pointArray
+{
+    [super setPointArray:pointArray];
+    
     for (PlayerPoint *holder in self.videoSlider.pointArray) {
         [holder.holder removeFromSuperview];
     }
     [self.videoSlider.pointArray removeAllObjects];
+    
+    for (SuperPlayerVideoPoint *p in pointArray) {
+        PlayerPoint *point = [self.videoSlider addPoint:p.where];
+        point.content = p.text;
+        point.timeOffset = p.time;
+    }
 }
 
-- (void)addVideoPoint:(CGFloat)where text:(NSString *)text time:(NSInteger)time {
-    PlayerPoint *point = [self.videoSlider addPoint:where];
-    point.content = text;
-    point.timeOffset = time;
-}
 
 
 - (void)onPlayerPointSelected:(PlayerPoint *)point {
-    NSString *text = [NSString stringWithFormat:@"  %@ %@  ", [StrUtils timeFormat:point.timeOffset/1000],
+    NSString *text = [NSString stringWithFormat:@"  %@ %@  ", [StrUtils timeFormat:point.timeOffset],
                       point.content];
     
     [self.pointJumpBtn setTitle:text forState:UIControlStateNormal];
@@ -669,7 +659,8 @@
     if (x + self.pointJumpBtn.mm_halfW > ScreenWidth)
         x = ScreenWidth - self.pointJumpBtn.mm_halfW;
     self.pointJumpBtn.tag = [self.videoSlider.pointArray indexOfObject:point];
-    self.pointJumpBtn.m_left(x).m_bottom(self.videoSlider.mm_h);
+    self.pointJumpBtn.m_left(x).m_bottom(60);
+    self.pointJumpBtn.hidden = NO;
     
     [DataReport report:@"player_point" param:nil];
 }
@@ -698,11 +689,10 @@
     self.backLiveBtn.hidden = !isTimeShifting;
     self.moreContentView.isLive = isLive;
     
-    
     for (UIView *subview in self.resolutionView.subviews)
         [subview removeFromSuperview];
 
-   _resolutionArray = model.playDefinitions;
+    _resolutionArray = model.playDefinitions;
     [self.resolutionBtn setTitle:model.playingDefinition forState:UIControlStateNormal];
     
     UILabel *lable = [UILabel new];
@@ -753,6 +743,7 @@
 
 - (void)setTitle:(NSString *)title
 {
+    [super setTitle:title];
     self.titleLabel.text = title;
 }
 

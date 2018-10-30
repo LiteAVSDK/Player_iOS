@@ -160,7 +160,18 @@ static UISlider * _volumeSlider;
         [self getPlayInfo:playerModel.appId withFileId:playerModel.fileId];
     } else {
         NSLog(@"无播放地址");
+        return;
     }
+    
+    NSMutableArray *array = @[].mutableCopy;
+    for (NSDictionary *keyFrameDesc in self.keyFrameDescList) {
+        SuperPlayerVideoPoint *p = [SuperPlayerVideoPoint new];
+        p.time = [J2Num([keyFrameDesc valueForKeyPath:@"timeOffset"]) intValue]/1000.0;
+        p.text = [J2Str([keyFrameDesc valueForKeyPath:@"content"]) stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        p.where = p.time/self.infoDuration;
+        [array addObject:p];
+    }
+    self.controlView.pointArray = array;
 }
 
 /**
@@ -914,9 +925,10 @@ static UISlider * _volumeSlider;
 /**
  *  设置播放的状态
  *
- *  @param state ZFPlayerState
+ *  @param state SuperPlayerState
  */
 - (void)setState:(SuperPlayerState)state {
+        
     _state = state;
     // 控制菊花显示、隐藏
     if (state == StateBuffering) {
@@ -925,7 +937,6 @@ static UISlider * _volumeSlider;
         [self.spinner stopAnimating];
     }
     if (state == StatePlaying) {
-        [[self.controlView fadeShow] fadeOut:5];
         
         [[NSNotificationCenter defaultCenter] removeObserver:self
                                                         name:@"AVSystemController_SystemVolumeDidChangeNotification"
@@ -955,12 +966,21 @@ static UISlider * _volumeSlider;
 }
 
 - (void)setControlView:(SuperPlayerControlView *)controlView {
-    _controlView = controlView;
+    if (_controlView == controlView) {
+        return;
+    }
+    [_controlView removeFromSuperview];
+
     controlView.delegate = self;
     [self addSubview:controlView];
     [controlView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.mas_equalTo(UIEdgeInsetsZero);
     }];
+    [controlView playerBegin:self.playerModel isLive:self.isLive isTimeShifting:self.isShiftPlayback isAutoPlay:self.autoPlay];
+    [controlView setTitle:_controlView.title];
+    [controlView setPointArray:_controlView.pointArray];
+    
+    _controlView = controlView;
 }
 
 - (SuperPlayerControlView *)controlView
@@ -1179,7 +1199,6 @@ static UISlider * _volumeSlider;
             if (self.playerModel.playDefinitions.count == 0) {
                 [self updateBitrates:player.supportedBitrates];
             }
-            [self updatePlayerPoint];
             
             // 不使用vodPlayer.autoPlay的原因是暂停的时候会黑屏，影响体验
             if (!self.autoPlay) {
@@ -1245,17 +1264,7 @@ static UISlider * _volumeSlider;
     }
 }
 
-- (void)updatePlayerPoint {
-    [self.controlView removeAllVideoPoints];
-    
-    for (NSDictionary *keyFrameDesc in self.keyFrameDescList) {
-        NSInteger time = [J2Num([keyFrameDesc valueForKeyPath:@"timeOffset"]) intValue];
-        NSString *content = J2Str([keyFrameDesc valueForKeyPath:@"content"]);
-        [self.controlView addVideoPoint:time/1000.0/([self playDuration]+1)
-                                   text:[content stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]
-                                   time:time];
-    }
-}
+
 #pragma mark - 直播回调
 
 - (void)onPlayEvent:(int)EvtID withParam:(NSDictionary *)param {
@@ -1271,7 +1280,6 @@ static UISlider * _volumeSlider;
             [self.livePlayer setupVideoWidget:CGRectZero containView:self insertIndex:0];
             [self layoutSubviews];  // 防止横屏状态下添加view显示不全
             self.state = StatePlaying;
-            [self updatePlayerPoint];
         }
         
         if (EvtID == PLAY_EVT_PLAY_BEGIN) {
@@ -1423,6 +1431,7 @@ static UISlider * _volumeSlider;
                                     } else {
                                         strongSelf.keyFrameDescList = nil;
                                     }
+                                    strongSelf.infoDuration = [J2Num([responseObject valueForKeyPath:@"videoInfo.sourceVideo.duration"]) floatValue];
                                     
                                     [strongSelf _playWithModel:theModel];
                                     

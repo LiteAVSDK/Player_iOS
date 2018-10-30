@@ -24,7 +24,7 @@ typedef NS_ENUM(NSInteger, SuperPlayerState) {
     StateBuffering,  // 缓冲中
     StatePlaying,    // 播放中
     StateStopped,    // 停止播放
-    StatePause       // 暂停播放
+    StatePause,      // 暂停播放
 };
 
 
