@@ -17,6 +17,12 @@
 #import "SuperPlayerViewConfig.h"
 
 
+@interface SuperPlayerVideoPoint : NSObject
+@property CGFloat where;
+@property NSString *text;
+@property CGFloat time;
+@end
+
 @interface SuperPlayerControlView : UIView
 
 
@@ -38,11 +44,6 @@
 - (void)setPlayState:(BOOL)isPlay;
 
 
-/**
- * 进度条打点
- */
-- (void)addVideoPoint:(CGFloat)where text:(NSString *)text time:(NSInteger)time;
-- (void)removeAllVideoPoints;
 
 /**
  * 切换分辨率功能
@@ -54,6 +55,7 @@
 
 // ---------------------------------------------------------------------------------------------------------------------
 @property NSString *title;
+@property NSArray<SuperPlayerVideoPoint *>  *pointArray;
 /// 是否在拖动进度
 @property BOOL  isDragging;
 /// 是否显示二级菜单

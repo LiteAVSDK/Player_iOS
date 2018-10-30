@@ -8,6 +8,7 @@
 #import "SPWeiboControlView.h"
 #import <Masonry/Masonry.h>
 #import "UIView+Fade.h"
+#import "UIView+MMLayout.h"
 #import "StrUtils.h"
 #import "DataReport.h"
 #import "SuperPlayer.h"
@@ -116,23 +117,15 @@
 - (PlayerSlider *)videoSlider {
     if (!_videoSlider) {
         _videoSlider                       = [[PlayerSlider alloc] init];
-        
-        _videoSlider.progressView.progressTintColor = [UIColor colorWithRed:1 green:1 blue:1 alpha:0.5];
-        _videoSlider.progressView.trackTintColor    = [UIColor clearColor];
-        
         [_videoSlider setThumbImage:SuperPlayerImage(@"wb_thumb") forState:UIControlStateNormal];
-        
-        _videoSlider.maximumValue          = 1;
-        _videoSlider.minimumTrackTintColor = [UIColor whiteColor];
-        _videoSlider.maximumTrackTintColor = [UIColor colorWithRed:0.5 green:0.5 blue:0.5 alpha:0.5];
-        
+        _videoSlider.minimumTrackTintColor = RGBA(223, 223, 223, 1);
         // slider开始滑动事件
         [_videoSlider addTarget:self action:@selector(progressSliderTouchBegan:) forControlEvents:UIControlEventTouchDown];
         // slider滑动中事件
         [_videoSlider addTarget:self action:@selector(progressSliderValueChanged:) forControlEvents:UIControlEventValueChanged];
         // slider结束滑动事件
-        [_videoSlider addTarget:self action:@selector(progressSliderTouchEnded:) forControlEvents:UIControlEventTouchUpInside | UIControlEventTouchUpOutside];
-
+        [_videoSlider addTarget:self action:@selector(progressSliderTouchEnded:) forControlEvents:UIControlEventTouchUpInside | UIControlEventTouchUpOutside|UIControlEventTouchCancel];
+        _videoSlider.delegate = self;
     }
     return _videoSlider;
 }
@@ -235,6 +228,7 @@
 
 - (void)progressSliderTouchBegan:(UISlider *)sender {
     self.isDragging = YES;
+    self.startBtn.hidden = YES; // 播放按钮挡住了fastView
     [self cancelFadeOut];
 }
 
@@ -245,6 +239,7 @@
 - (void)progressSliderTouchEnded:(UISlider *)sender {
     [self.delegate controlViewSeek:self where:sender.value];
     self.isDragging = NO;
+    self.startBtn.hidden = NO;
     [self cancelFadeOut];
 }
 
@@ -294,6 +289,7 @@
         }
     }
     self.isShowSecondView = NO;
+    self.pointJumpBtn.hidden = YES;
 }
 
 /** 播放按钮状态 */
@@ -339,6 +335,10 @@
     if (model.playingDefinition != nil) {
         [_resolutionBtn setTitle:model.playingDefinition forState:UIControlStateNormal];
     }
+    
+    for (UIView *subview in self.resolutionView.subviews)
+        [subview removeFromSuperview];
+    
     UILabel *lable = [UILabel new];
     lable.text = @"清晰度";
     lable.textAlignment = NSTextAlignmentCenter;
@@ -419,5 +419,59 @@
     
     
     self.videoSlider.hiddenPoints = YES;
+    self.pointJumpBtn.hidden = YES;
+}
+
+- (void)setPointArray:(NSArray *)pointArray
+{
+    [super setPointArray:pointArray];
+    
+    for (PlayerPoint *holder in self.videoSlider.pointArray) {
+        [holder.holder removeFromSuperview];
+    }
+    [self.videoSlider.pointArray removeAllObjects];
+    
+    for (SuperPlayerVideoPoint *p in pointArray) {
+        PlayerPoint *point = [self.videoSlider addPoint:p.where];
+        point.content = p.text;
+        point.timeOffset = p.time;
+    }
+}
+
+- (UIButton *)pointJumpBtn {
+    if (!_pointJumpBtn) {
+        _pointJumpBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        UIImage *image = SuperPlayerImage(@"copywright_bg");
+        UIImage *resizableImage = [image resizableImageWithCapInsets:UIEdgeInsetsMake(0, 20, 0, 20) resizingMode:UIImageResizingModeStretch];
+        [_pointJumpBtn setBackgroundImage:resizableImage forState:UIControlStateNormal];
+        _pointJumpBtn.titleLabel.font = [UIFont systemFontOfSize:14];
+        [_pointJumpBtn addTarget:self action:@selector(pointJumpClick:) forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:_pointJumpBtn];
+    }
+    return _pointJumpBtn;
+}
+
+- (void)pointJumpClick:(UIButton *)sender {
+    PlayerPoint *point = [self.videoSlider.pointArray objectAtIndex:self.pointJumpBtn.tag];
+    [self.delegate controlViewSeek:self where:point.where];
+    [self fadeOut:0.1];
+}
+
+- (void)onPlayerPointSelected:(PlayerPoint *)point {
+    NSString *text = [NSString stringWithFormat:@"  %@ %@  ", [StrUtils timeFormat:point.timeOffset],
+                      point.content];
+    
+    [self.pointJumpBtn setTitle:text forState:UIControlStateNormal];
+    [self.pointJumpBtn sizeToFit];
+    CGFloat x = self.videoSlider.mm_x + self.videoSlider.mm_w * point.where - self.pointJumpBtn.mm_halfW;
+    if (x < 0)
+        x = 0;
+    if (x + self.pointJumpBtn.mm_halfW > ScreenWidth)
+        x = ScreenWidth - self.pointJumpBtn.mm_halfW;
+    self.pointJumpBtn.tag = [self.videoSlider.pointArray indexOfObject:point];
+    self.pointJumpBtn.m_left(x).m_bottom(60);
+    self.pointJumpBtn.hidden = NO;
+    
+    [DataReport report:@"player_point" param:nil];
 }
 @end

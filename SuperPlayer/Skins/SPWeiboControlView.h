@@ -19,7 +19,7 @@
 /** 全屏按钮 */
 @property (nonatomic, strong) UIButton                *fullScreenBtn;
 /** 滑杆 */
-@property (nonatomic, strong) PlayerSlider     *videoSlider;
+@property (nonatomic, strong) PlayerSlider            *videoSlider;
 
 @property (nonatomic, strong) UIButton                *moreBtn;
 
@@ -37,4 +37,5 @@
 /** 更多设置View */
 @property (nonatomic, strong) MoreContentView         *moreContentView;
 @property BOOL isLive;
+@property (nonatomic, strong) UIButton               *pointJumpBtn;
 @end

@@ -103,13 +103,20 @@ __weak UITextField *urlField;
     
 
     
+    UIButton *button1 = [UIButton buttonWithType:UIButtonTypeCustom];
+    [button1 setFrame:CGRectMake(0, 0, 60, 25)];
+    [button1 setBackgroundImage:[UIImage imageNamed:@"style"] forState:UIControlStateNormal];
+    [button1 addTarget:self action:@selector(clickStyle:) forControlEvents:UIControlEventTouchUpInside];
+    [button1 sizeToFit];
+    UIBarButtonItem *rightItem1 = [[UIBarButtonItem alloc] initWithCustomView:button1];
+    
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     [button setFrame:CGRectMake(0, 0, 60, 25)];
     [button setBackgroundImage:[UIImage imageNamed:@"扫码"] forState:UIControlStateNormal];
     [button addTarget:self action:@selector(clickScan:) forControlEvents:UIControlEventTouchUpInside];
     [button sizeToFit];
     UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithCustomView:button];
-    self.navigationItem.rightBarButtonItems = @[rightItem];
+    self.navigationItem.rightBarButtonItems = @[rightItem1, rightItem];
 
 
 
@@ -456,6 +463,16 @@ __weak UITextField *urlField;
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+- (void)clickStyle:(UIButton *)btn
+{
+    if ([self.playerView.controlView isKindOfClass:[SPDefaultControlView class]]) {
+        self.playerView.controlView = [[SPWeiboControlView alloc] init];
+        [self hudMessage:@"已切换微博风格"];
+    } else if ([self.playerView.controlView isKindOfClass:[SPWeiboControlView class]]) {
+        self.playerView.controlView = [[SPDefaultControlView alloc] init];
+        [self hudMessage:@"已切换默认风格"];
+    }
+}
 
 -(void) clickScan:(UIButton*) btn
 {

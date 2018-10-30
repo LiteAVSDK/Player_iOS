@@ -107,6 +107,8 @@ TXVodPlayListener, TXLivePlayListener, SuperPlayerControlViewDelegate>
 
 @property NSArray *keyFrameDescList;
 
+@property CGFloat infoDuration;
+
 @property NSDate *reportTime;
 
 @property NetWatcher *netWatcher;

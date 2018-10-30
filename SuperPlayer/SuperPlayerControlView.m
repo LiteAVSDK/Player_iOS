@@ -1,5 +1,9 @@
 #import "SuperPlayerControlView.h"
 
+@implementation SuperPlayerVideoPoint
+
+@end
+
 @implementation SuperPlayerControlView
 
 - (void)layoutSubviews {
@@ -23,12 +27,4 @@
     
 }
 
-- (void)addVideoPoint:(CGFloat)where text:(NSString *)text time:(NSInteger)time
-{
-    
-}
-- (void)removeAllVideoPoints
-{
-    
-}
 @end
