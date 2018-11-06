@@ -382,7 +382,7 @@ static UISlider * _volumeSlider;
  *  设置横屏的约束
  */
 - (void)setOrientationLandscapeConstraint:(UIInterfaceOrientation)orientation {
-    self.isFullScreen = YES;
+    _isFullScreen = YES;
     [self toOrientation:orientation];
 }
 
@@ -392,7 +392,7 @@ static UISlider * _volumeSlider;
 - (void)setOrientationPortraitConstraint {
 
     [self addPlayerToFatherView:self.fatherView];
-    self.isFullScreen = NO;
+    _isFullScreen = NO;
     [self toOrientation:UIInterfaceOrientationPortrait];
 }
 
@@ -506,21 +506,21 @@ static UISlider * _volumeSlider;
             break;
         case UIInterfaceOrientationPortrait:{
             if (self.isFullScreen) {
-                self.isFullScreen = NO;
+                _isFullScreen = NO;
                 [self toOrientation:UIInterfaceOrientationPortrait];
             }
         }
             break;
         case UIInterfaceOrientationLandscapeLeft:{
             if (self.isFullScreen == NO) {
-                self.isFullScreen = YES;
+                _isFullScreen = YES;
             }
             [self toOrientation:UIInterfaceOrientationLandscapeLeft];
         }
             break;
         case UIInterfaceOrientationLandscapeRight:{
             if (self.isFullScreen == NO) {
-                self.isFullScreen = YES;
+                _isFullScreen = YES;
             }
             [self toOrientation:UIInterfaceOrientationLandscapeRight];
         }
@@ -592,8 +592,8 @@ static UISlider * _volumeSlider;
 
 
 /** 全屏 */
-- (void)_fullScreenAction:(BOOL)fullScreen {
-    self.isFullScreen = fullScreen;
+- (void)setFullScreen:(BOOL)fullScreen {
+    _isFullScreen = fullScreen;
     if (fullScreen) {
         UIDeviceOrientation orientation = [UIDevice currentDevice].orientation;
         if (orientation == UIDeviceOrientationLandscapeRight) {
@@ -1054,7 +1054,7 @@ static UISlider * _volumeSlider;
 }
 
 - (void)controlViewChangeScreen:(SuperPlayerControlView *)controlView withFullScreen:(BOOL)isFullScreen {
-    [self _fullScreenAction:isFullScreen];
+    self.isFullScreen = isFullScreen;
 }
 
 - (void)controlViewLockScreen:(SuperPlayerControlView *)controlView withLock:(BOOL)isLock {
