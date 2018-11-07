@@ -145,6 +145,7 @@ static UISlider * _volumeSlider;
     [self _playWithModel:playerModel];
     self.coverImageView.alpha = 1;
     self.repeatBtn.hidden = YES;
+    self.repeatBackBtn.hidden = YES;
 }
 
 - (void)_playWithModel:(SuperPlayerModel *)playerModel {
@@ -334,6 +335,7 @@ static UISlider * _volumeSlider;
     [self.controlView playerBegin:self.playerModel isLive:self.isLive isTimeShifting:self.isShiftPlayback isAutoPlay:self.autoPlay];
     self.controlView.playerConfig = self.playerConfig;
     self.repeatBtn.hidden = YES;
+    self.repeatBackBtn.hidden = YES;
     self.playDidEnd = NO;
 }
 
@@ -624,6 +626,7 @@ static UISlider * _volumeSlider;
     [self fastViewUnavaliable];
     [self.netWatcher stopWatch];
     self.repeatBtn.hidden = NO;
+    self.repeatBackBtn.hidden = NO;
     if ([self.delegate respondsToSelector:@selector(superPlayerDidEnd:)]) {
         [self.delegate superPlayerDidEnd:self];
     }
@@ -1048,6 +1051,14 @@ static UISlider * _volumeSlider;
 }
 
 - (void)controlViewBack:(SuperPlayerControlView *)controlView {
+    [self controlViewBackAction:controlView];
+}
+
+- (void)controlViewBackAction:(id)sender {
+    if (self.isFullScreen) {
+        self.isFullScreen = NO;
+        return;
+    }
     if ([self.delegate respondsToSelector:@selector(superPlayerBackAction:)]) {
         [self.delegate superPlayerBackAction:self];
     }
@@ -1530,6 +1541,21 @@ static UISlider * _volumeSlider;
         }];
     }
     return _repeatBtn;
+}
+
+- (UIButton *)repeatBackBtn {
+    if (!_repeatBackBtn) {
+        _repeatBackBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_repeatBackBtn setImage:SuperPlayerImage(@"back_full") forState:UIControlStateNormal];
+        [_repeatBackBtn addTarget:self action:@selector(controlViewBackAction:) forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:_repeatBackBtn];
+        [_repeatBackBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self).offset(15);
+            make.top.equalTo(self).offset(15);
+            make.width.mas_equalTo(@30);
+        }];
+    }
+    return _repeatBackBtn;
 }
 
 - (void)repeatBtnClick:(UIButton *)sender {

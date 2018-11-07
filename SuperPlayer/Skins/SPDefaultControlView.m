@@ -331,9 +331,6 @@
     [self.backBtn setImage:SuperPlayerImage(@"back_full") forState:UIControlStateNormal];
 
     
-    [self.backBtn removeTarget:self action:@selector(backBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-    [self.backBtn addTarget:self action:@selector(exitFullScreen:) forControlEvents:UIControlEventTouchUpInside];
-    
     [self.totalTimeLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
         if (self.resolutionArray.count > 0) {
             make.trailing.equalTo(self.resolutionBtn.mas_leading);
@@ -374,9 +371,6 @@
         make.centerY.equalTo(self.startBtn.mas_centerY);
         make.width.mas_equalTo(self.isLive?10:60);
     }];
-    
-    [self.backBtn removeTarget:self action:@selector(exitFullScreen:) forControlEvents:UIControlEventTouchUpInside];
-    [self.backBtn addTarget:self action:@selector(backBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     
     if (IsIPhoneX) {
         [self.startBtn mas_remakeConstraints:^(MASConstraintMaker *make) {

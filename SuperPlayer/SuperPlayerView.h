@@ -1,6 +1,7 @@
 #import <UIKit/UIKit.h>
 #import "SuperPlayer.h"
 #import "SuperPlayerModel.h"
+#import "SuperPlayerViewConfig.h"
 
 @class SuperPlayerControlView;
 @class SuperPlayerView;
@@ -56,6 +57,10 @@ typedef NS_ENUM(NSInteger, SuperPlayerState) {
  * 设置封面图片
  */
 @property (nonatomic) UIImageView *coverImageView;
+/// 重播按钮
+@property (nonatomic, strong) UIButton *repeatBtn;
+/// 全屏退出
+@property (nonatomic, strong) UIButton *repeatBackBtn;
 /// 是否自动播放（在playWithModel前设置)
 @property BOOL autoPlay;
 /// 视频总时长
@@ -64,6 +69,10 @@ typedef NS_ENUM(NSInteger, SuperPlayerState) {
 @property (nonatomic) CGFloat playCurrentTime;
 /// 起始播放时间
 @property CGFloat startTime;
+/// 播放的视频Model
+@property (readonly) SuperPlayerModel       *playerModel;
+/// 播放器配置
+@property SuperPlayerViewConfig *playerConfig;
 /**
  * 播放model
  */

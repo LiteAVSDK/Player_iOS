@@ -196,11 +196,17 @@
     if (!player.isFullScreen) {
         CGRect windowFrame = [UIScreen mainScreen].applicationFrame;
         self.navigationController.navigationBar.frame = CGRectMake(0, 0, windowFrame.size.width, 64);
+        self.superPlayer.repeatBackBtn.hidden = YES;
+    } else {
+        if (self.superPlayer.state == StateStopped)
+            self.superPlayer.repeatBackBtn.hidden = NO;
     }
 }
 
 - (void)superPlayerDidEnd:(SuperPlayerView *)player
 {
+    if (self.superPlayer.isFullScreen)
+        return;
     int i = self.tempIndexPath.row + 1;
     if (i < [self.tableView numberOfRowsInSection:0]) {
         NSIndexPath *path = [NSIndexPath indexPathForRow:i inSection:0];

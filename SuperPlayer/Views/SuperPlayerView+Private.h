@@ -22,7 +22,6 @@
 
 #import "Masonry/Masonry.h"
 #import "AFNetworking/AFNetworking.h"
-#import "SuperPlayerViewConfig.h"
 
 
 // 枚举值，包含水平移动方向和垂直移动方向
@@ -68,21 +67,17 @@ TXVodPlayListener, TXLivePlayListener, SuperPlayerControlViewDelegate>
 /// 中间的提示按钮
 @property (nonatomic, strong) UIButton               *middleBlackBtn;
 @property ButtonAction                               middleBlackBtnAction;
-/** 重播按钮 */
-@property (nonatomic, strong) UIButton               *repeatBtn;
+
 /** 系统菊花 */
 @property (nonatomic, strong) MMMaterialDesignSpinner *spinner;
 
 @property (nonatomic, strong) UIButton               *lockTipsBtn;
 
 @property (nonatomic, strong) SuperPlayerModel       *playerModel;
-@property SuperPlayerViewConfig                      *playerConfig;
-
 
 @property (class, readonly) UISlider *volumeViewSlider;
-@property MPVolumeView *volumeView;
-// 播放的数据
 
+@property MPVolumeView *volumeView;
 
 // add for txvodplayer
 @property BOOL  isLoaded;
