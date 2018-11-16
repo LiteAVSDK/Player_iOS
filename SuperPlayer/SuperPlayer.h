@@ -19,7 +19,7 @@
 // 图片路径
 #define SuperPlayerImage(file)              [UIImage imageNamed:[@"SuperPlayer.bundle" stringByAppendingPathComponent:file]]
 
-#define IsIPhoneX                           (ScreenHeight == 812 || ScreenWidth == 812)
+#define IsIPhoneX                           (ScreenHeight >= 812 || ScreenWidth >= 812)
 
 // 配置的单例
 #define SuperPlayerGlobleConfigShared       [SuperPlayerGlobleConfig sharedInstance]
