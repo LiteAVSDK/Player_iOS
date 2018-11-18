@@ -682,6 +682,7 @@ static UISlider * _volumeSlider;
     } else {
         [self.vodPlayer seek:dragedSeconds];
         [self.vodPlayer resume];
+        [self.controlView setPlayState:YES];
     }
 }
 
