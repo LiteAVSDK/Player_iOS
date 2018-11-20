@@ -44,3 +44,5 @@ DerivedData/
 
 # End of https://www.gitignore.io/api/xcode,cocoapods
 *.lock
+SwiftDemo/SwiftDemo.xcworkspace/contents.xcworkspacedata
+SwiftDemo/SwiftDemo.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist
