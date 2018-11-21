@@ -3,7 +3,6 @@
 #import "SuperPlayerModel.h"
 #import "SuperPlayerControlView.h"
 #import "SuperPlayerControlViewDelegate.h"
-#import "SuperPlayerGlobleConfig.h"
 #import "SuperPlayerWindow.h"
 #import "SPDefaultControlView.h"
 #import "SPWeiboControlView.h"
@@ -21,8 +20,6 @@
 
 #define IsIPhoneX                           (ScreenHeight >= 812 || ScreenWidth >= 812)
 
-// 配置的单例
-#define SuperPlayerGlobleConfigShared       [SuperPlayerGlobleConfig sharedInstance]
 // 小窗单例
 #define SuperPlayerWindowShared             [SuperPlayerWindow sharedInstance]
 

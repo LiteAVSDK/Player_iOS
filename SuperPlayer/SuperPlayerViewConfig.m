@@ -15,7 +15,7 @@
     self.hwAcceleration = 1;
     self.playRate = 1;
     self.renderMode = RENDER_MODE_FILL_EDGE;
-    
+    self.maxCacheItem = 5;
     return self;
 }
 
