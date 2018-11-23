@@ -42,7 +42,7 @@
     _playerView.disableGesture = YES;
 
     SuperPlayerModel *playerModel = [[SuperPlayerModel alloc] init];
-    playerModel.videoURL = @"http://1253131631.vod2.myqcloud.com/26f327f9vodgzp1253131631/f4c0c9e59031868222924048327/f0.mp4";
+    playerModel.videoURL = self.url?:@"http://1253131631.vod2.myqcloud.com/26f327f9vodgzp1253131631/f4c0c9e59031868222924048327/f0.mp4";
 
     self.playerView.fatherView = self.playerContainer;
 

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		912A617B216074B700C16E41 /* danmakufile in Resources */ = {isa = PBXBuildFile; fileRef = 912A617A216074B700C16E41 /* danmakufile */; };
+		91625B9021A6B5370039E58E /* DownloadTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 91625B8F21A6B5370039E58E /* DownloadTableViewController.m */; };
 		919D18852151E9F100947BF5 /* AppLogMgr.m in Sources */ = {isa = PBXBuildFile; fileRef = 919D187D2151E9F100947BF5 /* AppLogMgr.m */; };
 		919D18862151E9F100947BF5 /* MainTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 919D187F2151E9F100947BF5 /* MainTableViewCell.m */; };
 		919D18872151E9F100947BF5 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 919D18812151E9F100947BF5 /* MainViewController.m */; };
@@ -32,6 +33,8 @@
 /* Begin PBXFileReference section */
 		129BAA86323ECF5FE269806B /* Pods-Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Example/Pods-Example.debug.xcconfig"; sourceTree = "<group>"; };
 		912A617A216074B700C16E41 /* danmakufile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = danmakufile; sourceTree = "<group>"; };
+		91625B8E21A6B5370039E58E /* DownloadTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DownloadTableViewController.h; sourceTree = "<group>"; };
+		91625B8F21A6B5370039E58E /* DownloadTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DownloadTableViewController.m; sourceTree = "<group>"; };
 		919D187C2151E9F100947BF5 /* AppLogMgr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppLogMgr.h; sourceTree = "<group>"; };
 		919D187D2151E9F100947BF5 /* AppLogMgr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppLogMgr.m; sourceTree = "<group>"; };
 		919D187E2151E9F100947BF5 /* MainTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainTableViewCell.h; sourceTree = "<group>"; };
@@ -92,6 +95,15 @@
 				E59B41B51C0A8C3C1DF47F73 /* libPods-Example.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		91625B8D21A6B5080039E58E /* Download */ = {
+			isa = PBXGroup;
+			children = (
+				91625B8E21A6B5370039E58E /* DownloadTableViewController.h */,
+				91625B8F21A6B5370039E58E /* DownloadTableViewController.m */,
+			);
+			path = Download;
 			sourceTree = "<group>";
 		};
 		919D18772151E9F100947BF5 /* App */ = {
@@ -160,6 +172,7 @@
 		91A1D6C52147C0D200EA9A19 /* Example */ = {
 			isa = PBXGroup;
 			children = (
+				91625B8D21A6B5080039E58E /* Download */,
 				919D1A562159DBED00947BF5 /* VideoList */,
 				919D18A32151F43C00947BF5 /* Utils */,
 				919D188E2151F05E00947BF5 /* ListUI */,
@@ -317,6 +330,7 @@
 				919D18852151E9F100947BF5 /* AppLogMgr.m in Sources */,
 				919D18862151E9F100947BF5 /* MainTableViewCell.m in Sources */,
 				919D18872151E9F100947BF5 /* MainViewController.m in Sources */,
+				91625B9021A6B5370039E58E /* DownloadTableViewController.m in Sources */,
 				919D189A2151F05F00947BF5 /* SuperPlayerGuideView.m in Sources */,
 				91A1D6D62147C0D500EA9A19 /* main.m in Sources */,
 				919D18982151F05F00947BF5 /* ListVideoCell.m in Sources */,
