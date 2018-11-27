@@ -1455,7 +1455,7 @@ static UISlider * _volumeSlider;
                                     
                                 } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
                                     // error 错误信息
-                                    [self showMiddleBtnMsg:kStrLoadFaildRetry withAction:ActionIgnore];
+                                    [self showMiddleBtnMsg:kStrLoadFaildRetry withAction:ActionReplay];
                                     if ([self.delegate respondsToSelector:@selector(superPlayerError:errCode:errMessage:)]) {
                                         [self.delegate superPlayerError:self errCode:-1000 errMessage:@"网络请求失败"];
                                     }
@@ -1526,9 +1526,11 @@ static UISlider * _volumeSlider;
             break;
         case ActionReplay:
             [self configTXPlayer];
+            break;
         case ActionSwitch:
             [self controlViewSwitch:self.controlView withDefinition:self.netWatcher.adviseDefinition];
             [self.controlView playerBegin:self.playerModel isLive:self.isLive isTimeShifting:self.isShiftPlayback isAutoPlay:YES];
+            break;
         case ActionIgnore:
             return;
         default:

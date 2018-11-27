@@ -79,6 +79,8 @@ typedef NS_ENUM(NSInteger, TXDownloadError) {
 @property float progress;
 /// 播放路径，可传给TXVodPlayer播放
 @property NSString *playPath;
+/// 下载速度，byte每秒
+@property int speed;
 @end
 
 /// 下载回调
@@ -110,6 +112,11 @@ typedef NS_ENUM(NSInteger, TXDownloadError) {
  * 下载任务回调
  */
 @property (weak) id<TXVodDownloadDelegate> delegate;
+
+/**
+ * 设置http头
+ */
+@property NSDictionary *headers;
 
 /**
  * 全局单例接口
