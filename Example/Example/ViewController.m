@@ -60,6 +60,12 @@
     self.view.userInteractionEnabled = YES;
 }
 
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    [self.playerView resetPlayer];
+}
+
 - (void)panGesWindow:(UIPanGestureRecognizer *)pan
 {
     

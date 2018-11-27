@@ -7,7 +7,7 @@
 //
 
 #import "DownloadTableViewController.h"
-#import <TXVodDownloadManager.h>
+#import "SuperPlayer.h"
 #import "ScanQRController.h"
 #import "ViewController.h"
 
@@ -66,7 +66,7 @@ static NSMutableArray<NSString *> *allDownloadUrls;
         }
         [allDownloadUrls addObject:result];
         allDownloadMsg[result] = @"准备下载";
-        allDownloadInfo[result] = [TXVodDownloadManager.shareInstance startDownloadUrl:result];
+        [TXVodDownloadManager.shareInstance startDownloadUrl:result];
         [self.tableView reloadData];
     }
 }
@@ -97,9 +97,9 @@ static NSMutableArray<NSString *> *allDownloadUrls;
     // Configure the cell...
     NSString *url = allDownloadUrls[indexPath.row];
     cell.textLabel.text = url;
-    TXVodDownloadMediaInfo *info = allDownloadInfo[url];
-    if (info) {
-        cell.detailTextLabel.text = [NSString stringWithFormat:@"下载 %% %d", (int)(info.progress * 100)];
+    TXVodDownloadMediaInfo *mediaInfo = allDownloadInfo[url];
+    if (mediaInfo) {
+        cell.detailTextLabel.text = [self formatDetailString:mediaInfo];
     } else {
         cell.detailTextLabel.text = allDownloadMsg[cell.textLabel.text];
     }
@@ -180,18 +180,36 @@ static NSMutableArray<NSString *> *allDownloadUrls;
 */
 
 
+- (NSString *)formatDetailString:(TXVodDownloadMediaInfo *)mediaInfo
+{
+    float speed = mediaInfo.speed;
+    NSString  *px;
+    speed = speed / 1024;
+    if (speed < 1024) {
+        px = @"K/s";
+    } else {
+        speed = speed / 1024;
+        px = @"M/s";
+    }
+    
+    if (mediaInfo.progress >= 1)
+        return @"下载完成";
+    
+    return [NSString stringWithFormat:@"下载 %d %%, 速度 %.2f %@", (int)(mediaInfo.progress * 100), speed, px];
+}
 
 /// 下载开始
 - (void)onDownloadStart:(TXVodDownloadMediaInfo *)mediaInfo;
 {
     allDownloadMsg[mediaInfo.url] = @"下载开始";
+    allDownloadInfo[mediaInfo.url] = mediaInfo;
     [self.tableView reloadData];
 }
 /// 下载进度
 - (void)onDownloadProgress:(TXVodDownloadMediaInfo *)mediaInfo;
 {
     UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:[allDownloadUrls indexOfObject:mediaInfo.url] inSection:0]];
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"下载 %% %d", (int)(mediaInfo.progress * 100)];
+    cell.detailTextLabel.text = [self formatDetailString:mediaInfo];
 }
 /// 下载停止
 - (void)onDownloadStop:(TXVodDownloadMediaInfo *)mediaInfo;
