@@ -27,6 +27,10 @@
 
 ![list](https://main.qcloudimg.com/raw/3ece479b33cdc7a458483d3eb1e78b1b.gif) ![fu](https://main.qcloudimg.com/raw/3af5501454ca107882b618dbb2c0d8ef.gif)
 
++ 文件下载
+
+![download](https://main.qcloudimg.com/raw/9b4e5a1809e92523094e67c761791e4a.jpeg)
+
 
 ## 概述
 
