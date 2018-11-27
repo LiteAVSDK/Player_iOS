@@ -12,6 +12,7 @@
 #import <SuperPlayer/UIView+MMLayout.h>
 #import "TXWeiboListViewController.h"
 #import "ViewController.h"
+#import "DownloadTableViewController.h"
 
 #define STATUS_BAR_HEIGHT [UIApplication sharedApplication].statusBarFrame.size.height
 
@@ -76,6 +77,22 @@ UIAlertViewDelegate
         
         subCells;
     
+    });
+    
+    cellInfo = [CellInfo new];
+    cellInfo.title = @"其他功能";
+    cellInfo.iconName = @"composite";
+    [_cellInfos addObject:cellInfo];
+    cellInfo.subCells = ({
+        NSMutableArray *subCells = [NSMutableArray new];
+        CellInfo* scellInfo;
+        scellInfo = [CellInfo new];
+        scellInfo.title = @"HLS下载";
+        scellInfo.navigateToController = @"DownloadTableViewController";
+        [subCells addObject:scellInfo];
+        
+        subCells;
+        
     });
 }
 
