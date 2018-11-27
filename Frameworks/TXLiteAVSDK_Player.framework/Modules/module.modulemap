@@ -1,0 +1,4 @@
+module TXLiteAVSDK_Player {
+    umbrella header "Headers/TXLiteAVSDK.h"
+    export *
+}

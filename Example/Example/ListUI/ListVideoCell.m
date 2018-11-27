@@ -7,7 +7,6 @@
 //
 
 #import "ListVideoCell.h"
-#import "TXVodPlayer.h"
 #import "Masonry.h"
 #import "UIImageView+WebCache.h"
 #import "SuperPlayer.h"

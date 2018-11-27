@@ -20,4 +20,10 @@
 @property BOOL mute;
 /// 填充模式，默认铺满。 参见 TXLiveSDKTypeDef.h
 @property NSInteger renderMode;
+/// http头，跟进情况自行设置
+@property NSDictionary *headers;
+/// 播放器最大缓存个数
+@property (nonatomic) NSInteger maxCacheItem;
+/// 时移域名，默认为playtimeshift.live.myqcloud.com
+@property NSString *playShiftDomain;
 @end

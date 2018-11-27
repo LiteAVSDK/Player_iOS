@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "TXLiveBase.h"
+#import "SuperPlayer.h"
 
 /**
  * APPlog保存到沙箱路径：Library/Caches/rtmpsdk_日期.log

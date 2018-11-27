@@ -10,12 +10,6 @@
 #define SuperPlayerView_Private_h
 #import "SuperPlayer.h"
 
-#import "TXVodPlayer.h"
-#import "TXLivePlayer.h"
-#import "TXLiveBase.h"
-#import "TXImageSprite.h"
-
-
 #import "SuperPlayerControlViewDelegate.h"
 #import "NetWatcher.h"
 #import <MediaPlayer/MediaPlayer.h>

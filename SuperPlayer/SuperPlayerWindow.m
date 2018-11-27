@@ -13,8 +13,12 @@
 #import "DataReport.h"
 #import "UIView+Fade.h"
 
+#define FLOAT_VIEW_WIDTH  200
+#define FLOAT_VIEW_HEIGHT 112
+
 @interface SuperPlayerWindow()<TXVodPlayListener>
 @property (weak) UIView *origFatherView;
+@property CGRect floatViewRect;
 @end
 
 @implementation SuperPlayerWindow {
@@ -63,6 +67,13 @@
 //    [backBtn sizeToFit];
 //    _backBtn = backBtn;
     
+    CGRect rect = CGRectMake(ScreenWidth-FLOAT_VIEW_WIDTH, ScreenHeight-FLOAT_VIEW_HEIGHT, FLOAT_VIEW_WIDTH, FLOAT_VIEW_HEIGHT);
+    
+    if (IsIPhoneX) {
+        rect.origin.y -= 44;
+    }
+    self.floatViewRect = rect;
+    
     self.hidden = YES;
     
     return self;
@@ -70,7 +81,7 @@
 
 
 - (void)show {
-    _rootView.frame = SuperPlayerGlobleConfigShared.floatViewRect;
+    _rootView.frame = self.floatViewRect;
     [self addSubview:_rootView];
     self.hidden = NO;
     
@@ -92,7 +103,7 @@
 }
 
 - (void)hide {
-    SuperPlayerGlobleConfigShared.floatViewRect = _rootView.frame;
+    self.floatViewRect = _rootView.frame;
     
     [_rootView removeFromSuperview];
     self.hidden = YES;

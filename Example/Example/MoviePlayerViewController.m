@@ -12,8 +12,6 @@
 #import "ScanQRController.h"
 #import "UIImage+Additions.h"
 #import "ListVideoCell.h"
-#import "TXPlayerAuthParams.h"
-#import "TXVodPlayer.h"
 #import "TCHttpUtil.h"
 #import "MBProgressHUD.h"
 #import "TXMoviePlayerNetApi.h"

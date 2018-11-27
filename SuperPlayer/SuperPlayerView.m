@@ -248,7 +248,6 @@ static UISlider * _volumeSlider;
     if (_vodPlayer == nil) {
         _vodPlayer = [[TXVodPlayer alloc] init];
         TXVodPlayConfig *config = [[TXVodPlayConfig alloc] init];
-        config.maxCacheItems = (int)SuperPlayerGlobleConfigShared.maxCacheItem;
         config.cacheFolderPath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingString:@"/TXCache"];
         config.progressInterval = 0.02;
 //        config.playerType = PLAYER_AVPLAYER;
@@ -301,16 +300,23 @@ static UISlider * _volumeSlider;
     NSString *videoURL = self.playerModel.playingDefinitionUrl;
     
     if (self.isLive) {
+        TXLivePlayConfig *config = self.livePlayer.config;
+        config.headers = self.playerConfig.headers;
+        [self.livePlayer setConfig:config];
         self.livePlayer.enableHWAcceleration = self.playerConfig.hwAcceleration;
         [self.livePlayer startPlay:videoURL type:liveType];
         // 时移
         [TXLiveBase setAppID:[NSString stringWithFormat:@"%ld", _playerModel.appId]];
         TXCUrl *curl = [[TXCUrl alloc] initWithString:videoURL];
-        [self.livePlayer prepareLiveSeek:SuperPlayerGlobleConfigShared.playShiftDomain bizId:[curl bizid]];
+        [self.livePlayer prepareLiveSeek:self.playerConfig.playShiftDomain bizId:[curl bizid]];
         
         [self.livePlayer setMute:self.playerConfig.mute];
         [self.livePlayer setRenderMode:self.playerConfig.renderMode];
     } else {
+        TXVodPlayConfig *config = self.vodPlayer.config;
+        config.headers = self.playerConfig.headers;
+        config.maxCacheItems = self.playerConfig.maxCacheItem;
+        [self.vodPlayer setConfig:config];
         self.vodPlayer.enableHWAcceleration = self.playerConfig.hwAcceleration;
         [self.vodPlayer setStartTime:self.startTime]; self.startTime = 0;
         [self.vodPlayer startPlay:videoURL];
@@ -1586,7 +1592,7 @@ static UISlider * _volumeSlider;
         _coverImageView.userInteractionEnabled = YES;
         _coverImageView.contentMode = UIViewContentModeScaleAspectFit;
         _coverImageView.alpha = 0;
-        [self addSubview:_coverImageView];
+        [self insertSubview:_coverImageView belowSubview:self.controlView];
         [_coverImageView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.edges.mas_equalTo(UIEdgeInsetsZero);
         }];
