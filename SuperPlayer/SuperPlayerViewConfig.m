@@ -6,7 +6,7 @@
 //
 
 #import "SuperPlayerViewConfig.h"
-#import "TXLiveSDKTypeDef.h"
+#import "SuperPlayer.h"
 
 @implementation SuperPlayerViewConfig
 

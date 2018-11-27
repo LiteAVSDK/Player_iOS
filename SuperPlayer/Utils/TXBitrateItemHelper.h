@@ -7,7 +7,7 @@
 
 #import <Foundation/Foundation.h>
 #import "SuperPlayerModel.h"
-#import "TXBitrateItem.h"
+#import "SuperPlayer.h"
 
 @interface TXBitrateItemHelper : NSObject
 @property NSInteger bitrate;

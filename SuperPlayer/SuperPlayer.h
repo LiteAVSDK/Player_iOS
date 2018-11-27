@@ -1,4 +1,6 @@
 
+#import <TXLiteAVSDK_Player/TXLiteAVSDK.h>
+
 #import "SuperPlayerView.h"
 #import "SuperPlayerModel.h"
 #import "SuperPlayerControlView.h"
