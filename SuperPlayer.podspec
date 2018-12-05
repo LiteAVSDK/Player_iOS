@@ -81,3 +81,5 @@ Pod::Spec.new do |spec|
       "sqlite3"
     ]
 end
+
+# pod trunk push SuperPlayer.podspec --verbose --use-libraries --allow-warnings

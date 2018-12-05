@@ -223,6 +223,7 @@ static UISlider * _volumeSlider;
 - (void)resume {
     [self.controlView setPlayState:YES];
     self.isPauseByUser = NO;
+    self.state = StatePlaying;
     if (self.isLive) {
         [_livePlayer resume];
     } else {
@@ -236,6 +237,7 @@ static UISlider * _volumeSlider;
 - (void)pause {
     [self.controlView setPlayState:NO];
     self.isPauseByUser = YES;
+    self.state = StatePause;
     if (self.isLive) {
         [_livePlayer pause];
     } else {
@@ -644,9 +646,13 @@ static UISlider * _volumeSlider;
 - (void)appDidEnterBackground {
     NSLog(@"appDidEnterBackground");
     self.didEnterBackground     = YES;
-    if (self.state == StatePlaying && !self.isLive) {
+    if (self.isLive) {
+        return;
+    }
+    if (self.state == StatePlaying || self.state == StateBuffering) {
         [_vodPlayer pause];
-        self.state                  = StatePause;
+        self.state = StatePause;
+        self.isPauseByUser = NO;
     }
 }
 
@@ -656,10 +662,12 @@ static UISlider * _volumeSlider;
 - (void)appDidEnterPlayground {
     NSLog(@"appDidEnterPlayground");
     self.didEnterBackground     = NO;
-    if (!self.isPauseByUser && self.state == StatePause && !self.isLive) {
+    if (self.isLive) {
+        return;
+    }
+    if (!self.isPauseByUser && self.state == StatePause) {
         self.state         = StatePlaying;
-        self.isPauseByUser = NO;
-        [self resume];
+        [_vodPlayer resume];
     }
 }
 
@@ -1229,10 +1237,8 @@ static UISlider * _volumeSlider;
             if (self.isPauseByUser)
                 [self.spinner stopAnimating];
         }
-        
         if (EvtID == PLAY_EVT_PLAY_BEGIN) {
-            if (self.state == StateBuffering)
-                self.state = StatePlaying;
+            self.state = StatePlaying;
         } else if (EvtID == PLAY_EVT_PLAY_PROGRESS) {
             if (self.state == StateStopped)
                 return;
