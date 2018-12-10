@@ -889,7 +889,7 @@ static UISlider * _volumeSlider;
     
     UIImage *thumbnail;
     if (self.isFullScreen) {
-        thumbnail = [self.imageSprite getThumbnail:self.sumTime];
+        thumbnail = [self.imageSprite getThumbnail:draggedTime];
     }
     if (thumbnail) {
         self.fastView.videoRatio = self.videoRatio;
