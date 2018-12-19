@@ -26,6 +26,8 @@
 @property (nonatomic) UIView *speedCell;
 @property (nonatomic) UIView *mirrorCell;
 @property (nonatomic) UIView *hwCell;
+@property BOOL isVolume;
+@property NSDate *volumeEndTime;
 @end
 
 @implementation MoreContentView {
@@ -49,12 +51,25 @@
     [self addSubview:[self mirrorCell]];
     [self addSubview:[self hwCell]];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(volumeChanged:)         name:@"AVSystemController_SystemVolumeDidChangeNotification"
+                                               object:nil];
+    
     return self;
 }
 
-- (void)layoutSubviews
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)volumeChanged:(NSNotification *)notify
 {
-    [super layoutSubviews];
+    if (!self.isVolume) {
+        if (self.volumeEndTime != nil && -[self.volumeEndTime timeIntervalSinceNow] < 2.f)
+            return;
+        float volume = [[[notify userInfo] objectForKey:@"AVSystemController_AudioVolumeNotificationParameter"] floatValue];
+        self.soundSlider.value = volume;
+    }
 }
 
 - (void)sizeToFit
@@ -283,15 +298,17 @@
 }
 
 - (void)soundSliderTouchBegan:(UISlider *)sender {
-    
+    self.isVolume = YES;
 }
 
 - (void)soundSliderValueChanged:(UISlider *)sender {
-    [SuperPlayerView volumeViewSlider].value = sender.value;
+    if (self.isVolume)
+        [SuperPlayerView volumeViewSlider].value = sender.value;
 }
 
 - (void)soundSliderTouchEnded:(UISlider *)sender {
-    
+    self.isVolume = NO;
+    self.volumeEndTime = [NSDate date];
 }
 
 - (void)lightSliderTouchBegan:(UISlider *)sender {
