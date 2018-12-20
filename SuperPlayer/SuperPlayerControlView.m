@@ -15,6 +15,7 @@
     } else {
         [self setOrientationLandscapeConstraint];
     }
+    [self.delegate controlViewDidChangeScreen:self];
 }
 
 - (void)setOrientationPortraitConstraint

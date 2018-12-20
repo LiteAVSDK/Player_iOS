@@ -15,6 +15,7 @@
 - (void)controlViewPause:(UIView *)controlView;
 /** 播放器全屏 */
 - (void)controlViewChangeScreen:(UIView *)controlView withFullScreen:(BOOL)isFullScreen;
+- (void)controlViewDidChangeScreen:(UIView *)controlView;
 /** 锁定屏幕方向 */
 - (void)controlViewLockScreen:(UIView *)controlView withLock:(BOOL)islock;
 /** 截屏事件 */

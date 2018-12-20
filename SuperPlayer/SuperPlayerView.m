@@ -417,14 +417,13 @@ static UISlider * _volumeSlider;
         // 这个地方加判断是为了从全屏的一侧,直接到全屏的另一侧不用修改限制,否则会出错;
         if (currentOrientation == UIInterfaceOrientationPortrait) {
             [self removeFromSuperview];
-            if (IsIPhoneX) {
-                [[UIApplication sharedApplication].keyWindow addSubview:_fullScreenBlackView];
-                [_fullScreenBlackView mas_makeConstraints:^(MASConstraintMaker *make) {
-                    make.width.equalTo(@(ScreenHeight));
-                    make.height.equalTo(@(ScreenWidth));
-                    make.center.equalTo([UIApplication sharedApplication].keyWindow);
-                }];
-            }
+            [[UIApplication sharedApplication].keyWindow addSubview:_fullScreenBlackView];
+            [_fullScreenBlackView mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.width.equalTo(@(ScreenHeight));
+                make.height.equalTo(@(ScreenWidth));
+                make.center.equalTo([UIApplication sharedApplication].keyWindow);
+            }];
+
             [[UIApplication sharedApplication].keyWindow addSubview:self];
             [self mas_remakeConstraints:^(MASConstraintMaker *make) {
                 if (IsIPhoneX) {
@@ -455,9 +454,6 @@ static UISlider * _volumeSlider;
     // 开始旋转
     [UIView commitAnimations];
     
-    if ([self.delegate respondsToSelector:@selector(superPlayerFullScreenChanged:)]) {
-        [self.delegate superPlayerFullScreenChanged:self];
-    }
     [self.fatherView.viewController setNeedsStatusBarAppearanceUpdate];
 }
 
@@ -1081,6 +1077,13 @@ static UISlider * _volumeSlider;
 
 - (void)controlViewChangeScreen:(SuperPlayerControlView *)controlView withFullScreen:(BOOL)isFullScreen {
     self.isFullScreen = isFullScreen;
+}
+
+- (void)controlViewDidChangeScreen:(UIView *)controlView
+{
+    if ([self.delegate respondsToSelector:@selector(superPlayerFullScreenChanged:)]) {
+        [self.delegate superPlayerFullScreenChanged:self];
+    }
 }
 
 - (void)controlViewLockScreen:(SuperPlayerControlView *)controlView withLock:(BOOL)isLock {

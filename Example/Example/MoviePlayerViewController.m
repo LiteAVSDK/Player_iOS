@@ -699,10 +699,11 @@ __weak UITextField *urlField;
 }
 
 - (void)superPlayerFullScreenChanged:(SuperPlayerView *)player {
-    if (!player.isFullScreen) {
-        self.navigationController.navigationBar.frame = CGRectMake(0, 0, ScreenWidth, 64);
-    }
 //    self.playerBackBtn.hidden = !player.isFullScreen;
+//    if (player.isFullScreen) {
+//        SPDefaultControlView *controlView = (SPDefaultControlView *)player.controlView;
+//        controlView.danmakuBtn.hidden = YES;
+//    }
 }
 
 - (void)superPlayerDidEnd:(SuperPlayerView *)player

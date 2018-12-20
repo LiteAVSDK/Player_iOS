@@ -194,8 +194,6 @@
 
 - (void)superPlayerFullScreenChanged:(SuperPlayerView *)player {
     if (!player.isFullScreen) {
-        CGRect windowFrame = [UIScreen mainScreen].applicationFrame;
-        self.navigationController.navigationBar.frame = CGRectMake(0, 0, windowFrame.size.width, 64);
         self.superPlayer.repeatBackBtn.hidden = YES;
     } else {
         if (self.superPlayer.state == StateStopped)
