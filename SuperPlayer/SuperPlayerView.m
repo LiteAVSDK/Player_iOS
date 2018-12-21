@@ -317,7 +317,7 @@ static UISlider * _volumeSlider;
     } else {
         TXVodPlayConfig *config = self.vodPlayer.config;
         config.headers = self.playerConfig.headers;
-        config.maxCacheItems = self.playerConfig.maxCacheItem;
+        config.maxCacheItems = (int)self.playerConfig.maxCacheItem;
         [self.vodPlayer setConfig:config];
         self.vodPlayer.enableHWAcceleration = self.playerConfig.hwAcceleration;
         [self.vodPlayer setStartTime:self.startTime]; self.startTime = 0;
@@ -1041,7 +1041,7 @@ static UISlider * _volumeSlider;
         return self.maxLiveProgressTime;
     }
     
-    return self.vodPlayer.currentPlaybackTime;
+    return _playCurrentTime;
 }
 
 + (UISlider *)volumeViewSlider {
@@ -1246,17 +1246,17 @@ static UISlider * _volumeSlider;
             if (self.state == StateStopped)
                 return;
 
-            NSInteger currentTime = player.currentPlaybackTime;
+            self.playCurrentTime  = player.currentPlaybackTime;
             CGFloat totalTime     = player.duration;
             CGFloat value         = player.currentPlaybackTime / player.duration;
 
-            [self.controlView setProgressTime:currentTime totalTime:totalTime progressValue:value playableValue:player.playableDuration / player.duration];
+            [self.controlView setProgressTime:self.playCurrentTime totalTime:totalTime progressValue:value playableValue:player.playableDuration / player.duration];
 
         } else if (EvtID == PLAY_EVT_PLAY_END) {
             [self moviePlayDidEnd];
         } else if (EvtID == PLAY_ERR_NET_DISCONNECT || EvtID == PLAY_ERR_FILE_NOT_FOUND || EvtID == PLAY_ERR_HLS_KEY) {
             if (EvtID == PLAY_ERR_NET_DISCONNECT) {
-                [self showMiddleBtnMsg:kStrBadNetRetry withAction:ActionReplay];
+                [self showMiddleBtnMsg:kStrBadNetRetry withAction:ActionContinueReplay];
             } else {
                 [self showMiddleBtnMsg:kStrLoadFaildRetry withAction:ActionReplay];
             }
@@ -1532,6 +1532,13 @@ static UISlider * _volumeSlider;
 {
     switch (self.middleBlackBtnAction) {
         case ActionNone:
+            break;
+        case ActionContinueReplay: {
+            if (!self.isLive) {
+                self.startTime = self.playCurrentTime;
+            }
+            [self configTXPlayer];
+        }
             break;
         case ActionReplay:
             [self configTXPlayer];

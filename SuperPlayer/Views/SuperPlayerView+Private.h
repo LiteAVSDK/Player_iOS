@@ -29,6 +29,7 @@ typedef NS_ENUM(NSInteger, ButtonAction) {
     ActionReplay,
     ActionSwitch,
     ActionIgnore,
+    ActionContinueReplay,
 };
 
 
