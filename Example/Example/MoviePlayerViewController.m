@@ -479,6 +479,7 @@ __weak UITextField *urlField;
     ScanQRController* vc = [[ScanQRController alloc] init];
     vc.delegate = self;
     [self.navigationController pushViewController:vc animated:NO];
+    self.playerView.isLockScreen = YES;
 }
 
 - (void)onScanResult:(NSString *)result
@@ -503,7 +504,7 @@ __weak UITextField *urlField;
         [_vodDataSourceArray addObject:m];
         [_vodListView reloadData];
     }
-    
+    self.playerView.isLockScreen = NO;
 }
 
 - (void)onAddClick:(UIButton *)btn
