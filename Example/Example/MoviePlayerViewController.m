@@ -711,6 +711,11 @@ __weak UITextField *urlField;
 {
 
 }
+
+- (void)superPlayerDidStart:(SuperPlayerView *)player
+{
+    
+}
 #pragma mark - 弹幕
 
 

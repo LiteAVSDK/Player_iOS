@@ -1239,6 +1239,10 @@ static UISlider * _volumeSlider;
             // 防止暂停导致加载进度不消失
             if (self.isPauseByUser)
                 [self.spinner stopAnimating];
+            
+            if ([self.delegate respondsToSelector:@selector(superPlayerDidStart:)]) {
+                [self.delegate superPlayerDidStart:self];
+            }
         }
         if (EvtID == PLAY_EVT_PLAY_BEGIN) {
             self.state = StatePlaying;
@@ -1307,6 +1311,10 @@ static UISlider * _volumeSlider;
             [self.livePlayer setupVideoWidget:CGRectZero containView:self insertIndex:0];
             [self layoutSubviews];  // 防止横屏状态下添加view显示不全
             self.state = StatePlaying;
+            
+            if ([self.delegate respondsToSelector:@selector(superPlayerDidStart:)]) {
+                [self.delegate superPlayerDidStart:self];
+            }
         }
         
         if (EvtID == PLAY_EVT_PLAY_BEGIN) {

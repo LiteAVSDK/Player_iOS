@@ -12,6 +12,8 @@
 - (void)superPlayerBackAction:(SuperPlayerView *)player;
 /// 全屏改变通知
 - (void)superPlayerFullScreenChanged:(SuperPlayerView *)player;
+/// 播放开始通知
+- (void)superPlayerDidStart:(SuperPlayerView *)player;
 /// 播放结束通知
 - (void)superPlayerDidEnd:(SuperPlayerView *)player;
 /// 播放错误通知
