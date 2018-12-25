@@ -9,7 +9,7 @@
 #import "AppDelegate.h"
 #import <AFNetworking/AFNetworking.h>
 #import "MainViewController.h"
-
+#import <Bugly/Bugly.h>
 
 @interface AppDelegate ()
 
@@ -20,6 +20,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    //启动bugly组件，bugly组件为腾讯提供的用于crash上报和分析的开放组件，如果您不需要该组件，可以自行移除
+    [Bugly startWithAppId:@"18aed7ec51"];
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     

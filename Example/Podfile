@@ -9,4 +9,5 @@ target 'Example' do
   pod 'SuperPlayer', :path => '../SuperPlayer.podspec', :subspecs => ['Player']
   pod 'MBProgressHUD'
   pod 'CFDanmaku', '~> 0.0.1'
+  pod 'Bugly'
 end
