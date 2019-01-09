@@ -1167,16 +1167,8 @@ static UISlider * _volumeSlider;
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"photos-redirect://"]];
 }
 
-- (void)controlViewSeek:(SuperPlayerControlView *)controlView where:(CGFloat)pos {
-    // 视频总时间长度
-    CGFloat total = [self playDuration];
-    //计算出拖动的当前秒数
-    NSInteger dragedSeconds = floorf(total * pos);
-    [self seekToTime:dragedSeconds];
-    [self fastViewUnavaliable];
-}
-
-- (void)controlViewPreview:(SuperPlayerControlView *)controlView where:(CGFloat)pos {
+- (CGFloat)sliderPosToTime:(CGFloat)pos
+{
     // 视频总时间长度
     CGFloat totalTime = [self playDuration];
     //计算出拖动的当前秒数
@@ -1185,12 +1177,21 @@ static UISlider * _volumeSlider;
         CGFloat base = totalTime - MAX_SHIFT_TIME;
         dragedSeconds = floor(MAX_SHIFT_TIME * pos) + base;
     }
+    return dragedSeconds;
+}
 
-    if (totalTime > 0) { // 当总时长 > 0时候才能拖动slider
+- (void)controlViewSeek:(SuperPlayerControlView *)controlView where:(CGFloat)pos {
+    CGFloat dragedSeconds = [self sliderPosToTime:pos];
+    [self seekToTime:dragedSeconds];
+    [self fastViewUnavaliable];
+}
+
+- (void)controlViewPreview:(SuperPlayerControlView *)controlView where:(CGFloat)pos {
+    CGFloat dragedSeconds = [self sliderPosToTime:pos];
+    if ([self playDuration] > 0) { // 当总时长 > 0时候才能拖动slider
         [self fastViewProgressAvaliable:dragedSeconds];
     }
 }
-
 
 #pragma clang diagnostic pop
 #pragma mark - 点播回调

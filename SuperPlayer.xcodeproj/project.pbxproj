@@ -13,7 +13,6 @@
 		919D18F621533DAC00947BF5 /* UIViewController+SuperPlayerRotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 919D18F421533DAB00947BF5 /* UIViewController+SuperPlayerRotation.m */; };
 		91A1D63F214770C900EA9A19 /* UIView+MMLayout.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 91A1D5E5214673F300EA9A19 /* UIView+MMLayout.h */; };
 		91A1D640214770C900EA9A19 /* SuperPlayerControlViewDelegate.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 91A1D5E9214673F400EA9A19 /* SuperPlayerControlViewDelegate.h */; };
-		91A1D641214770C900EA9A19 /* SuperPlayerGlobleConfig.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 91A1D5C3214673F300EA9A19 /* SuperPlayerGlobleConfig.h */; };
 		91A1D642214770C900EA9A19 /* SuperPlayerModel.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 91A1D5C4214673F300EA9A19 /* SuperPlayerModel.h */; };
 		91A1D643214770C900EA9A19 /* SuperPlayerView.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 91A1D5D3214673F300EA9A19 /* SuperPlayerView.h */; };
 		91A1D644214770C900EA9A19 /* SuperPlayerWindow.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 91A1D5C2214673F200EA9A19 /* SuperPlayerWindow.h */; };
@@ -23,7 +22,6 @@
 		91A1D6492147749A00EA9A19 /* SuperPlayer.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 91A1D6482147749100EA9A19 /* SuperPlayer.h */; };
 		91A1D64C2147751700EA9A19 /* J2Obj.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 91A1D5D7214673F300EA9A19 /* J2Obj.h */; };
 		91A1D64E2147763B00EA9A19 /* UIView+MMLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 91A1D5E6214673F300EA9A19 /* UIView+MMLayout.m */; };
-		91A1D6532147765400EA9A19 /* SuperPlayerGlobleConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 91A1D5EA214673F400EA9A19 /* SuperPlayerGlobleConfig.m */; };
 		91A1D6542147765400EA9A19 /* SuperPlayerModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 91A1D5D2214673F300EA9A19 /* SuperPlayerModel.m */; };
 		91A1D6552147765400EA9A19 /* SuperPlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 91A1D5EB214673F400EA9A19 /* SuperPlayerView.m */; };
 		91A1D6562147765400EA9A19 /* SuperPlayerWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 91A1D5C1214673F200EA9A19 /* SuperPlayerWindow.m */; };
@@ -49,7 +47,6 @@
 				91A1D6492147749A00EA9A19 /* SuperPlayer.h in CopyFiles */,
 				91A1D63F214770C900EA9A19 /* UIView+MMLayout.h in CopyFiles */,
 				91A1D640214770C900EA9A19 /* SuperPlayerControlViewDelegate.h in CopyFiles */,
-				91A1D641214770C900EA9A19 /* SuperPlayerGlobleConfig.h in CopyFiles */,
 				91A1D642214770C900EA9A19 /* SuperPlayerModel.h in CopyFiles */,
 				91A1D643214770C900EA9A19 /* SuperPlayerView.h in CopyFiles */,
 				91A1D644214770C900EA9A19 /* SuperPlayerWindow.h in CopyFiles */,
@@ -71,7 +68,6 @@
 		91A1D5B12146719900EA9A19 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		91A1D5C1214673F200EA9A19 /* SuperPlayerWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SuperPlayerWindow.m; sourceTree = "<group>"; };
 		91A1D5C2214673F200EA9A19 /* SuperPlayerWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SuperPlayerWindow.h; sourceTree = "<group>"; };
-		91A1D5C3214673F300EA9A19 /* SuperPlayerGlobleConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SuperPlayerGlobleConfig.h; sourceTree = "<group>"; };
 		91A1D5C4214673F300EA9A19 /* SuperPlayerModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SuperPlayerModel.h; sourceTree = "<group>"; };
 		91A1D5C6214673F300EA9A19 /* MMMaterialDesignSpinner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMMaterialDesignSpinner.h; sourceTree = "<group>"; };
 		91A1D5C7214673F300EA9A19 /* MMMaterialDesignSpinner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMMaterialDesignSpinner.m; sourceTree = "<group>"; };
@@ -95,7 +91,6 @@
 		91A1D5E5214673F300EA9A19 /* UIView+MMLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+MMLayout.h"; sourceTree = "<group>"; };
 		91A1D5E6214673F300EA9A19 /* UIView+MMLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+MMLayout.m"; sourceTree = "<group>"; };
 		91A1D5E9214673F400EA9A19 /* SuperPlayerControlViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SuperPlayerControlViewDelegate.h; sourceTree = "<group>"; };
-		91A1D5EA214673F400EA9A19 /* SuperPlayerGlobleConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SuperPlayerGlobleConfig.m; sourceTree = "<group>"; };
 		91A1D5EB214673F400EA9A19 /* SuperPlayerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SuperPlayerView.m; sourceTree = "<group>"; };
 		91A1D6362147703B00EA9A19 /* libSuperPlayer.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSuperPlayer.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		91A1D6482147749100EA9A19 /* SuperPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SuperPlayer.h; sourceTree = "<group>"; };
@@ -135,8 +130,6 @@
 				91A1D6482147749100EA9A19 /* SuperPlayer.h */,
 				91A1D5E2214673F300EA9A19 /* Category */,
 				91A1D5E9214673F400EA9A19 /* SuperPlayerControlViewDelegate.h */,
-				91A1D5C3214673F300EA9A19 /* SuperPlayerGlobleConfig.h */,
-				91A1D5EA214673F400EA9A19 /* SuperPlayerGlobleConfig.m */,
 				91A1D5C4214673F300EA9A19 /* SuperPlayerModel.h */,
 				91A1D5D2214673F300EA9A19 /* SuperPlayerModel.m */,
 				91A1D5D3214673F300EA9A19 /* SuperPlayerView.h */,
@@ -259,7 +252,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				91A1D6532147765400EA9A19 /* SuperPlayerGlobleConfig.m in Sources */,
 				919D18F621533DAC00947BF5 /* UIViewController+SuperPlayerRotation.m in Sources */,
 				91A1D65E2147769500EA9A19 /* SuperPlayerFastView.m in Sources */,
 				91A1D6542147765400EA9A19 /* SuperPlayerModel.m in Sources */,

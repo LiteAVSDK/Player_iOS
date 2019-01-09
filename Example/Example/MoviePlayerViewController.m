@@ -382,6 +382,8 @@ __weak UITextField *urlField;
         _playerView.fatherView = _playerFatherView;
         // 设置代理
         _playerView.delegate = self;
+        // demo的时移域名，请根据您项目实际情况修改这里
+        _playerView.playerConfig.playShiftDomain = @"vcloudtimeshift.qcloud.com";
         [self setupDanmakuData];
     }
     return _playerView;
@@ -714,7 +716,7 @@ __weak UITextField *urlField;
 
 - (void)superPlayerDidStart:(SuperPlayerView *)player
 {
-    
+
 }
 #pragma mark - 弹幕
 
