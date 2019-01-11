@@ -90,6 +90,7 @@ pod 'SuperPlayer'
 https://github.com/tencentyun/SuperPlayer/wiki
 
 ## 联系方式
++ Android: https://github.com/tencentyun/TCSuperPlayer
 + Issues: https://github.com/tencentyun/SuperPlayer/issues
 + 专人解答/技术交流 QQ群: 781719018 
 + SDK常见问题: http://faq.qcloudtrtc.com/
