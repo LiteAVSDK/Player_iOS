@@ -103,9 +103,9 @@ static UISlider * _volumeSlider;
  */
 - (void)addNotifications {
     // app退到后台
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appDidEnterBackground) name:UIApplicationWillResignActiveNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appDidEnterBackground:) name:UIApplicationWillResignActiveNotification object:nil];
     // app进入前台
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appDidEnterPlayground) name:UIApplicationDidBecomeActiveNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appDidEnterPlayground:) name:UIApplicationDidBecomeActiveNotification object:nil];
     
     // 监测设备方向
     [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
@@ -639,30 +639,29 @@ static UISlider * _volumeSlider;
 /**
  *  应用退到后台
  */
-- (void)appDidEnterBackground {
+- (void)appDidEnterBackground:(NSNotification *)notify {
     NSLog(@"appDidEnterBackground");
-    self.didEnterBackground     = YES;
+    self.didEnterBackground = YES;
     if (self.isLive) {
         return;
     }
-    if (self.state == StatePlaying || self.state == StateBuffering) {
+    if (!self.isPauseByUser && (self.state != StateStopped && self.state != StateFailed)) {
         [_vodPlayer pause];
         self.state = StatePause;
-        self.isPauseByUser = NO;
     }
 }
 
 /**
  *  应用进入前台
  */
-- (void)appDidEnterPlayground {
+- (void)appDidEnterPlayground:(NSNotification *)notify {
     NSLog(@"appDidEnterPlayground");
-    self.didEnterBackground     = NO;
+    self.didEnterBackground = NO;
     if (self.isLive) {
         return;
     }
-    if (!self.isPauseByUser && self.state == StatePause) {
-        self.state         = StatePlaying;
+    if (!self.isPauseByUser && (self.state != StateStopped && self.state != StateFailed)) {
+        self.state = StatePlaying;
         [_vodPlayer resume];
     }
 }
