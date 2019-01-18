@@ -75,6 +75,11 @@ UIAlertViewDelegate
         scellInfo.navigateToController = @"ViewController";
         [subCells addObject:scellInfo];
         
+        scellInfo = [CellInfo new];
+        scellInfo.title = @"展示模式";
+        scellInfo.navigateToController = @"SimpleMovieController";
+        [subCells addObject:scellInfo];
+        
         subCells;
     
     });

@@ -235,6 +235,8 @@ static UISlider * _volumeSlider;
  * 暂停
  */
 - (void)pause {
+    if (!self.isLoaded)
+        return;
     [self.controlView setPlayState:NO];
     self.isPauseByUser = YES;
     self.state = StatePause;

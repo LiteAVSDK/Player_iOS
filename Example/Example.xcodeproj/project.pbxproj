@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		912A617B216074B700C16E41 /* danmakufile in Resources */ = {isa = PBXBuildFile; fileRef = 912A617A216074B700C16E41 /* danmakufile */; };
 		91625B9821ACE9CC0039E58E /* DownloadTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 91625B9721ACE9CB0039E58E /* DownloadTableViewController.m */; };
+		917AB1C921F16F0000D6B041 /* SimpleMovieController.m in Sources */ = {isa = PBXBuildFile; fileRef = 917AB1C821F16F0000D6B041 /* SimpleMovieController.m */; };
 		919D18852151E9F100947BF5 /* AppLogMgr.m in Sources */ = {isa = PBXBuildFile; fileRef = 919D187D2151E9F100947BF5 /* AppLogMgr.m */; };
 		919D18862151E9F100947BF5 /* MainTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 919D187F2151E9F100947BF5 /* MainTableViewCell.m */; };
 		919D18872151E9F100947BF5 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 919D18812151E9F100947BF5 /* MainViewController.m */; };
@@ -35,6 +36,8 @@
 		912A617A216074B700C16E41 /* danmakufile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = danmakufile; sourceTree = "<group>"; };
 		91625B9621ACE9CB0039E58E /* DownloadTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownloadTableViewController.h; sourceTree = "<group>"; };
 		91625B9721ACE9CB0039E58E /* DownloadTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DownloadTableViewController.m; sourceTree = "<group>"; };
+		917AB1C721F16F0000D6B041 /* SimpleMovieController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SimpleMovieController.h; sourceTree = "<group>"; };
+		917AB1C821F16F0000D6B041 /* SimpleMovieController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SimpleMovieController.m; sourceTree = "<group>"; };
 		919D187C2151E9F100947BF5 /* AppLogMgr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppLogMgr.h; sourceTree = "<group>"; };
 		919D187D2151E9F100947BF5 /* AppLogMgr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppLogMgr.m; sourceTree = "<group>"; };
 		919D187E2151E9F100947BF5 /* MainTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainTableViewCell.h; sourceTree = "<group>"; };
@@ -192,6 +195,8 @@
 				91A1D6C72147C0D200EA9A19 /* AppDelegate.m */,
 				91A1D6C92147C0D200EA9A19 /* ViewController.h */,
 				91A1D6CA2147C0D200EA9A19 /* ViewController.m */,
+				917AB1C721F16F0000D6B041 /* SimpleMovieController.h */,
+				917AB1C821F16F0000D6B041 /* SimpleMovieController.m */,
 				91A1D6CC2147C0D200EA9A19 /* Main.storyboard */,
 				91A1D6CF2147C0D500EA9A19 /* Assets.xcassets */,
 				91A1D6D12147C0D500EA9A19 /* LaunchScreen.storyboard */,
@@ -324,6 +329,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				919D18962151F05F00947BF5 /* TXMoviePlayerNetApi.m in Sources */,
+				917AB1C921F16F0000D6B041 /* SimpleMovieController.m in Sources */,
 				919D1A5C2159E29400947BF5 /* TXWeiboListTableViewCell.m in Sources */,
 				919D18972151F05F00947BF5 /* TXMoviePlayInfoResponse.m in Sources */,
 				91A1D6CB2147C0D200EA9A19 /* ViewController.m in Sources */,

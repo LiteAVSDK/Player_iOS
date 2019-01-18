@@ -55,6 +55,8 @@ typedef NS_ENUM(NSInteger, SuperPlayerState) {
 @property (nonatomic) BOOL disableGesture;
 /// 是否在手势中
 @property (readonly)  BOOL isDragging;
+/// 是否加载成功
+@property (readonly)  BOOL  isLoaded;
 /**
  * 设置封面图片
  */
