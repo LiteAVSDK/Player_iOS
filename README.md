@@ -84,13 +84,13 @@ pod 'SuperPlayer'
 
 ## 集成使用
 
-在[快速集成](https://github.com/tencentyun/SuperPlayer/wiki/Home)中介绍了主要功能使用。
+在[快速集成](https://github.com/tencentyun/SuperPlayer_iOS/wiki/Home)中介绍了主要功能使用。
 
 本项目详细文档位于
-https://github.com/tencentyun/SuperPlayer/wiki
+https://github.com/tencentyun/SuperPlayer_iOS/wiki
 
 ## 联系方式
-+ Android: https://github.com/tencentyun/TCSuperPlayer
-+ Issues: https://github.com/tencentyun/SuperPlayer/issues
++ Android: https://github.com/tencentyun/SuperPlayer_Android
++ Issues: https://github.com/tencentyun/SuperPlayer_iOS/issues
 + 专人解答/技术交流 QQ群: 781719018 
 + SDK常见问题: http://faq.qcloudtrtc.com/
