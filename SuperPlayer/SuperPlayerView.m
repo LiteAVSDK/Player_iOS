@@ -158,7 +158,7 @@ static UISlider * _volumeSlider;
         [self configTXPlayer];
     } else if (playerModel.appId != 0 && playerModel.fileId != nil) {
         self.isLive = NO;
-        [self getPlayInfo:playerModel.appId withFileId:playerModel.fileId];
+        [self getPlayInfoV2];
     } else {
         NSLog(@"无播放地址");
         return;
@@ -1373,10 +1373,48 @@ static UISlider * _volumeSlider;
 }
 
 #pragma mark - Net
-- (void)getPlayInfo:(NSInteger)appid withFileId:(NSString *)fileId {
+- (NSString*)makeParamtersString:(NSDictionary*)parameters withEncoding:(NSStringEncoding)encoding
+{
+    if (nil == parameters || [parameters count] == 0)
+        return nil;
+    
+    NSMutableString* stringOfParamters = [[NSMutableString alloc] init];
+    NSEnumerator *keyEnumerator = [parameters keyEnumerator];
+    id key = nil;
+    while ((key = [keyEnumerator nextObject]))
+    {
+        [stringOfParamters appendFormat:@"%@=%@&", key, [parameters valueForKey:key]];
+    }
+    
+    // Delete last character of '&'
+    NSRange lastCharRange = {[stringOfParamters length] - 1, 1};
+    [stringOfParamters deleteCharactersInRange:lastCharRange];
+    return stringOfParamters;
+}
+
+- (void)getPlayInfoV2 {
     
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    NSString *url = [NSString stringWithFormat:@"https://playvideo.qcloud.com/getplayinfo/v2/%ld/%@", appid, fileId];
+    NSString *url = [NSString stringWithFormat:@"https://playvideo.qcloud.com/getplayinfo/v2/%ld/%@", _playerModel.appId, _playerModel.fileId];
+    
+    // 防盗链参数
+    NSMutableDictionary *params = [NSMutableDictionary new];
+    if (_playerModel.timeout) {
+        [params setValue:_playerModel.timeout forKey:@"t"];
+    }
+    if (_playerModel.us) {
+        [params setValue:_playerModel.us forKey:@"us"];
+    }
+    if (_playerModel.sign) {
+        [params setValue:_playerModel.sign forKey:@"sign"];
+    }
+    if (_playerModel.exper >= 0) {
+        [params setValue:@(_playerModel.exper) forKey:@"exper"];
+    }
+    NSString *httpBodyString = [self makeParamtersString:params withEncoding:NSUTF8StringEncoding];
+    if (httpBodyString) {
+        url = [url stringByAppendingFormat:@"?%@", httpBodyString];
+    }
     
     __weak SuperPlayerView *weakSelf = self;
     SuperPlayerModel *theModel = _playerModel;

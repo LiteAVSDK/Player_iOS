@@ -71,7 +71,7 @@ typedef NS_ENUM(NSInteger, SuperPlayerState) {
 @property (nonatomic) CGFloat playDuration;
 /// 视频当前播放时间
 @property (nonatomic) CGFloat playCurrentTime;
-/// 起始播放时间
+/// 起始播放时间，用于从上次位置开播
 @property CGFloat startTime;
 /// 播放的视频Model
 @property (readonly) SuperPlayerModel       *playerModel;
@@ -94,6 +94,7 @@ typedef NS_ENUM(NSInteger, SuperPlayerState) {
 
 /**
  * 暂停
+ * @warn isLoaded == NO 时暂停无效
  */
 - (void)pause;
 
