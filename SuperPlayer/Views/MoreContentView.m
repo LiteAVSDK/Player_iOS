@@ -332,22 +332,21 @@
     }
     sender.selected = YES;
     self.playerConfig.playRate = [sender.titleLabel.text floatValue];
-    [self.controlView.delegate controlViewConfigUpdate:self.controlView];
+    [self.controlView.delegate controlViewConfigUpdate:self.controlView withReload:NO];
     [DataReport report:@"change_speed" param:nil];
 }
 
 - (void)changeMirror:(UISwitch *)sender {
     self.playerConfig.mirror = sender.on;
-    [self.controlView.delegate controlViewConfigUpdate:self.controlView];
+    [self.controlView.delegate controlViewConfigUpdate:self.controlView withReload:NO];
     if (sender.on) {
         [DataReport report:@"mirror" param:nil];
     }
 }
 
 - (void)changeHW:(UISwitch *)sender {
-    self.playerConfig.hwAccelerationChanged = YES;
     self.playerConfig.hwAcceleration = sender.on;
-    [self.controlView.delegate controlViewConfigUpdate:self.controlView];
+    [self.controlView.delegate controlViewConfigUpdate:self.controlView withReload:YES];
     [DataReport report:sender.on?@"hw_decode":@"soft_decode" param:nil];
 }
 

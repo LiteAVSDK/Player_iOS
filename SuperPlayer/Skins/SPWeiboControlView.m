@@ -260,7 +260,7 @@
 - (void)muteBtnClick:(UIButton *)sender
 {
     sender.selected = self.playerConfig.mute = !self.playerConfig.mute;
-    [self.delegate controlViewConfigUpdate:self];
+    [self.delegate controlViewConfigUpdate:self withReload:NO];
     [self fadeOut:3];
 }
 

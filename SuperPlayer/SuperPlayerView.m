@@ -1111,7 +1111,7 @@ static UISlider * _volumeSlider;
     }
 }
 
-- (void)controlViewConfigUpdate:(SuperPlayerView *)controlView {
+- (void)controlViewConfigUpdate:(SuperPlayerView *)controlView withReload:(BOOL)reload {
     if (self.isLive) {
         [self.livePlayer setMute:self.playerConfig.mute];
         [self.livePlayer setRenderMode:self.playerConfig.renderMode];
@@ -1121,7 +1121,7 @@ static UISlider * _volumeSlider;
         [self.vodPlayer setMute:self.playerConfig.mute];
         [self.vodPlayer setRenderMode:self.playerConfig.renderMode];
     }
-    if (self.playerConfig.hwAccelerationChanged) {
+    if (reload) {
         if (!self.isLive)
             self.startTime = [self.vodPlayer currentPlaybackTime];
         [self configTXPlayer]; // 软硬解需要重启

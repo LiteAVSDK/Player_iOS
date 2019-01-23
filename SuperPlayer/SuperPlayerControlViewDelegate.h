@@ -23,7 +23,7 @@
 /** 切换分辨率按钮事件 */
 - (void)controlViewSwitch:(UIView *)controlView withDefinition:(NSString *)definition;
 /** 修改配置 */
-- (void)controlViewConfigUpdate:(SuperPlayerControlView *)controlView;
+- (void)controlViewConfigUpdate:(SuperPlayerControlView *)controlView withReload:(BOOL)reload;
 /** 重新播放 */
 - (void)controlViewReload:(UIView *)controlView;
 /** seek事件，pos 0~1 */
