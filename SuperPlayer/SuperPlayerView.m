@@ -691,8 +691,8 @@ static UISlider * _volumeSlider;
             [self.controlView playerBegin:self.playerModel isLive:YES isTimeShifting:self.isShiftPlayback isAutoPlay:YES];    //时移播放不能切码率
         }
     } else {
-        [self.vodPlayer seek:dragedSeconds];
         [self.vodPlayer resume];
+        [self.vodPlayer seek:dragedSeconds];
         [self.controlView setPlayState:YES];
     }
 }
