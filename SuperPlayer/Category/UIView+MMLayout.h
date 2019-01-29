@@ -3,7 +3,7 @@
 /*
  杜蒙 iOS开发
  annidy
-*/
+ */
 
 #define m_weakify(object) autoreleasepool   {} __weak  typeof(object) weak##object = object
 #define m_strongify(object) autoreleasepool {} __strong  typeof(weak##object) object = weak##object
@@ -38,11 +38,11 @@
 - (CGSize)mm_size;       ///<< get self.bounds.size
 
 /*
-   示例链接编程
-   self.width(100).height(100).left(10).top(10)
-*/
+ 示例链接编程
+ self.m_width(100).m_height(100).m_left(10).m_top(10)
+ */
 - (UIView * (^)(CGFloat top))m_top;            ///< set frame y
-- (UIView * (^)(CGFloat right))m_flexToTop; ///< set frame y by change height
+- (UIView * (^)(CGFloat right))m_flexToTop;    ///< set frame y by change height
 - (UIView * (^)(CGFloat bottom))m_bottom;      ///< set frame y
 - (UIView * (^)(CGFloat right))m_flexToBottom; ///< set frame y by change height
 - (UIView * (^)(CGFloat left))m_left;          ///< set frame x
@@ -51,11 +51,11 @@
 - (UIView * (^)(CGFloat right))m_flexToRight;  ///< set frame right by chang width
 - (UIView * (^)(CGFloat width))m_width;        ///< set frame width
 - (UIView * (^)(CGFloat height))m_height;      ///< set frame height
-- (UIView * (^)(CGSize  size))m_size;           ///< set frame size
-- (UIView * (^)(CGPoint center))m__center;      ///< set frame point
-- (UIView * (^)(void))m_center;                    ///< set frame center  前提是有w h 调用次方法居中父类
-- (UIView * (^)(void))m_centerY;                    ///< set frame Ycenter  前提是有h调用次方法居中父类
-- (UIView * (^)(void))m_centerX;                    ///< set frame Xcenter  前提是有w调用次方法居中父类
+- (UIView * (^)(CGSize  size))m_size;          ///< set frame size
+- (UIView * (^)(CGPoint center))m__center;     ///< set frame center point
+- (UIView * (^)(void))m_center;                ///< set frame center  前提是有w h 调用次方法居中父类
+- (UIView * (^)(void))m_centerY;               ///< set frame Ycenter  前提是有h调用次方法居中父类
+- (UIView * (^)(void))m_centerX;               ///< set frame Xcenter  前提是有w调用次方法居中父类
 
 
 - (UIView * (^)(UIView *obj))m_equalToFrame;   ///  equalTo frame
@@ -72,7 +72,7 @@
 
 - (NSData *)mm_createPDF;/// create self PDF
 
-- (UIViewController *)viewController;  //self Responder UIViewControler  
+- (UIViewController *)viewController;  //self Responder UIViewControler
 
 @end
 
