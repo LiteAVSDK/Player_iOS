@@ -720,9 +720,13 @@ __weak UITextField *urlField;
 }
 #pragma mark - 弹幕
 
+static NSTimeInterval danmaku_start_time; // 测试用的，因为demo里的直播时间可能非常大，本地的测试弹幕时间很短
 
 - (NSTimeInterval)danmakuViewGetPlayTime:(CFDanmakuView *)danmakuView
 {
+    if (_playerView.isLive) {
+        return self.playerView.playCurrentTime - danmaku_start_time;
+    }
     return self.playerView.playCurrentTime;
 }
 
@@ -735,6 +739,7 @@ __weak UITextField *urlField;
     if (btn.selected) {
         [_danmakuView start];
         _danmakuView.hidden = NO;
+        danmaku_start_time = self.playerView.playCurrentTime;
     } else {
         [_danmakuView pause];
         _danmakuView.hidden = YES;
