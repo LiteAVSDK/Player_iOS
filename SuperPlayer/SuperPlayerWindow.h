@@ -25,7 +25,7 @@ typedef void(^SuperPlayerWindowEventHandler)(void);
 @property (nonatomic,copy) SuperPlayerWindowEventHandler backHandler;
 @property (nonatomic,copy) SuperPlayerWindowEventHandler closeHandler;  // 默认关闭
 /// 小窗播放器
-@property (nonatomic,strong) SuperPlayerView *superPlayer;
+@property (nonatomic,weak) SuperPlayerView *superPlayer;
 /// 小窗主view
 @property (readonly) UIView *rootView;
 /// 点击小窗返回的controller

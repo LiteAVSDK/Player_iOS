@@ -23,7 +23,6 @@
 
 @implementation SuperPlayerWindow {
     UIView *_rootView;
-    SuperPlayerView *_superPlayer;
     UIButton    *_closeBtn;
     UIButton    *_backBtn;
 }
