@@ -1305,21 +1305,26 @@ static UISlider * _volumeSlider;
     
     dispatch_async(dispatch_get_main_queue(), ^{
 
-        if (EvtID == PLAY_EVT_RCV_FIRST_I_FRAME && !self.isLoaded) {
-            [self setNeedsLayout];
-            [self layoutIfNeeded];
-            self.isLoaded = YES;
-            [self _removeOldPlayer];
-            [self.livePlayer setupVideoWidget:CGRectZero containView:self insertIndex:0];
-            [self layoutSubviews];  // 防止横屏状态下添加view显示不全
-            self.state = StatePlaying;
-            
-            if ([self.delegate respondsToSelector:@selector(superPlayerDidStart:)]) {
-                [self.delegate superPlayerDidStart:self];
-            }
+        if (EvtID != PLAY_EVT_PLAY_PROGRESS) {
+            NSString *desc = [param description];
+            NSLog(@"%@", [NSString stringWithCString:[desc cStringUsingEncoding:NSUTF8StringEncoding] encoding:NSNonLossyASCIIStringEncoding]);
         }
         
         if (EvtID == PLAY_EVT_PLAY_BEGIN) {
+            if (!self.isLoaded) {
+                [self setNeedsLayout];
+                [self layoutIfNeeded];
+                self.isLoaded = YES;
+                [self _removeOldPlayer];
+                [self.livePlayer setupVideoWidget:CGRectZero containView:self insertIndex:0];
+                [self layoutSubviews];  // 防止横屏状态下添加view显示不全
+                self.state = StatePlaying;
+                
+                if ([self.delegate respondsToSelector:@selector(superPlayerDidStart:)]) {
+                    [self.delegate superPlayerDidStart:self];
+                }
+            }
+            
             if (self.state == StateBuffering)
                 self.state = StatePlaying;
             [self.netWatcher loadingEndEvent];
