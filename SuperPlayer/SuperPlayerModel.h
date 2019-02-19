@@ -1,6 +1,10 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+@class TXImageSprite;
+
+extern NSNotificationName kSuperPlayerModelReady;
+
 /** 多码率地址 */
 @interface SuperPlayerUrl : NSObject
 @property NSString *title;
@@ -51,15 +55,36 @@
  * (使用fileid播放时填写)
  */
 @property NSString *sign;
+
 /**
- *
+ * 视频雪碧图
+ */
+@property TXImageSprite *imageSprite;
+
+/**
+ * 打点信息
+ */
+@property NSArray *keyFrameDescList;
+
+/**
+ * 正在播放的清晰度
  */
 @property (nonatomic) NSString *playingDefinition;
-
+/**
+ * 正在播放的清晰度
+ */
 @property (readonly) NSString *playingDefinitionUrl;
-
+/**
+ * 正在播放的清晰度索引
+ */
 @property (readonly) NSInteger playingDefinitionIndex;
-
+/**
+ * 清晰度列表
+ */
 @property (readonly) NSArray *playDefinitions;
+
+@property CGFloat playInfoDuration;
+
+- (void)getPlayInfoV2;
 
 @end

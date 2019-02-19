@@ -17,7 +17,6 @@
 		91A1D643214770C900EA9A19 /* SuperPlayerView.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 91A1D5D3214673F300EA9A19 /* SuperPlayerView.h */; };
 		91A1D644214770C900EA9A19 /* SuperPlayerWindow.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 91A1D5C2214673F200EA9A19 /* SuperPlayerWindow.h */; };
 		91A1D645214770C900EA9A19 /* PlayerSlider.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 91A1D5CA214673F300EA9A19 /* PlayerSlider.h */; };
-		91A1D646214770C900EA9A19 /* SuperPlayerControlView.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 91A1D5CC214673F300EA9A19 /* SuperPlayerControlView.h */; };
 		91A1D647214770C900EA9A19 /* SuperPlayerFastView.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 91A1D5CE214673F300EA9A19 /* SuperPlayerFastView.h */; };
 		91A1D6492147749A00EA9A19 /* SuperPlayer.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 91A1D6482147749100EA9A19 /* SuperPlayer.h */; };
 		91A1D64C2147751700EA9A19 /* J2Obj.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 91A1D5D7214673F300EA9A19 /* J2Obj.h */; };
@@ -31,7 +30,6 @@
 		91A1D65A2147769500EA9A19 /* MMMaterialDesignSpinner.m in Sources */ = {isa = PBXBuildFile; fileRef = 91A1D5C7214673F300EA9A19 /* MMMaterialDesignSpinner.m */; };
 		91A1D65B2147769500EA9A19 /* MoreContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 91A1D5C9214673F300EA9A19 /* MoreContentView.m */; };
 		91A1D65C2147769500EA9A19 /* PlayerSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 91A1D5CB214673F300EA9A19 /* PlayerSlider.m */; };
-		91A1D65D2147769500EA9A19 /* SuperPlayerControlView.m in Sources */ = {isa = PBXBuildFile; fileRef = 91A1D5CD214673F300EA9A19 /* SuperPlayerControlView.m */; };
 		91A1D65E2147769500EA9A19 /* SuperPlayerFastView.m in Sources */ = {isa = PBXBuildFile; fileRef = 91A1D5CF214673F300EA9A19 /* SuperPlayerFastView.m */; };
 /* End PBXBuildFile section */
 
@@ -51,7 +49,6 @@
 				91A1D643214770C900EA9A19 /* SuperPlayerView.h in CopyFiles */,
 				91A1D644214770C900EA9A19 /* SuperPlayerWindow.h in CopyFiles */,
 				91A1D645214770C900EA9A19 /* PlayerSlider.h in CopyFiles */,
-				91A1D646214770C900EA9A19 /* SuperPlayerControlView.h in CopyFiles */,
 				91A1D647214770C900EA9A19 /* SuperPlayerFastView.h in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -75,8 +72,6 @@
 		91A1D5C9214673F300EA9A19 /* MoreContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoreContentView.m; sourceTree = "<group>"; };
 		91A1D5CA214673F300EA9A19 /* PlayerSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerSlider.h; sourceTree = "<group>"; };
 		91A1D5CB214673F300EA9A19 /* PlayerSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerSlider.m; sourceTree = "<group>"; };
-		91A1D5CC214673F300EA9A19 /* SuperPlayerControlView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SuperPlayerControlView.h; sourceTree = "<group>"; };
-		91A1D5CD214673F300EA9A19 /* SuperPlayerControlView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SuperPlayerControlView.m; sourceTree = "<group>"; };
 		91A1D5CE214673F300EA9A19 /* SuperPlayerFastView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SuperPlayerFastView.h; sourceTree = "<group>"; };
 		91A1D5CF214673F300EA9A19 /* SuperPlayerFastView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SuperPlayerFastView.m; sourceTree = "<group>"; };
 		91A1D5D0214673F300EA9A19 /* SuperPlayerView+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SuperPlayerView+Private.h"; sourceTree = "<group>"; };
@@ -152,8 +147,6 @@
 				91A1D5C9214673F300EA9A19 /* MoreContentView.m */,
 				91A1D5CA214673F300EA9A19 /* PlayerSlider.h */,
 				91A1D5CB214673F300EA9A19 /* PlayerSlider.m */,
-				91A1D5CC214673F300EA9A19 /* SuperPlayerControlView.h */,
-				91A1D5CD214673F300EA9A19 /* SuperPlayerControlView.m */,
 				91A1D5CE214673F300EA9A19 /* SuperPlayerFastView.h */,
 				91A1D5CF214673F300EA9A19 /* SuperPlayerFastView.m */,
 				91A1D5D0214673F300EA9A19 /* SuperPlayerView+Private.h */,
@@ -265,7 +258,6 @@
 				91A1D65A2147769500EA9A19 /* MMMaterialDesignSpinner.m in Sources */,
 				91A1D6582147768C00EA9A19 /* J2Obj.m in Sources */,
 				9165F738214FCC9300F5BB88 /* TXCUrl.m in Sources */,
-				91A1D65D2147769500EA9A19 /* SuperPlayerControlView.m in Sources */,
 				91A1D6572147768C00EA9A19 /* DataReport.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

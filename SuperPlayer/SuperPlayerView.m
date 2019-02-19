@@ -136,8 +136,6 @@ static UISlider * _volumeSlider;
 #pragma mark - Public Method
 
 - (void)playWithModel:(SuperPlayerModel *)playerModel {
-    self.imageSprite = nil;
-    self.keyFrameDescList = nil;
     self.isShiftPlayback = NO;
     [self reportPlay];
     self.reportTime = [NSDate date];
@@ -146,6 +144,14 @@ static UISlider * _volumeSlider;
     self.coverImageView.alpha = 1;
     self.repeatBtn.hidden = YES;
     self.repeatBackBtn.hidden = YES;
+}
+
+- (void)reloadModel {
+    SuperPlayerModel *model = _playerModel;
+    if (model) {
+        [self resetPlayer];
+        [self _playWithModel:_playerModel];
+    }
 }
 
 - (void)_playWithModel:(SuperPlayerModel *)playerModel {
@@ -158,21 +164,44 @@ static UISlider * _volumeSlider;
         [self configTXPlayer];
     } else if (playerModel.appId != 0 && playerModel.fileId != nil) {
         self.isLive = NO;
-        [self getPlayInfoV2];
+        [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                        name:kSuperPlayerModelReady
+                                                      object:_playerModel];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(getPlayInfoReady:)
+                                                     name:kSuperPlayerModelReady
+                                                   object:playerModel];
+        [_playerModel getPlayInfoV2];
+        return;
     } else {
         NSLog(@"无播放地址");
         return;
     }
     
     NSMutableArray *array = @[].mutableCopy;
-    for (NSDictionary *keyFrameDesc in self.keyFrameDescList) {
+    for (NSDictionary *keyFrameDesc in _playerModel.keyFrameDescList) {
         SuperPlayerVideoPoint *p = [SuperPlayerVideoPoint new];
         p.time = [J2Num([keyFrameDesc valueForKeyPath:@"timeOffset"]) intValue]/1000.0;
         p.text = [J2Str([keyFrameDesc valueForKeyPath:@"content"]) stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-        p.where = p.time/self.infoDuration;
+        if (_playerModel.playInfoDuration > 0)
+            p.where = p.time/_playerModel.playInfoDuration;
         [array addObject:p];
     }
     self.controlView.pointArray = array;
+}
+
+- (void)getPlayInfoReady:(NSNotification *)notification {
+    if (_playerModel.videoURL == nil) {
+        // error 错误信息
+        [self showMiddleBtnMsg:kStrLoadFaildRetry withAction:ActionRetry];
+        [self.spinner stopAnimating];
+        if ([self.delegate respondsToSelector:@selector(superPlayerError:errCode:errMessage:)]) {
+            [self.delegate superPlayerError:self errCode:-1000 errMessage:@"网络请求失败"];
+        }
+        return;
+    }
+    
+    [self _playWithModel:_playerModel];
 }
 
 /**
@@ -886,7 +915,7 @@ static UISlider * _volumeSlider;
     
     UIImage *thumbnail;
     if (self.isFullScreen) {
-        thumbnail = [self.imageSprite getThumbnail:draggedTime];
+        thumbnail = [_playerModel.imageSprite getThumbnail:draggedTime];
     }
     if (thumbnail) {
         self.fastView.videoRatio = self.videoRatio;
@@ -1264,7 +1293,7 @@ static UISlider * _volumeSlider;
             if (EvtID == PLAY_ERR_NET_DISCONNECT) {
                 [self showMiddleBtnMsg:kStrBadNetRetry withAction:ActionContinueReplay];
             } else {
-                [self showMiddleBtnMsg:kStrLoadFaildRetry withAction:ActionReplay];
+                [self showMiddleBtnMsg:kStrLoadFaildRetry withAction:ActionRetry];
             }
             self.state = StateFailed;
             [player stopPlay];
@@ -1333,10 +1362,10 @@ static UISlider * _volumeSlider;
         } else if (EvtID == PLAY_ERR_NET_DISCONNECT) {
             if (self.isShiftPlayback) {
                 [self controlViewReload:self.controlView];
-                [self showMiddleBtnMsg:kStrTimeShiftFailed withAction:ActionReplay];
+                [self showMiddleBtnMsg:kStrTimeShiftFailed withAction:ActionRetry];
                 [self.middleBlackBtn fadeOut:2];
             } else {
-                [self showMiddleBtnMsg:kStrBadNetRetry withAction:ActionReplay];
+                [self showMiddleBtnMsg:kStrBadNetRetry withAction:ActionRetry];
                 self.state = StateFailed;
             }
             if ([self.delegate respondsToSelector:@selector(superPlayerError:errCode:errMessage:)]) {
@@ -1352,7 +1381,7 @@ static UISlider * _volumeSlider;
             [self showMiddleBtnMsg:[@"已切换为" stringByAppendingString:self.playerModel.playingDefinition] withAction:ActionNone];
             [self.middleBlackBtn fadeOut:1];
         } else if (EvtID == PLAY_ERR_STREAM_SWITCH_FAIL) {
-            [self showMiddleBtnMsg:kStrHDSwitchFailed withAction:ActionReplay];
+            [self showMiddleBtnMsg:kStrHDSwitchFailed withAction:ActionRetry];
             self.state = StateFailed;
         } else if (EvtID == PLAY_EVT_PLAY_PROGRESS) {
             if (self.state == StateStopped)
@@ -1377,154 +1406,6 @@ static UISlider * _volumeSlider;
     });
 }
 
-#pragma mark - Net
-- (NSString*)makeParamtersString:(NSDictionary*)parameters withEncoding:(NSStringEncoding)encoding
-{
-    if (nil == parameters || [parameters count] == 0)
-        return nil;
-    
-    NSMutableString* stringOfParamters = [[NSMutableString alloc] init];
-    NSEnumerator *keyEnumerator = [parameters keyEnumerator];
-    id key = nil;
-    while ((key = [keyEnumerator nextObject]))
-    {
-        [stringOfParamters appendFormat:@"%@=%@&", key, [parameters valueForKey:key]];
-    }
-    
-    // Delete last character of '&'
-    NSRange lastCharRange = {[stringOfParamters length] - 1, 1};
-    [stringOfParamters deleteCharactersInRange:lastCharRange];
-    return stringOfParamters;
-}
-
-- (void)getPlayInfoV2 {
-    
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    NSString *url = [NSString stringWithFormat:@"https://playvideo.qcloud.com/getplayinfo/v2/%ld/%@", _playerModel.appId, _playerModel.fileId];
-    
-    // 防盗链参数
-    NSMutableDictionary *params = [NSMutableDictionary new];
-    if (_playerModel.timeout) {
-        [params setValue:_playerModel.timeout forKey:@"t"];
-    }
-    if (_playerModel.us) {
-        [params setValue:_playerModel.us forKey:@"us"];
-    }
-    if (_playerModel.sign) {
-        [params setValue:_playerModel.sign forKey:@"sign"];
-    }
-    if (_playerModel.exper >= 0) {
-        [params setValue:@(_playerModel.exper) forKey:@"exper"];
-    }
-    NSString *httpBodyString = [self makeParamtersString:params withEncoding:NSUTF8StringEncoding];
-    if (httpBodyString) {
-        url = [url stringByAppendingFormat:@"?%@", httpBodyString];
-    }
-    
-    __weak SuperPlayerView *weakSelf = self;
-    SuperPlayerModel *theModel = _playerModel;
-    self.getInfoHttpTask = [manager GET:url parameters:nil progress:nil
-                                success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-                                    
-                                    __strong SuperPlayerView *strongSelf = weakSelf;
-                                    
-                                    NSString *masterUrl = J2Str([responseObject valueForKeyPath:@"videoInfo.masterPlayList.url"]);
-                                    //    masterUrl = nil;
-                                    if (masterUrl.length > 0) {
-                                        theModel.videoURL = masterUrl;
-                                    } else {
-                                        NSString *mainDefinition = J2Str([responseObject valueForKeyPath:@"playerInfo.defaultVideoClassification"]);
-                                        
-                                        
-                                        NSArray *videoClassification = J2Array([responseObject valueForKeyPath:@"playerInfo.videoClassification"]);
-                                        NSArray *transcodeList = J2Array([responseObject valueForKeyPath:@"videoInfo.transcodeList"]);
-                                        
-                                        NSMutableArray<SuperPlayerUrl *> *result = [NSMutableArray new];
-                                        
-                                        for (NSDictionary *transcode in transcodeList) {
-                                            SuperPlayerUrl *subModel = [SuperPlayerUrl new];
-                                            subModel.url = J2Str(transcode[@"url"]);
-                                            NSNumber *theDefinition = J2Num(transcode[@"definition"]);
-                                            
-                                            
-                                            for (NSDictionary *definition in videoClassification) {
-                                                for (NSObject *definition2 in J2Array([definition valueForKeyPath:@"definitionList"])) {
-                                                    
-                                                    if ([definition2 isEqual:theDefinition]) {
-                                                        subModel.title = J2Str([definition valueForKeyPath:@"name"]);
-                                                        NSString *definitionId = J2Str([definition valueForKeyPath:@"id"]);
-                                                        // 初始播放清晰度
-                                                        if ([definitionId isEqualToString:mainDefinition]) {
-                                                            if (![theModel.videoURL containsString:@".mp4"])
-                                                                theModel.videoURL = subModel.url;
-                                                        }
-                                                        break;
-                                                    }
-                                                }
-                                            }
-                                            // 同一个清晰度可能存在多个转码格式，这里只保留一种格式，且优先mp4类型
-                                            for (SuperPlayerUrl *item in result) {
-                                                if ([item.title isEqual:subModel.title]) {
-                                                    if (![item.url containsString:@".mp4"]) {
-                                                        item.url = subModel.url;
-                                                    }
-                                                    subModel = nil;
-                                                    break;
-                                                }
-                                            }
-                                            
-                                            if (subModel) {
-                                                [result addObject:subModel];
-                                            }
-                                        }
-                                        theModel.multiVideoURLs = result;
-                                    }
-                                    if (theModel.videoURL == nil) {
-                                        NSString *source = J2Str([responseObject valueForKeyPath:@"videoInfo.sourceVideo.url"]);
-                                        theModel.videoURL = source;
-                                    }
-                                    
-                                    NSArray *imageSprites = J2Array([responseObject valueForKeyPath:@"imageSpriteInfo.imageSpriteList"]);
-                                    if (imageSprites.count > 0) {
-                                        //                 id imageSpriteObj = imageSprites[0];
-                                        id imageSpriteObj = imageSprites.lastObject;
-                                        NSString *vtt = J2Str([imageSpriteObj valueForKeyPath:@"webVttUrl"]);
-                                        NSArray *imgUrls = J2Array([imageSpriteObj valueForKeyPath:@"imageUrls"]);
-                                        NSMutableArray *imgUrlArray = @[].mutableCopy;
-                                        for (NSString *url in imgUrls) {
-                                            NSURL *nsurl = [NSURL URLWithString:url];
-                                            if (nsurl) {
-                                                [imgUrlArray addObject:nsurl];
-                                            }
-                                        }
-                                        
-                                        TXImageSprite *imageSprite = [[TXImageSprite alloc] init];
-                                        [imageSprite setVTTUrl:[NSURL URLWithString:vtt] imageUrls:imgUrlArray];
-                                        strongSelf.imageSprite = imageSprite;
-                                        
-                                        [DataReport report:@"image_sprite" param:nil];
-                                    }
-                                    
-                                    NSArray *keyFrameDescList = J2Array([responseObject valueForKeyPath:@"keyFrameDescInfo.keyFrameDescList"]);
-                                    if (keyFrameDescList.count > 0) {
-                                        strongSelf.keyFrameDescList = keyFrameDescList;
-                                    } else {
-                                        strongSelf.keyFrameDescList = nil;
-                                    }
-                                    strongSelf.infoDuration = [J2Num([responseObject valueForKeyPath:@"videoInfo.sourceVideo.duration"]) floatValue];
-                                    
-                                    [strongSelf _playWithModel:theModel];
-                                    
-                                } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-                                    // error 错误信息
-                                    [self showMiddleBtnMsg:kStrLoadFaildRetry withAction:ActionReplay];
-                                    if ([self.delegate respondsToSelector:@selector(superPlayerError:errCode:errMessage:)]) {
-                                        [self.delegate superPlayerError:self errCode:-1000 errMessage:@"网络请求失败"];
-                                    }
-                                }];
-    [manager invalidateSessionCancelingTasks:NO];
-}
-
 - (int)livePlayerType {
     int playType = -1;
     if (self.playerModel.fileId != nil)
@@ -1546,6 +1427,9 @@ static UISlider * _volumeSlider;
         [DataReport report:@"superlive" param:@{@"usedtime":@(usedtime)}];
     } else {
         [DataReport report:@"supervod" param:@{@"usedtime":@(usedtime), @"fileid":@(self.playerModel.fileId?1:0)}];
+    }
+    if (_playerModel.imageSprite) {
+        [DataReport report:@"image_sprite" param:nil];
     }
     self.reportTime = nil;
 }
@@ -1593,8 +1477,8 @@ static UISlider * _volumeSlider;
             [self configTXPlayer];
         }
             break;
-        case ActionReplay:
-            [self configTXPlayer];
+        case ActionRetry:
+            [self reloadModel];
             break;
         case ActionSwitch:
             [self controlViewSwitch:self.controlView withDefinition:self.netWatcher.adviseDefinition];
