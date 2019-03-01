@@ -8,11 +8,22 @@ NSNotificationName kSuperPlayerModelReady = @"kSuperPlayerModelReady";
 @implementation SuperPlayerUrl
 @end
 
+@implementation SuperPlayerVideoId
+@end
+
 @interface SuperPlayerModel()
 @property NSURLSessionDataTask *getInfoHttpTask;
 @end
 
 @implementation SuperPlayerModel
+
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        
+    }
+    return self;
+}
 
 - (void)dealloc {
     
@@ -74,24 +85,24 @@ NSNotificationName kSuperPlayerModelReady = @"kSuperPlayerModelReady";
     return stringOfParamters;
 }
 
-- (void)getPlayInfoV2 {
+- (void)getPlayInfoV2:(SuperPlayerView *)playerView {
     
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    NSString *url = [NSString stringWithFormat:@"https://playvideo.qcloud.com/getplayinfo/v2/%ld/%@", self.appId, self.fileId];
+    NSString *url = [NSString stringWithFormat:@"https://playvideo.qcloud.com/getplayinfo/v2/%ld/%@", self.videoId.appId, self.videoId.fileId];
     
     // 防盗链参数
     NSMutableDictionary *params = [NSMutableDictionary new];
-    if (self.timeout) {
-        [params setValue:self.timeout forKey:@"t"];
+    if (self.videoId.timeout) {
+        [params setValue:self.videoId.timeout forKey:@"t"];
     }
-    if (self.us) {
-        [params setValue:self.us forKey:@"us"];
+    if (self.videoId.us) {
+        [params setValue:self.videoId.us forKey:@"us"];
     }
-    if (self.sign) {
-        [params setValue:self.sign forKey:@"sign"];
+    if (self.videoId.sign) {
+        [params setValue:self.videoId.sign forKey:@"sign"];
     }
-    if (self.exper >= 0) {
-        [params setValue:@(self.exper) forKey:@"exper"];
+    if (self.videoId.exper >= 0) {
+        [params setValue:@(self.videoId.exper) forKey:@"exper"];
     }
     NSString *httpBodyString = [self makeParamtersString:params withEncoding:NSUTF8StringEncoding];
     if (httpBodyString) {
@@ -99,6 +110,7 @@ NSNotificationName kSuperPlayerModelReady = @"kSuperPlayerModelReady";
     }
     
     __weak SuperPlayerModel *weakSelf = self;
+    __weak SuperPlayerView  *weakPlayerView = playerView;
     self.getInfoHttpTask = [manager GET:url parameters:nil progress:nil
                                 success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
                                     
@@ -179,17 +191,18 @@ NSNotificationName kSuperPlayerModelReady = @"kSuperPlayerModelReady";
                                         
                                         TXImageSprite *imageSprite = [[TXImageSprite alloc] init];
                                         [imageSprite setVTTUrl:[NSURL URLWithString:vtt] imageUrls:imgUrlArray];
-                                        self.imageSprite = imageSprite;
+                                        weakPlayerView.imageSprite = imageSprite;
+                                    } else {
+                                        weakPlayerView.imageSprite = nil;
                                     }
                                     
                                     NSArray *keyFrameDescList = J2Array([responseObject valueForKeyPath:@"keyFrameDescInfo.keyFrameDescList"]);
                                     if (keyFrameDescList.count > 0) {
-                                        self.keyFrameDescList = keyFrameDescList;
+                                        weakPlayerView.keyFrameDescList = keyFrameDescList;
                                     } else {
-                                        self.keyFrameDescList = nil;
+                                        weakPlayerView.keyFrameDescList = nil;
                                     }
                                     
-                                    self.playInfoDuration = [J2Num([responseObject valueForKeyPath:@"videoInfo.sourceVideo.duration"]) floatValue];
                                     
                                     [[NSNotificationCenter defaultCenter] postNotificationName:kSuperPlayerModelReady
                                                                                         object:self

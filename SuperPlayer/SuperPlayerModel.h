@@ -1,7 +1,8 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-@class TXImageSprite;
+
+@class SuperPlayerView;
 
 extern NSNotificationName kSuperPlayerModelReady;
 
@@ -11,21 +12,14 @@ extern NSNotificationName kSuperPlayerModelReady;
 @property NSString *url;
 @end
 
-@interface SuperPlayerModel : NSObject
 
-/**
- * 播放器Model可选填videoURL或appid+fileid
- * 如果填videoURL，且是flv格式，那么播放器默认它是直播流
- */
+typedef enum : NSUInteger {
+    FileIdV2 = 0,
+    FileIdV3 = 1,
+} FileIdVer;
 
-/** 视频URL */
-@property (nonatomic, strong) NSString *videoURL;
-
-/**
- * 多码率视频URL
- */
-@property (nonatomic, strong) NSArray<SuperPlayerUrl *> *multiVideoURLs;
-
+/** fileid播放 */
+@interface SuperPlayerVideoId : NSObject
 /**
  * appId
  */
@@ -57,21 +51,58 @@ extern NSNotificationName kSuperPlayerModelReady;
 @property NSString *sign;
 
 /**
- * 视频雪碧图
+ * 模板ID
  */
-@property TXImageSprite *imageSprite;
+@property NSString *playDefinition;
 
 /**
- * 打点信息
+ * 请求后台的interface版本
+ * 普通转码 FileIdV2 （默认）
+ * DRM视频 FileIdV3
  */
-@property NSArray *keyFrameDescList;
+@property FileIdVer version;
+
+@end
+
+/////////////////////////////////////////////////////////////
+//
+//  播放前创建SuperPlayerModel对象
+//
+//  必填参数：
+//  case 播放腾讯云的fileid
+//      videoId
+//  case 播放普通url
+//      videoUrl
+//  case 播放多清晰度
+//      multiVideoURLs
+//      playingDefinition
+//
+/////////////////////////////////////////////////////////////
+
+
+@interface SuperPlayerModel : NSObject
+
+
+/** 视频URL */
+@property (nonatomic, strong) NSString *videoURL;
+
+/** 腾讯云存储对象 */
+@property SuperPlayerVideoId *videoId;
+
+/**
+ * 多码率视频URL
+ */
+@property (nonatomic, strong) NSArray<SuperPlayerUrl *> *multiVideoURLs;
 
 /**
  * 正在播放的清晰度
  */
 @property (nonatomic) NSString *playingDefinition;
+
+
+
 /**
- * 正在播放的清晰度
+ * 正在播放的清晰度URL
  */
 @property (readonly) NSString *playingDefinitionUrl;
 /**
@@ -83,8 +114,8 @@ extern NSNotificationName kSuperPlayerModelReady;
  */
 @property (readonly) NSArray *playDefinitions;
 
-@property CGFloat playInfoDuration;
 
-- (void)getPlayInfoV2;
+
+- (void)getPlayInfoV2:(SuperPlayerView *)playerView;
 
 @end

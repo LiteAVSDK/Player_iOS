@@ -164,7 +164,7 @@ static UISlider * _volumeSlider;
     NSString *videoURL = playerModel.playingDefinitionUrl;
     if (videoURL != nil) {
         [self configTXPlayer];
-    } else if (playerModel.appId != 0 && playerModel.fileId != nil) {
+    } else if (playerModel.videoId) {
         self.isLive = NO;
         [[NSNotificationCenter defaultCenter] removeObserver:self
                                                         name:kSuperPlayerModelReady
@@ -173,23 +173,14 @@ static UISlider * _volumeSlider;
                                                  selector:@selector(getPlayInfoReady:)
                                                      name:kSuperPlayerModelReady
                                                    object:playerModel];
-        [_playerModel getPlayInfoV2];
+        if (playerModel.videoId.version == FileIdV2) {
+            [_playerModel getPlayInfoV2:self];
+        }
         return;
     } else {
         NSLog(@"无播放地址");
         return;
     }
-    
-    NSMutableArray *array = @[].mutableCopy;
-    for (NSDictionary *keyFrameDesc in _playerModel.keyFrameDescList) {
-        SuperPlayerVideoPoint *p = [SuperPlayerVideoPoint new];
-        p.time = [J2Num([keyFrameDesc valueForKeyPath:@"timeOffset"]) intValue]/1000.0;
-        p.text = [J2Str([keyFrameDesc valueForKeyPath:@"content"]) stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-        if (_playerModel.playInfoDuration > 0)
-            p.where = p.time/_playerModel.playInfoDuration;
-        [array addObject:p];
-    }
-    self.controlView.pointArray = array;
 }
 
 - (void)getPlayInfoReady:(NSNotification *)notification {
@@ -333,7 +324,7 @@ static UISlider * _volumeSlider;
         self.livePlayer.enableHWAcceleration = self.playerConfig.hwAcceleration;
         [self.livePlayer startPlay:videoURL type:liveType];
         // 时移
-        [TXLiveBase setAppID:[NSString stringWithFormat:@"%ld", _playerModel.appId]];
+        [TXLiveBase setAppID:[NSString stringWithFormat:@"%ld", _playerModel.videoId.appId]];
         TXCUrl *curl = [[TXCUrl alloc] initWithString:videoURL];
         [self.livePlayer prepareLiveSeek:self.playerConfig.playShiftDomain bizId:[curl bizid]];
         
@@ -919,7 +910,7 @@ static UISlider * _volumeSlider;
     
     UIImage *thumbnail;
     if (self.isFullScreen) {
-        thumbnail = [_playerModel.imageSprite getThumbnail:draggedTime];
+        thumbnail = [self.imageSprite getThumbnail:draggedTime];
     }
     if (thumbnail) {
         self.fastView.videoRatio = self.videoRatio;
@@ -1264,6 +1255,17 @@ static UISlider * _volumeSlider;
                 [self updateBitrates:player.supportedBitrates];
             }
             
+            NSMutableArray *array = @[].mutableCopy;
+            for (NSDictionary *keyFrameDesc in self.keyFrameDescList) {
+                SuperPlayerVideoPoint *p = [SuperPlayerVideoPoint new];
+                p.time = [J2Num([keyFrameDesc valueForKeyPath:@"timeOffset"]) intValue]/1000.0;
+                p.text = [J2Str([keyFrameDesc valueForKeyPath:@"content"]) stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+                if (player.duration > 0)
+                    p.where = p.time/player.duration;
+                [array addObject:p];
+            }
+            self.controlView.pointArray = array;
+            
             // 不使用vodPlayer.autoPlay的原因是暂停的时候会黑屏，影响体验
             if (!self.autoPlay) {
                 self.autoPlay = YES; // 下次用户设置自动播放失效
@@ -1418,8 +1420,6 @@ static UISlider * _volumeSlider;
 
 - (int)livePlayerType {
     int playType = -1;
-    if (self.playerModel.fileId != nil)
-        return -1;
     NSString *videoURL = self.playerModel.playingDefinitionUrl;
     if ([videoURL hasPrefix:@"rtmp:"]) {
         playType = PLAY_TYPE_LIVE_RTMP;
@@ -1436,9 +1436,9 @@ static UISlider * _volumeSlider;
     if (self.isLive) {
         [DataReport report:@"superlive" param:@{@"usedtime":@(usedtime)}];
     } else {
-        [DataReport report:@"supervod" param:@{@"usedtime":@(usedtime), @"fileid":@(self.playerModel.fileId?1:0)}];
+        [DataReport report:@"supervod" param:@{@"usedtime":@(usedtime), @"fileid":@(self.playerModel.videoId.fileId?1:0)}];
     }
-    if (_playerModel.imageSprite) {
+    if (self.imageSprite) {
         [DataReport report:@"image_sprite" param:nil];
     }
     self.reportTime = nil;

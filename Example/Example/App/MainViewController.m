@@ -80,6 +80,11 @@ UIAlertViewDelegate
         scellInfo.navigateToController = @"SimpleMovieController";
         [subCells addObject:scellInfo];
         
+        scellInfo = [CellInfo new];
+        scellInfo.title = @"DRM";
+        scellInfo.navigateToController = @"DrmPlayViewController";
+        [subCells addObject:scellInfo];
+        
         subCells;
     
     });
