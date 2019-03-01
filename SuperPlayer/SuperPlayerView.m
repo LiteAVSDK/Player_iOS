@@ -52,7 +52,7 @@ static UISlider * _volumeSlider;
  *  初始化player
  */
 - (void)initializeThePlayer {
-    
+    LOG_ME;
     self.netWatcher = [[NetWatcher alloc] init];
     
     CGRect frame = CGRectMake(0, -100, 10, 0);
@@ -87,6 +87,7 @@ static UISlider * _volumeSlider;
 }
 
 - (void)dealloc {
+    LOG_ME;
     // 移除通知
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [[UIDevice currentDevice] endGeneratingDeviceOrientationNotifications];
@@ -136,6 +137,7 @@ static UISlider * _volumeSlider;
 #pragma mark - Public Method
 
 - (void)playWithModel:(SuperPlayerModel *)playerModel {
+    LOG_ME;
     self.isShiftPlayback = NO;
     [self reportPlay];
     self.reportTime = [NSDate date];
@@ -228,6 +230,7 @@ static UISlider * _volumeSlider;
  *  重置player
  */
 - (void)resetPlayer {
+    LOG_ME;
     // 移除通知
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     // 暂停
@@ -250,6 +253,7 @@ static UISlider * _volumeSlider;
  *  播放
  */
 - (void)resume {
+    LOG_ME;
     [self.controlView setPlayState:YES];
     self.isPauseByUser = NO;
     self.state = StatePlaying;
@@ -264,6 +268,7 @@ static UISlider * _volumeSlider;
  * 暂停
  */
 - (void)pause {
+    LOG_ME;
     if (!self.isLoaded)
         return;
     [self.controlView setPlayState:NO];
@@ -276,40 +281,20 @@ static UISlider * _volumeSlider;
     }
 }
 
-- (TXVodPlayer *)vodPlayer
-{
-    if (_vodPlayer == nil) {
-        _vodPlayer = [[TXVodPlayer alloc] init];
-        TXVodPlayConfig *config = [[TXVodPlayConfig alloc] init];
-        config.cacheFolderPath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingString:@"/TXCache"];
-        config.progressInterval = 0.02;
-//        config.playerType = PLAYER_AVPLAYER;
-        [_vodPlayer setConfig:config];
-        _vodPlayer.vodDelegate = self;
-    }
-    return _vodPlayer;
-}
-
-- (TXLivePlayer *)livePlayer
-{
-    if (_livePlayer == nil) {
-        _livePlayer = [[TXLivePlayer alloc] init];
-        TXLivePlayConfig *config = [[TXLivePlayConfig alloc] init];
-        config.bAutoAdjustCacheTime = NO;
-        config.maxAutoAdjustCacheTime = 5.0f;
-        config.minAutoAdjustCacheTime = 5.0f;
-        [_livePlayer setConfig:config];
-        _livePlayer.delegate = self;
-    }
-    return _livePlayer;
-}
 
 #pragma mark - Private Method
 /**
  *  设置Player相关参数
  */
 - (void)configTXPlayer {
+    LOG_ME;
     self.backgroundColor = [UIColor blackColor];
+    
+    if (_playerConfig.enableLog) {
+        [TXLiveBase setLogLevel:LOGLEVEL_DEBUG];
+        [TXLiveBase sharedInstance].delegate = self;
+        [TXLiveBase setConsoleEnabled:YES];
+    }
     
     [self.vodPlayer stopPlay];
     [self.vodPlayer removeVideoWidget];
@@ -333,9 +318,18 @@ static UISlider * _volumeSlider;
     NSString *videoURL = self.playerModel.playingDefinitionUrl;
     
     if (self.isLive) {
-        TXLivePlayConfig *config = self.livePlayer.config;
+        if (!self.livePlayer) {
+            self.livePlayer = [[TXLivePlayer alloc] init];
+            self.livePlayer.delegate = self;
+        }
+        TXLivePlayConfig *config = [[TXLivePlayConfig alloc] init];
+        config.bAutoAdjustCacheTime = NO;
+        config.maxAutoAdjustCacheTime = 5.0f;
+        config.minAutoAdjustCacheTime = 5.0f;
         config.headers = self.playerConfig.headers;
         [self.livePlayer setConfig:config];
+        
+        
         self.livePlayer.enableHWAcceleration = self.playerConfig.hwAcceleration;
         [self.livePlayer startPlay:videoURL type:liveType];
         // 时移
@@ -346,10 +340,20 @@ static UISlider * _volumeSlider;
         [self.livePlayer setMute:self.playerConfig.mute];
         [self.livePlayer setRenderMode:self.playerConfig.renderMode];
     } else {
-        TXVodPlayConfig *config = self.vodPlayer.config;
+        if (!self.vodPlayer) {
+            self.vodPlayer = [[TXVodPlayer alloc] init];
+            self.vodPlayer.vodDelegate = self;
+        }
+        
+        TXVodPlayConfig *config = [[TXVodPlayConfig alloc] init];
+        config.cacheFolderPath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingString:@"/TXCache"];
+        config.progressInterval = 0.02;
+        //        config.playerType = PLAYER_AVPLAYER;
         config.headers = self.playerConfig.headers;
         config.maxCacheItems = (int)self.playerConfig.maxCacheItem;
+
         [self.vodPlayer setConfig:config];
+        
         self.vodPlayer.enableHWAcceleration = self.playerConfig.hwAcceleration;
         [self.vodPlayer setStartTime:self.startTime]; self.startTime = 0;
         [self.vodPlayer startPlay:videoURL];
@@ -1404,6 +1408,12 @@ static UISlider * _volumeSlider;
             }
         }
     });
+}
+
+// 日志回调
+-(void) onLog:(NSString*)log LogLevel:(int)level WhichModule:(NSString*)module
+{
+    NSLog(@"%@:%@", module, log);
 }
 
 - (int)livePlayerType {

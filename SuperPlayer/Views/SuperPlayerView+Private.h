@@ -34,7 +34,7 @@ typedef NS_ENUM(NSInteger, ButtonAction) {
 
 
 @interface SuperPlayerView () <UIGestureRecognizerDelegate,UIAlertViewDelegate,
-TXVodPlayListener, TXLivePlayListener, SuperPlayerControlViewDelegate>
+TXVodPlayListener, TXLivePlayListener, SuperPlayerControlViewDelegate, TXLiveBaseDelegate>
 
 
 /** 用来保存快进的总时长 */
