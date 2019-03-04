@@ -181,8 +181,10 @@
     tempCell = (TXWeiboListTableViewCell *)cell;
     self.superPlayer.fatherView = cell.contentView;
     SuperPlayerModel *model = [SuperPlayerModel new];
-    model.appId = 1252463788;
-    model.fileId = self.fileIdArray[[self.tempIndexPath row]];
+    SuperPlayerVideoId *videoId = [SuperPlayerVideoId new];
+    videoId.appId = 1252463788;
+    videoId.fileId = self.fileIdArray[[self.tempIndexPath row]];
+    model.videoId = videoId;
     NSNumber *startTime = [self.startTimeDict objectForKey:self.tempIndexPath];
     if (startTime) {
         self.superPlayer.startTime = startTime.floatValue;

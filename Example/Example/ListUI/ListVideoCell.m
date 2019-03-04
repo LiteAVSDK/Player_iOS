@@ -31,8 +31,10 @@
 - (SuperPlayerModel *)getPlayerModel
 {
     SuperPlayerModel *model = [SuperPlayerModel new];
-    model.appId = [self appId];
-    model.fileId = [self fileId];
+    SuperPlayerVideoId *videoId = [SuperPlayerVideoId new];
+    videoId.appId = [self appId];
+    videoId.fileId = [self fileId];
+    model.videoId = videoId;
     model.videoURL = self.url;
     
     if (self.hdUrl) {

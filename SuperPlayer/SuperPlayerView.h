@@ -78,6 +78,14 @@ typedef NS_ENUM(NSInteger, SuperPlayerState) {
 /// 播放器配置
 @property SuperPlayerViewConfig *playerConfig;
 /**
+ * 视频雪碧图
+ */
+@property TXImageSprite *imageSprite;
+/**
+ * 打点信息
+ */
+@property NSArray *keyFrameDescList;
+/**
  * 播放model
  */
 - (void)playWithModel:(SuperPlayerModel *)playerModel;

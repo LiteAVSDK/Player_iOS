@@ -26,3 +26,5 @@
 #define SuperPlayerWindowShared             [SuperPlayerWindow sharedInstance]
 
 #define TintColor RGBA(252, 89, 81, 1)
+
+#define LOG_ME NSLog(@"%s", __func__);

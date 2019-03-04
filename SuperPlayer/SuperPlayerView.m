@@ -52,7 +52,7 @@ static UISlider * _volumeSlider;
  *  初始化player
  */
 - (void)initializeThePlayer {
-    
+    LOG_ME;
     self.netWatcher = [[NetWatcher alloc] init];
     
     CGRect frame = CGRectMake(0, -100, 10, 0);
@@ -87,6 +87,7 @@ static UISlider * _volumeSlider;
 }
 
 - (void)dealloc {
+    LOG_ME;
     // 移除通知
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [[UIDevice currentDevice] endGeneratingDeviceOrientationNotifications];
@@ -136,8 +137,7 @@ static UISlider * _volumeSlider;
 #pragma mark - Public Method
 
 - (void)playWithModel:(SuperPlayerModel *)playerModel {
-    self.imageSprite = nil;
-    self.keyFrameDescList = nil;
+    LOG_ME;
     self.isShiftPlayback = NO;
     [self reportPlay];
     self.reportTime = [NSDate date];
@@ -148,6 +148,14 @@ static UISlider * _volumeSlider;
     self.repeatBackBtn.hidden = YES;
 }
 
+- (void)reloadModel {
+    SuperPlayerModel *model = _playerModel;
+    if (model) {
+        [self resetPlayer];
+        [self _playWithModel:_playerModel];
+    }
+}
+
 - (void)_playWithModel:(SuperPlayerModel *)playerModel {
     _playerModel = playerModel;
     
@@ -156,23 +164,37 @@ static UISlider * _volumeSlider;
     NSString *videoURL = playerModel.playingDefinitionUrl;
     if (videoURL != nil) {
         [self configTXPlayer];
-    } else if (playerModel.appId != 0 && playerModel.fileId != nil) {
+    } else if (playerModel.videoId) {
         self.isLive = NO;
-        [self getPlayInfoV2];
+        [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                        name:kSuperPlayerModelReady
+                                                      object:_playerModel];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(getPlayInfoReady:)
+                                                     name:kSuperPlayerModelReady
+                                                   object:playerModel];
+        
+        [_playerModel requestPlayInfo:self];
+        
+        return;
     } else {
         NSLog(@"无播放地址");
         return;
     }
-    
-    NSMutableArray *array = @[].mutableCopy;
-    for (NSDictionary *keyFrameDesc in self.keyFrameDescList) {
-        SuperPlayerVideoPoint *p = [SuperPlayerVideoPoint new];
-        p.time = [J2Num([keyFrameDesc valueForKeyPath:@"timeOffset"]) intValue]/1000.0;
-        p.text = [J2Str([keyFrameDesc valueForKeyPath:@"content"]) stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-        p.where = p.time/self.infoDuration;
-        [array addObject:p];
+}
+
+- (void)getPlayInfoReady:(NSNotification *)notification {
+    if (_playerModel.videoURL == nil) {
+        // error 错误信息
+        [self showMiddleBtnMsg:kStrLoadFaildRetry withAction:ActionRetry];
+        [self.spinner stopAnimating];
+        if ([self.delegate respondsToSelector:@selector(superPlayerError:errCode:errMessage:)]) {
+            [self.delegate superPlayerError:self errCode:-1000 errMessage:@"网络请求失败"];
+        }
+        return;
     }
-    self.controlView.pointArray = array;
+    
+    [self _playWithModel:_playerModel];
 }
 
 /**
@@ -199,6 +221,7 @@ static UISlider * _volumeSlider;
  *  重置player
  */
 - (void)resetPlayer {
+    LOG_ME;
     // 移除通知
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     // 暂停
@@ -221,6 +244,7 @@ static UISlider * _volumeSlider;
  *  播放
  */
 - (void)resume {
+    LOG_ME;
     [self.controlView setPlayState:YES];
     self.isPauseByUser = NO;
     self.state = StatePlaying;
@@ -235,6 +259,7 @@ static UISlider * _volumeSlider;
  * 暂停
  */
 - (void)pause {
+    LOG_ME;
     if (!self.isLoaded)
         return;
     [self.controlView setPlayState:NO];
@@ -247,40 +272,20 @@ static UISlider * _volumeSlider;
     }
 }
 
-- (TXVodPlayer *)vodPlayer
-{
-    if (_vodPlayer == nil) {
-        _vodPlayer = [[TXVodPlayer alloc] init];
-        TXVodPlayConfig *config = [[TXVodPlayConfig alloc] init];
-        config.cacheFolderPath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingString:@"/TXCache"];
-        config.progressInterval = 0.02;
-//        config.playerType = PLAYER_AVPLAYER;
-        [_vodPlayer setConfig:config];
-        _vodPlayer.vodDelegate = self;
-    }
-    return _vodPlayer;
-}
-
-- (TXLivePlayer *)livePlayer
-{
-    if (_livePlayer == nil) {
-        _livePlayer = [[TXLivePlayer alloc] init];
-        TXLivePlayConfig *config = [[TXLivePlayConfig alloc] init];
-        config.bAutoAdjustCacheTime = NO;
-        config.maxAutoAdjustCacheTime = 5.0f;
-        config.minAutoAdjustCacheTime = 5.0f;
-        [_livePlayer setConfig:config];
-        _livePlayer.delegate = self;
-    }
-    return _livePlayer;
-}
 
 #pragma mark - Private Method
 /**
  *  设置Player相关参数
  */
 - (void)configTXPlayer {
+    LOG_ME;
     self.backgroundColor = [UIColor blackColor];
+    
+    if (_playerConfig.enableLog) {
+        [TXLiveBase setLogLevel:LOGLEVEL_DEBUG];
+        [TXLiveBase sharedInstance].delegate = self;
+        [TXLiveBase setConsoleEnabled:YES];
+    }
     
     [self.vodPlayer stopPlay];
     [self.vodPlayer removeVideoWidget];
@@ -304,23 +309,42 @@ static UISlider * _volumeSlider;
     NSString *videoURL = self.playerModel.playingDefinitionUrl;
     
     if (self.isLive) {
-        TXLivePlayConfig *config = self.livePlayer.config;
+        if (!self.livePlayer) {
+            self.livePlayer = [[TXLivePlayer alloc] init];
+            self.livePlayer.delegate = self;
+        }
+        TXLivePlayConfig *config = [[TXLivePlayConfig alloc] init];
+        config.bAutoAdjustCacheTime = NO;
+        config.maxAutoAdjustCacheTime = 5.0f;
+        config.minAutoAdjustCacheTime = 5.0f;
         config.headers = self.playerConfig.headers;
         [self.livePlayer setConfig:config];
+        
+        
         self.livePlayer.enableHWAcceleration = self.playerConfig.hwAcceleration;
         [self.livePlayer startPlay:videoURL type:liveType];
         // 时移
-        [TXLiveBase setAppID:[NSString stringWithFormat:@"%ld", _playerModel.appId]];
+        [TXLiveBase setAppID:[NSString stringWithFormat:@"%ld", _playerModel.videoId.appId]];
         TXCUrl *curl = [[TXCUrl alloc] initWithString:videoURL];
         [self.livePlayer prepareLiveSeek:self.playerConfig.playShiftDomain bizId:[curl bizid]];
         
         [self.livePlayer setMute:self.playerConfig.mute];
         [self.livePlayer setRenderMode:self.playerConfig.renderMode];
     } else {
-        TXVodPlayConfig *config = self.vodPlayer.config;
+        if (!self.vodPlayer) {
+            self.vodPlayer = [[TXVodPlayer alloc] init];
+            self.vodPlayer.vodDelegate = self;
+        }
+        
+        TXVodPlayConfig *config = [[TXVodPlayConfig alloc] init];
+        config.cacheFolderPath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingString:@"/TXCache"];
+        config.progressInterval = 0.02;
+        //        config.playerType = PLAYER_AVPLAYER;
         config.headers = self.playerConfig.headers;
         config.maxCacheItems = (int)self.playerConfig.maxCacheItem;
+
         [self.vodPlayer setConfig:config];
+        
         self.vodPlayer.enableHWAcceleration = self.playerConfig.hwAcceleration;
         [self.vodPlayer setStartTime:self.startTime]; self.startTime = 0;
         [self.vodPlayer startPlay:videoURL];
@@ -1231,6 +1255,17 @@ static UISlider * _volumeSlider;
                 [self updateBitrates:player.supportedBitrates];
             }
             
+            NSMutableArray *array = @[].mutableCopy;
+            for (NSDictionary *keyFrameDesc in self.keyFrameDescList) {
+                SuperPlayerVideoPoint *p = [SuperPlayerVideoPoint new];
+                p.time = [J2Num([keyFrameDesc valueForKeyPath:@"timeOffset"]) intValue]/1000.0;
+                p.text = [J2Str([keyFrameDesc valueForKeyPath:@"content"]) stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+                if (player.duration > 0)
+                    p.where = p.time/player.duration;
+                [array addObject:p];
+            }
+            self.controlView.pointArray = array;
+            
             // 不使用vodPlayer.autoPlay的原因是暂停的时候会黑屏，影响体验
             if (!self.autoPlay) {
                 self.autoPlay = YES; // 下次用户设置自动播放失效
@@ -1264,7 +1299,7 @@ static UISlider * _volumeSlider;
             if (EvtID == PLAY_ERR_NET_DISCONNECT) {
                 [self showMiddleBtnMsg:kStrBadNetRetry withAction:ActionContinueReplay];
             } else {
-                [self showMiddleBtnMsg:kStrLoadFaildRetry withAction:ActionReplay];
+                [self showMiddleBtnMsg:kStrLoadFaildRetry withAction:ActionRetry];
             }
             self.state = StateFailed;
             [player stopPlay];
@@ -1333,10 +1368,10 @@ static UISlider * _volumeSlider;
         } else if (EvtID == PLAY_ERR_NET_DISCONNECT) {
             if (self.isShiftPlayback) {
                 [self controlViewReload:self.controlView];
-                [self showMiddleBtnMsg:kStrTimeShiftFailed withAction:ActionReplay];
+                [self showMiddleBtnMsg:kStrTimeShiftFailed withAction:ActionRetry];
                 [self.middleBlackBtn fadeOut:2];
             } else {
-                [self showMiddleBtnMsg:kStrBadNetRetry withAction:ActionReplay];
+                [self showMiddleBtnMsg:kStrBadNetRetry withAction:ActionRetry];
                 self.state = StateFailed;
             }
             if ([self.delegate respondsToSelector:@selector(superPlayerError:errCode:errMessage:)]) {
@@ -1352,7 +1387,7 @@ static UISlider * _volumeSlider;
             [self showMiddleBtnMsg:[@"已切换为" stringByAppendingString:self.playerModel.playingDefinition] withAction:ActionNone];
             [self.middleBlackBtn fadeOut:1];
         } else if (EvtID == PLAY_ERR_STREAM_SWITCH_FAIL) {
-            [self showMiddleBtnMsg:kStrHDSwitchFailed withAction:ActionReplay];
+            [self showMiddleBtnMsg:kStrHDSwitchFailed withAction:ActionRetry];
             self.state = StateFailed;
         } else if (EvtID == PLAY_EVT_PLAY_PROGRESS) {
             if (self.state == StateStopped)
@@ -1377,158 +1412,14 @@ static UISlider * _volumeSlider;
     });
 }
 
-#pragma mark - Net
-- (NSString*)makeParamtersString:(NSDictionary*)parameters withEncoding:(NSStringEncoding)encoding
+// 日志回调
+-(void) onLog:(NSString*)log LogLevel:(int)level WhichModule:(NSString*)module
 {
-    if (nil == parameters || [parameters count] == 0)
-        return nil;
-    
-    NSMutableString* stringOfParamters = [[NSMutableString alloc] init];
-    NSEnumerator *keyEnumerator = [parameters keyEnumerator];
-    id key = nil;
-    while ((key = [keyEnumerator nextObject]))
-    {
-        [stringOfParamters appendFormat:@"%@=%@&", key, [parameters valueForKey:key]];
-    }
-    
-    // Delete last character of '&'
-    NSRange lastCharRange = {[stringOfParamters length] - 1, 1};
-    [stringOfParamters deleteCharactersInRange:lastCharRange];
-    return stringOfParamters;
-}
-
-- (void)getPlayInfoV2 {
-    
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    NSString *url = [NSString stringWithFormat:@"https://playvideo.qcloud.com/getplayinfo/v2/%ld/%@", _playerModel.appId, _playerModel.fileId];
-    
-    // 防盗链参数
-    NSMutableDictionary *params = [NSMutableDictionary new];
-    if (_playerModel.timeout) {
-        [params setValue:_playerModel.timeout forKey:@"t"];
-    }
-    if (_playerModel.us) {
-        [params setValue:_playerModel.us forKey:@"us"];
-    }
-    if (_playerModel.sign) {
-        [params setValue:_playerModel.sign forKey:@"sign"];
-    }
-    if (_playerModel.exper >= 0) {
-        [params setValue:@(_playerModel.exper) forKey:@"exper"];
-    }
-    NSString *httpBodyString = [self makeParamtersString:params withEncoding:NSUTF8StringEncoding];
-    if (httpBodyString) {
-        url = [url stringByAppendingFormat:@"?%@", httpBodyString];
-    }
-    
-    __weak SuperPlayerView *weakSelf = self;
-    SuperPlayerModel *theModel = _playerModel;
-    self.getInfoHttpTask = [manager GET:url parameters:nil progress:nil
-                                success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-                                    
-                                    __strong SuperPlayerView *strongSelf = weakSelf;
-                                    
-                                    NSString *masterUrl = J2Str([responseObject valueForKeyPath:@"videoInfo.masterPlayList.url"]);
-                                    //    masterUrl = nil;
-                                    if (masterUrl.length > 0) {
-                                        theModel.videoURL = masterUrl;
-                                    } else {
-                                        NSString *mainDefinition = J2Str([responseObject valueForKeyPath:@"playerInfo.defaultVideoClassification"]);
-                                        
-                                        
-                                        NSArray *videoClassification = J2Array([responseObject valueForKeyPath:@"playerInfo.videoClassification"]);
-                                        NSArray *transcodeList = J2Array([responseObject valueForKeyPath:@"videoInfo.transcodeList"]);
-                                        
-                                        NSMutableArray<SuperPlayerUrl *> *result = [NSMutableArray new];
-                                        
-                                        for (NSDictionary *transcode in transcodeList) {
-                                            SuperPlayerUrl *subModel = [SuperPlayerUrl new];
-                                            subModel.url = J2Str(transcode[@"url"]);
-                                            NSNumber *theDefinition = J2Num(transcode[@"definition"]);
-                                            
-                                            
-                                            for (NSDictionary *definition in videoClassification) {
-                                                for (NSObject *definition2 in J2Array([definition valueForKeyPath:@"definitionList"])) {
-                                                    
-                                                    if ([definition2 isEqual:theDefinition]) {
-                                                        subModel.title = J2Str([definition valueForKeyPath:@"name"]);
-                                                        NSString *definitionId = J2Str([definition valueForKeyPath:@"id"]);
-                                                        // 初始播放清晰度
-                                                        if ([definitionId isEqualToString:mainDefinition]) {
-                                                            if (![theModel.videoURL containsString:@".mp4"])
-                                                                theModel.videoURL = subModel.url;
-                                                        }
-                                                        break;
-                                                    }
-                                                }
-                                            }
-                                            // 同一个清晰度可能存在多个转码格式，这里只保留一种格式，且优先mp4类型
-                                            for (SuperPlayerUrl *item in result) {
-                                                if ([item.title isEqual:subModel.title]) {
-                                                    if (![item.url containsString:@".mp4"]) {
-                                                        item.url = subModel.url;
-                                                    }
-                                                    subModel = nil;
-                                                    break;
-                                                }
-                                            }
-                                            
-                                            if (subModel) {
-                                                [result addObject:subModel];
-                                            }
-                                        }
-                                        theModel.multiVideoURLs = result;
-                                    }
-                                    if (theModel.videoURL == nil) {
-                                        NSString *source = J2Str([responseObject valueForKeyPath:@"videoInfo.sourceVideo.url"]);
-                                        theModel.videoURL = source;
-                                    }
-                                    
-                                    NSArray *imageSprites = J2Array([responseObject valueForKeyPath:@"imageSpriteInfo.imageSpriteList"]);
-                                    if (imageSprites.count > 0) {
-                                        //                 id imageSpriteObj = imageSprites[0];
-                                        id imageSpriteObj = imageSprites.lastObject;
-                                        NSString *vtt = J2Str([imageSpriteObj valueForKeyPath:@"webVttUrl"]);
-                                        NSArray *imgUrls = J2Array([imageSpriteObj valueForKeyPath:@"imageUrls"]);
-                                        NSMutableArray *imgUrlArray = @[].mutableCopy;
-                                        for (NSString *url in imgUrls) {
-                                            NSURL *nsurl = [NSURL URLWithString:url];
-                                            if (nsurl) {
-                                                [imgUrlArray addObject:nsurl];
-                                            }
-                                        }
-                                        
-                                        TXImageSprite *imageSprite = [[TXImageSprite alloc] init];
-                                        [imageSprite setVTTUrl:[NSURL URLWithString:vtt] imageUrls:imgUrlArray];
-                                        strongSelf.imageSprite = imageSprite;
-                                        
-                                        [DataReport report:@"image_sprite" param:nil];
-                                    }
-                                    
-                                    NSArray *keyFrameDescList = J2Array([responseObject valueForKeyPath:@"keyFrameDescInfo.keyFrameDescList"]);
-                                    if (keyFrameDescList.count > 0) {
-                                        strongSelf.keyFrameDescList = keyFrameDescList;
-                                    } else {
-                                        strongSelf.keyFrameDescList = nil;
-                                    }
-                                    strongSelf.infoDuration = [J2Num([responseObject valueForKeyPath:@"videoInfo.sourceVideo.duration"]) floatValue];
-                                    
-                                    [strongSelf _playWithModel:theModel];
-                                    
-                                } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-                                    // error 错误信息
-                                    [self showMiddleBtnMsg:kStrLoadFaildRetry withAction:ActionReplay];
-                                    if ([self.delegate respondsToSelector:@selector(superPlayerError:errCode:errMessage:)]) {
-                                        [self.delegate superPlayerError:self errCode:-1000 errMessage:@"网络请求失败"];
-                                    }
-                                }];
-    [manager invalidateSessionCancelingTasks:NO];
+    NSLog(@"%@:%@", module, log);
 }
 
 - (int)livePlayerType {
     int playType = -1;
-    if (self.playerModel.fileId != nil)
-        return -1;
     NSString *videoURL = self.playerModel.playingDefinitionUrl;
     if ([videoURL hasPrefix:@"rtmp:"]) {
         playType = PLAY_TYPE_LIVE_RTMP;
@@ -1545,7 +1436,10 @@ static UISlider * _volumeSlider;
     if (self.isLive) {
         [DataReport report:@"superlive" param:@{@"usedtime":@(usedtime)}];
     } else {
-        [DataReport report:@"supervod" param:@{@"usedtime":@(usedtime), @"fileid":@(self.playerModel.fileId?1:0)}];
+        [DataReport report:@"supervod" param:@{@"usedtime":@(usedtime), @"fileid":@(self.playerModel.videoId.fileId?1:0)}];
+    }
+    if (self.imageSprite) {
+        [DataReport report:@"image_sprite" param:nil];
     }
     self.reportTime = nil;
 }
@@ -1593,8 +1487,8 @@ static UISlider * _volumeSlider;
             [self configTXPlayer];
         }
             break;
-        case ActionReplay:
-            [self configTXPlayer];
+        case ActionRetry:
+            [self reloadModel];
             break;
         case ActionSwitch:
             [self controlViewSwitch:self.controlView withDefinition:self.netWatcher.adviseDefinition];

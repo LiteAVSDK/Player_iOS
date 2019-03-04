@@ -26,7 +26,7 @@ typedef NS_ENUM(NSInteger, PanDirection){
 
 typedef NS_ENUM(NSInteger, ButtonAction) {
     ActionNone,
-    ActionReplay,
+    ActionRetry,
     ActionSwitch,
     ActionIgnore,
     ActionContinueReplay,
@@ -34,7 +34,7 @@ typedef NS_ENUM(NSInteger, ButtonAction) {
 
 
 @interface SuperPlayerView () <UIGestureRecognizerDelegate,UIAlertViewDelegate,
-TXVodPlayListener, TXLivePlayListener, SuperPlayerControlViewDelegate>
+TXVodPlayListener, TXLivePlayListener, SuperPlayerControlViewDelegate, TXLiveBaseDelegate>
 
 
 /** 用来保存快进的总时长 */
@@ -77,8 +77,6 @@ TXVodPlayListener, TXLivePlayListener, SuperPlayerControlViewDelegate>
 // add for txvodplayer
 @property BOOL  isLoaded;
 
-@property NSURLSessionDataTask *getInfoHttpTask;
-
 @property (nonatomic) BOOL  isShiftPlayback;
 
 @property CGFloat maxLiveProgressTime;    // 直播最大进度/总时间
@@ -92,12 +90,6 @@ TXVodPlayListener, TXLivePlayListener, SuperPlayerControlViewDelegate>
 @property (nonatomic, strong) TXVodPlayer                *vodPlayer;
 /** 腾讯直播播放器 */
 @property (nonatomic, strong) TXLivePlayer               *livePlayer;
-
-@property (strong) TXImageSprite *imageSprite;
-
-@property NSArray *keyFrameDescList;
-
-@property CGFloat infoDuration;
 
 @property NSDate *reportTime;
 
