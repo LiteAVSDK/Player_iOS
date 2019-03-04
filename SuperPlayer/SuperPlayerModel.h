@@ -51,9 +51,17 @@ typedef enum : NSUInteger {
 @property NSString *sign;
 
 /**
- * 模板ID
+ * 模板ID (V3)
  */
 @property NSString *playDefinition;
+
+/**
+ * 播放器 ID，可选。默认使用文件绑定的播放器 ID 或默认播放器 ID
+ */
+@property NSString *playerId;
+
+/// 允许不同 IP 的播放次数，仅当开启防盗链且需要开启试看时填写
+@property int rlimit;
 
 /**
  * 请求后台的interface版本
@@ -116,6 +124,5 @@ typedef enum : NSUInteger {
 
 
 
-- (void)getPlayInfoV2:(SuperPlayerView *)playerView;
-
+- (void)requestPlayInfo:(SuperPlayerView *)playerView;
 @end

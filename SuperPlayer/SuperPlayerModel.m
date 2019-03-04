@@ -85,6 +85,14 @@ NSNotificationName kSuperPlayerModelReady = @"kSuperPlayerModelReady";
     return stringOfParamters;
 }
 
+- (void)requestPlayInfo:(SuperPlayerView *)playerView
+{
+    if (self.videoId.version == FileIdV2)
+        [self getPlayInfoV2:playerView];
+    if (self.videoId.version == FileIdV3)
+        [self getPlayInfoV3:playerView];
+}
+
 - (void)getPlayInfoV2:(SuperPlayerView *)playerView {
     
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
@@ -221,6 +229,98 @@ NSNotificationName kSuperPlayerModelReady = @"kSuperPlayerModelReady";
                                     [manager invalidateSessionCancelingTasks:YES];
                                 }];
     
+}
+
+- (void)getPlayInfoV3:(SuperPlayerView *)playerView {
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    NSString *url = [NSString stringWithFormat:@"https://playvideo.qcloud.com/getplayinfo/v3/%ld/%@/%@", self.videoId.appId, self.videoId.fileId, self.videoId.playDefinition];
+    
+    // 防盗链参数
+    NSMutableDictionary *params = [NSMutableDictionary new];
+    if (self.videoId.playerId) {
+        [params setValue:self.videoId.playerId forKey:@"playerid"];
+    }
+    if (self.videoId.timeout) {
+        [params setValue:self.videoId.timeout forKey:@"t"];
+    }
+    if (self.videoId.us) {
+        [params setValue:self.videoId.us forKey:@"us"];
+    }
+    if (self.videoId.sign) {
+        [params setValue:self.videoId.sign forKey:@"sign"];
+    }
+    if (self.videoId.rlimit > 0) {
+        [params setValue:@(self.videoId.rlimit) forKey:@"rlimit"];
+    }
+    NSString *httpBodyString = [self makeParamtersString:params withEncoding:NSUTF8StringEncoding];
+    if (httpBodyString) {
+        url = [url stringByAppendingFormat:@"?%@", httpBodyString];
+    }
+    
+    __weak SuperPlayerModel *weakSelf = self;
+    __weak SuperPlayerView  *weakPlayerView = playerView;
+    self.getInfoHttpTask = [manager GET:url parameters:nil progress:nil
+                                success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+                                    
+                                    __strong SuperPlayerModel *self = weakSelf;
+                                    
+                                    
+                                    
+                                    NSArray *adaptiveStreamingInfoList = J2Array([responseObject valueForKeyPath:@"mediaInfo.dynamicStreamingInfo.adaptiveStreamingInfoList"]);
+                                    
+                                    for (NSDictionary *transcode in adaptiveStreamingInfoList) {
+                                        NSString *package = J2Str([transcode valueForKeyPath:@"package"]);
+                                        if ([package isEqualToString:@"hls"]) {
+                                            self.videoURL = J2Str([transcode valueForKeyPath:@"url"]);
+                                            // TODO: drmType
+                                        }
+                                    }
+                                    
+                                    NSArray *imageSprites = J2Array([responseObject valueForKeyPath:@"imageSpriteInfo.imageSpriteList"]);
+                                    if (imageSprites.count > 0) {
+                                        //                 id imageSpriteObj = imageSprites[0];
+                                        id imageSpriteObj = imageSprites.lastObject;
+                                        NSString *vtt = J2Str([imageSpriteObj valueForKeyPath:@"webVttUrl"]);
+                                        NSArray *imgUrls = J2Array([imageSpriteObj valueForKeyPath:@"imageUrls"]);
+                                        NSMutableArray *imgUrlArray = @[].mutableCopy;
+                                        for (NSString *url in imgUrls) {
+                                            NSURL *nsurl = [NSURL URLWithString:url];
+                                            if (nsurl) {
+                                                [imgUrlArray addObject:nsurl];
+                                            }
+                                        }
+                                        
+                                        TXImageSprite *imageSprite = [[TXImageSprite alloc] init];
+                                        [imageSprite setVTTUrl:[NSURL URLWithString:vtt] imageUrls:imgUrlArray];
+                                        weakPlayerView.imageSprite = imageSprite;
+                                    } else {
+                                        weakPlayerView.imageSprite = nil;
+                                    }
+                                    
+                                    NSArray *keyFrameDescList = J2Array([responseObject valueForKeyPath:@"keyFrameDescInfo.keyFrameDescList"]);
+                                    if (keyFrameDescList.count > 0) {
+                                        weakPlayerView.keyFrameDescList = keyFrameDescList;
+                                    } else {
+                                        weakPlayerView.keyFrameDescList = nil;
+                                    }
+                                    
+                                    
+                                    [[NSNotificationCenter defaultCenter] postNotificationName:kSuperPlayerModelReady
+                                                                                        object:self
+                                                                                      userInfo:@{
+                                                                                                 @"message": @"success"
+                                                                                                 }];
+                                    
+                                    [manager invalidateSessionCancelingTasks:YES];
+                                } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+                                    
+                                    [[NSNotificationCenter defaultCenter] postNotificationName:kSuperPlayerModelReady
+                                                                                        object:self
+                                                                                      userInfo:@{
+                                                                                                 @"error": error,
+                                                                                                 @"message": @"请求失败"                                          }];
+                                    [manager invalidateSessionCancelingTasks:YES];
+                                }];
 }
 
 @end

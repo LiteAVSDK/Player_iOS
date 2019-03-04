@@ -173,9 +173,9 @@ static UISlider * _volumeSlider;
                                                  selector:@selector(getPlayInfoReady:)
                                                      name:kSuperPlayerModelReady
                                                    object:playerModel];
-        if (playerModel.videoId.version == FileIdV2) {
-            [_playerModel getPlayInfoV2:self];
-        }
+        
+        [_playerModel requestPlayInfo:self];
+        
         return;
     } else {
         NSLog(@"无播放地址");

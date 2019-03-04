@@ -31,9 +31,14 @@
     _playerView.disableGesture = YES;
     
     SuperPlayerModel *playerModel = [[SuperPlayerModel alloc] init];
+    SuperPlayerVideoId *video = [[SuperPlayerVideoId alloc] init];
+    video.appId = 1253039488;
+    video.fileId = @"5285890786273319635";
+    video.playDefinition = @"10";
+    video.version = FileIdV3;
+    playerModel.videoId = video;
     
     self.playerView.delegate = self;
-    self.playerView.autoPlay = NO; // 如果想一进来播放，autoPlay设为YES
     self.playerView.fatherView = self.playerContainer;
     
     // 开始播放
