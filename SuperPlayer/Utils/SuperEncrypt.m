@@ -135,13 +135,13 @@ SecKeyRef keyFromData(NSData* data, CFTypeRef keyclass) {
     return attributes;
 }
 
-- (NSData *)getPublicKey
+- (NSString *)getPublicKey
 {
-    return dataFromKey(_publicKey);
+    return [dataFromKey(_publicKey) base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithCarriageReturn];
 }
 
 
-- (NSString*) encrypt:(NSString *)data  {
+- (NSString*) encrypt:(NSString *)string  {
     
     
     if (@available(iOS 10.0, *)) {
@@ -150,7 +150,7 @@ SecKeyRef keyFromData(NSData* data, CFTypeRef keyclass) {
                                                      kSecKeyOperationTypeEncrypt,
                                                      algorithm);
         
-        NSData *plainText = [data dataUsingEncoding:NSUTF8StringEncoding];
+        NSData *plainText = [string dataUsingEncoding:NSUTF8StringEncoding];
         canEncrypt &= ([plainText length] < (SecKeyGetBlockSize(_publicKey)-130));
         
         NSData* encryptedData = nil;

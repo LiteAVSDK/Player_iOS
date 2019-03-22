@@ -12,8 +12,10 @@ NS_ASSUME_NONNULL_BEGIN
 @interface SuperEncrypt : NSObject
 
 
-- (NSData *)getPublicKey;
+- (NSString *)getPublicKey;
 
+- (NSString *)decrypt:(NSString *)encryptedString;
+- (NSString *)encrypt:(NSString *)string;
 
 @end
 
