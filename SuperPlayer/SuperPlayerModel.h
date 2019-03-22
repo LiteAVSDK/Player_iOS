@@ -70,6 +70,32 @@ typedef enum : NSUInteger {
  */
 @property FileIdVer version;
 
+/**
+ * 请求地址。可选
+ * 默认 playvideo.qcloud.com
+ */
+@property NSString *host;
+
+/**
+ * 播放加密视频获取Token的Cgi。可选，FileIdV3
+ */
+@property NSString *getTokenCgi;
+
+/**
+ * 播放DRM视频获locense的Cgi。可选，FileIdV3
+ */
+@property NSString *getLicenseCgi;
+
+/**
+ * 选择的DRM类型。可选FairPlay、SimpleAES，FileIdV3
+ */
+@property NSString *perferDrmType;
+
+// --- FairPlay内部使用 ---
+// cer
+@property NSData *certificate;
+
+
 @end
 
 /////////////////////////////////////////////////////////////
@@ -93,6 +119,15 @@ typedef enum : NSUInteger {
 
 /** 视频URL */
 @property (nonatomic, strong) NSString *videoURL;
+
+/**
+ * 加密方式，目前支持 FairPlay、SimpleAES
+ */
+@property (nonatomic, strong) NSString *drmType;
+/**
+ * 加密视频的token
+ */
+@property (nonatomic, strong) NSString *token;
 
 /** 腾讯云存储对象 */
 @property SuperPlayerVideoId *videoId;

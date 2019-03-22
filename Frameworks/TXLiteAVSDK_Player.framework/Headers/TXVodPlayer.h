@@ -14,6 +14,7 @@
 #import "TXVideoCustomProcessDelegate.h"
 #import "TXBitrateItem.h"
 #import "TXPlayerAuthParams.h"
+#import <AVFoundation/AVFoundation.h>
 
 /// 点播播放器
 @interface TXVodPlayer : NSObject
@@ -26,6 +27,9 @@
 
 /// 事件回调
 @property(nonatomic, weak) id <TXVodPlayListener> vodDelegate;
+
+/// 播放DRM时的系统回调
+@property(nonatomic, weak) id <AVAssetResourceLoaderDelegate> resourceLoaderDelegate;
 
 /**
  * 视频渲染回调。（仅硬解支持）

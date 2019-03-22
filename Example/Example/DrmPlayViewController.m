@@ -33,9 +33,14 @@
     SuperPlayerModel *playerModel = [[SuperPlayerModel alloc] init];
     SuperPlayerVideoId *video = [[SuperPlayerVideoId alloc] init];
     video.appId = 1253039488;
-    video.fileId = @"5285890786273319635";
+    video.fileId = @"15517827183850370616";
     video.playDefinition = @"10";
     video.version = FileIdV3;
+    video.perferDrmType = @"FairPlay";
+    video.host = @"adapter.vod.myqcloud.com";
+    video.getTokenCgi = @"http://129.204.177.142/gettoken";
+    video.getLicenseCgi = @"https://drm-test.vod2.myqcloud.com/getlicense/v1";
+    video.certificate = [NSData dataWithContentsOfURL:[NSURL URLWithString:@"https://5000.drm.myqcloud.com/huaxida_test/fairplay.cer"]];
     playerModel.videoId = video;
     
     self.playerView.delegate = self;

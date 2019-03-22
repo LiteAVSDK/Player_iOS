@@ -2,6 +2,8 @@
 #import "SuperPlayer.h"
 #import "AFNetworking/AFNetworking.h"
 #import "J2Obj.h"
+#import <Security/Security.h>
+#import "SuperEncrypt.h"
 
 NSNotificationName kSuperPlayerModelReady = @"kSuperPlayerModelReady";
 
@@ -20,7 +22,7 @@ NSNotificationName kSuperPlayerModelReady = @"kSuperPlayerModelReady";
 - (instancetype)init {
     self = [super init];
     if (self) {
-        
+
     }
     return self;
 }
@@ -96,7 +98,13 @@ NSNotificationName kSuperPlayerModelReady = @"kSuperPlayerModelReady";
 - (void)getPlayInfoV2:(SuperPlayerView *)playerView {
     
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    NSString *url = [NSString stringWithFormat:@"https://playvideo.qcloud.com/getplayinfo/v2/%ld/%@", self.videoId.appId, self.videoId.fileId];
+    NSString *url;
+    if (self.videoId.host)
+    {
+        url = [NSString stringWithFormat:@"https://%@/getplayinfo/v2/%ld/%@", self.videoId.host, self.videoId.appId, self.videoId.fileId];
+    } else {
+        url = [NSString stringWithFormat:@"https://playvideo.qcloud.com/getplayinfo/v2/%ld/%@", self.videoId.appId, self.videoId.fileId];
+    }
     
     // 防盗链参数
     NSMutableDictionary *params = [NSMutableDictionary new];
@@ -233,8 +241,15 @@ NSNotificationName kSuperPlayerModelReady = @"kSuperPlayerModelReady";
 
 - (void)getPlayInfoV3:(SuperPlayerView *)playerView {
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    NSString *url = [NSString stringWithFormat:@"https://playvideo.qcloud.com/getplayinfo/v3/%ld/%@/%@", self.videoId.appId, self.videoId.fileId, self.videoId.playDefinition];
-    
+    NSString *url;
+    if (self.videoId.host)
+    {
+        url = [NSString stringWithFormat:@"https://%@/getplayinfo/v3/%ld/%@/%@", self.videoId.host, self.videoId.appId, self.videoId.fileId, self.videoId.playDefinition];
+    }
+    else
+    {
+        url = [NSString stringWithFormat:@"https://playvideo.qcloud.com/getplayinfo/v3/%ld/%@/%@", self.videoId.appId, self.videoId.fileId, self.videoId.playDefinition];
+    }
     // 防盗链参数
     NSMutableDictionary *params = [NSMutableDictionary new];
     if (self.videoId.playerId) {
@@ -268,11 +283,15 @@ NSNotificationName kSuperPlayerModelReady = @"kSuperPlayerModelReady";
                                     
                                     NSArray *adaptiveStreamingInfoList = J2Array([responseObject valueForKeyPath:@"mediaInfo.dynamicStreamingInfo.adaptiveStreamingInfoList"]);
                                     
-                                    for (NSDictionary *transcode in adaptiveStreamingInfoList) {
-                                        NSString *package = J2Str([transcode valueForKeyPath:@"package"]);
+                                    for (NSDictionary *adaptive in adaptiveStreamingInfoList) {
+                                        NSString *package = J2Str([adaptive valueForKeyPath:@"package"]);
                                         if ([package isEqualToString:@"hls"]) {
-                                            self.videoURL = J2Str([transcode valueForKeyPath:@"url"]);
-                                            // TODO: drmType
+                                            self.videoURL = J2Str([adaptive valueForKeyPath:@"url"]);
+                                            NSString *drmType = J2Str([adaptive valueForKeyPath:@"drmType"]);
+                                            if ([self.videoId.perferDrmType isEqualToString:drmType]) {
+                                                self.drmType = drmType;
+                                                break;
+                                            }
                                         }
                                     }
                                     
@@ -304,12 +323,16 @@ NSNotificationName kSuperPlayerModelReady = @"kSuperPlayerModelReady";
                                         weakPlayerView.keyFrameDescList = nil;
                                     }
                                     
-                                    
-                                    [[NSNotificationCenter defaultCenter] postNotificationName:kSuperPlayerModelReady
-                                                                                        object:self
-                                                                                      userInfo:@{
-                                                                                                 @"message": @"success"
-                                                                                                 }];
+                                    if (self.drmType.length) {
+                                        // 加密视频，有获取token
+                                        [self getToken];
+                                    } else {
+                                        [[NSNotificationCenter defaultCenter] postNotificationName:kSuperPlayerModelReady
+                                                                                            object:self
+                                                                                          userInfo:@{
+                                                                                                     @"message": @"success"
+                                                                                                     }];
+                                    }
                                     
                                     [manager invalidateSessionCancelingTasks:YES];
                                 } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
@@ -323,4 +346,28 @@ NSNotificationName kSuperPlayerModelReady = @"kSuperPlayerModelReady";
                                 }];
 }
 
+- (void)getToken
+{
+
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+//    SuperEncrypt *enc = [SuperEncrypt new];
+//    NSString *pubKey = [NSString stringWithFormat:@"-----BEGIN+RSA+PUBLIC+KEY-----\n%@\n-----END+RSA+PUBLIC+KEY-----", [[enc getPublicKey] stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet alphanumericCharacterSet]]];
+    
+    [manager POST:self.videoId.getTokenCgi parameters:@{@"fileId":self.videoId.fileId} progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSData *responseObject) {
+        
+        NSString *encData = [NSString stringWithUTF8String:(char *)[responseObject bytes]];
+        self.token = encData;
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:kSuperPlayerModelReady
+                                                            object:self
+                                                          userInfo:@{
+                                                                     @"message": @"success"
+                                                                     }];
+        
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        
+    }];
+}
 @end
