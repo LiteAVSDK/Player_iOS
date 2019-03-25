@@ -28,9 +28,6 @@
 /// 事件回调
 @property(nonatomic, weak) id <TXVodPlayListener> vodDelegate;
 
-/// 播放DRM时的系统回调
-@property(nonatomic, weak) id <AVAssetResourceLoaderDelegate> resourceLoaderDelegate;
-
 /**
  * 视频渲染回调。（仅硬解支持）
  */

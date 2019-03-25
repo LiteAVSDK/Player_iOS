@@ -18,7 +18,10 @@ typedef enum : NSUInteger {
     FileIdV3 = 1,
 } FileIdVer;
 
-/** fileid播放 */
+/**
+ * fileid播放
+ * fileid相关字段请参考[云点播-数据结构](https://cloud.tencent.com/document/product/266/31773)
+ */
 @interface SuperPlayerVideoId : NSObject
 /**
  * appId
@@ -70,32 +73,6 @@ typedef enum : NSUInteger {
  */
 @property FileIdVer version;
 
-/**
- * 请求地址。可选
- * 默认 playvideo.qcloud.com
- */
-@property NSString *host;
-
-/**
- * 播放加密视频获取Token的Cgi。可选，FileIdV3
- */
-@property NSString *getTokenCgi;
-
-/**
- * 播放DRM视频获locense的Cgi。可选，FileIdV3
- */
-@property NSString *getLicenseCgi;
-
-/**
- * 选择的DRM类型。可选FairPlay、SimpleAES，FileIdV3
- */
-@property NSString *perferDrmType;
-
-// --- FairPlay内部使用 ---
-// cer
-@property NSData *certificate;
-
-
 @end
 
 /////////////////////////////////////////////////////////////
@@ -117,20 +94,56 @@ typedef enum : NSUInteger {
 @interface SuperPlayerModel : NSObject
 
 
+// ------------------------------------------------------------------
+// URL 播放方式
+// ------------------------------------------------------------------
+
 /** 视频URL */
 @property (nonatomic, strong) NSString *videoURL;
 
 /**
- * 加密方式，目前支持 FairPlay、SimpleAES
- */
-@property (nonatomic, strong) NSString *drmType;
-/**
  * 加密视频的token
+ * 如果通过videoId播放，此值可不填
  */
 @property (nonatomic, strong) NSString *token;
 
-/** 腾讯云存储对象 */
+// ------------------------------------------------------------------
+// FileId 播放方式
+// ------------------------------------------------------------------
+
+/**
+ * 腾讯云存储对象
+ */
 @property SuperPlayerVideoId *videoId;
+
+/**
+ * 当前播放视频的加密方式
+ */
+@property (nonatomic, strong) NSString *drmType;
+/**
+ * 请求地址。可选
+ * 默认 playvideo.qcloud.com
+ */
+@property NSString *playinfoUrl;
+
+/**
+ * 播放加密视频获取Token的Cgi。可选，FileIdV3
+ */
+@property NSString *tokenUrl;
+
+/**
+ * FairPlay 证书验证服务地址
+ */
+@property NSString *licenseUrl;
+
+/**
+ * FairPlay 凭证数据
+ */
+@property NSData *certificate;
+
+// ------------------------------------------------------------------
+// 多码率播放方法
+// ------------------------------------------------------------------
 
 /**
  * 多码率视频URL
@@ -141,6 +154,7 @@ typedef enum : NSUInteger {
  * 正在播放的清晰度
  */
 @property (nonatomic) NSString *playingDefinition;
+
 
 
 

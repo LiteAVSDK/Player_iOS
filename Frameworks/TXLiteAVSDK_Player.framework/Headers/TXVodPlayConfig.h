@@ -63,6 +63,16 @@ typedef NS_ENUM(NSInteger, TX_Enum_PlayerType) {
  *  此设置会影响playableDuration，设置越大，提前缓存的越多
  */
 @property int maxBufferSize;
+
+/**
+ * FairPlay 凭证数据
+ */
+@property NSData *certificate;
+/**
+ * FairPlay 证书验证服务地址
+ */
+@property NSURL *licenseUrl;
+
 @end
 
 #endif /* TXVodPlayConfig_h */

@@ -340,13 +340,16 @@ static UISlider * _volumeSlider;
         config.cacheFolderPath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingString:@"/TXCache"];
         config.progressInterval = 0.02;
         if ([_playerModel.drmType isEqualToString:@"FairPlay"]) {
+            config.certificate = self.playerModel.certificate;
+            config.licenseUrl = [NSURL URLWithString:self.playerModel.licenseUrl];
             config.playerType = PLAYER_AVPLAYER;
-            self.vodPlayer.resourceLoaderDelegate = self;
         }
         
         config.headers = self.playerConfig.headers;
         config.maxCacheItems = (int)self.playerConfig.maxCacheItem;
 
+        self.vodPlayer.token = self.playerModel.token;
+        
         [self.vodPlayer setConfig:config];
         
         self.vodPlayer.enableHWAcceleration = self.playerConfig.hwAcceleration;
@@ -1569,49 +1572,4 @@ static UISlider * _volumeSlider;
     return _coverImageView;
 }
 
-#pragma mark - AVAssetResourceLoaderDelegate
-- (BOOL)resourceLoader:(AVAssetResourceLoader *)resourceLoader shouldWaitForLoadingOfRequestedResource:(AVAssetResourceLoadingRequest *)loadingRequest
-{
-    NSURL *url = loadingRequest.request.URL;
-    if (!url) {
-        NSLog(@"Unable to read the url/host data.");
-        [loadingRequest finishLoadingWithError:[NSError errorWithDomain:@"com.tencent.fairplay.error" code:-1 userInfo:nil]];
-        return false;
-    }
-    NSLog(@"🔑 %@", url);
-    
-    NSData *contentId = [url.host dataUsingEncoding:NSUTF8StringEncoding];
-    
-    NSError *error;
-    NSData *spcData = [loadingRequest streamingContentKeyRequestDataForApp:_playerModel.videoId.certificate contentIdentifier:contentId options:nil error:&error];
-    
-    NSString *token = [_playerModel.token stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet alphanumericCharacterSet]];
-    NSString *license = [_playerModel.videoId.getLicenseCgi stringByAppendingFormat:@"?token=%@&drmType=FairPlay",  token];
-    
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:license]];
-    [request setHTTPMethod:@"POST"];
-    
-    [request setHTTPBody:spcData];
-    
-    
-    NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
-    NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        if (data.length > 0) {
-            
-            
-            [loadingRequest.dataRequest respondWithData:data];
-            [loadingRequest finishLoading];
-            
-            
-
-        } else {
-            NSLog(@"server respond error %@.", error);
-            [loadingRequest finishLoadingWithError:[NSError errorWithDomain:@"com.tencent.fairplay.error" code:-2 userInfo:nil]];
-        }
-    }];
-    
-    [task resume];
-    
-    return YES;
-}
 @end
