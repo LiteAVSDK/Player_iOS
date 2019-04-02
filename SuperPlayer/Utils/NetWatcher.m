@@ -7,7 +7,7 @@
 //
 
 #import "NetWatcher.h"
-#import <AFNetworking/AFNetworking.h>
+#import "AFNetworking/AFNetworking.h"
 
 @interface NetWatcher()
 @property NSArray *definitions;

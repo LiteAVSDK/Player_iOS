@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9115CA9B2251AE23000CA93E /* LoopPlayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9115CA9A2251AE23000CA93E /* LoopPlayViewController.m */; };
 		912A617B216074B700C16E41 /* danmakufile in Resources */ = {isa = PBXBuildFile; fileRef = 912A617A216074B700C16E41 /* danmakufile */; };
 		91625B9821ACE9CC0039E58E /* DownloadTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 91625B9721ACE9CB0039E58E /* DownloadTableViewController.m */; };
 		917AB1C921F16F0000D6B041 /* SimpleMovieController.m in Sources */ = {isa = PBXBuildFile; fileRef = 917AB1C821F16F0000D6B041 /* SimpleMovieController.m */; };
@@ -34,6 +35,8 @@
 
 /* Begin PBXFileReference section */
 		129BAA86323ECF5FE269806B /* Pods-Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Example/Pods-Example.debug.xcconfig"; sourceTree = "<group>"; };
+		9115CA992251AE23000CA93E /* LoopPlayViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoopPlayViewController.h; sourceTree = "<group>"; };
+		9115CA9A2251AE23000CA93E /* LoopPlayViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoopPlayViewController.m; sourceTree = "<group>"; };
 		912A617A216074B700C16E41 /* danmakufile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = danmakufile; sourceTree = "<group>"; };
 		91625B9621ACE9CB0039E58E /* DownloadTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownloadTableViewController.h; sourceTree = "<group>"; };
 		91625B9721ACE9CB0039E58E /* DownloadTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DownloadTableViewController.m; sourceTree = "<group>"; };
@@ -202,6 +205,8 @@
 				917AB1C821F16F0000D6B041 /* SimpleMovieController.m */,
 				91D104CC22294D940061D9FD /* DrmPlayViewController.h */,
 				91D104CD22294D940061D9FD /* DrmPlayViewController.m */,
+				9115CA992251AE23000CA93E /* LoopPlayViewController.h */,
+				9115CA9A2251AE23000CA93E /* LoopPlayViewController.m */,
 				91A1D6CC2147C0D200EA9A19 /* Main.storyboard */,
 				91A1D6CF2147C0D500EA9A19 /* Assets.xcassets */,
 				91A1D6D12147C0D500EA9A19 /* LaunchScreen.storyboard */,
@@ -338,6 +343,7 @@
 				919D1A5C2159E29400947BF5 /* TXWeiboListTableViewCell.m in Sources */,
 				919D18972151F05F00947BF5 /* TXMoviePlayInfoResponse.m in Sources */,
 				91A1D6CB2147C0D200EA9A19 /* ViewController.m in Sources */,
+				9115CA9B2251AE23000CA93E /* LoopPlayViewController.m in Sources */,
 				919D18852151E9F100947BF5 /* AppLogMgr.m in Sources */,
 				919D18862151E9F100947BF5 /* MainTableViewCell.m in Sources */,
 				919D18872151E9F100947BF5 /* MainViewController.m in Sources */,

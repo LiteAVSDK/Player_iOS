@@ -77,6 +77,8 @@ typedef NS_ENUM(NSInteger, SuperPlayerState) {
 @property (readonly) SuperPlayerModel       *playerModel;
 /// 播放器配置
 @property SuperPlayerViewConfig *playerConfig;
+/// 循环播放
+@property (nonatomic) BOOL loop;
 /**
  * 视频雪碧图
  */

@@ -338,17 +338,27 @@ static UISlider * _volumeSlider;
         
         TXVodPlayConfig *config = [[TXVodPlayConfig alloc] init];
         config.cacheFolderPath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingString:@"/TXCache"];
+        config.maxCacheItems = (int)self.playerConfig.maxCacheItem;
         config.progressInterval = 0.02;
-        if ([_playerModel.drmType isEqualToString:@"FairPlay"]) {
-            config.certificate = self.playerModel.certificate;
-            config.licenseUrl = [NSURL URLWithString:self.playerModel.licenseUrl];
-            config.playerType = PLAYER_AVPLAYER;
+        if (_playerModel.videoId.version == FileIdV3) {
+            if ([_playerModel.drmType isEqualToString:kDrmType_FairPlay]) {
+                config.certificate = self.playerModel.certificate;
+                config.playerType = PLAYER_AVPLAYER;
+                self.vodPlayer.token = self.playerModel.token;
+                NSLog(@"FairPlay播放");
+            } else if ([_playerModel.drmType isEqualToString:kDrmType_SimpleAES]) {
+                self.vodPlayer.token = self.playerModel.token;
+                NSLog(@"SimpleAES播放");
+            }
+        } else if (_playerModel.token) {
+            if (self.playerModel.certificate) {
+                config.certificate = self.playerModel.certificate;
+                config.playerType = PLAYER_AVPLAYER;
+            }
+            self.vodPlayer.token = self.playerModel.token;
         }
         
         config.headers = self.playerConfig.headers;
-        config.maxCacheItems = (int)self.playerConfig.maxCacheItem;
-
-        self.vodPlayer.token = self.playerModel.token;
         
         [self.vodPlayer setConfig:config];
         
@@ -361,6 +371,7 @@ static UISlider * _volumeSlider;
         [self.vodPlayer setMirror:self.playerConfig.mirror];
         [self.vodPlayer setMute:self.playerConfig.mute];
         [self.vodPlayer setRenderMode:self.playerConfig.renderMode];
+        [self.vodPlayer setLoop:self.loop];
     }
     [self.netWatcher startWatch];
     __weak SuperPlayerView *weakSelf = self;
@@ -1055,6 +1066,14 @@ static UISlider * _volumeSlider;
     }
 }
 
+- (void)setLoop:(BOOL)loop
+{
+    _loop = loop;
+    if (self.vodPlayer) {
+        self.vodPlayer.loop = loop;
+    }
+}
+
 #pragma mark - Getter
 
 - (CGFloat)playDuration {
@@ -1303,6 +1322,24 @@ static UISlider * _volumeSlider;
         } else if (EvtID == PLAY_EVT_PLAY_END) {
             [self moviePlayDidEnd];
         } else if (EvtID == PLAY_ERR_NET_DISCONNECT || EvtID == PLAY_ERR_FILE_NOT_FOUND || EvtID == PLAY_ERR_HLS_KEY) {
+            // DRM视频播放失败自动降级
+            if ([self.playerModel.drmType isEqualToString:kDrmType_FairPlay]) {
+                if ([self.playerModel canSetDrmType:kDrmType_SimpleAES]) {
+                    self.playerModel.drmType = kDrmType_SimpleAES;
+                    NSLog(@"降级SimpleAES");
+                } else {
+                    NSLog(@"降级无加密");
+                    self.playerModel.drmType = nil;
+                }
+                [self configTXPlayer];
+                return;
+            } else if ([self.playerModel.drmType isEqualToString:kDrmType_SimpleAES]) {
+                NSLog(@"降级无加密");
+                self.playerModel.drmType = nil;
+                [self configTXPlayer];
+                return;
+            }
+            
             if (EvtID == PLAY_ERR_NET_DISCONNECT) {
                 [self showMiddleBtnMsg:kStrBadNetRetry withAction:ActionContinueReplay];
             } else {

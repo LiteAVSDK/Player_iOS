@@ -18,6 +18,9 @@ typedef enum : NSUInteger {
     FileIdV3 = 1,
 } FileIdVer;
 
+extern NSString *const kDrmType_FairPlay;
+extern NSString *const kDrmType_SimpleAES;
+
 /**
  * fileid播放
  * fileid相关字段请参考[云点播-数据结构](https://cloud.tencent.com/document/product/266/31773)
@@ -101,12 +104,6 @@ typedef enum : NSUInteger {
 /** 视频URL */
 @property (nonatomic, strong) NSString *videoURL;
 
-/**
- * 加密视频的token
- * 如果通过videoId播放，此值可不填
- */
-@property (nonatomic, strong) NSString *token;
-
 // ------------------------------------------------------------------
 // FileId 播放方式
 // ------------------------------------------------------------------
@@ -117,29 +114,15 @@ typedef enum : NSUInteger {
 @property SuperPlayerVideoId *videoId;
 
 /**
- * 当前播放视频的加密方式
- */
-@property (nonatomic, strong) NSString *drmType;
-/**
- * 请求地址。可选
- * 默认 playvideo.qcloud.com
- */
-@property NSString *playinfoUrl;
-
-/**
- * 播放加密视频获取Token的Cgi。可选，FileIdV3
- */
-@property NSString *tokenUrl;
-
-/**
- * FairPlay 证书验证服务地址
- */
-@property NSString *licenseUrl;
-
-/**
  * FairPlay 凭证数据
  */
 @property NSData *certificate;
+
+/**
+ * 加密视频的token
+ * 播放加密视频需要设置此值
+ */
+@property (nonatomic, strong) NSString *token;
 
 // ------------------------------------------------------------------
 // 多码率播放方法

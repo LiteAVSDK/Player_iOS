@@ -38,7 +38,7 @@ typedef NS_ENUM(NSInteger, TX_Enum_PlayerType) {
 
 @property int maxCacheItems;                /// 最多缓存文件个数
 
-@property NSInteger playerType;             /// 播放器类型
+@property TX_Enum_PlayerType playerType;    /// 播放器类型
 
 @property NSDictionary *headers;            /// 自定义HTTP Headers
 
@@ -68,10 +68,7 @@ typedef NS_ENUM(NSInteger, TX_Enum_PlayerType) {
  * FairPlay 凭证数据
  */
 @property NSData *certificate;
-/**
- * FairPlay 证书验证服务地址
- */
-@property NSURL *licenseUrl;
+
 
 @end
 

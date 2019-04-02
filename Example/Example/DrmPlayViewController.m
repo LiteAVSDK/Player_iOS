@@ -10,6 +10,7 @@
 #import <SuperPlayer/SuperPlayer.h>
 #import <SuperPlayer/UIView+MMLayout.h>
 #import "Masonry.h"
+#import <AFNetworking.h>
 
 @interface DrmPlayViewController ()<SuperPlayerDelegate>
 @property UIView *playerContainer;
@@ -30,30 +31,15 @@
     // 设置父View
     _playerView.disableGesture = YES;
     
-    SuperPlayerModel *playerModel = [[SuperPlayerModel alloc] init];
-    SuperPlayerVideoId *video = [[SuperPlayerVideoId alloc] init];
-    video.appId = 1253039488;
-    video.fileId = @"15517827183850370616";
-    video.playDefinition = @"10";
-    video.version = FileIdV3;
-    playerModel.videoId = video;
-    playerModel.drmType = @"FairPlay";
-    playerModel.playinfoUrl = @"adapter.vod.myqcloud.com";
-    playerModel.tokenUrl = @"http://129.204.177.142/gettoken";
-    playerModel.licenseUrl = @"https://drm-test.vod2.myqcloud.com/getlicense/v1";
-    playerModel.certificate = [NSData dataWithContentsOfURL:[NSURL URLWithString:@"https://5000.drm.myqcloud.com/huaxida_test/fairplay.cer"]];
 
-    self.playerView.delegate = self;
-    self.playerView.fatherView = self.playerContainer;
-    
-    // 开始播放
-    [_playerView playWithModel:playerModel];
     [self.view addSubview:self.playerContainer];
     
     UILabel *text = [[UILabel alloc] initWithFrame:CGRectZero];
     text.text = @"getplayinfo v3加密视频";
     text.m_sizeToFit().m_top(_playerContainer.mm_maxY+20);
     [self.view addSubview:text];
+    
+    [self getToken];
 }
 
 - (BOOL)prefersStatusBarHidden {
@@ -71,5 +57,39 @@
     }
 }
 
+- (void)getToken
+{
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    //    SuperEncrypt *enc = [SuperEncrypt new];
+    //    NSString *pubKey = [NSString stringWithFormat:@"-----BEGIN+RSA+PUBLIC+KEY-----\n%@\n-----END+RSA+PUBLIC+KEY-----", [[enc getPublicKey] stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet alphanumericCharacterSet]]];
+    
+    // @"http://129.204.177.142/gettoken"
+    [manager POST:@"https://demo.vod2.myqcloud.com/drm/gettoken" parameters:@{@"fileId":@"15517827183850370616"} progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSData *responseObject) {
+        
+        NSString *token  = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
+        
+        SuperPlayerModel *playerModel = [[SuperPlayerModel alloc] init];
+        SuperPlayerVideoId *video = [[SuperPlayerVideoId alloc] init];
+        video.appId = 1253039488;
+        video.fileId = @"15517827183850370616";
+        video.playDefinition = @"20";
+        video.version = FileIdV3;
+        playerModel.videoId = video;
+        playerModel.token = token;
+        playerModel.certificate = [NSData dataWithContentsOfURL:[NSURL URLWithString:@"https://5000.drm.myqcloud.com/huaxida_test/fairplay.cer"]];
+        
+        self.playerView.delegate = self;
+        self.playerView.fatherView = self.playerContainer;
+        
+        // 开始播放
+        [self.playerView playWithModel:playerModel];
+        
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        
+    }];
+}
 @end
 

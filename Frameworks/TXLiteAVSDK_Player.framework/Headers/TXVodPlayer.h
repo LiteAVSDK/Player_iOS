@@ -49,7 +49,8 @@
 @property BOOL isAutoPlay;
 
 /**
- * 加密HLS的token。设置此值后，播放器自动在URL中的文件名之前增加voddrm.token.<Token>
+ * DRM的token
+ * 此token需要从业务Server获取，腾讯云的FairPlay和SimpleAES加密的视频需要设置token才能播放
  */
 @property (nonatomic, strong) NSString *token;
 

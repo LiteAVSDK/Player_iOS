@@ -85,6 +85,11 @@ UIAlertViewDelegate
         scellInfo.navigateToController = @"DrmPlayViewController";
         [subCells addObject:scellInfo];
         
+        scellInfo = [CellInfo new];
+        scellInfo.title = @"循环播放";
+        scellInfo.navigateToController = @"LoopPlayViewController";
+        [subCells addObject:scellInfo];
+        
         subCells;
     
     });
