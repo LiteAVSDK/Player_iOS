@@ -169,9 +169,16 @@ static UISlider * _volumeSlider;
         [[NSNotificationCenter defaultCenter] removeObserver:self
                                                         name:kSuperPlayerModelReady
                                                       object:_playerModel];
+        [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                        name:kSuperPlayerModelFail
+                                                      object:_playerModel];
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(getPlayInfoReady:)
                                                      name:kSuperPlayerModelReady
+                                                   object:playerModel];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(getPlayInfoFail:)
+                                                     name:kSuperPlayerModelFail
                                                    object:playerModel];
         
         [_playerModel requestPlayInfo:self];
@@ -184,17 +191,17 @@ static UISlider * _volumeSlider;
 }
 
 - (void)getPlayInfoReady:(NSNotification *)notification {
-    if (_playerModel.videoURL == nil) {
-        // error 错误信息
-        [self showMiddleBtnMsg:kStrLoadFaildRetry withAction:ActionRetry];
-        [self.spinner stopAnimating];
-        if ([self.delegate respondsToSelector:@selector(superPlayerError:errCode:errMessage:)]) {
-            [self.delegate superPlayerError:self errCode:-1000 errMessage:@"网络请求失败"];
-        }
-        return;
-    }
-    
     [self _playWithModel:_playerModel];
+}
+
+- (void)getPlayInfoFail:(NSNotification *)notification {
+    // error 错误信息
+    [self showMiddleBtnMsg:kStrLoadFaildRetry withAction:ActionRetry];
+    [self.spinner stopAnimating];
+    if ([self.delegate respondsToSelector:@selector(superPlayerError:errCode:errMessage:)]) {
+        [self.delegate superPlayerError:self errCode:-1000 errMessage:@"网络请求失败"];
+    }
+    return;
 }
 
 /**
@@ -343,19 +350,22 @@ static UISlider * _volumeSlider;
         if (_playerModel.videoId.version == FileIdV3) {
             if ([_playerModel.drmType isEqualToString:kDrmType_FairPlay]) {
                 config.certificate = self.playerModel.certificate;
-                config.playerType = PLAYER_AVPLAYER;
                 self.vodPlayer.token = self.playerModel.token;
                 NSLog(@"FairPlay播放");
             } else if ([_playerModel.drmType isEqualToString:kDrmType_SimpleAES]) {
                 self.vodPlayer.token = self.playerModel.token;
                 NSLog(@"SimpleAES播放");
+            } else {
+                // 降级播放
+                self.vodPlayer.token = nil;
             }
         } else if (_playerModel.token) {
             if (self.playerModel.certificate) {
                 config.certificate = self.playerModel.certificate;
-                config.playerType = PLAYER_AVPLAYER;
             }
             self.vodPlayer.token = self.playerModel.token;
+        } else {
+            self.vodPlayer.token = nil;
         }
         
         config.headers = self.playerConfig.headers;
@@ -389,6 +399,7 @@ static UISlider * _volumeSlider;
     self.repeatBtn.hidden = YES;
     self.repeatBackBtn.hidden = YES;
     self.playDidEnd = NO;
+    [self.middleBlackBtn fadeOut:0.1];
 }
 
 /**
@@ -727,9 +738,10 @@ static UISlider * _volumeSlider;
             [self.middleBlackBtn fadeOut:2];
             [self.controlView playerBegin:self.playerModel isLive:self.isLive isTimeShifting:self.isShiftPlayback isAutoPlay:YES];
         } else {
+            if (!self.isShiftPlayback)
+                self.isLoaded = NO;
             self.isShiftPlayback = YES;
             self.state = StateBuffering;
-            self.isLoaded = NO;
             [self.controlView playerBegin:self.playerModel isLive:YES isTimeShifting:self.isShiftPlayback isAutoPlay:YES];    //时移播放不能切码率
         }
     } else {
@@ -1321,7 +1333,7 @@ static UISlider * _volumeSlider;
 
         } else if (EvtID == PLAY_EVT_PLAY_END) {
             [self moviePlayDidEnd];
-        } else if (EvtID == PLAY_ERR_NET_DISCONNECT || EvtID == PLAY_ERR_FILE_NOT_FOUND || EvtID == PLAY_ERR_HLS_KEY) {
+        } else if (EvtID == PLAY_ERR_NET_DISCONNECT || EvtID == PLAY_ERR_FILE_NOT_FOUND || EvtID == PLAY_ERR_HLS_KEY || EvtID == PLAY_ERR_VOD_LOAD_LICENSE_FAIL) {
             // DRM视频播放失败自动降级
             if ([self.playerModel.drmType isEqualToString:kDrmType_FairPlay]) {
                 if ([self.playerModel canSetDrmType:kDrmType_SimpleAES]) {
@@ -1389,7 +1401,7 @@ static UISlider * _volumeSlider;
             NSLog(@"%@", [NSString stringWithCString:[desc cStringUsingEncoding:NSUTF8StringEncoding] encoding:NSNonLossyASCIIStringEncoding]);
         }
         
-        if (EvtID == PLAY_EVT_PLAY_BEGIN) {
+        if (EvtID == PLAY_EVT_PLAY_BEGIN || EvtID == PLAY_EVT_RCV_FIRST_I_FRAME) {
             if (!self.isLoaded) {
                 [self setNeedsLayout];
                 [self layoutIfNeeded];

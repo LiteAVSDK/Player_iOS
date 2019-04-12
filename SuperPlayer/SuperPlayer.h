@@ -1,5 +1,11 @@
-
+#ifdef LITEAV
+#import "TXVodPlayer.h"
+#import "TXLivePlayer.h"
+#import "TXImageSprite.h"
+#import "TXLiveBase.h"
+#else
 #import <TXLiteAVSDK_Player/TXLiteAVSDK.h>
+#endif
 
 #import "SuperPlayerView.h"
 #import "SuperPlayerModel.h"

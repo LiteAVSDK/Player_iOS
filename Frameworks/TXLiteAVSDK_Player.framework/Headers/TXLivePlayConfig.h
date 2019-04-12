@@ -54,11 +54,13 @@
  
  */
 @property (nonatomic, assign) int rtmpChannelType;
+
+#if TARGET_OS_IPHONE
 /// 视频缓存目录，点播MP4、HLS有效
 @property NSString *cacheFolderPath;
 /// 最多缓存文件个数
 @property int maxCacheItems;
 /// 自定义HTTP Headers
 @property NSDictionary *headers;
-
+#endif
 @end

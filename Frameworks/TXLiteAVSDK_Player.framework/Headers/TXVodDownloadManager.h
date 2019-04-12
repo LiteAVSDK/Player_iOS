@@ -99,7 +99,7 @@ typedef NS_ENUM(NSInteger, TXDownloadError) {
  * 下载HLS，遇到加密的文件，将解密key给外部校验
  * @param mediaInfo 下载对象
  * @param url Url地址
- * @prarm data 服务器返回
+ * @param data 服务器返回
  * @return 0 - 校验正确，继续下载；否则校验失败，抛出下载错误（dk获取失败）
  */
 - (int)hlsKeyVerify:(TXVodDownloadMediaInfo *)mediaInfo url:(NSString *)url data:(NSData *)data;

@@ -4,6 +4,18 @@
 #include "TXLiveSDKEventDef.h"
 #import <Foundation/Foundation.h>
 
+#if TARGET_OS_IPHONE
+#import <UIKit/UIKit.h>
+typedef UIView TXView;
+typedef UIImage TXImage;
+typedef UIEdgeInsets TXEdgeInsets;
+#elif TARGET_OS_MAC
+#import <AppKit/AppKit.h>
+typedef NSView TXView;
+typedef NSImage TXImage;
+typedef NSEdgeInsets TXEdgeInsets;
+#endif
+
 /// 屏幕旋转方法
 typedef NS_ENUM(NSInteger, TX_Enum_Type_HomeOrientation) {
     /// home在右边
@@ -237,6 +249,15 @@ typedef NS_ENUM(NSInteger, TX_Enum_Type_RTMPChannel) {
     /// 标准的RTMP协议，网络层采用私有通道传输（在UDP上封装的一套可靠快速的传输通道），能够更好地抵抗网络抖动
     RTMP_CHANNEL_TYPE_PRIVATE       = 2,    
 };
+
+#if TARGET_OS_OSX
+/// 采集源
+typedef NS_ENUM(NSInteger, TXCaptureVideoInputSource) {
+    TXCaptureVideoInputSourceCamera,
+    TXCaptureVideoInputSourceScreen,
+    TXCaptureVideoInputSourceWindow
+};
+#endif
 
 /// @name 状态键名定义
 /// cpu使用率

@@ -6,12 +6,13 @@
 //  Copyright © 2017年 Tencent. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+
 
 #import <TXLiteAVSDK_Player/TXAudioCustomProcessDelegate.h>
 #import <TXLiteAVSDK_Player/TXAudioRawDataDelegate.h>
 #import <TXLiteAVSDK_Player/TXBitrateItem.h>
 #import <TXLiteAVSDK_Player/TXImageSprite.h>
+#import <TXLiteAVSDK_Player/TXLiteAVCode.h>
 #import <TXLiteAVSDK_Player/TXLiveAudioSessionDelegate.h>
 #import <TXLiteAVSDK_Player/TXLiveBase.h>
 #import <TXLiteAVSDK_Player/TXLivePlayConfig.h>

@@ -9,6 +9,14 @@
 /* Begin PBXBuildFile section */
 		9165F738214FCC9300F5BB88 /* TXCUrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 9165F737214FCC9300F5BB88 /* TXCUrl.m */; };
 		9165F739214FCD7000F5BB88 /* TXCUrl.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9165F736214FCC9300F5BB88 /* TXCUrl.h */; };
+		9174B97A225352F0008BB3A1 /* SuperPlayerViewConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 9174B976225352EF008BB3A1 /* SuperPlayerViewConfig.m */; };
+		9174B97B225352F0008BB3A1 /* SuperPlayerControlView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9174B979225352EF008BB3A1 /* SuperPlayerControlView.m */; };
+		9174B98122535356008BB3A1 /* SPDefaultControlView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9174B97E22535355008BB3A1 /* SPDefaultControlView.m */; };
+		9174B98222535356008BB3A1 /* SPWeiboControlView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9174B98022535355008BB3A1 /* SPWeiboControlView.m */; };
+		9174B98B2253537A008BB3A1 /* UIView+Fade.m in Sources */ = {isa = PBXBuildFile; fileRef = 9174B9852253537A008BB3A1 /* UIView+Fade.m */; };
+		9174B98C2253537A008BB3A1 /* StrUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 9174B9862253537A008BB3A1 /* StrUtils.m */; };
+		9174B98D2253537A008BB3A1 /* TXBitrateItemHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 9174B9892253537A008BB3A1 /* TXBitrateItemHelper.m */; };
+		9174B98E2253537A008BB3A1 /* SuperEncrypt.m in Sources */ = {isa = PBXBuildFile; fileRef = 9174B98A2253537A008BB3A1 /* SuperEncrypt.m */; };
 		919D18F521533DAC00947BF5 /* UINavigationController+SuperPlayerRotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 919D18F221533DAB00947BF5 /* UINavigationController+SuperPlayerRotation.m */; };
 		919D18F621533DAC00947BF5 /* UIViewController+SuperPlayerRotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 919D18F421533DAB00947BF5 /* UIViewController+SuperPlayerRotation.m */; };
 		91A1D63F214770C900EA9A19 /* UIView+MMLayout.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 91A1D5E5214673F300EA9A19 /* UIView+MMLayout.h */; };
@@ -58,6 +66,22 @@
 /* Begin PBXFileReference section */
 		9165F736214FCC9300F5BB88 /* TXCUrl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TXCUrl.h; sourceTree = "<group>"; };
 		9165F737214FCC9300F5BB88 /* TXCUrl.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TXCUrl.m; sourceTree = "<group>"; };
+		9174B976225352EF008BB3A1 /* SuperPlayerViewConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SuperPlayerViewConfig.m; sourceTree = "<group>"; };
+		9174B977225352EF008BB3A1 /* SuperPlayerControlView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SuperPlayerControlView.h; sourceTree = "<group>"; };
+		9174B978225352EF008BB3A1 /* SuperPlayerViewConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SuperPlayerViewConfig.h; sourceTree = "<group>"; };
+		9174B979225352EF008BB3A1 /* SuperPlayerControlView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SuperPlayerControlView.m; sourceTree = "<group>"; };
+		9174B97D22535355008BB3A1 /* SPDefaultControlView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPDefaultControlView.h; sourceTree = "<group>"; };
+		9174B97E22535355008BB3A1 /* SPDefaultControlView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPDefaultControlView.m; sourceTree = "<group>"; };
+		9174B97F22535355008BB3A1 /* SPWeiboControlView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPWeiboControlView.h; sourceTree = "<group>"; };
+		9174B98022535355008BB3A1 /* SPWeiboControlView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPWeiboControlView.m; sourceTree = "<group>"; };
+		9174B9832253537A008BB3A1 /* UIView+Fade.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Fade.h"; sourceTree = "<group>"; };
+		9174B9842253537A008BB3A1 /* StrUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StrUtils.h; sourceTree = "<group>"; };
+		9174B9852253537A008BB3A1 /* UIView+Fade.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Fade.m"; sourceTree = "<group>"; };
+		9174B9862253537A008BB3A1 /* StrUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StrUtils.m; sourceTree = "<group>"; };
+		9174B9872253537A008BB3A1 /* SuperEncrypt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SuperEncrypt.h; sourceTree = "<group>"; };
+		9174B9882253537A008BB3A1 /* TXBitrateItemHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TXBitrateItemHelper.h; sourceTree = "<group>"; };
+		9174B9892253537A008BB3A1 /* TXBitrateItemHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TXBitrateItemHelper.m; sourceTree = "<group>"; };
+		9174B98A2253537A008BB3A1 /* SuperEncrypt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SuperEncrypt.m; sourceTree = "<group>"; };
 		919D18F121533DAB00947BF5 /* UINavigationController+SuperPlayerRotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+SuperPlayerRotation.h"; sourceTree = "<group>"; };
 		919D18F221533DAB00947BF5 /* UINavigationController+SuperPlayerRotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+SuperPlayerRotation.m"; sourceTree = "<group>"; };
 		919D18F321533DAB00947BF5 /* UIViewController+SuperPlayerRotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+SuperPlayerRotation.h"; sourceTree = "<group>"; };
@@ -102,6 +126,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9174B97C22535355008BB3A1 /* Skins */ = {
+			isa = PBXGroup;
+			children = (
+				9174B97D22535355008BB3A1 /* SPDefaultControlView.h */,
+				9174B97E22535355008BB3A1 /* SPDefaultControlView.m */,
+				9174B97F22535355008BB3A1 /* SPWeiboControlView.h */,
+				9174B98022535355008BB3A1 /* SPWeiboControlView.m */,
+			);
+			path = Skins;
+			sourceTree = "<group>";
+		};
 		91A1D5A32146719900EA9A19 = {
 			isa = PBXGroup;
 			children = (
@@ -122,6 +157,11 @@
 		91A1D5AF2146719900EA9A19 /* SuperPlayer */ = {
 			isa = PBXGroup;
 			children = (
+				9174B97C22535355008BB3A1 /* Skins */,
+				9174B977225352EF008BB3A1 /* SuperPlayerControlView.h */,
+				9174B979225352EF008BB3A1 /* SuperPlayerControlView.m */,
+				9174B978225352EF008BB3A1 /* SuperPlayerViewConfig.h */,
+				9174B976225352EF008BB3A1 /* SuperPlayerViewConfig.m */,
 				91A1D6482147749100EA9A19 /* SuperPlayer.h */,
 				91A1D5E2214673F300EA9A19 /* Category */,
 				91A1D5E9214673F400EA9A19 /* SuperPlayerControlViewDelegate.h */,
@@ -157,6 +197,14 @@
 		91A1D5D4214673F300EA9A19 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				9174B9842253537A008BB3A1 /* StrUtils.h */,
+				9174B9862253537A008BB3A1 /* StrUtils.m */,
+				9174B9872253537A008BB3A1 /* SuperEncrypt.h */,
+				9174B98A2253537A008BB3A1 /* SuperEncrypt.m */,
+				9174B9882253537A008BB3A1 /* TXBitrateItemHelper.h */,
+				9174B9892253537A008BB3A1 /* TXBitrateItemHelper.m */,
+				9174B9832253537A008BB3A1 /* UIView+Fade.h */,
+				9174B9852253537A008BB3A1 /* UIView+Fade.m */,
 				91A1D5D5214673F300EA9A19 /* DataReport.h */,
 				91A1D5D6214673F300EA9A19 /* DataReport.m */,
 				91A1D5D7214673F300EA9A19 /* J2Obj.h */,
@@ -246,19 +294,27 @@
 			buildActionMask = 2147483647;
 			files = (
 				919D18F621533DAC00947BF5 /* UIViewController+SuperPlayerRotation.m in Sources */,
+				9174B98D2253537A008BB3A1 /* TXBitrateItemHelper.m in Sources */,
+				9174B97A225352F0008BB3A1 /* SuperPlayerViewConfig.m in Sources */,
 				91A1D65E2147769500EA9A19 /* SuperPlayerFastView.m in Sources */,
 				91A1D6542147765400EA9A19 /* SuperPlayerModel.m in Sources */,
+				9174B98222535356008BB3A1 /* SPWeiboControlView.m in Sources */,
 				91A1D6552147765400EA9A19 /* SuperPlayerView.m in Sources */,
 				91A1D6592147768C00EA9A19 /* NetWatcher.m in Sources */,
+				9174B98C2253537A008BB3A1 /* StrUtils.m in Sources */,
 				91A1D64E2147763B00EA9A19 /* UIView+MMLayout.m in Sources */,
 				91A1D6562147765400EA9A19 /* SuperPlayerWindow.m in Sources */,
+				9174B98B2253537A008BB3A1 /* UIView+Fade.m in Sources */,
 				919D18F521533DAC00947BF5 /* UINavigationController+SuperPlayerRotation.m in Sources */,
 				91A1D65C2147769500EA9A19 /* PlayerSlider.m in Sources */,
 				91A1D65B2147769500EA9A19 /* MoreContentView.m in Sources */,
+				9174B97B225352F0008BB3A1 /* SuperPlayerControlView.m in Sources */,
 				91A1D65A2147769500EA9A19 /* MMMaterialDesignSpinner.m in Sources */,
 				91A1D6582147768C00EA9A19 /* J2Obj.m in Sources */,
 				9165F738214FCC9300F5BB88 /* TXCUrl.m in Sources */,
 				91A1D6572147768C00EA9A19 /* DataReport.m in Sources */,
+				9174B98122535356008BB3A1 /* SPDefaultControlView.m in Sources */,
+				9174B98E2253537A008BB3A1 /* SuperEncrypt.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -310,6 +366,7 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
+					LITEAV,
 					"$(inherited)",
 				);
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -368,6 +425,7 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = LITEAV;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -389,12 +447,13 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = QE8PS7F45A;
 				ENABLE_BITCODE = YES;
+				FRAMEWORK_SEARCH_PATHS = "";
 				HEADER_SEARCH_PATHS = (
 					"${SRCROOT}/../TXLiteAVDemo/Third/SDWebImage",
 					"${SRCROOT}/../TXLiteAVDemo/Third/AFNetworking",
 					"${SRCROOT}/../TXLiteAVDemo/Third/Masonry",
 					"${SRCROOT}/../TXLiteAVDemo/Common/Third/CFDanmaku",
-					"${SRCROOT}/SuperPlayer/Headers",
+					"${SRCROOT}/Frameworks/TXLiteAVSDK_Player.framework/Headers",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				ONLY_ACTIVE_ARCH = NO;
@@ -412,12 +471,14 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = QE8PS7F45A;
 				ENABLE_BITCODE = YES;
+				FRAMEWORK_SEARCH_PATHS = "";
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				HEADER_SEARCH_PATHS = (
 					"${SRCROOT}/../TXLiteAVDemo/Third/SDWebImage",
 					"${SRCROOT}/../TXLiteAVDemo/Third/AFNetworking",
 					"${SRCROOT}/../TXLiteAVDemo/Third/Masonry",
 					"${SRCROOT}/../TXLiteAVDemo/Common/Third/CFDanmaku",
-					"${SRCROOT}/SuperPlayer/Headers",
+					"${SRCROOT}/Frameworks/TXLiteAVSDK_Player.framework/Headers",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				OTHER_CFLAGS = "-fembed-bitcode";

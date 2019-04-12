@@ -1,5 +1,5 @@
 #import <Foundation/Foundation.h>
-#import <UIKit/UIKit.h>
+#import "TXLiveSDKTypeDef.h"
 
 /// PlayRecord 录制类型定义
 typedef NS_ENUM(NSInteger, TXRecordType)
@@ -31,6 +31,6 @@ typedef NS_ENUM(NSInteger, TXRecordResultCode)
 /// 视频文件path
 @property (nonatomic, strong) NSString*             videoPath;      
 /// 视频封面
-@property (nonatomic, strong) UIImage*              coverImage;     
+@property (nonatomic, strong) TXImage*              coverImage;     
 @end
 

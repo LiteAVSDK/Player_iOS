@@ -11,7 +11,7 @@
 #import <SuperPlayer/UIView+MMLayout.h>
 #import "Masonry.h"
 
-@interface ViewController () <UIGestureRecognizerDelegate>
+@interface ViewController () <UIGestureRecognizerDelegate,SuperPlayerDelegate>
 @property UIView *backView;
 @property UIView *playerContainer;
 @property SuperPlayerView *playerView;
@@ -35,7 +35,7 @@
     self.playerContainer.backgroundColor = [UIColor blackColor];
     [self.backView addSubview:self.playerContainer];
     self.backView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    self.playerContainer.m_width(self.view.mm_w).m_height(self.view.mm_w*9.0f/16.0f).m_center();
+    self.playerContainer.m_equalToSize(self.view);
     
     _playerView = [[SuperPlayerView alloc] init];
     // 设置父View
@@ -45,6 +45,7 @@
     playerModel.videoURL = self.url?:@"http://1253131631.vod2.myqcloud.com/26f327f9vodgzp1253131631/f4c0c9e59031868222924048327/f0.mp4";
 
     self.playerView.fatherView = self.playerContainer;
+    self.playerView.delegate = self;
 
      // 开始播放
     [_playerView playWithModel:playerModel];
@@ -117,5 +118,11 @@
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
 {
     return YES;
+}
+
+- (void)superPlayerBackAction:(SuperPlayerView *)player
+{
+    [self.playerView resetPlayer];
+    [self.view removeFromSuperview];
 }
 @end

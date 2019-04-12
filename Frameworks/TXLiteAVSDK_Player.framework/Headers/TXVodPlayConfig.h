@@ -44,7 +44,7 @@ typedef NS_ENUM(NSInteger, TX_Enum_PlayerType) {
 
 @property BOOL enableAccurateSeek;          /// 是否精确seek，默认YES. 开启精确后seek，seek的时间平均多出200ms
 
-@property BOOL autoRotate;                  /// 播放mp4文件时，若设为YES则根据文件中的旋转角度自动旋转。旋转角度可在PLAY_EVT_CHANGE_ROTATION事件中获得。默认YES
+@property BOOL autoRotate;                  /// 播放mp4文件时，若设为YES则根据文件中的旋转角度自动旋转。旋转角度可在EVT_VIDEO_CHANGE_ROTATION事件中获得。默认YES
 
 /**
  * 平滑切换码率。默认NO

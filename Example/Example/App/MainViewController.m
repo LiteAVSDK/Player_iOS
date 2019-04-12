@@ -70,10 +70,10 @@ UIAlertViewDelegate
         scellInfo.navigateToController = @"TXWeiboListViewController";
         [subCells addObject:scellInfo];
         
-        scellInfo = [CellInfo new];
-        scellInfo.title = @"全屏模式";
-        scellInfo.navigateToController = @"ViewController";
-        [subCells addObject:scellInfo];
+//        scellInfo = [CellInfo new];
+//        scellInfo.title = @"全屏模式";
+//        scellInfo.navigateToController = @"ViewController";
+//        [subCells addObject:scellInfo];
         
         scellInfo = [CellInfo new];
         scellInfo.title = @"展示模式";

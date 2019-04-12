@@ -7,13 +7,14 @@
 #import "SuperPlayerView+Private.h"
 
 
-//const NSString *kPlayVideoHost = @"playvideo.qcloud.com";
-const NSString *kPlayVideoHost = @"adapter.vod.myqcloud.com";
+const NSString *kPlayVideoHost2 = @"playvideo.qcloud.com";
+const NSString *kPlayVideoHost3 = @"playvideo.qcloud.com";
 NSString *const kDrmType_FairPlay = @"FairPlay";
 NSString *const kDrmType_SimpleAES = @"SimpleAES";
 
 
 NSNotificationName kSuperPlayerModelReady = @"kSuperPlayerModelReady";
+NSNotificationName kSuperPlayerModelFail = @"kSuperPlayerModelFail";
 
 @interface AdaptiveStream : NSObject
 @property NSString *url;
@@ -92,7 +93,7 @@ NSNotificationName kSuperPlayerModelReady = @"kSuperPlayerModelReady";
 - (void)getPlayInfoV2:(SuperPlayerView *)playerView {
     
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    NSString *url = [NSString stringWithFormat:@"https://%@/getplayinfo/v2/%ld/%@", kPlayVideoHost, (long)self.videoId.appId, self.videoId.fileId];
+    NSString *url = [NSString stringWithFormat:@"https://%@/getplayinfo/v2/%ld/%@", kPlayVideoHost2, (long)self.videoId.appId, self.videoId.fileId];
 
     // 防盗链参数
     NSMutableDictionary *params = [NSMutableDictionary new];
@@ -212,7 +213,7 @@ NSNotificationName kSuperPlayerModelReady = @"kSuperPlayerModelReady";
                                     
                                 } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
                                     
-                                    [[NSNotificationCenter defaultCenter] postNotificationName:kSuperPlayerModelReady
+                                    [[NSNotificationCenter defaultCenter] postNotificationName:kSuperPlayerModelFail
                                                                                         object:self
                                                                                       userInfo:@{
                                                                                                  @"error": error,
@@ -223,7 +224,7 @@ NSNotificationName kSuperPlayerModelReady = @"kSuperPlayerModelReady";
 
 - (void)getPlayInfoV3:(SuperPlayerView *)playerView {
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    NSString *url = [NSString stringWithFormat:@"https://%@/getplayinfo/v3/%ld/%@/%@", kPlayVideoHost, (long)self.videoId.appId, self.videoId.fileId, self.videoId.playDefinition];
+    NSString *url = [NSString stringWithFormat:@"https://%@/getplayinfo/v3/%ld/%@/%@", kPlayVideoHost3, (long)self.videoId.appId, self.videoId.fileId, self.videoId.playDefinition];
     
     // 防盗链参数
     NSMutableDictionary *params = [NSMutableDictionary new];
@@ -308,7 +309,7 @@ NSNotificationName kSuperPlayerModelReady = @"kSuperPlayerModelReady";
                                     
                                 } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
                                     
-                                    [[NSNotificationCenter defaultCenter] postNotificationName:kSuperPlayerModelReady
+                                    [[NSNotificationCenter defaultCenter] postNotificationName:kSuperPlayerModelFail
                                                                                         object:self
                                                                                       userInfo:@{
                                                                                                  @"error": error,

@@ -7,8 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
+#if TARGET_OS_IPHONE
 #include <OpenGLES/ES2/gl.h>
 #include <OpenGLES/ES2/glext.h>
+#elif TARGET_OS_MAC
+#import <OpenGL/OpenGL.h>
+#import <OpenGL/gl.h>
+#endif
 
 @protocol TXVideoCustomProcessDelegate <NSObject>
 @optional
@@ -38,7 +43,7 @@
 #pragma mark - Player
 /**
  * 视频渲染对象回调
- * @prarm pixelBuffer   渲染图像
+ * @param pixelBuffer   渲染图像
  * @return              返回YES则SDK不再显示；返回NO则SDK渲染模块继续渲染
  *  说明：渲染图像的数据类型为config中设置的renderPixelFormatType
  */

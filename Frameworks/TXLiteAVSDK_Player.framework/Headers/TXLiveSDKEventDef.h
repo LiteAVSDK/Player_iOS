@@ -18,7 +18,7 @@ enum EventID
              PUSH_EVT_ROOM_USERLIST           =  1020,   // 下发webrtc房间成员列表(不包括自己)
              PUSH_EVT_ROOM_NEED_REENTER       =  1021,   // WiFi切换到4G会触发断线重连，此时需要重新进入webrtc房间(拉取最优的服务器地址)
 
-	/*step1*/    PUSH_ERR_OPEN_CAMERA_FAIL        = -1301,   // 打开摄像头失败
+/*step1*/    PUSH_ERR_OPEN_CAMERA_FAIL        = -1301,   // 打开摄像头失败
 /*step1*/    PUSH_ERR_OPEN_MIC_FAIL           = -1302,   // 打开麦克风失败
 /*step3*/    PUSH_ERR_VIDEO_ENCODE_FAIL       = -1303,   // 视频编码失败
 /*step3*/    PUSH_ERR_AUDIO_ENCODE_FAIL       = -1304,   // 音频编码失败
@@ -66,9 +66,11 @@ enum EventID
              PLAY_ERR_GET_RTMP_ACC_URL_FAIL   = -2302,   // 获取加速拉流地址失败
              PLAY_ERR_FILE_NOT_FOUND          = -2303,   // 播放文件不存在
              PLAY_ERR_HEVC_DECODE_FAIL        = -2304,   // H265解码失败
-             PLAY_ERR_HLS_KEY                 = -2305,   // HLS解码key获取失败
+             PLAY_ERR_HLS_KEY                 = -2305,   // HLS解码key获取失败（SimpleAES播放）
              PLAY_ERR_GET_PLAYINFO_FAIL       = -2306,   // 获取点播文件信息失败
              PLAY_ERR_STREAM_SWITCH_FAIL      = -2307,   // 切流失败
+             PLAY_ERR_VOD_LOAD_LICENSE_FAIL   = -2310,   // 获取LICENSE失败（FairPlay播放）
+             PLAY_ERR_VOD_UNSUPPORT_DRM       = -2311,   // 点播，此设备不支持DRM播放
     
 /*step3*/    PLAY_WARNING_VIDEO_DECODE_FAIL   =  2101,   // 当前视频帧解码失败
 /*step3*/    PLAY_WARNING_AUDIO_DECODE_FAIL   =  2102,   // 当前音频帧解码失败

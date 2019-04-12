@@ -4,6 +4,7 @@
 #import <AVFoundation/AVFoundation.h>
 
 @protocol TXLiveAudioSessionDelegate <NSObject>
+#if TARGET_OS_IPHONE
 
 @optional
 - (BOOL)setActive:(BOOL)active error:(NSError **)outError;
@@ -19,7 +20,6 @@
 
 @optional
 - (BOOL)setCategory:(NSString *)category mode:(NSString *)mode options:(AVAudioSessionCategoryOptions)options error:(NSError **)outError;
-
 @optional
 - (BOOL)setPreferredIOBufferDuration:(NSTimeInterval)duration error:(NSError **)outError;
 
@@ -28,6 +28,6 @@
 
 @optional
 - (BOOL)overrideOutputAudioPort:(AVAudioSessionPortOverride)portOverride error:(NSError **)outError;
-
+#endif
 @end
 #endif /* TXLiveAudioSessionDelegate_h */

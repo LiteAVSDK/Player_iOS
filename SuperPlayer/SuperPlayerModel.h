@@ -5,6 +5,7 @@
 @class SuperPlayerView;
 
 extern NSNotificationName kSuperPlayerModelReady;
+extern NSNotificationName kSuperPlayerModelFail;
 
 /** 多码率地址 */
 @interface SuperPlayerUrl : NSObject
