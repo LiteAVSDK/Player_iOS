@@ -1280,7 +1280,7 @@ static UISlider * _volumeSlider;
             NSString *desc = [param description];
             NSLog(@"%@", [NSString stringWithCString:[desc cStringUsingEncoding:NSUTF8StringEncoding] encoding:NSNonLossyASCIIStringEncoding]);
         }
-        if (EvtID == PLAY_EVT_RCV_FIRST_I_FRAME) {
+        if (EvtID == PLAY_EVT_PLAY_BEGIN || EvtID == PLAY_EVT_RCV_FIRST_I_FRAME) {
             [self setNeedsLayout];
             [self layoutIfNeeded];
             self.isLoaded = YES;
@@ -1319,9 +1319,7 @@ static UISlider * _volumeSlider;
                 [self.delegate superPlayerDidStart:self];
             }
         }
-        if (EvtID == PLAY_EVT_PLAY_BEGIN) {
-            self.state = StatePlaying;
-        } else if (EvtID == PLAY_EVT_PLAY_PROGRESS) {
+        if (EvtID == PLAY_EVT_PLAY_PROGRESS) {
             if (self.state == StateStopped)
                 return;
 
