@@ -344,7 +344,8 @@ static UISlider * _volumeSlider;
         }
         
         TXVodPlayConfig *config = [[TXVodPlayConfig alloc] init];
-        config.cacheFolderPath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingString:@"/TXCache"];
+        // https://github.com/tencentyun/SuperPlayer_iOS/issues/64
+        config.cacheFolderPath = [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingString:@"/TXCache"];
         config.maxCacheItems = (int)self.playerConfig.maxCacheItem;
         config.progressInterval = 0.02;
         if (_playerModel.videoId.version == FileIdV3) {
