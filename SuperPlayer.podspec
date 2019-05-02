@@ -13,6 +13,7 @@ Pod::Spec.new do |spec|
     spec.dependency 'AFNetworking', '~> 3.1'
     spec.dependency 'SDWebImage', '~> 4.4.0'
     spec.dependency 'Masonry', '~> 1.1.0'
+    spec.dependency 'MMLayout'
 
     spec.static_framework = true
     spec.default_subspec = 'Player'

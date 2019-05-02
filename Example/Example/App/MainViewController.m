@@ -9,7 +9,7 @@
 #import "MainViewController.h"
 #import "MainTableViewCell.h"
 #import <SuperPlayer/SuperPlayer.h>
-#import <SuperPlayer/UIView+MMLayout.h>
+#import <MMLayout/UIView+MMLayout.h>
 #import "TXWeiboListViewController.h"
 #import "ViewController.h"
 #import "DownloadTableViewController.h"

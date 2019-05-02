@@ -8,7 +8,7 @@
 
 #import "ViewController.h"
 #import <SuperPlayer/SuperPlayer.h>
-#import <SuperPlayer/UIView+MMLayout.h>
+#import <MMLayout/UIView+MMLayout.h>
 #import "Masonry.h"
 
 @interface ViewController () <UIGestureRecognizerDelegate,SuperPlayerDelegate>

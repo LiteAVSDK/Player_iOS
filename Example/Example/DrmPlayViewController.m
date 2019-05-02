@@ -8,7 +8,7 @@
 
 #import "DrmPlayViewController.h"
 #import <SuperPlayer/SuperPlayer.h>
-#import <SuperPlayer/UIView+MMLayout.h>
+#import <MMLayout/UIView+MMLayout.h>
 #import "Masonry.h"
 #import <AFNetworking.h>
 

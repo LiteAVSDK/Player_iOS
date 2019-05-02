@@ -510,7 +510,7 @@ static UISlider * _volumeSlider;
     // 开始旋转
     [UIView commitAnimations];
     
-    [self.fatherView.viewController setNeedsStatusBarAppearanceUpdate];
+    [self.fatherView.mm_viewController setNeedsStatusBarAppearanceUpdate];
 }
 
 /**
