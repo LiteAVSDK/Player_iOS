@@ -4,7 +4,7 @@
 @implementation UINavigationController (SuperPlayerRotation)
 
 /**
- * 如果window的根视图是UINavigationController，则会先调用这个Category，然后调用UIViewController+ZFPlayerRotation
+ * 如果window的根视图是UINavigationController，则会先调用这个Category，然后调用UIViewController+SuperPlayerRotation
  * 只需要在支持除竖屏以外方向的页面重新下边三个方法
  */
 
