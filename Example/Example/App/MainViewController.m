@@ -125,7 +125,7 @@ UIAlertViewDelegate
     lbHeadLine.font = [UIFont systemFontOfSize:24];
     [lbHeadLine sizeToFit];
     [self.view addSubview:lbHeadLine];
-    lbHeadLine.m_centerX();
+    lbHeadLine.mm_center().mm_top(50);
     
     lbHeadLine.userInteractionEnabled = YES;
     UITapGestureRecognizer* tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
@@ -161,7 +161,7 @@ UIAlertViewDelegate
     [self.view addSubview:lbSubHead];
     lbSubHead.userInteractionEnabled = YES;
     [lbSubHead addGestureRecognizer:tapGesture];
-    lbSubHead.m_bottom(34).m_centerX();
+    lbSubHead.mm_bottom(34).mm__centerX(self.view.mm_centerX);
     
     
     //功能列表
@@ -171,7 +171,7 @@ UIAlertViewDelegate
     _tableView.delegate = self;
     _tableView.dataSource = self;
     [self.view addSubview:_tableView];
-    _tableView.m_top(lbHeadLine.mm_maxY+12).m_flexToBottom(0);
+    _tableView.mm_top(lbHeadLine.mm_maxY+12).mm_flexToBottom(0);
     
     UIView *view = [UIView new];
     view.backgroundColor = [UIColor clearColor];

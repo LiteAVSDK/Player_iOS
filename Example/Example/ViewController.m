@@ -35,7 +35,7 @@
     self.playerContainer.backgroundColor = [UIColor blackColor];
     [self.backView addSubview:self.playerContainer];
     self.backView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    self.playerContainer.m_equalToSize(self.view);
+    self.playerContainer.mm_fill();
     
     _playerView = [[SuperPlayerView alloc] init];
     // 设置父View
@@ -91,7 +91,7 @@
         if (alpha > 1) alpha = 1;
         self.view.backgroundColor = RGBA(0, 0, 0, alpha);
         
-        self.backView.m_left(progressIndex).m_top(moveIndex);
+        self.backView.mm_left(progressIndex).mm_top(moveIndex);
         self.backView.transform = CGAffineTransformScale(CGAffineTransformIdentity, alpha/2+0.5, alpha/2+0.5);
         
     } else if (pan.state == UIGestureRecognizerStateEnded) {
@@ -108,7 +108,7 @@
             } else {
                 [UIView animateWithDuration:0.2 animations:^{
                     self.backView.transform = CGAffineTransformIdentity;
-                    self.backView.m_left(0).m_top(0);
+                    self.backView.mm_left(0).mm_top(0);
                     self.view.backgroundColor = RGBA(0, 0, 0, 1);
                 }];
             }

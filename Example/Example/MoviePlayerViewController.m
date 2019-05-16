@@ -10,7 +10,6 @@
 #import "CFDanmakuView.h"
 #import "SuperPlayer.h"
 #import "ScanQRController.h"
-#import "UIImage+Additions.h"
 #import "ListVideoCell.h"
 #import "TCHttpUtil.h"
 #import "MBProgressHUD.h"
@@ -169,7 +168,7 @@ __weak UITextField *urlField;
 
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
-    self.addBtn.m_centerX().m_top(self.scrollView.mm_maxY);
+    self.addBtn.mm__centerX(self.view.mm_w/2).mm_top(self.scrollView.mm_maxY);
 }
 
 - (void)viewDidLoad {

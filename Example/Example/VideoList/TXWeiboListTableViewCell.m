@@ -52,9 +52,9 @@
 
 - (void)layoutSubviews
 {
-    self.backgroundImageView.m_flexToRight(0).m_flexToBottom(0);
+    self.backgroundImageView.mm_flexToRight(0).mm_flexToBottom(0);
     [self.contentView sendSubviewToBack:self.backgroundImageView];
-    self.playButton.m_sizeToFit().m_center();
+    self.playButton.mm_sizeToFit().mm_center();
 }
 
 @end

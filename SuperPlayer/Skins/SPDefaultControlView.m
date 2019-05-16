@@ -647,13 +647,13 @@
     
     [self.pointJumpBtn setTitle:text forState:UIControlStateNormal];
     [self.pointJumpBtn sizeToFit];
-    CGFloat x = self.videoSlider.mm_x + self.videoSlider.mm_w * point.where - self.pointJumpBtn.mm_halfW;
+    CGFloat x = self.videoSlider.mm_x + self.videoSlider.mm_w * point.where - self.pointJumpBtn.mm_h/2;
     if (x < 0)
         x = 0;
-    if (x + self.pointJumpBtn.mm_halfW > ScreenWidth)
-        x = ScreenWidth - self.pointJumpBtn.mm_halfW;
+    if (x + self.pointJumpBtn.mm_h/2 > ScreenWidth)
+        x = ScreenWidth - self.pointJumpBtn.mm_h/2;
     self.pointJumpBtn.tag = [self.videoSlider.pointArray indexOfObject:point];
-    self.pointJumpBtn.m_left(x).m_bottom(60);
+    self.pointJumpBtn.mm_left(x).mm_bottom(60);
     self.pointJumpBtn.hidden = NO;
     
     [DataReport report:@"player_point" param:nil];

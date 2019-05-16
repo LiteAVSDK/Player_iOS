@@ -24,7 +24,7 @@
 
     self.playerContainer = [[UIView alloc] init];
     self.playerContainer.backgroundColor = [UIColor blackColor];
-    self.playerContainer.m_width(self.view.mm_w).m_height(self.view.mm_w*9.0f/16.0f);
+    self.playerContainer.mm_width(self.view.mm_w).mm_height(self.view.mm_w*9.0f/16.0f);
     
     _playerView = [[SuperPlayerView alloc] init];
     // 设置父View
@@ -42,7 +42,7 @@
     
     UILabel *text = [[UILabel alloc] initWithFrame:CGRectZero];
     text.text = @"在这里放一些自己的逻辑……";
-    text.m_sizeToFit().m_top(_playerContainer.mm_maxY+20);
+    text.mm_sizeToFit().mm_top(_playerContainer.mm_maxY+20);
     [self.view addSubview:text];
 }
 

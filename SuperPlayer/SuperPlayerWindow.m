@@ -94,7 +94,7 @@
     [_rootView bringSubviewToFront:_backBtn];
     [_rootView bringSubviewToFront:_closeBtn];
 //    _backBtn.m_top(8).m_left(8);
-    _closeBtn.m_width(42).m_height(42).m_top(0).m_right(0);
+    _closeBtn.mm_width(42).mm_height(42).mm_top(0).mm_right(0);
     
     _isShowing = YES;
     

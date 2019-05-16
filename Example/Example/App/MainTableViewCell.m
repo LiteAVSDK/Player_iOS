@@ -68,15 +68,8 @@
 - (void)layoutSubviews
 {
     [super layoutSubviews];
-    if (_cellData.subCells) {
-        _backgroundView.frame = CGRectMake(0, 10, self.frame.size.width, 55);
-    } else {
-        _backgroundView.frame = CGRectMake(0, 0, self.frame.size.width, 50);
-    }
+
     
-    _titleLabel.m_centerY().m_left(25);
-    _iconImageView.m__center(CGPointMake(_backgroundView.mm_w-41, _backgroundView.mm_halfH));
-    _detailImageView.m__center(CGPointMake(_backgroundView.mm_w-41, _backgroundView.mm_halfH));
     
     if (_cellData.subCells != nil) {
         _iconImageView.hidden = NO;
@@ -87,6 +80,18 @@
         _detailImageView.hidden = NO;
         _titleLabel.font = [UIFont systemFontOfSize:16];
     }
+    
+    if (_cellData.subCells) {
+        _backgroundView.frame = CGRectMake(0, 10, self.frame.size.width, 55);
+    } else {
+        _backgroundView.frame = CGRectMake(0, 0, self.frame.size.width, 50);
+    }
+    
+    _titleLabel.mm_center().mm_left(25);
+    if (_iconImageView.image) {
+        _iconImageView.mm_center().mm_right(25);
+    }
+    _detailImageView.mm_center().mm_right(25);
 }
 
 - (void)setCellData:(CellInfo*)cellInfo
@@ -98,6 +103,7 @@
     _titleLabel.text = cellInfo.title;
     [_titleLabel sizeToFit];
     self.highLight = _cellData.isUnFold;
+    
 }
 
 - (void)setHighLight:(BOOL)highLight {

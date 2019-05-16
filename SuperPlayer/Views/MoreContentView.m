@@ -76,18 +76,18 @@
 {
     _contentHeight = 20;
     
-    _soundCell.m_top(_contentHeight);
+    _soundCell.mm_top(_contentHeight);
     _contentHeight += _soundCell.mm_h;
     
-    _ligthCell.m_top(_contentHeight);
+    _ligthCell.mm_top(_contentHeight);
     _contentHeight += _ligthCell.mm_h;
 
     
     if (!self.isLive) {
-        _speedCell.m_top(_contentHeight);
+        _speedCell.mm_top(_contentHeight);
         _contentHeight += _speedCell.mm_h;
         
-        _mirrorCell.m_top(_contentHeight);
+        _mirrorCell.mm_top(_contentHeight);
         _contentHeight += _mirrorCell.mm_h;
         
         _speedCell.hidden = NO;
@@ -97,7 +97,7 @@
         _mirrorCell.hidden = YES;
     }
     
-    _hwCell.m_top(_contentHeight);
+    _hwCell.mm_top(_contentHeight);
     _contentHeight += _hwCell.mm_h;
 }
 
@@ -105,7 +105,7 @@
 {
     if (_soundCell == nil) {
         _soundCell = [[UIView alloc] initWithFrame:CGRectZero];
-        _soundCell.m_width(MoreViewWidth).m_height(50).m_left(10);
+        _soundCell.mm_width(MoreViewWidth).mm_height(50).mm_left(10);
         
         // 声音
         UILabel *sound = [UILabel new];
@@ -113,16 +113,16 @@
         sound.textColor = [UIColor whiteColor];
         [sound sizeToFit];
         [_soundCell addSubview:sound];
-        sound.m_centerY();
+        sound.mm__centerY(_soundCell.mm_h/2);
 
         
         UIImageView *soundImage1 = [[UIImageView alloc] initWithImage:SuperPlayerImage(@"sound_min")];
         [_soundCell addSubview:soundImage1];
-        soundImage1.m_left(sound.mm_maxX+10).m_centerY();
+        soundImage1.mm_left(sound.mm_maxX+10).mm__centerY(_soundCell.mm_h/2);
 
         UIImageView *soundImage2 = [[UIImageView alloc] initWithImage:SuperPlayerImage(@"sound_max")];
         [_soundCell addSubview:soundImage2];
-        soundImage2.m_right(50).m_centerY();
+        soundImage2.mm_right(50).mm__centerY(_soundCell.mm_h/2);
         
         
         UISlider *soundSlider                       = [[UISlider alloc] init];
@@ -139,7 +139,7 @@
         // slider结束滑动事件
         [soundSlider addTarget:self action:@selector(soundSliderTouchEnded:) forControlEvents:UIControlEventTouchUpInside | UIControlEventTouchCancel | UIControlEventTouchUpOutside];
         [_soundCell addSubview:soundSlider];
-        soundSlider.m_centerY().m_left(soundImage1.mm_maxX).m_width(soundImage2.mm_minX-soundImage1.mm_maxX);
+        soundSlider.mm__centerY(_soundCell.mm_centerY).mm_left(soundImage1.mm_maxX).mm_width(soundImage2.mm_minX-soundImage1.mm_maxX);
         
         self.soundSlider = soundSlider;
     }
@@ -150,7 +150,7 @@
 {
     if (_ligthCell == nil) {
         _ligthCell = [[UIView alloc] initWithFrame:CGRectZero];
-        _ligthCell.m_width(MoreViewWidth).m_height(50).m_left(10);
+        _ligthCell.mm_width(MoreViewWidth).mm_height(50).mm_left(10);
         
         // 亮度
         UILabel *ligth = [UILabel new];
@@ -158,15 +158,15 @@
         ligth.textColor = [UIColor whiteColor];
         [ligth sizeToFit];
         [_ligthCell addSubview:ligth];
-        ligth.m_centerY();
+        ligth.mm__centerY(_ligthCell.mm_h/2);
         
         UIImageView *ligthImage1 = [[UIImageView alloc] initWithImage:SuperPlayerImage(@"light_min")];
         [_ligthCell addSubview:ligthImage1];
-        ligthImage1.m_left(ligth.mm_maxX+10).m_centerY();
+        ligthImage1.mm_left(ligth.mm_maxX+10).mm__centerY(_ligthCell.mm_h/2);
         
         UIImageView *ligthImage2 = [[UIImageView alloc] initWithImage:SuperPlayerImage(@"light_max")];
         [_ligthCell addSubview:ligthImage2];
-        ligthImage2.m_right(50).m_centerY();
+        ligthImage2.mm_right(50).mm__centerY(_ligthCell.mm_h/2);
         
         
         UISlider *lightSlider                       = [[UISlider alloc] init];
@@ -185,7 +185,7 @@
         [lightSlider addTarget:self action:@selector(lightSliderTouchEnded:) forControlEvents:UIControlEventTouchUpInside | UIControlEventTouchCancel | UIControlEventTouchUpOutside];
         
         [_ligthCell addSubview:lightSlider];
-        lightSlider.m_centerY().m_left(ligthImage1.mm_maxX).m_width(ligthImage2.mm_minX-ligthImage1.mm_maxX);
+        lightSlider.mm__centerY(_ligthCell.mm_h/2).mm_left(ligthImage1.mm_maxX).mm_width(ligthImage2.mm_minX-ligthImage1.mm_maxX);
         
         self.lightSlider = lightSlider;
     }
@@ -197,7 +197,7 @@
 - (UIView *)speedCell {
     if (!_speedCell) {
         _speedCell = [UIView new];
-        _speedCell.m_width(MoreViewWidth).m_height(50).m_left(10);
+        _speedCell.mm_width(MoreViewWidth).mm_height(50).mm_left(10);
         
         // 倍速
         UILabel *speed = [UILabel new];
@@ -205,7 +205,7 @@
         speed.textColor = [UIColor whiteColor];
         [speed sizeToFit];
         [_speedCell addSubview:speed];
-        speed.m_centerY();
+        speed.mm__centerY(_speedCell.mm_h/2);
         
         UIButton *speed1 = [UIButton buttonWithType:UIButtonTypeCustom];
         [speed1 setTitle:@"1.0X" forState:UIControlStateNormal];
@@ -216,7 +216,7 @@
         [_speedCell addSubview:speed1];
         [speed1 addTarget:self action:@selector(changeSpeed:) forControlEvents:UIControlEventTouchUpInside];
         
-        speed1.m_left(speed.mm_maxX+10).m_centerY();
+        speed1.mm_left(speed.mm_maxX+10).mm__centerY(_speedCell.mm_h/2);
 
         
         UIButton *speed2 = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -227,7 +227,7 @@
         [_speedCell addSubview:speed2];
         [speed2 addTarget:self action:@selector(changeSpeed:) forControlEvents:UIControlEventTouchUpInside];
         
-        speed2.m_left(speed1.mm_maxX+12).m_centerY();
+        speed2.mm_left(speed1.mm_maxX+12).mm__centerY(_speedCell.mm_h/2);
   
         
         UIButton *speed3 = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -238,7 +238,7 @@
         [_speedCell addSubview:speed3];
         [speed3 addTarget:self action:@selector(changeSpeed:) forControlEvents:UIControlEventTouchUpInside];
         
-        speed3.m_left(speed2.mm_maxX+12).m_centerY();
+        speed3.mm_left(speed2.mm_maxX+12).mm__centerY(_speedCell.mm_h/2);
         
         UIButton *speed4 = [UIButton buttonWithType:UIButtonTypeCustom];
         [speed4 setTitle:@"2.0X" forState:UIControlStateNormal];
@@ -247,7 +247,7 @@
         [speed4 sizeToFit];
         [_speedCell addSubview:speed4];
         [speed4 addTarget:self action:@selector(changeSpeed:) forControlEvents:UIControlEventTouchUpInside];
-        speed4.m_left(speed3.mm_maxX+12).m_centerY();
+        speed4.mm_left(speed3.mm_maxX+12).mm__centerY(_speedCell.mm_h/2);
     }
     return _speedCell;
 }
@@ -255,7 +255,7 @@
 - (UIView *)mirrorCell {
     if (!_mirrorCell) {
         _mirrorCell = [UIView new];
-        _mirrorCell.m_width(MoreViewWidth).m_height(50).m_left(10);
+        _mirrorCell.mm_width(MoreViewWidth).mm_height(50).mm_left(10);
         
         
         UILabel *mirror = [UILabel new];
@@ -263,13 +263,13 @@
         mirror.textColor = [UIColor whiteColor];
         [mirror sizeToFit];
         [_mirrorCell addSubview:mirror];
-        mirror.m_centerY();
+        mirror.mm__centerY(_mirrorCell.mm_h/2);
 
         UISwitch *switcher = [UISwitch new];
         _mirrorSwitch = switcher;
         [switcher addTarget:self action:@selector(changeMirror:) forControlEvents:UIControlEventValueChanged];
         [_mirrorCell addSubview:switcher];
-        switcher.m_right(30).m_centerY();
+        switcher.mm_right(30).mm__centerY(_mirrorCell.mm_h/2);
     }
     return _mirrorCell;
 }
@@ -277,7 +277,7 @@
 - (UIView *)hwCell {
     if (!_hwCell) {
         _hwCell = [UIView new];
-        _hwCell.m_width(MoreViewWidth).m_height(50).m_left(10);
+        _hwCell.mm_width(MoreViewWidth).mm_height(50).mm_left(10);
         
         
         UILabel *hd = [UILabel new];
@@ -286,13 +286,13 @@
         hd.textColor = [UIColor whiteColor];
         [hd sizeToFit];
         [_hwCell addSubview:hd];
-        hd.m_centerY();
+        hd.mm__centerY(_hwCell.mm_centerY);
         
         UISwitch *switcher = [UISwitch new];
         _hwSwitch = switcher;
         [switcher addTarget:self action:@selector(changeHW:) forControlEvents:UIControlEventValueChanged];
         [_hwCell addSubview:switcher];
-        switcher.m_right(30).m_centerY();
+        switcher.mm_right(30).mm__centerY(_hwCell.mm_h/2);
     }
     return _hwCell;
 }
