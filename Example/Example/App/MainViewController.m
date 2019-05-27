@@ -46,6 +46,12 @@ UIAlertViewDelegate
     [self initUI];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    self.navigationController.navigationBar.hidden = YES;
+}
+
 - (void)initCellInfos
 {
     _cellInfos = [NSMutableArray new];
