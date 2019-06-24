@@ -108,4 +108,11 @@ typedef NS_ENUM(NSInteger, SuperPlayerState) {
  */
 - (void)pause;
 
+/**
+ *  从xx秒开始播放视频跳转
+ *
+ *  @param dragedSeconds 视频跳转的秒数
+ */
+- (void)seekToTime:(NSInteger)dragedSeconds;
+
 @end
