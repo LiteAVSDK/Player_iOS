@@ -16,6 +16,7 @@
 #pragma clang diagnostic ignored"-Wdeprecated-declarations"
 
 #define MODEL_TAG_BEGIN 20
+#define BOTTOM_IMAGE_VIEW_HEIGHT 50
 
 @interface SPDefaultControlView () <UIGestureRecognizerDelegate, PlayerSliderDelegate>
 
@@ -112,12 +113,12 @@
     
     [self.bottomImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.leading.trailing.bottom.mas_equalTo(0);
-        make.height.mas_equalTo(50);
+        make.height.mas_equalTo(BOTTOM_IMAGE_VIEW_HEIGHT);
     }];
     
     [self.startBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.leading.equalTo(self.bottomImageView.mas_leading).offset(5);
-        make.bottom.equalTo(self.bottomImageView.mas_bottom).offset(-5);
+        make.top.equalTo(self.bottomImageView.mas_top).offset(10);
         make.width.height.mas_equalTo(30);
     }];
     
@@ -340,13 +341,10 @@
         make.width.mas_equalTo(self.isLive?10:60);
     }];
     
-    if (IsIPhoneX) {
-        [self.startBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.leading.equalTo(self.bottomImageView.mas_leading).offset(5);
-            make.bottom.equalTo(self.bottomImageView.mas_bottom).offset(-25);
-            make.width.height.mas_equalTo(30);
-        }];
-    }
+    [self.bottomImageView mas_updateConstraints:^(MASConstraintMaker *make) {
+        CGFloat b = self.superview.mm_safeAreaBottomGap;
+        make.height.mas_equalTo(BOTTOM_IMAGE_VIEW_HEIGHT+b);
+    }];
     
     self.videoSlider.hiddenPoints = NO;
 }
@@ -371,13 +369,9 @@
         make.width.mas_equalTo(self.isLive?10:60);
     }];
     
-    if (IsIPhoneX) {
-        [self.startBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.leading.equalTo(self.bottomImageView.mas_leading).offset(5);
-            make.bottom.equalTo(self.bottomImageView.mas_bottom).offset(-5);
-            make.width.height.mas_equalTo(30);
-        }];
-    }
+    [self.bottomImageView mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.height.mas_equalTo(BOTTOM_IMAGE_VIEW_HEIGHT);
+    }];
     
     self.videoSlider.hiddenPoints = YES;
     self.pointJumpBtn.hidden = YES;

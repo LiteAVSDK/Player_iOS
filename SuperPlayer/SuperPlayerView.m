@@ -482,12 +482,7 @@ static UISlider * _volumeSlider;
 
             [[UIApplication sharedApplication].keyWindow addSubview:self];
             [self mas_remakeConstraints:^(MASConstraintMaker *make) {
-                if (IsIPhoneX) {
-                    make.width.equalTo(@(ScreenHeight-88));
-                } else {
-                    make.width.equalTo(@(ScreenHeight));
-                }
-
+                make.width.equalTo(@(ScreenHeight-self.mm_safeAreaTopGap*2));
                 make.height.equalTo(@(ScreenWidth));
                 make.center.equalTo([UIApplication sharedApplication].keyWindow);
             }];
