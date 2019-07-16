@@ -344,9 +344,11 @@ static UISlider * _volumeSlider;
         }
         
         TXVodPlayConfig *config = [[TXVodPlayConfig alloc] init];
-        // https://github.com/tencentyun/SuperPlayer_iOS/issues/64
-        config.cacheFolderPath = [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingString:@"/TXCache"];
-        config.maxCacheItems = (int)self.playerConfig.maxCacheItem;
+        if (self.playerConfig.maxCacheItem) {
+            // https://github.com/tencentyun/SuperPlayer_iOS/issues/64
+            config.cacheFolderPath = [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingString:@"/TXCache"];
+            config.maxCacheItems = (int)self.playerConfig.maxCacheItem;
+        }
         config.progressInterval = 0.02;
         if (_playerModel.videoId.version == FileIdV3) {
             if ([_playerModel.drmType isEqualToString:kDrmType_FairPlay]) {
