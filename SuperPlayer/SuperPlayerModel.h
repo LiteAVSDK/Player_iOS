@@ -14,13 +14,13 @@ extern NSNotificationName kSuperPlayerModelFail;
 @end
 
 
-typedef enum : NSUInteger {
-    FileIdV2 = 0,
-    FileIdV3 = 1,
-} FileIdVer;
+//typedef enum : NSUInteger {
+//    FileIdV2 = 0,
+//    FileIdV3 = 1,
+//} FileIdVer;
 
-extern NSString *const kDrmType_FairPlay;
-extern NSString *const kDrmType_SimpleAES;
+//extern NSString *const kDrmType_FairPlay;
+//extern NSString *const kDrmType_SimpleAES;
 
 /**
  * fileid播放
@@ -57,25 +57,25 @@ extern NSString *const kDrmType_SimpleAES;
  */
 @property NSString *sign;
 
-/**
- * 模板ID (V3)
- */
-@property NSString *playDefinition;
+///**
+// * 模板ID (V3)
+// */
+//@property NSString *playDefinition;
 
-/**
- * 播放器 ID，可选。默认使用文件绑定的播放器 ID 或默认播放器 ID
- */
-@property NSString *playerId;
+///**
+// * 播放器 ID，可选。默认使用文件绑定的播放器 ID 或默认播放器 ID
+// */
+//@property NSString *playerId;
 
-/// 允许不同 IP 的播放次数，仅当开启防盗链且需要开启试看时填写
-@property int rlimit;
+///// 允许不同 IP 的播放次数，仅当开启防盗链且需要开启试看时填写
+//@property int rlimit;
 
 /**
  * 请求后台的interface版本
  * 普通转码 FileIdV2 （默认）
  * DRM视频 FileIdV3
  */
-@property FileIdVer version;
+//@property FileIdVer version;
 
 @end
 
@@ -114,16 +114,16 @@ extern NSString *const kDrmType_SimpleAES;
  */
 @property SuperPlayerVideoId *videoId;
 
-/**
- * FairPlay 凭证数据
- */
-@property NSData *certificate;
-
-/**
- * 加密视频的token
- * 播放加密视频需要设置此值
- */
-@property (nonatomic, strong) NSString *token;
+///**
+// * FairPlay 凭证数据
+// */
+//@property NSData *certificate;
+//
+///**
+// * 加密视频的token
+// * 播放加密视频需要设置此值
+// */
+//@property (nonatomic, strong) NSString *token;
 
 // ------------------------------------------------------------------
 // 多码率播放方法
@@ -150,10 +150,10 @@ extern NSString *const kDrmType_SimpleAES;
  * 正在播放的清晰度索引
  */
 @property (readonly) NSInteger playingDefinitionIndex;
-/**
- * 清晰度列表
- */
-@property (readonly) NSArray *playDefinitions;
+///**
+// * 清晰度列表
+// */
+//@property (readonly) NSArray *playDefinitions;
 
 
 

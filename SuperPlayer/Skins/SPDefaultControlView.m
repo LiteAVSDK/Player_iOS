@@ -679,7 +679,7 @@
     for (UIView *subview in self.resolutionView.subviews)
         [subview removeFromSuperview];
 
-    _resolutionArray = model.playDefinitions;
+//    _resolutionArray = model.playDefinitions;
     [self.resolutionBtn setTitle:model.playingDefinition forState:UIControlStateNormal];
     
     UILabel *lable = [UILabel new];

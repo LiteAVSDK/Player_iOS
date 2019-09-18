@@ -106,10 +106,10 @@ TXVodPlayListener, TXLivePlayListener, SuperPlayerControlViewDelegate, TXLiveBas
 
 @interface SuperPlayerModel()
 
-@property (nonatomic, strong) NSString *drmType;
+//@property (nonatomic, strong) NSString *drmType;
 @property NSMutableArray<AdaptiveStream *> *streams;
 
-- (BOOL)canSetDrmType:(NSString *)drmType;
+//- (BOOL)canSetDrmType:(NSString *)drmType;
 
 @end
 

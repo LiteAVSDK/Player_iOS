@@ -66,4 +66,7 @@ typedef NS_ENUM(NSInteger, TX_Enum_Type_LogLevel) {
 
 /// 设置sdk的licence下载url和key
 + (void)setLicenceURL:(NSString *)url key:(NSString *)key;
+
+/// 获取 Licence 信息
++ (NSString *)getLicenceInfo;
 @end

@@ -331,7 +331,7 @@
 {
     [self setPlayState:isAutoPlay];
 
-    _resolutionArray = model.playDefinitions;
+//    _resolutionArray = model.playDefinitions;
     if (model.playingDefinition != nil) {
         [_resolutionBtn setTitle:model.playingDefinition forState:UIControlStateNormal];
     }

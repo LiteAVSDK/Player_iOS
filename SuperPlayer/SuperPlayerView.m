@@ -350,27 +350,28 @@ static UISlider * _volumeSlider;
             config.maxCacheItems = (int)self.playerConfig.maxCacheItem;
         }
         config.progressInterval = 0.02;
-        if (_playerModel.videoId.version == FileIdV3) {
-            if ([_playerModel.drmType isEqualToString:kDrmType_FairPlay]) {
-                config.certificate = self.playerModel.certificate;
-                self.vodPlayer.token = self.playerModel.token;
-                NSLog(@"FairPlay播放");
-            } else if ([_playerModel.drmType isEqualToString:kDrmType_SimpleAES]) {
-                self.vodPlayer.token = self.playerModel.token;
-                NSLog(@"SimpleAES播放");
-            } else {
-                // 降级播放
-                self.vodPlayer.token = nil;
-            }
-        } else if (_playerModel.token) {
-            if (self.playerModel.certificate) {
-                config.certificate = self.playerModel.certificate;
-            }
-            self.vodPlayer.token = self.playerModel.token;
-        } else {
-            self.vodPlayer.token = nil;
-        }
-        
+        self.vodPlayer.token = nil;
+//        if (_playerModel.videoId.version == FileIdV3) {
+//            if ([_playerModel.drmType isEqualToString:kDrmType_FairPlay]) {
+//                config.certificate = self.playerModel.certificate;
+//                self.vodPlayer.token = self.playerModel.token;
+//                NSLog(@"FairPlay播放");
+//            } else if ([_playerModel.drmType isEqualToString:kDrmType_SimpleAES]) {
+//                self.vodPlayer.token = self.playerModel.token;
+//                NSLog(@"SimpleAES播放");
+//            } else {
+//                // 降级播放
+//                self.vodPlayer.token = nil;
+//            }
+//        } else if (_playerModel.token) {
+//            if (self.playerModel.certificate) {
+//                config.certificate = self.playerModel.certificate;
+//            }
+//            self.vodPlayer.token = self.playerModel.token;
+//        } else {
+//            self.vodPlayer.token = nil;
+//        }
+
         config.headers = self.playerConfig.headers;
         
         [self.vodPlayer setConfig:config];
@@ -1281,11 +1282,11 @@ static UISlider * _volumeSlider;
             [self.vodPlayer setupVideoWidget:self insertIndex:0];
             [self layoutSubviews];  // 防止横屏状态下添加view显示不全
             self.state = StatePlaying;
-            
-            if (self.playerModel.playDefinitions.count == 0) {
+
+//            if (self.playerModel.playDefinitions.count == 0) {
                 [self updateBitrates:player.supportedBitrates];
-            }
-            
+//            }
+
             NSMutableArray *array = @[].mutableCopy;
             for (NSDictionary *keyFrameDesc in self.keyFrameDescList) {
                 SuperPlayerVideoPoint *p = [SuperPlayerVideoPoint new];
@@ -1325,24 +1326,24 @@ static UISlider * _volumeSlider;
         } else if (EvtID == PLAY_EVT_PLAY_END) {
             [self.controlView setProgressTime:[self playDuration] totalTime:[self playDuration] progressValue:1.f playableValue:1.f];
             [self moviePlayDidEnd];
-        } else if (EvtID == PLAY_ERR_NET_DISCONNECT || EvtID == PLAY_ERR_FILE_NOT_FOUND || EvtID == PLAY_ERR_HLS_KEY || EvtID == PLAY_ERR_VOD_LOAD_LICENSE_FAIL) {
+        } else if (EvtID == PLAY_ERR_NET_DISCONNECT || EvtID == PLAY_ERR_FILE_NOT_FOUND || EvtID == PLAY_ERR_HLS_KEY /*|| EvtID == PLAY_ERR_VOD_LOAD_LICENSE_FAIL*/) {
             // DRM视频播放失败自动降级
-            if ([self.playerModel.drmType isEqualToString:kDrmType_FairPlay]) {
-                if ([self.playerModel canSetDrmType:kDrmType_SimpleAES]) {
-                    self.playerModel.drmType = kDrmType_SimpleAES;
-                    NSLog(@"降级SimpleAES");
-                } else {
-                    NSLog(@"降级无加密");
-                    self.playerModel.drmType = nil;
-                }
-                [self configTXPlayer];
-                return;
-            } else if ([self.playerModel.drmType isEqualToString:kDrmType_SimpleAES]) {
-                NSLog(@"降级无加密");
-                self.playerModel.drmType = nil;
-                [self configTXPlayer];
-                return;
-            }
+//            if ([self.playerModel.drmType isEqualToString:kDrmType_FairPlay]) {
+//                if ([self.playerModel canSetDrmType:kDrmType_SimpleAES]) {
+//                    self.playerModel.drmType = kDrmType_SimpleAES;
+//                    NSLog(@"降级SimpleAES");
+//                } else {
+//                    NSLog(@"降级无加密");
+//                    self.playerModel.drmType = nil;
+//                }
+//                [self configTXPlayer];
+//                return;
+//            } else if ([self.playerModel.drmType isEqualToString:kDrmType_SimpleAES]) {
+//                NSLog(@"降级无加密");
+//                self.playerModel.drmType = nil;
+//                [self configTXPlayer];
+//                return;
+//            }
             
             if (EvtID == PLAY_ERR_NET_DISCONNECT) {
                 [self showMiddleBtnMsg:kStrBadNetRetry withAction:ActionContinueReplay];

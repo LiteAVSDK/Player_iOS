@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -29,7 +29,6 @@
 		91A1D6D02147C0D500EA9A19 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 91A1D6CF2147C0D500EA9A19 /* Assets.xcassets */; };
 		91A1D6D32147C0D500EA9A19 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 91A1D6D12147C0D500EA9A19 /* LaunchScreen.storyboard */; };
 		91A1D6D62147C0D500EA9A19 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 91A1D6D52147C0D500EA9A19 /* main.m */; };
-		91D104CE22294D940061D9FD /* DrmPlayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 91D104CD22294D940061D9FD /* DrmPlayViewController.m */; };
 		FB2B82D064582E49878F0546 /* libPods-Example.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BA2BBB2CD07BE7EF959CE320 /* libPods-Example.a */; };
 /* End PBXBuildFile section */
 
@@ -80,8 +79,6 @@
 		91A1D6D22147C0D500EA9A19 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		91A1D6D42147C0D500EA9A19 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		91A1D6D52147C0D500EA9A19 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		91D104CC22294D940061D9FD /* DrmPlayViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DrmPlayViewController.h; sourceTree = "<group>"; };
-		91D104CD22294D940061D9FD /* DrmPlayViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DrmPlayViewController.m; sourceTree = "<group>"; };
 		BA2BBB2CD07BE7EF959CE320 /* libPods-Example.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Example.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8E98CB518DA48C3D587C021 /* Pods-Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-Example/Pods-Example.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -203,8 +200,6 @@
 				91A1D6CA2147C0D200EA9A19 /* ViewController.m */,
 				917AB1C721F16F0000D6B041 /* SimpleMovieController.h */,
 				917AB1C821F16F0000D6B041 /* SimpleMovieController.m */,
-				91D104CC22294D940061D9FD /* DrmPlayViewController.h */,
-				91D104CD22294D940061D9FD /* DrmPlayViewController.m */,
 				9115CA992251AE23000CA93E /* LoopPlayViewController.h */,
 				9115CA9A2251AE23000CA93E /* LoopPlayViewController.m */,
 				91A1D6CC2147C0D200EA9A19 /* Main.storyboard */,
@@ -300,13 +295,12 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Example/Pods-Example-resources.sh",
-				"${PODS_ROOT}/../../SuperPlayer/Resource/SuperPlayer.bundle",
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Example/Pods-Example-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SuperPlayer.bundle",
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Example/Pods-Example-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -353,7 +347,6 @@
 				919D18982151F05F00947BF5 /* ListVideoCell.m in Sources */,
 				919D18A12151F1F800947BF5 /* TCHttpUtil.m in Sources */,
 				919D18992151F05F00947BF5 /* MoviePlayerViewController.m in Sources */,
-				91D104CE22294D940061D9FD /* DrmPlayViewController.m in Sources */,
 				91A1D6C82147C0D200EA9A19 /* AppDelegate.m in Sources */,
 				919D189D2151F16A00947BF5 /* ScanQRController.mm in Sources */,
 				919D1A592159DCA700947BF5 /* TXWeiboListViewController.m in Sources */,
@@ -498,8 +491,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = QE8PS7F45A;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = 5GHU44CJHG;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Example/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -509,6 +502,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.tencent.fx.Example;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "Wildcard Dev";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -519,8 +513,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = QE8PS7F45A;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Example/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -530,6 +524,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.tencent.fx.Example;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
