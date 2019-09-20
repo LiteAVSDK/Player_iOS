@@ -40,7 +40,6 @@
 
 ## 功能特性
 
-- [x] 加密视频播放（FairPlay、SimpleAES）
 - [x] 多种视频格式（RTMP、FLV、HLS、MP4）
 - [x] 直播、点播首屏秒开
 - [x] 码率自适应
