@@ -24,9 +24,9 @@
 {
     _playerModel = playerModel;
     
-//    self.definitions = [self.playerModel.playDefinitions sortedArrayUsingComparator:^NSComparisonResult(NSString *obj1, NSString *obj2) {
-//        return [NetWatcher weightOfDefinition:obj1] < [NetWatcher weightOfDefinition:obj2];
-//    }];
+    self.definitions = [self.playerModel.playDefinitions sortedArrayUsingComparator:^NSComparisonResult(NSString *obj1, NSString *obj2) {
+        return [NetWatcher weightOfDefinition:obj1] < [NetWatcher weightOfDefinition:obj2];
+    }];
     
     if (AFNetworkReachabilityManager.sharedManager.networkReachabilityStatus == AFNetworkReachabilityStatusReachableViaWWAN) {
         self.adviseDefinition = self.definitions.lastObject;

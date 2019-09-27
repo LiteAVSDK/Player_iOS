@@ -421,7 +421,7 @@
 - (UIButton *)lockBtn {
     if (!_lockBtn) {
         _lockBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _lockBtn.exclusiveTouch = NO;
+        _lockBtn.exclusiveTouch = YES;
         [_lockBtn setImage:SuperPlayerImage(@"unlock-nor") forState:UIControlStateNormal];
         [_lockBtn setImage:SuperPlayerImage(@"lock-nor") forState:UIControlStateSelected];
         [_lockBtn addTarget:self action:@selector(lockScrrenBtnClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -681,7 +681,7 @@
     for (UIView *subview in self.resolutionView.subviews)
         [subview removeFromSuperview];
 
-//    _resolutionArray = model.playDefinitions;
+    _resolutionArray = model.playDefinitions;
     [self.resolutionBtn setTitle:model.playingDefinition forState:UIControlStateNormal];
     
     UILabel *lable = [UILabel new];

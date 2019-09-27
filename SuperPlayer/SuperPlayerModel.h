@@ -150,10 +150,10 @@ extern NSNotificationName kSuperPlayerModelFail;
  * 正在播放的清晰度索引
  */
 @property (readonly) NSInteger playingDefinitionIndex;
-///**
-// * 清晰度列表
-// */
-//@property (readonly) NSArray *playDefinitions;
+/**
+ * 清晰度列表
+ */
+@property (readonly) NSArray *playDefinitions;
 
 
 
