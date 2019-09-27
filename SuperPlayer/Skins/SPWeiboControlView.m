@@ -13,6 +13,9 @@
 #import "DataReport.h"
 #import "SuperPlayer.h"
 
+@interface SPWeiboControlView() <PlayerSliderDelegate>
+@end
+
 @implementation SPWeiboControlView
 
 - (instancetype)initWithFrame:(CGRect)frame {

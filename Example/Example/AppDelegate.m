@@ -17,6 +17,13 @@
 
 @implementation AppDelegate
 
+- (void)clickHelp:(UIButton *)sender {
+    NSURL *helpUrl = [NSURL URLWithString:@"https://cloud.tencent.com/document/product/454/18871"];
+    UIApplication *myApp = [UIApplication sharedApplication];
+    if ([myApp canOpenURL:helpUrl]) {
+        [myApp openURL:helpUrl];
+    }
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.

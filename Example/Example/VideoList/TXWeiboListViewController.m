@@ -27,10 +27,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
+
     self.navigationController.navigationBar.hidden = NO;
-    
-    
+
+
     UIImageView *imageView=[[UIImageView alloc] initWithFrame:self.view.bounds];
     imageView.image=[UIImage imageNamed:@"背景"];
     [self.view insertSubview:imageView atIndex:0];

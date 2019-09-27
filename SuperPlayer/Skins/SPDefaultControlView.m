@@ -229,6 +229,7 @@
 
 - (void)fullScreenBtnClick:(UIButton *)sender {
     sender.selected = !sender.selected;
+    self.fullScreen = !self.fullScreen;
     [self.delegate controlViewChangeScreen:self withFullScreen:YES];
     [self fadeOut:3];
 }
@@ -420,6 +421,7 @@
 - (UIButton *)lockBtn {
     if (!_lockBtn) {
         _lockBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        _lockBtn.exclusiveTouch = NO;
         [_lockBtn setImage:SuperPlayerImage(@"unlock-nor") forState:UIControlStateNormal];
         [_lockBtn setImage:SuperPlayerImage(@"lock-nor") forState:UIControlStateSelected];
         [_lockBtn addTarget:self action:@selector(lockScrrenBtnClick:) forControlEvents:UIControlEventTouchUpInside];

@@ -24,7 +24,7 @@
 @end
 
 @interface SuperPlayerControlView : UIView
-
+@property (assign, nonatomic) BOOL compact;
 /**
  * 播放进度
  * @param currentTime 当前播放时长

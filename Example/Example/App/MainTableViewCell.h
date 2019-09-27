@@ -13,7 +13,7 @@
 @property (nonatomic, copy) NSString* title;
 @property (nonatomic, copy) NSString* iconName;
 @property (nonatomic, copy) NSString* navigateToController;
-@property BOOL isUnFold;
+@property BOOL expanded;
 @property NSArray<CellInfo *> *subCells;
 
 @end
