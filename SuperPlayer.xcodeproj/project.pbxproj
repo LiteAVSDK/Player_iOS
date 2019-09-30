@@ -19,7 +19,6 @@
 		9174B98E2253537A008BB3A1 /* SuperEncrypt.m in Sources */ = {isa = PBXBuildFile; fileRef = 9174B98A2253537A008BB3A1 /* SuperEncrypt.m */; };
 		919D18F521533DAC00947BF5 /* UINavigationController+SuperPlayerRotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 919D18F221533DAB00947BF5 /* UINavigationController+SuperPlayerRotation.m */; };
 		919D18F621533DAC00947BF5 /* UIViewController+SuperPlayerRotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 919D18F421533DAB00947BF5 /* UIViewController+SuperPlayerRotation.m */; };
-		91A1D63F214770C900EA9A19 /* UIView+MMLayout.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 91A1D5E5214673F300EA9A19 /* UIView+MMLayout.h */; };
 		91A1D640214770C900EA9A19 /* SuperPlayerControlViewDelegate.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 91A1D5E9214673F400EA9A19 /* SuperPlayerControlViewDelegate.h */; };
 		91A1D642214770C900EA9A19 /* SuperPlayerModel.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 91A1D5C4214673F300EA9A19 /* SuperPlayerModel.h */; };
 		91A1D643214770C900EA9A19 /* SuperPlayerView.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 91A1D5D3214673F300EA9A19 /* SuperPlayerView.h */; };
@@ -28,7 +27,6 @@
 		91A1D647214770C900EA9A19 /* SuperPlayerFastView.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 91A1D5CE214673F300EA9A19 /* SuperPlayerFastView.h */; };
 		91A1D6492147749A00EA9A19 /* SuperPlayer.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 91A1D6482147749100EA9A19 /* SuperPlayer.h */; };
 		91A1D64C2147751700EA9A19 /* J2Obj.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 91A1D5D7214673F300EA9A19 /* J2Obj.h */; };
-		91A1D64E2147763B00EA9A19 /* UIView+MMLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 91A1D5E6214673F300EA9A19 /* UIView+MMLayout.m */; };
 		91A1D6542147765400EA9A19 /* SuperPlayerModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 91A1D5D2214673F300EA9A19 /* SuperPlayerModel.m */; };
 		91A1D6552147765400EA9A19 /* SuperPlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 91A1D5EB214673F400EA9A19 /* SuperPlayerView.m */; };
 		91A1D6562147765400EA9A19 /* SuperPlayerWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 91A1D5C1214673F200EA9A19 /* SuperPlayerWindow.m */; };
@@ -51,7 +49,6 @@
 				9165F739214FCD7000F5BB88 /* TXCUrl.h in CopyFiles */,
 				91A1D64C2147751700EA9A19 /* J2Obj.h in CopyFiles */,
 				91A1D6492147749A00EA9A19 /* SuperPlayer.h in CopyFiles */,
-				91A1D63F214770C900EA9A19 /* UIView+MMLayout.h in CopyFiles */,
 				91A1D640214770C900EA9A19 /* SuperPlayerControlViewDelegate.h in CopyFiles */,
 				91A1D642214770C900EA9A19 /* SuperPlayerModel.h in CopyFiles */,
 				91A1D643214770C900EA9A19 /* SuperPlayerView.h in CopyFiles */,
@@ -302,7 +299,6 @@
 				91A1D6552147765400EA9A19 /* SuperPlayerView.m in Sources */,
 				91A1D6592147768C00EA9A19 /* NetWatcher.m in Sources */,
 				9174B98C2253537A008BB3A1 /* StrUtils.m in Sources */,
-				91A1D64E2147763B00EA9A19 /* UIView+MMLayout.m in Sources */,
 				91A1D6562147765400EA9A19 /* SuperPlayerWindow.m in Sources */,
 				9174B98B2253537A008BB3A1 /* UIView+Fade.m in Sources */,
 				919D18F521533DAC00947BF5 /* UINavigationController+SuperPlayerRotation.m in Sources */,
