@@ -230,6 +230,8 @@ static UISlider * _volumeSlider;
  */
 - (void)resetPlayer {
     LOG_ME;
+    // 移除通知
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     // 暂停
     [self pause];
     
