@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
     spec.name = 'SuperPlayer'
-    spec.version = '3.1.2'
+    spec.version = '3.1.3'
     spec.license = { :type => 'MIT' }
     spec.homepage = 'https://cloud.tencent.com/product/player'
     spec.authors = { 'annidyfeng' => 'annidyfeng@tencent.com' }
@@ -32,9 +32,9 @@ Pod::Spec.new do |spec|
         s.private_header_files = 'SuperPlayer/Utils/TXBitrateItemHelper.h', 'SuperPlayer/Views/SuperPlayerView+Private.h'
         s.resource = 'SuperPlayer/Resource/*'
 #如果要使用cocopods管理的TXLiteAVSDK_Player，就不注释这一行
-#        s.dependency 'TXLiteAVSDK_Player', '= 5.3.6001'
+        s.dependency 'TXLiteAVSDK_Player', '= 6.7.7758'
 #如果要使用最新的TXLiteAVSDK_Player，就不注释这一行
-        s.vendored_framework = "Frameworks/TXLiteAVSDK_Player.framework"
+        #s.vendored_framework = "Frameworks/TXLiteAVSDK_Player.framework"
     end
 #     spec.subspec "Professional" do |s|
 #         s.dependency 'SuperPlayer/Core'
