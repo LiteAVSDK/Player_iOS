@@ -29,19 +29,19 @@ NSNotificationName kSuperPlayerModelFail = @"kSuperPlayerModelFail";
 @end
 
 @implementation SuperPlayerModel {
-    
+    AFHTTPSessionManager *_manager;
 }
 
 - (instancetype)init {
     self = [super init];
     if (self) {
-
+        _manager = [AFHTTPSessionManager manager];
     }
     return self;
 }
 
 - (void)dealloc {
-    
+    [_manager invalidateSessionCancelingTasks:YES];
 }
 
 - (NSString *)playingDefinitionUrl
@@ -90,7 +90,7 @@ NSNotificationName kSuperPlayerModelFail = @"kSuperPlayerModelFail";
 
 - (void)getPlayInfoV2:(SuperPlayerView *)playerView {
     
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    AFHTTPSessionManager *manager = _manager;
     NSString *url = [NSString stringWithFormat:@"https://%@/getplayinfo/v2/%ld/%@", kPlayVideoHost2, (long)self.videoId.appId, self.videoId.fileId];
 
     // 防盗链参数
