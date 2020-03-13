@@ -18,6 +18,7 @@
 #import "AFNetworking/AFNetworking.h"
 //#import "SPResolutionDefination.h"
 #import "SPSubStreamInfo.h"
+#import <AVFoundation/AVFoundation.h>
 
 // 枚举值，包含水平移动方向和垂直移动方向
 typedef NS_ENUM(NSInteger, PanDirection){
@@ -33,9 +34,9 @@ typedef NS_ENUM(NSInteger, ButtonAction) {
     ActionContinueReplay,
 };
 
-
+@class TXVodPlayer, TXLivePlayer;
 @interface SuperPlayerView () <UIGestureRecognizerDelegate,UIAlertViewDelegate,
-TXVodPlayListener, TXLivePlayListener, SuperPlayerControlViewDelegate, TXLiveBaseDelegate, AVAssetResourceLoaderDelegate>
+ SuperPlayerControlViewDelegate,  AVAssetResourceLoaderDelegate>
 
 
 /** 用来保存快进的总时长 */

@@ -7,6 +7,7 @@
 //
 
 #import "SPPlayCGIParseResult.h"
+#import "TXImageSprite.h"
 
 @implementation SPPlayCGIParseResult
 @end

@@ -6,7 +6,7 @@
 
 @class SuperPlayerControlView;
 @class SuperPlayerView;
-
+@class TXImageSprite;
 @protocol SuperPlayerDelegate <NSObject>
 @optional
 /// 返回事件

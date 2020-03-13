@@ -12,6 +12,7 @@
 #import "UIView+MMLayout.h"
 #import "SPDefaultControlView.h"
 #import "SuperPlayerModelInternal.h"
+#import "TXLiteAVSDK.h"
 
 static UISlider * _volumeSlider;
 
@@ -22,14 +23,14 @@ static UISlider * _volumeSlider;
 #pragma clang diagnostic ignored"-Wdeprecated-declarations"
 
 
-
-
-@implementation SuperPlayerView {
+@interface SuperPlayerView() <TXVodPlayListener, TXLivePlayListener, TXLiveBaseDelegate> {
     UIView *_fullScreenBlackView;
     SuperPlayerControlView *_controlView;
     NSURLSessionTask *_currentLoadingTask;
 }
+@end
 
+@implementation SuperPlayerView
 
 #pragma mark - life Cycle
 
