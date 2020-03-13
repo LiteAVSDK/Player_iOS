@@ -25,7 +25,7 @@
 @property NSArray<ListVideoUrl *>  *hdUrl;
 @property int       type; // 0 - 点播；1 - 直播
 - (void)addHdUrl:(NSString *)url withTitle:(NSString *)title;
-
+- (void)setModel:(SuperPlayerModel *)model;
 - (SuperPlayerModel *)getPlayerModel;
 @end
 

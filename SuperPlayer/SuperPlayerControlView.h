@@ -8,23 +8,21 @@
 #import <UIKit/UIKit.h>
 
 #import "SuperPlayerControlViewDelegate.h"
-#import "SuperPlayerModel.h"
 #import "PlayerSlider.h"
 #import "SuperPlayerFastView.h"
 #import "MMMaterialDesignSpinner.h"
-#import "MoreContentView.h"
-#import "SuperPlayerModel.h"
+#import "SuperPlayerSettingsView.h"
 #import "SuperPlayerViewConfig.h"
-
-
-@interface SuperPlayerVideoPoint : NSObject
-@property CGFloat where;
-@property NSString *text;
-@property CGFloat time;
-@end
+#import "SPVideoFrameDescription.h"
 
 @interface SuperPlayerControlView : UIView
 @property (assign, nonatomic) BOOL compact;
+/**
+ * 点播放试看时间范围 0.0 - 1.0
+ *
+ * 用于试看场景，防止进度条拖动超过试看时长
+ */
+@property (assign, nonatomic) float maxPlayableRatio;
 /**
  * 播放进度
  * @param currentTime 当前播放时长
@@ -41,23 +39,24 @@
  */
 - (void)setPlayState:(BOOL)isPlay;
 
-
-
 /**
- * 开始新的播放
- *  @param isLive 是否为直播流
- *  @param isTimeShifting 是否在直播时移
- *  @param isAutoPlay 是否自动播放
+ * 重置播放控制面板
+ * @param resolutionNames 清晰度名称
+ * @param resolutionIndex 正在播放的清晰度的下标
+ * @param isLive 是否为直播流，直播是有时移按钮，不支持镜像与播放速度修改
+ * @param isTimeShifting 是否在直播时移
+ * @param isPlaying 是否正在播放中，用于调整播放按钮状态
  */
-- (void)playerBegin:(SuperPlayerModel *)model
-             isLive:(BOOL)isLive
-     isTimeShifting:(BOOL)isTimeShifting
-         isAutoPlay:(BOOL)isAutoPlay;
+- (void)resetWithResolutionNames:(NSArray<NSString *> *)resolutionNames
+          currentResolutionIndex:(NSUInteger)resolutionIndex
+                          isLive:(BOOL)isLive
+                  isTimeShifting:(BOOL)isTimeShifting
+                       isPlaying:(BOOL)isPlaying;
 
 /// 标题
 @property NSString *title;
 /// 打点信息
-@property NSArray<SuperPlayerVideoPoint *>  *pointArray;
+@property NSArray<SPVideoFrameDescription *>  *pointArray;
 /// 是否在拖动进度
 @property BOOL  isDragging;
 /// 是否显示二级菜单

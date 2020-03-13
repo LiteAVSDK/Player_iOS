@@ -14,7 +14,9 @@
 @implementation ListVideoUrl
 @end
 
-@implementation ListVideoModel
+@implementation ListVideoModel {
+    SuperPlayerModel *_model;
+}
 - (void)addHdUrl:(NSString *)url withTitle:(NSString *)title;
 {
     NSMutableArray *urls = @[].mutableCopy;
@@ -28,11 +30,19 @@
     _hdUrl = urls;
 }
 
+- (void)setModel:(SuperPlayerModel *)model
+{
+    _model = model;
+}
+
 - (SuperPlayerModel *)getPlayerModel
 {
+    if (_model) {
+        return _model;
+    }
     SuperPlayerModel *model = [SuperPlayerModel new];
     SuperPlayerVideoId *videoId = [SuperPlayerVideoId new];
-    videoId.appId = [self appId];
+    model.appId = [self appId];
     videoId.fileId = [self fileId];
     model.videoId = videoId;
     model.videoURL = self.url;

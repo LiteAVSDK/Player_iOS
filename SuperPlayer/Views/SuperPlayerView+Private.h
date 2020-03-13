@@ -16,7 +16,8 @@
 
 #import "Masonry/Masonry.h"
 #import "AFNetworking/AFNetworking.h"
-
+//#import "SPResolutionDefination.h"
+#import "SPSubStreamInfo.h"
 
 // 枚举值，包含水平移动方向和垂直移动方向
 typedef NS_ENUM(NSInteger, PanDirection){
@@ -97,6 +98,10 @@ TXVodPlayListener, TXLivePlayListener, SuperPlayerControlViewDelegate, TXLiveBas
 
 @property (nonatomic) CGFloat videoRatio;
 
+/// 由协议解析出分辨率定义表
+@property (strong, nonatomic) NSArray<SPSubStreamInfo *> *resolutions;
+/// 当前可用的分辨率列表
+//@property (strong, nonatomic) NSArray<NSString *> *currentResolutionNames;
 @end
 
 

@@ -39,7 +39,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    self.view.backgroundColor = [UIColor whiteColor];
     self.navigationController.navigationBar.hidden = NO;
     self.edgesForExtendedLayout = UIRectEdgeNone;
     self.title = [NSString stringWithFormat:@"页面 %d", self.index];

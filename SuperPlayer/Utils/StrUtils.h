@@ -10,7 +10,6 @@
 @interface StrUtils : NSObject
 
 + (NSString *)timeFormat:(NSInteger)totalTime;
-
 @end
 
 extern NSString *kStrLoadFaildRetry;

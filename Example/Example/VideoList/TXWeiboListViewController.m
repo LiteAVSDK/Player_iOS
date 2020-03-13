@@ -27,10 +27,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-
+    
     self.navigationController.navigationBar.hidden = NO;
-
-
+    
+    
     UIImageView *imageView=[[UIImageView alloc] initWithFrame:self.view.bounds];
     imageView.image=[UIImage imageNamed:@"背景"];
     [self.view insertSubview:imageView atIndex:0];
@@ -182,7 +182,7 @@
     self.superPlayer.fatherView = cell.contentView;
     SuperPlayerModel *model = [SuperPlayerModel new];
     SuperPlayerVideoId *videoId = [SuperPlayerVideoId new];
-    videoId.appId = 1252463788;
+    model.appId = 1252463788;
     videoId.fileId = self.fileIdArray[[self.tempIndexPath row]];
     model.videoId = videoId;
     NSNumber *startTime = [self.startTimeDict objectForKey:self.tempIndexPath];
