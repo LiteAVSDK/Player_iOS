@@ -27,7 +27,7 @@ __weak UITextField *appField;
 __weak UITextField *fileidField;
 __weak UITextField *urlField;
 
-@interface MoviePlayerViewController () <SuperPlayerDelegate, ScanQRDelegate, UITableViewDelegate, UITableViewDataSource,TXMoviePlayerNetDelegate, CFDanmakuDelegate>
+@interface MoviePlayerViewController () <SuperPlayerDelegate, ScanQRDelegate, UITableViewDelegate, UITableViewDataSource, CFDanmakuDelegate>
 /** 播放器View的父视图*/
 @property (nonatomic) UIView *playerFatherView;
 @property (strong, nonatomic) SuperPlayerView *playerView;
@@ -56,6 +56,7 @@ __weak UITextField *urlField;
 @property UIScrollView  *scrollView;    //视频列表滑动scrollview
 
 @property UIButton *playerBackBtn;
+@property (nonatomic, strong) AFHTTPSessionManager *manager;
 
 @property CFDanmakuView *danmakuView;
 
@@ -70,12 +71,16 @@ __weak UITextField *urlField;
         playerViewCtrl.danmakuView.clipsToBounds = NO;
         return playerViewCtrl;
     } else {
-        return [super init];
+        if (self = [super init]) {
+            _manager = [AFHTTPSessionManager manager];
+        }
+        return self;
     }
 }
 
 - (void)dealloc {
     NSLog(@"%@释放了",self.class);
+    [_manager invalidateSessionCancelingTasks:YES];
 }
 
 - (void)willMoveToParentViewController:(nullable UIViewController *)parent
@@ -95,7 +100,7 @@ __weak UITextField *urlField;
     [super viewWillAppear:animated];
     self.navigationController.navigationBar.hidden = NO;
     
-
+    
     UIImageView *imageView=[[UIImageView alloc] initWithFrame:self.view.bounds];
     imageView.image=[UIImage imageNamed:@"背景"];
     [self.view insertSubview:imageView atIndex:0];
@@ -146,10 +151,11 @@ __weak UITextField *urlField;
         }];
         _playerView.isLockScreen = YES;
         __weak SuperPlayerView *wplayer = _playerView;
+        __weak __typeof(self) wself = self;
         _guideView.missHandler = ^{
             wplayer.isLockScreen = NO;
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [self showControlView:NO];
+                [wself showControlView:NO];
                 
                 [df setBool:YES forKey:@"isShowGuide"];
                 [df synchronize];
@@ -165,6 +171,10 @@ __weak UITextField *urlField;
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+
+    if (self.videoURL) {
+        [self clickVodList:nil];
+    }
 }
 
 - (void)viewDidLayoutSubviews {
@@ -286,37 +296,54 @@ __weak UITextField *urlField;
     [addButton addTarget:self action:@selector(onAddClick:) forControlEvents:UIControlEventTouchUpInside];
     self.addBtn = addButton;
     
+    [self _refreshVODList];
 
+    [self _refreshLiveList];
     
-    TXPlayerAuthParams *p = [TXPlayerAuthParams new];
-    p.appId = 1252463788;
-    p.fileId = @"5285890781763144364";
-    [_authParamArray addObject:p];
-    
-    p = [TXPlayerAuthParams new];
-    p.appId = 1252463788;
-    p.fileId = @"4564972819220421305";
-    [_authParamArray addObject:p];
-    
-    p = [TXPlayerAuthParams new];
-    p.appId = 1252463788;
-    p.fileId = @"4564972819219071568";
-    [_authParamArray addObject:p];
-    
-    p = [TXPlayerAuthParams new];
-    p.appId = 1252463788;
-    p.fileId = @"4564972819219071668";
-    [_authParamArray addObject:p];
-    
-    p = [TXPlayerAuthParams new];
-    p.appId = 1252463788;
-    p.fileId = @"4564972819219071679";
-    [_authParamArray addObject:p];
-        
-    
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+
+    self.playerBackBtn = ((SPDefaultControlView *)self.playerView.controlView).backBtn;
+    // 直接获取controlview，想怎样控制界面都行。记得在全屏事件里也要处理，不然内部可能会设其它状态
+    //    self.playerBackBtn.hidden = YES;
+}
+
+- (void)_refreshVODList {
+    if (nil == self.videoURL) {
+        TXPlayerAuthParams *p = [TXPlayerAuthParams new];
+        p.appId = 1252463788;
+        p.fileId = @"5285890781763144364";
+        [_authParamArray addObject:p];
+
+        p = [TXPlayerAuthParams new];
+        p.appId = 1252463788;
+        p.fileId = @"4564972819220421305";
+        [_authParamArray addObject:p];
+
+        p = [TXPlayerAuthParams new];
+        p.appId = 1252463788;
+        p.fileId = @"4564972819219071568";
+        [_authParamArray addObject:p];
+
+        p = [TXPlayerAuthParams new];
+        p.appId = 1252463788;
+        p.fileId = @"4564972819219071668";
+        [_authParamArray addObject:p];
+
+        p = [TXPlayerAuthParams new];
+        p.appId = 1252463788;
+        p.fileId = @"4564972819219071679";
+        [_authParamArray addObject:p];
+
+        [self getNextInfo];
+    }
+}
+
+
+- (void)_refreshLiveList {
+    // Refresh Video list
+    AFHTTPSessionManager *manager = self.manager;
+    __weak __typeof(self) weakSelf = self;
     [manager GET:@"http://xzb.qcloud.com/get_live_list" parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        [manager invalidateSessionCancelingTasks:YES];
+        __strong __typeof(weakSelf) self = weakSelf;
         if ([J2Num([responseObject valueForKeyPath:@"code"]) intValue] != 200) {
             [self hudMessage:@"直播列表请求失败"];
             return;
@@ -333,21 +360,14 @@ __weak UITextField *urlField;
             for (id url in playUrl) {
                 [m addHdUrl:J2Str([url valueForKeyPath:@"url"]) withTitle:J2Str([url valueForKeyPath:@"title"])];
             }
-            
+
             [allList addObject:m];
         }
         self.liveDataSourceArray = allList;
         [self.liveListView reloadData];
-        
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        [manager invalidateSessionCancelingTasks:YES];
-    }];
-    
-    [self getNextInfo];
 
-    self.playerBackBtn = ((SPDefaultControlView *)self.playerView.controlView).backBtn;
-    // 直接获取controlview，想怎样控制界面都行。记得在全屏事件里也要处理，不然内部可能会设其它状态
-//    self.playerBackBtn.hidden = YES;
+    }];
 }
 
 // 返回值要必须为NO
@@ -389,14 +409,14 @@ __weak UITextField *urlField;
     return _playerView;
 }
 
-- (void)onNetSuccess:(TXMoviePlayerNetApi *)obj
+- (void)onNetSuccess:(TXMoviePlayInfoResponse *)playInfo
 {
     ListVideoModel *m = [[ListVideoModel alloc] init];
-    m.appId = obj.playInfo.appId;
-    m.fileId = obj.playInfo.fileId;
-    m.duration = obj.playInfo.duration;
-    m.title = obj.playInfo.videoDescription?:obj.playInfo.name;
-    m.coverUrl = obj.playInfo.coverUrl;
+    m.appId = playInfo.appId;
+    m.fileId = playInfo.fileId;
+    m.duration = playInfo.duration;
+    m.title = playInfo.videoDescription?:playInfo.name;
+    m.coverUrl = playInfo.coverUrl;
     [_vodDataSourceArray addObject:m];
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.vodListView reloadData];
@@ -432,15 +452,20 @@ __weak UITextField *urlField;
     
     if (self.getInfoNetApi == nil) {
         self.getInfoNetApi = [[TXMoviePlayerNetApi alloc] init];
-        self.getInfoNetApi.delegate = self;
+//        self.getInfoNetApi.delegate = self;
         self.getInfoNetApi.https = NO;
     }
+    __weak __typeof(self) wself = self;
     [self.getInfoNetApi getplayinfo:p.appId
                              fileId:p.fileId
-                             timeout:p.timeout
-                                  us:p.us
-                               exper:p.exper
-                                sign:p.sign];
+                              psign:p.sign
+                         completion:^(TXMoviePlayInfoResponse *resp, NSError *error) {
+        if (error) {
+            [wself hudMessage:@"fileid请求失败"];
+        } else {
+            [wself onNetSuccess:resp];
+        }
+    }];
 }
 
 #pragma mark - Action
@@ -485,13 +510,73 @@ __weak UITextField *urlField;
     self.playerView.isLockScreen = YES;
 }
 
+- (int)_getIntFromDict:(NSDictionary *)dictionary key:(NSString *)key {
+    NSString *value = dictionary[key];
+    if (value) {
+        return [value intValue];
+    }
+    return -1;
+}
+
+- (BOOL)_fillModel:(SuperPlayerModel *)model withURL:(NSString *)result {
+    NSURLComponents *components = [NSURLComponents componentsWithString:result];
+    if ([components.host isEqualToString:@"playvideo.qcloud.com"]) {
+        NSArray *pathComponents = [components.path componentsSeparatedByString:@"/"];
+        if (pathComponents.count != 5) {
+            return NO;
+        }
+        NSString *appID = pathComponents[3];
+        NSString *fileID =  pathComponents[4];
+
+        NSMutableDictionary *paramDict = [NSMutableDictionary dictionaryWithCapacity:components.queryItems.count];
+        for (NSURLQueryItem *item in components.queryItems) {
+            if (item.value) {
+                paramDict[item.name] = item.value;
+            }
+        }
+        model.appId = [appID integerValue];
+        model.videoId = [[SuperPlayerVideoId alloc] init];
+        model.videoId.fileId = fileID;
+        if (paramDict[@"pcfg"]) {
+            [model.videoId setValue:paramDict[@"pcfg"] forKey:@"pcfg"];
+        }
+        model.videoId.psign = paramDict[@"psign"];
+        return YES;
+    } else if ([components.host isEqualToString:@"play_vod"]) {
+        NSMutableDictionary *paramDict = [NSMutableDictionary dictionaryWithCapacity:components.queryItems.count];
+        for (NSURLQueryItem *item in components.queryItems) {
+            if (item.value) {
+                paramDict[item.name] = item.value;
+            }
+        }
+        model.appId = [paramDict[@"appId"] integerValue];
+        model.videoId = [[SuperPlayerVideoId alloc] init];
+        model.videoId.fileId = paramDict[@"fileId"];
+        if (paramDict[@"pcfg"]) {
+            [model.videoId setValue:paramDict[@"pcfg"] forKey:@"pcfg"];
+        }        model.videoId.psign = paramDict[@"psign"];
+        return YES;
+    }
+    return NO;
+}
+
 - (void)onScanResult:(NSString *)result
 {
     self.textView.text = result;
     SuperPlayerModel *model = [SuperPlayerModel new];
-    
-    model.videoURL         = result;
-    
+    BOOL isLive = self.playerView.isLive;
+    if ([result hasPrefix:@"txsuperplayer://"]) {
+        [self _fillModel:model withURL:result];
+        isLive = NO;
+    } else if ([result hasPrefix:@"https://playvideo.qcloud.com/getplayinfo/v4"]) {
+        if ([self _fillModel:model withURL:result]) {
+            isLive = NO;
+        } else {
+            model.videoURL = result;
+        }
+    } else {
+        model.videoURL = result;
+    }
     [self.playerView.controlView setTitle:@"这是新播放的视频"];
     [self.playerView.coverImageView setImage:nil];
     [self.playerView playWithModel:model];
@@ -499,12 +584,15 @@ __weak UITextField *urlField;
     ListVideoModel *m = [ListVideoModel new];
     m.url = result;
     m.type = self.playerView.isLive;
-    if (self.playerView.isLive) {
-        m.title = [NSString stringWithFormat:@"视频%lu",_liveDataSourceArray.count+1];
+    if (isLive) {
+        m.title = [NSString stringWithFormat:@"视频%lu",(unsigned long)_liveDataSourceArray.count+1];
         [_liveDataSourceArray addObject:m];
         [_liveListView reloadData];
     } else {
-        m.title = [NSString stringWithFormat:@"视频%lu",_vodDataSourceArray.count+1];
+        if (model.videoId) {
+            [m setModel:model];
+        }
+        m.title = [NSString stringWithFormat:@"视频%lu",(unsigned long)_vodDataSourceArray.count+1];
         [_vodDataSourceArray addObject:m];
         [_vodListView reloadData];
     }
@@ -550,7 +638,7 @@ __weak UITextField *urlField;
             
             ListVideoModel *m = [ListVideoModel new];
             m.url = urlField.text;
-            m.title = [NSString stringWithFormat:@"视频%lu",self.liveDataSourceArray.count+1];
+            m.title = [NSString stringWithFormat:@"视频%lu",(unsigned  long)self.liveDataSourceArray.count+1];
             m.type = 1;
             [self.liveDataSourceArray addObject:m];
             [self.liveListView reloadData];
@@ -559,7 +647,9 @@ __weak UITextField *urlField;
         self.playerView.isLockScreen = isLock;
     }]];
      
-    [control addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+    [control addAction:[UIAlertAction actionWithTitle:@"取消"
+                                                style:UIAlertActionStyleCancel
+                                              handler:^(UIAlertAction * _Nonnull action) {
         self.playerView.isLockScreen = isLock;
     }]];
     

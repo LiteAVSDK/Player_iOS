@@ -2,6 +2,7 @@
 #import "SuperPlayer.h"
 #import "SuperPlayerModel.h"
 #import "SuperPlayerViewConfig.h"
+#import "SPVideoFrameDescription.h"
 
 @class SuperPlayerControlView;
 @class SuperPlayerView;
@@ -73,6 +74,8 @@ typedef NS_ENUM(NSInteger, SuperPlayerLayoutStyle) {
 @property BOOL autoPlay;
 /// 视频总时长
 @property (nonatomic) CGFloat playDuration;
+/// 原始视频总时长，主要用于试看场景下显示总时长
+@property (nonatomic) NSTimeInterval originalDuration;
 /// 视频当前播放时间
 @property (nonatomic) CGFloat playCurrentTime;
 /// 起始播放时间，用于从上次位置开播
@@ -90,7 +93,7 @@ typedef NS_ENUM(NSInteger, SuperPlayerLayoutStyle) {
 /**
  * 打点信息
  */
-@property NSArray *keyFrameDescList;
+@property NSArray<SPVideoFrameDescription *> *keyFrameDescList;
 /**
  * 播放model
  */

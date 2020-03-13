@@ -7,34 +7,40 @@
 //
 
 #import "TXMoviePlayerNetApi.h"
-#define BASE_URL_S @"https://playvideo.qcloud.com/getplayinfo/v2"
-#define BASE_URL @"http://playvideo.qcloud.com/getplayinfo/v2"
+#define BASE_URL_S @"https://playvideo.qcloud.com/getplayinfo/v4"
+#define BASE_URL @"http://playvideo.qcloud.com/getplayinfo/v4"
 
 @implementation TXMoviePlayerNetApi{
     NSURLSession *_session;
 }
 
-- (int)getplayinfo:(NSInteger)appId fileId:(NSString *)fileId timeout:(NSString *)timeout us:(NSString *)us exper:(int)exper sign:(NSString *)sign {
+- (int)getplayinfo:(NSInteger)appId
+            fileId:(NSString *)fileId
+             psign:(NSString *)psign
+        completion:(void(^)(TXMoviePlayInfoResponse *resp, NSError *error))completion
+{
     
     if (appId == 0 || fileId.length == 0) {
         NSLog(@"参数错误");
-        [self.delegate onNetFailed:self reason:@"参数错误" code:-1];
+        if (completion) {
+            NSError *error = [NSError errorWithDomain:NSStringFromClass([self class])
+                                                 code:-1
+                                             userInfo:@{
+                                                 NSLocalizedDescriptionKey: @"参数错误"
+                                             }];
+            completion(nil, error);
+        }
+
+//        [self.delegate onNetFailed:self reason:@"参数错误" code:-1];
         return -1;
     }
     
     NSMutableDictionary *params = [NSMutableDictionary new];
-    if (timeout) {
-        [params setValue:timeout forKey:@"t"];
+    
+    if (psign) {
+        params[@"psign"] = psign;
     }
-    if (us) {
-        [params setValue:us forKey:@"us"];
-    }
-    if (sign) {
-        [params setValue:sign forKey:@"sign"];
-    }
-    if (exper >= 0) {
-        [params setValue:@(exper) forKey:@"exper"];
-    }
+
     NSString *httpBodyString = [self makeParamtersString:params withEncoding:NSUTF8StringEncoding];
     NSString *urlStr = [NSString stringWithFormat:@"%@/%ld/%@", self.https?BASE_URL_S:BASE_URL, (long)appId, fileId];
     if (httpBodyString) {
@@ -50,12 +56,26 @@
     NSURLSessionConfiguration *defaultConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
         _session = [NSURLSession sessionWithConfiguration:defaultConfig delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
     }
-    __weak __typeof__(self) weakSelf = self;
+//    __weak __typeof__(self) weakSelf = self;
     NSURLSessionDataTask *dataTask = [_session dataTaskWithRequest:request completionHandler:^(NSData * __nullable data, NSURLResponse * __nullable response, NSError * __nullable error) {
-        __strong __typeof__(weakSelf) strongSelf = weakSelf;
-        
+//        __strong __typeof__(weakSelf) strongSelf = weakSelf;
+        if (error) {
+            if (completion) {
+                completion(nil, error);
+            }
+            return;
+        }
+
         if (data.length == 0) {
-            [strongSelf.delegate onNetFailed:strongSelf reason:@"请求失败" code:-1];
+            if (completion) {
+                NSError *error = [NSError errorWithDomain:NSStringFromClass([self class])
+                                                     code:-1
+                                                 userInfo:@{
+                                                     NSLocalizedDescriptionKey: @"请求失败",
+                                                     NSLocalizedFailureReasonErrorKey: @"内容为空"
+                                                 }];
+                completion(nil, error);
+            }
             return ;
         }
         //拿到响应头信息
@@ -65,7 +85,15 @@
             NSError *error;
             NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:(NSJSONReadingMutableLeaves) error:&error];
             if (dict == nil) {
-                [strongSelf.delegate onNetFailed:strongSelf reason:@"格式错误" code:-2];
+                if (completion) {
+                    NSError *error = [NSError errorWithDomain:NSStringFromClass([self class])
+                                                         code:-2
+                                                     userInfo:@{
+                                                         NSLocalizedDescriptionKey: @"格式错误"
+                                                     }];
+                    completion(nil, error);
+                }
+//                [strongSelf.delegate onNetFailed:strongSelf reason:@"格式错误" code:-2];
                 return;
             }
             
@@ -73,20 +101,38 @@
                 int code = [[dict objectForKey:@"code"] intValue];
                 if (code != 0) {
                     NSLog(@"请求失败: %s", [dict[@"message"] UTF8String]);
-                    [strongSelf.delegate onNetFailed:strongSelf
-                                              reason:dict[@"message"]
-                                                code:code];
+                    NSError *error = [NSError errorWithDomain:NSStringFromClass([self class])
+                                                         code:code
+                                                     userInfo:@{
+                                                         NSLocalizedDescriptionKey: dict[@"message"]
+                                                     }];
+                    completion(nil, error);
+
+//                    [strongSelf.delegate onNetFailed:strongSelf
+//                                              reason:dict[@"message"]
+//                                                code:code];
                     return;
                 }
             }
-            strongSelf.playInfo = [[TXMoviePlayInfoResponse alloc] initWithResponse:dict];
-            strongSelf.playInfo.appId = appId;
-            strongSelf.playInfo.fileId = fileId;
-            [strongSelf.delegate onNetSuccess:self];
+
+            TXMoviePlayInfoResponse *playInfo = [[TXMoviePlayInfoResponse alloc] initWithResponse:dict];
+            playInfo.appId = appId;
+            playInfo.fileId = fileId;
+            if (completion) {
+                completion(playInfo, nil);
+            }
+//            [strongSelf.delegate onNetSuccess:self];
         } @catch (NSException *exception) {
             NSLog(@"%@", exception);
             NSLog(@"%@", [[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding]);
-            [strongSelf.delegate onNetFailed:strongSelf reason:@"格式错误" code:-2];
+            if (completion) {
+                NSError *error = [NSError errorWithDomain:NSStringFromClass([self class])
+                                                     code:-2
+                                                 userInfo:@{
+                                                     NSLocalizedDescriptionKey: @"格式错误"
+                                                 }];
+                completion(nil, error);
+            }
         }
     }];
     

@@ -26,7 +26,7 @@
 /** 返回按钮*/
 @property (nonatomic, strong) UIButton                *backBtn;
 /// 是否禁用返回
-@property BOOL                                        disableBackBtn;
+@property  (nonatomic) BOOL                           disableBackBtn;
 /** bottomView*/
 @property (nonatomic, strong) UIImageView             *bottomImageView;
 /** topView */
@@ -34,15 +34,15 @@
 /** 弹幕按钮 */
 @property (nonatomic, strong) UIButton                *danmakuBtn;
 /// 是否禁用弹幕
-@property BOOL                                        disableDanmakuBtn;
+@property (nonatomic) BOOL                            disableDanmakuBtn;
 /** 截图按钮 */
 @property (nonatomic, strong) UIButton                *captureBtn;
 /// 是否禁用截图
-@property BOOL                                        disableCaptureBtn;
+@property (nonatomic) BOOL                            disableCaptureBtn;
 /** 更多按钮 */
 @property (nonatomic, strong) UIButton                *moreBtn;
 /// 是否禁用更多
-@property BOOL                                        disableMoreBtn;
+@property (nonatomic) BOOL                            disableMoreBtn;
 /** 切换分辨率按钮 */
 @property (nonatomic, strong) UIButton                *resolutionBtn;
 /** 分辨率的View */
@@ -58,7 +58,7 @@
 /** 分辨率的名称 */
 @property (nonatomic, strong) NSArray<NSString *>    *resolutionArray;
 /** 更多设置View */
-@property (nonatomic, strong) MoreContentView        *moreContentView;
+@property (nonatomic, strong) SuperPlayerSettingsView        *moreContentView;
 /** 返回直播 */
 @property (nonatomic, strong) UIButton               *backLiveBtn;
 
@@ -76,5 +76,4 @@
 @property (nonatomic, assign,getter=isLockScreen)BOOL isLockScreen;
 @property (nonatomic, strong) UIButton               *pointJumpBtn;
 
-@property BOOL isLive;
 @end

@@ -14,6 +14,7 @@
 #import "SuperPlayer.h"
 
 @interface SPWeiboControlView() <PlayerSliderDelegate>
+@property BOOL isLive;
 @end
 
 @implementation SPWeiboControlView
@@ -198,9 +199,9 @@
     return _resolutionView;
 }
 
-- (MoreContentView *)moreContentView {
+- (SuperPlayerSettingsView *)moreContentView {
     if (!_moreContentView) {
-        _moreContentView = [[MoreContentView alloc] initWithFrame:CGRectZero];
+        _moreContentView = [[SuperPlayerSettingsView alloc] initWithFrame:CGRectZero];
         _moreContentView.controlView = self;
         [self addSubview:_moreContentView];
         [_moreContentView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -236,6 +237,9 @@
 }
 
 - (void)progressSliderValueChanged:(UISlider *)sender {
+    if (self.maxPlayableRatio > 0 && sender.value * self.maxPlayableRatio) {
+        sender.value = self.maxPlayableRatio;
+    }
     [self.delegate controlViewPreview:self where:sender.value];
 }
 
@@ -319,7 +323,7 @@
     }
     
     self.moreContentView.playerConfig = self.playerConfig;
-    self.moreContentView.isLive = self.isLive;
+    self.moreContentView.enableSpeedAndMirrorControl = !self.isLive;
     [self.moreContentView update];
     self.moreContentView.hidden = NO;
     
@@ -327,18 +331,21 @@
     self.isShowSecondView = YES;
 }
 
-- (void)playerBegin:(SuperPlayerModel *)model
-             isLive:(BOOL)isLive
-     isTimeShifting:(BOOL)isTimeShifting
-         isAutoPlay:(BOOL)isAutoPlay
+- (void)resetWithResolutionNames:(NSArray<NSString *> *)resolutionNames
+          currentResolutionIndex:(NSUInteger)currentResolutionIndex
+                          isLive:(BOOL)isLive
+                  isTimeShifting:(BOOL)isTimeShifting
+                       isPlaying:(BOOL)isPlaying
 {
-    [self setPlayState:isAutoPlay];
+    [self setPlayState:isPlaying];
 
-//    _resolutionArray = model.playDefinitions;
-    if (model.playingDefinition != nil) {
-        [_resolutionBtn setTitle:model.playingDefinition forState:UIControlStateNormal];
+    _resolutionArray = resolutionNames;
+    NSAssert(resolutionNames == nil || currentResolutionIndex < resolutionNames.count,
+             @"Invalid argument when reseeting %@", NSStringFromClass(self.class));
+    if (resolutionNames.count > 0) {
+        [self.resolutionBtn setTitle:resolutionNames[currentResolutionIndex]
+                            forState:UIControlStateNormal];
     }
-    
     for (UIView *subview in self.resolutionView.subviews)
         [subview removeFromSuperview];
     
@@ -368,7 +375,7 @@
             make.centerY.equalTo(self.resolutionView.mas_centerY).offset((i-self.resolutionArray.count/2.0+0.5)*45);
         }];
         
-        if ([_resolutionArray[i] isEqualToString:model.playingDefinition]) {
+        if (i == currentResolutionIndex) {
             btn.selected = YES;
             btn.backgroundColor = RGBA(34, 30, 24, 1);
             self.resoultionCurrentBtn = btn;
@@ -434,7 +441,7 @@
     }
     [self.videoSlider.pointArray removeAllObjects];
     
-    for (SuperPlayerVideoPoint *p in pointArray) {
+    for (SPVideoFrameDescription *p in pointArray) {
         PlayerPoint *point = [self.videoSlider addPoint:p.where];
         point.content = p.text;
         point.timeOffset = p.time;

@@ -1,12 +1,12 @@
 //
-//  SuperPlayerMoreView.m
+//  SuperPlayerSettingsView.m
 //  TXLiteAVDemo
 //
 //  Created by annidyfeng on 2018/7/4.
 //  Copyright © 2018年 Tencent. All rights reserved.
 //
 
-#import "MoreContentView.h"
+#import "SuperPlayerSettingsView.h"
 #import "UIView+MMLayout.h"
 #import "SuperPlayer.h"
 #import <MediaPlayer/MediaPlayer.h>
@@ -20,7 +20,7 @@
 #define TAG_3_SPEED 1003
 #define TAG_4_SPEED 1004
 
-@interface MoreContentView()
+@interface SuperPlayerSettingsView()
 @property (nonatomic) UIView *soundCell;
 @property (nonatomic) UIView *ligthCell;
 @property (nonatomic) UIView *speedCell;
@@ -30,7 +30,7 @@
 @property NSDate *volumeEndTime;
 @end
 
-@implementation MoreContentView {
+@implementation SuperPlayerSettingsView {
     NSInteger  _contentHeight;
     NSInteger  _speedTag;
     
@@ -83,7 +83,7 @@
     _contentHeight += _ligthCell.mm_h;
 
     
-    if (!self.isLive) {
+    if (self.enableSpeedAndMirrorControl) {
         _speedCell.mm_top(_contentHeight);
         _contentHeight += _speedCell.mm_h;
         

@@ -11,9 +11,13 @@
 #import "TXMoviePlayerNetDelegate.h"
 
 @interface TXMoviePlayerNetApi : NSObject
-@property (weak) id<TXMoviePlayerNetDelegate> delegate;
+//@property (weak) id<TXMoviePlayerNetDelegate> delegate;
 @property TXMoviePlayInfoResponse *playInfo;
 @property BOOL https;
 
-- (int)getplayinfo:(NSInteger)appid fileId:(NSString *)fileId timeout:(NSString *)timeout us:(NSString *)us exper:(int)exper sign:(NSString *)sign;
+- (int)getplayinfo:(NSInteger)appId
+            fileId:(NSString *)fileId
+             psign:(NSString *)psign
+        completion:(void(^)(TXMoviePlayInfoResponse *resp, NSError *error))completion;
+
 @end

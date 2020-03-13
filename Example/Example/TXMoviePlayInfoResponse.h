@@ -8,21 +8,19 @@
 
 #import <Foundation/Foundation.h>
 
-
 @interface TXMoviePlayInfoResponse : NSObject
 
-@property (copy) NSDictionary *responseDict;
+@property (nonatomic, readonly) NSDictionary *responseDict;
 
-@property (readonly) NSString *coverUrl;
-@property (readonly) NSString *name;
-@property (readonly) NSString *videoDescription;
-@property (readonly) int      duration;
-@property (readonly) NSString *title;
+@property (nonatomic, readonly) NSString *coverUrl;
+@property (nonatomic, readonly) NSString *name;
+@property (nonatomic, readonly) NSString *videoDescription;
+@property (nonatomic, readonly) int      duration;
+@property (nonatomic, readonly) NSString *title;
 
 @property NSInteger appId;
 @property NSString *fileId;
 
 - (instancetype)initWithResponse:(NSDictionary *)dict;
-
 
 @end
