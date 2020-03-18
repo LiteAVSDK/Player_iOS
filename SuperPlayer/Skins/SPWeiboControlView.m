@@ -336,6 +336,7 @@
                           isLive:(BOOL)isLive
                   isTimeShifting:(BOOL)isTimeShifting
                        isPlaying:(BOOL)isPlaying
+                      videoModel:(SuperPlayerModel *)model
 {
     [self setPlayState:isPlaying];
 

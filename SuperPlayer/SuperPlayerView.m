@@ -299,7 +299,8 @@ static UISlider * _volumeSlider;
                     currentResolutionIndex:self.playerModel.playingDefinitionIndex
                                     isLive:isLive
                             isTimeShifting:isShiftPlayback
-                                 isPlaying:isPlaying];
+                                 isPlaying:isPlaying
+                                videoModel:self.playerModel];
 }
 
 #pragma mark - Private Method

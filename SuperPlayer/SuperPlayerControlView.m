@@ -37,7 +37,8 @@
           currentResolutionIndex:(NSUInteger)resolutionIndex
                           isLive:(BOOL)isLive
                   isTimeShifting:(BOOL)isTimeShifting
-                      isPlaying:(BOOL)isAutoPlay
+                       isPlaying:(BOOL)isAutoPlay
+                      videoModel:(SuperPlayerModel *)model
 {
     
 }
