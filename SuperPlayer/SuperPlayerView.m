@@ -1099,7 +1099,7 @@ static UISlider * _volumeSlider;
     return YES;
 }
 
-#pragma mark - Setter 
+#pragma mark - Setter
 
 
 /**
@@ -1434,9 +1434,21 @@ static UISlider * _volumeSlider;
             self.isLoaded = YES;
             [self _removeOldPlayer];
             [self.vodPlayer setupVideoWidget:self insertIndex:0];
+            
+            if ([self.delegate respondsToSelector:@selector(superPlayerVideoViewReady:)]) {
+                [self.delegate superPlayerVideoViewReady:self];
+            }
+            
             [self layoutSubviews];  // 防止横屏状态下添加view显示不全
             self.state = StatePlaying;
 
+            if (EvtID == PLAY_EVT_RCV_FIRST_I_FRAME) {
+                if ([self.delegate respondsToSelector:@selector(superPlayerDidCached:)]) {
+                    [self.delegate superPlayerDidCached:self];
+                }
+            }
+            
+            
 //            if (self.playerModel.playDefinitions.count == 0) {
                 [self updateBitrates:player.supportedBitrates];
 //            }
