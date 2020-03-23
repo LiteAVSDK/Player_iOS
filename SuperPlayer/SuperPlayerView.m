@@ -1643,13 +1643,17 @@ static UISlider * _volumeSlider;
 - (int)livePlayerType {
     int playType = -1;
     NSString *videoURL = self.playerModel.playingDefinitionUrl;
-    if ([videoURL hasPrefix:@"rtmp:"]) {
+    NSURLComponents *components = [NSURLComponents componentsWithString:videoURL];
+    NSString *scheme = [[components scheme] lowercaseString];
+    if ([scheme isEqualToString:@"rtmp"]) {
         playType = PLAY_TYPE_LIVE_RTMP;
-    } else if (([videoURL hasPrefix:@"https:"] || [videoURL hasPrefix:@"http:"]) && ([videoURL rangeOfString:@".flv"].length > 0)) {
+    } else if ([scheme hasPrefix:@"http"]
+               && [[components path].lowercaseString hasSuffix:@".flv"]) {
         playType = PLAY_TYPE_LIVE_FLV;
     }
     return playType;
 }
+
 
 - (void)reportPlay {
     if (self.reportTime == nil)
