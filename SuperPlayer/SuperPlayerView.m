@@ -163,15 +163,15 @@ static UISlider * _volumeSlider;
 - (void)_playWithModel:(SuperPlayerModel *)playerModel {
     [_currentLoadingTask cancel];
     _currentLoadingTask = nil;
-    
+
     _playerModel = playerModel;
-    
+
     [self pause];
     
     NSString *videoURL = playerModel.playingDefinitionUrl;
     if (videoURL != nil) {
         [self configTXPlayer];
-    } else if (playerModel.videoId) {
+    } else if (playerModel.videoId || playerModel.videoIdV2) {
         self.isLive = NO;
         __weak __typeof(self) weakSelf = self;
         _currentLoadingTask = [_playerModel requestWithCompletion:
