@@ -10,10 +10,10 @@ Pod::Spec.new do |spec|
     spec.ios.deployment_target = '8.0'
     spec.requires_arc = true
 
-    spec.dependency 'AFNetworking'
-    spec.dependency 'SDWebImage'
-    spec.dependency 'Masonry'
-    spec.dependency 'MMLayout'
+    spec.dependency 'AFNetworking', '~> 4.0'
+    spec.dependency 'SDWebImage', '~> 5.0'
+    spec.dependency 'Masonry', '~> 1.1.0'
+    spec.dependency 'MMLayout', '~> 0.3.0'
 
     spec.static_framework = true
     spec.default_subspec = 'Player'

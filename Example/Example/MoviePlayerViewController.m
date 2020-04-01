@@ -82,7 +82,7 @@ __weak UITextField *urlField;
 
 - (void)dealloc {
     NSLog(@"%@释放了",self.class);
-    [_manager invalidateSessionCancelingTasks:YES];
+    [_manager invalidateSessionCancelingTasks:YES resetSession:YES];
 }
 
 - (void)willMoveToParentViewController:(nullable UIViewController *)parent
@@ -344,7 +344,11 @@ __weak UITextField *urlField;
     // Refresh Video list
     AFHTTPSessionManager *manager = self.manager;
     __weak __typeof(self) weakSelf = self;
-    [manager GET:@"http://xzb.qcloud.com/get_live_list" parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    [manager GET:@"http://xzb.qcloud.com/get_live_list"
+      parameters:nil
+         headers:nil
+        progress:nil
+         success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         __strong __typeof(weakSelf) self = weakSelf;
         if ([J2Num([responseObject valueForKeyPath:@"code"]) intValue] != 200) {
             [self hudMessage:@"直播列表请求失败"];
