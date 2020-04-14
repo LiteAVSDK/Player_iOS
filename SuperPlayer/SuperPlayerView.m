@@ -70,6 +70,16 @@ static UISlider * _volumeSlider;
     _fullScreenBlackView = [UIView new];
     _fullScreenBlackView.backgroundColor = [UIColor blackColor];
     
+    CGFloat offset = 80.0f;
+    self.playerBackView = [UIView new];
+    [self addSubview:_playerBackView];
+    [self.playerBackView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.leading.mas_equalTo(self).offset(-offset);
+        make.top.mas_equalTo(self).offset(-offset);
+        make.trailing.mas_equalTo(self).offset(offset);
+        make.bottom.mas_equalTo(self).offset(offset);
+    }];
+    
     // 单例slider
     _volumeSlider = nil;
     for (UIView *view in [self.volumeView subviews]){
@@ -1432,7 +1442,7 @@ static UISlider * _volumeSlider;
             [self layoutIfNeeded];
             self.isLoaded = YES;
             [self _removeOldPlayer];
-            [self.vodPlayer setupVideoWidget:self insertIndex:0];
+            [self.vodPlayer setupVideoWidget:self.playerBackView insertIndex:0];
             [self layoutSubviews];  // 防止横屏状态下添加view显示不全
             self.state = StatePlaying;
 
