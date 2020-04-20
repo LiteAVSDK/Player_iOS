@@ -31,6 +31,11 @@
 /** 滑动预览，pos 0~1 */
 - (void)controlViewPreview:(UIView *)controlView where:(CGFloat)pos;
 
+/** 清屏 */
+- (void)controlViewPreview:(UIView *)controlView clearScreen:(BOOL)isClear;
+/** 调节水印层透明度 */
+- (void)controlViewPreview:(UIView *)controlView waterMarkAlpha:(CGFloat)alpha;
+
 @end
 
 
