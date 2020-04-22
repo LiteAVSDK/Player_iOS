@@ -1108,7 +1108,7 @@ static UISlider * _volumeSlider;
     return YES;
 }
 
-#pragma mark - Setter 
+#pragma mark - Setter
 
 
 /**

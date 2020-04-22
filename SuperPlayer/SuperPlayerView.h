@@ -13,6 +13,10 @@
 - (void)superPlayerBackAction:(SuperPlayerView *)player;
 /// 全屏改变通知
 - (void)superPlayerFullScreenChanged:(SuperPlayerView *)player;
+/// 预加载完成通知
+- (void)superPlayerDidCached:(SuperPlayerView *)player;
+/// 播放器已附加到父 View 通知
+- (void)superPlayerVideoViewReady:(SuperPlayerView *)player;
 /// 播放开始通知
 - (void)superPlayerDidStart:(SuperPlayerView *)player;
 /// 播放结束通知
