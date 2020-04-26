@@ -406,7 +406,9 @@ static UISlider * _volumeSlider;
 //        }
 
         config.headers = self.playerConfig.headers;
-        
+        config.connectRetryCount = 2;
+        config.connectRetryInterval = 1;
+        config.timeout = 5;
         [self.vodPlayer setConfig:config];
         
         self.vodPlayer.enableHWAcceleration = self.playerConfig.hwAcceleration;
@@ -457,7 +459,7 @@ static UISlider * _volumeSlider;
     self.doubleTap.delegate                = self;
     self.doubleTap.numberOfTouchesRequired = 1; //手指数
     self.doubleTap.numberOfTapsRequired    = 2;
-    [self addGestureRecognizer:self.doubleTap];
+//    [self addGestureRecognizer:self.doubleTap];
 
     // 解决点击当前view时候响应其他控件事件
     [self.singleTap setDelaysTouchesBegan:YES];
@@ -536,7 +538,7 @@ static UISlider * _volumeSlider;
         [[UIApplication sharedApplication].keyWindow addSubview:self];
         [self mas_remakeConstraints:^(MASConstraintMaker *make) {
             if (IsIPhoneX) {
-                make.width.equalTo(@(ScreenHeight - self.mm_safeAreaTopGap * 2));
+                make.width.equalTo(@(ScreenHeight));
             } else {
                 make.width.equalTo(@(ScreenHeight));
             }
@@ -820,7 +822,7 @@ static UISlider * _volumeSlider;
  *  屏幕方向发生变化会调用这里
  */
 - (void)onDeviceOrientationChange {
-    if (!self.isLoaded) { return; }
+//    if (!self.isLoaded) { return; } /// Loading 状态也要能横屏，否则 front loading，则 back 直接显示了
     if (self.isLockScreen) { return; }
     if (self.didEnterBackground) { return; };
     if (SuperPlayerWindowShared.isShowing) { return; }
@@ -913,8 +915,8 @@ static UISlider * _volumeSlider;
             CGFloat y = fabs(veloctyPoint.y);
             if (x > y) { // 水平移动
                 // 取消隐藏
-                self.panDirection = PanDirectionHorizontalMoved;
-                self.sumTime      = [self playCurrentTime];
+//                self.panDirection = PanDirectionHorizontalMoved;
+//                self.sumTime      = [self playCurrentTime];
             }
             else if (x < y){ // 垂直移动
                 self.panDirection = PanDirectionVerticalMoved;
@@ -931,10 +933,10 @@ static UISlider * _volumeSlider;
         }
         case UIGestureRecognizerStateChanged:{ // 正在移动
             switch (self.panDirection) {
-                case PanDirectionHorizontalMoved:{
-                    [self horizontalMoved:veloctyPoint.x]; // 水平移动的方法只要x方向的值
-                    break;
-                }
+//                case PanDirectionHorizontalMoved:{
+//                    [self horizontalMoved:veloctyPoint.x]; // 水平移动的方法只要x方向的值
+//                    break;
+//                }
                 case PanDirectionVerticalMoved:{
                     [self verticalMoved:veloctyPoint.y]; // 垂直移动方法只要y方向的值
                     break;
@@ -949,13 +951,13 @@ static UISlider * _volumeSlider;
             // 移动结束也需要判断垂直或者平移
             // 比如水平移动结束时，要快进到指定位置，如果这里没有判断，当我们调节音量完之后，会出现屏幕跳动的bug
             switch (self.panDirection) {
-                case PanDirectionHorizontalMoved:{
-                    self.isPauseByUser = NO;
-                    [self seekToTime:self.sumTime];
-                    // 把sumTime滞空，不然会越加越多
-                    self.sumTime = 0;
-                    break;
-                }
+//                case PanDirectionHorizontalMoved:{
+//                    self.isPauseByUser = NO;
+//                    [self seekToTime:self.sumTime];
+//                    // 把sumTime滞空，不然会越加越多
+//                    self.sumTime = 0;
+//                    break;
+//                }
                 case PanDirectionVerticalMoved:{
                     // 垂直移动结束后，把状态改为不再控制音量
                     self.isVolume = NO;
@@ -1347,6 +1349,14 @@ static UISlider * _volumeSlider;
         [_livePlayer snapshot:block];
     } else {
         [_vodPlayer snapshot:block];
+    }
+}
+
+- (void)snapShot:(void (^)(UIImage *))snapshotCompletionBlock {
+    if (_isLive) {
+        [_livePlayer snapshot:snapshotCompletionBlock];
+    } else {
+        [_vodPlayer snapshot:snapshotCompletionBlock];
     }
 }
 

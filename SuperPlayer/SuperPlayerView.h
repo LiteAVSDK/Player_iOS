@@ -128,4 +128,6 @@ typedef NS_ENUM(NSInteger, SuperPlayerLayoutStyle) {
  */
 - (void)seekToTime:(NSInteger)dragedSeconds;
 
+- (void)snapShot:(void (^)(UIImage *))snapshotCompletionBlock;
+
 @end
