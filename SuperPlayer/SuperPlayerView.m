@@ -406,9 +406,9 @@ static UISlider * _volumeSlider;
 //        }
 
         config.headers = self.playerConfig.headers;
-        config.connectRetryCount = 2;
-        config.connectRetryInterval = 1;
-        config.timeout = 5;
+        config.connectRetryCount = 4;
+        config.connectRetryInterval = 2;
+        config.timeout = 7;
         [self.vodPlayer setConfig:config];
         
         self.vodPlayer.enableHWAcceleration = self.playerConfig.hwAcceleration;
@@ -1252,10 +1252,7 @@ static UISlider * _volumeSlider;
 }
 
 - (void)controlViewBackAction:(id)sender {
-    if (self.isFullScreen) {
-        self.isFullScreen = NO;
-        return;
-    }
+    
     if ([self.delegate respondsToSelector:@selector(superPlayerBackAction:)]) {
         [self.delegate superPlayerBackAction:self];
     }

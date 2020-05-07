@@ -52,6 +52,7 @@ typedef NS_ENUM(NSInteger, SuperPlayerLayoutStyle) {
 /// 设置播放器的父view。播放过程中调用可实现播放窗口转移
 @property (nonatomic, weak) UIView *fatherView;
 
+/// Vod Player 的容器 View，
 @property (nonatomic, strong) UIView *playerBackView;
 
 /// 播放器的状态
