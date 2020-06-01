@@ -9,6 +9,7 @@
 #import "SPPlayCGIParser_V2.h"
 #import "J2Obj.h"
 #import "SuperPlayerUrl.h"
+#import "TXImageSprite.h"
 
 @implementation SPPlayCGIParser_V2
 + (SPPlayCGIParseResult *)parseResponse:(NSDictionary *)responseObject {

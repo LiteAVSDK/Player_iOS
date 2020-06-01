@@ -10,6 +10,7 @@
 #import "SuperPlayer.h"
 #import "ScanQRController.h"
 #import "ViewController.h"
+#import "TXLiteAVSDK.h"
 
 static NSMutableDictionary<NSString *, TXVodDownloadMediaInfo *> *allDownloadInfo;
 static NSMutableDictionary<NSString *, NSString *> *allDownloadMsg;

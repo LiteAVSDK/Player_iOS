@@ -13,7 +13,7 @@
  * APPlog保存到沙箱路径：Library/Caches/rtmpsdk_日期.log
  *   其中日期以天为单位，每天保存一个文件，如rtmpsdk_20160901.log
  */
-@interface AppLogMgr: NSObject<TXLiveBaseDelegate>
+@interface AppLogMgr: NSObject
 
 + (instancetype)shareInstance;
 
