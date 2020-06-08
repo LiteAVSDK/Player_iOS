@@ -5,15 +5,15 @@ Pod::Spec.new do |spec|
     spec.homepage = 'https://cloud.tencent.com/product/player'
     spec.authors = { 'annidyfeng' => 'annidyfeng@tencent.com' }
     spec.summary = '超级播放器'
-    spec.source = { :git => 'https://github.com/jaxxxxxxxx/SuperPlayer_iOS.git', :tag => 'v3.2.2' }
+    spec.source = { :git => 'https://github.com/jaxxxxxxxx/SuperPlayer_iOS.git', :tag => 'v3.2.2.1' }
 
     spec.ios.deployment_target = '8.0'
     spec.requires_arc = true
 
-    spec.dependency 'AFNetworking', '~> 3.2.1'
-    spec.dependency 'SDWebImage', '~> 5.0'
-    spec.dependency 'Masonry', '~> 1.1.0'
-    spec.dependency 'MMLayout', '~> 0.3.0'
+    spec.dependency 'AFNetworking'
+    spec.dependency 'SDWebImage'
+    spec.dependency 'Masonry'
+    spec.dependency 'MMLayout'
 
     spec.static_framework = true
     spec.default_subspec = 'Player'
