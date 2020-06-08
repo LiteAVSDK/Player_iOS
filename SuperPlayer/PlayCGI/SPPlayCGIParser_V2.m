@@ -31,6 +31,7 @@
         for (NSDictionary *transcode in transcodeList) {
             SuperPlayerUrl *subModel = [SuperPlayerUrl new];
             subModel.url = J2Str(transcode[@"url"]);
+            subModel.title = J2Str(transcode[@"templateName"]) ? J2Str(transcode[@"templateName"]) : @"";
             NSNumber *theDefinition = J2Num(transcode[@"definition"]);
 
             for (NSDictionary *definition in videoClassification) {

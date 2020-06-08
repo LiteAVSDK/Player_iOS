@@ -62,7 +62,8 @@ const NSString *kPlayCGIHostname = @"playvideo.qcloud.com";
 {
     NSMutableArray *array = @[].mutableCopy;
     for (int i = 0; i < self.multiVideoURLs.count; i++) {
-        [array addObject:self.multiVideoURLs[i].title];
+        NSString *title = self.multiVideoURLs[i].title ? self.multiVideoURLs[i].title : @"";
+        [array addObject:title];
     }
     return array;
 }
