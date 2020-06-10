@@ -6,7 +6,7 @@
 //
 
 #import "TXBitrateItemHelper.h"
-
+#import "TXBitrateItem.h"
 
 @implementation TXBitrateItemHelper
 

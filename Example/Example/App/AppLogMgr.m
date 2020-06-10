@@ -7,15 +7,17 @@
 //
 
 #import "AppLogMgr.h"
+#import "TXLiteAVSDK.h"
 
-@implementation AppLogMgr
+@interface AppLogMgr() <TXLiveBaseDelegate>
 {
     NSString*   _logFilePath;
     FILE*       _pFileHandle;
 }
+@end
 
 static AppLogMgr *_shareInstance = nil;
-
+@implementation AppLogMgr 
 + (instancetype)shareInstance
 {
     static dispatch_once_t predicate;

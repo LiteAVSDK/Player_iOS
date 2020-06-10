@@ -12,8 +12,9 @@
 #import "AdaptiveStream.h"
 #import "SuperPlayerSprite.h"
 #import "SPVideoFrameDescription.h"
-#import "TXImageSprite.h"
 #import "SuperPlayerUrl.h"
+
+@class TXImageSprite;
 
 NS_ASSUME_NONNULL_BEGIN
 

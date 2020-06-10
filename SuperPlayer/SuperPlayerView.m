@@ -12,6 +12,7 @@
 #import "UIView+MMLayout.h"
 #import "SPDefaultControlView.h"
 #import "SuperPlayerModelInternal.h"
+#import "TXLiteAVSDK.h"
 
 static UISlider * _volumeSlider;
 
@@ -22,14 +23,14 @@ static UISlider * _volumeSlider;
 #pragma clang diagnostic ignored"-Wdeprecated-declarations"
 
 
-
-
-@implementation SuperPlayerView {
+@interface SuperPlayerView() <TXVodPlayListener, TXLivePlayListener, TXLiveBaseDelegate> {
     UIView *_fullScreenBlackView;
     SuperPlayerControlView *_controlView;
     NSURLSessionTask *_currentLoadingTask;
 }
+@end
 
+@implementation SuperPlayerView
 
 #pragma mark - life Cycle
 
@@ -172,15 +173,15 @@ static UISlider * _volumeSlider;
 - (void)_playWithModel:(SuperPlayerModel *)playerModel {
     [_currentLoadingTask cancel];
     _currentLoadingTask = nil;
-    
+
     _playerModel = playerModel;
-    
+
     [self pause];
     
     NSString *videoURL = playerModel.playingDefinitionUrl;
     if (videoURL != nil) {
         [self configTXPlayer];
-    } else if (playerModel.videoId) {
+    } else if (playerModel.videoId || playerModel.videoIdV2) {
         self.isLive = NO;
         __weak __typeof(self) weakSelf = self;
         _currentLoadingTask = [_playerModel requestWithCompletion:
@@ -1662,13 +1663,17 @@ static UISlider * _volumeSlider;
 - (int)livePlayerType {
     int playType = -1;
     NSString *videoURL = self.playerModel.playingDefinitionUrl;
-    if ([videoURL hasPrefix:@"rtmp:"]) {
+    NSURLComponents *components = [NSURLComponents componentsWithString:videoURL];
+    NSString *scheme = [[components scheme] lowercaseString];
+    if ([scheme isEqualToString:@"rtmp"]) {
         playType = PLAY_TYPE_LIVE_RTMP;
-    } else if (([videoURL hasPrefix:@"https:"] || [videoURL hasPrefix:@"http:"]) && ([videoURL rangeOfString:@".flv"].length > 0)) {
+    } else if ([scheme hasPrefix:@"http"]
+               && [[components path].lowercaseString hasSuffix:@".flv"]) {
         playType = PLAY_TYPE_LIVE_FLV;
     }
     return playType;
 }
+
 
 - (void)reportPlay {
     if (self.reportTime == nil)
