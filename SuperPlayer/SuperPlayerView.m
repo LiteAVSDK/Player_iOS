@@ -587,7 +587,7 @@ static UISlider * _volumeSlider;
     }
     self.controlView.compact = style == SuperPlayerLayoutStyleCompact;
 
-    [[UIApplication sharedApplication].keyWindow  layoutIfNeeded];
+//    [[UIApplication sharedApplication].keyWindow  layoutIfNeeded];
 
 
     // iOS6.0之后,设置状态条的方法能使用的前提是shouldAutorotate为NO,也就是说这个视图控制器内,旋转要关掉;
@@ -688,6 +688,9 @@ static UISlider * _volumeSlider;
         } else {
             [self.controlView fadeOut:0.2];
         }
+
+        /// 触摸时强制收起键盘
+        [self.fatherView.mm_viewController.view endEditing:YES];
     }
 }
 

@@ -7,6 +7,7 @@
 
 @protocol SuperPlayerControlViewDelegate <NSObject>
 
+@optional
 /** 返回按钮事件 */
 - (void)controlViewBack:(UIView *)controlView;
 /** 播放 */
