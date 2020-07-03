@@ -1,12 +1,10 @@
 ## 目录结构说明
 
-本目录包含 iOS 版 超级播放器(SuperPlayer) SDK 的Demo 源代码，主要演示接口如何调用以及最基本的功能。
+本目录包含 iOS 版 播放器(Player) SDK 的Demo 源代码，主要演示接口如何调用以及最基本的功能。
 
 ```
 ├─ SDK 
-|  ├─ TXLiteAVSDK_Professional.framework // 如果您下载的是专业版 zip 包，解压后将出现此文件
-|  ├─ TXLiteAVSDK_Enterprise.framework   // 如果您下载的是企业版 zip 包，解压后将出现此文件
-|  ├─ TXLiteAVSDK_Player.framework   // 超级播放器的framework静态库
+|  ├─ TXLiteAVSDK_Player.framework   // 播放器的framework静态库
 ├─ Demo // 超级播放器Demo
 └── TXLiteAVDemo
     ├── App               // 程序入口界面
