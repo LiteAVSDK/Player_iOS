@@ -6,12 +6,11 @@
 ├─ SDK 
 |  ├─ TXLiteAVSDK_Professional.framework // 如果您下载的是专业版 zip 包，解压后将出现此文件
 |  ├─ TXLiteAVSDK_Enterprise.framework   // 如果您下载的是企业版 zip 包，解压后将出现此文件
-|  ├─ TXLiteAVSDK_Player.framework   // 录屏直播需要的framework
-├─ Demo // 超级播放器Demo，包括演示直播、点播、短视频、RTC 在内的多项功能
-├── ReplaykitUpload
+|  ├─ TXLiteAVSDK_Player.framework   // 超级播放器的framework静态库
+├─ Demo // 超级播放器Demo
 └── TXLiteAVDemo
     ├── App               // 程序入口界面
-    ├── SuperPlayerDemo   // 超级播放器 Demo，ugc视频发布后，会使用超级播放器进行播放
+    ├── SuperPlayerDemo   // 超级播放器 Demo
     └── SuperPlayerKit    // 超级播放器组件
 ```
 
