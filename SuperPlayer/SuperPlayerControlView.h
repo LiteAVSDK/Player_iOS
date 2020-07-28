@@ -8,7 +8,6 @@
 #import <UIKit/UIKit.h>
 
 #import "SuperPlayerControlViewDelegate.h"
-#import "SuperPlayerModel.h"
 #import "PlayerSlider.h"
 #import "SuperPlayerFastView.h"
 #import "MMMaterialDesignSpinner.h"
@@ -47,14 +46,12 @@
  * @param isLive 是否为直播流，直播是有时移按钮，不支持镜像与播放速度修改
  * @param isTimeShifting 是否在直播时移
  * @param isPlaying 是否正在播放中，用于调整播放按钮状态
- * @param model 播放的 model
  */
 - (void)resetWithResolutionNames:(NSArray<NSString *> *)resolutionNames
           currentResolutionIndex:(NSUInteger)resolutionIndex
                           isLive:(BOOL)isLive
                   isTimeShifting:(BOOL)isTimeShifting
-                       isPlaying:(BOOL)isPlaying
-                      videoModel:(SuperPlayerModel *)model;
+                       isPlaying:(BOOL)isPlaying;
 
 /// 标题
 @property NSString *title;

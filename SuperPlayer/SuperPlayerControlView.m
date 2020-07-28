@@ -20,7 +20,7 @@
     } else {
         [self setOrientationLandscapeConstraint];
     }
-    [self.delegate controlViewDidChangeScreen:self];
+//    [self.delegate controlViewDidChangeScreen:self];
 }
 
 - (void)setOrientationPortraitConstraint
@@ -37,8 +37,7 @@
           currentResolutionIndex:(NSUInteger)resolutionIndex
                           isLive:(BOOL)isLive
                   isTimeShifting:(BOOL)isTimeShifting
-                       isPlaying:(BOOL)isAutoPlay
-                      videoModel:(SuperPlayerModel *)model
+                      isPlaying:(BOOL)isAutoPlay
 {
     
 }

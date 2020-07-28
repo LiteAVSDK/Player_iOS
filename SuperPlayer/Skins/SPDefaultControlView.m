@@ -696,7 +696,6 @@
                           isLive:(BOOL)isLive
                   isTimeShifting:(BOOL)isTimeShifting
                        isPlaying:(BOOL)isPlaying
-                      videoModel:(SuperPlayerModel *)model
 {
     NSAssert(resolutionNames.count == 0 || currentResolutionIndex < resolutionNames.count,
              @"Invalid argument when reseeting %@", NSStringFromClass(self.class));

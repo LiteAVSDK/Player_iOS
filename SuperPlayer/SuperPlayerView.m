@@ -70,6 +70,16 @@ static UISlider * _volumeSlider;
     _fullScreenBlackView = [UIView new];
     _fullScreenBlackView.backgroundColor = [UIColor blackColor];
     
+    CGFloat offset = 80.0f;
+    self.playerBackView = [UIView new];
+    [self addSubview:_playerBackView];
+    [self.playerBackView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.leading.mas_equalTo(self).offset(-offset);
+        make.top.mas_equalTo(self).offset(-offset);
+        make.trailing.mas_equalTo(self).offset(offset);
+        make.bottom.mas_equalTo(self).offset(offset);
+    }];
+    
     // 单例slider
     _volumeSlider = nil;
     for (UIView *view in [self.volumeView subviews]){
@@ -299,8 +309,7 @@ static UISlider * _volumeSlider;
                     currentResolutionIndex:self.playerModel.playingDefinitionIndex
                                     isLive:isLive
                             isTimeShifting:isShiftPlayback
-                                 isPlaying:isPlaying
-                                videoModel:self.playerModel];
+                                 isPlaying:isPlaying];
 }
 
 #pragma mark - Private Method
@@ -397,7 +406,9 @@ static UISlider * _volumeSlider;
 //        }
 
         config.headers = self.playerConfig.headers;
-        
+        config.connectRetryCount = 4;
+        config.connectRetryInterval = 2;
+        config.timeout = 7;
         [self.vodPlayer setConfig:config];
         
         self.vodPlayer.enableHWAcceleration = self.playerConfig.hwAcceleration;
@@ -448,7 +459,7 @@ static UISlider * _volumeSlider;
     self.doubleTap.delegate                = self;
     self.doubleTap.numberOfTouchesRequired = 1; //手指数
     self.doubleTap.numberOfTapsRequired    = 2;
-    [self addGestureRecognizer:self.doubleTap];
+//    [self addGestureRecognizer:self.doubleTap];
 
     // 解决点击当前view时候响应其他控件事件
     [self.singleTap setDelaysTouchesBegan:YES];
@@ -527,7 +538,7 @@ static UISlider * _volumeSlider;
         [[UIApplication sharedApplication].keyWindow addSubview:self];
         [self mas_remakeConstraints:^(MASConstraintMaker *make) {
             if (IsIPhoneX) {
-                make.width.equalTo(@(ScreenHeight - self.mm_safeAreaTopGap * 2));
+                make.width.equalTo(@(ScreenHeight));
             } else {
                 make.width.equalTo(@(ScreenHeight));
             }
@@ -677,6 +688,9 @@ static UISlider * _volumeSlider;
         } else {
             [self.controlView fadeOut:0.2];
         }
+
+        /// 触摸时强制收起键盘
+        [self.fatherView.mm_viewController.view endEditing:YES];
     }
 }
 
@@ -702,7 +716,7 @@ static UISlider * _volumeSlider;
 - (void)setFullScreen:(BOOL)fullScreen {
 
     if (_isFullScreen != fullScreen) {
-        [self _adjustTransform:[self _orientationForFullScreen:fullScreen]];
+//        [self _adjustTransform:[self _orientationForFullScreen:fullScreen]];
         [self _switchToFullScreen:fullScreen];
         [self _switchToLayoutStyle:fullScreen ? SuperPlayerLayoutStyleFullScreen : SuperPlayerLayoutStyleCompact];
     }
@@ -811,7 +825,7 @@ static UISlider * _volumeSlider;
  *  屏幕方向发生变化会调用这里
  */
 - (void)onDeviceOrientationChange {
-    if (!self.isLoaded) { return; }
+//    if (!self.isLoaded) { return; } /// Loading 状态也要能横屏，否则 front loading，则 back 直接显示了
     if (self.isLockScreen) { return; }
     if (self.didEnterBackground) { return; };
     if (SuperPlayerWindowShared.isShowing) { return; }
@@ -904,8 +918,8 @@ static UISlider * _volumeSlider;
             CGFloat y = fabs(veloctyPoint.y);
             if (x > y) { // 水平移动
                 // 取消隐藏
-                self.panDirection = PanDirectionHorizontalMoved;
-                self.sumTime      = [self playCurrentTime];
+//                self.panDirection = PanDirectionHorizontalMoved;
+//                self.sumTime      = [self playCurrentTime];
             }
             else if (x < y){ // 垂直移动
                 self.panDirection = PanDirectionVerticalMoved;
@@ -922,10 +936,10 @@ static UISlider * _volumeSlider;
         }
         case UIGestureRecognizerStateChanged:{ // 正在移动
             switch (self.panDirection) {
-                case PanDirectionHorizontalMoved:{
-                    [self horizontalMoved:veloctyPoint.x]; // 水平移动的方法只要x方向的值
-                    break;
-                }
+//                case PanDirectionHorizontalMoved:{
+//                    [self horizontalMoved:veloctyPoint.x]; // 水平移动的方法只要x方向的值
+//                    break;
+//                }
                 case PanDirectionVerticalMoved:{
                     [self verticalMoved:veloctyPoint.y]; // 垂直移动方法只要y方向的值
                     break;
@@ -940,13 +954,13 @@ static UISlider * _volumeSlider;
             // 移动结束也需要判断垂直或者平移
             // 比如水平移动结束时，要快进到指定位置，如果这里没有判断，当我们调节音量完之后，会出现屏幕跳动的bug
             switch (self.panDirection) {
-                case PanDirectionHorizontalMoved:{
-                    self.isPauseByUser = NO;
-                    [self seekToTime:self.sumTime];
-                    // 把sumTime滞空，不然会越加越多
-                    self.sumTime = 0;
-                    break;
-                }
+//                case PanDirectionHorizontalMoved:{
+//                    self.isPauseByUser = NO;
+//                    [self seekToTime:self.sumTime];
+//                    // 把sumTime滞空，不然会越加越多
+//                    self.sumTime = 0;
+//                    break;
+//                }
                 case PanDirectionVerticalMoved:{
                     // 垂直移动结束后，把状态改为不再控制音量
                     self.isVolume = NO;
@@ -1241,10 +1255,7 @@ static UISlider * _volumeSlider;
 }
 
 - (void)controlViewBackAction:(id)sender {
-    if (self.isFullScreen) {
-        self.isFullScreen = NO;
-        return;
-    }
+    
     if ([self.delegate respondsToSelector:@selector(superPlayerBackAction:)]) {
         [self.delegate superPlayerBackAction:self];
     }
@@ -1341,6 +1352,14 @@ static UISlider * _volumeSlider;
     }
 }
 
+- (void)snapShot:(void (^)(UIImage *))snapshotCompletionBlock {
+    if (_isLive) {
+        [_livePlayer snapshot:snapshotCompletionBlock];
+    } else {
+        [_vodPlayer snapshot:snapshotCompletionBlock];
+    }
+}
+
 -(void)openPhotos {
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"photos-redirect://"]];
 }
@@ -1433,22 +1452,10 @@ static UISlider * _volumeSlider;
             [self layoutIfNeeded];
             self.isLoaded = YES;
             [self _removeOldPlayer];
-            [self.vodPlayer setupVideoWidget:self insertIndex:0];
-            
-            if ([self.delegate respondsToSelector:@selector(superPlayerVideoViewReady:)]) {
-                [self.delegate superPlayerVideoViewReady:self];
-            }
-            
+            [self.vodPlayer setupVideoWidget:self.playerBackView insertIndex:0];
             [self layoutSubviews];  // 防止横屏状态下添加view显示不全
             self.state = StatePlaying;
 
-            if (EvtID == PLAY_EVT_RCV_FIRST_I_FRAME) {
-                if ([self.delegate respondsToSelector:@selector(superPlayerDidCached:)]) {
-                    [self.delegate superPlayerDidCached:self];
-                }
-            }
-            
-            
 //            if (self.playerModel.playDefinitions.count == 0) {
                 [self updateBitrates:player.supportedBitrates];
 //            }
