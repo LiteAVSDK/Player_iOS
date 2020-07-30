@@ -65,7 +65,7 @@ const NSInteger kInvalidResponseErrorCode = -100;
 {
     NSMutableArray *array = @[].mutableCopy;
     for (int i = 0; i < self.multiVideoURLs.count; i++) {
-        [array addObject:self.multiVideoURLs[i].title];
+        [array addObject:self.multiVideoURLs[i].title ?: @""];
     }
     return array;
 }

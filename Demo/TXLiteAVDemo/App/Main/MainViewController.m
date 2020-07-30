@@ -79,10 +79,10 @@ UIAlertViewDelegate
 @property (nonatomic) NSMutableArray* logFilesArray;
 
 #ifdef ENABLE_TRTC
-@property (nonatomic, strong) VideoCallMainViewController *videoCallVC;
-@property (nonatomic, strong) AudioCallMainViewController *audioCallVC;
-@property (nonatomic, strong) TRTCLiveRoomImpl *liveRoom;
-@property (nonatomic, strong) TRTCVoiceRoomImp *voiceRoom;
+@property (nonatomic, strong) VideoSelectContactViewController *videoCallVC;
+@property (nonatomic, strong) AudioSelectContactViewController *audioCallVC;
+@property (nonatomic, strong) TRTCLiveRoom *liveRoom;
+@property (nonatomic, strong) TRTCVoiceRoom *voiceRoom;
 #endif
 
 @end
@@ -106,9 +106,9 @@ UIAlertViewDelegate
 #endif
     
 #ifdef ENABLE_TRTC
-    _videoCallVC = [[VideoCallMainViewController alloc] init];
-    _audioCallVC = [[AudioCallMainViewController alloc] init];
-    _voiceRoom = [TRTCVoiceRoomImp shared];
+    _videoCallVC = [[VideoSelectContactViewController alloc] init];
+    _audioCallVC = [[AudioSelectContactViewController alloc] init];
+    _voiceRoom = [TRTCVoiceRoom sharedInstance];
     [[TRTCVideoCall shared] setup];
     [TRTCVideoCall shared].delegate = _videoCallVC;
     
@@ -169,7 +169,7 @@ UIAlertViewDelegate
 #if defined(ENABLE_PUSH)
     cellInfo = [CellInfo new];
     cellInfo.title = @"移动直播";
-    cellInfo.iconName = @"live_room";
+    cellInfo.iconName = @"main_room_live";
     [_cellInfos addObject:cellInfo];
     cellInfo.subCells = ({
     // 移动直播相关入口
@@ -215,7 +215,7 @@ UIAlertViewDelegate
 #if defined(ENABLE_PLAY) && !defined(DISABLE_VOD)
     cellInfo = [CellInfo new];
     cellInfo.title = @"播放器";
-    cellInfo.iconName = @"composite";
+    cellInfo.iconName = @"main_composite";
     [_cellInfos addObject:cellInfo];
     cellInfo.subCells = ({
 //    NSArray* playerCellInfos = ({
@@ -232,7 +232,7 @@ UIAlertViewDelegate
 #ifdef ENABLE_UGC
     cellInfo = [CellInfo new];
     cellInfo.title = @"短视频";
-    cellInfo.iconName = @"video";
+    cellInfo.iconName = @"main_room_video";
     [_cellInfos addObject:cellInfo];
     cellInfo.subCells = ({
 //    NSArray* videoCellInfos = ({
@@ -280,7 +280,7 @@ UIAlertViewDelegate
 #if defined(ENABLE_TRTC)
     cellInfo = [CellInfo new];
     cellInfo.title = @"实时音视频 TRTC";
-    cellInfo.iconName = @"multi_room";
+    cellInfo.iconName = @"main_room_multi";
     [_cellInfos addObject:cellInfo];
     cellInfo.subCells = ({
 //    NSArray* TRTCCellInfos = ({
@@ -293,14 +293,25 @@ UIAlertViewDelegate
         [subCells addObject:scellInfo];
         scellInfo = [CellInfo cellInfoWithTitle:@"语音聊天室"
                         controllerCreationBlock:^UIViewController * _Nonnull{
-            UIViewController* enterViewController = [[[TRTCVoiceRoomDependencyContainer alloc] init] makeEntranceViewController];
+            NSString *userID = [[ProfileManager shared] curUserID];
+            NSString *userSig = [[ProfileManager shared] curUserSig];
+            [self.voiceRoom login:SDKAPPID userId:userID userSig:userSig callback:^(int32_t code, NSString * _Nonnull error) {
+                NSLog(@"voice room 登录信息%ld, %@", (long)code, error);
+            }];
+            LoginResultModel *curUser = [[ProfileManager shared] curUserModel];
+            [self.voiceRoom setSelfProfile:curUser.name avatarURL:curUser.avatar callback:^(int32_t code, NSString * _Nonnull message) {
+                NSLog(@"live room profile信息：%ld, %@", (long)code, message);
+
+            }];
+            TRTCVoiceRoomEnteryControl *container = [[TRTCVoiceRoomEnteryControl alloc] initWithSdkAppId:SDKAPPID userId:userID];
+            UIViewController* enterViewController = [container makeEntranceViewController];
             return enterViewController;
         }];
         [subCells addObject:scellInfo];
         scellInfo = [CellInfo cellInfoWithTitle:@"视频互动直播" controllerCreationBlock:^UIViewController * _Nonnull{
-            weakSelf.liveRoom = [[TRTCLiveRoomImpl alloc] init];
+            weakSelf.liveRoom = [[TRTCLiveRoom alloc] init];
             NSString *userID = [[ProfileManager shared] curUserID];
-            NSString *userSig = [GenerateTestUserSig genTestUserSig:userID];
+            NSString *userSig = [[ProfileManager shared] curUserSig];
             TRTCLiveRoomConfig *config = [[TRTCLiveRoomConfig alloc] init];
             if ([[NSUserDefaults standardUserDefaults] objectForKey:@"liveRoomConfig_useCDNFirst"] != nil) {
                 config.useCDNFirst = [[[NSUserDefaults standardUserDefaults] objectForKey:@"liveRoomConfig_useCDNFirst"] boolValue];
@@ -310,12 +321,12 @@ UIAlertViewDelegate
                 config.cdnPlayDomain = [[NSUserDefaults standardUserDefaults] objectForKey:@"liveRoomConfig_cndPlayDomain"];
             }
             
-            [self.liveRoom loginWithSdkAppID:SDKAPPID userID:userID userSig:userSig config:config callback:^(NSInteger code, NSString * error) {
+            [self.liveRoom loginWithSdkAppID:SDKAPPID userID:userID userSig:userSig config:config callback:^(int code, NSString * error) {
                 NSLog(@"live room 登录信息：%ld, %@", (long)code, error);
             }];
           
             LoginResultModel *curUser = [[ProfileManager shared] curUserModel];
-            [self.liveRoom setSelfProfileWithName:curUser.name avatarURL:curUser.avatar callback:^(NSInteger code, NSString * error) {
+            [self.liveRoom setSelfProfileWithName:curUser.name avatarURL:curUser.avatar callback:^(int code, NSString * error) {
                 NSLog(@"live room profile信息：%ld, %@", (long)code, error);
             }];
            
@@ -348,8 +359,16 @@ UIAlertViewDelegate
 {
     int originX = 15;
     CGFloat width = self.view.frame.size.width - 2 * originX;
-    
-    self.view.backgroundColor = UIColorFromRGB(0x0d0d0d);
+    // 背景色
+    self.view.backgroundColor = [UIColor whiteColor];
+    NSArray *colors = @[(__bridge id)[UIColor colorWithRed:19.0 / 255.0 green:41.0 / 255.0 blue:75.0 / 255.0 alpha:1].CGColor,
+                        (__bridge id)[UIColor colorWithRed:5.0 / 255.0 green:12.0 / 255.0 blue:23.0 / 255.0 alpha:1].CGColor];
+    CAGradientLayer *gradientLayer = [CAGradientLayer layer];
+    gradientLayer.colors = colors;
+    gradientLayer.startPoint = CGPointMake(0, 0);
+    gradientLayer.endPoint = CGPointMake(1, 1);
+    gradientLayer.frame = self.view.bounds;
+    [self.view.layer insertSublayer:gradientLayer atIndex:0];
     
     //大标题
     UILabel* lbHeadLine = [[UILabel alloc] initWithFrame:CGRectMake(originX, 50, width, 48)];
@@ -637,7 +656,7 @@ UIAlertViewDelegate
 #ifdef ENABLE_TRTC
 - (void)setupIMOnDidAppear {
     NSString *userID = [[ProfileManager shared] curUserID];
-    NSString *userSig = [GenerateTestUserSig genTestUserSig:userID];
+    NSString *userSig = [[ProfileManager shared] curUserSig];
     
     if (![[[V2TIMManager sharedInstance] getLoginUser] isEqual:userID]) {
         [[ProfileManager shared] IMLoginWithUserSig:userSig success:^{
@@ -650,20 +669,8 @@ UIAlertViewDelegate
             } failed:^(NSInteger code, NSString *error) {
                 
             }];
-            
-
             [[TRTCMeeting sharedInstance] login:SDKAPPID userId:userID userSig:userSig callback:^(NSInteger code, NSString *message) {
                 
-            }];
-            NSString *userID = [[ProfileManager shared] curUserID];
-            NSString *userSig = [GenerateTestUserSig genTestUserSig:userID];
-            [self.voiceRoom loginWithSdkAppID:SDKAPPID userId:userID userSig:userSig callback:^(int32_t code, NSString * _Nonnull error) {
-                NSLog(@"voice room 登录信息%ld, %@", (long)code, error);
-            }];
-            LoginResultModel *curUser = [[ProfileManager shared] curUserModel];
-            [self.voiceRoom setSelfProfileWithUserName:curUser.name avatarURL:curUser.avatar callback:^(int32_t code, NSString * _Nonnull message) {
-                NSLog(@"live room profile信息：%ld, %@", (long)code, message);
-
             }];
             
         } failed:^(NSString * error) {

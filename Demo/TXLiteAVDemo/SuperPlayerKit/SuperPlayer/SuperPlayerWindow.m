@@ -59,14 +59,6 @@
     [closeBtn sizeToFit];
     _closeBtn = closeBtn;
     
-//    UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-//    backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-//    [backBtn setImage:SuperPlayerImage(@"fullscreen") forState:UIControlStateNormal];
-//    [backBtn addTarget:self action:@selector(backBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-//    [_rootView addSubview:backBtn];
-//    [backBtn sizeToFit];
-//    _backBtn = backBtn;
-    
     CGRect rect = CGRectMake(ScreenWidth-FLOAT_VIEW_WIDTH, ScreenHeight-FLOAT_VIEW_HEIGHT, FLOAT_VIEW_WIDTH, FLOAT_VIEW_HEIGHT);
     
     if (IsIPhoneX) {
@@ -94,7 +86,7 @@
     
     [_rootView bringSubviewToFront:_backBtn];
     [_rootView bringSubviewToFront:_closeBtn];
-//    _backBtn.m_top(8).m_left(8);
+    
     _closeBtn.m_width(42).m_height(42).m_top(0).m_right(0);
     
     _isShowing = YES;

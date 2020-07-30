@@ -63,6 +63,8 @@ __weak UITextField *urlField;
 
 @property CFDanmakuView *danmakuView;
 
+@property (nonatomic, assign) BOOL stopAutoPlayVOD;//从外部拉起播放时，停止自动播放VOD视频
+
 @end
 
 @implementation MoviePlayerViewController
@@ -176,7 +178,7 @@ __weak UITextField *urlField;
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-
+    
     if (self.videoURL) {
         [self clickVodList:nil];
     }
@@ -342,7 +344,6 @@ __weak UITextField *urlField;
         p.appId = 1252463788;
         p.fileId = @"4564972819219071679";
         [_authParamArray addObject:p];
-
         [self getNextInfo];
     } else{
         __weak __typeof(self) wself = self;
@@ -463,7 +464,7 @@ __weak UITextField *urlField;
         [self getNextInfo];
     });
     
-    if (_vodDataSourceArray.count == 1) {
+    if (_vodDataSourceArray.count == 1 && !self.stopAutoPlayVOD) {
         [self.playerView.controlView setTitle:[self.vodDataSourceArray[0] title]];
         [self.playerView playWithModel:[self.vodDataSourceArray[0] getPlayerModel]];
         [self showControlView:YES];
@@ -506,6 +507,36 @@ __weak UITextField *urlField;
             [wself onNetSuccess:resp];
         }
     }];
+}
+
+#pragma mark - 从其他APP拉起播放
+- (void)startPlayVideoFromLaunchInfo:(NSDictionary *)launchInfo complete:(void (^)(BOOL succ))complete {
+    BOOL success = NO;
+    if (launchInfo) {
+        self.stopAutoPlayVOD = YES;
+        NSMutableDictionary *dataInfo = launchInfo.mutableCopy;
+        id dataObj = [self _safeParseJsonStr:dataInfo[@"data"]];
+        if ([dataObj isKindOfClass:[NSDictionary class]]) {
+            [dataInfo addEntriesFromDictionary:dataObj];
+        }
+        NSString *appId = dataInfo[@"appId"];
+        NSString *fileId = dataInfo[@"fileId"];
+        NSString *psign = dataInfo[@"psign"];
+        if (appId && fileId && psign) {
+            SuperPlayerModel *model = [SuperPlayerModel new];
+            model.appId = [appId longLongValue];
+            model.videoId = [[SuperPlayerVideoId alloc] init];
+            model.videoId.fileId = fileId;
+            model.videoId.psign = psign;
+            [self playModel:model];
+            success = YES;
+        } else {
+            NSLog(@"缺少参数:appId=%@,fileId=%@,psign=%@", appId, fileId, psign);
+        }
+    }
+    if (complete) {
+        complete(success);
+    }
 }
 
 #pragma mark - Action
@@ -580,12 +611,27 @@ __weak UITextField *urlField;
         model.videoId.psign = paramDict[@"psign"];
         return YES;
     } else if ([components.host isEqualToString:@"play_vod"]) {
-        NSMutableDictionary *paramDict = [NSMutableDictionary dictionaryWithCapacity:components.queryItems.count];
-        for (NSURLQueryItem *item in components.queryItems) {
-            if (item.value) {
-                paramDict[item.name] = item.value;
+        NSDictionary *paramDict = [self _getParamsFromUrlStr:result];
+        model.appId = [paramDict[@"appId"] integerValue];
+        model.videoId = [[SuperPlayerVideoId alloc] init];
+        model.videoId.fileId = paramDict[@"fileId"];
+        model.videoId.psign = paramDict[@"psign"];
+        return YES;
+    } else if ([result hasPrefix:@"liteav://com.tencent.liteav.demo"]) {
+        NSMutableDictionary *paramDict = [self _getParamsFromUrlStr:result].mutableCopy;
+        if ([paramDict[@"protocol"] isEqualToString:@"v4vodplay"]) {
+            NSDictionary *dataObj = [self _safeParseJsonStr:paramDict[@"data"]];
+            if (dataObj) {
+                [paramDict addEntriesFromDictionary:dataObj];
             }
         }
+        model.appId = [paramDict[@"appId"] integerValue];
+        model.videoId = [[SuperPlayerVideoId alloc] init];
+        model.videoId.fileId = paramDict[@"fileId"];
+        model.videoId.psign = paramDict[@"psign"];
+        return YES;
+    } else if ([self _isURLTypeV4vodplayProtocol:result]) {
+        NSDictionary *paramDict = [self _getParamsFromUrlStr:result];
         model.appId = [paramDict[@"appId"] integerValue];
         model.videoId = [[SuperPlayerVideoId alloc] init];
         model.videoId.fileId = paramDict[@"fileId"];
@@ -595,12 +641,35 @@ __weak UITextField *urlField;
     return NO;
 }
 
+- (NSDictionary *)_getParamsFromUrlStr:(NSString *)result {
+    NSString *escapResult = [result stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+    NSURLComponents *components = [[NSURLComponents alloc] initWithString:escapResult];
+    NSMutableDictionary *paramDict = [NSMutableDictionary dictionaryWithCapacity:components.queryItems.count];
+    for (NSURLQueryItem *item in components.queryItems) {
+        if (item.value) {
+            paramDict[item.name] = item.value;
+        }
+    }
+    return paramDict.copy;
+}
+
+- (id)_safeParseJsonStr:(NSString *)jsonStr {
+    if ([jsonStr isKindOfClass:[NSString class]]) {
+        NSData *data = [[jsonStr stringByRemovingPercentEncoding] dataUsingEncoding:NSUTF8StringEncoding];
+        if (data) {
+            return [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
+        }
+    }
+    return nil;
+}
+
 - (void)onScanResult:(NSString *)result
 {
+
     self.textView.text = result;
     SuperPlayerModel *model = [SuperPlayerModel new];
     BOOL isLive = self.playerView.isLive;
-    if ([result hasPrefix:@"txsuperplayer://"]) {
+    if ([result hasPrefix:@"txsuperplayer://"] || [result hasPrefix:@"liteav://"]) {
         [self _fillModel:model withURL:result];
         isLive = NO;
     } else if ([result hasPrefix:@"https://playvideo.qcloud.com/getplayinfo/v4"]) {
@@ -609,12 +678,17 @@ __weak UITextField *urlField;
         } else {
             model.videoURL = result;
         }
+    } else if ([self _isURLTypeV4vodplayProtocol:result]) {
+        //仅支持普通URL传参方式
+        [self _fillModel:model withURL:result];
+        isLive = NO;
+    } else if ([result hasPrefix:@"rtmp"] || ([result hasPrefix:@"http"] && [result hasSuffix:@".flv"])) {
+        model.videoURL = result;
+        isLive = YES;
     } else {
         model.videoURL = result;
     }
-    [self.playerView.controlView setTitle:@"这是新播放的视频"];
-    [self.playerView.coverImageView setImage:nil];
-    [self.playerView playWithModel:model];
+    [self playModel:model];
     
     ListVideoModel *m = [ListVideoModel new];
     m.url = result;
@@ -633,6 +707,22 @@ __weak UITextField *urlField;
     }
     self.playerView.isLockScreen = NO;
 }
+
+- (BOOL)_isURLTypeV4vodplayProtocol:(NSString *)result {
+    if ([result hasPrefix:@"https://"] || [result hasPrefix:@"http://"]) {
+        NSDictionary *urlParams = [self _getParamsFromUrlStr:result];
+        return [[urlParams objectForKey:@"protocol"] isEqualToString:@"v4vodplay"];
+    }
+    return NO;
+}
+
+- (void)playModel:(SuperPlayerModel *)model {
+    [self.playerView.controlView setTitle:@"这是新播放的视频"];
+    [self.playerView.coverImageView setImage:nil];
+    [self.playerView playWithModel:model];
+}
+
+#pragma mark - -
 
 - (void)onAddClick:(UIButton *)btn
 {
@@ -766,10 +856,7 @@ __weak UITextField *urlField;
         NSArray* attarsArray = [attributesStr componentsSeparatedByString:@","];
         danmaku.timePoint = [[attarsArray firstObject] doubleValue] / 1000;
         danmaku.position = [attarsArray[1] integerValue];
-        //        if (danmaku.position != 0) {
-        
         [danmakus addObject:danmaku];
-        //        }
     }
     
     _danmakuView = [[CFDanmakuView alloc] initWithFrame:CGRectZero];
@@ -831,11 +918,6 @@ __weak UITextField *urlField;
 }
 
 - (void)superPlayerFullScreenChanged:(SuperPlayerView *)player {
-//    self.playerBackBtn.hidden = !player.isFullScreen;
-//    if (player.isFullScreen) {
-//        SPDefaultControlView *controlView = (SPDefaultControlView *)player.controlView;
-//        controlView.danmakuBtn.hidden = YES;
-//    }
     [[UIApplication sharedApplication] setStatusBarHidden:player.isFullScreen];
 }
 

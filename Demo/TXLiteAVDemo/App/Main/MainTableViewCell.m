@@ -152,9 +152,9 @@
 
 - (void)setHighLight:(BOOL)highLight {
     if (highLight) {
-        _backgroundView.backgroundColor = UIColorFromRGB(0x555555);
+        _backgroundView.backgroundColor = UIColorFromRGB(0x173370);
     } else {
-        _backgroundView.backgroundColor = UIColorFromRGB(0x2a2a2a);
+        _backgroundView.backgroundColor = UIColorFromRGB(0x0D2C5B);
     }
     _highLight = highLight;
 }

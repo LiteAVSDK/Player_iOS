@@ -214,9 +214,15 @@ static NSTimeInterval const timeMargin = 0.5;
     NSInteger lineCount = info.lineCount;
     
     if (info.danmaku.position == CFDanmakuPositionCenterTop) {
-        label.frame = CGRectMake((Width(self) - Width(label)) * 0.5, (self.lineHeight + self.lineMargin) * lineCount, Width(label), Height(label));
+        label.frame = CGRectMake((Width(self) - Width(label)) * 0.5,
+                                 (self.lineHeight + self.lineMargin) * lineCount,
+                                 Width(label),
+                                 Height(label));
     }else{
-        label.frame = CGRectMake((Width(self) - Width(label)) * 0.5, Height(self) - Height(label) - (self.lineHeight + self.lineMargin) * lineCount, Width(label), Height(label));
+        label.frame = CGRectMake((Width(self) - Width(label)) * 0.5,
+                                 Height(self) - Height(label) - (self.lineHeight + self.lineMargin) * lineCount,
+                                 Width(label),
+                                 Height(label));
     }
     
     
