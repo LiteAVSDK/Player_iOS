@@ -456,7 +456,10 @@ __weak UITextField *urlField;
     m.appId = playInfo.appId;
     m.fileId = playInfo.fileId;
     m.duration = playInfo.duration;
-    m.title = playInfo.videoDescription?:playInfo.name;
+    m.title = playInfo.videoDescription?: playInfo.name;
+    if (!m.title || [m.title isEqualToString:@""]) {
+        m.title = [NSString stringWithFormat:@"%@%@", @"视频", playInfo.fileId];
+    }
     m.coverUrl = playInfo.coverUrl;
     [_vodDataSourceArray addObject:m];
     dispatch_async(dispatch_get_main_queue(), ^{

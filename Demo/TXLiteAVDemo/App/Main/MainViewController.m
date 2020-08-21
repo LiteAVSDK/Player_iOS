@@ -79,8 +79,7 @@ UIAlertViewDelegate
 @property (nonatomic) NSMutableArray* logFilesArray;
 
 #ifdef ENABLE_TRTC
-@property (nonatomic, strong) VideoSelectContactViewController *videoCallVC;
-@property (nonatomic, strong) AudioSelectContactViewController *audioCallVC;
+@property (nonatomic, strong) TRTCCallingContactViewController *videoCallVC;
 @property (nonatomic, strong) TRTCLiveRoom *liveRoom;
 @property (nonatomic, strong) TRTCVoiceRoom *voiceRoom;
 #endif
@@ -106,15 +105,11 @@ UIAlertViewDelegate
 #endif
     
 #ifdef ENABLE_TRTC
-    _videoCallVC = [[VideoSelectContactViewController alloc] init];
-    _audioCallVC = [[AudioSelectContactViewController alloc] init];
+    _videoCallVC = [[TRTCCallingContactViewController alloc] init];
     _voiceRoom = [TRTCVoiceRoom sharedInstance];
-    [[TRTCVideoCall shared] setup];
-    [TRTCVideoCall shared].delegate = _videoCallVC;
+    [[TRTCCalling shareInstance] addDelegate:_videoCallVC];
     
-    [[TRTCAudioCall shared] setup];
-    [TRTCAudioCall shared].delegate = _audioCallVC;
-   
+
 #endif
 
     [self initCellInfos];
@@ -130,13 +125,6 @@ UIAlertViewDelegate
 #endif
 #ifdef ENABLE_TRTC
     [self setupIMOnDidAppear];
-#endif
-}
-
-- (void)dealloc {
-#ifdef ENABLE_TRTC
-    [[TRTCVideoCall shared] destroy];
-    [[TRTCAudioCall shared] destroy];
 #endif
 }
 
@@ -335,10 +323,14 @@ UIAlertViewDelegate
         [subCells addObject:scellInfo];
         scellInfo = [CellInfo cellInfoWithTitle:@"语音通话"
                    controllerCreationBlock:^UIViewController * _Nonnull{
-            return weakSelf.audioCallVC;
+            weakSelf.videoCallVC.title = @"语音通话";
+            weakSelf.videoCallVC.callType = CallType_Audio;
+            return weakSelf.videoCallVC;
         }];
         [subCells addObject:scellInfo];
         scellInfo = [CellInfo cellInfoWithTitle:@"视频通话" controllerCreationBlock:^UIViewController * _Nonnull{
+            weakSelf.videoCallVC.title = @"视频通话";
+            weakSelf.videoCallVC.callType = CallType_Video;
             return weakSelf.videoCallVC;
         }];
         [subCells addObject:scellInfo];
@@ -660,19 +652,14 @@ UIAlertViewDelegate
     
     if (![[[V2TIMManager sharedInstance] getLoginUser] isEqual:userID]) {
         [[ProfileManager shared] IMLoginWithUserSig:userSig success:^{
-            [[TRTCAudioCall shared] loginWithSdkAppID:SDKAPPID user:userID userSig:userSig success:^{
-            } failed:^(NSInteger code, NSString *error) {
-                
-            }];
-            
-            [[TRTCVideoCall shared] loginWithSdkAppID:SDKAPPID user:userID userSig:userSig success:^{
-            } failed:^(NSInteger code, NSString *error) {
-                
+            [[TRTCCalling shareInstance] login:SDKAPPID user:userID userSig:userSig success:^{
+                NSLog(@"Calling login success.");
+            } failed:^(int code, NSString * _Nonnull des) {
+                NSLog(@"Calling login failed.");
             }];
             [[TRTCMeeting sharedInstance] login:SDKAPPID userId:userID userSig:userSig callback:^(NSInteger code, NSString *message) {
                 
             }];
-            
         } failed:^(NSString * error) {
             
         }];
