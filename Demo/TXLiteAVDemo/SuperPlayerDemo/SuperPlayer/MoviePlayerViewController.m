@@ -361,12 +361,7 @@ __weak UITextField *urlField;
             }
         } completion:^(int code, NSString * _Nonnull message) {
             if (code != 0) {
-                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"获取视频列表失败"
-                                                                    message:message
-                                                                   delegate:nil
-                                                          cancelButtonTitle:@"知道了"
-                                                          otherButtonTitles:nil];
-                [alertView show];
+                NSLog(@"获取视频失败：%@", message);
             }
         }];
     }

@@ -177,6 +177,8 @@ static UISlider * _volumeSlider;
     self.coverImageView.alpha = 1;
     self.repeatBtn.hidden = YES;
     self.repeatBackBtn.hidden = YES;
+    // 播放时添加监听
+    [self addNotifications];
 }
 
 - (void)reloadModel {
@@ -184,6 +186,7 @@ static UISlider * _volumeSlider;
     if (model) {
         [self resetPlayer];
         [self _playWithModel:_playerModel];
+        [self addNotifications];
     }
 }
 
