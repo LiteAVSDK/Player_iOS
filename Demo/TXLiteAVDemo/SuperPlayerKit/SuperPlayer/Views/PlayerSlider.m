@@ -70,7 +70,7 @@
     }];
     _progressView.layer.masksToBounds = YES;
     _progressView.layer.cornerRadius  = 1;
-
+    self.progressView.backgroundColor = [UIColor.blackColor colorWithAlphaComponent:0.8];
     [self sendSubviewToBack:self.progressView];
 }
 
@@ -79,7 +79,13 @@
     self.tracker = self.subviews.lastObject;
     for (PlayerPoint *point in self.pointArray) {
         point.holder.center = [self holderCenter:point.where];
-        [self insertSubview:point.holder belowSubview:self.tracker];
+        if (@available(iOS 14.0, *)) {
+            [self addSubview:point.holder];
+        } else {
+            // Fallback on earlier versions
+            [self insertSubview:point.holder belowSubview:self.tracker];
+        }
+        
     }
 }
 

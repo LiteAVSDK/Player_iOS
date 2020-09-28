@@ -297,7 +297,7 @@ UIAlertViewDelegate
         }];
         [subCells addObject:scellInfo];
         scellInfo = [CellInfo cellInfoWithTitle:@"视频互动直播" controllerCreationBlock:^UIViewController * _Nonnull{
-            weakSelf.liveRoom = [[TRTCLiveRoom alloc] init];
+            weakSelf.liveRoom = [TRTCLiveRoom shareInstance];
             NSString *userID = [[ProfileManager shared] curUserID];
             NSString *userSig = [[ProfileManager shared] curUserSig];
             TRTCLiveRoomConfig *config = [[TRTCLiveRoomConfig alloc] init];
