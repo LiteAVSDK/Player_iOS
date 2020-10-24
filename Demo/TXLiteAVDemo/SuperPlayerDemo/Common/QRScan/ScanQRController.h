@@ -12,6 +12,7 @@
 @protocol ScanQRDelegate <NSObject>
 
 - (void)onScanResult:(NSString *)result;
+- (void)cancelScanQR;
 
 @end
 

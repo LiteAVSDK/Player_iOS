@@ -81,7 +81,8 @@
         self.backgroundColor = [UIColor clearColor];
         
         self.thumb = [[UIImageView alloc] initWithFrame:CGRectZero];
-        self.thumb.contentMode = UIViewContentModeScaleAspectFit;
+        self.thumb.contentMode = UIViewContentModeScaleAspectFill;
+        self.thumb.clipsToBounds = YES;
         [self addSubview:self.thumb];
         [self.thumb mas_makeConstraints:^(MASConstraintMaker *make) {
             make.size.mas_equalTo(CGSizeMake(120, 68));

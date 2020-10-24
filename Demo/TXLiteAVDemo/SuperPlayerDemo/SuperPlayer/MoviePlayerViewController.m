@@ -178,7 +178,6 @@ __weak UITextField *urlField;
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    
     if (self.videoURL) {
         [self clickVodList:nil];
     }
@@ -703,6 +702,10 @@ __weak UITextField *urlField;
         [_vodDataSourceArray addObject:m];
         [_vodListView reloadData];
     }
+    self.playerView.isLockScreen = NO;
+}
+
+- (void)cancelScanQR {
     self.playerView.isLockScreen = NO;
 }
 

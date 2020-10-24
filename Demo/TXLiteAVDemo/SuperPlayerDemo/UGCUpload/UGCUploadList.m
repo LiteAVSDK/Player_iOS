@@ -44,7 +44,7 @@
     [TCHttpUtil asyncSendHttpRequest:@"api/v1/resource/videos"
                       httpServerAddr:kHttpUGCServerAddr
                           HTTPMethod:@"GET"
-                               param:nil
+                               param:@{@"page_num":@"0",@"page_size":@"20"}
                              handler:^(int result, NSDictionary *resultDict) {
         if (result == 0){
             NSDictionary *dataDict = resultDict[@"data"];

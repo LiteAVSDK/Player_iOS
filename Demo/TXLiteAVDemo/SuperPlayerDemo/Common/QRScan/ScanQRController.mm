@@ -167,6 +167,9 @@ static const char *kScanQRCodeQueueName = "ScanQRCodeQueue";
 {
     [self stopScanQRCode];
     [self.navigationController popViewControllerAnimated:NO];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(cancelScanQR)]) {
+        [self.delegate cancelScanQR];
+    }
 }
 
 @end
