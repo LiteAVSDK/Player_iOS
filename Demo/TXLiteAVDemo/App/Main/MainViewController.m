@@ -296,7 +296,7 @@ UIAlertViewDelegate
             return enterViewController;
         }];
         [subCells addObject:scellInfo];
-        scellInfo = [CellInfo cellInfoWithTitle:@"视频互动直播" controllerCreationBlock:^UIViewController * _Nonnull{
+        scellInfo = [CellInfo cellInfoWithTitle:@"视频互动" controllerCreationBlock:^UIViewController * _Nonnull{
             weakSelf.liveRoom = [TRTCLiveRoom shareInstance];
             NSString *userID = [[ProfileManager shared] curUserID];
             NSString *userSig = [[ProfileManager shared] curUserSig];

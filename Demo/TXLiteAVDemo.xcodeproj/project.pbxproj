@@ -1257,13 +1257,6 @@
 			remoteGlobalIDString = 40AF719A247D036200EBB371;
 			remoteInfo = AudioEffectSettingKit;
 		};
-		40B5C6842484BBE500D3A718 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 401A9B3D247FCC7600C0763B /* AudioEffectSettingKit.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 40AF71AA247D03E700EBB371;
-			remoteInfo = AudioEffectSettingKitExample;
-		};
 		40B5C6862484BBE500D3A718 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 401A9B3D247FCC7600C0763B /* AudioEffectSettingKit.xcodeproj */;
@@ -2100,7 +2093,6 @@
 			isa = PBXGroup;
 			children = (
 				40B5C6832484BBE500D3A718 /* AudioEffectSettingKit.framework */,
-				40B5C6852484BBE500D3A718 /* AudioEffectSettingKitExample.app */,
 				40B5C6872484BBE500D3A718 /* AudioEffectSettingKitResources.bundle */,
 			);
 			name = Products;
@@ -2663,13 +2655,6 @@
 			fileType = wrapper.framework;
 			path = AudioEffectSettingKit.framework;
 			remoteRef = 40B5C6822484BBE500D3A718 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		40B5C6852484BBE500D3A718 /* AudioEffectSettingKitExample.app */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.application;
-			path = AudioEffectSettingKitExample.app;
-			remoteRef = 40B5C6842484BBE500D3A718 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		40B5C6872484BBE500D3A718 /* AudioEffectSettingKitResources.bundle */ = {
@@ -3440,7 +3425,7 @@
 				PRODUCT_NAME = TXLiteAVDemo_TRTC_AppStore;
 				PROVISIONING_PROFILE_SPECIFIER = trtcscenesdemo;
 				STRIP_INSTALLED_PRODUCT = NO;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG TRTC_APPSTORE";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/TXLiteAVDemo/App/TXLiteAVDemo-Bridging-Header.h";
 				SWIFT_OBJC_INTERFACE_HEADER_NAME = "TXLiteAVDemo-Swift.h";
 				SWIFT_VERSION = 5.0;
@@ -3497,6 +3482,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.tencent.mrtc;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = com.tencent.mrtc_Production_SignProvision;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = TRTC_APPSTORE;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/TXLiteAVDemo/App/TXLiteAVDemo-Bridging-Header.h";
 				SWIFT_OBJC_INTERFACE_HEADER_NAME = "TXLiteAVDemo-Swift.h";
 				SWIFT_VERSION = 5.0;
