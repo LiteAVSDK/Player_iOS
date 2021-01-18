@@ -9,6 +9,7 @@
 #import "SuperPlayerModel.h"
 #import "AFNetworking/AFNetworking.h"
 #import "SPVideoFrameDescription.h"
+#import "SPPlayCGIParseResult.h"
 
 @class TXImageSprite;
 
@@ -48,6 +49,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// DRM Token
 @property (strong, nonatomic) NSString *drmToken;
+
+/// DRM Type
+@property (nonatomic, assign) SPDrmType drmType;
 
 @end
 

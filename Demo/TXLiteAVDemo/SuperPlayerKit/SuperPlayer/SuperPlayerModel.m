@@ -132,6 +132,7 @@ const NSInteger kInvalidResponseErrorCode = -100;
             }
             return;
         }
+        self.drmType = result.drmType;
         self.videoURL = result.url;
         self.multiVideoURLs = result.multiVideoURLs;
         self.keyFrameDescList = result.keyFrameDescList;

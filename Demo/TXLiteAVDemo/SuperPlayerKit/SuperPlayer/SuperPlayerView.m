@@ -12,6 +12,7 @@
 #import "UIView+MMLayout.h"
 #import "SPDefaultControlView.h"
 #import "SuperPlayerModelInternal.h"
+#import "NSString+URL.h"
 // TODO: 处理头部引用
 #import "TXAudioCustomProcessDelegate.h"
 #import "TXAudioRawDataDelegate.h"
@@ -43,6 +44,8 @@
 static UISlider * _volumeSlider;
 
 #define CellPlayerFatherViewTag  200
+#define SUPPORT_PARAM_MAJOR_VERSION (8)
+#define SUPPORT_PARAM_MINOR_VERSION (2)
 
 //忽略编译器的警告
 #pragma clang diagnostic push
@@ -334,6 +337,17 @@ static UISlider * _volumeSlider;
 }
 
 #pragma mark - Private Method
+- (BOOL)isSupportAppendParam {
+    NSString* version = [TXLiveBase getSDKVersionStr];
+    NSArray* vers = [version componentsSeparatedByString:@"."];
+    if (vers.count <= 1) {
+        return NO;
+    }
+    NSInteger majorVer = [vers[0] integerValue]?:0;
+    NSInteger minorVer = [vers[1] integerValue]?:0;
+    return majorVer >= SUPPORT_PARAM_MAJOR_VERSION && minorVer >= SUPPORT_PARAM_MINOR_VERSION;
+}
+
 /**
  *  设置Player相关参数
  */
@@ -368,7 +382,8 @@ static UISlider * _volumeSlider;
 //        self.playerModel.playingDefinition = self.netWatcher.adviseDefinition;
 //    }
     NSString *videoURL = self.playerModel.playingDefinitionUrl;
-    
+    // 时移
+    [TXLiveBase setAppID:[NSString stringWithFormat:@"%ld", _playerModel.appId]];
     if (self.isLive) {
         if (!self.livePlayer) {
             self.livePlayer = [[TXLivePlayer alloc] init];
@@ -384,11 +399,8 @@ static UISlider * _volumeSlider;
         
         self.livePlayer.enableHWAcceleration = self.playerConfig.hwAcceleration;
         [self.livePlayer startPlay:videoURL type:liveType];
-        // 时移
-        [TXLiveBase setAppID:[NSString stringWithFormat:@"%ld", _playerModel.appId]];
         TXCUrl *curl = [[TXCUrl alloc] initWithString:videoURL];
         [self.livePlayer prepareLiveSeek:self.playerConfig.playShiftDomain bizId:curl.bizid];
-        
         [self.livePlayer setMute:self.playerConfig.mute];
         [self.livePlayer setRenderMode:self.playerConfig.renderMode];
     } else {
@@ -433,7 +445,16 @@ static UISlider * _volumeSlider;
         
         self.vodPlayer.enableHWAcceleration = self.playerConfig.hwAcceleration;
         [self.vodPlayer setStartTime:self.startTime]; self.startTime = 0;
-        [self.vodPlayer startPlay:videoURL];
+
+        NSString *appParameter = [NSString stringWithFormat:@"spappid=%ld",self.playerModel.appId];
+        NSString *fileidParameter = [NSString stringWithFormat:@"spfileid=%@",self.playerModel.videoId.fileId];
+        NSString *drmtypeParameter = [NSString stringWithFormat:@"spdrmtype=%@",
+                                      self.playerModel.drmType == SPDrmTypeSimpleAES ? @"SimpleAES" : @"plain"];
+        NSString *vodParamVideoUrl = [NSString appendParameter:appParameter WithOriginUrl:videoURL];
+        vodParamVideoUrl = [NSString appendParameter:fileidParameter WithOriginUrl:vodParamVideoUrl];
+        vodParamVideoUrl = [NSString appendParameter:drmtypeParameter WithOriginUrl:vodParamVideoUrl];
+        
+        [self.vodPlayer startPlay:([self isSupportAppendParam] ? vodParamVideoUrl : videoURL)];
         [self.vodPlayer setBitrateIndex:self.playerModel.playingDefinitionIndex];
         
         [self.vodPlayer setRate:self.playerConfig.playRate];
@@ -847,7 +868,7 @@ static UISlider * _volumeSlider;
     if (self.didEnterBackground) { return; };
     if (SuperPlayerWindowShared.isShowing) { return; }
     UIDeviceOrientation orientation = [UIDevice currentDevice].orientation;
-    if (orientation == UIDeviceOrientationFaceUp) {
+    if (orientation == UIDeviceOrientationFaceUp || orientation == UIDeviceOrientationFaceDown) {
         return;
     }
     SuperPlayerLayoutStyle style = [self defaultStyleForDeviceOrientation:[UIDevice currentDevice].orientation];

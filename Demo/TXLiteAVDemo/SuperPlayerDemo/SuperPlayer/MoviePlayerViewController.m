@@ -325,13 +325,13 @@ __weak UITextField *urlField;
         [_authParamArray addObject:p];
 
         p = [TXPlayerAuthParams new];
-        p.appId = 1252463788;
-        p.fileId = @"4564972819220421305";
+        p.appId = 1400329073;
+        p.fileId = @"5285890800381567412";
         [_authParamArray addObject:p];
 
         p = [TXPlayerAuthParams new];
-        p.appId = 1252463788;
-        p.fileId = @"4564972819219071568";
+        p.appId = 1400329073;
+        p.fileId = @"5285890800381530399";
         [_authParamArray addObject:p];
 
         p = [TXPlayerAuthParams new];

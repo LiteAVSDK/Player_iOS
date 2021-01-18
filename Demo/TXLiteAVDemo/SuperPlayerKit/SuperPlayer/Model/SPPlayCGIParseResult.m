@@ -11,8 +11,9 @@
 
 @implementation SPPlayCGIParseResult
 + (SPDrmType)drmTypeFromString:(NSString *)typeString {
-    if ([typeString isEqualToString: @"SimpleAES"]) {
-        return SPDrmTypeSimpleAES;
+    BOOL isSimpleAES = [typeString caseInsensitiveCompare:@"SimpleAES"] == NSOrderedSame;
+    if (isSimpleAES) {
+        return  SPDrmTypeSimpleAES;
     }
     return SPDrmTypeNone;
 }
