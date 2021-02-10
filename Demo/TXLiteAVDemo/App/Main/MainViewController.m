@@ -156,53 +156,51 @@ UIAlertViewDelegate
     __weak __typeof(self) weakSelf = self;
 #if defined(ENABLE_PUSH)
     cellInfo = [CellInfo new];
-    cellInfo.title = @"移动直播";
+    cellInfo.title = @"移动直播 MLVB";
     cellInfo.iconName = @"main_room_live";
     [_cellInfos addObject:cellInfo];
     cellInfo.subCells = ({
     // 移动直播相关入口
-//     NSArray* liveRoomCellInfos = ({
         NSMutableArray *subCells = [NSMutableArray new];
         CellInfo* scellInfo;
-    
-        scellInfo = [CellInfo cellInfoWithTitle:@"MLVBLiveRoom"
-                       controllerClassName:@"LiveRoomListViewController"];
-        [subCells addObject:scellInfo];
         
 #ifdef ENABLE_PUSH
-        scellInfo = [CellInfo cellInfoWithTitle:@"摄像头推流"
+        scellInfo = [CellInfo cellInfoWithTitle:@"推流演示（摄像头推流）"
                        controllerClassName:@"CameraPushViewController"];
         [subCells addObject:scellInfo];
-        
-#endif
-        
-#if !defined(UGC) && !defined(PLAYER)
-        scellInfo = [CellInfo cellInfoWithTitle:@"直播拉流"
-                       controllerClassName:@"PlayViewController"];
-        [subCells addObject:scellInfo];
-#endif
-        
-#if defined(ENABLE_PUSH)
-        scellInfo = [CellInfo cellInfoWithTitle:@"录屏直播"
+        scellInfo = [CellInfo cellInfoWithTitle:@"推流演示（录屏推流）"
                               controllerClassName:@"ScreenPushViewController"];
         [subCells addObject:scellInfo];
 #endif
         
-        scellInfo = [CellInfo cellInfoWithTitle:@"小直播" actionBlock:^{
-            // 打开小直播AppStore
-            [[UIApplication sharedApplication]
-             openURL:[NSURL URLWithString:XiaoZhiBoAppStoreURLString]];
-        }];
+#if !defined(UGC) && !defined(PLAYER)
+        scellInfo = [CellInfo cellInfoWithTitle:@"拉流演示"
+                       controllerClassName:@"PlayViewController"];
         [subCells addObject:scellInfo];
+#endif
+        scellInfo = [CellInfo cellInfoWithTitle:@"连麦演示（新方案）"
+                       controllerClassName:@"V2MainViewController"];
+        [subCells addObject:scellInfo];
+        
+        scellInfo = [CellInfo cellInfoWithTitle:@"连麦演示（旧方案）"
+                       controllerClassName:@"LiveRoomListViewController"];
+        [subCells addObject:scellInfo];
+        
+//        scellInfo = [CellInfo cellInfoWithTitle:@"小直播" actionBlock:^{
+//            // 打开小直播AppStore
+//            [[UIApplication sharedApplication]
+//             openURL:[NSURL URLWithString:XiaoZhiBoAppStoreURLString]];
+//        }];
+//        [subCells addObject:scellInfo];
         
         subCells;
     });
-//    [_cellInfos addObjectsFromArray:liveRoomCellInfos];
+
 #endif
 
 #if defined(ENABLE_PLAY) && !defined(DISABLE_VOD)
     cellInfo = [CellInfo new];
-    cellInfo.title = @"播放器";
+    cellInfo.title = @"播放器 Player";
     cellInfo.iconName = @"main_composite";
     [_cellInfos addObject:cellInfo];
     cellInfo.subCells = ({
@@ -219,7 +217,7 @@ UIAlertViewDelegate
     
 #ifdef ENABLE_UGC
     cellInfo = [CellInfo new];
-    cellInfo.title = @"短视频";
+    cellInfo.title = @"短视频 UGSV";
     cellInfo.iconName = @"main_room_video";
     [_cellInfos addObject:cellInfo];
     cellInfo.subCells = ({

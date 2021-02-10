@@ -913,6 +913,10 @@ static UISlider * _volumeSlider;
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
 {
     if ([gestureRecognizer isKindOfClass:[UITapGestureRecognizer class]]) {
+        if (((UITapGestureRecognizer*)gestureRecognizer).numberOfTapsRequired == 2) {
+            if (self.isLockScreen == YES)
+                return NO;
+        }
         return YES;
     }
 
