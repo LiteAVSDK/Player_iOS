@@ -178,9 +178,11 @@ UIAlertViewDelegate
                        controllerClassName:@"PlayViewController"];
         [subCells addObject:scellInfo];
 #endif
+#ifndef SMART
         scellInfo = [CellInfo cellInfoWithTitle:@"连麦演示（新方案）"
                        controllerClassName:@"V2MainViewController"];
         [subCells addObject:scellInfo];
+#endif
         
         scellInfo = [CellInfo cellInfoWithTitle:@"连麦演示（旧方案）"
                        controllerClassName:@"LiveRoomListViewController"];
