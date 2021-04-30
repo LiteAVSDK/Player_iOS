@@ -11,6 +11,7 @@
 #import "TXMoviePlayerNetApi.h"
 #import "TXPlayerAuthParams.h"
 #import "ListVideoCell.h"
+#import "AppLocalized.h"
 
 @interface UGCUploadList () {
 }
@@ -59,8 +60,10 @@
                 }
                 [self.pendingRequestQueue setArray:paramArray];
                 [self getNextInfo];
-            }else{
-                NSString *message = [NSString stringWithFormat:@"错误码：%@ 错误信息：%@",resultDict[@"code"], resultDict[@"message"]];
+            }
+            else {
+                
+                NSString *message = LocalizeReplace(LivePlayerLocalize(@"SuperPlayerDemo.UGCUploadList.errorcodexxerrormsgyy"), [NSString stringWithFormat:@"%@",resultDict[@"code"]] , [NSString stringWithFormat:@"%@",resultDict[@"message"]]);
                 if (completion) {
                     completion(result, message);
                 }

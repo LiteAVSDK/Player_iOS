@@ -50,6 +50,8 @@
 #import "GenerateTestUserSig.h"
 #endif
 
+#import "AppLocalized.h"
+
 
 
 #define STATUS_BAR_HEIGHT [UIApplication sharedApplication].statusBarFrame.size.height
@@ -130,11 +132,11 @@ UIAlertViewDelegate
 
 - (IBAction)logout:(id)sender {
     #if !defined(UGC) && !defined(PLAYER)
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"确定要退出登录吗？" message:nil preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:V2Localize(@"V2.Live.LinkMicNew.suretologout") message:nil preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:V2Localize(@"V2.Live.LinkMicNew.cancel") style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
         
     }];
-    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:V2Localize(@"V2.Live.LinkMicNew.confirm") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         [[ProfileManager shared] removeLoginCache];
         [[AppUtils shared] showLoginController];
         [[V2TIMManager sharedInstance] logout:^{
@@ -151,12 +153,13 @@ UIAlertViewDelegate
 
 - (void)initCellInfos
 {
+    
     _cellInfos = [NSMutableArray new];
     CellInfo* cellInfo = nil;
     __weak __typeof(self) weakSelf = self;
 #if defined(ENABLE_PUSH)
     cellInfo = [CellInfo new];
-    cellInfo.title = @"移动直播 MLVB";
+    cellInfo.title = V2Localize(@"V2.Live.LinkMicNew.title");
     cellInfo.iconName = @"main_room_live";
     [_cellInfos addObject:cellInfo];
     cellInfo.subCells = ({
@@ -165,26 +168,26 @@ UIAlertViewDelegate
         CellInfo* scellInfo;
         
 #ifdef ENABLE_PUSH
-        scellInfo = [CellInfo cellInfoWithTitle:@"推流演示（摄像头推流）"
+        scellInfo = [CellInfo cellInfoWithTitle:V2Localize(@"MLVB.MainMenu.pushcamera")
                        controllerClassName:@"CameraPushViewController"];
         [subCells addObject:scellInfo];
-        scellInfo = [CellInfo cellInfoWithTitle:@"推流演示（录屏推流）"
+        scellInfo = [CellInfo cellInfoWithTitle:V2Localize(@"MLVB.MainMenu.pushscreen")
                               controllerClassName:@"ScreenPushViewController"];
         [subCells addObject:scellInfo];
 #endif
         
 #if !defined(UGC) && !defined(PLAYER)
-        scellInfo = [CellInfo cellInfoWithTitle:@"拉流演示"
+        scellInfo = [CellInfo cellInfoWithTitle:V2Localize(@"MLVB.MainMenu.pull")
                        controllerClassName:@"PlayViewController"];
         [subCells addObject:scellInfo];
 #endif
 #ifndef SMART
-        scellInfo = [CellInfo cellInfoWithTitle:@"连麦演示（新方案）"
+        scellInfo = [CellInfo cellInfoWithTitle:V2Localize(@"V2.Live.LinkMicNew.coanchornew")
                        controllerClassName:@"V2MainViewController"];
         [subCells addObject:scellInfo];
 #endif
         
-        scellInfo = [CellInfo cellInfoWithTitle:@"连麦演示（旧方案）"
+        scellInfo = [CellInfo cellInfoWithTitle:V2Localize(@"MLVB.MainMenu.coanchoringold")
                        controllerClassName:@"LiveRoomListViewController"];
         [subCells addObject:scellInfo];
         
@@ -195,6 +198,25 @@ UIAlertViewDelegate
 //        }];
 //        [subCells addObject:scellInfo];
         
+        subCells;
+    });
+
+#endif
+    
+#if defined(ENABLE_INTERNATIONAL)
+    cellInfo = [CellInfo new];
+    cellInfo.title = V2Localize(@"V2.Live.LinkMicNew.title");
+    cellInfo.iconName = @"main_room_live";
+    [_cellInfos addObject:cellInfo];
+    cellInfo.subCells = ({
+    // 移动直播相关入口
+        NSMutableArray *subCells = [NSMutableArray new];
+        CellInfo* scellInfo;
+        
+        scellInfo = [CellInfo cellInfoWithTitle:V2Localize(@"V2.Live.LinkMicNew.coanchornew")
+                       controllerClassName:@"V2MainViewController"];
+        [subCells addObject:scellInfo];
+    
         subCells;
     });
 
@@ -267,28 +289,28 @@ UIAlertViewDelegate
     
 #if defined(ENABLE_TRTC)
     cellInfo = [CellInfo new];
-    cellInfo.title = @"实时音视频 TRTC";
+    cellInfo.title = V2Localize(@"TRTC.MainMenu.trtc");
     cellInfo.iconName = @"main_room_multi";
     [_cellInfos addObject:cellInfo];
     cellInfo.subCells = ({
 //    NSArray* TRTCCellInfos = ({
         NSMutableArray *subCells = [NSMutableArray new];
         CellInfo* scellInfo;
-        scellInfo = [CellInfo cellInfoWithTitle:@"多人视频会议" actionBlock:^{
+        scellInfo = [CellInfo cellInfoWithTitle:V2Localize(@"TRTC.MainMenu.videoconferencing") actionBlock:^{
             TRTCMeetingNewViewController *vc = [[TRTCMeetingNewViewController alloc] init];
             [self.navigationController pushViewController:vc animated:YES];
         }];
         [subCells addObject:scellInfo];
-        scellInfo = [CellInfo cellInfoWithTitle:@"语音聊天室"
+        scellInfo = [CellInfo cellInfoWithTitle:V2Localize(@"TRTC.MainMenu.audiochatroom")
                         controllerCreationBlock:^UIViewController * _Nonnull{
             NSString *userID = [[ProfileManager shared] curUserID];
             NSString *userSig = [[ProfileManager shared] curUserSig];
             [self.voiceRoom login:SDKAPPID userId:userID userSig:userSig callback:^(int32_t code, NSString * _Nonnull error) {
-                NSLog(@"voice room 登录信息%ld, %@", (long)code, error);
+                NSLog(@"voice room login info: %ld, %@", (long)code, error);
             }];
             LoginResultModel *curUser = [[ProfileManager shared] curUserModel];
             [self.voiceRoom setSelfProfile:curUser.name avatarURL:curUser.avatar callback:^(int32_t code, NSString * _Nonnull message) {
-                NSLog(@"live room profile信息：%ld, %@", (long)code, message);
+                NSLog(@"live room profile info: %ld, %@", (long)code, message);
 
             }];
             TRTCVoiceRoomEnteryControl *container = [[TRTCVoiceRoomEnteryControl alloc] initWithSdkAppId:SDKAPPID userId:userID];
@@ -296,7 +318,7 @@ UIAlertViewDelegate
             return enterViewController;
         }];
         [subCells addObject:scellInfo];
-        scellInfo = [CellInfo cellInfoWithTitle:@"视频互动" controllerCreationBlock:^UIViewController * _Nonnull{
+        scellInfo = [CellInfo cellInfoWithTitle:V2Localize(@"TRTC.MainMenu.interactivelivevideostreaming")  controllerCreationBlock:^UIViewController * _Nonnull{
             weakSelf.liveRoom = [TRTCLiveRoom shareInstance];
             NSString *userID = [[ProfileManager shared] curUserID];
             NSString *userSig = [[ProfileManager shared] curUserSig];
@@ -310,26 +332,26 @@ UIAlertViewDelegate
             }
             
             [self.liveRoom loginWithSdkAppID:SDKAPPID userID:userID userSig:userSig config:config callback:^(int code, NSString * error) {
-                NSLog(@"live room 登录信息：%ld, %@", (long)code, error);
+                NSLog(@"live room login info: %ld, %@", (long)code, error);
             }];
           
             LoginResultModel *curUser = [[ProfileManager shared] curUserModel];
             [self.liveRoom setSelfProfileWithName:curUser.name avatarURL:curUser.avatar callback:^(int code, NSString * error) {
-                NSLog(@"live room profile信息：%ld, %@", (long)code, error);
+                NSLog(@"live room profile info: %ld, %@", (long)code, error);
             }];
            
             return [[LiveRoomMainViewController alloc] initWithLiveRoom:weakSelf.liveRoom];
         }];
         [subCells addObject:scellInfo];
-        scellInfo = [CellInfo cellInfoWithTitle:@"语音通话"
+        scellInfo = [CellInfo cellInfoWithTitle:V2Localize(@"TRTC.MainMenu.audiocall")
                    controllerCreationBlock:^UIViewController * _Nonnull{
-            weakSelf.videoCallVC.title = @"语音通话";
+            weakSelf.videoCallVC.title = V2Localize(@"TRTC.MainMenu.audiocall");
             weakSelf.videoCallVC.callType = CallType_Audio;
             return weakSelf.videoCallVC;
         }];
         [subCells addObject:scellInfo];
-        scellInfo = [CellInfo cellInfoWithTitle:@"视频通话" controllerCreationBlock:^UIViewController * _Nonnull{
-            weakSelf.videoCallVC.title = @"视频通话";
+        scellInfo = [CellInfo cellInfoWithTitle:V2Localize(@"TRTC.MainMenu.videocall") controllerCreationBlock:^UIViewController * _Nonnull{
+            weakSelf.videoCallVC.title = V2Localize(@"TRTC.MainMenu.videocall");
             weakSelf.videoCallVC.callType = CallType_Video;
             return weakSelf.videoCallVC;
         }];
@@ -364,7 +386,7 @@ UIAlertViewDelegate
     
     //大标题
     UILabel* lbHeadLine = [[UILabel alloc] initWithFrame:CGRectMake(originX, 50, width, 48)];
-    lbHeadLine.text = @"腾讯视频云";
+    lbHeadLine.text = V2Localize(@"V2.Live.LinkMicNew.txvideoremote");
     lbHeadLine.textColor = UIColorFromRGB(0xffffff);
     lbHeadLine.font = [UIFont systemFontOfSize:24];
     [lbHeadLine sizeToFit];
@@ -398,8 +420,8 @@ UIAlertViewDelegate
     UILabel* lbSubHead = [[UILabel alloc] initWithFrame:CGRectMake(originX, lbHeadLine.frame.origin.y + lbHeadLine.frame.size.height + 15, width, 30)];
     NSString *version = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
     NSString *sdkVersion = [TXLiveBase getSDKVersionStr];
-    lbSubHead.text = [NSString stringWithFormat:@"视频云工具包 v%@(%@)", sdkVersion, version];
-    lbSubHead.text = [lbSubHead.text stringByAppendingString:@"\n本APP用于展示腾讯视频云终端产品的各类功能"];
+    lbSubHead.text = [NSString stringWithFormat:@"%@ v%@(%@)", V2Localize(@"V2.Live.LinkMicNew.txtoolpkg"), sdkVersion, version];
+    lbSubHead.text = [lbSubHead.text stringByAppendingFormat:@"\n%@", V2Localize(@"V2.Live.LinkMicNew.appusetoshowfunc")];
     lbSubHead.numberOfLines = 2;
     lbSubHead.textColor = UIColor.grayColor;
     lbSubHead.textAlignment = NSTextAlignmentCenter;
@@ -452,7 +474,7 @@ UIAlertViewDelegate
     UIButton* uploadButton = [UIButton buttonWithType:UIButtonTypeSystem];
     uploadButton.center = CGPointMake(self.view.bounds.size.width / 2, _logUploadView.frame.size.height * 0.9);
     uploadButton.bounds = CGRectMake(0, 0, self.view.bounds.size.width / 3, _logUploadView.frame.size.height * 0.2);
-    [uploadButton setTitle:@"分享上传日志" forState:UIControlStateNormal];
+    [uploadButton setTitle:AppPortalLocalize(@"App.PortalViewController.sharelog") forState:UIControlStateNormal];
     [uploadButton addTarget:self action:@selector(onSharedUploadLog:) forControlEvents:UIControlEventTouchUpInside];
     [_logUploadView addSubview:uploadButton];
     

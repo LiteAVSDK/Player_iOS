@@ -22,6 +22,7 @@
 #import "UIImageView+WebCache.h"
 #import "TXLiteAVSDK.h"
 #import "UGCUploadList.h"
+#import "AppLocalized.h"
 
 #define LIST_VIDEO_CELL_ID @"LIST_VIDEO_CELL_ID"
 #define LIST_LIVE_CELL_ID @"LIST_LIVE_CELL_ID"
@@ -84,7 +85,8 @@ __weak UITextField *urlField;
 }
 
 - (void)dealloc {
-    NSLog(@"%@释放了",self.class);
+    
+    NSLog(@"%@",LocalizeReplaceXX(LivePlayerLocalize(@"SuperPlayerDemo.MoviePlayer.xxtherelease"), NSStringFromClass(self.class)));
     [_manager invalidateSessionCancelingTasks:YES resetSession:NO];
 }
 
@@ -198,7 +200,7 @@ __weak UITextField *urlField;
         SuperPlayerModel *playerModel = [[SuperPlayerModel alloc] init];
         playerModel.videoURL         = self.videoURL;
         [self.playerView playWithModel:playerModel];
-        [self.playerView.controlView setTitle:@"上传视频"];
+        [self.playerView.controlView setTitle:LivePlayerLocalize(@"SuperPlayerDemo.MoviePlayer.uploadvideo")];
     }
     
     self.playerFatherView = [[UIView alloc] init];
@@ -218,7 +220,7 @@ __weak UITextField *urlField;
     
     self.vodBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.view addSubview:self.vodBtn];
-    [self.vodBtn setTitle:@"点播列表" forState:UIControlStateNormal];
+    [self.vodBtn setTitle:LivePlayerLocalize(@"SuperPlayerDemo.MoviePlayer.ondemandlist") forState:UIControlStateNormal];
     [self.vodBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
     [self.vodBtn setTitleColor:[UIColor lightTextColor] forState:UIControlStateNormal];
     [self.vodBtn addTarget:self action:@selector(clickVodList:) forControlEvents:UIControlEventTouchUpInside];
@@ -226,7 +228,7 @@ __weak UITextField *urlField;
     
     self.liveBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.view addSubview:self.liveBtn];
-    [self.liveBtn setTitle:@"直播列表" forState:UIControlStateNormal];
+    [self.liveBtn setTitle:LivePlayerLocalize(@"SuperPlayerDemo.MoviePlayer.livelist") forState:UIControlStateNormal];
     [self.liveBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
     [self.liveBtn setTitleColor:[UIColor lightTextColor] forState:UIControlStateNormal];
     [self.liveBtn addTarget:self action:@selector(clickLiveList:) forControlEvents:UIControlEventTouchUpInside];
@@ -360,7 +362,7 @@ __weak UITextField *urlField;
             }
         } completion:^(int code, NSString * _Nonnull message) {
             if (code != 0) {
-                NSLog(@"获取视频失败：%@", message);
+                NSLog(@"%@", LocalizeReplaceXX(LivePlayerLocalize(@"SuperPlayerDemo.MoviePlayer.getvideoerrorxx"), [NSString stringWithFormat:@"%@",message]));
             }
         }];
     }
@@ -374,7 +376,7 @@ __weak UITextField *urlField;
     [manager GET:@"http://xzb.qcloud.com/get_live_list2" parameters:nil headers:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         __strong __typeof(weakSelf) self = weakSelf;
         if ([J2Num([responseObject valueForKeyPath:@"code"]) intValue] != 200) {
-            [self hudMessage:@"直播列表请求失败"];
+            [self hudMessage:LivePlayerLocalize(@"SuperPlayerDemo.MoviePlayer.getlivelisterror")];
             return;
         }
         NSMutableArray *allList = @[].mutableCopy;
@@ -452,7 +454,7 @@ __weak UITextField *urlField;
     m.duration = playInfo.duration;
     m.title = playInfo.videoDescription?: playInfo.name;
     if (!m.title || [m.title isEqualToString:@""]) {
-        m.title = [NSString stringWithFormat:@"%@%@", @"视频", playInfo.fileId];
+        m.title = [NSString stringWithFormat:@"%@%@", LivePlayerLocalize(@"SuperPlayerDemo.MoviePlayer.video"), playInfo.fileId];
     }
     m.coverUrl = playInfo.coverUrl;
     [_vodDataSourceArray addObject:m];
@@ -479,7 +481,7 @@ __weak UITextField *urlField;
 }
 
 - (void)onNetFailed:(TXMoviePlayerNetApi *)obj reason:(NSString *)reason code:(int)code {
-    [self hudMessage:@"fileid请求失败"];
+    [self hudMessage:LivePlayerLocalize(@"SuperPlayerDemo.MoviePlayer.fileidrequesterror")];
 }
 
 - (void)getNextInfo {
@@ -499,7 +501,7 @@ __weak UITextField *urlField;
                               psign:p.sign
                          completion:^(TXMoviePlayInfoResponse *resp, NSError *error) {
         if (error) {
-            [wself hudMessage:@"fileid请求失败"];
+            [wself hudMessage:LivePlayerLocalize(@"SuperPlayerDemo.MoviePlayer.fileidrequesterror")];
         } else {
             [wself onNetSuccess:resp];
         }
@@ -528,7 +530,7 @@ __weak UITextField *urlField;
             [self playModel:model];
             success = YES;
         } else {
-            NSLog(@"缺少参数:appId=%@,fileId=%@,psign=%@", appId, fileId, psign);
+            NSLog(@"%@", LocalizeReplaceThreeCharacter(LivePlayerLocalize(@"SuperPlayerDemo.MoviePlayer.lackofparameterxxyyzz"), [NSString stringWithFormat:@"%@",appId], [NSString stringWithFormat:@"%@",fileId], [NSString stringWithFormat:@"%@",psign]));
         }
     }
     if (complete) {
@@ -561,10 +563,10 @@ __weak UITextField *urlField;
 {
     if ([self.playerView.controlView isKindOfClass:[SPDefaultControlView class]]) {
         self.playerView.controlView = [[SPWeiboControlView alloc] init];
-        [self hudMessage:@"已切换微博风格"];
+        [self hudMessage:LivePlayerLocalize(@"SuperPlayerDemo.MoviePlayer.changetoweibostyle")];
     } else if ([self.playerView.controlView isKindOfClass:[SPWeiboControlView class]]) {
         self.playerView.controlView = [[SPDefaultControlView alloc] init];
-        [self hudMessage:@"已切换默认风格"];
+        [self hudMessage:LivePlayerLocalize(@"SuperPlayerDemo.MoviePlayer.changetonormalstyle")];
     }
 }
 
@@ -691,14 +693,14 @@ __weak UITextField *urlField;
     m.url = result;
     m.type = self.playerView.isLive;
     if (isLive) {
-        m.title = [NSString stringWithFormat:@"视频%lu",(unsigned long)_liveDataSourceArray.count+1];
+        m.title = [NSString stringWithFormat:@"%@%lu",LivePlayerLocalize(@"SuperPlayerDemo.MoviePlayer.video"),(unsigned long)_liveDataSourceArray.count+1];
         [_liveDataSourceArray addObject:m];
         [_liveListView reloadData];
     } else {
         if (model.videoId) {
             [m setModel:model];
         }
-        m.title = [NSString stringWithFormat:@"视频%lu",(unsigned long)_vodDataSourceArray.count+1];
+        m.title = [NSString stringWithFormat:@"%@%lu",LivePlayerLocalize(@"SuperPlayerDemo.MoviePlayer.video"), (unsigned long)_vodDataSourceArray.count+1];
         [_vodDataSourceArray addObject:m];
         [_vodListView reloadData];
     }
@@ -718,7 +720,7 @@ __weak UITextField *urlField;
 }
 
 - (void)playModel:(SuperPlayerModel *)model {
-    [self.playerView.controlView setTitle:@"这是新播放的视频"];
+    [self.playerView.controlView setTitle:LivePlayerLocalize(@"SuperPlayerDemo.MoviePlayer.newplayvideo")];
     [self.playerView.coverImageView setImage:nil];
     [self.playerView playWithModel:model];
 }
@@ -727,28 +729,28 @@ __weak UITextField *urlField;
 
 - (void)onAddClick:(UIButton *)btn
 {
-    UIAlertController *control = [UIAlertController alertControllerWithTitle:@"添加视频" message:@"" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertController *control = [UIAlertController alertControllerWithTitle:LivePlayerLocalize(@"SuperPlayerDemo.MoviePlayer.addvideo") message:@"" preferredStyle:UIAlertControllerStyleAlert];
     
     if (self.vodBtn.selected) {
         [control addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
-            textField.placeholder = @"请输入appid";
+            textField.placeholder = LivePlayerLocalize(@"SuperPlayerDemo.MoviePlayer.enterappid");
             appField = textField;
         }];
         
         [control addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
-            textField.placeholder = @"请输入fileid";
+            textField.placeholder = LivePlayerLocalize(@"SuperPlayerDemo.MoviePlayer.enterfileid");
             fileidField = textField;
         }];
     } else {
         [control addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
-            textField.placeholder = @"请输入直播url";
+            textField.placeholder = LivePlayerLocalize(@"SuperPlayerDemo.MoviePlayer.enterliveurl");
             urlField = textField;
         }];
     }
     
     BOOL isLock = self.playerView.isLockScreen;
     self.playerView.isLockScreen = YES;
-    [control addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    [control addAction:[UIAlertAction actionWithTitle:LivePlayerLocalize(@"LiveLinkMicDemoOld.RoomList.determine") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         if (self.vodBtn.selected) {
             TXPlayerAuthParams *p = [TXPlayerAuthParams new];
             p.appId = [appField.text intValue];
@@ -758,13 +760,13 @@ __weak UITextField *urlField;
             [self getNextInfo];
         } else {
             if (urlField.text.length == 0) {
-                [self hudMessage:@"请输入正确的播放地址"];
+                [self hudMessage:LivePlayerLocalize(@"SuperPlayerDemo.MoviePlayer.enterplayeraddress")];
                 return;
             }
             
             ListVideoModel *m = [ListVideoModel new];
             m.url = urlField.text;
-            m.title = [NSString stringWithFormat:@"视频%lu",(unsigned  long)self.liveDataSourceArray.count+1];
+            m.title = [NSString stringWithFormat:@"%@%lu",LivePlayerLocalize(@"SuperPlayerDemo.MoviePlayer.video"),(unsigned  long)self.liveDataSourceArray.count+1];
             m.type = 1;
             [self.liveDataSourceArray addObject:m];
             [self.liveListView reloadData];
@@ -773,7 +775,7 @@ __weak UITextField *urlField;
         self.playerView.isLockScreen = isLock;
     }]];
      
-    [control addAction:[UIAlertAction actionWithTitle:@"取消"
+    [control addAction:[UIAlertAction actionWithTitle:LivePlayerLocalize(@"LivePusherDemo.PushSetting.cancel")
                                                 style:UIAlertActionStyleCancel
                                               handler:^(UIAlertAction * _Nonnull action) {
         self.playerView.isLockScreen = isLock;

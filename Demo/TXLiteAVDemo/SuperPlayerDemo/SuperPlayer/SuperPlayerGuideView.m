@@ -9,6 +9,7 @@
 #import "SuperPlayerGuideView.h"
 #import "SuperPlayer.h"
 #import "Masonry.h"
+#import "AppLocalized.h"
 
 @interface SuperPlayerGuideView()
 @property UIButton *iknow_btn;
@@ -59,7 +60,7 @@
     [self addSubview:leftLabel];
     leftLabel.font = [UIFont systemFontOfSize:10];
     leftLabel.textColor = [UIColor whiteColor];
-    leftLabel.text = @"上下滑动调节屏幕明暗";
+    leftLabel.text = LivePlayerLocalize(@"SuperPlayerDemo.SuperPlayerGuideView.slideupanddowntoadjust");
     self.leftImg = leftImg;
     self.leftLabel = leftLabel;
     
@@ -69,7 +70,7 @@
     [self addSubview:rightLabel];
     rightLabel.font = [UIFont systemFontOfSize:10];
     rightLabel.textColor = [UIColor whiteColor];
-    rightLabel.text = @"上下滑动调节音量大小";
+    rightLabel.text = LivePlayerLocalize(@"SuperPlayerDemo.SuperPlayerGuideView.slideupanddowntovolume");
     self.rightImg = rightImg;
     self.rightLabel = rightLabel;
     
@@ -79,7 +80,7 @@
     [self addSubview:middleLabel];
     middleLabel.textColor = [UIColor whiteColor];
     middleLabel.font = [UIFont systemFontOfSize:10];
-    middleLabel.text = @"左右滑动快进/倒退";
+    middleLabel.text = LivePlayerLocalize(@"SuperPlayerDemo.SuperPlayerGuideView.slideleftandrighttofastforward");
     self.middleImg = middleImg;
     self.middleLabel = middleLabel;
 
@@ -151,7 +152,7 @@
     [self addSubview:arrowLabel];
     arrowLabel.font = [UIFont systemFontOfSize:10];
     arrowLabel.textColor = [UIColor whiteColor];
-    arrowLabel.text = @"向左拖动可观看先前直播内容";
+    arrowLabel.text = LivePlayerLocalize(@"SuperPlayerDemo.SuperPlayerGuideView.leftwatchlivecontent");
     self.arrowImg = arrowImg;
     self.arrowLabel = arrowLabel;
     

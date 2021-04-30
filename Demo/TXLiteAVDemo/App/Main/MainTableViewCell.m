@@ -101,7 +101,7 @@
         
         _titleLabel = [[UILabel alloc] init];
         _titleLabel.textAlignment = NSTextAlignmentLeft;
-        _titleLabel.font = [UIFont systemFontOfSize:20];
+        _titleLabel.font = [UIFont systemFontOfSize:18];
         _titleLabel.textColor = UIColor.whiteColor;
         [_backgroundView addSubview:_titleLabel];
 
@@ -124,14 +124,14 @@
     }
     
     _titleLabel.center = CGPointMake(_titleLabel.center.x, _titleLabel.superview.frame.size.height/2);
-    _titleLabel.frame = CGRectMake(25, _titleLabel.frame.origin.y, _titleLabel.frame.size.width, _titleLabel.frame.size.height);
+    _titleLabel.frame = CGRectMake(10, _titleLabel.frame.origin.y, _titleLabel.frame.size.width, _titleLabel.frame.size.height);
     _iconImageView.center = (CGPointMake(_backgroundView.frame.size.width-41, _backgroundView.frame.size.height/2));
     _detailImageView.center = (CGPointMake(_backgroundView.frame.size.width-41, _backgroundView.frame.size.height/2));
     
     if (_cellData.subCells != nil) {
         _iconImageView.hidden = NO;
         _detailImageView.hidden = YES;
-        _titleLabel.font = [UIFont systemFontOfSize:20];
+        _titleLabel.font = [UIFont systemFontOfSize:18];
     } else {
         _iconImageView.hidden = YES;
         _detailImageView.hidden = NO;

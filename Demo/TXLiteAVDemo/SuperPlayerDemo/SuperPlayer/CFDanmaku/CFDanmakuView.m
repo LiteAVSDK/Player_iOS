@@ -8,7 +8,7 @@
 
 #import "CFDanmakuView.h"
 #import "CFDanmakuInfo.h"
-
+#import "AppLocalized.h"
 
 
 #define X(view) view.frame.origin.x
@@ -165,7 +165,7 @@ static NSTimeInterval const timeMargin = 0.5;
 #pragma mark - center top \ bottom
 - (void)playCenterDanmaku:(CFDanmaku *)danmaku playerLabel:(UILabel *)playerLabel
 {
-    NSAssert(self.centerDuration && self.maxCenterLineCount, @"如果要使用中间弹幕 必须先设置中间弹幕的时间及最大行数");
+    NSAssert(self.centerDuration && self.maxCenterLineCount, LivePlayerLocalize(@"SuperPlayerDemo.CFDanmaku.usebarrage"));
     
     CFDanmakuInfo* newInfo = [[CFDanmakuInfo alloc] init];
     newInfo.playLabel = playerLabel;
@@ -200,7 +200,7 @@ static NSTimeInterval const timeMargin = 0.5;
             }else{
                 [self.danmakus removeObject:danmaku];
                 [playerLabel removeFromSuperview];
-                NSLog(@"同一时间评论太多--排不开了--------------------------");
+                NSLog(@"%@",LivePlayerLocalize(@"SuperPlayerDemo.CFDanmaku.toomanycomments"));
             }
         }
     }
@@ -285,7 +285,7 @@ static NSTimeInterval const timeMargin = 0.5;
             }else{
                 [self.danmakus removeObject:danmaku];
                 [playerLabel removeFromSuperview];
-                NSLog(@"同一时间评论太多--排不开了--------------------------");
+                NSLog(@"%@",LivePlayerLocalize(@"SuperPlayerDemo.CFDanmaku.toomanycomments"));
             }
         }
     }
@@ -363,7 +363,7 @@ static NSTimeInterval const timeMargin = 0.5;
 
 - (BOOL)isPrepared
 {
-    NSAssert(self.duration && self.maxShowLineCount && self.lineHeight, @"必须先设置弹幕的时间\\最大行数\\弹幕行高");
+    NSAssert(self.duration && self.maxShowLineCount && self.lineHeight, LivePlayerLocalize(@"SuperPlayerDemo.CFDanmaku.mustsettingbarrage"));
     if (self.danmakus.count && self.lineHeight && self.duration && self.maxShowLineCount) {
         return YES;
     }

@@ -7,6 +7,7 @@
 //
 
 #import "TXMoviePlayerNetApi.h"
+#import "AppLocalized.h"
 #define BASE_URL_S @"https://playvideo.qcloud.com/getplayinfo/v4"
 #define BASE_URL @"http://playvideo.qcloud.com/getplayinfo/v4"
 
@@ -21,12 +22,12 @@
 {
     
     if (appId == 0 || fileId.length == 0) {
-        NSLog(@"参数错误");
+        NSLog(@"%@",LivePlayerLocalize(@"SuperPlayerDemo.TXMoviePlayerNetApi.parametererror"));
         if (completion) {
             NSError *error = [NSError errorWithDomain:NSStringFromClass([self class])
                                                  code:-1
                                              userInfo:@{
-                                                 NSLocalizedDescriptionKey: @"参数错误"
+                                                 NSLocalizedDescriptionKey: LivePlayerLocalize(@"SuperPlayerDemo.TXMoviePlayerNetApi.parametererror")
                                              }];
             completion(nil, error);
         }
@@ -71,8 +72,8 @@
                 NSError *error = [NSError errorWithDomain:NSStringFromClass([self class])
                                                      code:-1
                                                  userInfo:@{
-                                                     NSLocalizedDescriptionKey: @"请求失败",
-                                                     NSLocalizedFailureReasonErrorKey: @"内容为空"
+                                                     NSLocalizedDescriptionKey: LivePlayerLocalize(@"SuperPlayerDemo.TXMoviePlayerNetApi.requesterror"),
+                                                     NSLocalizedFailureReasonErrorKey: LivePlayerLocalize(@"SuperPlayerDemo.TXMoviePlayerNetApi.contentisnil")
                                                  }];
                 completion(nil, error);
             }
@@ -89,7 +90,7 @@
                     NSError *error = [NSError errorWithDomain:NSStringFromClass([self class])
                                                          code:-2
                                                      userInfo:@{
-                                                         NSLocalizedDescriptionKey: @"格式错误"
+                                                         NSLocalizedDescriptionKey: LivePlayerLocalize(@"SuperPlayerDemo.TXMoviePlayerNetApi.invalidformat")
                                                      }];
                     completion(nil, error);
                 }
@@ -100,7 +101,7 @@
             if ([dict objectForKey:@"code"]) {
                 int code = [[dict objectForKey:@"code"] intValue];
                 if (code != 0) {
-                    NSLog(@"请求失败: %s", [dict[@"message"] UTF8String]);
+                    NSLog(@"%@: %s",LivePlayerLocalize(@"SuperPlayerDemo.TXMoviePlayerNetApi.requesterror"), [dict[@"message"] UTF8String]);
                     NSError *error = [NSError errorWithDomain:NSStringFromClass([self class])
                                                          code:code
                                                      userInfo:@{
@@ -129,7 +130,7 @@
                 NSError *error = [NSError errorWithDomain:NSStringFromClass([self class])
                                                      code:-2
                                                  userInfo:@{
-                                                     NSLocalizedDescriptionKey: @"格式错误"
+                                                     NSLocalizedDescriptionKey: LivePlayerLocalize(@"SuperPlayerDemo.TXMoviePlayerNetApi.invalidformat")
                                                  }];
                 completion(nil, error);
             }

@@ -9,6 +9,7 @@
 #import "DownloadViewController.h"
 #import "TXVodDownloadManager.h"
 #import "UIView+MMLayout.h"
+#import "AppLocalized.h"
 
 @interface DownloadViewController ()<TXVodDownloadDelegate>
 
@@ -42,14 +43,14 @@
     _media = [_manager startDownloadUrl:@"http://1251316161.vod2.myqcloud.com/45af1a62vodtransgzp1251316161/bdc8878d4564972819204191691/voddrm.token.dWluPTMzNzUxODE2Nzt0ZXJtX2lkPTEyMzQ1Njc4OTtwc2t5PWNYUHVYWkdpUWxub0hEemFTakt3VjJHcktEVW9nTzVRbi1JT3YqWVdESWdfZXh0PW51bGw.v.f12647.m3u8"];
     
     UIButton *b1 = [UIButton buttonWithType:UIButtonTypeSystem];
-    [b1 setTitle:@"删除任务" forState:UIControlStateNormal];
+    [b1 setTitle:LivePlayerLocalize(@"SuperPlayerDemo.DownloadView.deletetask") forState:UIControlStateNormal];
     [b1 sizeToFit];
     [b1 addTarget:self action:@selector(deleteDownloadFile:) forControlEvents:UIControlEventTouchUpInside];
     b1.m_top(40).m_left(20);
     [self.view addSubview:b1];
     
     UIButton *b2 = [UIButton buttonWithType:UIButtonTypeSystem];
-    [b2 setTitle:@"停止任务" forState:UIControlStateNormal];
+    [b2 setTitle:LivePlayerLocalize(@"SuperPlayerDemo.DownloadView.stoptask") forState:UIControlStateNormal];
     [b2 sizeToFit];
     [b2 addTarget:self action:@selector(stopDownloadFile:) forControlEvents:UIControlEventTouchUpInside];
     b2.m_top(40).m_left(90);
@@ -85,7 +86,7 @@
 }
 - (void)onDownloadProgress:(TXVodDownloadMediaInfo *)mediaInfo;
 {
-    NSLog(@"进度 %f, 速度 %d", mediaInfo.progress, mediaInfo.speed);
+    LocalizeReplace(LivePlayerLocalize(@"SuperPlayerDemo.DownloadView.progressxxspeedyy"), [NSString stringWithFormat:@"%f",mediaInfo.progress], [NSString stringWithFormat:@"%d",mediaInfo.speed]);
 }
 - (void)onDownloadStop:(TXVodDownloadMediaInfo *)mediaInfo;
 {
