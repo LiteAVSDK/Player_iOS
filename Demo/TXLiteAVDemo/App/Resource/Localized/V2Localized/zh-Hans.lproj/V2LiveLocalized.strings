@@ -24,7 +24,7 @@
 "V2.Live.LinkMicNew.enterroomid" = "请输入房间号";
 "V2.Live.LinkMicNew.enteruserid" = "请输入用户Id";
 "V2.Live.LinkMicNew.enterremoteuserid" = "请输入远端用户Id";
-"V2.Live.LinkMicNew.startstreampull" = "开始拉流";
+"V2.Live.LinkMicNew.startstreampull" = "开始播放";
 "V2.Live.LinkMicNew.havepullstreamaddress" = "我有拉流地址";
 "V2.Live.LinkMicNew.scancodetoenterpullstreamaddress" = "请扫码输入拉流地址";
 "V2.Live.LinkMicNew.createpushstreamaddfailed" = "创建推流地址失败";
@@ -165,3 +165,9 @@
 "TRTC.MainMenu.interactivelivevideostreaming" = "视频互动";
 "TRTC.MainMenu.audiocall" = "语音通话";
 "TRTC.MainMenu.videocall" = "视频通话";
+
+// Leb Player
+"MLVB.lebLauncher.title" = "快直播播放";
+"MLVB.lebLauncher.inputUrl" = "请输入播放地址";
+"MLVB.lebLauncher.inputLebUrl" = "请输入以 webtrc:// 开头的播放地址";
+"MLVB.lebLauncher.enterplayeraddress" = "请输入正确的播放地址";

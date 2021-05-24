@@ -25,7 +25,7 @@
 "V2.Live.LinkMicNew.enterroomid" = "Enter a room ID";
 "V2.Live.LinkMicNew.enteruserid" = "Enter a user ID";
 "V2.Live.LinkMicNew.enterremoteuserid" = "Enter a remote user ID";
-"V2.Live.LinkMicNew.startstreampull" = "Start to pull";
+"V2.Live.LinkMicNew.startstreampull" = "Start Playback";
 "V2.Live.LinkMicNew.havepullstreamaddress" = "I have a pull address";
 "V2.Live.LinkMicNew.scancodetoenterpullstreamaddress" = "Scan QR code or enter an address";
 "V2.Live.LinkMicNew.createpushstreamaddfailed" = "Failed to create push address";
@@ -166,3 +166,10 @@
 "TRTC.MainMenu.interactivelivevideostreaming" = "Interactive Live Video Streaming";
 "TRTC.MainMenu.audiocall" = "Audio Call";
 "TRTC.MainMenu.videocall" = "Video Call";
+
+//Leb Player
+"MLVB.lebLauncher.title" = "LEB Player";
+"MLVB.lebLauncher.inputUrl" = "Enter a playback address";
+"MLVB.lebLauncher.inputLebUrl" = "Enter a playback address started with webrtc://";
+"MLVB.lebLauncher.enterplayeraddress" = "Enter a valid playback address";
+

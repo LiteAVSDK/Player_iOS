@@ -9,6 +9,7 @@
 #import "MainViewController.h"
 #ifdef ENABLE_PUSH
 #import "CameraPushViewController.h"
+#import "LebLauncherViewController.h"
 #endif
 #if !defined(UGC) && !defined(PLAYER)
 #import "PlayViewController.h"
@@ -181,7 +182,10 @@ UIAlertViewDelegate
                        controllerClassName:@"PlayViewController"];
         [subCells addObject:scellInfo];
 #endif
+       
 #ifndef SMART
+        scellInfo = [CellInfo cellInfoWithTitle:V2Localize(@"MLVB.lebLauncher.title") controllerClassName:@"LebLauncherViewController"];
+        [subCells addObject:scellInfo];
         scellInfo = [CellInfo cellInfoWithTitle:V2Localize(@"V2.Live.LinkMicNew.coanchornew")
                        controllerClassName:@"V2MainViewController"];
         [subCells addObject:scellInfo];

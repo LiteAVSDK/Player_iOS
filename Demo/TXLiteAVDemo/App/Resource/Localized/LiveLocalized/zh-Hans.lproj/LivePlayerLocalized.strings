@@ -147,13 +147,14 @@
 "LivePusherDemo.CameraPush.addressacquisitioninprocess" = "地址获取中";
 "LivePusherDemo.CameraPush.failedtogetpushstreamaddress" = "获取推流地址失败";
 "LivePusherDemo.CameraPush.lowlatency" = "低延时";
+"LivePusherDemo.CameraPush.lebUrl" = "快直播";
 "LivePusherDemo.CameraPush.rtmpaddressxxflvaddressyyhlsaddresszz" = "rtmp播放地址:xxx\n\nflv播放地址:yyy\n\nhls播放地址:zzz\n\n低延时播放地址:mmm";
 "LivePusherDemo.CameraPush.getaddresssuccess" = "获取地址成功";
 "LivePusherDemo.CameraPush.playbackaddresshasbeencopiedtotheclipboard" = "播放地址已复制到剪贴板";
 "LivePusherDemo.CameraPush.changetowifipushstream" = "您要切换到WiFi再推流吗?";
 "LivePusherDemo.CameraPush.currentnetworkenvironmentisnotgood" = "您当前的网络环境不佳，请尽快更换网络保证正常直播";
 "LivePusherDemo.CameraPush.startloadingassets" = "开始加载资源";
-"LivePusherDemo.CameraPush.loadingxx" = "正在加载资源xxx %%";
+"LivePusherDemo.CameraPush.loadingxx" = "正在加载资源xxx %";
 "LivePusherDemo.CameraPush.assetsloadsuccess" = "资源加载成功";
 "LivePusherDemo.CameraPush.assetsloadfailed" = "资源加载失败";
 
@@ -267,3 +268,5 @@
 "SuperPlayerDemo.SuperPlayerGuideView.slideleftandrighttofastforward" = "左右滑动快进/倒退";
 "SuperPlayerDemo.SuperPlayerGuideView.leftwatchlivecontent" = "向左拖动可观看先前直播内容";
 "MLVB.MainMenu.pushscreen" = "推流演示（录屏推流）";
+
+
