@@ -173,3 +173,10 @@
 "MLVB.lebLauncher.inputLebUrl" = "Enter a playback address started with webrtc://";
 "MLVB.lebLauncher.enterplayeraddress" = "Enter a valid playback address";
 
+
+"Demo.TRTC.Portal.privateandagreement" = "I have read and agree to the xxx and yyy, and I authorize Tencent Cloud to manage the data (nickname, profile photo, phone number) of this account .";
+"Demo.TRTC.Portal.agreeprivatefirst" = "You must agree to the Privacy Policy and Terms of Use first.";
+"Demo.TRTC.Portal.<private>" = "Privacy Policy";
+"Demo.TRTC.Portal.<agreement>" = "Terms of Use";
+"Demo.TRTC.Portal.private" = "Privacy Policy";
+"Demo.TRTC.Portal.agreement" = "Terms of Use";

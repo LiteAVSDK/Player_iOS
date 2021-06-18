@@ -10,7 +10,11 @@
 #define Replaykit2Define_h
 
 #define kReplayKitUseAppGroup                   0
+#if DEBUG
+#define kReplayKit2AppGroupId                   @"group.com.tencent.liteav.RPLiveStreamShare"
+#else
 #define kReplayKit2AppGroupId                   @"group.com.tencent.liteav.RPLiveStreamRelease"
+#endif
 #define kReplayKit2PasteboardName               @"group.com.tencent.replaykit2.pasteboard"
 #define kReplayKitIPCPort                       31753
 

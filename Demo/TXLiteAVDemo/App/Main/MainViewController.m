@@ -131,24 +131,10 @@ UIAlertViewDelegate
 #endif
 }
 
-- (IBAction)logout:(id)sender {
+- (IBAction)userInfoButtonClick:(id)sender {
     #if !defined(UGC) && !defined(PLAYER)
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:V2Localize(@"V2.Live.LinkMicNew.suretologout") message:nil preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:V2Localize(@"V2.Live.LinkMicNew.cancel") style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-        
-    }];
-    UIAlertAction *okAction = [UIAlertAction actionWithTitle:V2Localize(@"V2.Live.LinkMicNew.confirm") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        [[ProfileManager shared] removeLoginCache];
-        [[AppUtils shared] showLoginController];
-        [[V2TIMManager sharedInstance] logout:^{
-            
-        } fail:^(int code, NSString *msg) {
-            
-        }];
-    }];
-    [alert addAction:cancelAction];
-    [alert addAction:okAction];
-    [self presentViewController:alert animated:YES completion:nil];
+    MineViewController *mineVC = [[MineViewController alloc] init];
+    [self.navigationController pushViewController:mineVC animated:YES];
     #endif
 }
 
@@ -406,17 +392,17 @@ UIAlertViewDelegate
     pressGesture.numberOfTouchesRequired = 1;
     [self.view addGestureRecognizer:pressGesture];
     
-    // 退出登录按钮
-    UIButton* logoutButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    logoutButton.frame = CGRectMake(20, 0, 32, 32);
-    CGPoint center = logoutButton.center;
+    // 用户个人信息按钮
+    UIButton* userInfoButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    userInfoButton.frame = CGRectMake(20, 0, 32, 32);
+    CGPoint center = userInfoButton.center;
     center.y = lbHeadLine.center.y;
-    logoutButton.center = center;
-    [logoutButton setImage:[UIImage imageNamed:@"ic_logout"] forState:UIControlStateNormal];
-    [logoutButton addTarget:self action:@selector(logout:) forControlEvents:UIControlEventTouchUpInside];
+    userInfoButton.center = center;
+    [userInfoButton setImage:[UIImage imageNamed:@"ic_logout"] forState:UIControlStateNormal];
+    [userInfoButton addTarget:self action:@selector(userInfoButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     
 #if !defined(UGC) && !defined(PLAYER)
-    [self.view addSubview:logoutButton];
+    [self.view addSubview:userInfoButton];
 #endif
    
     

@@ -13,6 +13,7 @@
 #import "SPDefaultControlView.h"
 #import "SuperPlayerModelInternal.h"
 #import "NSString+URL.h"
+#import <Photos/Photos.h>
 // TODO: 处理头部引用
 #import "TXAudioCustomProcessDelegate.h"
 #import "TXAudioRawDataDelegate.h"
@@ -399,6 +400,7 @@ static UISlider * _volumeSlider;
         
         self.livePlayer.enableHWAcceleration = self.playerConfig.hwAcceleration;
         [self.livePlayer startPlay:videoURL type:liveType];
+        [self.livePlayer setupVideoWidget:CGRectZero containView:self insertIndex:0];
         TXCUrl *curl = [[TXCUrl alloc] initWithString:videoURL];
         [self.livePlayer prepareLiveSeek:self.playerConfig.playShiftDomain bizId:curl.bizid];
         [self.livePlayer setMute:self.playerConfig.mute];
@@ -1387,7 +1389,22 @@ static UISlider * _volumeSlider;
         }
         [self.fastView fadeShow];
         [self.fastView fadeOut:2];
-        UIImageWriteToSavedPhotosAlbum(img, nil, nil, nil);
+        PHPhotoLibrary *library = [PHPhotoLibrary sharedPhotoLibrary];
+        [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {
+            if (status == PHAuthorizationStatusAuthorized) {
+                [library performChanges:^{
+                    if (@available(iOS 9, *)) {
+                        PHAssetCreationRequest *request = [PHAssetCreationRequest creationRequestForAsset];
+                        [request addResourceWithType:PHAssetResourceTypePhoto data:UIImagePNGRepresentation(img) options:nil];
+                    } else {
+                        NSLog(@"SuperPlayerView controlViewSnapshot failed, your iOS version is lower than 9.0, please update your system!");
+                    }
+                } completionHandler:^(BOOL success, NSError * _Nullable error) {
+                }];
+            } else {
+                NSLog(@"SuperPlayerView controlViewSnapshot failed, unauthorized");
+            }
+        }];
     };
     
     if (_isLive) {

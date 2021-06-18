@@ -365,3 +365,6 @@
 "Demo.TRTC." = "用户接受";
 "Demo.TRTC." = "用户拒绝";
 "Demo.TRTC." = "录音文件路径已复制";
+
+"Demo.TRTC.Login.setavatar" = "设置头像";
+"Demo.TRTC.Login.done" = "确认";

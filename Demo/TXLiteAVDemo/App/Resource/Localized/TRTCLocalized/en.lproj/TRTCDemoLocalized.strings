@@ -324,3 +324,6 @@
 "Demo.TRTC.Streaming.call" = "Call";
 "Demo.TRTC.Home.loginimsuccess" = "Logged in to IM";
 "Demo.TRTC.Home.loginimfailed" = "Failed to log in to IM";
+
+"Demo.TRTC.Login.setavatar" = "Change Profile Picture";
+"Demo.TRTC.Login.done" = "Done";

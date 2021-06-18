@@ -29,3 +29,34 @@
 "AppCommon.TCUtil.sendhttprequest" = "Unable to convert parameter value to JSON string due to sendHttpRequest failure";
 "AppCommon.TCUtil.parametererror" = "Parameter error";
 "AppCommon.TCUtil.serverrequesterror" = "Server request error";
+
+
+"Demo.TRTC.Portal.Home.logout" = "Log out";
+"Demo.TRTC.Portal.Mine.personalcenter" = "Personal Center";
+"Demo.TRTC.Portal.Mine.about" = "About";
+"Demo.TRTC.Portal.Main.home" = "Home";
+"Demo.TRTC.Portal.Main.mine" = "Me";
+"Demo.TRTC.Portal.confirm" = "Done";
+"Demo.TRTC.Portal.enterusername" = "Please enter a nickname";
+"Demo.TRTC.Portal.privacy" = "Privacy";
+"Demo.TRTC.Portal.disclaimer" = "Disclaimer";
+"Demo.TRTC.Portal.sdkversion" = "SDK Version";
+"Demo.TRTC.Portal.appversion" = "Application Version";
+"Demo.TRTC.Portal.limit20count" = "Chinese characters, letters, numbers and underscores, 2 - 20 words";
+"Demo.TRTC.Portal.changenickname" = "Change Your Nickname";
+"Demo.TRTC.Portal.disclaimerdesc" = "this app is a tryout app, whose copyright is owned by Tencent Cloud. This app is for tryout only and must not be used commercially.\nIn accordance with relevant regulations, this app forbids pornographic, abusive, terrorism, and politically sensitive content. All audio/video interactions are recorded and archived.";
+
+"Demo.TRTC.Portal.resignaccount" = "Delete Account";
+"Demo.TRTC.Portal.resignsuccess" = "Account deleted";
+"Demo.TRTC.Portal.resigntips" = "You can no longer use this account after deletion. Its data will also be deleted and cannot be retrieved.";
+"Demo.TRTC.Portal.currentaccount" = "Account:xxx";
+"Demo.TRTC.Portal.confirmresign" = "Delete";
+"Demo.TRTC.Portal.alerttoresign" = "Are you sure you want to delete this account?";
+"Demo.TRTC.Portal.privateandagreement" = "I have read and agree to the Privacy Policy and Terms of Use, and I authorize Tencent Cloud to manage the data (nickname, profile photo, phone number) of this account .";
+"Demo.TRTC.Portal.agreeprivatefirst" = "You must agree to the Privacy Policy and Terms of Use first.";
+"Demo.TRTC.Portal.agree" = "agree";
+"Demo.TRTC.Portal.disagree" = "disagree";
+"Demo.TRTC.Portal.popTitle" = "Welcome to Tencent Cloud Video Toolkit";
+"Demo.TRTC.Portal.popMessage" =
+    "Welcome to Tencent Cloud Video Toolkit. We will help you understand our collection, use, and storage of personal information through the \"Privacy Regulations\" and \"User Agreement\".
+In addition, you can also learn about your related rights and implementation methods. If you agree, please click the button below to start accepting our services;";

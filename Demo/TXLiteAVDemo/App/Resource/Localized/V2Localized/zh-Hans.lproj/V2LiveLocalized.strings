@@ -171,3 +171,11 @@
 "MLVB.lebLauncher.inputUrl" = "请输入播放地址";
 "MLVB.lebLauncher.inputLebUrl" = "请输入以 webtrc:// 开头的播放地址";
 "MLVB.lebLauncher.enterplayeraddress" = "请输入正确的播放地址";
+
+
+"Demo.TRTC.Portal.privateandagreement" = "我已阅读并同意xxx和yyy，并授权腾讯云使用该账号（昵称、头像、电话号码）进行统一管理";
+"Demo.TRTC.Portal.agreeprivatefirst" = "请先同意隐私条款条款和用户协议。";
+"Demo.TRTC.Portal.<private>" = "《隐私条例》";
+"Demo.TRTC.Portal.<agreement>" = "《用户协议》";
+"Demo.TRTC.Portal.private" = "隐私条例";
+"Demo.TRTC.Portal.agreement" = "用户协议";
