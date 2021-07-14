@@ -368,3 +368,131 @@
 
 "Demo.TRTC.Login.setavatar" = "设置头像";
 "Demo.TRTC.Login.done" = "确认";
+
+"Demo.TRTC.Live.trtcSpeedTest" = "TRTC 网络测速";
+"Demo.TRTC.Live.trtcLive" = "TRTC 视频互动";
+"Demo.TRTC.Live.trtcCalling" = "TRTC 视频通话";
+
+"Demo.TRTC.Live.speedTest" = "开始测速";
+"Demo.TRTC.Live.stopSpeedTest" = "停止测速";
+"Demo.TRTC.Live.enterRoom" = "创建并自动加入房间";
+"Demo.TRTC.Live.inputRoomId" = "请输入房间号：";
+"Demo.TRTC.Live.inputUserId" = "请输入用户名：";
+
+"Demo.TRTC.Live.switchRole" = "角色选择";
+"Demo.TRTC.Live.anchor" = "房主";
+"Demo.TRTC.Live.adudience" = "观众";
+
+"Demo.TRTC.Live.videoInput" = "视频输入";
+"Demo.TRTC.Live.camera" = "摄像头";
+"Demo.TRTC.Live.mediaFile" = "视频文件";
+"Demo.TRTC.Live.deviceCapture" = "录屏";
+"Demo.TRTC.Live.none" = "无";
+
+"Demo.TRTC.Live.autioInput" = "音频输入";
+"Demo.TRTC.Live.sdkCapture" = "SDK采集";
+"Demo.TRTC.Live.customCapture" = "音频文件";
+
+"Demo.TRTC.Live.audioType" = "音频类型";
+"Demo.TRTC.Live.audioTypeAuto" = "自动";
+"Demo.TRTC.Live.audioTypeMedia" = "媒体";
+"Demo.TRTC.Live.audioTypeCalling" = "通话";
+
+"Demo.TRTC.Live.audioOutput" = "音频输出";
+"Demo.TRTC.Live.speaker" = "扬声器";
+"Demo.TRTC.Live.earPhone" = "听筒";
+
+"Demo.TRTC.Live.audioQuality" = "音频质量";
+"Demo.TRTC.Live.talk" = "语音";
+"Demo.TRTC.Live.default" = "默认";
+"Demo.TRTC.Live.music" = "音乐";
+
+"Demo.TRTC.Live.roomType" = "房间号类型";
+"Demo.TRTC.Live.int" = "数字";
+"Demo.TRTC.Live.string" = "字符串";
+
+"Demo.TRTC.Live.progress" = "加载进度";
+"Demo.TRTC.Live.enterRoomSuccess" = "进房成功";
+"Demo.TRTC.Live.enterRoomFail" = "进房失败";
+"Demo.TRTC.Live.leaveRoom" = "离开房间";
+"Demo.TRTC.Live.error" = "发生错误";
+"Demo.TRTC.Live.ok" = "确定";
+
+"Demo.TRTC.Live.startScreenCapture" = "开始屏幕分享";
+"Demo.TRTC.Live.stopScreenCapture" = "停止屏幕分享";
+"Demo.TRTC.Live.screenWait" = "📱屏幕分享(等待 Extension)";
+"Demo.TRTC.Live.screenCapture" = "📱屏幕分享(直播中)";
+"Demo.TRTC.Live.screenStop" = "📱屏幕分享(已停止)";
+"Demo.TRTC.Live.screenPause" = "📱屏幕分享(已暂停)";
+
+"Demo.TRTC.Live.switchCdnPlay" = "切换到CDN播放";
+"Demo.TRTC.Live.switchUdpPlay" = "切换到UDP播放";
+
+"Demo.TRTC.Live.video" = "视频";
+"Demo.TRTC.Live.setBitrate" = "码率设置";
+"Demo.TRTC.Live.setResolution" = "分辨率设置";
+"Demo.TRTC.Live.setFps" = "帧率设置";
+"Demo.TRTC.Live.setPicPreferen" = "画面偏好";
+"Demo.TRTC.Live.priorFlow" = "优先流畅";
+"Demo.TRTC.Live.priorClear" = "优先清晰";
+"Demo.TRTC.Live.pictureDir" = "画面方向";
+"Demo.TRTC.Live.horMode" = "横屏模式";
+"Demo.TRTC.Live.verMode" = "竖屏模式";
+"Demo.TRTC.Live.fillMode" = "画面填充";
+"Demo.TRTC.Live.fill" = "充满";
+"Demo.TRTC.Live.fit" = "自适应";
+"Demo.TRTC.Live.previewRotation" = "本地预览旋转角度";
+"Demo.TRTC.Live.encodeRotation" = "编码输出画面旋转";
+"Demo.TRTC.Live.preMirror" = "本地预览镜像";
+"Demo.TRTC.Live.autoMirror" = "前摄开启";
+"Demo.TRTC.Live.enableMirror" = "前后摄均开启";
+"Demo.TRTC.Live.disableMirror" = "前后摄均关闭";
+"Demo.TRTC.Live.remoteMirror" = "开启远程镜像";
+"Demo.TRTC.Live.enableWaterMark" = "开启视频水印";
+"Demo.TRTC.Live.pauseCapture" = "暂停视频采集";
+"Demo.TRTC.Live.sharpnessEnhancement" = "图像增强";
+"Demo.TRTC.Live.videoMuteImage" = "开启垫片";
+"Demo.TRTC.Live.videoTimestampWaterMark" = "开启时间水印";
+"Demo.TRTC.Live.localVideoSnapshot" = "本地视频截图";
+"Demo.TRTC.Live.snapshot" = "截图";
+"Demo.TRTC.Live.noImage" = "无图片";
+
+"Demo.TRTC.Live.audio" = "音频";
+"Demo.TRTC.Live.ans" = "噪声消除";
+"Demo.TRTC.Live.aec" = "回声消除";
+"Demo.TRTC.Live.captureVolume" = "采集音量";
+"Demo.TRTC.Live.playVolume" = "播放音量";
+"Demo.TRTC.Live.earMonitoring" = "耳返";
+"Demo.TRTC.Live.earPhoneMode" = "听筒模式";
+"Demo.TRTC.Live.agc" = "自动增益";
+"Demo.TRTC.Live.volumeEvaluation" = "音量提示";
+
+"Demo.TRTC.Live.stream" = "混流";
+"Demo.TRTC.Live.streamUrl" = "播放地址";
+"Demo.TRTC.Live.copy" = "复制";
+"Demo.TRTC.Live.urlAlreadyCopy" = "播放地址已复制到剪贴板";
+
+"Demo.TRTC.Live.remoteRoomId" = "对方房间号：";
+"Demo.TRTC.Live.remoteUserId" = "对方用户名：";
+"Demo.TRTC.Live.startPk" = "开始PK";
+"Demo.TRTC.Live.stopPk" = "停止PK";
+
+"Demo.TRTC.Live.other" = "其他";
+"Demo.TRTC.Live.gSensor" = "开启重力感应";
+"Demo.TRTC.Live.flashLight" = "开启闪光灯";
+"Demo.TRTC.Live.sendSEIMessage" = "发送SEI消息";
+
+"Demo.TRTC.Live.userList" = "用户列表";
+"Demo.TRTC.Live.enableVideo" = "开启视频";
+"Demo.TRTC.Live.enableAudio" = "开启音频";
+"Demo.TRTC.Live.enableMirror" = "开启镜像";
+"Demo.TRTC.Live.picRotation" = "画面旋转";
+"Demo.TRTC.Live.volumeNum" = "音量大小";
+
+"Demo.TRTC.speedTestUserId" = "请输入用户名(必填项)";
+"Demo.TRTC.startSpeedTest" = "开始测速";
+"Demo.TRTC.speedTestResult" = "测速结果";
+"Demo.TRTC.completedTest" = "完成测速";
+"Demo.TRTC.enterRoom" = "开始进房";
+
+"Demo.TRTC.gSenorClose" = "重力感应已关闭";

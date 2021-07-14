@@ -58,5 +58,4 @@
 "Demo.TRTC.Portal.disagree" = "disagree";
 "Demo.TRTC.Portal.popTitle" = "Welcome to Tencent Cloud Video Toolkit";
 "Demo.TRTC.Portal.popMessage" =
-    "Welcome to Tencent Cloud Video Toolkit. We will help you understand our collection, use, and storage of personal information through the \"Privacy Regulations\" and \"User Agreement\".
-In addition, you can also learn about your related rights and implementation methods. If you agree, please click the button below to start accepting our services;";
+    "Welcome to Tencent Cloud Video Toolkit. We will help you understand our collection, use, and storage of personal information through the xxx and yyy. In addition, you can also learn about your related rights and implementation methods. If you agree, please click the button below to start accepting our services;";

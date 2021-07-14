@@ -58,6 +58,9 @@
 "V2.Live.LinkMicNew.earbackon" = "Enable In-ear Monitor";
 "V2.Live.LinkMicNew.localpreviewmirror" = "Local Preview Mirror";
 "V2.Live.LinkMicNew.openremotemirror" = "Enable Remote Mirror";
+"V2.Live.LinkMicNew.uploadvideo" = "Enable Push Video";
+"V2.Live.LinkMicNew.uploadaudio" = "Enable Push Audio";
+"V2.Live.LinkMicNew.startvirtualcamera" = "Enable Push Image";
 "V2.Live.LinkMicNew.openwatermark" = "Enable Watermarking";
 "V2.Live.LinkMicNew.addtopastboard" = "Copied to clipboard";
 "V2.Live.LinkMicNew.needtwophonetotest" = "Test with two phones";

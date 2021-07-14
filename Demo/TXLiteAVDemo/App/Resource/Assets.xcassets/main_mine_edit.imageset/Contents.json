@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "编辑.png",
+      "filename" : "edit.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "编辑@2x.png",
+      "filename" : "edit@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "编辑@3x.png",
+      "filename" : "edit@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

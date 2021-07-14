@@ -52,10 +52,16 @@ static AppLogMgr *_shareInstance = nil;
     _pFileHandle = NULL;
 }
 
+#ifdef LIVE
+- (void)onLog:(V2TXLiveLogLevel)level log:(NSString *)log {
+    NSLog(@"level:%ld| %@\n", (long)level, log);
+}
+#else
 -(void) onLog:(NSString*)log LogLevel:(int)level WhichModule:(NSString*)module
 {
     NSLog(@"level:%d|module:%@| %@\n", level, module, log);
 }
+#endif
 
 -(void) writeLogFile:(NSString*)log
 {

@@ -8,7 +8,7 @@
 
 CFBundleDisplayName = "TCToolkit";
 NSAppleMusicUsageDescription = "The toolkit needs access to your media library to acquire music";
-NSCameraUsageDescription = "The toolkit needs access to your camera to capture video";
+NSCameraUsageDescription = "The toolkit needs access to your camera to capture video.Access facial data for the beauty function";
 NSMicrophoneUsageDescription = "The toolkit needs access to your mic to capture audio";
 NSPhotoLibraryAddUsageDescription = "The toolkit needs access your photo library to save edited files.";
 NSPhotoLibraryUsageDescription = "The toolkit needs access to your photo library to edit videos";

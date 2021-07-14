@@ -503,9 +503,9 @@
     //    [UMSocialUIManager dismissShareMenuView];
 }
 
-+ (void)shareLive:(TRTCLiveRoomInfo *)liveInfo currentViewController:(UIViewController *)currentViewController {
-
-}
+//+ (void)shareLive:(TRTCLiveRoomInfo *)liveInfo currentViewController:(UIViewController *)currentViewController {
+//
+//}
 
 
 

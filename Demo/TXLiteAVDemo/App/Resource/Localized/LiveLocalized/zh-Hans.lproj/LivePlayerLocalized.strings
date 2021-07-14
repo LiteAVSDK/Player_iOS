@@ -43,6 +43,7 @@
 "LiveLinkMicDemoOld.RoomNew.enterthenameofthestudio" = "请输入直播间名称";
 "LiveLinkMicDemoOld.RoomNew.beginlive" = "开始直播";
 "LiveLinkMicDemoOld.RoomNew.prompt" = "提示";
+"LiveLinkMicDemoOld.Live.LinkMicNew.checknetworkandtry" = "请检查网络状态，然后重试";
 "LiveLinkMicDemoOld.RoomNew.nameoftheliveroomcannotbeempty" = "直播间名称不能为空";
 "LiveLinkMicDemoOld.RoomNew.liveroomnamelengthexceedslimit" = "直播间名称长度超过限制";
 
@@ -194,7 +195,8 @@
 "LivePusherDemo.PushSetting.qualitypreference" = "画质偏好";
 "LivePusherDemo.PushSetting.thesoundqualitychoice" = "音质选择";
 
-"LivePusherDemo.PushLogView.coderate" = "编码码率：";
+"LivePusherDemo.PushLogView.videobitrate" = "视频码率：";
+"LivePusherDemo.PushLogView.audiobitrate" = "音频码率：";
 "LivePusherDemo.PushLogView.uploadspeed" = "上传网速：";
 "LivePusherDemo.PushLogView.stepcheckaddresslegitimacy" = "阶段一：检查地址合法性";
 "LivePusherDemo.PushLogView.connecttothecloudserver" = "阶段二：连接到云服务器";

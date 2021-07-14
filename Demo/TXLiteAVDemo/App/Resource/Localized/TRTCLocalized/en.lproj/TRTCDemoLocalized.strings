@@ -327,3 +327,131 @@
 
 "Demo.TRTC.Login.setavatar" = "Change Profile Picture";
 "Demo.TRTC.Login.done" = "Done";
+
+"Demo.TRTC.Live.trtcSpeedTest" = "Speed Test";
+"Demo.TRTC.Live.trtcLive" = "Interactive Live Video Streaming";
+"Demo.TRTC.Live.trtcCalling" = "Video Call";
+
+"Demo.TRTC.Live.speedTest" = "Start Speed Test";
+"Demo.TRTC.Live.stopSpeedTest" = "Stop Speed Test";
+"Demo.TRTC.Live.enterRoom" = "Create and Join Room";
+"Demo.TRTC.Live.inputRoomId" = "Room ID:";
+"Demo.TRTC.Live.inputUserId" = "Username:";
+
+"Demo.TRTC.Live.switchRole" = "Role";
+"Demo.TRTC.Live.anchor" = "Room Owner";
+"Demo.TRTC.Live.adudience" = "Audience";
+
+"Demo.TRTC.Live.videoInput" = "Video Input";
+"Demo.TRTC.Live.camera" = "Camera";
+"Demo.TRTC.Live.mediaFile" = "Video File";
+"Demo.TRTC.Live.deviceCapture" = "Screen Recording";
+"Demo.TRTC.Live.none" = "No";
+
+"Demo.TRTC.Live.autioInput" = "Audio Input";
+"Demo.TRTC.Live.sdkCapture" = "SDK Capturing";
+"Demo.TRTC.Live.customCapture" = "Custom Capturing";
+
+"Demo.TRTC.Live.audioType" = "Volume Type";
+"Demo.TRTC.Live.audioTypeAuto" = "Auto";
+"Demo.TRTC.Live.audioTypeMedia" = "Media";
+"Demo.TRTC.Live.audioTypeCalling" = "Call";
+
+"Demo.TRTC.Live.audioOutput" = "Audio Output";
+"Demo.TRTC.Live.speaker" = "Speaker";
+"Demo.TRTC.Live.earPhone" = "Receiver";
+
+"Demo.TRTC.Live.audioQuality" = "Audio Quality";
+"Demo.TRTC.Live.talk" = "Speech";
+"Demo.TRTC.Live.default" = "Default";
+"Demo.TRTC.Live.music" = "Music";
+
+"Demo.TRTC.Live.roomType" = "Room ID Type";
+"Demo.TRTC.Live.int" = "Number";
+"Demo.TRTC.Live.string" = "String";
+
+"Demo.TRTC.Live.progress" = "Loading Progress";
+"Demo.TRTC.Live.enterRoomSuccess" = "Entered room";
+"Demo.TRTC.Live.enterRoomFail" = "Failed to enter room";
+"Demo.TRTC.Live.leaveRoom" = "Leave";
+"Demo.TRTC.Live.error" = "Error";
+"Demo.TRTC.Live.ok" = "OK";
+
+"Demo.TRTC.Live.startScreenCapture" = "Start Screen Sharing";
+"Demo.TRTC.Live.stopScreenCapture" = "Stop Screen Sharing";
+"Demo.TRTC.Live.screenWait" = "📱Waiting for extension";
+"Demo.TRTC.Live.screenCapture" = "📱Sharing screen";
+"Demo.TRTC.Live.screenStop" = "📱Stopped";
+"Demo.TRTC.Live.screenPause" = "📱Paused";
+
+"Demo.TRTC.Live.switchCdnPlay" = "Switch to CDN Streaming";
+"Demo.TRTC.Live.switchUdpPlay" = "Switch to UDP Streaming";
+
+"Demo.TRTC.Live.video" = "Video";
+"Demo.TRTC.Live.setBitrate" = "Bitrate";
+"Demo.TRTC.Live.setResolution" = "Resolution";
+"Demo.TRTC.Live.setFps" = "Frame Rate";
+"Demo.TRTC.Live.setPicPreferen" = "Video Quality";
+"Demo.TRTC.Live.priorFlow" = "Smooth";
+"Demo.TRTC.Live.priorClear" = "Clear";
+"Demo.TRTC.Live.pictureDir" = "Orientation";
+"Demo.TRTC.Live.horMode" = "Landscape";
+"Demo.TRTC.Live.verMode" = "Portrait";
+"Demo.TRTC.Live.fillMode" = "Image Fill Mode";
+"Demo.TRTC.Live.fill" = "Scale to Fill";
+"Demo.TRTC.Live.fit" = "Aspect Fit";
+"Demo.TRTC.Live.previewRotation" = "Local Image Rotation";
+"Demo.TRTC.Live.encodeRotation" = "Encoded Image Rotation";
+"Demo.TRTC.Live.preMirror" = "Local Image Mirror";
+"Demo.TRTC.Live.autoMirror" = "Front Camera On";
+"Demo.TRTC.Live.enableMirror" = "Front & Rear Cameras On";
+"Demo.TRTC.Live.disableMirror" = "Front & Rear Cameras Off";
+"Demo.TRTC.Live.remoteMirror" = "Remote Image Mirror";
+"Demo.TRTC.Live.enableWaterMark" = "Watermark";
+"Demo.TRTC.Live.pauseCapture" = "Pause Video Capturing";
+"Demo.TRTC.Live.sharpnessEnhancement" = "Image Enhancement";
+"Demo.TRTC.Live.videoMuteImage" = "Set Pause Image";
+"Demo.TRTC.Live.videoTimestampWaterMark" = "Time Watermark";
+"Demo.TRTC.Live.localVideoSnapshot" = "Local Video Screenshot";
+"Demo.TRTC.Live.snapshot" = "Take";
+"Demo.TRTC.Live.noImage" = "No image";
+
+"Demo.TRTC.Live.audio" = "Audio";
+"Demo.TRTC.Live.ans" = "Noise elimination";
+"Demo.TRTC.Live.aec" = "Echo Cancellation";
+"Demo.TRTC.Live.captureVolume" = "Capturing Volume";
+"Demo.TRTC.Live.playVolume" = "Playback Volume";
+"Demo.TRTC.Live.earMonitoring" = "In-ear Monitoring";
+"Demo.TRTC.Live.earPhoneMode" = "Receiver";
+"Demo.TRTC.Live.agc" = "AGC";
+"Demo.TRTC.Live.volumeEvaluation" = "Volume Reminder";
+
+"Demo.TRTC.Live.stream" = "MixTranscoding";
+"Demo.TRTC.Live.streamUrl" = "Playback Address";
+"Demo.TRTC.Live.copy" = "Copy";
+"Demo.TRTC.Live.urlAlreadyCopy" = "Playback address copied to clipboard";
+
+"Demo.TRTC.Live.remoteRoomId" = "Room ID of other anchor:";
+"Demo.TRTC.Live.remoteUserId" = "Username of other anchor:";
+"Demo.TRTC.Live.startPk" = "Start";
+"Demo.TRTC.Live.stopPk" = "Stop";
+
+"Demo.TRTC.Live.other" = "Others";
+"Demo.TRTC.Live.gSensor" = "Gravity Sensor";
+"Demo.TRTC.Live.flashLight" = "Flashlight";
+"Demo.TRTC.Live.sendSEIMessage" = "Send SEI Message";
+
+"Demo.TRTC.Live.userList" = "User List";
+"Demo.TRTC.Live.enableVideo" = "Video";
+"Demo.TRTC.Live.enableAudio" = "Audio";
+"Demo.TRTC.Live.enableMirror" = "Mirror";
+"Demo.TRTC.Live.picRotation" = "Rotation";
+"Demo.TRTC.Live.volumeNum" = "Volume";
+
+"Demo.TRTC.speedTestUserId" = "Username:";
+"Demo.TRTC.startSpeedTest" = "Start Speed Test";
+"Demo.TRTC.speedTestResult" = "Test Result";
+"Demo.TRTC.completedTest" = "Speed test finished";
+"Demo.TRTC.enterRoom" = "Enter Room";
+
+"Demo.TRTC.gSenorClose" = "Gravity has been turned off";

@@ -43,6 +43,7 @@
 "LiveLinkMicDemoOld.RoomNew.enterthenameofthestudio" = "Enter a room name";
 "LiveLinkMicDemoOld.RoomNew.beginlive" = "Start";
 "LiveLinkMicDemoOld.RoomNew.prompt" = "Note";
+"LiveLinkMicDemoOld.Live.LinkMicNew.checknetworkandtry" = "Please check the network status and try again";
 "LiveLinkMicDemoOld.RoomNew.nameoftheliveroomcannotbeempty" = "Room name cannot be empty";
 "LiveLinkMicDemoOld.RoomNew.liveroomnamelengthexceedslimit" = "Name length exceeded the limit";
 
@@ -194,7 +195,8 @@
 "LivePusherDemo.PushSetting.qualitypreference" = "Video Quality";
 "LivePusherDemo.PushSetting.thesoundqualitychoice" = "Sound Quality";
 
-"LivePusherDemo.PushLogView.coderate" = "Bitrate:";
+"LivePusherDemo.PushLogView.videobitrate" = "Video bitrate：";
+"LivePusherDemo.PushLogView.audiobitrate" = "Audio Bitrate：";
 "LivePusherDemo.PushLogView.uploadspeed" = "Upload speed:";
 "LivePusherDemo.PushLogView.stepcheckaddresslegitimacy" = "State 1: check address validity";
 "LivePusherDemo.PushLogView.connecttothecloudserver" = "Stage 2: connected to CVM";

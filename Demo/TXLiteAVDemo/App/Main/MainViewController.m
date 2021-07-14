@@ -33,21 +33,25 @@
 #ifdef ENABLE_TRTC
 #import "TXLiteAVSDK.h"
 #import "TXLiteAVDemo-Swift.h"
+#import "TRTCLiveEnterViewController.h"
+#import "TRTCCallingEnterViewController.h"
+#import "TRTCSpeedTestViewController.h"
 #endif
 
 #import "ColorMacro.h"
 #import "MainTableViewCell.h"
 
 #ifndef ENABLE_TRTC
+#ifdef LIVE
+#import "V2TXLivePremier.h"
+#else
 #import "TXLiveBase.h"
+#endif
 #endif
 
 #if !defined(UGC) && !defined(PLAYER)
 #import "TXLiteAVDemo-Swift.h"
 #import <ImSDK/ImSDK.h>
-#endif
-
-#ifdef SMART
 #import "GenerateTestUserSig.h"
 #endif
 
@@ -59,6 +63,8 @@
 
 static NSString * const XiaoZhiBoAppStoreURLString = @"http://itunes.apple.com/cn/app/id1132521667?mt=8";
 static NSString * const XiaoShiPinAppStoreURLString = @"http://itunes.apple.com/cn/app/id1374099214?mt=8";
+static NSString * const trtcAppStoreURLString = @"http://itunes.apple.com/cn/app/id1400663224?mt=8";
+
 
 @interface MainViewController ()<
 UITableViewDelegate,
@@ -82,9 +88,9 @@ UIAlertViewDelegate
 @property (nonatomic) NSMutableArray* logFilesArray;
 
 #ifdef ENABLE_TRTC
-@property (nonatomic, strong) TRTCCallingContactViewController *videoCallVC;
-@property (nonatomic, strong) TRTCLiveRoom *liveRoom;
-@property (nonatomic, strong) TRTCVoiceRoom *voiceRoom;
+//@property (nonatomic, strong) TRTCCallingContactViewController *videoCallVC;
+//@property (nonatomic, strong) TRTCLiveRoom *liveRoom;
+//@property (nonatomic, strong) TRTCVoiceRoom *voiceRoom;
 #endif
 
 @end
@@ -108,11 +114,16 @@ UIAlertViewDelegate
 #endif
     
 #ifdef ENABLE_TRTC
-    _videoCallVC = [[TRTCCallingContactViewController alloc] init];
-    _voiceRoom = [TRTCVoiceRoom sharedInstance];
-    [[TRTCCalling shareInstance] addDelegate:_videoCallVC];
+//    _videoCallVC = [[TRTCCallingContactViewController alloc] init];
+//    _voiceRoom = [TRTCVoiceRoom sharedInstance];
+//    [[TRTCCalling shareInstance] addDelegate:_videoCallVC];
     
 
+#endif
+    
+#if !defined(UGC) && !defined(PLAYER)
+    V2TIMSDKConfig *config = [[V2TIMSDKConfig alloc] init];
+    [[V2TIMManager sharedInstance] initSDK:SDKAPPID config:config listener:nil];
 #endif
 
     [self initCellInfos];
@@ -121,14 +132,6 @@ UIAlertViewDelegate
 
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    
-#ifdef SMART
-    V2TIMSDKConfig *config = [[V2TIMSDKConfig alloc] init];
-    [[V2TIMManager sharedInstance] initSDK:SDKAPPID config:config listener:nil];
-#endif
-#ifdef ENABLE_TRTC
-    [self setupIMOnDidAppear];
-#endif
 }
 
 - (IBAction)userInfoButtonClick:(id)sender {
@@ -177,9 +180,11 @@ UIAlertViewDelegate
         [subCells addObject:scellInfo];
 #endif
         
+#ifndef LIVE
         scellInfo = [CellInfo cellInfoWithTitle:V2Localize(@"MLVB.MainMenu.coanchoringold")
                        controllerClassName:@"LiveRoomListViewController"];
         [subCells addObject:scellInfo];
+#endif
         
 //        scellInfo = [CellInfo cellInfoWithTitle:@"小直播" actionBlock:^{
 //            // 打开小直播AppStore
@@ -206,7 +211,6 @@ UIAlertViewDelegate
         scellInfo = [CellInfo cellInfoWithTitle:V2Localize(@"V2.Live.LinkMicNew.coanchornew")
                        controllerClassName:@"V2MainViewController"];
         [subCells addObject:scellInfo];
-    
         subCells;
     });
 
@@ -283,72 +287,34 @@ UIAlertViewDelegate
     cellInfo.iconName = @"main_room_multi";
     [_cellInfos addObject:cellInfo];
     cellInfo.subCells = ({
-//    NSArray* TRTCCellInfos = ({
         NSMutableArray *subCells = [NSMutableArray new];
         CellInfo* scellInfo;
-        scellInfo = [CellInfo cellInfoWithTitle:V2Localize(@"TRTC.MainMenu.videoconferencing") actionBlock:^{
-            TRTCMeetingNewViewController *vc = [[TRTCMeetingNewViewController alloc] init];
-            [self.navigationController pushViewController:vc animated:YES];
+        scellInfo = [CellInfo cellInfoWithTitle:TRTCLocalize(@"Demo.TRTC.Live.trtcSpeedTest") controllerCreationBlock:^UIViewController * _Nonnull{
+            TRTCSpeedTestViewController* speedTestVC = [[TRTCSpeedTestViewController alloc] init];
+            speedTestVC.title = TRTCLocalize(@"Demo.TRTC.Live.trtcSpeedTest");
+            return speedTestVC;
         }];
         [subCells addObject:scellInfo];
-        scellInfo = [CellInfo cellInfoWithTitle:V2Localize(@"TRTC.MainMenu.audiochatroom")
-                        controllerCreationBlock:^UIViewController * _Nonnull{
-            NSString *userID = [[ProfileManager shared] curUserID];
-            NSString *userSig = [[ProfileManager shared] curUserSig];
-            [self.voiceRoom login:SDKAPPID userId:userID userSig:userSig callback:^(int32_t code, NSString * _Nonnull error) {
-                NSLog(@"voice room login info: %ld, %@", (long)code, error);
-            }];
-            LoginResultModel *curUser = [[ProfileManager shared] curUserModel];
-            [self.voiceRoom setSelfProfile:curUser.name avatarURL:curUser.avatar callback:^(int32_t code, NSString * _Nonnull message) {
-                NSLog(@"live room profile info: %ld, %@", (long)code, message);
-
-            }];
-            TRTCVoiceRoomEnteryControl *container = [[TRTCVoiceRoomEnteryControl alloc] initWithSdkAppId:SDKAPPID userId:userID];
-            UIViewController* enterViewController = [container makeEntranceViewController];
-            return enterViewController;
+        
+        scellInfo = [CellInfo cellInfoWithTitle:TRTCLocalize(@"Demo.TRTC.Live.trtcLive") controllerCreationBlock:^UIViewController * _Nonnull{
+            TRTCLiveEnterViewController* entranceVC = [[TRTCLiveEnterViewController alloc] init];
+            entranceVC.title = TRTCLocalize(@"Demo.TRTC.Live.trtcLive");
+            return entranceVC;
         }];
         [subCells addObject:scellInfo];
-        scellInfo = [CellInfo cellInfoWithTitle:V2Localize(@"TRTC.MainMenu.interactivelivevideostreaming")  controllerCreationBlock:^UIViewController * _Nonnull{
-            weakSelf.liveRoom = [TRTCLiveRoom shareInstance];
-            NSString *userID = [[ProfileManager shared] curUserID];
-            NSString *userSig = [[ProfileManager shared] curUserSig];
-            TRTCLiveRoomConfig *config = [[TRTCLiveRoomConfig alloc] init];
-            if ([[NSUserDefaults standardUserDefaults] objectForKey:@"liveRoomConfig_useCDNFirst"] != nil) {
-                config.useCDNFirst = [[[NSUserDefaults standardUserDefaults] objectForKey:@"liveRoomConfig_useCDNFirst"] boolValue];
-            }
-            
-            if (config.useCDNFirst && [[NSUserDefaults standardUserDefaults] objectForKey:@"liveRoomConfig_cndPlayDomain"] != nil) {
-                config.cdnPlayDomain = [[NSUserDefaults standardUserDefaults] objectForKey:@"liveRoomConfig_cndPlayDomain"];
-            }
-            
-            [self.liveRoom loginWithSdkAppID:SDKAPPID userID:userID userSig:userSig config:config callback:^(int code, NSString * error) {
-                NSLog(@"live room login info: %ld, %@", (long)code, error);
-            }];
-          
-            LoginResultModel *curUser = [[ProfileManager shared] curUserModel];
-            [self.liveRoom setSelfProfileWithName:curUser.name avatarURL:curUser.avatar callback:^(int code, NSString * error) {
-                NSLog(@"live room profile info: %ld, %@", (long)code, error);
-            }];
-           
-            return [[LiveRoomMainViewController alloc] initWithLiveRoom:weakSelf.liveRoom];
-        }];
-        [subCells addObject:scellInfo];
-        scellInfo = [CellInfo cellInfoWithTitle:V2Localize(@"TRTC.MainMenu.audiocall")
-                   controllerCreationBlock:^UIViewController * _Nonnull{
-            weakSelf.videoCallVC.title = V2Localize(@"TRTC.MainMenu.audiocall");
-            weakSelf.videoCallVC.callType = CallType_Audio;
-            return weakSelf.videoCallVC;
-        }];
-        [subCells addObject:scellInfo];
-        scellInfo = [CellInfo cellInfoWithTitle:V2Localize(@"TRTC.MainMenu.videocall") controllerCreationBlock:^UIViewController * _Nonnull{
-            weakSelf.videoCallVC.title = V2Localize(@"TRTC.MainMenu.videocall");
-            weakSelf.videoCallVC.callType = CallType_Video;
-            return weakSelf.videoCallVC;
+        
+        scellInfo = [CellInfo cellInfoWithTitle:TRTCLocalize(@"Demo.TRTC.Live.trtcCalling") controllerCreationBlock:^UIViewController * _Nonnull{
+            TRTCCallingEnterViewController* entranceVC = [[TRTCCallingEnterViewController alloc] init];
+            entranceVC.title = TRTCLocalize(@"Demo.TRTC.Live.trtcCalling");
+            return entranceVC;
         }];
         [subCells addObject:scellInfo];
        
-
-       
+        scellInfo = [CellInfo cellInfoWithTitle:@"TRTC APP" actionBlock:^{
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:trtcAppStoreURLString]];
+        }];
+        [subCells addObject:scellInfo];
+        
         subCells;
     });
 //    [_cellInfos addObjectsFromArray:TRTCCellInfos];
@@ -409,7 +375,12 @@ UIAlertViewDelegate
     //副标题
     UILabel* lbSubHead = [[UILabel alloc] initWithFrame:CGRectMake(originX, lbHeadLine.frame.origin.y + lbHeadLine.frame.size.height + 15, width, 30)];
     NSString *version = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
+#ifdef LIVE
+    NSString *sdkVersion = [V2TXLivePremier getSDKVersionStr];
+#else
     NSString *sdkVersion = [TXLiveBase getSDKVersionStr];
+#endif
+    
     lbSubHead.text = [NSString stringWithFormat:@"%@ v%@(%@)", V2Localize(@"V2.Live.LinkMicNew.txtoolpkg"), sdkVersion, version];
     lbSubHead.text = [lbSubHead.text stringByAppendingFormat:@"\n%@", V2Localize(@"V2.Live.LinkMicNew.appusetoshowfunc")];
     lbSubHead.numberOfLines = 2;
@@ -658,25 +629,25 @@ UIAlertViewDelegate
 
 #pragma mark - TRTC相关
 #ifdef ENABLE_TRTC
-- (void)setupIMOnDidAppear {
-    NSString *userID = [[ProfileManager shared] curUserID];
-    NSString *userSig = [[ProfileManager shared] curUserSig];
-    
-    if (![[[V2TIMManager sharedInstance] getLoginUser] isEqual:userID]) {
-        [[ProfileManager shared] IMLoginWithUserSig:userSig success:^{
-            [[TRTCCalling shareInstance] login:SDKAPPID user:userID userSig:userSig success:^{
-                NSLog(@"Calling login success.");
-            } failed:^(int code, NSString * _Nonnull des) {
-                NSLog(@"Calling login failed.");
-            }];
-            [[TRTCMeeting sharedInstance] login:SDKAPPID userId:userID userSig:userSig callback:^(NSInteger code, NSString *message) {
-                
-            }];
-        } failed:^(NSString * error) {
-            
-        }];
-    }
-}
+//- (void)setupIMOnDidAppear {
+//    NSString *userID = [[ProfileManager shared] curUserID];
+//    NSString *userSig = [[ProfileManager shared] curUserSig];
+//
+//    if (![[[V2TIMManager sharedInstance] getLoginUser] isEqual:userID]) {
+//        [[ProfileManager shared] IMLoginWithUserSig:userSig success:^{
+//            [[TRTCCalling shareInstance] login:SDKAPPID user:userID userSig:userSig success:^{
+//                NSLog(@"Calling login success.");
+//            } failed:^(int code, NSString * _Nonnull des) {
+//                NSLog(@"Calling login failed.");
+//            }];
+//            [[TRTCMeeting sharedInstance] login:SDKAPPID userId:userID userSig:userSig callback:^(NSInteger code, NSString *message) {
+//
+//            }];
+//        } failed:^(NSString * error) {
+//
+//        }];
+//    }
+//}
 
 #endif
 

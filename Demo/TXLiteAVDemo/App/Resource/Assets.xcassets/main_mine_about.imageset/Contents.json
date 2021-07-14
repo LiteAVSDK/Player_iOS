@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "关于.png",
+      "filename" : "about.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "关于@2x.png",
+      "filename" : "about@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "关于@3x.png",
+      "filename" : "about@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

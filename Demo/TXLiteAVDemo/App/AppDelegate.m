@@ -18,18 +18,18 @@
 #import "TRTCCloud.h"   //TRTC_Smart
 #endif
 #else
-#import "TXLiveBase.h"  //非TRTC
+#ifdef LIVE
+#import "V2TXLivePremier.h"
+#else
+#import "TXLiveBase.h"
+#endif
 #endif
 
 #ifndef UGC_SMART
 #import "AppLogMgr.h"
 #endif
 
-#ifndef TRTC
 #import "MainViewController.h"
-#else
-#import "PortalViewController.h"
-#endif
 
 #import "AFNetworkReachabilityManager.h"
 #import <UserNotifications/UserNotifications.h>
@@ -78,11 +78,7 @@ NSString *helpUrlDb[] = {
 @interface AppDelegate () <UNUserNotificationCenterDelegate>
 #endif
 
-#ifndef TRTC
 @property (nonatomic, strong) MainViewController* mainViewController;
-#else
-@property (nonatomic, strong) PortalViewController* portalVC;
-#endif
 @property (nonatomic, strong) NSDictionary *launchInfo; //从其他应用打开
 @property (nonatomic, assign) BOOL didLaunched;
 @end
@@ -91,24 +87,12 @@ NSString *helpUrlDb[] = {
 @implementation AppDelegate
 
 
-#ifndef TRTC
 -(MainViewController *)mainViewController{
     if (!_mainViewController) {
         _mainViewController = [[MainViewController alloc] init];
     }
     return _mainViewController;
 }
-#else
--(PortalViewController *)portalVC{
-    if (!_portalVC) {
-        _portalVC = [[UIStoryboard storyboardWithName:@"Portal" bundle:nil] instantiateInitialViewController];
-    }
-    return _portalVC;
-}
-
-#endif
-
-
 
 - (void)clickHelp:(UIButton *)sender {
     NSURL *helpUrl = [NSURL URLWithString:helpUrlDb[sender.tag]];
@@ -134,7 +118,11 @@ NSString *helpUrlDb[] = {
 #if ENABLE_TRTC
     version = [TRTCCloud getSDKVersion];
 #else
+#ifdef LIVE
+    version = [V2TXLivePremier getSDKVersionStr];
+#else
     version = [TXLiveBase getSDKVersionStr];
+#endif
 #endif
     
 #if DEBUG
@@ -150,7 +138,11 @@ NSString *helpUrlDb[] = {
 #endif
     
 #if (defined(ENABLE_PUSH) || defined(ENABLE_INTERNATIONAL)) && !defined(TRTC)
+#ifdef LIVE
+    [V2TXLivePremier setLicence:@"" key:@""];
+#else
     [TXLiveBase setLicenceURL:@"" key:@""];
+#endif
 #endif
     
 #ifdef TRTC
@@ -171,9 +163,16 @@ NSString *helpUrlDb[] = {
 #else
     //初始化log模块
 #ifndef UGC_SMART
+#ifndef LIVE
     [TXLiveBase sharedInstance].delegate = [AppLogMgr shareInstance];
     [TXLiveBase setConsoleEnabled:NO];
     [TXLiveBase setAppID:@"1252463788"];
+#else
+    [V2TXLivePremier setObserver:[AppLogMgr shareInstance]];
+    V2TXLiveLogConfig *logConf = [V2TXLiveLogConfig new];
+    logConf.enableObserver = YES;
+    [V2TXLivePremier setLogConfig:logConf];
+#endif
 #endif
 #endif
     [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(-1000, 0)
@@ -358,13 +357,8 @@ NSString *helpUrlDb[] = {
 #pragma mark - 登录跳转方法
 - (void)showPortalConroller {
     UINavigationController *nav = nil;
-#ifdef TRTC
-    nav = [[UINavigationController alloc] initWithRootViewController:self.portalVC];
-    NSString *appStoreID = @"1400663224";
-#else
     NSString *appStoreID = @"1152295397";
     nav = [[UINavigationController alloc] initWithRootViewController:self.mainViewController];
-#endif
     self.window.rootViewController = nav;
     [self playVideoFromLaunchInfo:self.launchInfo];
     

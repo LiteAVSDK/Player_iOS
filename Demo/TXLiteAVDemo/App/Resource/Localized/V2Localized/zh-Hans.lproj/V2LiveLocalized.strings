@@ -50,6 +50,9 @@
 "V2.Live.LinkMicNew.paved" = "铺满";
 "V2.Live.LinkMicNew.directionofrotation" = "旋转方向";
 "V2.Live.LinkMicNew.videosnapshot" = "视频截图";
+"V2.Live.LinkMicNew.uploadvideo" = "开启视频上行";
+"V2.Live.LinkMicNew.uploadaudio" = "开启音频上行";
+"V2.Live.LinkMicNew.startvirtualcamera" = "开启垫片推流";
 "V2.Live.LinkMicNew.snapshot" = "截图";
 "V2.Live.LinkMicNew.volumetype" = "音量类型";
 "V2.Live.LinkMicNew.auto" = "自动";

@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "免责申明.png",
+      "filename" : "Disclaimers.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "免责申明@2x.png",
+      "filename" : "Disclaimers@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "免责申明@3x.png",
+      "filename" : "Disclaimers@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

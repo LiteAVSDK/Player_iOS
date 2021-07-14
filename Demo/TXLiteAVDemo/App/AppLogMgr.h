@@ -11,8 +11,13 @@
 #import "TRTCCloud.h"
 #define DelegateProtocol TRTCLogDelegate
 #else
+#ifdef LIVE
+#import "V2TXLivePremier.h"
+#define DelegateProtocol V2TXLivePremierObserver
+#else
 #import "TXLiveBase.h"
 #define DelegateProtocol TXLiveBaseDelegate
+#endif
 #endif
 /**
  * APPlog保存到沙箱路径：Library/Caches/rtmpsdk_日期.log
@@ -24,7 +29,11 @@
 
 -(void) log:(Boolean)bOnlyFile format:(NSString *)formatStr, ...;
 
+#ifdef LIVE
+- (void)onLog:(V2TXLiveLogLevel)level log:(NSString *)log;
+#else
 -(void) onLog:(NSString*)log LogLevel:(int)level WhichModule:(NSString*)module;
+#endif
 
 @end
 

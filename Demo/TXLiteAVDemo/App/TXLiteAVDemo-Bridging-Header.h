@@ -13,28 +13,24 @@
 // localized string usage
 #import "AppLocalized.h"
 
-#ifdef TRTC
-#import "PortalViewController.h"
-#endif
-
 #ifdef ENABLE_INTERNATIONAL
 #import "TXLiveBase.h"
 #endif
 
 #ifdef ENABLE_TRTC
 
-#import "TCAnchorViewController.h"
-#import "TCAudienceViewController.h"
-#import "TRTCMeeting.h"
+//#import "TCAnchorViewController.h"
+//#import "TCAudienceViewController.h"
+//#import "TRTCMeeting.h"
 // VocieRoom
-#import "TRTCVoiceRoomDef.h"
-#import "TRTCVoiceRoom.h"
+//#import "TRTCVoiceRoomDef.h"
+//#import "TRTCVoiceRoom.h"
 // ChatSalon
-#import "TRTCChatSalon.h"
-#import "TRTCChatSalonDef.h"
+//#import "TRTCChatSalon.h"
+//#import "TRTCChatSalonDef.h"
 
-#import "TRTCLiveRoom.h"
-#import "TRTCCalling.h"
+//#import "TRTCLiveRoom.h"
+//#import "TRTCCalling.h"
 #endif
 
 #import "AppDelegate.h"
@@ -66,10 +62,10 @@
 @import TXLiteAVSDK_UGC;
 #endif
 
-#if defined(TRTC) && !defined(TRTC_APPSTORE)
+#if defined(TRTC)
 @import TXLiteAVSDK_TRTC;
 #endif
 
-#ifdef TRTC_APPSTORE
-@import TXLiteAVSDK_Player;
+#ifdef LIVE
+@import TXLiteAVSDK_Live;
 #endif

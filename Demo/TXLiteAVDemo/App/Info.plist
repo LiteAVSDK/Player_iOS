@@ -19,7 +19,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>8.8.1074</string>
+	<string>8.9.1097</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleURLTypes</key>
@@ -36,7 +36,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>1074</string>
+	<string>1097</string>
 	<key>IMSDKCrashReporterEnable</key>
 	<false/>
 	<key>LSRequiresIPhoneOS</key>
@@ -49,7 +49,7 @@
 	<key>NSAppleMusicUsageDescription</key>
 	<string>视频云工具包需要访问你的媒体库权限以获取音乐，不允许则无法添加音乐</string>
 	<key>NSCameraUsageDescription</key>
-	<string>视频云工具包需要访问你的相机权限，开启后录制的视频才会有画面</string>
+	<string>视频云工具包需要访问你的相机权限，开启后用于视频录制，以及访问您实时拍摄的面部信息用于美颜功能的体验</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>视频云工具包需要访问你的麦克风权限，开启后录制的视频才会有声音</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
