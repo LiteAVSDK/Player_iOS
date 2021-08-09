@@ -55,7 +55,7 @@
 "Demo.TRTC.Portal.agreeprivatefirst" = "请先同意隐私条款条款和用户协议。";
 "Demo.TRTC.Portal.agree" = "同意";
 "Demo.TRTC.Portal.disagree" = "不同意";
-"Demo.TRTC.Portal.popTitle" = "欢迎使用腾讯云视频工具包";
+"Demo.TRTC.Portal.popTitle" = "欢迎使用腾讯云视立方";
 "Demo.TRTC.Portal.popMessage" =
-    "欢迎使用腾讯云视频工具包，我们将通过xxx和yyy帮助您了解我们收集，使用，存储个人信息的情况，此外，您还可以了解到您所享有的相关权利和实现途径，如您同意请点击下方按钮开始接受我们的服务；";
+    "欢迎使用腾讯云视立方，我们将通过xxx和yyy帮助您了解我们收集，使用，存储个人信息的情况，此外，您还可以了解到您所享有的相关权利和实现途径，如您同意请点击下方按钮开始接受我们的服务；";
 

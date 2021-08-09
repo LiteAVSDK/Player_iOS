@@ -141,6 +141,7 @@
 
 "LivePusherDemo.CameraPush.pleaseinputthepushstream" = "Enter a push address or scan QR code";
 "LivePusherDemo.CameraPush.rtmppullstream" = "RTMP Push";
+"LivePusherDemo.CameraPush.rtcpullstream" = "RTC Push";
 "LivePusherDemo.CameraPush.iosemulatordoesnotsupport" = "iOS simulators cannot push or play back streams. Please use a real device.";
 "LivePusherDemo.CameraPush.pushstreamaddressisnotvalid" = "Invalid push address. Only RTMP is supported now.";
 "LivePusherDemo.CameraPush.thethrusterfailedtostart" = "Failed to start the pusher";

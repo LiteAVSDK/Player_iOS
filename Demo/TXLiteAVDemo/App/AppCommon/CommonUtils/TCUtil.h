@@ -17,6 +17,8 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 
 typedef void(^videoIsReadyBlock)(void);
 
+static NSString * const kMainMenuDEBUGSwitch = @"kMainMenuDEBUGSwitch";
+
 @interface TCUtil : NSObject
 
 + (NSData *)dictionary2JsonData:(NSDictionary *)dict;
@@ -53,6 +55,10 @@ typedef void(^videoIsReadyBlock)(void);
 + (void)initializeShare;
 
 + (void)dismissShareDialog;
+
++ (BOOL)getDEBUGSwitch;
+
++ (void)changeDEBUGSwitch;
 
 @end
 

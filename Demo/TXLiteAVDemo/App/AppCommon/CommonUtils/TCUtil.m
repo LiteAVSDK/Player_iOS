@@ -4,6 +4,10 @@
  * Function: 实用函数
  */
 
+#if !defined(UGC) && !defined(PLAYER)
+#import "TXLiteAVDemo-Swift.h"
+#endif
+
 #import "TCUtil.h"
 #import "NSData+Common.h"
 #import "NSString+Common.h"
@@ -12,7 +16,6 @@
 #import <mach/mach.h>
 #import <sys/types.h>
 #import <sys/sysctl.h>
-#import "TXLiteAVDemo-Swift.h"
 #import "AppLocalized.h"
 
 //错误码
@@ -27,6 +30,19 @@
 #define DEFAULT_ELK_HOST                     @"https://ilivelog.qcloud.com"
 
 @implementation TCUtil
+
++ (BOOL)getDEBUGSwitch {
+#ifdef ENTERPRISE
+    return [[NSUserDefaults standardUserDefaults] boolForKey:kMainMenuDEBUGSwitch];
+#else
+    return YES;
+#endif
+}
+
++ (void)changeDEBUGSwitch {
+    BOOL menuSwitch = [TCUtil getDEBUGSwitch];
+    [[NSUserDefaults standardUserDefaults] setBool:!menuSwitch forKey:kMainMenuDEBUGSwitch];
+}
 
 + (NSData *)dictionary2JsonData:(NSDictionary *)dict {
     // 转成Json数据

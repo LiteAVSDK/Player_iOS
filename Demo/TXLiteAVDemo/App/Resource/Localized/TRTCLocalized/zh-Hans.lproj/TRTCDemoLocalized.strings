@@ -314,7 +314,7 @@
 "Demo.TRTC.Salon.wanttoendroom" = "离开会解散房间，确定离开吗？";
 "Demo.TRTC.Salon.chatsalon" = "语音沙龙";
 "Demo.TRTC.Salon.online" = "在线";
-"Demo.TRTC.Home.appusetoshowfunc" = "本APP用于展示腾讯视频云终端产品的各类功能";
+"Demo.TRTC.Home.appusetoshowfunc" = "本APP用于展示腾讯云视立方终端产品的各类功能";
 "Demo.TRTC.Home.newversionpublic" = "有新版本发布啦~";
 "Demo.TRTC.Home.updatenow" = "现在更新";
 "Demo.TRTC.Home.later" = "稍后再说";
@@ -369,9 +369,9 @@
 "Demo.TRTC.Login.setavatar" = "设置头像";
 "Demo.TRTC.Login.done" = "确认";
 
-"Demo.TRTC.Live.trtcSpeedTest" = "TRTC 网络测速";
-"Demo.TRTC.Live.trtcLive" = "TRTC 视频互动";
-"Demo.TRTC.Live.trtcCalling" = "TRTC 视频通话";
+"Demo.TRTC.Live.trtcSpeedTest" = "网络测速";
+"Demo.TRTC.Live.trtcLive" = "连麦互动";
+"Demo.TRTC.Live.trtcCalling" = "视频通话";
 
 "Demo.TRTC.Live.speedTest" = "开始测速";
 "Demo.TRTC.Live.stopSpeedTest" = "停止测速";
@@ -496,3 +496,4 @@
 "Demo.TRTC.enterRoom" = "开始进房";
 
 "Demo.TRTC.gSenorClose" = "重力感应已关闭";
+"Demo.TRTC.videoClosed" = "视频已关闭";

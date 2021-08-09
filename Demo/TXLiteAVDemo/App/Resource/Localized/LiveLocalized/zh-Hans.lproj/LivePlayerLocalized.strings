@@ -141,6 +141,7 @@
 
 "LivePusherDemo.CameraPush.pleaseinputthepushstream" = "请输入推流地址或者扫二维码进行输入";
 "LivePusherDemo.CameraPush.rtmppullstream" = "RTMP推流";
+"LivePusherDemo.CameraPush.rtcpullstream" = "RTC推流";
 "LivePusherDemo.CameraPush.iosemulatordoesnotsupport" = "iOS模拟器不支持推流和播放，请使用真机体验";
 "LivePusherDemo.CameraPush.pushstreamaddressisnotvalid" = "推流地址不合法，目前只支持rtmp推流!";
 "LivePusherDemo.CameraPush.thethrusterfailedtostart" = "推流器启动失败";

@@ -9,7 +9,6 @@
 #import "MainTableViewCell.h"
 #import "ColorMacro.h"
 
-
 @interface CellInfo ()
 @property (nonatomic, copy) NSString* controllerClassName;
 @property (copy, nonatomic) UIViewController *(^controllerCreator)(void);
@@ -79,13 +78,6 @@
 
 @implementation MainTableViewCell
 
-- (void)awakeFromNib {
-    [super awakeFromNib];
-    // Initialization code
-}
-
-
-
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
@@ -117,26 +109,23 @@
 - (void)layoutSubviews
 {
     [super layoutSubviews];
-    if (_cellData.subCells) {
+    
+    if (_cellData.subCells.count > 0) {
         _backgroundView.frame = CGRectMake(0, 10, self.frame.size.width, 55);
-    } else {
-        _backgroundView.frame = CGRectMake(0, 0, self.frame.size.width, 50);
-    }
-    
-    _titleLabel.center = CGPointMake(_titleLabel.center.x, _titleLabel.superview.frame.size.height/2);
-    _titleLabel.frame = CGRectMake(10, _titleLabel.frame.origin.y, _titleLabel.frame.size.width, _titleLabel.frame.size.height);
-    _iconImageView.center = (CGPointMake(_backgroundView.frame.size.width-41, _backgroundView.frame.size.height/2));
-    _detailImageView.center = (CGPointMake(_backgroundView.frame.size.width-41, _backgroundView.frame.size.height/2));
-    
-    if (_cellData.subCells != nil) {
         _iconImageView.hidden = NO;
         _detailImageView.hidden = YES;
         _titleLabel.font = [UIFont systemFontOfSize:18];
     } else {
+        _backgroundView.frame = CGRectMake(0, 0, self.frame.size.width, 50);
         _iconImageView.hidden = YES;
         _detailImageView.hidden = NO;
         _titleLabel.font = [UIFont systemFontOfSize:16];
     }
+    [_titleLabel sizeToFit];
+    _titleLabel.center = CGPointMake(_titleLabel.center.x, _titleLabel.superview.frame.size.height/2);
+    _titleLabel.frame = CGRectMake(10, _titleLabel.frame.origin.y, _titleLabel.frame.size.width, _titleLabel.frame.size.height);
+    _iconImageView.center = (CGPointMake(_backgroundView.frame.size.width-41, _backgroundView.frame.size.height/2));
+    _detailImageView.center = (CGPointMake(_backgroundView.frame.size.width-41, _backgroundView.frame.size.height/2));
 }
 
 - (void)setCellData:(CellInfo*)cellInfo

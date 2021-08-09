@@ -455,3 +455,4 @@
 "Demo.TRTC.enterRoom" = "Enter Room";
 
 "Demo.TRTC.gSenorClose" = "Gravity has been turned off";
+"Demo.TRTC.videoClosed" = "Video Closed";
