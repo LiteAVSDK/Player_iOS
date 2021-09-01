@@ -21,7 +21,6 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param originUrl url
 + (NSString *)deleteParameter:(NSString *)parameter WithOriginUrl:(NSString *)originUrl;
 
-
 /// 追加 URL GET 参数
 /// @param queryString (@"key=value")
 /// @param originUrl url

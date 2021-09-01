@@ -9,7 +9,6 @@
 #ifndef J2Obj_h
 #define J2Obj_h
 
-
 NSArray *J2Array(id value);
 
 NSString *J2Str(id value);

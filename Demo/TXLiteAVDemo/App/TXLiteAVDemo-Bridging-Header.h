@@ -6,8 +6,6 @@
 //  Copyright © 2020 Tencent. All rights reserved.
 //
 
-
-
 /* TXLiteAVDemo_Bridging_Header_h */
 
 // localized string usage
@@ -33,12 +31,14 @@
 //#import "TRTCCalling.h"
 #endif
 
-#import "AppDelegate.h"
-#import <SDWebImage/SDWebImage.h>
 #import <MJRefresh/MJRefresh.h>
+#import <SDWebImage/SDWebImage.h>
+
+#import "AppDelegate.h"
 
 #if !defined(UGC) && !defined(PLAYER)
 #import <ImSDK/ImSDK.h>
+
 #import "GenerateTestUserSig.h"
 #endif
 

@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 // updates in SuperPlayerView
 @property double where;
 @property NSString *text;
-@property double time;
+@property double    time;
 + (instancetype)instanceFromDictionary:(NSDictionary *)dict;
 @end
 

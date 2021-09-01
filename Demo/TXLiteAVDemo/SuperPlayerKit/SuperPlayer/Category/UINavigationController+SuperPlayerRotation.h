@@ -1,6 +1,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface UINavigationController (SuperPlayerRotation)<UIGestureRecognizerDelegate>
+@interface UINavigationController (SuperPlayerRotation) <UIGestureRecognizerDelegate>
 
 @end

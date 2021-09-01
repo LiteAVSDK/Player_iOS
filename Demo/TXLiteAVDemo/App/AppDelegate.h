@@ -12,8 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
-@property (strong, nonatomic) UIWindow *window;
-@property (strong, nonatomic, nullable) NSData* deviceToken;
+@property(strong, nonatomic) UIWindow *        window;
+@property(strong, nonatomic, nullable) NSData *deviceToken;
 
 - (void)clickHelp:(UIButton *)sender;
 
@@ -44,18 +44,16 @@ typedef enum : NSUInteger {
     Help_TRTC,
 } HelpTitle;
 
-#define  HelpBtnUI(NAME) \
-UIButton *helpbtn = [UIButton buttonWithType:UIButtonTypeCustom]; \
-helpbtn.tag = Help_##NAME; \
-[helpbtn setFrame:CGRectMake(0, 0, 60, 25)]; \
-[helpbtn setBackgroundImage:[UIImage imageNamed:@"help_small"] forState:UIControlStateNormal]; \
-[helpbtn addTarget:[[UIApplication sharedApplication] delegate] action:@selector(clickHelp:) forControlEvents:UIControlEventTouchUpInside]; \
-[helpbtn sizeToFit]; \
-UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithCustomView:helpbtn]; \
-self.navigationItem.rightBarButtonItems = @[rightItem];
+#define HelpBtnUI(NAME)                                                                                                                         \
+    UIButton *helpbtn = [UIButton buttonWithType:UIButtonTypeCustom];                                                                           \
+    helpbtn.tag       = Help_##NAME;                                                                                                            \
+    [helpbtn setFrame:CGRectMake(0, 0, 60, 25)];                                                                                                \
+    [helpbtn setBackgroundImage:[UIImage imageNamed:@"help_small"] forState:UIControlStateNormal];                                              \
+    [helpbtn addTarget:[[UIApplication sharedApplication] delegate] action:@selector(clickHelp:) forControlEvents:UIControlEventTouchUpInside]; \
+    [helpbtn sizeToFit];                                                                                                                        \
+    UIBarButtonItem *rightItem              = [[UIBarButtonItem alloc] initWithCustomView:helpbtn];                                             \
+    self.navigationItem.rightBarButtonItems = @[ rightItem ];
 
 #define HelpBtnConfig(helpbtn, x) \
-helpbtn.tag = Help_##x; \
-[helpbtn addTarget:[[UIApplication sharedApplication] delegate] action:@selector(clickHelp:) forControlEvents:UIControlEventTouchUpInside]; 
-
-
+    helpbtn.tag = Help_##x;       \
+    [helpbtn addTarget:[[UIApplication sharedApplication] delegate] action:@selector(clickHelp:) forControlEvents:UIControlEventTouchUpInside];

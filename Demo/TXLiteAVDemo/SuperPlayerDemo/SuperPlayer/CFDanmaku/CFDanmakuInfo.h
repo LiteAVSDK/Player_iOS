@@ -12,12 +12,12 @@
 @interface CFDanmakuInfo : NSObject
 
 // 弹幕内容label
-@property(nonatomic, weak) UILabel  *playLabel;
+@property(nonatomic, weak) UILabel* playLabel;
 // 弹幕label frame
 //@property(nonatomic, assign) CGRect labelFrame;
 //
 @property(nonatomic, assign) NSTimeInterval leftTime;
-@property(nonatomic, strong) CFDanmaku* danmaku;
-@property(nonatomic, assign) NSInteger lineCount;
+@property(nonatomic, strong) CFDanmaku*     danmaku;
+@property(nonatomic, assign) NSInteger      lineCount;
 
 @end

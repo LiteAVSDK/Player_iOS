@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+
 #import "SuperPlayerViewConfig.h"
 
 #define MoreViewWidth 330
@@ -15,7 +16,7 @@
 
 @interface SuperPlayerSettingsView : UIView
 
-@property (weak) SuperPlayerControlView *controlView;
+@property(weak) SuperPlayerControlView *controlView;
 
 @property UISlider *soundSlider;
 
@@ -26,7 +27,7 @@
  *
  * 目前仅点播放支持修改播放速度与设置画面镜像
  */
-@property (nonatomic) BOOL enableSpeedAndMirrorControl;
+@property(nonatomic) BOOL enableSpeedAndMirrorControl;
 
 @property SuperPlayerViewConfig *playerConfig;
 - (void)update;

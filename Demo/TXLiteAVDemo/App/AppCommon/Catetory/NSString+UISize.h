@@ -16,7 +16,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (CGSize)textSizeIn:(CGSize)size font:(UIFont *)font breakMode:(NSLineBreakMode)breakMode;
 - (CGSize)textSizeIn:(CGSize)size font:(UIFont *)font breakMode:(NSLineBreakMode)breakMode align:(NSTextAlignment)alignment;
 
-
 @end
 
 NS_ASSUME_NONNULL_END

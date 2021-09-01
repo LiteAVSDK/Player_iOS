@@ -1,7 +1,6 @@
 #ifndef SuperPlayerControlViewDelegate_h
 #define SuperPlayerControlViewDelegate_h
 
-
 @class SuperPlayerUrl;
 @class SuperPlayerControlView;
 
@@ -32,6 +31,5 @@
 - (void)controlViewPreview:(UIView *)controlView where:(CGFloat)pos;
 
 @end
-
 
 #endif /* SuperPlayerControlViewDelegate_h */

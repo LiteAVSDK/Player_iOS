@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "TXMoviePlayInfoResponse.h"
+
 #import "SuperPlayer.h"
+#import "TXMoviePlayInfoResponse.h"
 
 @interface ListVideoUrl : NSObject
 @property NSString *title;
@@ -17,13 +18,13 @@
 
 @interface ListVideoModel : NSObject
 @property NSString *coverUrl;
-@property int      duration;
+@property int       duration;
 @property NSString *title;
 @property NSInteger appId;
 @property NSString *fileId;
 @property NSString *url;
-@property NSArray<ListVideoUrl *>  *hdUrl;
-@property int       type; // 0 - 点播；1 - 直播
+@property NSArray<ListVideoUrl *> *hdUrl;
+@property int                      type;  // 0 - 点播；1 - 直播
 - (void)addHdUrl:(NSString *)url withTitle:(NSString *)title;
 - (void)setModel:(SuperPlayerModel *)model;
 - (SuperPlayerModel *)getPlayerModel;

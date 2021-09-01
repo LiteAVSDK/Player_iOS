@@ -8,9 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface PlayerPoint : NSObject
+@interface        PlayerPoint : NSObject
 @property GLfloat where;
-@property UIControl  *holder;
+@property UIControl *holder;
 @property NSString *content;
 @property NSInteger timeOffset;
 @end
@@ -22,9 +22,9 @@
 @interface PlayerSlider : UISlider
 
 @property NSMutableArray<PlayerPoint *> *pointArray;
-@property UIProgressView *progressView;
-@property (weak) id<PlayerSliderDelegate> delegate;
-@property (nonatomic) BOOL hiddenPoints;
+@property UIProgressView *               progressView;
+@property(weak) id<PlayerSliderDelegate> delegate;
+@property(nonatomic) BOOL                hiddenPoints;
 
 - (PlayerPoint *)addPoint:(GLfloat)where;
 

@@ -10,6 +10,6 @@
 
 @interface UIButton (Additions)
 
-@property (nonatomic, readwrite, strong) NSObject *dataProvider;
+@property(nonatomic, readwrite, strong) NSObject *dataProvider;
 
 @end

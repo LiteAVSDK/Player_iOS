@@ -173,6 +173,12 @@
 "MLVB.MainMenu.Livebroadcast" = "Live broadcast";
 "MLVB.MainMenu.Standardlivebroadcast" = "Standard Live broadcast";
 
+//其他工具
+"MLVB.MainMenu.pushcameraV1" = "Push (Camera) V1";
+"MLVB.MainMenu.pushscreenV1" = "Screen Sharing V1";
+"MLVB.MainMenu.StandardlivebroadcastV1" = "Live streaming V1";
+"MLVB.MainMenu.coanchoringoldV1" = "Co-anchoring V1";
+
 //TRTC
 "TRTC.MainMenu.trtc" = "TRTC";
 "TRTC.MainMenu.videoconferencing" = "Video Conferencing";
@@ -202,6 +208,7 @@
 "MLVB.MainMenu.LVBLite" = "LVB Lite";
 "MLVB.MainMenu.UGSVApp" = "UGSV App";
 "MLVB.MainMenu.TRTCAPP" = "TRTC APP";
+"MLVB.MainMenu.OtherTools" = "Other tools";
 
 "Demo.TRTC.Portal.privateandagreement" = "I have read and agree to the xxx and yyy, and I authorize Tencent Cloud to manage the data (nickname, profile photo, phone number) of this account .";
 "Demo.TRTC.Portal.agreeprivatefirst" = "You must agree to the Privacy Policy and Terms of Use first.";

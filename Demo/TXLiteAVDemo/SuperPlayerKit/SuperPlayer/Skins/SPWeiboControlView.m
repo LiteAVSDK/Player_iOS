@@ -6,14 +6,16 @@
 //
 
 #import "SPWeiboControlView.h"
+
 #import <Masonry/Masonry.h>
+
+#import "DataReport.h"
+#import "StrUtils.h"
+#import "SuperPlayer.h"
 #import "UIView+Fade.h"
 #import "UIView+MMLayout.h"
-#import "StrUtils.h"
-#import "DataReport.h"
-#import "SuperPlayer.h"
 
-@interface SPWeiboControlView() <PlayerSliderDelegate>
+@interface     SPWeiboControlView () <PlayerSliderDelegate>
 @property BOOL isLive;
 @end
 
@@ -22,7 +24,6 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        
         [self addSubview:self.startBtn];
         [self addSubview:self.currentTimeLabel];
         [self addSubview:self.totalTimeLabel];
@@ -32,7 +33,7 @@
         [self addSubview:self.muteBtn];
         [self addSubview:self.moreBtn];
         [self addSubview:self.backBtn];
-        
+
         // 添加子控件的约束
         [self makeSubViewsConstraints];
         [self resetControlView];
@@ -68,7 +69,7 @@
         make.left.equalTo(self.currentTimeLabel.mas_right);
         make.right.equalTo(self.totalTimeLabel.mas_left);
     }];
-    
+
     [self.backBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.leading.equalTo(self).offset(5);
         make.top.equalTo(self).offset(3);
@@ -86,7 +87,6 @@
         make.width.mas_equalTo(@40);
     }];
 }
-
 
 - (UIButton *)startBtn {
     if (!_startBtn) {
@@ -110,7 +110,7 @@
 
 - (UIButton *)resolutionBtn {
     if (!_resolutionBtn) {
-        _resolutionBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        _resolutionBtn                 = [UIButton buttonWithType:UIButtonTypeCustom];
         _resolutionBtn.titleLabel.font = [UIFont systemFontOfSize:12];
         _resolutionBtn.backgroundColor = [UIColor clearColor];
         [_resolutionBtn addTarget:self action:@selector(resolutionBtnClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -120,7 +120,7 @@
 
 - (PlayerSlider *)videoSlider {
     if (!_videoSlider) {
-        _videoSlider                       = [[PlayerSlider alloc] init];
+        _videoSlider = [[PlayerSlider alloc] init];
         [_videoSlider setThumbImage:SuperPlayerImage(@"wb_thumb") forState:UIControlStateNormal];
         _videoSlider.minimumTrackTintColor = RGBA(223, 223, 223, 1);
         // slider开始滑动事件
@@ -128,7 +128,7 @@
         // slider滑动中事件
         [_videoSlider addTarget:self action:@selector(progressSliderValueChanged:) forControlEvents:UIControlEventValueChanged];
         // slider结束滑动事件
-        [_videoSlider addTarget:self action:@selector(progressSliderTouchEnded:) forControlEvents:UIControlEventTouchUpInside | UIControlEventTouchUpOutside|UIControlEventTouchCancel];
+        [_videoSlider addTarget:self action:@selector(progressSliderTouchEnded:) forControlEvents:UIControlEventTouchUpInside | UIControlEventTouchUpOutside | UIControlEventTouchCancel];
         _videoSlider.delegate = self;
     }
     return _videoSlider;
@@ -183,8 +183,8 @@
 - (UIView *)resolutionView {
     if (!_resolutionView) {
         // 添加分辨率按钮和分辨率下拉列表
-        
-        _resolutionView = [[UIView alloc] initWithFrame:CGRectZero];
+
+        _resolutionView        = [[UIView alloc] initWithFrame:CGRectZero];
         _resolutionView.hidden = YES;
         [self addSubview:_resolutionView];
         [_resolutionView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -193,7 +193,7 @@
             make.trailing.equalTo(self.mas_trailing).offset(0);
             make.top.equalTo(self.mas_top).offset(0);
         }];
-        
+
         _resolutionView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
     }
     return _resolutionView;
@@ -201,7 +201,7 @@
 
 - (SuperPlayerSettingsView *)moreContentView {
     if (!_moreContentView) {
-        _moreContentView = [[SuperPlayerSettingsView alloc] initWithFrame:CGRectZero];
+        _moreContentView             = [[SuperPlayerSettingsView alloc] initWithFrame:CGRectZero];
         _moreContentView.controlView = self;
         [self addSubview:_moreContentView];
         [_moreContentView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -231,8 +231,8 @@
 }
 
 - (void)progressSliderTouchBegan:(UISlider *)sender {
-    self.isDragging = YES;
-    self.startBtn.hidden = YES; // 播放按钮挡住了fastView
+    self.isDragging      = YES;
+    self.startBtn.hidden = YES;  // 播放按钮挡住了fastView
     [self cancelFadeOut];
 }
 
@@ -245,17 +245,16 @@
 
 - (void)progressSliderTouchEnded:(UISlider *)sender {
     [self.delegate controlViewSeek:self where:sender.value];
-    self.isDragging = NO;
+    self.isDragging      = NO;
     self.startBtn.hidden = NO;
     [self cancelFadeOut];
 }
 
-- (void)setProgressTime:(NSInteger)currentTime totalTime:(NSInteger)totalTime
-          progressValue:(CGFloat)progress playableValue:(CGFloat)playable;
+- (void)setProgressTime:(NSInteger)currentTime totalTime:(NSInteger)totalTime progressValue:(CGFloat)progress playableValue:(CGFloat)playable;
 {
     if (!self.isDragging) {
         // 更新slider
-        self.videoSlider.value           = progress;
+        self.videoSlider.value = progress;
         // 更新当前播放时间
         self.currentTimeLabel.text = [StrUtils timeFormat:currentTime];
     }
@@ -264,27 +263,24 @@
     [self.videoSlider.progressView setProgress:playable animated:NO];
 }
 
-- (void)muteBtnClick:(UIButton *)sender
-{
+- (void)muteBtnClick:(UIButton *)sender {
     sender.selected = self.playerConfig.mute = !self.playerConfig.mute;
     [self.delegate controlViewConfigUpdate:self withReload:NO];
     [self fadeOut:3];
 }
 
-
 /** 重置ControlView */
 - (void)resetControlView {
-    self.videoSlider.value           = 0;
+    self.videoSlider.value                 = 0;
     self.videoSlider.progressView.progress = 0;
-    self.currentTimeLabel.text       = @"00:00";
-    self.totalTimeLabel.text         = @"00:00";
-    self.moreContentView.hidden      = YES;
+    self.currentTimeLabel.text             = @"00:00";
+    self.totalTimeLabel.text               = @"00:00";
+    self.moreContentView.hidden            = YES;
 }
 
-- (void)setHidden:(BOOL)hidden
-{
+- (void)setHidden:(BOOL)hidden {
     [super setHidden:hidden];
-    
+
     for (UIView *view in self.subviews) {
         if (view != self.resolutionView && view != self.moreContentView) {
             if (!self.isFullScreen && (view == self.backBtn || view == self.moreBtn || view == self.muteBtn))
@@ -295,7 +291,7 @@
             view.hidden = YES;
         }
     }
-    self.isShowSecondView = NO;
+    self.isShowSecondView    = NO;
     self.pointJumpBtn.hidden = YES;
 }
 
@@ -308,11 +304,11 @@
     for (UIView *view in self.subviews) {
         view.hidden = YES;
     }
-   
+
     // 显示分辨率View
     self.resolutionView.hidden = NO;
     [DataReport report:@"change_resolution" param:nil];
-    
+
     [self cancelFadeOut];
     self.isShowSecondView = YES;
 }
@@ -321,12 +317,12 @@
     for (UIView *view in self.subviews) {
         view.hidden = YES;
     }
-    
-    self.moreContentView.playerConfig = self.playerConfig;
+
+    self.moreContentView.playerConfig                = self.playerConfig;
     self.moreContentView.enableSpeedAndMirrorControl = !self.isLive;
     [self.moreContentView update];
     self.moreContentView.hidden = NO;
-    
+
     [self cancelFadeOut];
     self.isShowSecondView = YES;
 }
@@ -335,24 +331,20 @@
           currentResolutionIndex:(NSUInteger)currentResolutionIndex
                           isLive:(BOOL)isLive
                   isTimeShifting:(BOOL)isTimeShifting
-                       isPlaying:(BOOL)isPlaying
-{
+                       isPlaying:(BOOL)isPlaying {
     [self setPlayState:isPlaying];
 
     _resolutionArray = resolutionNames;
-    NSAssert(currentResolutionIndex < resolutionNames.count,
-             @"Invalid argument when reseeting %@", NSStringFromClass(self.class));
+    NSAssert(currentResolutionIndex < resolutionNames.count, @"Invalid argument when reseeting %@", NSStringFromClass(self.class));
     if (resolutionNames.count > 0) {
-        [self.resolutionBtn setTitle:resolutionNames[currentResolutionIndex]
-                            forState:UIControlStateNormal];
+        [self.resolutionBtn setTitle:resolutionNames[currentResolutionIndex] forState:UIControlStateNormal];
     }
-    for (UIView *subview in self.resolutionView.subviews)
-        [subview removeFromSuperview];
-    
-    UILabel *lable = [UILabel new];
-    lable.text = @"清晰度";
+    for (UIView *subview in self.resolutionView.subviews) [subview removeFromSuperview];
+
+    UILabel *lable      = [UILabel new];
+    lable.text          = @"清晰度";
     lable.textAlignment = NSTextAlignmentCenter;
-    lable.textColor = [UIColor whiteColor];
+    lable.textColor     = [UIColor whiteColor];
     [self.resolutionView addSubview:lable];
     [lable mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(self.resolutionView.mas_width);
@@ -360,9 +352,9 @@
         make.left.equalTo(self.resolutionView.mas_left);
         make.top.equalTo(self.resolutionView.mas_top).mas_offset(20);
     }];
-    
+
     // 分辨率View上边的Btn
-    for (NSInteger i = 0 ; i < _resolutionArray.count; i++) {
+    for (NSInteger i = 0; i < _resolutionArray.count; i++) {
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
         [btn setTitle:_resolutionArray[i] forState:UIControlStateNormal];
         [btn setTitleColor:RGBA(252, 89, 81, 1) forState:UIControlStateSelected];
@@ -372,12 +364,12 @@
             make.width.equalTo(self.resolutionView.mas_width);
             make.height.mas_equalTo(45);
             make.left.equalTo(self.resolutionView.mas_left);
-            make.centerY.equalTo(self.resolutionView.mas_centerY).offset((i-self.resolutionArray.count/2.0+0.5)*45);
+            make.centerY.equalTo(self.resolutionView.mas_centerY).offset((i - self.resolutionArray.count / 2.0 + 0.5) * 45);
         }];
-        
+
         if (i == currentResolutionIndex) {
-            btn.selected = YES;
-            btn.backgroundColor = RGBA(34, 30, 24, 1);
+            btn.selected              = YES;
+            btn.backgroundColor       = RGBA(34, 30, 24, 1);
             self.resoultionCurrentBtn = btn;
         }
     }
@@ -393,12 +385,12 @@
  *  点击切换分别率按钮
  */
 - (void)changeResolution:(UIButton *)sender {
-    self.resoultionCurrentBtn.selected = NO;
+    self.resoultionCurrentBtn.selected        = NO;
     self.resoultionCurrentBtn.backgroundColor = [UIColor clearColor];
-    self.resoultionCurrentBtn = sender;
-    self.resoultionCurrentBtn.selected = YES;
+    self.resoultionCurrentBtn                 = sender;
+    self.resoultionCurrentBtn.selected        = YES;
     self.resoultionCurrentBtn.backgroundColor = RGBA(34, 30, 24, 1);
-    
+
     // topImageView上的按钮的文字
     [self.resolutionBtn setTitle:sender.titleLabel.text forState:UIControlStateNormal];
     [self.delegate controlViewSwitch:self withDefinition:sender.titleLabel.text];
@@ -407,51 +399,49 @@
 - (void)setOrientationLandscapeConstraint {
     self.fullScreen             = YES;
     self.fullScreenBtn.selected = YES;
-    self.moreBtn.hidden = NO;
-    self.backBtn.hidden = NO;
-    self.muteBtn.hidden = NO;
+    self.moreBtn.hidden         = NO;
+    self.backBtn.hidden         = NO;
+    self.muteBtn.hidden         = NO;
     [self.resolutionBtn mas_updateConstraints:^(MASConstraintMaker *make) {
         make.width.mas_equalTo(@60);
     }];
-    
+
     self.videoSlider.hiddenPoints = NO;
 }
 
 - (void)setOrientationPortraitConstraint {
     self.fullScreen             = NO;
     self.fullScreenBtn.selected = NO;
-    self.moreBtn.hidden = YES;
-    self.backBtn.hidden = YES;
-    self.muteBtn.hidden = YES;
+    self.moreBtn.hidden         = YES;
+    self.backBtn.hidden         = YES;
+    self.muteBtn.hidden         = YES;
     [self.resolutionBtn mas_updateConstraints:^(MASConstraintMaker *make) {
         make.width.mas_equalTo(@0);
     }];
-    
-    
+
     self.videoSlider.hiddenPoints = YES;
-    self.pointJumpBtn.hidden = YES;
+    self.pointJumpBtn.hidden      = YES;
 }
 
-- (void)setPointArray:(NSArray *)pointArray
-{
+- (void)setPointArray:(NSArray *)pointArray {
     [super setPointArray:pointArray];
-    
+
     for (PlayerPoint *holder in self.videoSlider.pointArray) {
         [holder.holder removeFromSuperview];
     }
     [self.videoSlider.pointArray removeAllObjects];
-    
+
     for (SPVideoFrameDescription *p in pointArray) {
         PlayerPoint *point = [self.videoSlider addPoint:p.where];
-        point.content = p.text;
-        point.timeOffset = p.time;
+        point.content      = p.text;
+        point.timeOffset   = p.time;
     }
 }
 
 - (UIButton *)pointJumpBtn {
     if (!_pointJumpBtn) {
-        _pointJumpBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        UIImage *image = SuperPlayerImage(@"copywright_bg");
+        _pointJumpBtn           = [UIButton buttonWithType:UIButtonTypeCustom];
+        UIImage *image          = SuperPlayerImage(@"copywright_bg");
         UIImage *resizableImage = [image resizableImageWithCapInsets:UIEdgeInsetsMake(0, 20, 0, 20) resizingMode:UIImageResizingModeStretch];
         [_pointJumpBtn setBackgroundImage:resizableImage forState:UIControlStateNormal];
         _pointJumpBtn.titleLabel.font = [UIFont systemFontOfSize:14];
@@ -468,20 +458,17 @@
 }
 
 - (void)onPlayerPointSelected:(PlayerPoint *)point {
-    NSString *text = [NSString stringWithFormat:@"  %@ %@  ", [StrUtils timeFormat:point.timeOffset],
-                      point.content];
-    
+    NSString *text = [NSString stringWithFormat:@"  %@ %@  ", [StrUtils timeFormat:point.timeOffset], point.content];
+
     [self.pointJumpBtn setTitle:text forState:UIControlStateNormal];
     [self.pointJumpBtn sizeToFit];
-    CGFloat x = self.videoSlider.mm_x + self.videoSlider.mm_w * point.where - self.pointJumpBtn.mm_w/2;
-    if (x < 0)
-        x = 0;
-    if (x + self.pointJumpBtn.mm_w/2 > ScreenWidth)
-        x = ScreenWidth - self.pointJumpBtn.mm_w/2;
+    CGFloat x = self.videoSlider.mm_x + self.videoSlider.mm_w * point.where - self.pointJumpBtn.mm_w / 2;
+    if (x < 0) x = 0;
+    if (x + self.pointJumpBtn.mm_w / 2 > ScreenWidth) x = ScreenWidth - self.pointJumpBtn.mm_w / 2;
     self.pointJumpBtn.tag = [self.videoSlider.pointArray indexOfObject:point];
     self.pointJumpBtn.m_left(x).m_bottom(60);
     self.pointJumpBtn.hidden = NO;
-    
+
     [DataReport report:@"player_point" param:nil];
 }
 @end

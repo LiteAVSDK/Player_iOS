@@ -6,37 +6,29 @@
 //  Copyright © 2018年 Tencent. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
 #import "J2Obj.h"
 
+#import <Foundation/Foundation.h>
 
 NSArray *J2Array(id value) {
     id obj = value;
     id ret;
-    if ([obj isKindOfClass:[NSArray class]])
-    {
+    if ([obj isKindOfClass:[NSArray class]]) {
         ret = obj;
-    }
-    else
-    {
+    } else {
         ret = @[];
     }
     return ret;
 }
 
-NSString * J2Str(id value) {
+NSString *J2Str(id value) {
     id obj = value;
     id ret;
-    if ([obj isKindOfClass:[NSString class]])
-    {
+    if ([obj isKindOfClass:[NSString class]]) {
         ret = obj;
-    }
-    else if ([obj isKindOfClass:[NSNumber class]])
-    {
+    } else if ([obj isKindOfClass:[NSNumber class]]) {
         ret = [obj stringValue];
-    }
-    else
-    {
+    } else {
         ret = @"";
     }
     return ret;
@@ -45,16 +37,11 @@ NSString * J2Str(id value) {
 NSNumber *J2Num(id value) {
     id obj = value;
     id ret;
-    if ([obj isKindOfClass:[NSString class]])
-    {
+    if ([obj isKindOfClass:[NSString class]]) {
         ret = [NSNumber numberWithDouble:[obj doubleValue]];
-    }
-    else if ([obj isKindOfClass:[NSNumber class]])
-    {
+    } else if ([obj isKindOfClass:[NSNumber class]]) {
         ret = obj;
-    }
-    else
-    {
+    } else {
         ret = @0;
     }
     return ret;

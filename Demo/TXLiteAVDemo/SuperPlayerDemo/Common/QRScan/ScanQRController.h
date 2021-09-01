@@ -6,8 +6,8 @@
 //  Copyright © 2016年 tencent. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
 #import <AVFoundation/AVFoundation.h>
+#import <UIKit/UIKit.h>
 
 @protocol ScanQRDelegate <NSObject>
 
@@ -16,16 +16,13 @@
 
 @end
 
-@interface ScanQRController : UIViewController
-{
-    BOOL                _qrResult;
-    AVCaptureSession *  _captureSession;
+@interface ScanQRController : UIViewController {
+    BOOL                        _qrResult;
+    AVCaptureSession *          _captureSession;
     AVCaptureVideoPreviewLayer *_videoPreviewLayer;
-    
-
 }
 
-@property (nonatomic, weak)   id<ScanQRDelegate> delegate;
-@property (nonatomic, retain)   UITextField* textField;
+@property(nonatomic, weak) id<ScanQRDelegate> delegate;
+@property(nonatomic, retain) UITextField *    textField;
 
 @end

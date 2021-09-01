@@ -7,6 +7,7 @@
 //
 
 #import "SPPlayCGIParser_V2.h"
+
 #import "J2Obj.h"
 #import "SuperPlayerUrl.h"
 #import "TXBitrateItemHelper.h"
@@ -14,8 +15,8 @@
 
 @implementation SPPlayCGIParser_V2
 + (SPPlayCGIParseResult *)parseResponse:(NSDictionary *)responseObject {
-    SPPlayCGIParseResult *ret = [[SPPlayCGIParseResult alloc] init];
-    NSString *masterUrl = J2Str([responseObject valueForKeyPath:@"videoInfo.masterPlayList.url"]);
+    SPPlayCGIParseResult *ret       = [[SPPlayCGIParseResult alloc] init];
+    NSString *            masterUrl = J2Str([responseObject valueForKeyPath:@"videoInfo.masterPlayList.url"]);
     //    masterUrl = nil;
     if (masterUrl.length > 0) {
         // 1. 如果有master url，优先用这个
@@ -24,26 +25,24 @@
         NSString *mainDefinition = J2Str([responseObject valueForKeyPath:@"playerInfo.defaultVideoClassification"]);
 
         NSArray *videoClassification = J2Array([responseObject valueForKeyPath:@"playerInfo.videoClassification"]);
-        NSArray *transcodeList = J2Array([responseObject valueForKeyPath:@"videoInfo.transcodeList"]);
+        NSArray *transcodeList       = J2Array([responseObject valueForKeyPath:@"videoInfo.transcodeList"]);
 
         NSMutableArray<SuperPlayerUrl *> *result = [NSMutableArray new];
 
         // 2. 如果有转码的清晰度，用转码流
         for (NSDictionary *transcode in transcodeList) {
             SuperPlayerUrl *subModel = [SuperPlayerUrl new];
-            subModel.url = J2Str(transcode[@"url"]);
-            NSNumber *theDefinition = J2Num(transcode[@"definition"]);
+            subModel.url             = J2Str(transcode[@"url"]);
+            NSNumber *theDefinition  = J2Num(transcode[@"definition"]);
 
             for (NSDictionary *definition in videoClassification) {
                 for (NSObject *definition2 in J2Array([definition valueForKeyPath:@"definitionList"])) {
-
                     if ([definition2 isEqual:theDefinition]) {
-                        subModel.title = J2Str([definition valueForKeyPath:@"name"]);
+                        subModel.title         = J2Str([definition valueForKeyPath:@"name"]);
                         NSString *definitionId = J2Str([definition valueForKeyPath:@"id"]);
                         // 初始播放清晰度
                         if ([definitionId isEqualToString:mainDefinition]) {
-                            if (![ret.url containsString:@".mp4"])
-                                ret.url = subModel.url;
+                            if (![ret.url containsString:@".mp4"]) ret.url = subModel.url;
                         }
                         break;
                     }
@@ -69,16 +68,16 @@
     // 3. 以上都没有，用原始地址
     if (ret.url == nil) {
         NSString *source = J2Str([responseObject valueForKeyPath:@"videoInfo.sourceVideo.url"]);
-        ret.url = source;
+        ret.url          = source;
     }
 
     NSArray *imageSprites = J2Array([responseObject valueForKeyPath:@"imageSpriteInfo.imageSpriteList"]);
     if (imageSprites.count > 0) {
         //                 id imageSpriteObj = imageSprites[0];
-        id imageSpriteObj = imageSprites.lastObject;
-        NSString *vtt = J2Str([imageSpriteObj valueForKeyPath:@"webVttUrl"]);
-        NSArray *imgUrls = J2Array([imageSpriteObj valueForKeyPath:@"imageUrls"]);
-        NSMutableArray *imgUrlArray = @[].mutableCopy;
+        id              imageSpriteObj = imageSprites.lastObject;
+        NSString *      vtt            = J2Str([imageSpriteObj valueForKeyPath:@"webVttUrl"]);
+        NSArray *       imgUrls        = J2Array([imageSpriteObj valueForKeyPath:@"imageUrls"]);
+        NSMutableArray *imgUrlArray    = @[].mutableCopy;
         for (NSString *url in imgUrls) {
             NSURL *nsurl = [NSURL URLWithString:url];
             if (nsurl) {
@@ -89,7 +88,7 @@
         TXImageSprite *imageSprite = [[TXImageSprite alloc] init];
         [imageSprite setVTTUrl:[NSURL URLWithString:vtt] imageUrls:imgUrlArray];
         ret.imageSprite = imageSprite;
-    } 
+    }
 
     NSArray *keyFrameDescList = J2Array([responseObject valueForKeyPath:@"keyFrameDescInfo.keyFrameDescList"]);
     if (keyFrameDescList.count > 0) {

@@ -18,18 +18,18 @@ char pinyinFirstLetter(unsigned short hanzi);
 + (NSString *)md5String:(NSString *)str;
 - (NSString *)md5;
 
--(NSString*)firstPinYin;
+- (NSString *)firstPinYin;
 
 //是否为空
 + (BOOL)isEmpty:(NSString *)string;
 
 /**
- compare two version
- @param sourVersion *.*.*.*
- @param desVersion *.*.*.*
- @returns No,sourVersion is less than desVersion; YES, the statue is opposed
+   compare two version
+   @param sourVersion *.*.*.*
+   @param desVersion *.*.*.*
+   @returns No,sourVersion is less than desVersion; YES, the statue is opposed
  */
-+(BOOL)compareVerison:(NSString *)sourVersion withDes:(NSString *)desVersion;
++ (BOOL)compareVerison:(NSString *)sourVersion withDes:(NSString *)desVersion;
 
 //当前字符串是否只包含空白字符和换行符
 - (BOOL)isWhitespaceAndNewlines;
@@ -45,8 +45,8 @@ char pinyinFirstLetter(unsigned short hanzi);
 - (NSString *)stringByUrlEncoding;
 
 /*!
- @brief     大写第一个字符
- @return    格式化后的字符串
+   @brief     大写第一个字符
+   @return    格式化后的字符串
  */
 - (NSString *)capitalize;
 
@@ -54,7 +54,6 @@ char pinyinFirstLetter(unsigned short hanzi);
 - (BOOL)startsWith:(NSString *)str;
 //以指定条件判断字符串是否以给定字符串开始
 - (BOOL)startsWith:(NSString *)str Options:(NSStringCompareOptions)compareOptions;
-
 
 //以给定字符串结束，忽略大小写
 - (BOOL)endsWith:(NSString *)str;
@@ -69,9 +68,7 @@ char pinyinFirstLetter(unsigned short hanzi);
 //判断字符串是否相同，忽略大小写
 - (BOOL)equalsString:(NSString *)str;
 
-
 - (NSString *)emjoiText;
-
 
 #pragma mark Hashing
 #if kSupportGTM64
@@ -81,7 +78,6 @@ char pinyinFirstLetter(unsigned short hanzi);
 - (NSString *)valueOfLabel:(NSString *)label;
 
 - (NSString *)substringAtRange:(NSRange)rang;
-
 
 // 是否带有表情府
 

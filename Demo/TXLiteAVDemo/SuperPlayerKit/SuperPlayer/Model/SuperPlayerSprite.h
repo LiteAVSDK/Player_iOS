@@ -10,9 +10,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface SuperPlayerSprite : NSObject
-@property (strong, nonatomic) NSArray<NSString *> *imageURLs;
-@property (strong, nonatomic) NSString *webVttURL;
+@interface                                        SuperPlayerSprite : NSObject
+@property(strong, nonatomic) NSArray<NSString *> *imageURLs;
+@property(strong, nonatomic) NSString *           webVttURL;
 @end
 
 NS_ASSUME_NONNULL_END

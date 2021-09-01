@@ -7,7 +7,9 @@
 //
 
 #import "AppDelegate.h"
+
 #import <Bugly/Bugly.h>
+
 #import "AppLocalized.h"
 
 #ifdef ENABLE_TRTC
@@ -15,7 +17,7 @@
 #import "TRTCCloud.h"
 #import "TXLiveBase.h"  //TRTC
 #else
-#import "TRTCCloud.h"   //TRTC_Smart
+#import "TRTCCloud.h"  //TRTC_Smart
 #endif
 #else
 #ifdef LIVE
@@ -29,19 +31,20 @@
 #import "AppLogMgr.h"
 #endif
 
-#import "MainViewController.h"
-
-#import "AFNetworkReachabilityManager.h"
 #import <UserNotifications/UserNotifications.h>
 #import <objc/message.h>
+
+#import "AFNetworkReachabilityManager.h"
+#import "MainViewController.h"
 
 #ifdef ENABLE_UGC
 #import "TXUGCBase.h"
 #endif
 
 #if !defined(UGC) && !defined(PLAYER)
-#import "TXLiteAVDemo-Swift.h"
 #import <ImSDK/ImSDK.h>
+
+#import "TXLiteAVDemo-Swift.h"
 #endif
 
 #if defined(ENTERPRISE) || defined(PROFESSIONAL) || defined(SMART) || defined(TRTC)
@@ -56,38 +59,38 @@
 
 NSString *helpUrlDb[] = {
     [Help_MLVBLiveRoom] = @"https://cloud.tencent.com/document/product/454/14606",
-        [Help_录屏直播 ] = @"https://cloud.tencent.com/document/product/454/7883",
-        [Help_超级播放器] = @"https://cloud.tencent.com/document/product/454/18871",
-        [Help_视频录制] = @"https://cloud.tencent.com/document/product/584/9367",
-        [Help_特效编辑] = @"https://cloud.tencent.com/document/product/584/9375",
-        [Help_视频拼接] = @"https://cloud.tencent.com/document/product/584/9370",
-        [Help_图片转场] = @"https://cloud.tencent.com/document/product/584/9375#14.-.E5.9B.BE.E7.89.87.E7.BC.96.E8.BE.91",
-        [Help_视频上传] = @"https://cloud.tencent.com/document/product/584/15534",
-        [Help_双人音视频] = @"https://cloud.tencent.com/document/product/454/14617",
-        [Help_多人音视频] = @"https://cloud.tencent.com/document/product/454/14617",
-        [Help_rtmp推流] = @"https://cloud.tencent.com/document/product/454/7879",
-        [Help_直播播放器] = @"https://cloud.tencent.com/document/product/454/7880",
+    [Help_录屏直播]     = @"https://cloud.tencent.com/document/product/454/7883",
+    [Help_超级播放器]   = @"https://cloud.tencent.com/document/product/454/18871",
+    [Help_视频录制]     = @"https://cloud.tencent.com/document/product/584/9367",
+    [Help_特效编辑]     = @"https://cloud.tencent.com/document/product/584/9375",
+    [Help_视频拼接]     = @"https://cloud.tencent.com/document/product/584/9370",
+    [Help_图片转场] =
+        @"https://cloud.tencent.com/document/product/584/"
+        @"9375#14.-.E5.9B.BE.E7.89.87.E7.BC.96.E8.BE.91",
+    [Help_视频上传]   = @"https://cloud.tencent.com/document/product/584/15534",
+    [Help_双人音视频] = @"https://cloud.tencent.com/document/product/454/14617",
+    [Help_多人音视频] = @"https://cloud.tencent.com/document/product/454/14617",
+    [Help_rtmp推流]   = @"https://cloud.tencent.com/document/product/454/7879",
+    [Help_直播播放器] = @"https://cloud.tencent.com/document/product/454/7880",
     [Help_点播播放器] = @"https://cloud.tencent.com/document/product/454/12147",
-    [Help_webrtc] = @"https://cloud.tencent.com/document/product/454/16914",
-    [Help_TRTC] = @"https://cloud.tencent.com/document/product/647/32221",
-    };
-    
+    [Help_webrtc]     = @"https://cloud.tencent.com/document/product/454/16914",
+    [Help_TRTC]       = @"https://cloud.tencent.com/document/product/647/32221",
+};
+
 #if !defined(PLAYER) && !defined(UGC)
 @interface AppDelegate () <UNUserNotificationCenterDelegate, V2TIMAPNSListener>
 #else
 @interface AppDelegate () <UNUserNotificationCenterDelegate>
 #endif
 
-@property (nonatomic, strong) MainViewController* mainViewController;
-@property (nonatomic, strong) NSDictionary *launchInfo; //从其他应用打开
-@property (nonatomic, assign) BOOL didLaunched;
+@property(nonatomic, strong) MainViewController *mainViewController;
+@property(nonatomic, strong) NSDictionary *      launchInfo;  //从其他应用打开
+@property(nonatomic, assign) BOOL                didLaunched;
 @end
-
 
 @implementation AppDelegate
 
-
--(MainViewController *)mainViewController{
+- (MainViewController *)mainViewController {
     if (!_mainViewController) {
         _mainViewController = [[MainViewController alloc] init];
     }
@@ -95,8 +98,8 @@ NSString *helpUrlDb[] = {
 }
 
 - (void)clickHelp:(UIButton *)sender {
-    NSURL *helpUrl = [NSURL URLWithString:helpUrlDb[sender.tag]];
-    UIApplication *myApp = [UIApplication sharedApplication];
+    NSURL *        helpUrl = [NSURL URLWithString:helpUrlDb[sender.tag]];
+    UIApplication *myApp   = [UIApplication sharedApplication];
     if ([myApp canOpenURL:helpUrl]) {
         [myApp openURL:helpUrl];
     }
@@ -105,16 +108,16 @@ NSString *helpUrlDb[] = {
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     self.didLaunched = YES;
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"remove_cache_preference"]) {
-        NSFileManager *fm = [NSFileManager defaultManager];
-        NSString *documentPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
+        NSFileManager *fm           = [NSFileManager defaultManager];
+        NSString *     documentPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
         [fm removeItemAtPath:[documentPath stringByAppendingPathComponent:@"TXUgcSDK.licence"] error:nil];
         [fm removeItemAtPath:[documentPath stringByAppendingPathComponent:@"TXLiveSDK.licence"] error:nil];
         [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"remove_cache_preference"];
     }
     [self registNotificaiton];
     //启动bugly组件，bugly组件为腾讯提供的用于crash上报和分析的开放组件，如果您不需要该组件，可以自行移除
-    BuglyConfig * config = [[BuglyConfig alloc] init];
-    NSString *version = nil;
+    BuglyConfig *config  = [[BuglyConfig alloc] init];
+    NSString *   version = nil;
 #if ENABLE_TRTC
     version = [TRTCCloud getSDKVersion];
 #else
@@ -124,19 +127,19 @@ NSString *helpUrlDb[] = {
     version = [TXLiveBase getSDKVersionStr];
 #endif
 #endif
-    
+
 #if DEBUG
     config.debugMode = YES;
 #endif
     NSString *appVersion = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
-    config.version = appVersion;
-    config.channel = @"LiteAV Demo";
-    
+    config.version       = appVersion;
+    config.channel       = @"LiteAV Demo";
+
     [Bugly startWithAppId:BUGLY_APP_ID config:config];
 #ifdef ENABLE_UGC
     [TXUGCBase setLicenceURL:@"" key:@""];
 #endif
-    
+
 #if (defined(ENABLE_PUSH) || defined(ENABLE_INTERNATIONAL)) && !defined(TRTC)
 #ifdef LIVE
     [V2TXLivePremier setLicence:@"" key:@""];
@@ -144,18 +147,18 @@ NSString *helpUrlDb[] = {
     [TXLiveBase setLicenceURL:@"" key:@""];
 #endif
 #endif
-    
+
 #ifdef TRTC
     [TXLiveBase setLicenceURL:@"" key:@""];
 #endif
-    
+
     NSLog(@"rtmp demo init crash report");
 
     // Override point for customization after application launch.
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    
+
     self.window.backgroundColor = [UIColor whiteColor];
-    
+
 #ifdef ENABLE_TRTC
     [TRTCCloud setConsoleEnabled:NO];
     [TRTCCloud setLogLevel:TRTCLogLevelDebug];
@@ -166,22 +169,21 @@ NSString *helpUrlDb[] = {
 #ifndef LIVE
     [TXLiveBase sharedInstance].delegate = [AppLogMgr shareInstance];
     [TXLiveBase setConsoleEnabled:NO];
-    [TXLiveBase setAppID:@"1252463788"];
+    [TXLiveBase setAppID:@""];
 #else
     [V2TXLivePremier setObserver:[AppLogMgr shareInstance]];
     V2TXLiveLogConfig *logConf = [V2TXLiveLogConfig new];
-    logConf.enableObserver = YES;
+    logConf.enableObserver     = YES;
     [V2TXLivePremier setLogConfig:logConf];
 #endif
 #endif
 #endif
-    [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(-1000, 0)
-                                                         forBarMetrics:UIBarMetricsDefault];
-    
+    [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(-1000, 0) forBarMetrics:UIBarMetricsDefault];
+
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
     [[UINavigationBar appearance] setBarTintColor:UIColor.blackColor];
     [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
-    [[UINavigationBar appearance] setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:18],NSForegroundColorAttributeName:[UIColor whiteColor]}];
+    [[UINavigationBar appearance] setTitleTextAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:18], NSForegroundColorAttributeName : [UIColor whiteColor]}];
     [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"transparent.png"] forBarMetrics:UIBarMetricsDefault];
     [[UINavigationBar appearance] setShadowImage:[UIImage new]];
 #ifdef NOT_LOGIN
@@ -189,8 +191,7 @@ NSString *helpUrlDb[] = {
 #else
     [self showLoginController];
 #endif
-    
-    
+
     [self.window makeKeyAndVisible];
 #ifndef ENABLE_TRTC
     [[AFNetworkReachabilityManager sharedManager] startMonitoring];
@@ -200,15 +201,15 @@ NSString *helpUrlDb[] = {
     // 自定义 APP 未读数
     [[V2TIMManager sharedInstance] setAPNSListener:self];
 #endif
-    //For ReplayKit2. 使用 UNUserNotificationCenter 来管理通知
+    // For ReplayKit2. 使用 UNUserNotificationCenter 来管理通知
     if ([UIDevice currentDevice].systemVersion.floatValue >= 11.0) {
         UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
         //监听回调事件
         center.delegate = self;
-        
-        //iOS 10 使用以下方法注册，才能得到授权
+
+        // iOS 10 使用以下方法注册，才能得到授权
         [center requestAuthorizationWithOptions:(UNAuthorizationOptionAlert + UNAuthorizationOptionSound + UNAuthorizationOptionBadge)
-                              completionHandler:^(BOOL granted, NSError * _Nullable error) {
+                              completionHandler:^(BOOL granted, NSError *_Nullable error){
                                   // Enable or disable features based on authorization.
                               }];
     }
@@ -220,9 +221,9 @@ NSString *helpUrlDb[] = {
 }
 
 #pragma mark - 从其他应用拉起
-- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
+- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey, id> *)options {
     NSMutableDictionary *params = [self getParamsFromURL:url.query].mutableCopy;
-    self.launchInfo = params.copy;
+    self.launchInfo             = params.copy;
     if (self.didLaunched) {
         [self playVideoFromLaunchInfo:self.launchInfo];
     }
@@ -253,22 +254,23 @@ NSString *helpUrlDb[] = {
             //登录流程，等待，这里不作处理，登录成功后showPortalConroller中主动调用这个函数
         } else if ([self findClass:NSClassFromString(@"MoviePlayerViewController") InNav:rootVC]) {
             ///已有播放器
-            id<TXLaunchMoviePlayProtocol> vc =
-            (id<TXLaunchMoviePlayProtocol>)[self findVCWith:NSClassFromString(@"MoviePlayerViewController") InNav:rootVC];
-            __weak __typeof(self) weakSelf = self;
-            [vc startPlayVideoFromLaunchInfo:self.launchInfo complete:^(BOOL succ){
-                weakSelf.launchInfo = nil;
-            }];
+            id<TXLaunchMoviePlayProtocol> vc       = (id<TXLaunchMoviePlayProtocol>)[self findVCWith:NSClassFromString(@"MoviePlayerViewController") InNav:rootVC];
+            __weak __typeof(self)         weakSelf = self;
+            [vc startPlayVideoFromLaunchInfo:self.launchInfo
+                                    complete:^(BOOL succ) {
+                                        weakSelf.launchInfo = nil;
+                                    }];
         } else {
             id vc = [[NSClassFromString(@"MoviePlayerViewController") alloc] init];
             if (vc) {
                 __weak __typeof(self) weakSelf = self;
-                [(id<TXLaunchMoviePlayProtocol>)vc startPlayVideoFromLaunchInfo:self.launchInfo complete:^(BOOL succ){
-                    weakSelf.launchInfo = nil;
-                    if (succ) {
-                        [rootVC pushViewController:vc animated:NO];
-                    }
-                }];
+                [(id<TXLaunchMoviePlayProtocol>)vc startPlayVideoFromLaunchInfo:self.launchInfo
+                                                                       complete:^(BOOL succ) {
+                                                                           weakSelf.launchInfo = nil;
+                                                                           if (succ) {
+                                                                               [rootVC pushViewController:vc animated:NO];
+                                                                           }
+                                                                       }];
             } else {
                 NSLog(@"current version not support super player, so cannot play video");
             }
@@ -279,7 +281,7 @@ NSString *helpUrlDb[] = {
 
 - (UIViewController *)findVCWith:(Class)aclass InNav:(UINavigationController *)nav {
     for (UIViewController *vc in nav.viewControllers) {
-        if ([vc isKindOfClass: aclass]) {
+        if ([vc isKindOfClass:aclass]) {
             return vc;
         }
     }
@@ -293,75 +295,89 @@ NSString *helpUrlDb[] = {
 
 #pragma mark -
 
--(void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions))completionHandler{
-    #if defined(ENTERPRISE) || defined(PROFESSIONAL) || defined(SMART)
+- (void)userNotificationCenter:(UNUserNotificationCenter *)center
+       willPresentNotification:(UNNotification *)notification
+         withCompletionHandler:(void (^)(UNNotificationPresentationOptions))completionHandler {
+#if defined(ENTERPRISE) || defined(PROFESSIONAL) || defined(SMART)
     if (notification.request.content.userInfo.allKeys.count > 0) {
         if ([notification.request.content.userInfo[kReplayKit2UploadingKey] isEqualToString:kReplayKit2Stop]) {
             [[NSNotificationCenter defaultCenter] postNotificationName:kCocoaNotificationNameReplayKit2Stop object:nil];
         }
     }
-    #endif
+#endif
     // 处理完成后条用 completionHandler ，用于指示在前台显示通知的形式
     completionHandler(UNNotificationPresentationOptionSound + UNNotificationPresentationOptionBadge + UNAuthorizationOptionAlert);
 }
 
-- (void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)(void))completionHandler
-{
+- (void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)(void))completionHandler {
     if (response.notification.request.content.userInfo.allKeys.count > 0) {
-//        NSUserDefaults *defaults = [[NSUserDefaults alloc] initWithSuiteName:kReplayKit2AppGroupId];
-//        if ([response.notification.request.content.userInfo[kReplayKit2UploadingKey] isEqualToString:kReplayKit2Uploading]) {
-//            [defaults setObject:kReplayKit2Uploading forKey:kReplayKit2UploadingKey];
-//            [defaults synchronize];
-//        }
+        //        NSUserDefaults *defaults = [[NSUserDefaults alloc]
+        //        initWithSuiteName:kReplayKit2AppGroupId]; if
+        //        ([response.notification.request.content.userInfo[kReplayKit2UploadingKey]
+        //        isEqualToString:kReplayKit2Uploading]) {
+        //            [defaults setObject:kReplayKit2Uploading
+        //            forKey:kReplayKit2UploadingKey]; [defaults synchronize];
+        //        }
     }
     completionHandler();
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
-    // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
-    // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
+    // Sent when the application is about to move from active to inactive state.
+    // This can occur for certain types of temporary interruptions (such as an
+    // incoming phone call or SMS message) or when the user quits the application
+    // and it begins the transition to the background state. Use this method to
+    // pause ongoing tasks, disable timers, and throttle down OpenGL ES frame
+    // rates. Games should use this method to pause the game.
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
-    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
-    // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+    // Use this method to release shared resources, save user data, invalidate
+    // timers, and store enough application state information to restore your
+    // application to its current state in case it is terminated later. If your
+    // application supports background execution, this method is called instead of
+    // applicationWillTerminate: when the user quits.
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
-    // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+    // Called as part of the transition from the background to the inactive state;
+    // here you can undo many of the changes made on entering the background.
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
-    // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    // Restart any tasks that were paused (or not yet started) while the
+    // application was inactive. If the application was previously in the
+    // background, optionally refresh the user interface.
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
-    // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    // Called when the application is about to terminate. Save data if
+    // appropriate. See also applicationDidEnterBackground:.
 }
 
 #pragma mark - 通知相关方法
--(void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error{
+- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
     NSLog(@"error: %@", error);
 }
 
--(void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken{
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     self.deviceToken = deviceToken;
 }
 
 - (void)registNotificaiton {
-    UIUserNotificationSettings* settings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeSound | UIUserNotificationTypeAlert | UIUserNotificationTypeBadge categories:nil];
+    UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeSound | UIUserNotificationTypeAlert | UIUserNotificationTypeBadge categories:nil];
     [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
     [[UIApplication sharedApplication] registerForRemoteNotifications];
 }
 
 #pragma mark - 登录跳转方法
 - (void)showPortalConroller {
-    UINavigationController *nav = nil;
-    NSString *appStoreID = @"1152295397";
-    nav = [[UINavigationController alloc] initWithRootViewController:self.mainViewController];
-    self.window.rootViewController = nav;
+    UINavigationController *nav        = nil;
+    NSString *              appStoreID = @"1152295397";
+    nav                                = [[UINavigationController alloc] initWithRootViewController:self.mainViewController];
+    self.window.rootViewController     = nav;
     [self playVideoFromLaunchInfo:self.launchInfo];
-    
+
 #if !defined(ENABLE_INTERNATIONAL)
     [self checkStoreVersion:appStoreID];
 #endif
@@ -369,7 +385,7 @@ NSString *helpUrlDb[] = {
 
 - (void)showLoginController {
 #ifndef NOT_LOGIN
-    LoginViewController *vc = [[LoginViewController alloc] init];
+    LoginViewController *vc        = [[LoginViewController alloc] init];
     self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:vc];
 #endif
 }
@@ -381,52 +397,56 @@ NSString *helpUrlDb[] = {
 
 #pragma mark - 检测商店版本
 - (void)checkStoreVersion:(NSString *)appID {
-    NSString *url = [NSString stringWithFormat:@"https://itunes.apple.com/cn/lookup?id=%@", appID];
-    NSURLRequest * request = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
-    NSURLSession *session = [NSURLSession sharedSession];
-    __weak __typeof(self) wself = self;
-    NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        NSError *err;
-        if (!data || data.length == 0) {
-            NSLog(@"====== no store data ======");
-            return;
-        }
-        NSDictionary *remoteDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:&err];
-        if (err) {
-            NSLog(@"====== no store info ======");
-            return;
-        }
-        NSArray *array = [remoteDic objectForKey:@"results"];
-        if (array.count < 1) {
-            return;
-        }
-        NSDictionary *appInfo = [array firstObject];
-        NSString *appStoreVersion = [appInfo objectForKey:@"version"];
-        NSLog(@"====== store version info: %@ ======", appStoreVersion);
-        BOOL result = [wself compareVersion:appStoreVersion];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            if (result) {
-                [wself showUpdateAlertController:appID];
-            }
-        });
-    }];
+    NSString *            url     = [NSString stringWithFormat:@"https://itunes.apple.com/cn/lookup?id=%@", appID];
+    NSURLRequest *        request = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
+    NSURLSession *        session = [NSURLSession sharedSession];
+    __weak __typeof(self) wself   = self;
+    NSURLSessionDataTask *task    = [session dataTaskWithRequest:request
+                                            completionHandler:^(NSData *_Nullable data, NSURLResponse *_Nullable response, NSError *_Nullable error) {
+                                                NSError *err;
+                                                if (!data || data.length == 0) {
+                                                    NSLog(@"====== no store data ======");
+                                                    return;
+                                                }
+                                                NSDictionary *remoteDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:&err];
+                                                if (err) {
+                                                    NSLog(@"====== no store info ======");
+                                                    return;
+                                                }
+                                                NSArray *array = [remoteDic objectForKey:@"results"];
+                                                if (array.count < 1) {
+                                                    return;
+                                                }
+                                                NSDictionary *appInfo         = [array firstObject];
+                                                NSString *    appStoreVersion = [appInfo objectForKey:@"version"];
+                                                NSLog(@"====== store version info: %@ ======", appStoreVersion);
+                                                BOOL result = [wself compareVersion:appStoreVersion];
+                                                dispatch_async(dispatch_get_main_queue(), ^{
+                                                    if (result) {
+                                                        [wself showUpdateAlertController:appID];
+                                                    }
+                                                });
+                                            }];
     [task resume];
 }
 
 - (BOOL)compareVersion:(NSString *)appStoreVersion {
-    NSDictionary *infoDic = [[NSBundle mainBundle] infoDictionary];
-    NSString *currentVersion = [infoDic objectForKey:@"CFBundleShortVersionString"];
+    NSDictionary *infoDic        = [[NSBundle mainBundle] infoDictionary];
+    NSString *    currentVersion = [infoDic objectForKey:@"CFBundleShortVersionString"];
     NSLog(@"====== current version is %@ ======", currentVersion);
     return [appStoreVersion compare:currentVersion options:NSNumericSearch] == NSOrderedDescending;
 }
 
 - (void)showUpdateAlertController:(NSString *)appID {
-    
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:TRTCLocalize(@"Demo.TRTC.LiveRoom.prompt") message:TRTCLocalize(@"Demo.TRTC.Home.newversionpublic") preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *sureAction = [UIAlertAction actionWithTitle:TRTCLocalize(@"Demo.TRTC.Home.updatenow") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        [self openAppStore:appID];
-    }];
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:TRTCLocalize(@"Demo.TRTC.Home.later") style:UIAlertActionStyleCancel handler:nil];
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:TRTCLocalize(@"Demo.TRTC.LiveRoom.prompt")
+                                                                             message:TRTCLocalize(@"Demo.TRTC.Home.newversionpublic")
+                                                                      preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *    sureAction      = [UIAlertAction actionWithTitle:TRTCLocalize(@"Demo.TRTC.Home.updatenow")
+                                                         style:UIAlertActionStyleDefault
+                                                       handler:^(UIAlertAction *_Nonnull action) {
+                                                           [self openAppStore:appID];
+                                                       }];
+    UIAlertAction *    cancelAction    = [UIAlertAction actionWithTitle:TRTCLocalize(@"Demo.TRTC.Home.later") style:UIAlertActionStyleCancel handler:nil];
     [alertController addAction:sureAction];
     [alertController addAction:cancelAction];
     if (self.window.rootViewController) {
@@ -435,7 +455,7 @@ NSString *helpUrlDb[] = {
 }
 
 - (void)openAppStore:(NSString *)appID {
-    NSURL*url = [NSURL URLWithString:[NSString stringWithFormat:@"https://itunes.apple.com/us/app/id%@?ls=1&mt=8",appID]];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://itunes.apple.com/us/app/id%@?ls=1&mt=8", appID]];
     [[UIApplication sharedApplication] openURL:url];
 }
 @end

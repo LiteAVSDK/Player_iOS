@@ -103,11 +103,15 @@ static const char *kScanQRCodeQueueName = "ScanQRCodeQueue";
     // 创建会话
     _captureSession = [[AVCaptureSession alloc] init];
     // 添加输入流
-    [_captureSession addInput:input];
+    if ([_captureSession canAddInput:input]) {
+        [_captureSession addInput:input];
+    }
     // 初始化输出流
     AVCaptureMetadataOutput *captureMetadataOutput = [[AVCaptureMetadataOutput alloc] init];
     // 添加输出流
-    [_captureSession addOutput:captureMetadataOutput];
+    if ([_captureSession canAddOutput:captureMetadataOutput]) {
+        [_captureSession addOutput:captureMetadataOutput];
+    }
     
     // 创建dispatch queue.
     dispatch_queue_t dispatchQueue;

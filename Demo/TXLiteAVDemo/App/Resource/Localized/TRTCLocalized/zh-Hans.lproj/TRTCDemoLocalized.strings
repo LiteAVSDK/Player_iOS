@@ -378,16 +378,26 @@
 "Demo.TRTC.Live.enterRoom" = "创建并自动加入房间";
 "Demo.TRTC.Live.inputRoomId" = "请输入房间号：";
 "Demo.TRTC.Live.inputUserId" = "请输入用户名：";
+"Demo.TRTC.Live.password" = "密码：";
+"Demo.TRTC.Live.cloudEv" = "云端环境";
+"Demo.TRTC.Live.product" = "正式";
+"Demo.TRTC.Live.test" = "测试";
+"Demo.TRTC.Live.experience" = "体验";
+
 
 "Demo.TRTC.Live.switchRole" = "角色选择";
 "Demo.TRTC.Live.anchor" = "房主";
 "Demo.TRTC.Live.adudience" = "观众";
 
-"Demo.TRTC.Live.videoInput" = "视频输入";
+"Demo.TRTC.Live.videoInput" = "主路视频源";
 "Demo.TRTC.Live.camera" = "摄像头";
 "Demo.TRTC.Live.mediaFile" = "视频文件";
-"Demo.TRTC.Live.deviceCapture" = "录屏";
+"Demo.TRTC.Live.deviceAppCapture" = "App录屏";
+"Demo.TRTC.Live.deviceCapture" = "设备录屏";
 "Demo.TRTC.Live.none" = "无";
+"Demo.TRTC.Live.Auxiliary" = "辅路视频源";
+
+
 
 "Demo.TRTC.Live.autioInput" = "音频输入";
 "Demo.TRTC.Live.sdkCapture" = "SDK采集";
@@ -406,6 +416,8 @@
 "Demo.TRTC.Live.talk" = "语音";
 "Demo.TRTC.Live.default" = "默认";
 "Demo.TRTC.Live.music" = "音乐";
+"Demo.TRTC.Live.notChoose" = "不选";
+
 
 "Demo.TRTC.Live.roomType" = "房间号类型";
 "Demo.TRTC.Live.int" = "数字";
@@ -417,6 +429,18 @@
 "Demo.TRTC.Live.leaveRoom" = "离开房间";
 "Demo.TRTC.Live.error" = "发生错误";
 "Demo.TRTC.Live.ok" = "确定";
+"Demo.TRTC.Live.alertTitle" = "TRTC错误";
+"Demo.TRTC.Live.vodSoftTip" = "切换为软解码. 重启播放流程";
+"Demo.TRTC.Live.vodHardTip" = "切换为硬解码. 重启播放流程";
+"Demo.TRTC.Live.iosversionbelow" = "iOS 版本低于8.0，不支持硬件加速.";
+"Demo.TRTC.Live.VodPlayer" = "点播播放器";
+"Demo.TRTC.Live.VodUrlTip" = "请输入或扫二维码获取播放地址";
+"Demo.TRTC.Live.recordTip" = "本地录制异常结束，错误码：";
+"Demo.TRTC.Live.recordTipEnd" = "分辨率改变或横竖屏切换导致本地录制结束";
+"Demo.TRTC.Live.recordTipSuccess" = "录制文件写入相册成功！";
+"Demo.TRTC.Live.recordTipFailure" = "录制文件写入相册失败！";
+
+
 
 "Demo.TRTC.Live.startScreenCapture" = "开始屏幕分享";
 "Demo.TRTC.Live.stopScreenCapture" = "停止屏幕分享";
@@ -429,9 +453,9 @@
 "Demo.TRTC.Live.switchUdpPlay" = "切换到UDP播放";
 
 "Demo.TRTC.Live.video" = "视频";
-"Demo.TRTC.Live.setBitrate" = "码率设置";
-"Demo.TRTC.Live.setResolution" = "分辨率设置";
-"Demo.TRTC.Live.setFps" = "帧率设置";
+"Demo.TRTC.Live.setBitrate" = "主路码率";
+"Demo.TRTC.Live.setResolution" = "主路分辨率";
+"Demo.TRTC.Live.setFps" = "主路帧率";
 "Demo.TRTC.Live.setPicPreferen" = "画面偏好";
 "Demo.TRTC.Live.priorFlow" = "优先流畅";
 "Demo.TRTC.Live.priorClear" = "优先清晰";
@@ -441,6 +465,12 @@
 "Demo.TRTC.Live.fillMode" = "画面填充";
 "Demo.TRTC.Live.fill" = "充满";
 "Demo.TRTC.Live.fit" = "自适应";
+"Demo.TRTC.Live.LiveRotation" = "画面旋转（顺时针)";
+"Demo.TRTC.Live.CDNSetting" = "CDN设置";
+"Demo.TRTC.Live.bufferMode" = "缓冲方式";
+"Demo.TRTC.Live.bModeFast" = "快速";
+"Demo.TRTC.Live.bModeSmooth" = "平滑";
+"Demo.TRTC.Live.bModeAuto" = "自动";
 "Demo.TRTC.Live.previewRotation" = "本地预览旋转角度";
 "Demo.TRTC.Live.encodeRotation" = "编码输出画面旋转";
 "Demo.TRTC.Live.preMirror" = "本地预览镜像";
@@ -449,12 +479,16 @@
 "Demo.TRTC.Live.disableMirror" = "前后摄均关闭";
 "Demo.TRTC.Live.remoteMirror" = "开启远程镜像";
 "Demo.TRTC.Live.enableWaterMark" = "开启视频水印";
-"Demo.TRTC.Live.pauseCapture" = "暂停视频采集";
+"Demo.TRTC.Live.pauseScreenCapture" = "暂停屏幕采集";
 "Demo.TRTC.Live.sharpnessEnhancement" = "图像增强";
 "Demo.TRTC.Live.videoMuteImage" = "开启垫片";
 "Demo.TRTC.Live.videoTimestampWaterMark" = "开启时间水印";
 "Demo.TRTC.Live.localVideoSnapshot" = "本地视频截图";
 "Demo.TRTC.Live.snapshot" = "截图";
+"Demo.TRTC.Live.streamSnapshot" = "视频流截图";
+"Demo.TRTC.Live.secondarystreamSnapshot" = "辅流截图";
+"Demo.TRTC.Live.Screenshot" = "画面截图";
+
 "Demo.TRTC.Live.noImage" = "无图片";
 
 "Demo.TRTC.Live.audio" = "音频";
@@ -489,6 +523,101 @@
 "Demo.TRTC.Live.picRotation" = "画面旋转";
 "Demo.TRTC.Live.volumeNum" = "音量大小";
 
+"Demo.TRTC.Live.encoderType" = "编码类型";
+"Demo.TRTC.Live.close" = "关闭";
+"Demo.TRTC.Live.open" = "开启";
+"Demo.TRTC.Live.normal" = "正常";
+"Demo.TRTC.Live.audioScene" = "音频场景";
+"Demo.TRTC.Live.chorus" = "合唱";
+"Demo.TRTC.Live.auto" = "自动";
+"Demo.TRTC.Live.manual" = "手动";
+"Demo.TRTC.Live.texture" = "纹理";
+"Demo.TRTC.Live.audioReceive" = "音频接收";
+"Demo.TRTC.Live.videoReceive" = "视频接收";
+"Demo.TRTC.Live.notChoose" = "不选";
+//
+
+"Demo.TRTC.Live.collectSolution" = "采集分辨率";
+"Demo.TRTC.Live.subResolution" = "辅路分辨率";
+"Demo.TRTC.Meeting.subFramerate" = "辅路帧率";
+"Demo.TRTC.Meeting.substreamBitrate" = "辅路码率";
+"Demo.TRTC.Meeting.265HardCoding" = "开启265硬编";
+"Demo.TRTC.Live.turnOnCapture" = "开启视频采集";
+"Demo.TRTC.Live.turnOnPush" = "开启视频推送";
+"Demo.TRTC.Live.turnOnBlackFrame" = "开启黑帧";
+"Demo.TRTC.Live.blackFrameRatio" = "黑帧比例";
+"Demo.TRTC.Live.previewMirror" = "开启预览镜像";
+"Demo.TRTC.Live.beauty" = "美颜";
+"Demo.TRTC.Live.brightness" = "画面亮度";
+"Demo.TRTC.Live.voiceCapture" = "声音采集";
+"Demo.TRTC.Live.earVolume" = "耳返音量";
+"Demo.TRTC.Live.handsFree" = "免提模式";
+"Demo.TRTC.Live.audioRecordingType" = "音频录制类型";
+"Demo.TRTC.Live.default" = "默认";
+"Demo.TRTC.Live.local" = "本地";
+"Demo.TRTC.Live.server" = "远端";
+"Demo.TRTC.Live.cloudMixedStream" = "云端混流";
+"Demo.TRTC.Live.backgroundImage" = "背景图";
+"Demo.TRTC.Live.MixedStreamID" = "混流ID";
+"Demo.TRTC.Live.subRoom" = "子房间";
+"Demo.TRTC.Live.newRoom" = "新房间";
+"Demo.TRTC.Live.numRoomSupport" = "仅支持数字房间号";
+"Demo.TRTC.Live.enter" = "进入";
+"Demo.TRTC.Live.failedEnterRoom" = "进房失败";
+"Demo.TRTC.Live.failedEnterRoomTip" = "请勿输入与主房间相同的房间号；仅支持数字房间号";
+"Demo.TRTC.Live.ok" = "确认";
+"Demo.TRTC.Live.exitRoom" = "退房";
+"Demo.TRTC.Live.pushStream" = "推流";
+"Demo.TRTC.Live.qosControlMode" = "流控方案";
+"Demo.TRTC.Live.customerMode" = "客户端控";
+"Demo.TRTC.Live.cloudMode" = "云端流控";
+"Demo.TRTC.Live.twoWayCoding" = "开启双路编码";
+"Demo.TRTC.Live.lowDefinition" = "默认观看低清";
+"Demo.TRTC.Live.autofocus" = "开启自动对焦";
+"Demo.TRTC.Live.VOD" = "开启点播播放器";
+"Demo.TRTC.Live.attachVodToTRTC" = "推送点播流至TRTC辅路";
+"Demo.TRTC.Live.customMessage" = "自定义消息";
+"Demo.TRTC.Live.testMessage" = "测试消息";
+"Demo.TRTC.Live.voiceMessage" = "音频消息";
+"Demo.TRTC.Live.voiceMessageTest" = "测试音频消息";
+"Demo.TRTC.Live.voiceNetworkMessageTest" = "网络层音频消息";
+"Demo.TRTC.Live.voiceNetworkMessageTestPlaceHolder" = "测试网络音频消息";
+"Demo.TRTC.Live.stringRoom" = "切换到字符串房间";
+"Demo.TRTC.Live.stringRoomID" = "字符串房间号";
+"Demo.TRTC.Live.numRoom" = "切换到数字房间";
+"Demo.TRTC.Live.numRoomID" = "数字房间号";
+"Demo.TRTC.Live.recordingType" = "录制类型";
+"Demo.TRTC.Live.recordingTypeAudio" = "MP4仅音频";
+"Demo.TRTC.Live.recordingTypeVideo" = "MP4仅视频";
+"Demo.TRTC.Live.recordingTypeAudioAndVideo" = "MP4音视频";
+"Demo.TRTC.Live.localRecording" = "开启本地录制";
+"Demo.TRTC.Live.send" = "发送";
+
+"Demo.TRTC.Live.audioRecording" = "音频录制";
+"Demo.TRTC.Live.recording" = "录制";
+"Demo.TRTC.Live.stop" = "停止";
+
+"Demo.TRTC.Live.manual" = "人工";
+"Demo.TRTC.Live.audioOnly" = "纯音频";
+"Demo.TRTC.Live.preset" = "预设";
+"Demo.TRTC.Live.none" = "无";
+"Demo.TRTC.Live.picOne" = "图1";
+"Demo.TRTC.Live.picTwo" = "图2";
+"Demo.TRTC.Live.CustomStreamID" = "自定义混流ID";
+"Demo.TRTC.Live.setting" = "设置";
+"Demo.TRTC.Live.videoSource" = "选择视频源";
+
+
+
+
+
+
+
+
+
+
+
+//
 "Demo.TRTC.speedTestUserId" = "请输入用户名(必填项)";
 "Demo.TRTC.startSpeedTest" = "开始测速";
 "Demo.TRTC.speedTestResult" = "测速结果";

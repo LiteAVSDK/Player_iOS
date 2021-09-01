@@ -46,6 +46,8 @@
 		45D8449523B643A5001CD3A9 /* UGCUploadList.m in Sources */ = {isa = PBXBuildFile; fileRef = 45D8448C23B64395001CD3A9 /* UGCUploadList.m */; };
 		47642A9F261491B90020F1BA /* launchimage_en@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 47642A99261491B90020F1BA /* launchimage_en@3x.png */; };
 		47642AA7261491B90020F1BA /* launchimage_en@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 47642A9A261491B90020F1BA /* launchimage_en@2x.png */; };
+		47CAEE6726AE9F0800DABA5B /* TCUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 47E8CAD9260B5C06001CF672 /* TCUtil.m */; };
+		47CAEE6A26AE9F1E00DABA5B /* TCLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 47E8CAD8260B5C06001CF672 /* TCLog.m */; };
 		47E8C898260AECC4001CF672 /* AppPortalLocalized.strings in Resources */ = {isa = PBXBuildFile; fileRef = 47E8C87B260AECC4001CF672 /* AppPortalLocalized.strings */; };
 		47E8C8A5260AECC4001CF672 /* LoginNetworkLocalized.strings in Resources */ = {isa = PBXBuildFile; fileRef = 47E8C87F260AECC4001CF672 /* LoginNetworkLocalized.strings */; };
 		47E8C8B2260AECC4001CF672 /* UGCLocalized.strings in Resources */ = {isa = PBXBuildFile; fileRef = 47E8C884260AECC4001CF672 /* UGCLocalized.strings */; };
@@ -54,6 +56,8 @@
 		47E8C8D9260AECC4001CF672 /* LivePlayerLocalized.strings in Resources */ = {isa = PBXBuildFile; fileRef = 47E8C890260AECC4001CF672 /* LivePlayerLocalized.strings */; };
 		47E8C8E6260AECC4001CF672 /* AppLocalized.m in Sources */ = {isa = PBXBuildFile; fileRef = 47E8C893260AECC4001CF672 /* AppLocalized.m */; };
 		7B107D8F4C4B5BF9184EC193 /* libPods-TXLiteAVDemo_Player.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 47258C0972C94E28C1B82D68 /* libPods-TXLiteAVDemo_Player.a */; };
+		883AC83326AEA0A500C3A1B7 /* TCUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 47E8CAD9260B5C06001CF672 /* TCUtil.m */; };
+		883AC83626AEA0AA00C3A1B7 /* TCLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 47E8CAD8260B5C06001CF672 /* TCLog.m */; };
 		910E17A22080A27500178D86 /* TXMoviePlayerNetApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 910E179E2080A27500178D86 /* TXMoviePlayerNetApi.m */; };
 		910E17AB2080A38400178D86 /* TXMoviePlayInfoResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 910E17A72080A38400178D86 /* TXMoviePlayInfoResponse.m */; };
 		912A62102160D78A00C16E41 /* CFDanmaku.m in Sources */ = {isa = PBXBuildFile; fileRef = 912A62072160D78A00C16E41 /* CFDanmaku.m */; };
@@ -577,30 +581,30 @@
 			isa = PBXGroup;
 			children = (
 				47E8CAC4260B5C05001CF672 /* HUDHelper.h */,
-				47E8CAC0260B5C05001CF672 /* NSData+Common.h */,
-				47E8CAB8260B5C05001CF672 /* NSDictionary+Common.h */,
-				47E8CAC2260B5C05001CF672 /* NSObject+CommonBlock.h */,
-				47E8CAB0260B5C05001CF672 /* NSString+Common.h */,
-				47E8CAB1260B5C05001CF672 /* NSString+UISize.h */,
-				47E8CABF260B5C05001CF672 /* UIButton+Additions.h */,
-				47E8CAAE260B5C05001CF672 /* UIButton+Glossy.h */,
-				47E8CABB260B5C05001CF672 /* UIColor+MLPFlatColors.h */,
-				47E8CAB2260B5C05001CF672 /* UIImage+Additions.h */,
-				47E8CAC1260B5C05001CF672 /* UIView+Additions.h */,
-				47E8CAAD260B5C05001CF672 /* UIView+CustomAutoLayout.h */,
-				47E8CAC6260B5C05001CF672 /* UIViewController+BackButtonHandler.h */,
 				47E8CAB9260B5C05001CF672 /* HUDHelper.m */,
+				47E8CAC0260B5C05001CF672 /* NSData+Common.h */,
 				47E8CAB6260B5C05001CF672 /* NSData+Common.m */,
+				47E8CAB8260B5C05001CF672 /* NSDictionary+Common.h */,
 				47E8CAC5260B5C05001CF672 /* NSDictionary+Common.m */,
+				47E8CAC2260B5C05001CF672 /* NSObject+CommonBlock.h */,
 				47E8CAB3260B5C05001CF672 /* NSObject+CommonBlock.m */,
+				47E8CAB0260B5C05001CF672 /* NSString+Common.h */,
 				47E8CABA260B5C05001CF672 /* NSString+Common.m */,
+				47E8CAB1260B5C05001CF672 /* NSString+UISize.h */,
 				47E8CABE260B5C05001CF672 /* NSString+UISize.m */,
+				47E8CABF260B5C05001CF672 /* UIButton+Additions.h */,
 				47E8CAB5260B5C05001CF672 /* UIButton+Additions.m */,
+				47E8CAAE260B5C05001CF672 /* UIButton+Glossy.h */,
 				47E8CABC260B5C05001CF672 /* UIButton+Glossy.m */,
+				47E8CABB260B5C05001CF672 /* UIColor+MLPFlatColors.h */,
 				47E8CAAF260B5C05001CF672 /* UIColor+MLPFlatColors.m */,
+				47E8CAB2260B5C05001CF672 /* UIImage+Additions.h */,
 				47E8CAC3260B5C05001CF672 /* UIImage+Additions.m */,
+				47E8CAC1260B5C05001CF672 /* UIView+Additions.h */,
 				47E8CAB4260B5C05001CF672 /* UIView+Additions.m */,
+				47E8CAAD260B5C05001CF672 /* UIView+CustomAutoLayout.h */,
 				47E8CABD260B5C05001CF672 /* UIView+CustomAutoLayout.m */,
+				47E8CAC6260B5C05001CF672 /* UIViewController+BackButtonHandler.h */,
 				47E8CAB7260B5C05001CF672 /* UIViewController+BackButtonHandler.m */,
 			);
 			path = Catetory;
@@ -609,10 +613,10 @@
 		47E8CAD6260B5C06001CF672 /* CommonUtils */ = {
 			isa = PBXGroup;
 			children = (
-				47E8CAD7260B5C06001CF672 /* TCUtil.h */,
-				47E8CAD8260B5C06001CF672 /* TCLog.m */,
-				47E8CAD9260B5C06001CF672 /* TCUtil.m */,
 				47E8CADA260B5C06001CF672 /* TCLog.h */,
+				47E8CAD8260B5C06001CF672 /* TCLog.m */,
+				47E8CAD7260B5C06001CF672 /* TCUtil.h */,
+				47E8CAD9260B5C06001CF672 /* TCUtil.m */,
 			);
 			path = CommonUtils;
 			sourceTree = "<group>";
@@ -893,6 +897,8 @@
 			files = (
 				912A62102160D78A00C16E41 /* CFDanmaku.m in Sources */,
 				402A010424506F740037A219 /* main.m in Sources */,
+				47CAEE6726AE9F0800DABA5B /* TCUtil.m in Sources */,
+				883AC83326AEA0A500C3A1B7 /* TCUtil.m in Sources */,
 				40A1DF372638415A0011E532 /* UIButton+Additions.m in Sources */,
 				D6BEF8222040368000CBE2BD /* ListVideoCell.m in Sources */,
 				40A1DF63263841900011E532 /* UIColor+MLPFlatColors.m in Sources */,
@@ -901,6 +907,8 @@
 				D6BEF8232040368000CBE2BD /* MoviePlayerViewController.m in Sources */,
 				40A1DFA5263841AB0011E532 /* UIViewController+BackButtonHandler.m in Sources */,
 				912A62222160D78A00C16E41 /* CFDanmakuInfo.m in Sources */,
+				47CAEE6A26AE9F1E00DABA5B /* TCLog.m in Sources */,
+				883AC83626AEA0AA00C3A1B7 /* TCLog.m in Sources */,
 				400922B31F4FCC6E009B882D /* ScanQRController.mm in Sources */,
 				40A1DF79263841950011E532 /* UIImage+Additions.m in Sources */,
 				400922B71F4FCC6E009B882D /* AppDelegate.m in Sources */,

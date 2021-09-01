@@ -7,13 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
+
 #import "ListVideoCell.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface UGCUploadList : NSObject
-- (void)fetchList:(void(^)(ListVideoModel *model))whenGotOneModel
-   completion:(void(^)(int result, NSString *message))completion;
+- (void)fetchList:(void (^)(ListVideoModel *model))whenGotOneModel completion:(void (^)(int result, NSString *message))completion;
 @end
 
 NS_ASSUME_NONNULL_END

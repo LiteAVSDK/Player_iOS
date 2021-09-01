@@ -10,7 +10,6 @@
 
 @interface SuperPlayerGuideView : UIControl
 
-
-@property (nonatomic,copy) void(^missHandler)(void);
+@property(nonatomic, copy) void (^missHandler)(void);
 
 @end

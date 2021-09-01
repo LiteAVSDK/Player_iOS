@@ -1,13 +1,14 @@
 #import "SuperPlayerModel.h"
-#import "SuperPlayer.h"
+
 #import "AFNetworking/AFNetworking.h"
-#import "J2Obj.h"
 #import "AdaptiveStream.h"
+#import "J2Obj.h"
 #import "SPPlayCGIParser.h"
+#import "SuperPlayer.h"
 #import "SuperPlayerModelInternal.h"
 
-const NSString *kPlayCGIHostname = @"playvideo.qcloud.com";
-NSString * const kErrorDomain = @"SuperPlayerCGI";
+const NSString *kPlayCGIHostname          = @"playvideo.qcloud.com";
+NSString *const kErrorDomain              = @"SuperPlayerCGI";
 const NSInteger kInvalidResponseErrorCode = -100;
 
 @implementation SuperPlayerVideoId
@@ -19,30 +20,27 @@ const NSInteger kInvalidResponseErrorCode = -100;
 - (instancetype)init {
     self = [super init];
     if (self) {
-        _sessionManager = [AFHTTPSessionManager manager];
+        _sessionManager   = [AFHTTPSessionManager manager];
         _defaultPlayIndex = NSUIntegerMax;
     }
     return self;
 }
 
 - (void)dealloc {
-//    [_sessionManager invalidateSessionCancelingTasks:YES];
+    //    [_sessionManager invalidateSessionCancelingTasks:YES];
     [_sessionManager invalidateSessionCancelingTasks:YES resetSession:NO];
 }
 
-- (NSString *)playingDefinitionUrl
-{
+- (NSString *)playingDefinitionUrl {
     NSString *url;
     for (int i = 0; i < self.multiVideoURLs.count; i++) {
         if ([self.multiVideoURLs[i].title isEqualToString:self.playingDefinition]) {
             url = self.multiVideoURLs[i].url;
         }
     }
-    if (url == nil)
-        url = self.videoURL;
+    if (url == nil) url = self.videoURL;
     if (url == nil) {
-        if (self.multiVideoURLs.count > 0)
-            url = self.multiVideoURLs.firstObject.url;
+        if (self.multiVideoURLs.count > 0) url = self.multiVideoURLs.firstObject.url;
     }
     return url;
 }
@@ -61,8 +59,7 @@ const NSInteger kInvalidResponseErrorCode = -100;
     }
 }
 
-- (NSArray *)playDefinitions
-{
+- (NSArray *)playDefinitions {
     NSMutableArray *array = @[].mutableCopy;
     for (int i = 0; i < self.multiVideoURLs.count; i++) {
         [array addObject:self.multiVideoURLs[i].title ?: @""];
@@ -70,8 +67,7 @@ const NSInteger kInvalidResponseErrorCode = -100;
     return array;
 }
 
-- (NSInteger)playingDefinitionIndex
-{
+- (NSInteger)playingDefinitionIndex {
     for (int i = 0; i < self.multiVideoURLs.count; i++) {
         if ([self.multiVideoURLs[i].title isEqualToString:self.playingDefinition]) {
             return i;
@@ -80,79 +76,72 @@ const NSInteger kInvalidResponseErrorCode = -100;
     return 0;
 }
 
-- (NSURLSessionTask *)requestWithCompletion:
-        (void(^)(NSError *, SuperPlayerModel *model))completion
-{
+- (NSURLSessionTask *)requestWithCompletion:(void (^)(NSError *, SuperPlayerModel *model))completion {
     AFHTTPSessionManager *manager = self.sessionManager;
-    int ver = self.videoId ? 4 : 2;
-    NSString *url = [NSString stringWithFormat:@"https://%@/getplayinfo/v%d/%ld/%@",
-                     kPlayCGIHostname, ver, self.appId, self.videoId ? self.videoId.fileId : self.videoIdV2.fileId];
+    int                   ver     = self.videoId ? 4 : 2;
+    NSString *            url     = [NSString stringWithFormat:@"https://%@/getplayinfo/v%d/%ld/%@", kPlayCGIHostname, ver, self.appId, self.videoId ? self.videoId.fileId : self.videoIdV2.fileId];
 
     // 防盗链参数
     NSDictionary *params = [self _buildParams];
 
     __weak SuperPlayerModel *weakSelf = self;
-    
-    return [manager GET:url parameters:params headers:nil progress:nil
-         success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        __strong SuperPlayerModel *self = weakSelf;
+
+    return [manager GET:url
+        parameters:params
+        headers:nil
+        progress:nil
+        success:^(NSURLSessionDataTask *_Nonnull task, id _Nullable responseObject) {
+            __strong SuperPlayerModel *self = weakSelf;
 #if DEBUG
-        NSLog(@"%@", responseObject);
+            NSLog(@"%@", responseObject);
 #endif
-        NSInteger code = [responseObject[@"code"] integerValue];
-        if (code != 0) {
-            NSString *msg = responseObject[@"message"];
-            NSString *requestID = responseObject[@"requestId"];
-            NSString *warning = responseObject[@"warning"];
-            NSError *error = [NSError errorWithDomain:kErrorDomain
-                                                 code:code
-                                             userInfo:@{NSLocalizedDescriptionKey: msg,
-                                                        @"requestID": requestID ?: @"",
-                                                        @"warning": warning ?: @""
-                                             }];
-            if (completion) {
-                completion(error, self);
+            NSInteger code = [responseObject[@"code"] integerValue];
+            if (code != 0) {
+                NSString *msg       = responseObject[@"message"];
+                NSString *requestID = responseObject[@"requestId"];
+                NSString *warning   = responseObject[@"warning"];
+                NSError * error     = [NSError errorWithDomain:kErrorDomain code:code userInfo:@{NSLocalizedDescriptionKey : msg, @"requestID" : requestID ?: @"", @"warning" : warning ?: @""}];
+                if (completion) {
+                    completion(error, self);
+                    return;
+                }
                 return;
             }
-            return;
-        }
-        
-        NSInteger responseVersion = [responseObject[@"version"] integerValue];
-        if (responseVersion == 0) {
-            responseVersion = 2;
-        }
-        Class<SPPlayCGIParserProtocol> parser = [SPPlayCGIParser parserOfVersion:responseVersion];
-        SPPlayCGIParseResult *result = [parser parseResponse:responseObject];
-        if (result == nil) {
-            if (completion) {
-                NSError *error = [NSError errorWithDomain:kErrorDomain
-                                                     code:kInvalidResponseErrorCode
-                                                 userInfo:@{NSLocalizedDescriptionKey:@"Invalid response."}];
-                completion(error, self);
-            }
-            return;
-        }
-        self.drmType = result.drmType;
-        self.videoURL = result.url;
-        self.multiVideoURLs = result.multiVideoURLs;
-        self.keyFrameDescList = result.keyFrameDescList;
-        self.imageSprite = result.imageSprite;
 
-        if (responseVersion == 4) {
-            self.drmToken = result.drmToken;
-            self.originalDuration = result.originalDuration;
-        }
-        if (completion) {
-            completion(nil, self);
-        }
-        
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        if (error.code != NSURLErrorCancelled) {
+            NSInteger responseVersion = [responseObject[@"version"] integerValue];
+            if (responseVersion == 0) {
+                responseVersion = 2;
+            }
+            Class<SPPlayCGIParserProtocol> parser = [SPPlayCGIParser parserOfVersion:responseVersion];
+            SPPlayCGIParseResult *         result = [parser parseResponse:responseObject];
+            if (result == nil) {
+                if (completion) {
+                    NSError *error = [NSError errorWithDomain:kErrorDomain code:kInvalidResponseErrorCode userInfo:@{NSLocalizedDescriptionKey : @"Invalid response."}];
+                    completion(error, self);
+                }
+                return;
+            }
+            self.drmType          = result.drmType;
+            self.videoURL         = result.url;
+            self.multiVideoURLs   = result.multiVideoURLs;
+            self.keyFrameDescList = result.keyFrameDescList;
+            self.imageSprite      = result.imageSprite;
+
+            if (responseVersion == 4) {
+                self.drmToken         = result.drmToken;
+                self.originalDuration = result.originalDuration;
+            }
             if (completion) {
-                completion(error, self);
+                completion(nil, self);
             }
         }
-    }];
+        failure:^(NSURLSessionDataTask *_Nullable task, NSError *_Nonnull error) {
+            if (error.code != NSURLErrorCancelled) {
+                if (completion) {
+                    completion(error, self);
+                }
+            }
+        }];
 }
 
 - (NSDictionary *)_buildParams {

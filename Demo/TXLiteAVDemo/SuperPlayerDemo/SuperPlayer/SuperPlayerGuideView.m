@@ -7,11 +7,12 @@
 //
 
 #import "SuperPlayerGuideView.h"
-#import "SuperPlayer.h"
-#import "Masonry.h"
-#import "AppLocalized.h"
 
-@interface SuperPlayerGuideView()
+#import "AppLocalized.h"
+#import "Masonry.h"
+#import "SuperPlayer.h"
+
+@interface SuperPlayerGuideView ()
 @property UIButton *iknow_btn;
 @property NSInteger guideIdx;
 
@@ -35,7 +36,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         self.backgroundColor = RGBA(0, 0, 0, 0.5);
-        
+
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
         [self addSubview:btn];
         [btn setImage:SuperPlayerImage(@"iknown") forState:UIControlStateNormal];
@@ -47,7 +48,7 @@
         }];
 
         [self showGuide1];
-        
+
         self.userInteractionEnabled = YES;
     }
     return self;
@@ -58,41 +59,40 @@
     [self addSubview:leftImg];
     UILabel *leftLabel = [UILabel new];
     [self addSubview:leftLabel];
-    leftLabel.font = [UIFont systemFontOfSize:10];
+    leftLabel.font      = [UIFont systemFontOfSize:10];
     leftLabel.textColor = [UIColor whiteColor];
-    leftLabel.text = LivePlayerLocalize(@"SuperPlayerDemo.SuperPlayerGuideView.slideupanddowntoadjust");
-    self.leftImg = leftImg;
-    self.leftLabel = leftLabel;
-    
+    leftLabel.text      = LivePlayerLocalize(@"SuperPlayerDemo.SuperPlayerGuideView.slideupanddowntoadjust");
+    self.leftImg        = leftImg;
+    self.leftLabel      = leftLabel;
+
     UIImageView *rightImg = [[UIImageView alloc] initWithImage:SuperPlayerImage(@"right_g")];
     [self addSubview:rightImg];
     UILabel *rightLabel = [UILabel new];
     [self addSubview:rightLabel];
-    rightLabel.font = [UIFont systemFontOfSize:10];
+    rightLabel.font      = [UIFont systemFontOfSize:10];
     rightLabel.textColor = [UIColor whiteColor];
-    rightLabel.text = LivePlayerLocalize(@"SuperPlayerDemo.SuperPlayerGuideView.slideupanddowntovolume");
-    self.rightImg = rightImg;
-    self.rightLabel = rightLabel;
-    
+    rightLabel.text      = LivePlayerLocalize(@"SuperPlayerDemo.SuperPlayerGuideView.slideupanddowntovolume");
+    self.rightImg        = rightImg;
+    self.rightLabel      = rightLabel;
+
     UIImageView *middleImg = [[UIImageView alloc] initWithImage:SuperPlayerImage(@"middle_g")];
     [self addSubview:middleImg];
     UILabel *middleLabel = [UILabel new];
     [self addSubview:middleLabel];
     middleLabel.textColor = [UIColor whiteColor];
-    middleLabel.font = [UIFont systemFontOfSize:10];
-    middleLabel.text = LivePlayerLocalize(@"SuperPlayerDemo.SuperPlayerGuideView.slideleftandrighttofastforward");
-    self.middleImg = middleImg;
-    self.middleLabel = middleLabel;
+    middleLabel.font      = [UIFont systemFontOfSize:10];
+    middleLabel.text      = LivePlayerLocalize(@"SuperPlayerDemo.SuperPlayerGuideView.slideleftandrighttofastforward");
+    self.middleImg        = middleImg;
+    self.middleLabel      = middleLabel;
 
     int leftwidth = 60;
-    if (ScreenWidth < 375)
-        leftwidth = 45;
-    
+    if (ScreenWidth < 375) leftwidth = 45;
+
     [leftImg mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_offset(leftwidth);
-        make.centerY.equalTo(self.mas_top).mas_equalTo(self.frame.size.width*(9.0f/16.0f)/2);
+        make.centerY.equalTo(self.mas_top).mas_equalTo(self.frame.size.width * (9.0f / 16.0f) / 2);
     }];
-    
+
     [middleImg mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self);
         make.centerY.equalTo(leftImg);
@@ -119,7 +119,6 @@
     // ignore
 }
 
-
 - (void)removeGuide1 {
     [self.leftImg removeFromSuperview];
     [self.middleImg removeFromSuperview];
@@ -130,47 +129,46 @@
 }
 
 - (void)showGuide2 {
-
     UIView *bkgView = [UIView new];
     [self addSubview:bkgView];
-    bkgView.backgroundColor = RGBA(255, 255, 255, 1);
-    bkgView.layer.cornerRadius    = 12;
-    bkgView.layer.masksToBounds   = YES;
-    
-    _videoSlider                       = [[UISlider alloc] init];
+    bkgView.backgroundColor     = RGBA(255, 255, 255, 1);
+    bkgView.layer.cornerRadius  = 12;
+    bkgView.layer.masksToBounds = YES;
+
+    _videoSlider = [[UISlider alloc] init];
     [self addSubview:_videoSlider];
     [_videoSlider setThumbImage:SuperPlayerImage(@"slider_thumb") forState:UIControlStateNormal];
-    _videoSlider.maximumValue          = 1;
-    _videoSlider.value                 = 1;
-    _videoSlider.minimumTrackTintColor = TintColor;
-    _videoSlider.maximumTrackTintColor = [UIColor colorWithRed:0.5 green:0.5 blue:0.5 alpha:0.5];
+    _videoSlider.maximumValue           = 1;
+    _videoSlider.value                  = 1;
+    _videoSlider.minimumTrackTintColor  = TintColor;
+    _videoSlider.maximumTrackTintColor  = [UIColor colorWithRed:0.5 green:0.5 blue:0.5 alpha:0.5];
     _videoSlider.userInteractionEnabled = NO;
-    
+
     UIImageView *arrowImg = [[UIImageView alloc] initWithImage:SuperPlayerImage(@"arrow")];
     [self addSubview:arrowImg];
     UILabel *arrowLabel = [UILabel new];
     [self addSubview:arrowLabel];
-    arrowLabel.font = [UIFont systemFontOfSize:10];
+    arrowLabel.font      = [UIFont systemFontOfSize:10];
     arrowLabel.textColor = [UIColor whiteColor];
-    arrowLabel.text = LivePlayerLocalize(@"SuperPlayerDemo.SuperPlayerGuideView.leftwatchlivecontent");
-    self.arrowImg = arrowImg;
-    self.arrowLabel = arrowLabel;
-    
+    arrowLabel.text      = LivePlayerLocalize(@"SuperPlayerDemo.SuperPlayerGuideView.leftwatchlivecontent");
+    self.arrowImg        = arrowImg;
+    self.arrowLabel      = arrowLabel;
+
     [_videoSlider mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(86);
         make.right.mas_equalTo(-48);
-        make.centerY.equalTo(self.mas_top).mas_offset(ScreenWidth*(9.0f/16.0f)-18);
+        make.centerY.equalTo(self.mas_top).mas_offset(ScreenWidth * (9.0f / 16.0f) - 18);
     }];
-    
+
     [bkgView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(_videoSlider).mas_offset(UIEdgeInsetsMake(-5, -5, -5, -5));
     }];
-    
+
     [arrowImg mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(_videoSlider);
         make.bottom.equalTo(bkgView.mas_top);
     }];
-    
+
     [arrowLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(arrowImg.mas_left);
         make.bottom.equalTo(arrowImg.mas_top);
@@ -184,8 +182,7 @@
         [self showGuide2];
     } else if (self.guideIdx == 2) {
         [self removeFromSuperview];
-        if (self.missHandler)
-            self.missHandler();
+        if (self.missHandler) self.missHandler();
     }
 }
 

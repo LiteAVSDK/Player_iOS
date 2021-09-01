@@ -23,19 +23,19 @@
  * APPlog保存到沙箱路径：Library/Caches/rtmpsdk_日期.log
  *   其中日期以天为单位，每天保存一个文件，如rtmpsdk_20160901.log
  */
-@interface AppLogMgr: NSObject<DelegateProtocol>
+@interface AppLogMgr : NSObject <DelegateProtocol>
 
 + (instancetype)shareInstance;
 
--(void) log:(Boolean)bOnlyFile format:(NSString *)formatStr, ...;
+- (void)log:(Boolean)bOnlyFile format:(NSString *)formatStr, ...;
 
 #ifdef LIVE
 - (void)onLog:(V2TXLiveLogLevel)level log:(NSString *)log;
 #else
--(void) onLog:(NSString*)log LogLevel:(int)level WhichModule:(NSString*)module;
+- (void)onLog:(NSString *)log LogLevel:(int)level WhichModule:(NSString *)module;
 #endif
 
 @end
 
-#define AppDemoLog(fmt, ...) [[AppLogMgr shareInstance] log:NO format:fmt, ##__VA_ARGS__]
+#define AppDemoLog(fmt, ...)         [[AppLogMgr shareInstance] log:NO format:fmt, ##__VA_ARGS__]
 #define AppDemoLogOnlyFile(fmt, ...) [[AppLogMgr shareInstance] log:YES format:fmt, ##__VA_ARGS__]

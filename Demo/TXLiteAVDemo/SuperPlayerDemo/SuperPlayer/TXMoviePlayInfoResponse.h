@@ -10,13 +10,13 @@
 
 @interface TXMoviePlayInfoResponse : NSObject
 
-@property (nonatomic, readonly) NSDictionary *responseDict;
+@property(nonatomic, readonly) NSDictionary *responseDict;
 
-@property (nonatomic, readonly) NSString *coverUrl;
-@property (nonatomic, readonly) NSString *name;
-@property (nonatomic, readonly) NSString *videoDescription;
-@property (nonatomic, readonly) int      duration;
-@property (nonatomic, readonly) NSString *title;
+@property(nonatomic, readonly) NSString *coverUrl;
+@property(nonatomic, readonly) NSString *name;
+@property(nonatomic, readonly) NSString *videoDescription;
+@property(nonatomic, readonly) int       duration;
+@property(nonatomic, readonly) NSString *title;
 
 @property NSInteger appId;
 @property NSString *fileId;

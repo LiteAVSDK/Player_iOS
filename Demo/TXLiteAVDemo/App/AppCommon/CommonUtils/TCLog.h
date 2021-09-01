@@ -18,13 +18,13 @@
 #ifdef LIVE
 @interface TCLog : NSObject
 #else
-@interface TCLog : NSObject<TXLiveBaseDelegate>
+@interface TCLog : NSObject <TXLiveBaseDelegate>
 #endif
 
 + (instancetype)shareInstance;
 
 - (void)log:(NSString *)formatStr, ...;
 
-- (void)onLog:(NSString*)log LogLevel:(int)level WhichModule:(NSString *)module;
+- (void)onLog:(NSString *)log LogLevel:(int)level WhichModule:(NSString *)module;
 
 @end

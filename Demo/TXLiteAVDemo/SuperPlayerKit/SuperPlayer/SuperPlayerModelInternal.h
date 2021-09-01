@@ -6,52 +6,51 @@
 //  Copyright © 2020 annidy. All rights reserved.
 //
 
-#import "SuperPlayerModel.h"
 #import "AFNetworking/AFNetworking.h"
-#import "SPVideoFrameDescription.h"
 #import "SPPlayCGIParseResult.h"
+#import "SPVideoFrameDescription.h"
+#import "SuperPlayerModel.h"
 
 @class TXImageSprite;
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface SuperPlayerModel()
+@interface SuperPlayerModel ()
 /// 播放配置, 为 nil 时为 "default"
-@property (copy, nonatomic) NSString *pcfg;
+@property(copy, nonatomic) NSString *pcfg;
 
-@property (strong, nonatomic) AFHTTPSessionManager *sessionManager;
+@property(strong, nonatomic) AFHTTPSessionManager *sessionManager;
 // 以下为 PlayCGI V4 协议解析结果
 
 /// 正在播放的清晰度
-@property (nonatomic) NSString *playingDefinition;
+@property(nonatomic) NSString *playingDefinition;
 
 /// 正在播放的清晰度URL
-@property (readonly) NSString *playingDefinitionUrl;
+@property(readonly) NSString *playingDefinitionUrl;
 
 /// 正在播放的清晰度索引
-@property (readonly) NSInteger playingDefinitionIndex;
+@property(readonly) NSInteger playingDefinitionIndex;
 
 /// 清晰度列表
-@property (readonly) NSArray *playDefinitions;
+@property(readonly) NSArray *playDefinitions;
 
 /// 打点信息
-@property (strong, nonatomic) NSArray<SPVideoFrameDescription *> *keyFrameDescList;
+@property(strong, nonatomic) NSArray<SPVideoFrameDescription *> *keyFrameDescList;
 
 /// 视频雪碧图
-@property  (strong, nonatomic) TXImageSprite *imageSprite;
+@property(strong, nonatomic) TXImageSprite *imageSprite;
 
 /// 视频原时长（用于试看时返回完整视频时长）
-@property  (assign, nonatomic) NSTimeInterval originalDuration;
+@property(assign, nonatomic) NSTimeInterval originalDuration;
 
 /// 加载播放信息
-- (NSURLSessionTask *)requestWithCompletion:
-        (void(^)(NSError *err, SuperPlayerModel *model))completion;
+- (NSURLSessionTask *)requestWithCompletion:(void (^)(NSError *err, SuperPlayerModel *model))completion;
 
 /// DRM Token
-@property (strong, nonatomic) NSString *drmToken;
+@property(strong, nonatomic) NSString *drmToken;
 
 /// DRM Type
-@property (nonatomic, assign) SPDrmType drmType;
+@property(nonatomic, assign) SPDrmType drmType;
 
 @end
 

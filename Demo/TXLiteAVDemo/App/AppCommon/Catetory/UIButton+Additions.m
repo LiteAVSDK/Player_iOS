@@ -6,8 +6,9 @@
 //  Copyright (c) 2013 racinguk. All rights reserved.
 //
 
-#import "UIButton+Additions.h"
 #import <objc/runtime.h>
+
+#import "UIButton+Additions.h"
 
 @implementation UIButton (Additions)
 

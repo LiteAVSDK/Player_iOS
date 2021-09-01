@@ -10,7 +10,7 @@
 
 @class SuperPlayerView;
 
-typedef void(^SuperPlayerWindowEventHandler)(void);
+typedef void (^SuperPlayerWindowEventHandler)(void);
 
 /// 播放器小窗Window
 @interface SuperPlayerWindow : UIWindow
@@ -22,15 +22,15 @@ typedef void(^SuperPlayerWindowEventHandler)(void);
 /// 单例
 + (instancetype)sharedInstance;
 
-@property (nonatomic,copy) SuperPlayerWindowEventHandler backHandler;
-@property (nonatomic,copy) SuperPlayerWindowEventHandler closeHandler;  // 默认关闭
+@property(nonatomic, copy) SuperPlayerWindowEventHandler backHandler;
+@property(nonatomic, copy) SuperPlayerWindowEventHandler closeHandler;  // 默认关闭
 /// 小窗播放器
-@property (nonatomic,weak) SuperPlayerView *superPlayer;
+@property(nonatomic, weak) SuperPlayerView *superPlayer;
 /// 小窗主view
-@property (readonly) UIView *rootView;
+@property(readonly) UIView *rootView;
 /// 点击小窗返回的controller
 @property UIViewController *backController;
 /// 小窗是否显示
-@property (readonly) BOOL isShowing;  //
+@property(readonly) BOOL isShowing;  //
 
 @end

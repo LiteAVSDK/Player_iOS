@@ -10,7 +10,6 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-
 #pragma mark - Base
 
 extern NSString *LocalizeFromTable(NSString *key, NSString *table);
@@ -25,26 +24,26 @@ extern NSString *LocalizeReplaceFiveCharacter(NSString *origin, NSString *xxx_re
 
 #pragma mark - TRTC
 extern NSString *const TRTC_Localize_TableName;
-extern NSString *TRTCLocalize(NSString *key);
+extern NSString *      TRTCLocalize(NSString *key);
 
 #pragma mark - V2
 extern NSString *const V2_Localize_TableName;
-extern NSString *V2Localize(NSString *key);
+extern NSString *      V2Localize(NSString *key);
 
 #pragma mark - LivePlayer
 extern NSString *const LivePlayer_Localize_TableName;
-extern NSString *LivePlayerLocalize(NSString *key);
+extern NSString *      LivePlayerLocalize(NSString *key);
 
 #pragma mark - UGC
 extern NSString *const UGC_Localize_TableName;
-extern NSString *UGCLocalize(NSString *key);
+extern NSString *      UGCLocalize(NSString *key);
 
 #pragma mark - LoginNetwork
 extern NSString *const LoginNetwork_Localize_TableName;
-extern NSString *LoginNetworkLocalize(NSString *key);
+extern NSString *      LoginNetworkLocalize(NSString *key);
 
 #pragma mark - AppPortal
 extern NSString *const AppPortal_Localize_TableName;
-extern NSString *AppPortalLocalize(NSString *key);
+extern NSString *      AppPortalLocalize(NSString *key);
 
 NS_ASSUME_NONNULL_END

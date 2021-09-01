@@ -7,8 +7,8 @@
 //
 
 #import "TXMoviePlayInfoResponse.h"
-#import "J2Obj.h"
 
+#import "J2Obj.h"
 
 @interface TXMoviePlayInfoStream : NSObject
 @property NSString *url;
@@ -25,25 +25,25 @@
 
 - (instancetype)initWithResponse:(NSDictionary *)dict {
     self = [super init];
-    
+
     _responseDict = [NSDictionary dictionaryWithDictionary:dict];
-    int ver = dict[@"version"] ? J2Num(dict[@"version"]).intValue : 2;
+    int ver       = dict[@"version"] ? J2Num(dict[@"version"]).intValue : 2;
     if (ver == 2) {
-        _name = J2Str([dict valueForKeyPath:@"videoInfo.basicInfo.name"]);
-        _coverUrl = J2Str([dict valueForKeyPath:@"coverInfo.coverUrl"]);
+        _name             = J2Str([dict valueForKeyPath:@"videoInfo.basicInfo.name"]);
+        _coverUrl         = J2Str([dict valueForKeyPath:@"coverInfo.coverUrl"]);
         _videoDescription = J2Str([dict valueForKeyPath:@"videoInfo.basicInfo.description"]);
-        _duration = J2Num([dict valueForKeyPath:@"videoInfo.sourceVideo.duration"]).intValue;
+        _duration         = J2Num([dict valueForKeyPath:@"videoInfo.sourceVideo.duration"]).intValue;
     } else {
-        _name = J2Str([dict valueForKeyPath:@"media.basicInfo.name"]);
-        _coverUrl = J2Str([dict valueForKeyPath:@"media.basicInfo.coverUrl"]);
+        _name             = J2Str([dict valueForKeyPath:@"media.basicInfo.name"]);
+        _coverUrl         = J2Str([dict valueForKeyPath:@"media.basicInfo.coverUrl"]);
         _videoDescription = J2Str([dict valueForKeyPath:@"media.basicInfo.description"]);
-        _duration = J2Num([dict valueForKeyPath:@"media.basicInfo.duration"]).intValue;
+        _duration         = J2Num([dict valueForKeyPath:@"media.basicInfo.duration"]).intValue;
     }
     return self;
 }
 
 - (NSString *)title {
-    return self.videoDescription?:self.name;
+    return self.videoDescription ?: self.name;
 }
 
 @end

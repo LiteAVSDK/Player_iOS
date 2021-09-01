@@ -7,9 +7,10 @@
 //
 
 #import "ListVideoCell.h"
+
 #import "Masonry.h"
-#import "UIImageView+WebCache.h"
 #import "SuperPlayer.h"
+#import "UIImageView+WebCache.h"
 
 @implementation ListVideoUrl
 @end
@@ -24,46 +25,44 @@
         [urls addObjectsFromArray:_hdUrl];
     }
     ListVideoUrl *vurl = [ListVideoUrl new];
-    vurl.url = url;
-    vurl.title = title;
+    vurl.url           = url;
+    vurl.title         = title;
     [urls addObject:vurl];
     _hdUrl = urls;
 }
 
-- (void)setModel:(SuperPlayerModel *)model
-{
+- (void)setModel:(SuperPlayerModel *)model {
     _model = model;
 }
 
-- (SuperPlayerModel *)getPlayerModel
-{
+- (SuperPlayerModel *)getPlayerModel {
     if (_model) {
         return _model;
     }
-    SuperPlayerModel *model = [SuperPlayerModel new];
+    SuperPlayerModel *  model   = [SuperPlayerModel new];
     SuperPlayerVideoId *videoId = [SuperPlayerVideoId new];
-    model.appId = [self appId];
-    videoId.fileId = [self fileId];
-    model.videoId = videoId;
-    model.videoURL = self.url;
-    
+    model.appId                 = [self appId];
+    videoId.fileId              = [self fileId];
+    model.videoId               = videoId;
+    model.videoURL              = self.url;
+
     if (self.hdUrl) {
         NSMutableArray *array = @[].mutableCopy;
         for (ListVideoUrl *u in self.hdUrl) {
             SuperPlayerUrl *url = [SuperPlayerUrl new];
-            url.url = u.url;
-            url.title = u.title;
+            url.url             = u.url;
+            url.title           = u.title;
             [array addObject:url];
         }
         model.multiVideoURLs = array;
     }
-    
+
     return model;
 }
 
 @end
 
-@interface ListVideoCell()
+@interface ListVideoCell ()
 @property UIImageView *thumb;
 @property UILabel *durationLabel;
 @property UILabel *title;
@@ -73,15 +72,13 @@
     ListVideoModel *_source;
 }
 
-- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
-{
+- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        
         self.backgroundColor = [UIColor clearColor];
-        
-        self.thumb = [[UIImageView alloc] initWithFrame:CGRectZero];
-        self.thumb.contentMode = UIViewContentModeScaleAspectFill;
+
+        self.thumb               = [[UIImageView alloc] initWithFrame:CGRectZero];
+        self.thumb.contentMode   = UIViewContentModeScaleAspectFill;
         self.thumb.clipsToBounds = YES;
         [self addSubview:self.thumb];
         [self.thumb mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -89,19 +86,19 @@
             make.centerY.mas_equalTo(self.mas_centerY);
             make.left.mas_equalTo(15);
         }];
-        
-        self.durationLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        self.durationLabel.font = [UIFont systemFontOfSize:12];
+
+        self.durationLabel           = [[UILabel alloc] initWithFrame:CGRectZero];
+        self.durationLabel.font      = [UIFont systemFontOfSize:12];
         self.durationLabel.textColor = [UIColor whiteColor];
         [self.thumb addSubview:self.durationLabel];
         [self.durationLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.right.equalTo(self.thumb.mas_right).offset(-7);
             make.bottom.equalTo(self.thumb.mas_bottom).offset(-7);
         }];
-        
-        self.title = [[UILabel alloc] initWithFrame:CGRectZero];
-        self.title.font = [UIFont systemFontOfSize:14];
-        self.title.textColor = [UIColor whiteColor];
+
+        self.title               = [[UILabel alloc] initWithFrame:CGRectZero];
+        self.title.font          = [UIFont systemFontOfSize:14];
+        self.title.textColor     = [UIColor whiteColor];
         self.title.numberOfLines = 3;
         [self addSubview:self.title];
         [self.title mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -110,7 +107,7 @@
             make.height.mas_equalTo(68);
             make.centerY.mas_equalTo(self.mas_centerY);
         }];
-        
+
         self.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     return self;
@@ -127,27 +124,23 @@
     // Configure the view for the selected state
 }
 
-
 - (void)setDataSource:(ListVideoModel *)source;
 {
     _source = source;
-    
+
     int duration = source.duration;
-    [self.thumb sd_setImageWithURL:[NSURL URLWithString:_source.coverUrl]
-                  placeholderImage:SuperPlayerImage(@"loading_bgView")];
+    [self.thumb sd_setImageWithURL:[NSURL URLWithString:_source.coverUrl] placeholderImage:SuperPlayerImage(@"loading_bgView")];
     if (source.type == 0) {
         self.durationLabel.text = [NSString stringWithFormat:@"%02d:%02d", duration / 60, duration % 60];
     }
     self.title.text = source.title;
 }
 
-- (SuperPlayerModel *)getPlayerModel
-{
+- (SuperPlayerModel *)getPlayerModel {
     return [_source getPlayerModel];
 }
 
-- (ListVideoModel *)getSource
-{
+- (ListVideoModel *)getSource {
     return _source;
 }
 

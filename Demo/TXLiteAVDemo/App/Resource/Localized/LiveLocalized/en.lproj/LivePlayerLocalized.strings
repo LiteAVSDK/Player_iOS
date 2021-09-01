@@ -122,6 +122,10 @@
 
 "LivePlayerDemo.PlayViewController.pleaseenterorscantheqrcode" = "Enter a playback address or scan QR code";
 "LivePlayerDemo.PlayViewController.livestreamingplayer" = "Live Streaming Player";
+"LivePlayerDemo.PlayViewController.bufferingstrategy" = "Buffering Strategy";
+"LivePlayerDemo.PlayViewController.speed" = "Speed";
+"LivePlayerDemo.PlayViewController.smooth" = "Smooth";
+"LivePlayerDemo.PlayViewController.auto" = "Auto";
 "LivePlayerDemo.PlayViewController.delayadjustment" = "Latency Setting";
 "LivePlayerDemo.PlayViewController.speed" = "Fast";
 "LivePlayerDemo.PlayViewController.smooth" = "Smooth";
@@ -138,6 +142,10 @@
 "LivePlayerDemo.PlayViewController.no" = "No";
 "LivePlayerDemo.PlayViewController.failedtogetlowdelayplaybackaddress" = "Failed to get the low-latency playback address";
 "LivePlayerDemo.PlayViewController.testaddressfromonline" = "Screen recording streams in UTC time are pushed via the test address, and the MLVB SDK for Windows and VCam are used for push";
+"LivePlayerDemo.PlayViewController.pleasestartplayingfirst" = "Please start playing first!";
+"LivePlayerDemo.PlayViewController.pleaseswitchunderflvstream" = "Please switch under flv stream";
+"LivePlayerDemo.PlayViewController.switchto265" = "Switch to 265";
+"LivePlayerDemo.PlayViewController.switchto264" = "Switch to 264";
 
 "LivePusherDemo.CameraPush.pleaseinputthepushstream" = "Enter a push address or scan QR code";
 "LivePusherDemo.CameraPush.rtmppullstream" = "RTMP Push";
@@ -172,8 +180,10 @@
 "LivePusherDemo.MoreSetting.manuallyclickexposureandfocus" = "Tap to Adjust Focus/Exposure";
 "LivePusherDemo.MoreSetting.gesturetozoominonthepreview" = "Pinch to Zoom";
 "LivePusherDemo.MoreSetting.enableaudiopushstream" = "Audio-Only Stream";
+"LivePusherDemo.MoreSetting.enableHevcCodec" = "Enable HEVC";
 "LivePusherDemo.MoreSetting.localscreenshots" = "Local Screenshot";
 "LivePusherDemo.MoreSetting.sendmessage" = "Send Message";
+"LivePusherDemo.MoreSetting.turnonsharpnessenhancement" = "Turn on sharpness enhancement";
 
 "LivePusherDemo.PushSetting.setting" = "Settings";
 "LivePusherDemo.PushSetting.bluray" = "Blu-ray";
@@ -195,6 +205,28 @@
 "LivePusherDemo.PushSetting.opentheearsback" = "In-ear Monitor";
 "LivePusherDemo.PushSetting.qualitypreference" = "Video Quality";
 "LivePusherDemo.PushSetting.thesoundqualitychoice" = "Sound Quality";
+"LivePusherDemo.PushSetting.reverb" = "Reverberation";
+"LivePusherDemo.PushSetting.voicechanger" = "Voice Changer";
+"LivePusherDemo.PushSetting.turnoffreverb" = "Turn off reverb";
+"LivePusherDemo.PushSetting.ktv" = "Karaoke";
+"LivePusherDemo.PushSetting.room" = "Room";
+"LivePusherDemo.PushSetting.hall" = "Hall";
+"LivePusherDemo.PushSetting.muffled" = "Low and deep";
+"LivePusherDemo.PushSetting.sonorous" = "Resonant";
+"LivePusherDemo.PushSetting.metal" = "Metallic";
+"LivePusherDemo.PushSetting.magnetic" = "Husky";
+"LivePusherDemo.PushSetting.turnoffvoicechanger" = "Turn off voice changer";
+"LivePusherDemo.PushSetting.badboy" = "Child";
+"LivePusherDemo.PushSetting.loli" = "Little girl";
+"LivePusherDemo.PushSetting.uncle" = "Middle-aged man";
+"LivePusherDemo.PushSetting.heavymetal" = "Heavy metal";
+"LivePusherDemo.PushSetting.catarrh" = "Nasal";
+"LivePusherDemo.PushSetting.foreigner" = "Punk";
+"LivePusherDemo.PushSetting.sleepybeast" = "Trapped beast";
+"LivePusherDemo.PushSetting.fattydead" = "Otaku";
+"LivePusherDemo.PushSetting.strongcurrent" = "Electronic";
+"LivePusherDemo.PushSetting.heavymachinery" = "Robot";
+"LivePusherDemo.PushSetting.ethereal" = "Ethereal";
 
 "LivePusherDemo.PushLogView.videobitrate" = "Video bitrate：";
 "LivePusherDemo.PushLogView.audiobitrate" = "Audio Bitrate：";
@@ -232,6 +264,10 @@
 "LivePusherDemo.ScreenPush.flvplayaddress" = "FLV playback address";
 "LivePusherDemo.ScreenPush.pushoverflow" = "End";
 "LivePusherDemo.ScreenPush.closescreenpushstream" = "Are you sure you want to stop pushing screen recording streams?";
+"LivePusherDemo.ScreenPush.mutevocalcapture" = "Mute vocal capture";
+"LivePusherDemo.ScreenPush.turnonvocalcapture" = "Turn on vocal capture";
+"LivePusherDemo.ScreenPush.closemic" = "Close Mic";
+"LivePusherDemo.ScreenPush.openmic" = "Open Mic";
 
 "SuperPlayerDemo.UGCUploadList.errorcodexxerrormsgyy" = "Error code; error message: yyy";
 

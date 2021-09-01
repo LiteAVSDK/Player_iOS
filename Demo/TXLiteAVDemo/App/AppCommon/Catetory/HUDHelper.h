@@ -1,6 +1,6 @@
 //
 //  HUDHelper.h
-//  
+//
 //
 //  Created by Alexi on 12-11-28.
 //  Copyright (c) 2012年 . All rights reserved.
@@ -10,9 +10,8 @@
 
 typedef void (^CommonVoidBlock)(void);
 
-@interface HUDHelper : NSObject
-{
-@private
+@interface HUDHelper : NSObject {
+   @private
     MBProgressHUD *_syncHUD;
 }
 
@@ -26,7 +25,6 @@ typedef void (^CommonVoidBlock)(void);
 - (MBProgressHUD *)loading;
 - (MBProgressHUD *)loading:(NSString *)msg;
 - (MBProgressHUD *)loading:(NSString *)msg inView:(UIView *)view;
-
 
 - (void)loading:(NSString *)msg delay:(CGFloat)seconds execute:(void (^)(void))exec completion:(void (^)(void))completion;
 

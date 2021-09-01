@@ -336,7 +336,13 @@
 "Demo.TRTC.Live.stopSpeedTest" = "Stop Speed Test";
 "Demo.TRTC.Live.enterRoom" = "Create and Join Room";
 "Demo.TRTC.Live.inputRoomId" = "Room ID:";
+"Demo.TRTC.Live.cloudEv" = "Cloud Environment";
+"Demo.TRTC.Live.product" = "Product";
+"Demo.TRTC.Live.test" = "Test";
+"Demo.TRTC.Live.experience" = "Experience";
 "Demo.TRTC.Live.inputUserId" = "Username:";
+"Demo.TRTC.Live.password" = "Password";
+
 
 "Demo.TRTC.Live.switchRole" = "Role";
 "Demo.TRTC.Live.anchor" = "Room Owner";
@@ -346,6 +352,11 @@
 "Demo.TRTC.Live.camera" = "Camera";
 "Demo.TRTC.Live.mediaFile" = "Video File";
 "Demo.TRTC.Live.deviceCapture" = "Screen Recording";
+"Demo.TRTC.Live.deviceAppCapture" = "App Screen Recording";
+"Demo.TRTC.Live.Auxiliary" = "Auxiliary video source";
+
+
+
 "Demo.TRTC.Live.none" = "No";
 
 "Demo.TRTC.Live.autioInput" = "Audio Input";
@@ -365,17 +376,27 @@
 "Demo.TRTC.Live.talk" = "Speech";
 "Demo.TRTC.Live.default" = "Default";
 "Demo.TRTC.Live.music" = "Music";
+"Demo.TRTC.Live.notChoose" = "Not Choose";
 
 "Demo.TRTC.Live.roomType" = "Room ID Type";
 "Demo.TRTC.Live.int" = "Number";
 "Demo.TRTC.Live.string" = "String";
-
 "Demo.TRTC.Live.progress" = "Loading Progress";
 "Demo.TRTC.Live.enterRoomSuccess" = "Entered room";
 "Demo.TRTC.Live.enterRoomFail" = "Failed to enter room";
 "Demo.TRTC.Live.leaveRoom" = "Leave";
 "Demo.TRTC.Live.error" = "Error";
+"Demo.TRTC.Live.alertTitle" = "TRTC OnError";
 "Demo.TRTC.Live.ok" = "OK";
+"Demo.TRTC.Live.vodSoftTip" = "Switch to soft decoding. Restart the playback process";
+"Demo.TRTC.Live.vodHardTip" = "Switch to hard decoding. Restart the playback process";
+"Demo.TRTC.Live.iosversionbelow" = "Your iOS is below 8.0 and does not support hardware acceleration";
+"Demo.TRTC.Live.VodPlayer" = "Vod Player";
+"Demo.TRTC.Live.VodUrlTip" = "Please enter or scan the QR code to get the playback address";
+"Demo.TRTC.Live.recordTip" = "Abnormal end of local recording. Error code:";
+"Demo.TRTC.Live.recordTipEnd" = "Change in resolution or switching between landscape and vertical screens leads to the end of local recording";
+"Demo.TRTC.Live.recordTipSuccess" = "The recording file was written into the album successfully!";
+"Demo.TRTC.Live.recordTipFailure" = "Failed to write the recording file to the album!";
 
 "Demo.TRTC.Live.startScreenCapture" = "Start Screen Sharing";
 "Demo.TRTC.Live.stopScreenCapture" = "Stop Screen Sharing";
@@ -398,6 +419,12 @@
 "Demo.TRTC.Live.horMode" = "Landscape";
 "Demo.TRTC.Live.verMode" = "Portrait";
 "Demo.TRTC.Live.fillMode" = "Image Fill Mode";
+"Demo.TRTC.Live.LiveRotation" = "Picture rotation (clockwise)";
+"Demo.TRTC.Live.CDNSetting" = "CDN SettingCDN";
+"Demo.TRTC.Live.bufferMode" = "Buffer Mode";
+"Demo.TRTC.Live.bModeFast" = "Fast";
+"Demo.TRTC.Live.bModeSmooth" = "Smooth";
+"Demo.TRTC.Live.bModeAuto" = "Auto";
 "Demo.TRTC.Live.fill" = "Scale to Fill";
 "Demo.TRTC.Live.fit" = "Aspect Fit";
 "Demo.TRTC.Live.previewRotation" = "Local Image Rotation";
@@ -408,13 +435,16 @@
 "Demo.TRTC.Live.disableMirror" = "Front & Rear Cameras Off";
 "Demo.TRTC.Live.remoteMirror" = "Remote Image Mirror";
 "Demo.TRTC.Live.enableWaterMark" = "Watermark";
-"Demo.TRTC.Live.pauseCapture" = "Pause Video Capturing";
+"Demo.TRTC.Live.pauseScreenCapture" = "Pause Screen Capturing";
 "Demo.TRTC.Live.sharpnessEnhancement" = "Image Enhancement";
 "Demo.TRTC.Live.videoMuteImage" = "Set Pause Image";
 "Demo.TRTC.Live.videoTimestampWaterMark" = "Time Watermark";
 "Demo.TRTC.Live.localVideoSnapshot" = "Local Video Screenshot";
+"Demo.TRTC.Live.streamSnapshot" = "Screenshot of video stream";
 "Demo.TRTC.Live.snapshot" = "Take";
 "Demo.TRTC.Live.noImage" = "No image";
+"Demo.TRTC.Live.secondarystreamSnapshot" = "Screenshot of video secondarystream";
+"Demo.TRTC.Live.Screenshot" = "Screenshot";
 
 "Demo.TRTC.Live.audio" = "Audio";
 "Demo.TRTC.Live.ans" = "Noise elimination";
@@ -447,6 +477,88 @@
 "Demo.TRTC.Live.enableMirror" = "Mirror";
 "Demo.TRTC.Live.picRotation" = "Rotation";
 "Demo.TRTC.Live.volumeNum" = "Volume";
+"Demo.TRTC.Live.encoderType" = "Encoder Type";
+"Demo.TRTC.Live.close" = "Close";
+"Demo.TRTC.Live.open" = "Open";
+"Demo.TRTC.Live.normal" = "Normal";
+"Demo.TRTC.Live.audioScene" = "Audio Scene";
+"Demo.TRTC.Live.chorus" = "Chorus";
+"Demo.TRTC.Live.auto" = "Auto";
+"Demo.TRTC.Live.texture" = "Texture";
+
+"Demo.TRTC.Live.manual" = "Manual";
+"Demo.TRTC.Live.audioReceive" = "Audio Receive";
+"Demo.TRTC.Live.videoReceive" = "Video Receive";
+"Demo.TRTC.Live.notChoose" = "Do Not Choose";
+
+
+"Demo.TRTC.Live.collectSolution" = "Capturing Resolution";
+"Demo.TRTC.Live.subResolution" = "Substream Resolution";
+"Demo.TRTC.Meeting.subFramerate" = "Substream Frame Rate";
+"Demo.TRTC.Meeting.substreamBitrate" = "Substream Bitrate";
+
+"Demo.TRTC.Meeting.265HardCoding" = "H.265 Hardware Encoding";
+"Demo.TRTC.Live.turnOnCapture" = "Capture Video";
+"Demo.TRTC.Live.turnOnPush" = "Push Video";
+"Demo.TRTC.Live.turnOnBlackFrame" = "Black Frame Insertion";
+"Demo.TRTC.Live.blackFrameRatio" = "Black Frame Aspect Ratio";
+"Demo.TRTC.Live.previewMirror" = "Mirror";
+"Demo.TRTC.Live.beauty" = "Beauty Filters";
+"Demo.TRTC.Live.brightness" = "Brightness";
+"Demo.TRTC.Live.voiceCapture" = "Capture Audio";
+"Demo.TRTC.Live.earVolume" = "In-ear Monitor Volume";
+"Demo.TRTC.Live.handsFree" = "Hands-free";
+"Demo.TRTC.Live.audioRecordingType" = "Audio to Record";
+"Demo.TRTC.Live.default" = "default";
+"Demo.TRTC.Live.local" = "local";
+"Demo.TRTC.Live.server" = "server";
+"Demo.TRTC.Live.cloudMixedStream" = "On-Cloud MixTranscoding";
+"Demo.TRTC.Live.backgroundImage" = "Background Image";
+"Demo.TRTC.Live.MixedStreamID" = "Stream Mixing ID";
+"Demo.TRTC.Live.subRoom" = "Sub-room";
+"Demo.TRTC.Live.newRoom" = "Sub-room";
+"Demo.TRTC.Live.numRoomSupport" = "Numeric room ID";
+"Demo.TRTC.Live.enter" = "Enter";
+"Demo.TRTC.Live.failedEnterRoom" = "failedEnterRoom";
+"Demo.TRTC.Live.failedEnterRoomTip" = "failedEnterRoomTip";
+"Demo.TRTC.Live.ok" = "ok";
+"Demo.TRTC.Live.exitRoom" = "exitRoom";
+"Demo.TRTC.Live.pushStream" = "pushStream";
+"Demo.TRTC.Live.qosControlMode" = "QoS Control";
+"Demo.TRTC.Live.customerMode" = "Client";
+"Demo.TRTC.Live.cloudMode" = "Cloud";
+"Demo.TRTC.Live.twoWayCoding" = "Dual-channel Encoding";
+"Demo.TRTC.Live.lowDefinition" = "LD as Default";
+"Demo.TRTC.Live.autofocus" = "Auto Focus";
+"Demo.TRTC.Live.VOD" = "VOD Player";
+"Demo.TRTC.Live.attachVodToTRTC" = "Push VOD Streams via Substream";
+"Demo.TRTC.Live.customMessage" = "Custom Message";
+"Demo.TRTC.Live.testMessage" = "Test message";
+"Demo.TRTC.Live.voiceMessage" = "Audio Message";
+"Demo.TRTC.Live.voiceMessageTest" = "Test audio message";
+"Demo.TRTC.Live.voiceNetworkMessageTest" = "Network audio message";
+"Demo.TRTC.Live.voiceNetworkMessageTestPlaceHolder" = "Network audio message";
+"Demo.TRTC.Live.stringRoom" = "Use String-type Room ID ";
+"Demo.TRTC.Live.stringRoomID" = "String-type room ID";
+"Demo.TRTC.Live.numRoom" = "Use Numeric Room ID";
+"Demo.TRTC.Live.numRoomID" = "Numeric room ID";
+"Demo.TRTC.Live.recordingType" = "Recording Type";
+"Demo.TRTC.Live.recordingTypeAudio" = "Audio MP4";
+"Demo.TRTC.Live.recordingTypeVideo" = "Video MP4";
+"Demo.TRTC.Live.recordingTypeAudioAndVideo" = "Audio & Video MP4";
+"Demo.TRTC.Live.localRecording" = "Local Recording";
+"Demo.TRTC.Live.audioRecording" = "Audio Recording";
+"Demo.TRTC.Live.recording" = "Recording";
+"Demo.TRTC.Live.stop" = "Stop";
+"Demo.TRTC.Live.manual" = "Manual";
+"Demo.TRTC.Live.audioOnly" = "Audio Only";
+"Demo.TRTC.Live.preset" = "Preset";
+"Demo.TRTC.Live.none" = "None";
+"Demo.TRTC.Live.picOne" = "PicOne";
+"Demo.TRTC.Live.picTwo" = "PicTwo";
+"Demo.TRTC.Live.CustomStreamID" = "Custom Stream ID";
+"Demo.TRTC.Live.setting" = "Setting";
+"Demo.TRTC.Live.videoSource" = "Video Source";
 
 "Demo.TRTC.speedTestUserId" = "Username:";
 "Demo.TRTC.startSpeedTest" = "Start Speed Test";

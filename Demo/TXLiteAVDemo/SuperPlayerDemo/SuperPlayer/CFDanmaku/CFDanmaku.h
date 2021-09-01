@@ -8,11 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-typedef enum : NSInteger {
-    CFDanmakuPositionNone = 0,
-    CFDanmakuPositionCenterTop,
-    CFDanmakuPositionCenterBottom
-} CFDanmakuPosition;
+typedef enum : NSInteger { CFDanmakuPositionNone = 0, CFDanmakuPositionCenterTop, CFDanmakuPositionCenterBottom } CFDanmakuPosition;
 
 @interface CFDanmaku : NSObject
 

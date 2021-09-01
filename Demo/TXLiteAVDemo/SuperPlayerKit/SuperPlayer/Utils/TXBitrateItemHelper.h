@@ -6,16 +6,16 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "SuperPlayerModel.h"
+
 #import "SuperPlayer.h"
+#import "SuperPlayerModel.h"
 
 @class TXBitrateItem;
-@interface TXBitrateItemHelper : NSObject
+@interface          TXBitrateItemHelper : NSObject
 @property NSInteger bitrate;
 @property NSString *title;
-@property int index;
+@property int       index;
 
 + (NSArray<SuperPlayerUrl *> *)sortWithBitrate:(NSArray<TXBitrateItem *> *)bitrates;
-
 
 @end

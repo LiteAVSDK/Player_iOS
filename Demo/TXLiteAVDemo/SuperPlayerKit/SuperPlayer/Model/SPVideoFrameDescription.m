@@ -7,6 +7,7 @@
 //
 
 #import "SPVideoFrameDescription.h"
+
 #import "J2Obj.h"
 
 @implementation SPVideoFrameDescription
@@ -15,8 +16,8 @@
         return nil;
     }
     SPVideoFrameDescription *ret = [[SPVideoFrameDescription alloc] init];
-    ret.time = [J2Num([keyFrameDesc valueForKeyPath:@"timeOffset"]) intValue]/1000.0;
-    ret.text = [J2Str([keyFrameDesc valueForKeyPath:@"content"]) stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    ret.time                     = [J2Num([keyFrameDesc valueForKeyPath:@"timeOffset"]) intValue] / 1000.0;
+    ret.text                     = [J2Str([keyFrameDesc valueForKeyPath:@"content"]) stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     return ret;
 }
 @end

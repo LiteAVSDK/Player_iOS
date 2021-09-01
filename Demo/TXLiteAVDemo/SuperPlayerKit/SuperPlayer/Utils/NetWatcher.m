@@ -7,28 +7,28 @@
 //
 
 #import "NetWatcher.h"
+
 #import "AFNetworking/AFNetworking.h"
 #import "SuperPlayerModelInternal.h"
 
-@interface NetWatcher()
+@interface NetWatcher ()
 @property NSArray *definitions;
 @end
 
 @implementation NetWatcher {
-    NSDate  *_startTime;
-    int     _loadingCount;
+    NSDate *          _startTime;
+    int               _loadingCount;
     dispatch_source_t _timer1;
-    BOOL    _onFire;
+    BOOL              _onFire;
 }
 
-- (void)setPlayerModel:(SuperPlayerModel *)playerModel
-{
+- (void)setPlayerModel:(SuperPlayerModel *)playerModel {
     _playerModel = playerModel;
-    
+
     self.definitions = [self.playerModel.playDefinitions sortedArrayUsingComparator:^NSComparisonResult(NSString *obj1, NSString *obj2) {
         return [NetWatcher weightOfDefinition:obj1] < [NetWatcher weightOfDefinition:obj2];
     }];
-    
+
     if (AFNetworkReachabilityManager.sharedManager.networkReachabilityStatus == AFNetworkReachabilityStatusReachableViaWWAN) {
         self.adviseDefinition = self.definitions.lastObject;
     } else {
@@ -36,24 +36,22 @@
     }
 }
 
-- (void)startWatch
-{
+- (void)startWatch {
     [self stopWatch];
-    
+
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(networkChanged:) name:AFNetworkingReachabilityDidChangeNotification object:nil];
 
     if (self.definitions.count <= 1) {
         return;
     }
-    
-    _startTime = [NSDate date];
+
+    _startTime    = [NSDate date];
     _loadingCount = 0;
 
     NSLog(@"NetWatcher: startWatch");
 }
 
-- (void)stopWatch
-{
+- (void)stopWatch {
     _startTime = nil;
     if (_timer1) {
         if (!_onFire) {
@@ -66,10 +64,8 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-- (void)loadingEvent
-{
-    if (!_startTime)
-        return;
+- (void)loadingEvent {
+    if (!_startTime) return;
     NSLog(@"NetWatcher: loadingEvent");
     if (_timer1 == nil) {
         _timer1 = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, dispatch_get_main_queue());
@@ -90,8 +86,7 @@
     _onFire = YES;
 }
 
-- (void)loadingEndEvent
-{
+- (void)loadingEndEvent {
     if (_onFire) {
         dispatch_suspend(_timer1);
         _onFire = NO;
@@ -100,21 +95,19 @@
     NSLog(@"NetWatcher: loadingEndEvent");
 }
 
-- (BOOL)testNotify
-{
+- (BOOL)testNotify {
     if (-[_startTime timeIntervalSinceNow] > 30) {
-        [self stopWatch];   // 超过30秒不检测了
+        [self stopWatch];  // 超过30秒不检测了
         return NO;
     }
-    
+
     // 暂定30秒缓冲次数超过2次，为网络不好
     if (_loadingCount >= 2) {
-        
         NSUInteger i = [self.definitions indexOfObject:self.adviseDefinition];
-        if (i < self.definitions.count-1) {
-            self.adviseDefinition = self.definitions[i+1];
+        if (i < self.definitions.count - 1) {
+            self.adviseDefinition = self.definitions[i + 1];
         }
-        
+
         if (self.notifyTipsBlock) {
             self.notifyTipsBlock(@"检测到你的网络较差，建议切换清晰度");
         }
@@ -122,12 +115,11 @@
         [self stopWatch];
         return YES;
     }
-    
+
     return NO;
 }
 
-- (void)networkChanged:(NSNotification *)noti
-{
+- (void)networkChanged:(NSNotification *)noti {
     if (AFNetworkReachabilityManager.sharedManager.networkReachabilityStatus == AFNetworkReachabilityStatusReachableViaWWAN) {
         self.adviseDefinition = self.definitions.lastObject;
         if (self.adviseDefinition && ![self.playerModel.playingDefinition isEqualToString:self.adviseDefinition]) {
@@ -136,8 +128,7 @@
     }
 }
 
-+(int)weightOfDefinition:(NSString *)def
-{
++ (int)weightOfDefinition:(NSString *)def {
     if ([def isEqualToString:@"流畅"]) {
         return 10;
     }
@@ -164,6 +155,5 @@
     }
     return 10000;
 }
-
 
 @end

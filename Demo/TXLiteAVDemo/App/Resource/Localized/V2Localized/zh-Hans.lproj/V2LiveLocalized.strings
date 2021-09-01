@@ -171,6 +171,13 @@
 "MLVB.MainMenu.pushcameraTitle" = "摄像头推流";
 "MLVB.MainMenu.Livebroadcast" = "直播播放";
 "MLVB.MainMenu.Standardlivebroadcast" = "标准直播播放";
+
+//其他工具
+"MLVB.MainMenu.pushcameraV1" = "直播推流 V1";
+"MLVB.MainMenu.pushscreenV1" = "屏幕分享 V1";
+"MLVB.MainMenu.StandardlivebroadcastV1" = "直播拉流 V1";
+"MLVB.MainMenu.coanchoringoldV1" = "连麦演示 V1";
+
 //TRTC
 "TRTC.MainMenu.trtc" = "实时互动";
 "TRTC.MainMenu.videoconferencing" = "多人视频会议";
@@ -205,6 +212,7 @@
 "MLVB.MainMenu.LVBLite" = "小直播";
 "MLVB.MainMenu.UGSVApp" = "小视频";
 "MLVB.MainMenu.TRTCAPP" = "TRTC APP";
+"MLVB.MainMenu.OtherTools" = "其他工具";
 
 "Demo.TRTC.Portal.privateandagreement" = "我已阅读并同意xxx和yyy，并授权腾讯云使用该账号（昵称、头像、电话号码）进行统一管理";
 "Demo.TRTC.Portal.agreeprivatefirst" = "请先同意隐私条款条款和用户协议。";

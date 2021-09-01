@@ -26,8 +26,6 @@ typedef void (^CommonFinishBlock)(BOOL isFinished);
 
 - (void)performBlock:(CommonBlock)block afterDelay:(NSTimeInterval)delay;
 
-
-
 - (void)excuteCompletion:(CommonCompletionBlock)block withFinished:(NSNumber *)finished;
 
 - (void)performCompletion:(CommonCompletionBlock)block withFinished:(BOOL)finished;

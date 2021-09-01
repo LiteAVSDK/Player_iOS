@@ -7,22 +7,22 @@
 //
 #import <UIKit/UIKit.h>
 
-#import "SuperPlayerControlViewDelegate.h"
-#import "PlayerSlider.h"
-#import "SuperPlayerFastView.h"
 #import "MMMaterialDesignSpinner.h"
+#import "PlayerSlider.h"
+#import "SPVideoFrameDescription.h"
+#import "SuperPlayerControlViewDelegate.h"
+#import "SuperPlayerFastView.h"
 #import "SuperPlayerSettingsView.h"
 #import "SuperPlayerViewConfig.h"
-#import "SPVideoFrameDescription.h"
 
-@interface SuperPlayerControlView : UIView
-@property (assign, nonatomic) BOOL compact;
+@interface                        SuperPlayerControlView : UIView
+@property(assign, nonatomic) BOOL compact;
 /**
  * 点播放试看时间范围 0.0 - 1.0
  *
  * 用于试看场景，防止进度条拖动超过试看时长
  */
-@property (assign, nonatomic) float maxPlayableRatio;
+@property(assign, nonatomic) float maxPlayableRatio;
 /**
  * 播放进度
  * @param currentTime 当前播放时长
@@ -30,8 +30,7 @@
  * @param progress    value(0.0~1.0)
  * @param playable    value(0.0~1.0)
  */
-- (void)setProgressTime:(NSInteger)currentTime totalTime:(NSInteger)totalTime
-          progressValue:(CGFloat)progress playableValue:(CGFloat)playable;
+- (void)setProgressTime:(NSInteger)currentTime totalTime:(NSInteger)totalTime progressValue:(CGFloat)progress playableValue:(CGFloat)playable;
 
 /**
  * 播放状态
@@ -56,13 +55,13 @@
 /// 标题
 @property NSString *title;
 /// 打点信息
-@property NSArray<SPVideoFrameDescription *>  *pointArray;
+@property NSArray<SPVideoFrameDescription *> *pointArray;
 /// 是否在拖动进度
-@property BOOL  isDragging;
+@property BOOL isDragging;
 /// 是否显示二级菜单
-@property BOOL  isShowSecondView;
+@property BOOL isShowSecondView;
 /// 回调delegate
-@property (nonatomic, weak) id<SuperPlayerControlViewDelegate> delegate;
+@property(nonatomic, weak) id<SuperPlayerControlViewDelegate> delegate;
 /// 播放配置
 @property SuperPlayerViewConfig *playerConfig;
 
