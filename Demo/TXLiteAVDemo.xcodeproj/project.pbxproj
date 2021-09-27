@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		17EB75EB26E9BC5200D09EC8 /* Player.plist in Resources */ = {isa = PBXBuildFile; fileRef = 17EB75B926E9BC5200D09EC8 /* Player.plist */; };
+		17EB761026E9BCCD00D09EC8 /* TXConfigManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 17EB760A26E9BCCC00D09EC8 /* TXConfigManager.m */; };
 		400922B31F4FCC6E009B882D /* ScanQRController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 40F853561EE8FCDF00EE47D7 /* ScanQRController.mm */; };
 		400922B71F4FCC6E009B882D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 40F853261EE8FC8400EE47D7 /* AppDelegate.m */; };
 		400922BE1F4FCC6E009B882D /* AppLogMgr.m in Sources */ = {isa = PBXBuildFile; fileRef = 40F853281EE8FC8400EE47D7 /* AppLogMgr.m */; };
@@ -131,6 +133,16 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		17EB75B426E9BC5200D09EC8 /* Smart.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Smart.plist; sourceTree = "<group>"; };
+		17EB75B526E9BC5200D09EC8 /* LIVE.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = LIVE.plist; sourceTree = "<group>"; };
+		17EB75B626E9BC5200D09EC8 /* UGC.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = UGC.plist; sourceTree = "<group>"; };
+		17EB75B826E9BC5200D09EC8 /* Enterprise.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Enterprise.plist; sourceTree = "<group>"; };
+		17EB75B926E9BC5200D09EC8 /* Player.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Player.plist; sourceTree = "<group>"; };
+		17EB75BB26E9BC5200D09EC8 /* Professional.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Professional.plist; sourceTree = "<group>"; };
+		17EB75BC26E9BC5200D09EC8 /* International.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = International.plist; sourceTree = "<group>"; };
+		17EB75BD26E9BC5200D09EC8 /* TRTC.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = TRTC.plist; sourceTree = "<group>"; };
+		17EB760926E9BCCC00D09EC8 /* TXConfigManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TXConfigManager.h; sourceTree = "<group>"; };
+		17EB760A26E9BCCC00D09EC8 /* TXConfigManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TXConfigManager.m; sourceTree = "<group>"; };
 		2840D91B24B8562200723FBC /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		400923B31F4FCC6E009B882D /* TXLiteAVDemo_Player.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TXLiteAVDemo_Player.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		401A9B3D247FCC7600C0763B /* AudioEffectSettingKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = AudioEffectSettingKit.xcodeproj; sourceTree = "<group>"; };
@@ -230,6 +242,7 @@
 		47E8CADB260B5C06001CF672 /* ColorMacro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorMacro.h; sourceTree = "<group>"; };
 		47E8CCCE260C4EB2001CF672 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		47E8CCD6260C4EE3001CF672 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		4FE10FF126F5D35A00DE6B9E /* BuglyOA.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BuglyOA.framework; sourceTree = "<group>"; };
 		51A289F8230FB93A00B9B73F /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
 		51A4AD391F1F8AE300B4A806 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		7B4C917A24B4B0C80095C041 /* TXLaunchMoviePlayProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TXLaunchMoviePlayProtocol.h; sourceTree = "<group>"; };
@@ -296,6 +309,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		17EB75B326E9BC5200D09EC8 /* config */ = {
+			isa = PBXGroup;
+			children = (
+				17EB75B426E9BC5200D09EC8 /* Smart.plist */,
+				17EB75B526E9BC5200D09EC8 /* LIVE.plist */,
+				17EB75B626E9BC5200D09EC8 /* UGC.plist */,
+				17EB75B826E9BC5200D09EC8 /* Enterprise.plist */,
+				17EB75B926E9BC5200D09EC8 /* Player.plist */,
+				17EB75BB26E9BC5200D09EC8 /* Professional.plist */,
+				17EB75BC26E9BC5200D09EC8 /* International.plist */,
+				17EB75BD26E9BC5200D09EC8 /* TRTC.plist */,
+			);
+			path = config;
+			sourceTree = "<group>";
+		};
 		402A010A245070290037A219 /* BridgeHeader */ = {
 			isa = PBXGroup;
 			children = (
@@ -417,6 +445,8 @@
 		40F853241EE8FC8400EE47D7 /* App */ = {
 			isa = PBXGroup;
 			children = (
+				4FE10FED26F5D28400DE6B9E /* Bugly */,
+				17EB75B326E9BC5200D09EC8 /* config */,
 				47E8CCBC260C4090001CF672 /* TRTCInfoPlist */,
 				47E8CAAB260B5C05001CF672 /* AppCommon */,
 				4090F788246AE22000EA72A0 /* Main */,
@@ -424,6 +454,8 @@
 				402A010A245070290037A219 /* BridgeHeader */,
 				40F853251EE8FC8400EE47D7 /* AppDelegate.h */,
 				40F853261EE8FC8400EE47D7 /* AppDelegate.m */,
+				17EB760926E9BCCC00D09EC8 /* TXConfigManager.h */,
+				17EB760A26E9BCCC00D09EC8 /* TXConfigManager.m */,
 				40F853271EE8FC8400EE47D7 /* AppLogMgr.h */,
 				40F853281EE8FC8400EE47D7 /* AppLogMgr.m */,
 				D6E5D1C020B7B61F00812B2F /* ReplayKit2Define.h */,
@@ -627,6 +659,14 @@
 				47E8CCCF260C4EB2001CF672 /* InfoPlist.strings */,
 			);
 			path = TRTCInfoPlist;
+			sourceTree = "<group>";
+		};
+		4FE10FED26F5D28400DE6B9E /* Bugly */ = {
+			isa = PBXGroup;
+			children = (
+				4FE10FF126F5D35A00DE6B9E /* BuglyOA.framework */,
+			);
+			path = Bugly;
 			sourceTree = "<group>";
 		};
 		912A62052160D78A00C16E41 /* CFDanmaku */ = {
@@ -842,6 +882,7 @@
 				4009238F1F4FCC6E009B882D /* Main.storyboard in Resources */,
 				47E8C8B2260AECC4001CF672 /* UGCLocalized.strings in Resources */,
 				D6BEF7ED2040362B00CBE2BD /* danmakufile in Resources */,
+				17EB75EB26E9BC5200D09EC8 /* Player.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -902,6 +943,7 @@
 				40A1DF372638415A0011E532 /* UIButton+Additions.m in Sources */,
 				D6BEF8222040368000CBE2BD /* ListVideoCell.m in Sources */,
 				40A1DF63263841900011E532 /* UIColor+MLPFlatColors.m in Sources */,
+				17EB761026E9BCCD00D09EC8 /* TXConfigManager.m in Sources */,
 				40A1DF8F2638419E0011E532 /* UIView+CustomAutoLayout.m in Sources */,
 				4053392724654D2700A6B478 /* TCHttpUtil.m in Sources */,
 				D6BEF8232040368000CBE2BD /* MoviePlayerViewController.m in Sources */,

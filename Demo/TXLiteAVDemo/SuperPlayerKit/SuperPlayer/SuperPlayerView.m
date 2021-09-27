@@ -426,6 +426,8 @@ static UISlider *_volumeSlider;
 
         config.headers = self.playerConfig.headers;
 
+        config.overlayIv = self.playerModel.overlayIv;
+        config.overlayKey = self.playerModel.overlayKey;
         [self.vodPlayer setConfig:config];
 
         self.vodPlayer.enableHWAcceleration = self.playerConfig.hwAcceleration;

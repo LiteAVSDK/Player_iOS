@@ -294,6 +294,7 @@
 "SuperPlayerDemo.MoviePlayer.enterappid" = "请输入appid";
 "SuperPlayerDemo.MoviePlayer.enterfileid" = "请输入fileid";
 "SuperPlayerDemo.MoviePlayer.enterliveurl" = "请输入直播url";
+"SuperPlayerDemo.MoviePlayer.enterlivepsign" = "请输入psign";
 "SuperPlayerDemo.MoviePlayer.enterplayeraddress" = "请输入正确的播放地址";
 
 "SuperPlayerDemo.TXMoviePlayerNetApi.parametererror" = "参数错误";

@@ -52,6 +52,10 @@ NS_ASSUME_NONNULL_BEGIN
 /// DRM Type
 @property(nonatomic, assign) SPDrmType drmType;
 
+@property NSString *_Nullable overlayKey; // HLS EXT-X-KEY 加密key
+
+@property NSString *_Nullable overlayIv;  // HLS EXT-X-KEY 加密Iv
+
 @end
 
 NS_ASSUME_NONNULL_END

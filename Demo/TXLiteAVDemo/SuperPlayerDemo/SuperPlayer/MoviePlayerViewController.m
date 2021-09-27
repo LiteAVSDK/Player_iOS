@@ -33,6 +33,7 @@
 __weak UITextField *appField;
 __weak UITextField *fileidField;
 __weak UITextField *urlField;
+__weak UITextField *psignField;
 
 @interface MoviePlayerViewController () <SuperPlayerDelegate, ScanQRDelegate, UITableViewDelegate, UITableViewDataSource, CFDanmakuDelegate>
 /** 播放器View的父视图*/
@@ -450,6 +451,7 @@ __weak UITextField *urlField;
         m.title = [NSString stringWithFormat:@"%@%@", LivePlayerLocalize(@"SuperPlayerDemo.MoviePlayer.video"), playInfo.fileId];
     }
     m.coverUrl = playInfo.coverUrl;
+    m.psign = playInfo.pSign;
     [_vodDataSourceArray addObject:m];
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.vodListView reloadData];
@@ -727,6 +729,11 @@ __weak UITextField *urlField;
             textField.placeholder = LivePlayerLocalize(@"SuperPlayerDemo.MoviePlayer.enterfileid");
             fileidField           = textField;
         }];
+        
+        [control addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+            textField.placeholder = LivePlayerLocalize(@"SuperPlayerDemo.MoviePlayer.enterlivepsign");
+            psignField = textField;
+        }];
     } else {
         [control addTextFieldWithConfigurationHandler:^(UITextField *_Nonnull textField) {
             textField.placeholder = LivePlayerLocalize(@"SuperPlayerDemo.MoviePlayer.enterliveurl");
@@ -743,6 +750,9 @@ __weak UITextField *urlField;
                                                       TXPlayerAuthParams *p = [TXPlayerAuthParams new];
                                                       p.appId               = [appField.text intValue];
                                                       p.fileId              = fileidField.text;
+                                                      if (psignField.text.length > 0) {
+                                                          p.sign = psignField.text;
+                                                      }
                                                       [self.authParamArray addObject:p];
 
                                                       [self getNextInfo];

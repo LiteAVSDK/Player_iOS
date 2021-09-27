@@ -6,6 +6,7 @@
 #import "SPPlayCGIParser.h"
 #import "SuperPlayer.h"
 #import "SuperPlayerModelInternal.h"
+#import <TXVodPlayer.h>
 
 const NSString *kPlayCGIHostname          = @"playvideo.qcloud.com";
 NSString *const kErrorDomain              = @"SuperPlayerCGI";
@@ -33,14 +34,22 @@ const NSInteger kInvalidResponseErrorCode = -100;
 
 - (NSString *)playingDefinitionUrl {
     NSString *url;
+    // 获取初始播放清晰度url
     for (int i = 0; i < self.multiVideoURLs.count; i++) {
         if ([self.multiVideoURLs[i].title isEqualToString:self.playingDefinition]) {
             url = self.multiVideoURLs[i].url;
+            break;
         }
     }
-    if (url == nil) url = self.videoURL;
+    // 初始播放清晰度url获取失败，获取第一条转码流
     if (url == nil) {
-        if (self.multiVideoURLs.count > 0) url = self.multiVideoURLs.firstObject.url;
+        if (self.multiVideoURLs.count > 0) {
+            url = self.multiVideoURLs.firstObject.url;
+        }
+    }
+    // 转码流获取失败，用原始地址
+    if (url == nil) {
+        url = self.videoURL;
     }
     return url;
 }
@@ -114,6 +123,10 @@ const NSInteger kInvalidResponseErrorCode = -100;
             }
             Class<SPPlayCGIParserProtocol> parser = [SPPlayCGIParser parserOfVersion:responseVersion];
             SPPlayCGIParseResult *         result = [parser parseResponse:responseObject];
+            if (responseVersion <= 2) {
+                self.overlayKey = nil;
+                self.overlayIv = nil;
+            }
             if (result == nil) {
                 if (completion) {
                     NSError *error = [NSError errorWithDomain:kErrorDomain code:kInvalidResponseErrorCode userInfo:@{NSLocalizedDescriptionKey : @"Invalid response."}];
@@ -149,6 +162,15 @@ const NSInteger kInvalidResponseErrorCode = -100;
     if (self.videoId) {
         if (self.videoId.psign) {
             params[@"psign"] = self.videoId.psign;
+            self.overlayKey = [self _buildParamsRandomHexString];
+            self.overlayIv = [self _buildParamsRandomHexString];
+            NSString *cipheredOverlayKey = [self _buildParamsEncryptHexString:self.overlayKey];
+            NSString *cipheredOverlayIv = [self _buildParamsEncryptHexString:self.overlayIv];
+            if (cipheredOverlayKey.length > 0 && cipheredOverlayIv.length > 0) {
+                params[@"cipheredOverlayKey"] = cipheredOverlayKey;
+                params[@"cipheredOverlayIv"] = cipheredOverlayIv;
+                params[@"keyId"] = @"1";
+            }
         }
     } else if (self.videoIdV2) {
         if (self.videoIdV2.timeout) {
@@ -165,6 +187,21 @@ const NSInteger kInvalidResponseErrorCode = -100;
         }
     }
     return params;
+}
+
+- (NSString *)_buildParamsRandomHexString
+{
+    int keyLen = 32;
+    NSMutableString *kenStr = [[NSMutableString alloc]initWithCapacity:keyLen];
+    for (int i = 0; i < keyLen; i++) {
+        [kenStr appendFormat:@"%x", arc4random() % 16];
+    }
+    return [kenStr copy];
+}
+
+- (NSString *)_buildParamsEncryptHexString:(NSString *)originHexStr
+{
+    return [TXVodPlayer getEncryptedPlayKey:originHexStr];
 }
 
 @end

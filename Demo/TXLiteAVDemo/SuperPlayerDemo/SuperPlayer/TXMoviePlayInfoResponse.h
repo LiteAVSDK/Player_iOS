@@ -20,6 +20,7 @@
 
 @property NSInteger appId;
 @property NSString *fileId;
+@property NSString *pSign;
 
 - (instancetype)initWithResponse:(NSDictionary *)dict;
 

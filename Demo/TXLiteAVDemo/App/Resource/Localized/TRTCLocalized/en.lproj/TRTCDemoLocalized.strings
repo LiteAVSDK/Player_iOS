@@ -455,6 +455,7 @@
 "Demo.TRTC.Live.earPhoneMode" = "Receiver";
 "Demo.TRTC.Live.agc" = "AGC";
 "Demo.TRTC.Live.volumeEvaluation" = "Volume Reminder";
+"Demo.TRTC.Live.audiobitrate" = "Audio Bitrate";
 
 "Demo.TRTC.Live.stream" = "MixTranscoding";
 "Demo.TRTC.Live.streamUrl" = "Playback Address";

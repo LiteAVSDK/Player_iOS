@@ -8,8 +8,7 @@
 
 #import "AppDelegate.h"
 
-#import <Bugly/Bugly.h>
-
+#import "TXConfigManager.h"
 #import "AppLocalized.h"
 
 #ifdef ENABLE_TRTC
@@ -54,8 +53,6 @@
 #if defined(PLAYER) || defined(PROFESSIONAL) || defined(ENTERPRISE)
 #import "TXLaunchMoviePlayProtocol.h"
 #endif
-
-#define BUGLY_APP_ID @"0"
 
 NSString *helpUrlDb[] = {
     [Help_MLVBLiveRoom] = @"https://cloud.tencent.com/document/product/454/14606",
@@ -107,6 +104,7 @@ NSString *helpUrlDb[] = {
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     self.didLaunched = YES;
+    
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"remove_cache_preference"]) {
         NSFileManager *fm           = [NSFileManager defaultManager];
         NSString *     documentPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
@@ -115,71 +113,16 @@ NSString *helpUrlDb[] = {
         [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"remove_cache_preference"];
     }
     [self registNotificaiton];
-    //启动bugly组件，bugly组件为腾讯提供的用于crash上报和分析的开放组件，如果您不需要该组件，可以自行移除
-    BuglyConfig *config  = [[BuglyConfig alloc] init];
-    NSString *   version = nil;
-#if ENABLE_TRTC
-    version = [TRTCCloud getSDKVersion];
-#else
-#ifdef LIVE
-    version = [V2TXLivePremier getSDKVersionStr];
-#else
-    version = [TXLiveBase getSDKVersionStr];
-#endif
-#endif
 
-#if DEBUG
-    config.debugMode = YES;
-#endif
-    NSString *appVersion = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
-    config.version       = appVersion;
-    config.channel       = @"LiteAV Demo";
-
-    [Bugly startWithAppId:BUGLY_APP_ID config:config];
-#ifdef ENABLE_UGC
-    [TXUGCBase setLicenceURL:@"" key:@""];
-#endif
-
-#if (defined(ENABLE_PUSH) || defined(ENABLE_INTERNATIONAL)) && !defined(TRTC)
-#ifdef LIVE
-    [V2TXLivePremier setLicence:@"" key:@""];
-#else
-    [TXLiveBase setLicenceURL:@"" key:@""];
-#endif
-#endif
-
-#ifdef TRTC
-    [TXLiveBase setLicenceURL:@"" key:@""];
-#endif
-
-    NSLog(@"rtmp demo init crash report");
-
+    
+    [[TXConfigManager shareInstance] loadConfig];
+    [[TXConfigManager shareInstance] setLicence];
+    [[TXConfigManager shareInstance] setLogConfig];
+    [[TXConfigManager shareInstance] setupBugly];
     // Override point for customization after application launch.
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-
     self.window.backgroundColor = [UIColor whiteColor];
-
-#ifdef ENABLE_TRTC
-    [TRTCCloud setConsoleEnabled:NO];
-    [TRTCCloud setLogLevel:TRTCLogLevelDebug];
-    [TRTCCloud setLogDelegate:[AppLogMgr shareInstance]];
-#else
-    //初始化log模块
-#ifndef UGC_SMART
-#ifndef LIVE
-    [TXLiveBase sharedInstance].delegate = [AppLogMgr shareInstance];
-    [TXLiveBase setConsoleEnabled:NO];
-    [TXLiveBase setAppID:@""];
-#else
-    [V2TXLivePremier setObserver:[AppLogMgr shareInstance]];
-    V2TXLiveLogConfig *logConf = [V2TXLiveLogConfig new];
-    logConf.enableObserver     = YES;
-    [V2TXLivePremier setLogConfig:logConf];
-#endif
-#endif
-#endif
     [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(-1000, 0) forBarMetrics:UIBarMetricsDefault];
-
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
     [[UINavigationBar appearance] setBarTintColor:UIColor.blackColor];
     [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
@@ -191,12 +134,11 @@ NSString *helpUrlDb[] = {
 #else
     [self showLoginController];
 #endif
-
+    
     [self.window makeKeyAndVisible];
 #ifndef ENABLE_TRTC
     [[AFNetworkReachabilityManager sharedManager] startMonitoring];
 #endif
-
 #if !defined(PLAYER) && !defined(UGC)
     // 自定义 APP 未读数
     [[V2TIMManager sharedInstance] setAPNSListener:self];

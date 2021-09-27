@@ -294,6 +294,7 @@
 "SuperPlayerDemo.MoviePlayer.addvideo" = "Add Video";
 "SuperPlayerDemo.MoviePlayer.enterappid" = "Enter an app ID";
 "SuperPlayerDemo.MoviePlayer.enterfileid" = "Enter a file ID";
+"SuperPlayerDemo.MoviePlayer.enterlivepsign" = "Enter a psign";
 "SuperPlayerDemo.MoviePlayer.enterliveurl" = "Enter a live streaming URL";
 "SuperPlayerDemo.MoviePlayer.enterplayeraddress" = "Enter a valid playback address";
 

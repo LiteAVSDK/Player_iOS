@@ -109,6 +109,7 @@
                             TXMoviePlayInfoResponse *playInfo = [[TXMoviePlayInfoResponse alloc] initWithResponse:dict];
                             playInfo.appId                    = appId;
                             playInfo.fileId                   = fileId;
+                            playInfo.pSign                    = psign;
                             if (completion) {
                                 completion(playInfo, nil);
                             }

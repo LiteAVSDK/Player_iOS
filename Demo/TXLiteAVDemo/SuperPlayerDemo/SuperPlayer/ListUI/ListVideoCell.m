@@ -43,6 +43,7 @@
     SuperPlayerVideoId *videoId = [SuperPlayerVideoId new];
     model.appId                 = [self appId];
     videoId.fileId              = [self fileId];
+    videoId.psign               = self.psign;
     model.videoId               = videoId;
     model.videoURL              = self.url;
 

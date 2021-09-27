@@ -62,7 +62,7 @@
 #endif
 
 #import "AppLocalized.h"
-
+#import "TXConfigManager.h"
 #define STATUS_BAR_HEIGHT [UIApplication sharedApplication].statusBarFrame.size.height
 
 static NSString *const XiaoZhiBoAppStoreURLString  = @"http://itunes.apple.com/cn/app/id1132521667?mt=8";
@@ -84,12 +84,6 @@ static NSString *const trtcAppStoreURLString       = @"http://itunes.apple.com/c
 @property(nonatomic) UIPickerView *              logPickerView;
 @property(nonatomic) NSMutableArray *            logFilesArray;
 
-#ifdef ENABLE_TRTC
-//@property (nonatomic, strong) TRTCCallingContactViewController *videoCallVC;
-//@property (nonatomic, strong) TRTCLiveRoom *liveRoom;
-//@property (nonatomic, strong) TRTCVoiceRoom *voiceRoom;
-#endif
-
 @end
 
 @implementation MainViewController
@@ -101,6 +95,7 @@ static NSString *const trtcAppStoreURLString       = @"http://itunes.apple.com/c
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [[TXConfigManager shareInstance] setMenuActionTarget:self];
     // Do any additional setup after loading the view.
 #ifdef ENABLE_UGC
     _ugcEditWrapper   = [[UGCVideoEditWrapper alloc] initWithViewController:self theme:nil];
@@ -109,45 +104,11 @@ static NSString *const trtcAppStoreURLString       = @"http://itunes.apple.com/c
     _ugcUploadWrapper = [[UGCVideoUploadWrapper alloc] initWithViewController:self theme:nil];
 #endif
 
-#ifdef ENABLE_TRTC
-    //    _videoCallVC = [[TRTCCallingContactViewController alloc] init];
-    //    _voiceRoom = [TRTCVoiceRoom sharedInstance];
-    //    [[TRTCCalling shareInstance] addDelegate:_videoCallVC];
-
-#endif
-
 #if !defined(UGC) && !defined(PLAYER)
     V2TIMSDKConfig *config = [[V2TIMSDKConfig alloc] init];
     [[V2TIMManager sharedInstance] initSDK:SDKAPPID config:config listener:nil];
 #endif
-
-#if defined(ENTERPRISE) || defined(PROFESSIONAL)
-    [self createEnterpriseCellInfos];
-#endif
-
-#ifdef ENABLE_INTERNATIONAL
-    [self createInternationalCellInfos];
-#endif
-
-#ifdef LIVE
-    [self createLiveCellInfos];
-#endif
-
-#ifdef PLAYER
-    [self createPlayerCellInfos];
-#endif
-
-#ifdef SMART
-    [self createSmartCellInfos];
-#endif
-
-#ifdef TRTC
-    [self createTRTCCellInfos];
-#endif
-
-#ifdef UGC
-    [self createUGCCellInfos];
-#endif
+    [self loadCellInfos];
     [self initUI];
 }
 
@@ -155,397 +116,12 @@ static NSString *const trtcAppStoreURLString       = @"http://itunes.apple.com/c
     [super viewDidAppear:animated];
 }
 
+- (void)loadCellInfos{
+    self.cellInfos = [[TXConfigManager shareInstance] getMenuConfig];
+}
+
 - (IBAction)userInfoButtonClick:(id)sender {
 }
-
-#if defined(ENTERPRISE) || defined(PROFESSIONAL)
-- (void)createEnterpriseCellInfos {
-    _cellInfos         = [NSMutableArray array];
-    CellInfo *cellInfo = nil;
-
-    cellInfo       = [[CellInfo alloc] init];
-    cellInfo.title = V2Localize(@"V2.Live.LinkMicNew.title");
-    [_cellInfos addObject:cellInfo];
-    cellInfo.subCells = ({
-        NSMutableArray *subCells = [NSMutableArray array];
-        CellInfo *      subCellInfo;
-
-        subCellInfo = [CellInfo cellInfoWithTitle:V2Localize(@"MLVB.MainMenu.pushcamera") controllerClassName:@"CameraStartPushViewController"];
-        [subCells addObject:subCellInfo];
-
-        subCellInfo = [CellInfo cellInfoWithTitle:V2Localize(@"MLVB.MainMenu.pushscreen") controllerClassName:@"ScreenPushViewController"];
-        [subCells addObject:subCellInfo];
-
-        if ([TCUtil getDEBUGSwitch]) {
-            subCellInfo = [CellInfo cellInfoWithTitle:V2Localize(@"V2.Live.LinkMicNew.coanchornew") controllerClassName:@"V2MainViewController"];
-            [subCells addObject:subCellInfo];
-        }
-        subCells;
-    });
-
-    cellInfo       = [[CellInfo alloc] init];
-    cellInfo.title = V2Localize(@"MLVB.MainMenu.Livebroadcast");
-    [_cellInfos addObject:cellInfo];
-    cellInfo.subCells = ({
-        NSMutableArray *subCells = [NSMutableArray array];
-        CellInfo *      subCellInfo;
-
-        subCellInfo = [CellInfo cellInfoWithTitle:V2Localize(@"MLVB.MainMenu.Standardlivebroadcast") controllerClassName:@"PlayViewController"];
-        [subCells addObject:subCellInfo];
-
-        subCellInfo = [CellInfo cellInfoWithTitle:V2Localize(@"MLVB.lebLauncher.title") controllerClassName:@"LebLauncherViewController"];
-        [subCells addObject:subCellInfo];
-        if ([TCUtil getDEBUGSwitch]) {
-            subCellInfo = [CellInfo cellInfoWithTitle:V2Localize(@"MLVB.RTCLauncher.title") controllerClassName:@"RTCLauncherViewController"];
-            [subCells addObject:subCellInfo];
-        }
-        subCells;
-    });
-
-    cellInfo       = [[CellInfo alloc] init];
-    cellInfo.title = V2Localize(@"TRTC.MainMenu.trtc");
-    [_cellInfos addObject:cellInfo];
-    cellInfo.subCells = ({
-        NSMutableArray *subCells = [NSMutableArray array];
-        CellInfo *      subCellInfo;
-
-        subCellInfo = [CellInfo cellInfoWithTitle:TRTCLocalize(@"Demo.TRTC.Live.trtcSpeedTest")
-                          controllerCreationBlock:^UIViewController *_Nonnull {
-                              TRTCSpeedTestViewController *speedTestVC = [[TRTCSpeedTestViewController alloc] init];
-                              speedTestVC.title                        = TRTCLocalize(@"Demo.TRTC.Live.trtcSpeedTest");
-                              return speedTestVC;
-                          }];
-        [subCells addObject:subCellInfo];
-
-        subCellInfo = [CellInfo cellInfoWithTitle:TRTCLocalize(@"Demo.TRTC.Live.trtcLive")
-                          controllerCreationBlock:^UIViewController *_Nonnull {
-                              TRTCLiveEnterViewController *entranceVC = [[TRTCLiveEnterViewController alloc] init];
-                              entranceVC.title = TRTCLocalize(@"Demo.TRTC.Live.trtcLive");
-                              entranceVC.scene = TRTCAppSceneLIVE;
-                              return entranceVC;
-                          }];
-        [subCells addObject:subCellInfo];
-
-        subCellInfo = [CellInfo cellInfoWithTitle:TRTCLocalize(@"Demo.TRTC.Live.trtcCalling")
-                          controllerCreationBlock:^UIViewController *_Nonnull {
-                              TRTCLiveEnterViewController *entranceVC = [[TRTCLiveEnterViewController alloc] init];
-                              entranceVC.title = TRTCLocalize(@"Demo.TRTC.Live.trtcCalling");
-                              entranceVC.scene = TRTCAppSceneVideoCall;
-                              return entranceVC;
-                          }];
-        [subCells addObject:subCellInfo];
-
-        subCells;
-    });
-
-    __weak __typeof(self) weakSelf = self;
-    cellInfo                       = [[CellInfo alloc] init];
-    cellInfo.title                 = V2Localize(@"MLVB.MainMenu.UGSV");
-    [_cellInfos addObject:cellInfo];
-    cellInfo.subCells = ({
-        NSMutableArray *subCells = [NSMutableArray array];
-        CellInfo *      subCellInfo;
-
-        subCellInfo = [CellInfo cellInfoWithTitle:V2Localize(@"MLVB.MainMenu.Shooting")
-                                      actionBlock:^{
-                                          [weakSelf.ugcRecordWrapper showRecordEntryController];
-                                      }];
-        [subCells addObject:subCellInfo];
-
-        subCellInfo = [CellInfo cellInfoWithTitle:V2Localize(@"MLVB.MainMenu.SpecialEffects")
-                                      actionBlock:^{
-                                          [weakSelf.ugcEditWrapper showEditEntryControllerWithType:UGCKitMediaTypeVideo];
-                                      }];
-        [subCells addObject:subCellInfo];
-
-        subCellInfo = [CellInfo cellInfoWithTitle:V2Localize(@"MLVB.MainMenu.VideoSplicing")
-                                      actionBlock:^{
-                                          [weakSelf.ugcJoinWrapper showVideoJoinEntryController];
-                                      }];
-        [subCells addObject:subCellInfo];
-
-        subCellInfo = [CellInfo cellInfoWithTitle:V2Localize(@"MLVB.MainMenu.ImageTransition")
-                                      actionBlock:^{
-                                          [weakSelf.ugcEditWrapper showEditEntryControllerWithType:UGCKitMediaTypePhoto];
-                                      }];
-        [subCells addObject:subCellInfo];
-
-        subCellInfo = [CellInfo cellInfoWithTitle:V2Localize(@"MLVB.MainMenu.VideoUpload")
-                                      actionBlock:^{
-                                          [weakSelf.ugcUploadWrapper showVideoUploadEntryController];
-                                      }];
-        [subCells addObject:subCellInfo];
-
-        subCells;
-    });
-
-    cellInfo       = [[CellInfo alloc] init];
-    cellInfo.title = V2Localize(@"MLVB.MainMenu.Player");
-    [_cellInfos addObject:cellInfo];
-    cellInfo.subCells = ({
-        NSMutableArray *subCells = [NSMutableArray array];
-        CellInfo *      subCellInfo;
-
-        subCellInfo = [CellInfo cellInfoWithTitle:V2Localize(@"MLVB.MainMenu.SuperPlayer") controllerClassName:@"MoviePlayerViewController"];
-        [subCells addObject:subCellInfo];
-        if ([TCUtil getDEBUGSwitch]) {
-            subCellInfo = [CellInfo cellInfoWithTitle:V2Localize(@"MLVB.MainMenu.VodPlayer") controllerClassName:@"PlayVodViewController"];
-            [subCells addObject:subCellInfo];
-        }
-        subCells;
-    });
-
-    cellInfo       = [[CellInfo alloc] init];
-    cellInfo.title = V2Localize(@"MLVB.MainMenu.Scene");
-    [_cellInfos addObject:cellInfo];
-    cellInfo.subCells = ({
-        NSMutableArray *subCells = [NSMutableArray array];
-        CellInfo *      subCellInfo;
-
-        subCellInfo = [CellInfo cellInfoWithTitle:V2Localize(@"MLVB.MainMenu.LVBLite")
-                                      actionBlock:^{
-                                          [[UIApplication sharedApplication] openURL:[NSURL URLWithString:XiaoZhiBoAppStoreURLString]];
-                                      }];
-        [subCells addObject:subCellInfo];
-
-        subCellInfo = [CellInfo cellInfoWithTitle:V2Localize(@"MLVB.MainMenu.UGSVApp")
-                                      actionBlock:^{
-                                          [[UIApplication sharedApplication] openURL:[NSURL URLWithString:XiaoShiPinAppStoreURLString]];
-                                      }];
-        [subCells addObject:subCellInfo];
-
-        subCellInfo = [CellInfo cellInfoWithTitle:V2Localize(@"MLVB.MainMenu.TRTCAPP")
-                                      actionBlock:^{
-                                          [[UIApplication sharedApplication] openURL:[NSURL URLWithString:trtcAppStoreURLString]];
-                                      }];
-        [subCells addObject:subCellInfo];
-
-        subCells;
-    });
-    
-    if ([TCUtil getDEBUGSwitch]) {
-        cellInfo = [[CellInfo alloc] init];
-        cellInfo.title = V2Localize(@"MLVB.MainMenu.OtherTools");
-        [_cellInfos addObject:cellInfo];
-        cellInfo.subCells = ({
-            NSMutableArray *subCells = [NSMutableArray array];
-            CellInfo *subCellInfo;
-            
-            subCellInfo = [CellInfo cellInfoWithTitle:V2Localize(@"MLVB.MainMenu.pushcameraV1") controllerClassName:@"CameraPushV1ViewController"];
-            [subCells addObject:subCellInfo];
-            
-            subCellInfo = [CellInfo cellInfoWithTitle:V2Localize(@"MLVB.MainMenu.pushscreenV1") controllerClassName:@"ScreenPushV1ViewController"];
-            [subCells addObject:subCellInfo];
-            
-            subCellInfo = [CellInfo cellInfoWithTitle:V2Localize(@"MLVB.MainMenu.StandardlivebroadcastV1") controllerClassName:@"PlayViewV1Controller"];
-            [subCells addObject:subCellInfo];
-            
-            subCellInfo = [CellInfo cellInfoWithTitle:V2Localize(@"MLVB.MainMenu.coanchoringoldV1") controllerClassName:@"LiveRoomListViewController"];
-            [subCells addObject:subCellInfo];
-            
-            subCells;
-        });
-    }
-}
-#endif
-
-#ifdef ENABLE_INTERNATIONAL
-- (void)createInternationalCellInfos {
-    _cellInfos         = [NSMutableArray array];
-    CellInfo *cellInfo = nil;
-
-    cellInfo       = [[CellInfo alloc] init];
-    cellInfo.title = V2Localize(@"V2.Live.LinkMicNew.title");
-    [_cellInfos addObject:cellInfo];
-    cellInfo.subCells = ({
-        NSMutableArray *subCells = [NSMutableArray array];
-        CellInfo *      subCellInfo;
-        subCellInfo = [CellInfo cellInfoWithTitle:V2Localize(@"V2.Live.LinkMicNew.coanchornew") controllerClassName:@"V2MainViewController"];
-        [subCells addObject:subCellInfo];
-        subCells;
-    });
-}
-#endif
-
-#ifdef LIVE
-- (void)createLiveCellInfos {
-    _cellInfos         = [NSMutableArray array];
-    CellInfo *cellInfo = nil;
-
-    cellInfo       = [[CellInfo alloc] init];
-    cellInfo.title = V2Localize(@"V2.Live.LinkMicNew.title");
-    [_cellInfos addObject:cellInfo];
-    cellInfo.subCells = ({
-        NSMutableArray *subCells = [NSMutableArray array];
-        CellInfo *      subCellInfo;
-
-        subCellInfo = [CellInfo cellInfoWithTitle:V2Localize(@"MLVB.MainMenu.pushcamera") controllerClassName:@"CameraStartPushViewController"];
-        [subCells addObject:subCellInfo];
-
-        subCellInfo = [CellInfo cellInfoWithTitle:V2Localize(@"MLVB.MainMenu.pushscreen") controllerClassName:@"ScreenPushViewController"];
-        [subCells addObject:subCellInfo];
-
-        subCellInfo = [CellInfo cellInfoWithTitle:V2Localize(@"MLVB.MainMenu.Standardlivebroadcast") controllerClassName:@"PlayViewController"];
-        [subCells addObject:subCellInfo];
-
-        subCellInfo = [CellInfo cellInfoWithTitle:V2Localize(@"MLVB.lebLauncher.title") controllerClassName:@"LebLauncherViewController"];
-        [subCells addObject:subCellInfo];
-
-        subCellInfo = [CellInfo cellInfoWithTitle:V2Localize(@"V2.Live.LinkMicNew.coanchornew") controllerClassName:@"V2MainViewController"];
-        [subCells addObject:subCellInfo];
-
-        subCells;
-    });
-}
-#endif
-
-#ifdef PLAYER
-- (void)createPlayerCellInfos {
-    _cellInfos         = [NSMutableArray array];
-    CellInfo *cellInfo = nil;
-    cellInfo           = [[CellInfo alloc] init];
-    cellInfo.title     = V2Localize(@"MLVB.MainMenu.Player");
-    [_cellInfos addObject:cellInfo];
-    cellInfo.subCells = ({
-        NSMutableArray *subCells = [NSMutableArray array];
-        CellInfo *      subCellInfo;
-
-        subCellInfo = [CellInfo cellInfoWithTitle:V2Localize(@"MLVB.MainMenu.SuperPlayer") controllerClassName:@"MoviePlayerViewController"];
-        [subCells addObject:subCellInfo];
-        subCells;
-    });
-}
-#endif
-
-#ifdef SMART
-- (void)createSmartCellInfos {
-    _cellInfos         = [NSMutableArray array];
-    CellInfo *cellInfo = nil;
-
-    cellInfo       = [[CellInfo alloc] init];
-    cellInfo.title = V2Localize(@"V2.Live.LinkMicNew.title");
-    [_cellInfos addObject:cellInfo];
-    cellInfo.subCells = ({
-        NSMutableArray *subCells = [NSMutableArray array];
-        CellInfo *      subCellInfo;
-
-        subCellInfo = [CellInfo cellInfoWithTitle:V2Localize(@"MLVB.MainMenu.pushcamera") controllerClassName:@"CameraStartPushViewController"];
-        [subCells addObject:subCellInfo];
-
-        subCellInfo = [CellInfo cellInfoWithTitle:V2Localize(@"MLVB.MainMenu.Standardlivebroadcast") controllerClassName:@"PlayViewController"];
-        [subCells addObject:subCellInfo];
-
-        subCellInfo = [CellInfo cellInfoWithTitle:V2Localize(@"MLVB.MainMenu.coanchoringold") controllerClassName:@"LiveRoomListViewController"];
-        [subCells addObject:subCellInfo];
-
-        subCellInfo = [CellInfo cellInfoWithTitle:V2Localize(@"MLVB.MainMenu.LVBLite")
-                                      actionBlock:^{
-                                          [[UIApplication sharedApplication] openURL:[NSURL URLWithString:XiaoZhiBoAppStoreURLString]];
-                                      }];
-        [subCells addObject:subCellInfo];
-
-        subCells;
-    });
-}
-
-#endif
-
-#ifdef TRTC
-- (void)createTRTCCellInfos {
-    _cellInfos         = [NSMutableArray array];
-    CellInfo *cellInfo = nil;
-
-    cellInfo       = [[CellInfo alloc] init];
-    cellInfo.title = V2Localize(@"TRTC.MainMenu.trtc");
-    [_cellInfos addObject:cellInfo];
-    cellInfo.subCells = ({
-        NSMutableArray *subCells = [NSMutableArray array];
-        CellInfo *      subCellInfo;
-
-        subCellInfo = [CellInfo cellInfoWithTitle:TRTCLocalize(@"Demo.TRTC.Live.trtcSpeedTest")
-                          controllerCreationBlock:^UIViewController *_Nonnull {
-                              TRTCSpeedTestViewController *speedTestVC = [[TRTCSpeedTestViewController alloc] init];
-                              speedTestVC.title                        = TRTCLocalize(@"Demo.TRTC.Live.trtcSpeedTest");
-                              return speedTestVC;
-                          }];
-        [subCells addObject:subCellInfo];
-
-        subCellInfo = [CellInfo cellInfoWithTitle:TRTCLocalize(@"Demo.TRTC.Live.trtcLive")
-                          controllerCreationBlock:^UIViewController *_Nonnull {
-                              TRTCLiveEnterViewController *entranceVC = [[TRTCLiveEnterViewController alloc] init];
-                              entranceVC.title = TRTCLocalize(@"Demo.TRTC.Live.trtcLive");
-                              entranceVC.scene = TRTCAppSceneLIVE;
-                              return entranceVC;
-                          }];
-        [subCells addObject:subCellInfo];
-
-        subCellInfo = [CellInfo cellInfoWithTitle:TRTCLocalize(@"Demo.TRTC.Live.trtcCalling")
-                          controllerCreationBlock:^UIViewController *_Nonnull {
-                              TRTCLiveEnterViewController *entranceVC = [[TRTCLiveEnterViewController alloc] init];
-                              entranceVC.title = TRTCLocalize(@"Demo.TRTC.Live.trtcCalling");
-                              entranceVC.scene = TRTCAppSceneVideoCall;
-                              return entranceVC;
-                          }];
-        [subCells addObject:subCellInfo];
-
-        subCells;
-    });
-}
-#endif
-
-#ifdef UGC
-- (void)createUGCCellInfos {
-    _cellInfos         = [NSMutableArray array];
-    CellInfo *cellInfo = nil;
-
-    __weak __typeof(self) weakSelf = self;
-    cellInfo                       = [[CellInfo alloc] init];
-    cellInfo.title                 = V2Localize(@"MLVB.MainMenu.UGSV");
-    [_cellInfos addObject:cellInfo];
-    cellInfo.subCells = ({
-        NSMutableArray *subCells = [NSMutableArray array];
-        CellInfo *      subCellInfo;
-
-        subCellInfo = [CellInfo cellInfoWithTitle:V2Localize(@"MLVB.MainMenu.Shooting")
-                                      actionBlock:^{
-                                          [weakSelf.ugcRecordWrapper showRecordEntryController];
-                                      }];
-        [subCells addObject:subCellInfo];
-
-        subCellInfo = [CellInfo cellInfoWithTitle:V2Localize(@"MLVB.MainMenu.SpecialEffects")
-                                      actionBlock:^{
-                                          [weakSelf.ugcEditWrapper showEditEntryControllerWithType:UGCKitMediaTypeVideo];
-                                      }];
-        [subCells addObject:subCellInfo];
-
-        subCellInfo = [CellInfo cellInfoWithTitle:V2Localize(@"MLVB.MainMenu.VideoSplicing")
-                                      actionBlock:^{
-                                          [weakSelf.ugcJoinWrapper showVideoJoinEntryController];
-                                      }];
-        [subCells addObject:subCellInfo];
-
-        subCellInfo = [CellInfo cellInfoWithTitle:V2Localize(@"MLVB.MainMenu.ImageTransition")
-                                      actionBlock:^{
-                                          [weakSelf.ugcEditWrapper showEditEntryControllerWithType:UGCKitMediaTypePhoto];
-                                      }];
-        [subCells addObject:subCellInfo];
-
-        subCellInfo = [CellInfo cellInfoWithTitle:V2Localize(@"MLVB.MainMenu.VideoUpload")
-                                      actionBlock:^{
-                                          [weakSelf.ugcUploadWrapper showVideoUploadEntryController];
-                                      }];
-        [subCells addObject:subCellInfo];
-
-        subCellInfo = [CellInfo cellInfoWithTitle:V2Localize(@"MLVB.MainMenu.UGSVApp")
-                                      actionBlock:^{
-                                          [[UIApplication sharedApplication] openURL:[NSURL URLWithString:XiaoShiPinAppStoreURLString]];
-                                      }];
-        [subCells addObject:subCellInfo];
-
-        subCells;
-    });
-}
-#endif
 
 - (void)initUI {
     int     originX = 15;
@@ -831,7 +407,7 @@ static NSString *const trtcAppStoreURLString       = @"http://itunes.apple.com/c
 
     [_cellInfos removeAllObjects];
     self.addNewCellInfos = nil;
-    [self createEnterpriseCellInfos];
+    [self loadCellInfos];
     [self.tableView reloadData];
 }
 #endif
@@ -867,6 +443,40 @@ static NSString *const trtcAppStoreURLString       = @"http://itunes.apple.com/c
     }
 
     return nil;
+}
+#ifdef ENABLE_UGC
+#pragma mark - TXMemuProtocol
+- (void)showRecordEntryController {
+    [self.ugcRecordWrapper showRecordEntryController];
+}
+
+- (void)showideoEditEntryController {
+    [self.ugcEditWrapper showEditEntryControllerWithType:UGCKitMediaTypeVideo];
+}
+
+- (void)showVideoJoinEntryController {
+    [self.ugcJoinWrapper showVideoJoinEntryController];
+}
+
+- (void)showPhotoEditController {
+    [self.ugcEditWrapper showEditEntryControllerWithType:UGCKitMediaTypePhoto];
+}
+
+- (void)showVideoUploadEntryController {
+    [self.ugcUploadWrapper showVideoUploadEntryController];
+}
+#endif
+
+- (void)showXiaoZhiBoAppStore {
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:XiaoZhiBoAppStoreURLString]];
+}
+
+- (void)showXiaoShiPinAppStore {
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:XiaoShiPinAppStoreURLString]];
+}
+
+- (void)showTrtcAppStore {
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:trtcAppStoreURLString]];
 }
 
 @end

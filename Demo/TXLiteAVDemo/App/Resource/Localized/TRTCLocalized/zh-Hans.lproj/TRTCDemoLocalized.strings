@@ -368,11 +368,9 @@
 
 "Demo.TRTC.Login.setavatar" = "设置头像";
 "Demo.TRTC.Login.done" = "确认";
-
 "Demo.TRTC.Live.trtcSpeedTest" = "网络测速";
 "Demo.TRTC.Live.trtcLive" = "连麦互动";
 "Demo.TRTC.Live.trtcCalling" = "视频通话";
-
 "Demo.TRTC.Live.speedTest" = "开始测速";
 "Demo.TRTC.Live.stopSpeedTest" = "停止测速";
 "Demo.TRTC.Live.enterRoom" = "创建并自动加入房间";
@@ -500,6 +498,7 @@
 "Demo.TRTC.Live.earPhoneMode" = "听筒模式";
 "Demo.TRTC.Live.agc" = "自动增益";
 "Demo.TRTC.Live.volumeEvaluation" = "音量提示";
+"Demo.TRTC.Live.audiobitrate" = "音频码率";
 
 "Demo.TRTC.Live.stream" = "混流";
 "Demo.TRTC.Live.streamUrl" = "播放地址";
