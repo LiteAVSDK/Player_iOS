@@ -6,7 +6,7 @@
 #import "SPPlayCGIParser.h"
 #import "SuperPlayer.h"
 #import "SuperPlayerModelInternal.h"
-#import <TXVodPlayer.h>
+#import "TXVodPlayer.h"
 
 const NSString *kPlayCGIHostname          = @"playvideo.qcloud.com";
 NSString *const kErrorDomain              = @"SuperPlayerCGI";
