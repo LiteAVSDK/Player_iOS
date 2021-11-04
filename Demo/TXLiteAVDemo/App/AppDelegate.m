@@ -42,8 +42,7 @@
 
 #if !defined(UGC) && !defined(PLAYER)
 #import <ImSDK/ImSDK.h>
-
-#import "TXLiteAVDemo-Swift.h"
+#import "LoginViewController.h"
 #endif
 
 #if defined(ENTERPRISE) || defined(PROFESSIONAL) || defined(SMART) || defined(TRTC)

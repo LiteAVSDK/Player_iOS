@@ -19,7 +19,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>$(MARKETING_VERSION)</string>
+	<string>9.3.1409</string>
 	<key>CFBundleSignature</key>
 	<string>BNDL</string>
 	<key>CFBundleURLTypes</key>

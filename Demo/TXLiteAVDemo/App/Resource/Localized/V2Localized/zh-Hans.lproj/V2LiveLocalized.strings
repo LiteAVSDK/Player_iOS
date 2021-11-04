@@ -58,6 +58,8 @@
 "V2.Live.LinkMicNew.setpayloadtype" = "PayloadType";
 "V2.Live.LinkMicNew.setting" = "设置";
 "V2.Live.LinkMicNew.enableSEI" = "开启SEI消息";
+"V2.Live.LinkMicNew.seipayloadtype" = "SEI payloadType: ";
+"V2.Live.LinkMicNew.seipayloadtypeinvalid" = "SEI payloadType 非法！只能是5或者242.";
 
 "V2.Live.LinkMicNew.startvirtualcamera" = "开启垫片推流";
 "V2.Live.LinkMicNew.snapshot" = "截图";
@@ -107,6 +109,8 @@
 "V2.Live.LinkMicNew.verificationcodesent" = "验证码已发送";
 "V2.Live.LinkMicNew.getverificationcode" = "获取验证码";
 "V2.Live.LinkMicNew.loginsuccess" = "登录成功";
+"V2.Live.LinkMicNew.loginfail" = "登录失败";
+
 "V2.Live.LinkMicNew.termsandconditions" = "用户协议";
 "V2.Live.LinkMicNew.agree" = "同意";
 "V2.Live.LinkMicNew.disagree" = "不同意";
@@ -117,6 +121,10 @@
 "V2.Live.LoginMock.regist" = "注册";
 "V2.Live.LoginMock.adduserinformationforfirstlogin" = "首次登录请补充用户信息";
 "V2.Live.LoginMock.enterusername" = "请输入用户名";
+"V2.Live.LoginMock.username" = "用户名";
+"V2.Live.LoginMock.warnTip" = "限中文、数字、字母或下划线，2-20个字";
+
+
 "V2.Live.LoginMock.registsuccess" = "注册成功";
 "V2.Live.LoginMock.mobilenumber" = "手机号";
 "V2.Live.LoginMock.verificationcode" = "验证码";
@@ -207,6 +215,7 @@
 "MLVB.MainMenu.Player" = "播放器";
 "MLVB.MainMenu.SuperPlayer" = "超级播放器";
 "MLVB.MainMenu.VodPlayer" = "点播播放器";
+"MLVB.MainMenu.shortVideoPlay" = "短视频播放";
 
 "MLVB.MainMenu.Scene" = "场景应用";
 "MLVB.MainMenu.LVBLite" = "小直播";

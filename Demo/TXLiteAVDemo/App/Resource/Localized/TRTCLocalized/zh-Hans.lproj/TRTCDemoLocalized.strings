@@ -523,6 +523,11 @@
 "Demo.TRTC.Live.volumeNum" = "音量大小";
 
 "Demo.TRTC.Live.encoderType" = "编码类型";
+"Demo.TRTC.Live.codecType" = "软硬编码设置";
+"Demo.TRTC.Live.codecTypeHard" = "硬件编码";
+"Demo.TRTC.Live.codecTypeSoft" = "软件编码";
+
+
 "Demo.TRTC.Live.close" = "关闭";
 "Demo.TRTC.Live.open" = "开启";
 "Demo.TRTC.Live.normal" = "正常";
@@ -534,6 +539,8 @@
 "Demo.TRTC.Live.audioReceive" = "音频接收";
 "Demo.TRTC.Live.videoReceive" = "视频接收";
 "Demo.TRTC.Live.notChoose" = "不选";
+"Demo.TRTC.Live.inputUrl" = "请输入推拉流地址";
+"Demo.TRTC.Live.copyUrl" = "请拷贝推拉流地址";
 //
 
 "Demo.TRTC.Live.collectSolution" = "采集分辨率";
@@ -550,6 +557,8 @@
 "Demo.TRTC.Live.brightness" = "画面亮度";
 "Demo.TRTC.Live.voiceCapture" = "声音采集";
 "Demo.TRTC.Live.earVolume" = "耳返音量";
+"Demo.TRTC.Live.voicePitch" = "音调设置";
+
 "Demo.TRTC.Live.handsFree" = "免提模式";
 "Demo.TRTC.Live.audioRecordingType" = "音频录制类型";
 "Demo.TRTC.Live.default" = "默认";

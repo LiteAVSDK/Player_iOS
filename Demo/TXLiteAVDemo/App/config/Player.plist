@@ -20,6 +20,12 @@
 					<key>title</key>
 					<string>MLVB.MainMenu.SuperPlayer</string>
 				</dict>
+				<dict>
+					<key>class</key>
+					<string>ShortVideoPlayViewController</string>
+					<key>title</key>
+					<string>MLVB.MainMenu.shortVideoPlay</string>
+				</dict>
 			</array>
 			<key>title</key>
 			<string>MLVB.MainMenu.Player</string>

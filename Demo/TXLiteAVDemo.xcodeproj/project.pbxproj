@@ -57,6 +57,31 @@
 		47E8C8CC260AECC4001CF672 /* TRTCDemoLocalized.strings in Resources */ = {isa = PBXBuildFile; fileRef = 47E8C88C260AECC4001CF672 /* TRTCDemoLocalized.strings */; };
 		47E8C8D9260AECC4001CF672 /* LivePlayerLocalized.strings in Resources */ = {isa = PBXBuildFile; fileRef = 47E8C890260AECC4001CF672 /* LivePlayerLocalized.strings */; };
 		47E8C8E6260AECC4001CF672 /* AppLocalized.m in Sources */ = {isa = PBXBuildFile; fileRef = 47E8C893260AECC4001CF672 /* AppLocalized.m */; };
+		6BF315D4271E715300D4A72C /* ShortVideo.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6BF315D2271E715300D4A72C /* ShortVideo.xcassets */; };
+		6BF315E1271E71A700D4A72C /* TXVideoViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BF315DF271E71A700D4A72C /* TXVideoViewModel.m */; };
+		6BF315F9271E723000D4A72C /* TXTimeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BF315F7271E723000D4A72C /* TXTimeView.m */; };
+		6BF31603271E725C00D4A72C /* TXSliderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BF31601271E725C00D4A72C /* TXSliderView.m */; };
+		6BF3160D271E728400D4A72C /* TXLeftSlideGuideView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BF3160B271E728400D4A72C /* TXLeftSlideGuideView.m */; };
+		6BF31617271E72AB00D4A72C /* TXPauseGuideView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BF31615271E72AB00D4A72C /* TXPauseGuideView.m */; };
+		6BF31622271E72DD00D4A72C /* TXProgressSlideGuideView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BF31620271E72DC00D4A72C /* TXProgressSlideGuideView.m */; };
+		6BF31632271E730600D4A72C /* TXUpSlideGuideView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BF31630271E730600D4A72C /* TXUpSlideGuideView.m */; };
+		6BF3163C271E733000D4A72C /* TXLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BF3163A271E733000D4A72C /* TXLoadingView.m */; };
+		6BF31646271E735A00D4A72C /* TXLineLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BF31644271E735A00D4A72C /* TXLineLoadingView.m */; };
+		6BF31650271E738600D4A72C /* TXVideoBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BF3164E271E738600D4A72C /* TXVideoBaseView.m */; };
+		6BF3165A271E73B900D4A72C /* TXTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BF31658271E73B900D4A72C /* TXTableViewCell.m */; };
+		6BF31664271E73E400D4A72C /* TXVideoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BF31662271E73E400D4A72C /* TXVideoCell.m */; };
+		6BF3166E271E742200D4A72C /* UIScrollView+GestureConflict.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BF3166C271E742200D4A72C /* UIScrollView+GestureConflict.m */; };
+		6BF31678271E745100D4A72C /* UITableView+indexPath.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BF31676271E745100D4A72C /* UITableView+indexPath.m */; };
+		6BF31682271E748200D4A72C /* SuperShortVideoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BF31680271E748200D4A72C /* SuperShortVideoView.m */; };
+		6BF31695271E74E800D4A72C /* TXVideoRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BF31693271E74E800D4A72C /* TXVideoRequest.m */; };
+		6BF316A0271E752600D4A72C /* TXPlayerCacheManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BF3169E271E752600D4A72C /* TXPlayerCacheManager.m */; };
+		6BF316AA271E754C00D4A72C /* TXVideoPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BF316A8271E754C00D4A72C /* TXVideoPlayer.m */; };
+		6BF316BB271E757F00D4A72C /* TXVideoUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BF316B9271E757F00D4A72C /* TXVideoUtils.m */; };
+		6BF316C5271E75AE00D4A72C /* TXVideoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BF316C3271E75AE00D4A72C /* TXVideoModel.m */; };
+		6BF316D5271E75DD00D4A72C /* ShortVideoMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BF316D3271E75DD00D4A72C /* ShortVideoMainViewController.m */; };
+		6BF316DF271E760700D4A72C /* ShortVideoPlayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BF316DD271E760700D4A72C /* ShortVideoPlayViewController.m */; };
+		6BF316E9271E762F00D4A72C /* TXVideoListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BF316E7271E762F00D4A72C /* TXVideoListViewController.m */; };
+		6BF316F3271E767400D4A72C /* TXCollectionLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BF316F1271E767400D4A72C /* TXCollectionLayout.m */; };
 		7B107D8F4C4B5BF9184EC193 /* libPods-TXLiteAVDemo_Player.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 47258C0972C94E28C1B82D68 /* libPods-TXLiteAVDemo_Player.a */; };
 		883AC83326AEA0A500C3A1B7 /* TCUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 47E8CAD9260B5C06001CF672 /* TCUtil.m */; };
 		883AC83626AEA0AA00C3A1B7 /* TCLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 47E8CAD8260B5C06001CF672 /* TCLog.m */; };
@@ -103,20 +128,6 @@
 			remoteGlobalIDString = 4579C3FA23AC660C005ECC1C;
 			remoteInfo = TCBeautyPanelResources;
 		};
-		40B5C6822484BBE500D3A718 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 401A9B3D247FCC7600C0763B /* AudioEffectSettingKit.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 40AF719A247D036200EBB371;
-			remoteInfo = AudioEffectSettingKit;
-		};
-		40B5C6862484BBE500D3A718 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 401A9B3D247FCC7600C0763B /* AudioEffectSettingKit.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 40AF71C9247D08F700EBB371;
-			remoteInfo = AudioEffectSettingKitResources;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -133,19 +144,11 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		17EB75B426E9BC5200D09EC8 /* Smart.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Smart.plist; sourceTree = "<group>"; };
-		17EB75B526E9BC5200D09EC8 /* LIVE.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = LIVE.plist; sourceTree = "<group>"; };
-		17EB75B626E9BC5200D09EC8 /* UGC.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = UGC.plist; sourceTree = "<group>"; };
-		17EB75B826E9BC5200D09EC8 /* Enterprise.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Enterprise.plist; sourceTree = "<group>"; };
 		17EB75B926E9BC5200D09EC8 /* Player.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Player.plist; sourceTree = "<group>"; };
-		17EB75BB26E9BC5200D09EC8 /* Professional.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Professional.plist; sourceTree = "<group>"; };
-		17EB75BC26E9BC5200D09EC8 /* International.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = International.plist; sourceTree = "<group>"; };
-		17EB75BD26E9BC5200D09EC8 /* TRTC.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = TRTC.plist; sourceTree = "<group>"; };
 		17EB760926E9BCCC00D09EC8 /* TXConfigManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TXConfigManager.h; sourceTree = "<group>"; };
 		17EB760A26E9BCCC00D09EC8 /* TXConfigManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TXConfigManager.m; sourceTree = "<group>"; };
 		2840D91B24B8562200723FBC /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		400923B31F4FCC6E009B882D /* TXLiteAVDemo_Player.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TXLiteAVDemo_Player.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		401A9B3D247FCC7600C0763B /* AudioEffectSettingKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = AudioEffectSettingKit.xcodeproj; sourceTree = "<group>"; };
 		402A00DD2450552E0037A219 /* TXLiteAVDemo-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TXLiteAVDemo-Bridging-Header.h"; sourceTree = "<group>"; };
 		402A010024506F740037A219 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = App/main.m; sourceTree = "<group>"; };
 		402A010724506F9C0037A219 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = App/Info.plist; sourceTree = "<group>"; };
@@ -155,7 +158,6 @@
 		4053392624654D2700A6B478 /* TCHttpUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCHttpUtil.h; sourceTree = "<group>"; };
 		4071CF5924441578000B7707 /* TXLiteAVSDK_Player.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TXLiteAVSDK_Player.framework; sourceTree = "<group>"; };
 		4071CF702444477A000B7707 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
-		40802A272484BBBE008151C1 /* AudioEffectSettingKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = AudioEffectSettingKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		40A49D5E24598CD200BFCB18 /* UGCKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = UGCKit.xcodeproj; path = UGCKit/UGCKit.xcodeproj; sourceTree = "<group>"; };
 		40A7CFED2461102E00E792A5 /* SuperPlayer.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = SuperPlayer.bundle; path = SuperPlayer/Resource/SuperPlayer.bundle; sourceTree = "<group>"; };
 		40AA533524458EC800303EF7 /* TCBeautyPanel.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = TCBeautyPanel.xcodeproj; sourceTree = "<group>"; };
@@ -242,9 +244,58 @@
 		47E8CADB260B5C06001CF672 /* ColorMacro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorMacro.h; sourceTree = "<group>"; };
 		47E8CCCE260C4EB2001CF672 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		47E8CCD6260C4EE3001CF672 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
-		4FE10FF126F5D35A00DE6B9E /* BuglyOA.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BuglyOA.framework; sourceTree = "<group>"; };
 		51A289F8230FB93A00B9B73F /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
 		51A4AD391F1F8AE300B4A806 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
+		6BF315D2271E715300D4A72C /* ShortVideo.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = ShortVideo.xcassets; sourceTree = "<group>"; };
+		6BF315DE271E71A700D4A72C /* TXVideoViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TXVideoViewModel.h; sourceTree = "<group>"; };
+		6BF315DF271E71A700D4A72C /* TXVideoViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TXVideoViewModel.m; sourceTree = "<group>"; };
+		6BF315F6271E723000D4A72C /* TXTimeView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TXTimeView.h; sourceTree = "<group>"; };
+		6BF315F7271E723000D4A72C /* TXTimeView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TXTimeView.m; sourceTree = "<group>"; };
+		6BF31600271E725C00D4A72C /* TXSliderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TXSliderView.h; sourceTree = "<group>"; };
+		6BF31601271E725C00D4A72C /* TXSliderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TXSliderView.m; sourceTree = "<group>"; };
+		6BF3160A271E728400D4A72C /* TXLeftSlideGuideView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TXLeftSlideGuideView.h; sourceTree = "<group>"; };
+		6BF3160B271E728400D4A72C /* TXLeftSlideGuideView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TXLeftSlideGuideView.m; sourceTree = "<group>"; };
+		6BF31614271E72AB00D4A72C /* TXPauseGuideView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TXPauseGuideView.h; sourceTree = "<group>"; };
+		6BF31615271E72AB00D4A72C /* TXPauseGuideView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TXPauseGuideView.m; sourceTree = "<group>"; };
+		6BF3161F271E72DC00D4A72C /* TXProgressSlideGuideView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TXProgressSlideGuideView.h; sourceTree = "<group>"; };
+		6BF31620271E72DC00D4A72C /* TXProgressSlideGuideView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TXProgressSlideGuideView.m; sourceTree = "<group>"; };
+		6BF3162F271E730600D4A72C /* TXUpSlideGuideView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TXUpSlideGuideView.h; sourceTree = "<group>"; };
+		6BF31630271E730600D4A72C /* TXUpSlideGuideView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TXUpSlideGuideView.m; sourceTree = "<group>"; };
+		6BF31639271E733000D4A72C /* TXLoadingView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TXLoadingView.h; sourceTree = "<group>"; };
+		6BF3163A271E733000D4A72C /* TXLoadingView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TXLoadingView.m; sourceTree = "<group>"; };
+		6BF31643271E735A00D4A72C /* TXLineLoadingView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TXLineLoadingView.h; sourceTree = "<group>"; };
+		6BF31644271E735A00D4A72C /* TXLineLoadingView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TXLineLoadingView.m; sourceTree = "<group>"; };
+		6BF3164D271E738600D4A72C /* TXVideoBaseView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TXVideoBaseView.h; sourceTree = "<group>"; };
+		6BF3164E271E738600D4A72C /* TXVideoBaseView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TXVideoBaseView.m; sourceTree = "<group>"; };
+		6BF31657271E73B900D4A72C /* TXTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TXTableViewCell.h; sourceTree = "<group>"; };
+		6BF31658271E73B900D4A72C /* TXTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TXTableViewCell.m; sourceTree = "<group>"; };
+		6BF31661271E73E400D4A72C /* TXVideoCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TXVideoCell.h; sourceTree = "<group>"; };
+		6BF31662271E73E400D4A72C /* TXVideoCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TXVideoCell.m; sourceTree = "<group>"; };
+		6BF3166B271E742200D4A72C /* UIScrollView+GestureConflict.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+GestureConflict.h"; sourceTree = "<group>"; };
+		6BF3166C271E742200D4A72C /* UIScrollView+GestureConflict.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+GestureConflict.m"; sourceTree = "<group>"; };
+		6BF31675271E745100D4A72C /* UITableView+indexPath.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UITableView+indexPath.h"; sourceTree = "<group>"; };
+		6BF31676271E745100D4A72C /* UITableView+indexPath.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UITableView+indexPath.m"; sourceTree = "<group>"; };
+		6BF3167F271E748200D4A72C /* SuperShortVideoView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SuperShortVideoView.h; sourceTree = "<group>"; };
+		6BF31680271E748200D4A72C /* SuperShortVideoView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SuperShortVideoView.m; sourceTree = "<group>"; };
+		6BF3168A271E74BC00D4A72C /* TXVideoPlayMem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TXVideoPlayMem.h; sourceTree = "<group>"; };
+		6BF31692271E74E800D4A72C /* TXVideoRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TXVideoRequest.h; sourceTree = "<group>"; };
+		6BF31693271E74E800D4A72C /* TXVideoRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TXVideoRequest.m; sourceTree = "<group>"; };
+		6BF3169D271E752600D4A72C /* TXPlayerCacheManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TXPlayerCacheManager.h; sourceTree = "<group>"; };
+		6BF3169E271E752600D4A72C /* TXPlayerCacheManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TXPlayerCacheManager.m; sourceTree = "<group>"; };
+		6BF316A7271E754C00D4A72C /* TXVideoPlayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TXVideoPlayer.h; sourceTree = "<group>"; };
+		6BF316A8271E754C00D4A72C /* TXVideoPlayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TXVideoPlayer.m; sourceTree = "<group>"; };
+		6BF316B8271E757F00D4A72C /* TXVideoUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TXVideoUtils.h; sourceTree = "<group>"; };
+		6BF316B9271E757F00D4A72C /* TXVideoUtils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TXVideoUtils.m; sourceTree = "<group>"; };
+		6BF316C2271E75AE00D4A72C /* TXVideoModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TXVideoModel.h; sourceTree = "<group>"; };
+		6BF316C3271E75AE00D4A72C /* TXVideoModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TXVideoModel.m; sourceTree = "<group>"; };
+		6BF316D2271E75DD00D4A72C /* ShortVideoMainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShortVideoMainViewController.h; sourceTree = "<group>"; };
+		6BF316D3271E75DD00D4A72C /* ShortVideoMainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShortVideoMainViewController.m; sourceTree = "<group>"; };
+		6BF316DC271E760700D4A72C /* ShortVideoPlayViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShortVideoPlayViewController.h; sourceTree = "<group>"; };
+		6BF316DD271E760700D4A72C /* ShortVideoPlayViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShortVideoPlayViewController.m; sourceTree = "<group>"; };
+		6BF316E6271E762F00D4A72C /* TXVideoListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TXVideoListViewController.h; sourceTree = "<group>"; };
+		6BF316E7271E762F00D4A72C /* TXVideoListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TXVideoListViewController.m; sourceTree = "<group>"; };
+		6BF316F0271E767400D4A72C /* TXCollectionLayout.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TXCollectionLayout.h; sourceTree = "<group>"; };
+		6BF316F1271E767400D4A72C /* TXCollectionLayout.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TXCollectionLayout.m; sourceTree = "<group>"; };
 		7B4C917A24B4B0C80095C041 /* TXLaunchMoviePlayProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TXLaunchMoviePlayProtocol.h; sourceTree = "<group>"; };
 		910E179D2080A27500178D86 /* TXMoviePlayerNetApi.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TXMoviePlayerNetApi.h; sourceTree = "<group>"; };
 		910E179E2080A27500178D86 /* TXMoviePlayerNetApi.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TXMoviePlayerNetApi.m; sourceTree = "<group>"; };
@@ -312,14 +363,7 @@
 		17EB75B326E9BC5200D09EC8 /* config */ = {
 			isa = PBXGroup;
 			children = (
-				17EB75B426E9BC5200D09EC8 /* Smart.plist */,
-				17EB75B526E9BC5200D09EC8 /* LIVE.plist */,
-				17EB75B626E9BC5200D09EC8 /* UGC.plist */,
-				17EB75B826E9BC5200D09EC8 /* Enterprise.plist */,
 				17EB75B926E9BC5200D09EC8 /* Player.plist */,
-				17EB75BB26E9BC5200D09EC8 /* Professional.plist */,
-				17EB75BC26E9BC5200D09EC8 /* International.plist */,
-				17EB75BD26E9BC5200D09EC8 /* TRTC.plist */,
 			);
 			path = config;
 			sourceTree = "<group>";
@@ -388,15 +432,6 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		40B5C67D2484BBE500D3A718 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				40B5C6832484BBE500D3A718 /* AudioEffectSettingKit.framework */,
-				40B5C6872484BBE500D3A718 /* AudioEffectSettingKitResources.bundle */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		40F852FA1EE8FB3800EE47D7 = {
 			isa = PBXGroup;
 			children = (
@@ -419,6 +454,7 @@
 		40F853051EE8FB3800EE47D7 /* TXLiteAVDemo */ = {
 			isa = PBXGroup;
 			children = (
+				6BF315A9271E705900D4A72C /* UGCShortVideoPlayDemo */,
 				40F853241EE8FC8400EE47D7 /* App */,
 				40F8531D1EE8FC1E00EE47D7 /* Supporting Files */,
 				405874162445AA10009B3503 /* SuperPlayerKit */,
@@ -445,7 +481,6 @@
 		40F853241EE8FC8400EE47D7 /* App */ = {
 			isa = PBXGroup;
 			children = (
-				4FE10FED26F5D28400DE6B9E /* Bugly */,
 				17EB75B326E9BC5200D09EC8 /* config */,
 				47E8CCBC260C4090001CF672 /* TRTCInfoPlist */,
 				47E8CAAB260B5C05001CF672 /* AppCommon */,
@@ -490,7 +525,6 @@
 				4717324D26705C4A005F772E /* FFmpeg.xcframework */,
 				4717324E26705C4A005F772E /* SoundTouch.xcframework */,
 				2840D91B24B8562200723FBC /* AudioToolbox.framework */,
-				40802A272484BBBE008151C1 /* AudioEffectSettingKit.framework */,
 				40AA539724459DF900303EF7 /* UGCKit.framework */,
 				4071CF702444477A000B7707 /* libsqlite3.0.tbd */,
 				51A289F8230FB93A00B9B73F /* OpenAL.framework */,
@@ -661,12 +695,197 @@
 			path = TRTCInfoPlist;
 			sourceTree = "<group>";
 		};
-		4FE10FED26F5D28400DE6B9E /* Bugly */ = {
+		6BF315A9271E705900D4A72C /* UGCShortVideoPlayDemo */ = {
 			isa = PBXGroup;
 			children = (
-				4FE10FF126F5D35A00DE6B9E /* BuglyOA.framework */,
+				6BF315DD271E717700D4A72C /* ViewModel */,
+				6BF315DC271E716900D4A72C /* View */,
+				6BF315DB271E715E00D4A72C /* Tools */,
+				6BF315D2271E715300D4A72C /* ShortVideo.xcassets */,
+				6BF315AB271E707200D4A72C /* Model */,
+				6BF315AA271E706800D4A72C /* Controller */,
 			);
-			path = Bugly;
+			path = UGCShortVideoPlayDemo;
+			sourceTree = "<group>";
+		};
+		6BF315AA271E706800D4A72C /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				6BF316D2271E75DD00D4A72C /* ShortVideoMainViewController.h */,
+				6BF316D3271E75DD00D4A72C /* ShortVideoMainViewController.m */,
+				6BF316DC271E760700D4A72C /* ShortVideoPlayViewController.h */,
+				6BF316DD271E760700D4A72C /* ShortVideoPlayViewController.m */,
+				6BF316E6271E762F00D4A72C /* TXVideoListViewController.h */,
+				6BF316E7271E762F00D4A72C /* TXVideoListViewController.m */,
+				6BF316F0271E767400D4A72C /* TXCollectionLayout.h */,
+				6BF316F1271E767400D4A72C /* TXCollectionLayout.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		6BF315AB271E707200D4A72C /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				6BF316C2271E75AE00D4A72C /* TXVideoModel.h */,
+				6BF316C3271E75AE00D4A72C /* TXVideoModel.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		6BF315DB271E715E00D4A72C /* Tools */ = {
+			isa = PBXGroup;
+			children = (
+				6BF316B7271E756B00D4A72C /* Utils */,
+				6BF3169C271E751100D4A72C /* TXVideoPlayer */,
+				6BF3168B271E74D000D4A72C /* Request */,
+				6BF31689271E74A600D4A72C /* Others */,
+			);
+			path = Tools;
+			sourceTree = "<group>";
+		};
+		6BF315DC271E716900D4A72C /* View */ = {
+			isa = PBXGroup;
+			children = (
+				6BF315F5271E721700D4A72C /* TXTimeView */,
+				6BF315F4271E720200D4A72C /* TXSliderView */,
+				6BF315F3271E71F800D4A72C /* TXShortVideoGuideView */,
+				6BF315F2271E71EF00D4A72C /* TXLoadingView */,
+				6BF315F1271E71E600D4A72C /* TXLineLoadingView */,
+				6BF315F0271E71DC00D4A72C /* TXBaseView */,
+				6BF315EF271E71D300D4A72C /* Cell */,
+				6BF315EE271E71C800D4A72C /* Category */,
+				6BF3167F271E748200D4A72C /* SuperShortVideoView.h */,
+				6BF31680271E748200D4A72C /* SuperShortVideoView.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		6BF315DD271E717700D4A72C /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				6BF315DE271E71A700D4A72C /* TXVideoViewModel.h */,
+				6BF315DF271E71A700D4A72C /* TXVideoViewModel.m */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		6BF315EE271E71C800D4A72C /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				6BF3166B271E742200D4A72C /* UIScrollView+GestureConflict.h */,
+				6BF3166C271E742200D4A72C /* UIScrollView+GestureConflict.m */,
+				6BF31675271E745100D4A72C /* UITableView+indexPath.h */,
+				6BF31676271E745100D4A72C /* UITableView+indexPath.m */,
+			);
+			path = Category;
+			sourceTree = "<group>";
+		};
+		6BF315EF271E71D300D4A72C /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				6BF31657271E73B900D4A72C /* TXTableViewCell.h */,
+				6BF31658271E73B900D4A72C /* TXTableViewCell.m */,
+				6BF31661271E73E400D4A72C /* TXVideoCell.h */,
+				6BF31662271E73E400D4A72C /* TXVideoCell.m */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		6BF315F0271E71DC00D4A72C /* TXBaseView */ = {
+			isa = PBXGroup;
+			children = (
+				6BF3164D271E738600D4A72C /* TXVideoBaseView.h */,
+				6BF3164E271E738600D4A72C /* TXVideoBaseView.m */,
+			);
+			path = TXBaseView;
+			sourceTree = "<group>";
+		};
+		6BF315F1271E71E600D4A72C /* TXLineLoadingView */ = {
+			isa = PBXGroup;
+			children = (
+				6BF31643271E735A00D4A72C /* TXLineLoadingView.h */,
+				6BF31644271E735A00D4A72C /* TXLineLoadingView.m */,
+			);
+			path = TXLineLoadingView;
+			sourceTree = "<group>";
+		};
+		6BF315F2271E71EF00D4A72C /* TXLoadingView */ = {
+			isa = PBXGroup;
+			children = (
+				6BF31639271E733000D4A72C /* TXLoadingView.h */,
+				6BF3163A271E733000D4A72C /* TXLoadingView.m */,
+			);
+			path = TXLoadingView;
+			sourceTree = "<group>";
+		};
+		6BF315F3271E71F800D4A72C /* TXShortVideoGuideView */ = {
+			isa = PBXGroup;
+			children = (
+				6BF3160A271E728400D4A72C /* TXLeftSlideGuideView.h */,
+				6BF3160B271E728400D4A72C /* TXLeftSlideGuideView.m */,
+				6BF31614271E72AB00D4A72C /* TXPauseGuideView.h */,
+				6BF31615271E72AB00D4A72C /* TXPauseGuideView.m */,
+				6BF3161F271E72DC00D4A72C /* TXProgressSlideGuideView.h */,
+				6BF31620271E72DC00D4A72C /* TXProgressSlideGuideView.m */,
+				6BF3162F271E730600D4A72C /* TXUpSlideGuideView.h */,
+				6BF31630271E730600D4A72C /* TXUpSlideGuideView.m */,
+			);
+			path = TXShortVideoGuideView;
+			sourceTree = "<group>";
+		};
+		6BF315F4271E720200D4A72C /* TXSliderView */ = {
+			isa = PBXGroup;
+			children = (
+				6BF31600271E725C00D4A72C /* TXSliderView.h */,
+				6BF31601271E725C00D4A72C /* TXSliderView.m */,
+			);
+			path = TXSliderView;
+			sourceTree = "<group>";
+		};
+		6BF315F5271E721700D4A72C /* TXTimeView */ = {
+			isa = PBXGroup;
+			children = (
+				6BF315F6271E723000D4A72C /* TXTimeView.h */,
+				6BF315F7271E723000D4A72C /* TXTimeView.m */,
+			);
+			path = TXTimeView;
+			sourceTree = "<group>";
+		};
+		6BF31689271E74A600D4A72C /* Others */ = {
+			isa = PBXGroup;
+			children = (
+				6BF3168A271E74BC00D4A72C /* TXVideoPlayMem.h */,
+			);
+			path = Others;
+			sourceTree = "<group>";
+		};
+		6BF3168B271E74D000D4A72C /* Request */ = {
+			isa = PBXGroup;
+			children = (
+				6BF31692271E74E800D4A72C /* TXVideoRequest.h */,
+				6BF31693271E74E800D4A72C /* TXVideoRequest.m */,
+			);
+			path = Request;
+			sourceTree = "<group>";
+		};
+		6BF3169C271E751100D4A72C /* TXVideoPlayer */ = {
+			isa = PBXGroup;
+			children = (
+				6BF3169D271E752600D4A72C /* TXPlayerCacheManager.h */,
+				6BF3169E271E752600D4A72C /* TXPlayerCacheManager.m */,
+				6BF316A7271E754C00D4A72C /* TXVideoPlayer.h */,
+				6BF316A8271E754C00D4A72C /* TXVideoPlayer.m */,
+			);
+			path = TXVideoPlayer;
+			sourceTree = "<group>";
+		};
+		6BF316B7271E756B00D4A72C /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				6BF316B8271E757F00D4A72C /* TXVideoUtils.h */,
+				6BF316B9271E757F00D4A72C /* TXVideoUtils.m */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 		912A62052160D78A00C16E41 /* CFDanmaku */ = {
@@ -798,10 +1017,6 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = 40B5C67D2484BBE500D3A718 /* Products */;
-					ProjectRef = 401A9B3D247FCC7600C0763B /* AudioEffectSettingKit.xcodeproj */;
-				},
-				{
 					ProductGroup = 40AA533624458EC800303EF7 /* Products */;
 					ProjectRef = 40AA533524458EC800303EF7 /* TCBeautyPanel.xcodeproj */;
 				},
@@ -846,20 +1061,6 @@
 			remoteRef = 40AA536624458EC800303EF7 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		40B5C6832484BBE500D3A718 /* AudioEffectSettingKit.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = AudioEffectSettingKit.framework;
-			remoteRef = 40B5C6822484BBE500D3A718 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		40B5C6872484BBE500D3A718 /* AudioEffectSettingKitResources.bundle */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = AudioEffectSettingKitResources.bundle;
-			remoteRef = 40B5C6862484BBE500D3A718 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
@@ -874,6 +1075,7 @@
 				4009235A1F4FCC6E009B882D /* LaunchScreen.storyboard in Resources */,
 				47642A9F261491B90020F1BA /* launchimage_en@3x.png in Resources */,
 				47E8C8D9260AECC4001CF672 /* LivePlayerLocalized.strings in Resources */,
+				6BF315D4271E715300D4A72C /* ShortVideo.xcassets in Resources */,
 				40A7CFF02461102E00E792A5 /* SuperPlayer.bundle in Resources */,
 				47E8C898260AECC4001CF672 /* AppPortalLocalized.strings in Resources */,
 				C603F92D2603729D009E3AB2 /* InfoPlist.strings in Resources */,
@@ -937,8 +1139,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				912A62102160D78A00C16E41 /* CFDanmaku.m in Sources */,
+				6BF31678271E745100D4A72C /* UITableView+indexPath.m in Sources */,
 				402A010424506F740037A219 /* main.m in Sources */,
+				6BF31650271E738600D4A72C /* TXVideoBaseView.m in Sources */,
 				47CAEE6726AE9F0800DABA5B /* TCUtil.m in Sources */,
+				6BF316A0271E752600D4A72C /* TXPlayerCacheManager.m in Sources */,
+				6BF315E1271E71A700D4A72C /* TXVideoViewModel.m in Sources */,
 				883AC83326AEA0A500C3A1B7 /* TCUtil.m in Sources */,
 				40A1DF372638415A0011E532 /* UIButton+Additions.m in Sources */,
 				D6BEF8222040368000CBE2BD /* ListVideoCell.m in Sources */,
@@ -947,7 +1153,11 @@
 				40A1DF8F2638419E0011E532 /* UIView+CustomAutoLayout.m in Sources */,
 				4053392724654D2700A6B478 /* TCHttpUtil.m in Sources */,
 				D6BEF8232040368000CBE2BD /* MoviePlayerViewController.m in Sources */,
+				6BF316AA271E754C00D4A72C /* TXVideoPlayer.m in Sources */,
+				6BF316BB271E757F00D4A72C /* TXVideoUtils.m in Sources */,
 				40A1DFA5263841AB0011E532 /* UIViewController+BackButtonHandler.m in Sources */,
+				6BF315F9271E723000D4A72C /* TXTimeView.m in Sources */,
+				6BF31682271E748200D4A72C /* SuperShortVideoView.m in Sources */,
 				912A62222160D78A00C16E41 /* CFDanmakuInfo.m in Sources */,
 				47CAEE6A26AE9F1E00DABA5B /* TCLog.m in Sources */,
 				883AC83626AEA0AA00C3A1B7 /* TCLog.m in Sources */,
@@ -955,18 +1165,34 @@
 				40A1DF79263841950011E532 /* UIImage+Additions.m in Sources */,
 				400922B71F4FCC6E009B882D /* AppDelegate.m in Sources */,
 				40A1DEF52638413F0011E532 /* NSObject+CommonBlock.m in Sources */,
+				6BF316D5271E75DD00D4A72C /* ShortVideoMainViewController.m in Sources */,
 				40A1DED8263841360011E532 /* NSDictionary+Common.m in Sources */,
 				40A1DF0B2638414D0011E532 /* NSString+Common.m in Sources */,
+				6BF31622271E72DD00D4A72C /* TXProgressSlideGuideView.m in Sources */,
+				6BF316F3271E767400D4A72C /* TXCollectionLayout.m in Sources */,
+				6BF31617271E72AB00D4A72C /* TXPauseGuideView.m in Sources */,
+				6BF31603271E725C00D4A72C /* TXSliderView.m in Sources */,
+				6BF3165A271E73B900D4A72C /* TXTableViewCell.m in Sources */,
 				91DB2F03212554B500013D74 /* SuperPlayerGuideView.m in Sources */,
 				910E17A22080A27500178D86 /* TXMoviePlayerNetApi.m in Sources */,
+				6BF31632271E730600D4A72C /* TXUpSlideGuideView.m in Sources */,
 				400922BE1F4FCC6E009B882D /* AppLogMgr.m in Sources */,
+				6BF31695271E74E800D4A72C /* TXVideoRequest.m in Sources */,
 				40A1DEC22638412E0011E532 /* NSData+Common.m in Sources */,
 				400922C11F4FCC6E009B882D /* MainTableViewCell.m in Sources */,
+				6BF316E9271E762F00D4A72C /* TXVideoListViewController.m in Sources */,
+				6BF31646271E735A00D4A72C /* TXLineLoadingView.m in Sources */,
+				6BF31664271E73E400D4A72C /* TXVideoCell.m in Sources */,
+				6BF316DF271E760700D4A72C /* ShortVideoPlayViewController.m in Sources */,
 				400922C71F4FCC6E009B882D /* MainViewController.m in Sources */,
 				910E17AB2080A38400178D86 /* TXMoviePlayInfoResponse.m in Sources */,
+				6BF3160D271E728400D4A72C /* TXLeftSlideGuideView.m in Sources */,
 				912A62342160D78A00C16E41 /* CFDanmakuView.m in Sources */,
+				6BF3163C271E733000D4A72C /* TXLoadingView.m in Sources */,
+				6BF3166E271E742200D4A72C /* UIScrollView+GestureConflict.m in Sources */,
 				47E8C8E6260AECC4001CF672 /* AppLocalized.m in Sources */,
 				45D8449523B643A5001CD3A9 /* UGCUploadList.m in Sources */,
+				6BF316C5271E75AE00D4A72C /* TXVideoModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

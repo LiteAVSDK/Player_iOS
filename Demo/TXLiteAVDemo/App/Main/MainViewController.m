@@ -39,7 +39,6 @@
 #ifdef ENABLE_TRTC
 #import "TRTCLiveEnterViewController.h"
 #import "TRTCSpeedTestViewController.h"
-#import "TXLiteAVDemo-Swift.h"
 #import "TXLiteAVSDK.h"
 #endif
 
@@ -56,9 +55,8 @@
 
 #if !defined(UGC) && !defined(PLAYER)
 #import <ImSDK/ImSDK.h>
-
+#import "MineViewController.h"
 #import "GenerateTestUserSig.h"
-#import "TXLiteAVDemo-Swift.h"
 #endif
 
 #import "AppLocalized.h"
@@ -69,7 +67,16 @@ static NSString *const XiaoZhiBoAppStoreURLString  = @"http://itunes.apple.com/c
 static NSString *const XiaoShiPinAppStoreURLString = @"http://itunes.apple.com/cn/app/id1374099214?mt=8";
 static NSString *const trtcAppStoreURLString       = @"http://itunes.apple.com/cn/app/id1400663224?mt=8";
 
-@interface MainViewController () <UITableViewDelegate, UITableViewDataSource, UIPickerViewDataSource, UIPickerViewDelegate, UIAlertViewDelegate>
+@interface MainViewController () <
+    UITableViewDelegate,
+    UITableViewDataSource,
+    UIPickerViewDataSource,
+    UIPickerViewDelegate,
+#ifdef ENABLE_TRTC
+// TRTC 合唱场景使用
+    TXLiveBaseDelegate,
+#endif
+    UIAlertViewDelegate>
 #ifdef ENABLE_UGC
 @property(strong, nonatomic) UGCRecordWrapper *     ugcRecordWrapper;
 @property(strong, nonatomic) UGCVideoUploadWrapper *ugcUploadWrapper;
@@ -110,6 +117,11 @@ static NSString *const trtcAppStoreURLString       = @"http://itunes.apple.com/c
 #endif
     [self loadCellInfos];
     [self initUI];
+#ifdef ENABLE_TRTC
+    // TRTC 合唱场景使用
+    [TXLiveBase sharedInstance].delegate = self;
+    [TXLiveBase updateNetworkTime];
+#endif
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -478,5 +490,19 @@ static NSString *const trtcAppStoreURLString       = @"http://itunes.apple.com/c
 - (void)showTrtcAppStore {
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:trtcAppStoreURLString]];
 }
+
+#ifdef ENABLE_TRTC
+#pragma mark - TXLiveBaseDelegate
+// TRTC 合唱场景使用
+- (void)onLog:(NSString*)log LogLevel:(int)level WhichModule:(NSString*)module {
+    NSLog(@"level:%d|module:%@| %@\n", level, module, log);
+}
+
+- (void)onUpdateNetworkTime:(int)errCode message:(NSString *)errMsg {
+    if (errCode != 0) {
+        [TXLiveBase updateNetworkTime];
+    }
+}
+#endif
 
 @end

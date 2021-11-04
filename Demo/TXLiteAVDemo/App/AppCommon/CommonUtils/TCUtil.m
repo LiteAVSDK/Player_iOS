@@ -4,9 +4,6 @@
  * Function: 实用函数
  */
 
-#if !defined(UGC) && !defined(PLAYER)
-#import "TXLiteAVDemo-Swift.h"
-#endif
 
 #import <Accelerate/Accelerate.h>
 #import <mach/mach.h>
@@ -525,6 +522,77 @@
     _curCounts += 1;
 
     return YES;
+}
+
+@end
+
+
+#pragma mark - UIActivityViewController图片处理
+
+@implementation UIImage (TCUtilUIActivity)
+
+
+- (UIImage *)shareActivityImage{
+    // 原始尺寸
+    CGSize oldSize = self.size;
+    CGFloat oldImageWidth = oldSize.width;
+    CGFloat oldImageHeight = oldSize.height;
+    
+    UIImage *resultImage = self;
+    // 1. 图片尺寸处理
+    // 最大尺寸临界值 1280
+    CGFloat maxImageValue = 1280;
+    if (oldImageWidth > maxImageValue || oldImageHeight > maxImageValue) {
+        if (oldImageWidth > oldImageHeight) {
+            oldImageHeight = (maxImageValue * oldImageHeight)/oldImageWidth;
+            oldImageWidth = maxImageValue;
+        }else{
+            oldImageWidth = (maxImageValue * oldImageWidth)/oldImageHeight;
+            oldImageHeight = maxImageValue;
+        }
+        resultImage = [TCUtil scaleImage:self scaleToSize:CGSizeMake(oldImageWidth, oldImageHeight)];
+    }
+    // 2. 图片大小处理
+    // QQ: 5M 微信：10M
+    NSUInteger maxLength = 5 * 1024 * 1024;
+    resultImage = [self compressImageSize:resultImage toByte:maxLength];
+    // 3. 返回处理后的结果
+    return resultImage;
+}
+
+/*!
+ *  @brief 使图片压缩后刚好小于指定大小
+ *
+ *  @param image 当前要压缩的图
+ *  @param maxLength 压缩后的最大尺寸限制
+ *
+ *  @return 图片对象
+ */
+- (UIImage *)compressImageSize:(UIImage *)image toByte:(NSUInteger)maxLength{
+    CGFloat compression = 1;
+    NSData *data = UIImageJPEGRepresentation(image, compression);
+    if (!data || ![data isKindOfClass:[NSData class]]) {
+        return image;
+    }
+    if (data.length < maxLength) {
+        return image;
+    }
+    //原图大小超过范围，压缩比采用二分法进行处理
+    CGFloat max = 1;
+    CGFloat min = 0;
+    for (int i = 0; i < 6; ++i) {
+        compression = (max + min) / 2;
+        data = UIImageJPEGRepresentation(image, compression);
+        if (data.length < maxLength * 0.9) {
+            min = compression;
+        } else if (data.length > maxLength) {
+            max = compression;
+        } else {
+            break;
+        }
+    }
+    UIImage *resultImage = [UIImage imageWithData:data];
+    return resultImage;
 }
 
 @end

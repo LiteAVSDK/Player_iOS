@@ -479,11 +479,17 @@
 "Demo.TRTC.Live.picRotation" = "Rotation";
 "Demo.TRTC.Live.volumeNum" = "Volume";
 "Demo.TRTC.Live.encoderType" = "Encoder Type";
+"Demo.TRTC.Live.codecType" = "Choose Encoder";
+"Demo.TRTC.Live.codecTypeHard" = "Hardware Encoder";
+"Demo.TRTC.Live.codecTypeSoft" = "Software Encoder";
+
 "Demo.TRTC.Live.close" = "Close";
 "Demo.TRTC.Live.open" = "Open";
 "Demo.TRTC.Live.normal" = "Normal";
 "Demo.TRTC.Live.audioScene" = "Audio Scene";
 "Demo.TRTC.Live.chorus" = "Chorus";
+"Demo.TRTC.Live.inputUrl" = "Please enter the push-pull Stream Address";
+"Demo.TRTC.Live.copyUrl" = "Please copy the push-pull Stream Address";
 "Demo.TRTC.Live.auto" = "Auto";
 "Demo.TRTC.Live.texture" = "Texture";
 
@@ -508,6 +514,8 @@
 "Demo.TRTC.Live.brightness" = "Brightness";
 "Demo.TRTC.Live.voiceCapture" = "Capture Audio";
 "Demo.TRTC.Live.earVolume" = "In-ear Monitor Volume";
+"Demo.TRTC.Live.voicePitch" = "Voice Pitch";
+
 "Demo.TRTC.Live.handsFree" = "Hands-free";
 "Demo.TRTC.Live.audioRecordingType" = "Audio to Record";
 "Demo.TRTC.Live.default" = "default";

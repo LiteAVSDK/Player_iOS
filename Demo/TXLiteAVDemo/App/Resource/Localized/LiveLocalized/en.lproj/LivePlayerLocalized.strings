@@ -167,8 +167,15 @@
 "LivePusherDemo.CameraPush.loadingxx" = "Loading xxx %";
 "LivePusherDemo.CameraPush.assetsloadsuccess" = "Loaded";
 "LivePusherDemo.CameraPush.assetsloadfailed" = "Failed to load resources";
+"LivePusherDemo.CameraPush.seimessagesendsuccess" = "Send successfully!";
+"LivePusherDemo.CameraPush.seimessagesendfailed" = "Send failed!";
+"LivePusherDemo.CameraPush.send" = "Send";
+"LivePusherDemo.CameraPush.seipayloadtypeinvalid" = "Invalid SEI payload type! Only 5 or 242 allowed.";
+"LivePusherDemo.CameraPush.seidatainvalid" = "SEI data cannot be empty!";
 
 "LivePusherDemo.MoreSetting.screenshots" = "Take";
+"LivePusherDemo.MoreSetting.thisoptionisonly" = "This option is only allowed when using the rear camera";
+"LivePusherDemo.MoreSetting.captureframe" = "Frame Rate";
 "LivePusherDemo.MoreSetting.enableprivacymode" = "Private";
 "LivePusherDemo.MoreSetting.turnonmutemode" = "Mute";
 "LivePusherDemo.MoreSetting.turnonviewmirror" = "Playback Mirror";
@@ -203,6 +210,8 @@
 "LivePusherDemo.PushSetting.openbandwidthadaptation" = "Bandwidth Adaptation";
 "LivePusherDemo.PushSetting.enablehardwareacceleration" = "Hardware Acceleration";
 "LivePusherDemo.PushSetting.opentheearsback" = "In-ear Monitor";
+"LivePusherDemo.PushSetting.seipayloadtype" = "SEI payloadType: ";
+"LivePusherDemo.PushSetting.seidata" = "data: ";
 "LivePusherDemo.PushSetting.qualitypreference" = "Video Quality";
 "LivePusherDemo.PushSetting.thesoundqualitychoice" = "Sound Quality";
 "LivePusherDemo.PushSetting.reverb" = "Reverberation";

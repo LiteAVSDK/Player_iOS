@@ -66,6 +66,8 @@
 "V2.Live.LinkMicNew.setpayloadtype" = "PayloadType";
 "V2.Live.LinkMicNew.setting" = "Set";
 "V2.Live.LinkMicNew.enableSEI" = "Enable SEI Message";
+"V2.Live.LinkMicNew.seipayloadtype" = "SEI payloadType: ";
+"V2.Live.LinkMicNew.seipayloadtypeinvalid" = "Invalid SEI payload type! Only 5 or 242 allowed.";
 
 "V2.Live.LinkMicNew.startvirtualcamera" = "Enable Push Image";
 "V2.Live.LinkMicNew.openwatermark" = "Enable Watermarking";
@@ -108,6 +110,8 @@
 "V2.Live.LinkMicNew.verificationcodesent" = "Sent";
 "V2.Live.LinkMicNew.getverificationcode" = "Get";
 "V2.Live.LinkMicNew.loginsuccess" = "Logged in";
+"V2.Live.LinkMicNew.loginfail" = "Login fail";
+
 "V2.Live.LinkMicNew.termsandconditions" = "Terms and Conditions";
 "V2.Live.LinkMicNew.agree" = "Agree";
 "V2.Live.LinkMicNew.disagree" = "Disagree";
@@ -118,6 +122,9 @@
 "V2.Live.LoginMock.regist" = "Register";
 "V2.Live.LoginMock.adduserinformationforfirstlogin" = "This is your first login. Please complete your profile.";
 "V2.Live.LoginMock.enterusername" = "Enter a username";
+"V2.Live.LoginMock.username" = "Username";
+"V2.Live.LoginMock.warnTip" = "Limited to Chinese, numbers, letters or underscores, 2-20 characters";
+
 "V2.Live.LoginMock.registsuccess" = "Registration successful";
 "V2.Live.LoginMock.mobilenumber" = "Mobile Number";
 "V2.Live.LoginMock.verificationcode" = "Verification Code";
@@ -203,6 +210,7 @@
 "MLVB.MainMenu.Player" = "Player";
 "MLVB.MainMenu.SuperPlayer" = "Super Player";
 "MLVB.MainMenu.VodPlayer" = "On-demand player";
+"MLVB.MainMenu.shortVideoPlay" = "short Video Play";
 
 "MLVB.MainMenu.Scene" = "Scene";
 "MLVB.MainMenu.LVBLite" = "LVB Lite";

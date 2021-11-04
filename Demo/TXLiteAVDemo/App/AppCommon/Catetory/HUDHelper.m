@@ -9,8 +9,6 @@
 #import "HUDHelper.h"
 
 #import "NSString+Common.h"
-#import "TXLiteAVDemo-Swift.h"
-
 @implementation HUDHelper
 
 static HUDHelper *_instance = nil;
@@ -46,7 +44,7 @@ static HUDHelper *_instance = nil;
 }
 
 - (MBProgressHUD *)loading:(NSString *)msg inView:(UIView *)view {
-    UIView *       inView = view ? view : (AppDelegate *)[UIApplication sharedApplication].delegate.window;
+    UIView *       inView = view ? view : [UIApplication sharedApplication].delegate.window;
     MBProgressHUD *hud    = [[MBProgressHUD alloc] initWithView:inView];
 
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -64,7 +62,7 @@ static HUDHelper *_instance = nil;
 
 - (void)loading:(NSString *)msg delay:(CGFloat)seconds execute:(void (^)())exec completion:(void (^)())completion {
     dispatch_async(dispatch_get_main_queue(), ^{
-        UIView *       inView = (AppDelegate *)[UIApplication sharedApplication].delegate.window;
+        UIView *       inView = [UIApplication sharedApplication].delegate.window;
         MBProgressHUD *hud    = [[MBProgressHUD alloc] initWithView:inView];
         if (![NSString isEmpty:msg]) {
             hud.mode       = MBProgressHUDModeText;
@@ -133,7 +131,7 @@ static HUDHelper *_instance = nil;
     }
 
     dispatch_async(dispatch_get_main_queue(), ^{
-        UIWindow *window = (AppDelegate *)[UIApplication sharedApplication].delegate.window;
+        UIWindow *window = [UIApplication sharedApplication].delegate.window;
         //        MBProgressHUD *hud = [[MBProgressHUD alloc] initWithWindow:window];
         MBProgressHUD *hud = [[MBProgressHUD alloc] initWithView:window.rootViewController.view];
         [window addSubview:hud];

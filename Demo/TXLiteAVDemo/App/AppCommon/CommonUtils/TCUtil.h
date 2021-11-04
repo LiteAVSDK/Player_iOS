@@ -64,6 +64,19 @@ static NSString *const kMainMenuDEBUGSwitch = @"kMainMenuDEBUGSwitch";
 
 @end
 
+#pragma mark - UIActivityViewController图片处理
+@interface UIImage (TCUtilUIActivity)
+/**
+ * 通过UIActivityViewController分享图片，微信、QQ对系统图像分享都要尺寸要求，需要压缩处理。
+ * @brief 宽高均 <= 1280，图片尺寸大小保持不变
+ *        宽或高 > 1280，取较大值等于1280，较小值等比例压缩
+ *        大小限制： 微信最大10M,  QQ最大5M，
+ * @return 处理后的图片
+ */
+- (UIImage *)shareActivityImage;
+
+@end
+
 // 频率控制类，如果频率没有超过 nCounts次/nSeconds秒，canTrigger将返回true
 @interface TCFrequeControl : NSObject
 

@@ -1,0 +1,21 @@
+//
+//  TXProgressSlideGuideView.h
+//  TXLiteAVDemo_Enterprise
+//
+//  Created by 路鹏 on 2021/8/30.
+//  Copyright © 2021 Tencent. All rights reserved.
+//  遮罩View
+
+#import <UIKit/UIKit.h>
+
+NS_ASSUME_NONNULL_BEGIN
+
+typedef void (^ProgressSlideGuideViewShowBlock)(BOOL isHidden);
+
+@interface TXProgressSlideGuideView : UIView
+
+@property (nonatomic, copy) ProgressSlideGuideViewShowBlock progressSlideViewHidden;
+
+@end
+
+NS_ASSUME_NONNULL_END

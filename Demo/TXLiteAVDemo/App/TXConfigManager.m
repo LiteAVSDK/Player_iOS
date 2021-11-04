@@ -142,8 +142,11 @@ static TXConfigManager *_shareInstance = nil;
 #endif
 }
 
+
 - (void)setupBugly {
     if (![self enableBugly]) {
+        //非发布包默认开启debug模式
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kMainMenuDEBUGSwitch];
         return;
     }
     

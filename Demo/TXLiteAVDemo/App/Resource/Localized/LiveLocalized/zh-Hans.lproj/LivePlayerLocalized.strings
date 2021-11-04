@@ -167,8 +167,16 @@
 "LivePusherDemo.CameraPush.loadingxx" = "正在加载资源xxx %";
 "LivePusherDemo.CameraPush.assetsloadsuccess" = "资源加载成功";
 "LivePusherDemo.CameraPush.assetsloadfailed" = "资源加载失败";
+"LivePusherDemo.CameraPush.seimessagesendsuccess" = "发送成功！";
+"LivePusherDemo.CameraPush.seimessagesendfailed" = "发送失败！";
+"LivePusherDemo.CameraPush.send" = "发送";
+"LivePusherDemo.CameraPush.seipayloadtypeinvalid" = "SEI payloadType 非法！只能是5或者242.";
+"LivePusherDemo.CameraPush.seidatainvalid" = "SEI data 不能为空！";
 
 "LivePusherDemo.MoreSetting.screenshots" = "截图";
+
+"LivePusherDemo.MoreSetting.thisoptionisonly" = "该选项只允许在后置摄像头下设置";
+"LivePusherDemo.MoreSetting.captureframe" = "采集帧率";
 "LivePusherDemo.MoreSetting.enableprivacymode" = "开启隐私模式";
 "LivePusherDemo.MoreSetting.turnonmutemode" = "开启静音模式";
 "LivePusherDemo.MoreSetting.turnonviewmirror" = "开启观看端镜像";
@@ -202,6 +210,8 @@
 "LivePusherDemo.PushSetting.openbandwidthadaptation" = "开启带宽适应";
 "LivePusherDemo.PushSetting.enablehardwareacceleration" = "开启硬件加速";
 "LivePusherDemo.PushSetting.opentheearsback" = "开启耳返";
+"LivePusherDemo.PushSetting.seipayloadtype" = "SEI payloadType: ";
+"LivePusherDemo.PushSetting.seidata" = "data: ";
 "LivePusherDemo.PushSetting.qualitypreference" = "画质偏好";
 "LivePusherDemo.PushSetting.thesoundqualitychoice" = "音质选择";
 "LivePusherDemo.PushSetting.reverb" = "混响";

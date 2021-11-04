@@ -19,7 +19,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>9.2.1306</string>
+	<string>9.3.1409</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleURLTypes</key>
@@ -36,7 +36,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>1306</string>
+	<string>1409</string>
 	<key>IMSDKCrashReporterEnable</key>
 	<false/>
 	<key>LSRequiresIPhoneOS</key>
