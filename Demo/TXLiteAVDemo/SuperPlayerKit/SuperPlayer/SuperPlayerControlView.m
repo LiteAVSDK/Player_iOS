@@ -37,6 +37,18 @@
 - (void)setPlayState:(BOOL)isPlay {
 }
 
+- (void)showOrHideBackBtn:(BOOL)isShow {
+}
+
+- (void)setSliderState:(BOOL)isEnable {
+}
+
+- (void)setTopViewState:(BOOL)isShow {
+}
+
+- (void)setResolutionViewState:(BOOL)isShow {
+}
+
 - (void)setProgressTime:(NSInteger)currentTime totalTime:(NSInteger)totalTime progressValue:(CGFloat)progress playableValue:(CGFloat)playable {
 }
 

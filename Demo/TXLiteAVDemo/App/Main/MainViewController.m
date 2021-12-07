@@ -190,7 +190,7 @@ static NSString *const trtcAppStoreURLString       = @"http://itunes.apple.com/c
 
     //副标题
     UILabel * lbSubHead = [[UILabel alloc] initWithFrame:CGRectMake(originX, lbHeadLine.frame.origin.y + lbHeadLine.frame.size.height + 15, width, 30)];
-    NSString *version   = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
+    NSString *version   = [TXAppInfo appVersionWithBuild];
 #ifdef LIVE
     NSString *sdkVersion = [V2TXLivePremier getSDKVersionStr];
 #else

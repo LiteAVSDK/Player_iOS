@@ -739,6 +739,22 @@
     self.titleLabel.text = title;
 }
 
+- (void)showOrHideBackBtn:(BOOL)isShow {
+    self.backBtn.hidden = !isShow;
+}
+
+- (void)setSliderState:(BOOL)isEnable {
+    self.videoSlider.enabled = isEnable;
+}
+
+- (void)setTopViewState:(BOOL)isShow {
+    self.topImageView.hidden = !isShow;
+}
+
+- (void)setResolutionViewState:(BOOL)isShow {
+    self.resolutionView.hidden = !isShow;
+}
+
 #pragma clang diagnostic pop
 
 @end

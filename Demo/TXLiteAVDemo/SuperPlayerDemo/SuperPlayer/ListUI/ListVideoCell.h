@@ -17,15 +17,17 @@
 @end
 
 @interface ListVideoModel : NSObject
-@property NSString *coverUrl;
-@property int       duration;
-@property NSString *title;
-@property NSInteger appId;
-@property NSString *fileId;
-@property NSString *url;
-@property NSArray<ListVideoUrl *> *hdUrl;
-@property int                      type;  // 0 - 点播；1 - 直播
-@property NSString *psign;
+@property(nonatomic, strong) NSString *coverUrl;
+@property(nonatomic, strong) NSString *customCoverUrl;
+@property(nonatomic, assign) int       duration;
+@property(nonatomic, strong) NSString *title;
+@property(nonatomic, assign) NSInteger appId;
+@property(nonatomic, strong) NSString *fileId;
+@property(nonatomic, strong) NSString *url;
+@property(nonatomic, strong) NSArray<ListVideoUrl *> *hdUrl;
+@property(nonatomic, assign) int type;  // 0 - 点播；1 - 直播
+@property(nonatomic, strong) NSString *psign;
+@property(nonatomic, assign) int playAction; // 0 - 自动播放；1 - 手动播放  2 - 预加载
 - (void)addHdUrl:(NSString *)url withTitle:(NSString *)title;
 - (void)setModel:(SuperPlayerModel *)model;
 - (SuperPlayerModel *)getPlayerModel;

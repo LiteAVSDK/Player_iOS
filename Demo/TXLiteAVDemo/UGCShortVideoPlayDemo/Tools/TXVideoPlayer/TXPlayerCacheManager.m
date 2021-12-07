@@ -21,13 +21,13 @@
 @implementation TXPlayerCacheManager
 
 + (instancetype)shareInstance {
-    static TXPlayerCacheManager *_cacheManager = nil;
+    static TXPlayerCacheManager *g_cacheManager = nil;
     static dispatch_once_t onceToken;
     
     dispatch_once(&onceToken, ^{
-        _cacheManager = [[self alloc] init];
+        g_cacheManager = [[self alloc] init];
     });
-    return _cacheManager;
+    return g_cacheManager;
 }
 
 

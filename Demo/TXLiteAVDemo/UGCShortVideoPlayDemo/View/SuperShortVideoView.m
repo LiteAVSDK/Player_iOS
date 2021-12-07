@@ -185,7 +185,8 @@ NSString * const TXShortVideoCellIdentifier = @"TXShortVideoCellIdentifier";
 
 - (void)jumpToCellWithIndex:(NSInteger)index {
     self.currentPlayingCell = nil;
-    [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0] atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
+    NSIndexPath *indexpath = [NSIndexPath indexPathForRow:index inSection:0];
+    [self.tableView scrollToRowAtIndexPath:indexpath atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
 }
 
 #pragma mark - Private Methods
@@ -266,7 +267,9 @@ NSString * const TXShortVideoCellIdentifier = @"TXShortVideoCellIdentifier";
     [self.currentPlayer removeVideo];
     
     [self.currentPlayingCell setProgress:0];
-    [self.currentPlayingCell setTXtimeLabel:[self detailCurrentTime:0 totalTime:[self.currentPlayingCell.model.duration intValue]]];
+    
+    NSString *timeLabelStr = [self detailCurrentTime:0 totalTime:[self.currentPlayingCell.model.duration intValue]];
+    [self.currentPlayingCell setTXtimeLabel:timeLabelStr];
     
     self.isPlayEnd = NO;
     self.currentPlayingCell = nil;
@@ -275,13 +278,15 @@ NSString * const TXShortVideoCellIdentifier = @"TXShortVideoCellIdentifier";
     
     self.currentPlayIndex = [self indexOfModel:cell.model];
     
-    [self getVideoPlayer:cell.model preloadOtherPlayer:[self getUpdateUrlArrayWithstartIndex:self.currentPlayIndex maxCount:3]];
+    NSArray *cacheUrlArr = [self getUpdateUrlArrayWithstartIndex:self.currentPlayIndex maxCount:3];
+    [self getVideoPlayer:cell.model preloadOtherPlayer:cacheUrlArr];
     
     self.currentPlayingCell = cell;
     self.currentPlayingCell.delegate = self;
         
     // 更新时间view
-    [self.currentPlayingCell setTXtimeLabel:[self detailCurrentTime:0 totalTime:[self.currentPlayingCell.model.duration intValue]]];
+    NSString *curTimeLabelStr = [self detailCurrentTime:0 totalTime:[self.currentPlayingCell.model.duration intValue]];
+    [self.currentPlayingCell setTXtimeLabel:curTimeLabelStr];
     // 重新播放
     NSString *url = cell.model.videourl;
     if (url.length > 0) {
@@ -359,7 +364,8 @@ NSString * const TXShortVideoCellIdentifier = @"TXShortVideoCellIdentifier";
                     if (self.currentPlayIndex == self.videos.count - 1) {
                         return;
                     }
-                    [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.currentPlayIndex + 1 inSection:0] atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
+                    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.currentPlayIndex + 1 inSection:0];
+                    [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
                 }
             });
         }

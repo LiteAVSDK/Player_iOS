@@ -101,8 +101,31 @@ static TXConfigManager *_shareInstance = nil;
     return [_config objectForKey:@"menuConfig"];
 }
 
-- (BOOL)enableBugly {
-    return [[_config objectForKey:@"enableBugly"] boolValue];
+- (BOOL)isRelease {
+    return [[_config objectForKey:@"isRelease"] boolValue];
+}
+
+- (BOOL)needCheckDevOpsVersion {
+    if (_config[@"needCheckDevOpsVersion"]) {
+        return [[_config objectForKey:@"needCheckDevOpsVersion"] boolValue];
+    }
+    return NO;
+}
+
+- (NSString *)devOpsAppName{
+    NSDictionary *devOpsInfo = _config[@"devOpsConfig"];
+    if (devOpsInfo && [devOpsInfo isKindOfClass:[NSDictionary class]]) {
+        return devOpsInfo[@"appName"] ?: @"";
+    }
+    return @"";
+}
+
+- (NSString *)devOpsDownloadURL{
+    NSDictionary *devOpsInfo = _config[@"devOpsConfig"];
+    if (devOpsInfo && [devOpsInfo isKindOfClass:[NSDictionary class]]) {
+        return devOpsInfo[@"downloadUrl"] ?: @"";
+    }
+    return @"";
 }
 
 - (void)setLicence {
@@ -143,18 +166,30 @@ static TXConfigManager *_shareInstance = nil;
 }
 
 
-- (void)setupBugly {
-    if (![self enableBugly]) {
-        //非发布包默认开启debug模式
+- (void)initDebug {
+    BOOL isFirstStart = [[NSUserDefaults standardUserDefaults] boolForKey:kIsFirstStart];
+    if (isFirstStart) {
+        //只设置一次
+        return;
+    }
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kIsFirstStart];
+    if ([self isRelease]) {
+        //发布包默认关闭debug
+        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:kMainMenuDEBUGSwitch];
+    } else {
+        //非发布包默认打开debug
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kMainMenuDEBUGSwitch];
+    }
+}
+- (void)setupBugly {
+    if (![self isRelease]) {
         return;
     }
     
 #if defined(ENTERPRISE) && !defined(DEBUG)
     // 启动bugly组件，bugly组件为腾讯提供的用于crash上报和分析的开放组件，如果您不需要该组件，可以自行移除
     BuglyConfig *config  = [[BuglyConfig alloc] init];
-    NSString *appVersion = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
-    config.version       = appVersion;
+    config.version       = [TXAppInfo appVersionWithBuild];
     config.channel       = @"LiteAV Release";
     [Bugly startWithAppId:BUGLY_APP_ID config:config];
     NSLog(@"rtmp demo init crash report");

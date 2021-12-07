@@ -22,29 +22,29 @@
 #define GENERALRATIO        SCREEN_WIDTH / 750.0f
 
 
-#define kIs_iphone (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
-#define kIs_iPhoneX SCREEN_WIDTH >=375.0f && SCREEN_HEIGHT >=812.0f&& kIs_iphone
+#define IS_IPHONE (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+#define IS_IPHONEX SCREEN_WIDTH >=375.0f && SCREEN_HEIGHT >=812.0f&& IS_IPHONE
 
 /*状态栏高度*/
-#define kStatusBarHeight (CGFloat)(kIs_iPhoneX?(44.0):(20.0))
+#define kStatusBarHeight (CGFloat)(IS_IPHONEX?(44.0):(20.0))
 /*导航栏高度*/
 #define kNavBarHeight (44)
 /*状态栏和导航栏总高度*/
-#define kNavBarAndStatusBarHeight (CGFloat)(kIs_iPhoneX?(88.0):(64.0))
+#define kNavBarAndStatusBarHeight (CGFloat)(IS_IPHONEX?(88.0):(64.0))
 /*TabBar高度*/
-#define kTabBarHeight (CGFloat)(kIs_iPhoneX?(49.0 + 34.0):(49.0))
+#define kTabBarHeight (CGFloat)(IS_IPHONEX?(49.0 + 34.0):(49.0))
 /*顶部安全区域远离高度*/
-#define kTopBarSafeHeight (CGFloat)(kIs_iPhoneX?(44.0):(0))
+#define kTopBarSafeHeight (CGFloat)(IS_IPHONEX?(44.0):(0))
  /*底部安全区域远离高度*/
-#define kBottomSafeHeight (CGFloat)(kIs_iPhoneX?(34.0):(0))
+#define kBottomSafeHeight (CGFloat)(IS_IPHONEX?(34.0):(0))
 /*iPhoneX的状态栏高度差值*/
-#define kTopBarDifHeight (CGFloat)(kIs_iPhoneX?(24.0):(0))
+#define kTopBarDifHeight (CGFloat)(IS_IPHONEX?(24.0):(0))
 /*导航条和Tabbar总高度*/
 #define kNavAndTabHeight (kNavBarAndStatusBarHeight + kTabBarHeight)
 
 
-#define kTXDefaultVideoPlayerCacheCount 3
+#define DEFAULT_VIDEOPLAYER_CACHE_COUNT 3
 
-#define kTXDefaultVideoCountOfScreen 1
+#define DEFAULT_VIDEO_COUNT_SCREEN 1
 
 #endif /* TXVideoPlayMem_h */

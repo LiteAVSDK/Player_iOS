@@ -30,6 +30,13 @@
 #define LIST_VIDEO_CELL_ID @"LIST_VIDEO_CELL_ID"
 #define LIST_LIVE_CELL_ID  @"LIST_LIVE_CELL_ID"
 
+#define VIP_VIDEO_DEFAULT_TITLE @"Android录屏"
+#define VIP_VIDEO_DEFAULT_CELL_TITLE @"试看功能演示"
+
+#define COVER_DEFAULT_DEFAULT_TITLE  @"自定义封面"
+#define COVER_DEFAULT_URL    @"http://1500005830.vod2.myqcloud.com/6c9a5118vodcq1500005830/cc1e28208602268011087336518/MXUW1a5I9TsA.png"
+
+
 __weak UITextField *appField;
 __weak UITextField *fileidField;
 __weak UITextField *urlField;
@@ -37,7 +44,7 @@ __weak UITextField *psignField;
 
 @interface MoviePlayerViewController () <SuperPlayerDelegate, ScanQRDelegate, UITableViewDelegate, UITableViewDataSource, CFDanmakuDelegate>
 /** 播放器View的父视图*/
-@property(nonatomic) UIView *                 playerFatherView;
+@property(nonatomic, strong) UIView *                 playerFatherView;
 @property(strong, nonatomic) SuperPlayerView *playerView;
 /** 离开页面时候是否在播放 */
 @property(nonatomic, assign) BOOL           isPlaying;
@@ -49,24 +56,24 @@ __weak UITextField *psignField;
 @property(nonatomic, strong) UITableView *vodListView;  // 点播列表
 @property(nonatomic, strong) UITableView *liveListView;
 
-@property UIButton *vodBtn;   // 点播标签
-@property UIButton *liveBtn;  // 直播标签
+@property(nonatomic, strong) UIButton *vodBtn;   // 点播标签
+@property(nonatomic, strong) UIButton *liveBtn;  // 直播标签
 
-@property NSMutableArray *authParamArray;
-@property NSMutableArray *vodDataSourceArray;
-@property NSMutableArray *liveDataSourceArray;
-@property TXMoviePlayerNetApi *getInfoNetApi;
-@property MBProgressHUD *hud;
-@property UIButton *addBtn;
+@property(nonatomic, strong) NSMutableArray *authParamArray;
+@property(nonatomic, strong) NSMutableArray *vodDataSourceArray;
+@property(nonatomic, strong) NSMutableArray *liveDataSourceArray;
+@property(nonatomic, strong) TXMoviePlayerNetApi *getInfoNetApi;
+@property(nonatomic, strong) MBProgressHUD *hud;
+@property(nonatomic, strong) UIButton *addBtn;
 
-@property SuperPlayerGuideView *guideView;
+@property(nonatomic, strong) SuperPlayerGuideView *guideView;
 
-@property UIScrollView *scrollView;  //视频列表滑动scrollview
+@property(nonatomic, strong) UIScrollView *scrollView;  //视频列表滑动scrollview
 
-@property UIButton *                               playerBackBtn;
+@property(nonatomic, strong) UIButton *                               playerBackBtn;
 @property(nonatomic, strong) AFHTTPSessionManager *manager;
 
-@property CFDanmakuView *danmakuView;
+@property(nonatomic, strong) CFDanmakuView *danmakuView;
 
 @property(nonatomic, assign) BOOL stopAutoPlayVOD;  //从外部拉起播放时，停止自动播放VOD视频
 
@@ -176,6 +183,13 @@ __weak UITextField *psignField;
     [super viewDidAppear:animated];
     if (self.videoURL) {
         [self clickVodList:nil];
+    }
+    
+    if ([self.playerView.playerModel.name isEqualToString:VIP_VIDEO_DEFAULT_CELL_TITLE]) {
+        [self.playerView showVipWatchView];
+        if (self.playerView.isCanShowVipTipView) {
+            [self.playerView showVipTipView];
+        }
     }
 }
 
@@ -335,6 +349,16 @@ __weak UITextField *psignField;
         p.appId  = 1252463788;
         p.fileId = @"4564972819219071679";
         [_authParamArray addObject:p];
+        
+        p        = [TXPlayerAuthParams new];
+        p.appId  = 1252463788;
+        p.fileId = @"4564972819219081699";
+        [_authParamArray addObject:p];
+        
+        p        = [TXPlayerAuthParams new];
+        p.appId  = 1500005830;
+        p.fileId = @"8602268011437356984";
+        [_authParamArray addObject:p];
         [self getNextInfo];
     } else {
         __weak __typeof(self) wself = self;
@@ -432,6 +456,7 @@ __weak UITextField *psignField;
     if (!_playerView) {
         _playerView            = [[SuperPlayerView alloc] init];
         _playerView.fatherView = _playerFatherView;
+        _playerView.disableGesture = YES;
         // 设置代理
         _playerView.delegate = self;
         // demo的时移域名，请根据您项目实际情况修改这里
@@ -448,10 +473,27 @@ __weak UITextField *psignField;
     m.duration        = playInfo.duration;
     m.title           = playInfo.videoDescription ?: playInfo.name;
     if (!m.title || [m.title isEqualToString:@""]) {
-        m.title = [NSString stringWithFormat:@"%@%@", LivePlayerLocalize(@"SuperPlayerDemo.MoviePlayer.video"), playInfo.fileId];
+        if (playInfo.name && playInfo.name.length >0) {
+            m.title = playInfo.name;
+        } else {
+            m.title = [NSString stringWithFormat:@"%@%@", LivePlayerLocalize(@"SuperPlayerDemo.MoviePlayer.video"), playInfo.fileId];
+        }
     }
+    
+    if ([m.title containsString:VIP_VIDEO_DEFAULT_TITLE]) {
+        m.title = VIP_VIDEO_DEFAULT_CELL_TITLE;
+    }
+    
     m.coverUrl = playInfo.coverUrl;
     m.psign = playInfo.pSign;
+    if ([m.title containsString:COVER_DEFAULT_DEFAULT_TITLE]) {
+        m.title = COVER_DEFAULT_DEFAULT_TITLE;
+        m.playAction = 1;
+        m.customCoverUrl = COVER_DEFAULT_URL;
+    } else {
+        m.playAction = 0;
+    }
+    
     [_vodDataSourceArray addObject:m];
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.vodListView reloadData];
@@ -545,6 +587,9 @@ __weak UITextField *psignField;
         [SuperPlayerWindowShared setSuperPlayer:self.playerView];
         [SuperPlayerWindowShared show];
         SuperPlayerWindowShared.backController = self;
+        if (self.playerView.isCanShowVipTipView) {
+            [self.playerView showVipTipView];
+        }
     } else {
         [self.playerView resetPlayer];  //非常重要
         SuperPlayerWindowShared.backController = nil;
@@ -709,6 +754,9 @@ __weak UITextField *psignField;
 }
 
 - (void)playModel:(SuperPlayerModel *)model {
+    [self.playerView hideVipTipView];
+    [self.playerView hideVipWatchView];
+    self.playerView.isCanShowVipTipView = NO;
     [self.playerView.controlView setTitle:LivePlayerLocalize(@"SuperPlayerDemo.MoviePlayer.newplayvideo")];
     [self.playerView.coverImageView setImage:nil];
     [self.playerView playWithModel:model];
@@ -814,10 +862,16 @@ __weak UITextField *psignField;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     ListVideoCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    [self.playerView hideVipTipView];
+    [self.playerView hideVipWatchView];
+    self.playerView.isCanShowVipTipView = NO;
+    [self.playerView removeVideo];
     if (cell) {
+        if ([[cell getSource].title containsString:VIP_VIDEO_DEFAULT_CELL_TITLE]) {
+            [self.playerView showVipTipView];
+        }
         [self.playerView.controlView setTitle:[cell getSource].title];
-
-        [self.playerView.coverImageView sd_setImageWithURL:[NSURL URLWithString:[cell getSource].coverUrl]];
+        
         [self.playerView playWithModel:[cell getPlayerModel]];
     }
 }
@@ -918,6 +972,10 @@ __weak UITextField *psignField;
 
 - (void)superPlayerFullScreenChanged:(SuperPlayerView *)player {
     [[UIApplication sharedApplication] setStatusBarHidden:player.isFullScreen];
+    [player hideVipTipView];
+    if (player.isCanShowVipTipView) {
+        [player showVipTipView];
+    }
 }
 
 - (void)superPlayerDidEnd:(SuperPlayerView *)player {

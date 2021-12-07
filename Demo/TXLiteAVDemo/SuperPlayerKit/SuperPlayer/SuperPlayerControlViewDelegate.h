@@ -29,6 +29,16 @@
 - (void)controlViewSeek:(UIView *)controlView where:(CGFloat)pos;
 /** 滑动预览，pos 0~1 */
 - (void)controlViewPreview:(UIView *)controlView where:(CGFloat)pos;
+/** 调用关闭按钮，关闭tipView */
+- (void)onCloseClick;
+/** 调用返回按钮 */
+- (void)onBackClick;
+/** 调用开通VIP按钮 */
+- (void)onOpenVIPClick;
+/** 调用重试按钮 */
+- (void)onRepeatClick;
+/** 显示VipView */
+- (void)showVipView;
 
 @end
 

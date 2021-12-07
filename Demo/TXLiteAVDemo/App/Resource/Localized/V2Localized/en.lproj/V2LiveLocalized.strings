@@ -124,6 +124,11 @@
 "V2.Live.LoginMock.enterusername" = "Enter a username";
 "V2.Live.LoginMock.username" = "Username";
 "V2.Live.LoginMock.warnTip" = "Limited to Chinese, numbers, letters or underscores, 2-20 characters";
+"V2.Live.LoginMock.nickname" = "Nick Name";
+"V2.Live.LoginMock.enternickname" = "Enter Nick Name";
+"V2.Live.LoginMock.uid" = "uid";
+"V2.Live.LoginMock.enteruid" = "Enter uid";
+
 
 "V2.Live.LoginMock.registsuccess" = "Registration successful";
 "V2.Live.LoginMock.mobilenumber" = "Mobile Number";
@@ -211,6 +216,7 @@
 "MLVB.MainMenu.SuperPlayer" = "Super Player";
 "MLVB.MainMenu.VodPlayer" = "On-demand player";
 "MLVB.MainMenu.shortVideoPlay" = "short Video Play";
+"MLVB.MainMenu.FeedVideoPlay" = "Feed Video Play";
 
 "MLVB.MainMenu.Scene" = "Scene";
 "MLVB.MainMenu.LVBLite" = "LVB Lite";

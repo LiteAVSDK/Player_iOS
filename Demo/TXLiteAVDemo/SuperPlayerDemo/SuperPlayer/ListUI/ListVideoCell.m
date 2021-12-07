@@ -46,6 +46,11 @@
     videoId.psign               = self.psign;
     model.videoId               = videoId;
     model.videoURL              = self.url;
+    model.defaultCoverImageUrl  = self.coverUrl;
+    model.customCoverImageUrl   = self.customCoverUrl;
+    model.action                = self.playAction;
+    model.duration              = self.duration;
+    model.name                  = self.title;
 
     if (self.hdUrl) {
         NSMutableArray *array = @[].mutableCopy;

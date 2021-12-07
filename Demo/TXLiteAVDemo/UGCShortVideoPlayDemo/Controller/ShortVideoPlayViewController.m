@@ -64,7 +64,7 @@
     
     // 根据传入的高度来计算整屏需要显示的个数
     if (self.videoCount == 0) {
-        self.mainVC.videoCount = kTXDefaultVideoCountOfScreen;
+        self.mainVC.videoCount = DEFAULT_VIDEO_COUNT_SCREEN;
     }
     
     
@@ -74,8 +74,8 @@
         self.mainVC.playmode = TXVideoPlayModeOneLoop;
     }
 
-    if (self.playerCacheCount < kTXDefaultVideoPlayerCacheCount) {
-        [TXPlayerCacheManager shareInstance].playerCacheCount = kTXDefaultVideoPlayerCacheCount;
+    if (self.playerCacheCount < DEFAULT_VIDEOPLAYER_CACHE_COUNT) {
+        [TXPlayerCacheManager shareInstance].playerCacheCount = DEFAULT_VIDEOPLAYER_CACHE_COUNT;
     } else {
         [TXPlayerCacheManager shareInstance].playerCacheCount = self.playerCacheCount;
     }

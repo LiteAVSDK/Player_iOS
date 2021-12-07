@@ -114,6 +114,11 @@
 "V2.Live.LinkMicNew.termsandconditions" = "用户协议";
 "V2.Live.LinkMicNew.agree" = "同意";
 "V2.Live.LinkMicNew.disagree" = "不同意";
+"V2.Live.LoginMock.nickname" = "昵称";
+"V2.Live.LoginMock.enternickname" = "请输入您的昵称";
+"V2.Live.LoginMock.uid" = "用户Id";
+"V2.Live.LoginMock.enteruid" = "请输入您的Id";
+
 "V2.Live.LoginMock.tencentcloudtrtc" = "腾讯云 TRTC";
 "V2.Live.LoginMock.login" = "登录";
 "V2.Live.LoginMock.avatar" = "头像";
@@ -216,6 +221,7 @@
 "MLVB.MainMenu.SuperPlayer" = "超级播放器";
 "MLVB.MainMenu.VodPlayer" = "点播播放器";
 "MLVB.MainMenu.shortVideoPlay" = "短视频播放";
+"MLVB.MainMenu.FeedVideoPlay" = "Feed流播放";
 
 "MLVB.MainMenu.Scene" = "场景应用";
 "MLVB.MainMenu.LVBLite" = "小直播";

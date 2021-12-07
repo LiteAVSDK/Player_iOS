@@ -7,9 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		04DE0FF1274CCE3E00E3005A /* TXAppInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 04DE0FEB274CCE3E00E3005A /* TXAppInfo.m */; };
+		17C0D180273BBDE6009910EC /* TCHttpUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 17C0D176273BBDE6009910EC /* TCHttpUtil.m */; };
+		17C0D193273BC641009910EC /* ScanQRController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 17C0D18E273BC641009910EC /* ScanQRController.mm */; };
 		17EB75EB26E9BC5200D09EC8 /* Player.plist in Resources */ = {isa = PBXBuildFile; fileRef = 17EB75B926E9BC5200D09EC8 /* Player.plist */; };
 		17EB761026E9BCCD00D09EC8 /* TXConfigManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 17EB760A26E9BCCC00D09EC8 /* TXConfigManager.m */; };
-		400922B31F4FCC6E009B882D /* ScanQRController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 40F853561EE8FCDF00EE47D7 /* ScanQRController.mm */; };
 		400922B71F4FCC6E009B882D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 40F853261EE8FC8400EE47D7 /* AppDelegate.m */; };
 		400922BE1F4FCC6E009B882D /* AppLogMgr.m in Sources */ = {isa = PBXBuildFile; fileRef = 40F853281EE8FC8400EE47D7 /* AppLogMgr.m */; };
 		400922C11F4FCC6E009B882D /* MainTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 40F8532A1EE8FC8400EE47D7 /* MainTableViewCell.m */; };
@@ -33,7 +35,6 @@
 		400923631F4FCC6E009B882D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 40F853221EE8FC7300EE47D7 /* Assets.xcassets */; };
 		4009238F1F4FCC6E009B882D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 40F853331EE8FC9B00EE47D7 /* Main.storyboard */; };
 		402A010424506F740037A219 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 402A010024506F740037A219 /* main.m */; };
-		4053392724654D2700A6B478 /* TCHttpUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 4053392524654D2700A6B478 /* TCHttpUtil.m */; };
 		4071CF5B24441578000B7707 /* TXLiteAVSDK_Player.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4071CF5924441578000B7707 /* TXLiteAVSDK_Player.framework */; };
 		40A1DEC22638412E0011E532 /* NSData+Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 47E8CAB6260B5C05001CF672 /* NSData+Common.m */; };
 		40A1DED8263841360011E532 /* NSDictionary+Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 47E8CAC5260B5C05001CF672 /* NSDictionary+Common.m */; };
@@ -57,6 +58,18 @@
 		47E8C8CC260AECC4001CF672 /* TRTCDemoLocalized.strings in Resources */ = {isa = PBXBuildFile; fileRef = 47E8C88C260AECC4001CF672 /* TRTCDemoLocalized.strings */; };
 		47E8C8D9260AECC4001CF672 /* LivePlayerLocalized.strings in Resources */ = {isa = PBXBuildFile; fileRef = 47E8C890260AECC4001CF672 /* LivePlayerLocalized.strings */; };
 		47E8C8E6260AECC4001CF672 /* AppLocalized.m in Sources */ = {isa = PBXBuildFile; fileRef = 47E8C893260AECC4001CF672 /* AppLocalized.m */; };
+		6BBFDC07272AC2E0009950B6 /* FeedPlayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BBFDC04272AC2E0009950B6 /* FeedPlayViewController.m */; };
+		6BBFDC18272ACC84009950B6 /* SuperFeedPlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BBFDC15272ACC84009950B6 /* SuperFeedPlayView.m */; };
+		6BBFDC23272ACC9C009950B6 /* FeedDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BBFDC20272ACC9C009950B6 /* FeedDetailView.m */; };
+		6BBFDC2E272ACCBD009950B6 /* FeedBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BBFDC2B272ACCBD009950B6 /* FeedBaseView.m */; };
+		6BBFDC3C272B8BD8009950B6 /* FeedDetailHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BBFDC39272B8BD8009950B6 /* FeedDetailHeadView.m */; };
+		6BBFDC63272B9037009950B6 /* FeedVideoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BBFDC60272B9037009950B6 /* FeedVideoModel.m */; };
+		6BDE57612732620D003A7813 /* FeedDetailViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BDE575E2732620D003A7813 /* FeedDetailViewCell.m */; };
+		6BDE577027326234003A7813 /* FeedDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BDE576D27326234003A7813 /* FeedDetailModel.m */; };
+		6BDE57812733788D003A7813 /* FeedDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BDE577E2733788D003A7813 /* FeedDetailViewController.m */; };
+		6BE6019C272F86A10011BE60 /* FeedHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BE60199272F86A10011BE60 /* FeedHeadView.m */; };
+		6BE601AA272F91A10011BE60 /* FeedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BE60182272BCAC80011BE60 /* FeedTableViewCell.m */; };
+		6BE601B5272FC3EA0011BE60 /* FeedHeadModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BE601B2272FC3E90011BE60 /* FeedHeadModel.m */; };
 		6BF315D4271E715300D4A72C /* ShortVideo.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6BF315D2271E715300D4A72C /* ShortVideo.xcassets */; };
 		6BF315E1271E71A700D4A72C /* TXVideoViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BF315DF271E71A700D4A72C /* TXVideoViewModel.m */; };
 		6BF315F9271E723000D4A72C /* TXTimeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BF315F7271E723000D4A72C /* TXTimeView.m */; };
@@ -144,6 +157,15 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		04DE0FEA274CCE3E00E3005A /* TXAppInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TXAppInfo.h; sourceTree = "<group>"; };
+		04DE0FEB274CCE3E00E3005A /* TXAppInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TXAppInfo.m; sourceTree = "<group>"; };
+		172F22E92731218500FA7882 /* v2live.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = v2live.xcassets; sourceTree = "<group>"; };
+		17C0D176273BBDE6009910EC /* TCHttpUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCHttpUtil.m; sourceTree = "<group>"; };
+		17C0D177273BBDE6009910EC /* TCHttpUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCHttpUtil.h; sourceTree = "<group>"; };
+		17C0D184273BC5F7009910EC /* SmallButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SmallButton.m; sourceTree = "<group>"; };
+		17C0D185273BC5F7009910EC /* SmallButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SmallButton.h; sourceTree = "<group>"; };
+		17C0D18D273BC641009910EC /* ScanQRController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScanQRController.h; sourceTree = "<group>"; };
+		17C0D18E273BC641009910EC /* ScanQRController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ScanQRController.mm; sourceTree = "<group>"; };
 		17EB75B926E9BC5200D09EC8 /* Player.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Player.plist; sourceTree = "<group>"; };
 		17EB760926E9BCCC00D09EC8 /* TXConfigManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TXConfigManager.h; sourceTree = "<group>"; };
 		17EB760A26E9BCCC00D09EC8 /* TXConfigManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TXConfigManager.m; sourceTree = "<group>"; };
@@ -154,8 +176,6 @@
 		402A010724506F9C0037A219 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = App/Info.plist; sourceTree = "<group>"; };
 		4030B1EC245563B200CF5926 /* SuperPlayer.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = SuperPlayer.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		40407ACA1F3035CA006C7301 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		4053392524654D2700A6B478 /* TCHttpUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCHttpUtil.m; sourceTree = "<group>"; };
-		4053392624654D2700A6B478 /* TCHttpUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCHttpUtil.h; sourceTree = "<group>"; };
 		4071CF5924441578000B7707 /* TXLiteAVSDK_Player.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TXLiteAVSDK_Player.framework; sourceTree = "<group>"; };
 		4071CF702444477A000B7707 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
 		40A49D5E24598CD200BFCB18 /* UGCKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = UGCKit.xcodeproj; path = UGCKit/UGCKit.xcodeproj; sourceTree = "<group>"; };
@@ -173,8 +193,6 @@
 		40F8532C1EE8FC8400EE47D7 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		40F853321EE8FC9B00EE47D7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		40F853341EE8FC9B00EE47D7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		40F853551EE8FCDF00EE47D7 /* ScanQRController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScanQRController.h; sourceTree = "<group>"; };
-		40F853561EE8FCDF00EE47D7 /* ScanQRController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ScanQRController.mm; sourceTree = "<group>"; };
 		40F855361EE8FDAD00EE47D7 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		40F855381EE8FDB600EE47D7 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		40F8553A1EE8FDBF00EE47D7 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
@@ -246,6 +264,31 @@
 		47E8CCD6260C4EE3001CF672 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		51A289F8230FB93A00B9B73F /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
 		51A4AD391F1F8AE300B4A806 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
+		6BBFDC03272AC2E0009950B6 /* FeedPlayViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FeedPlayViewController.h; sourceTree = "<group>"; };
+		6BBFDC04272AC2E0009950B6 /* FeedPlayViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FeedPlayViewController.m; sourceTree = "<group>"; };
+		6BBFDC14272ACC84009950B6 /* SuperFeedPlayView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SuperFeedPlayView.h; sourceTree = "<group>"; };
+		6BBFDC15272ACC84009950B6 /* SuperFeedPlayView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SuperFeedPlayView.m; sourceTree = "<group>"; };
+		6BBFDC1F272ACC9C009950B6 /* FeedDetailView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FeedDetailView.h; sourceTree = "<group>"; };
+		6BBFDC20272ACC9C009950B6 /* FeedDetailView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FeedDetailView.m; sourceTree = "<group>"; };
+		6BBFDC2A272ACCBD009950B6 /* FeedBaseView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FeedBaseView.h; sourceTree = "<group>"; };
+		6BBFDC2B272ACCBD009950B6 /* FeedBaseView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FeedBaseView.m; sourceTree = "<group>"; };
+		6BBFDC38272B8BD8009950B6 /* FeedDetailHeadView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FeedDetailHeadView.h; sourceTree = "<group>"; };
+		6BBFDC39272B8BD8009950B6 /* FeedDetailHeadView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FeedDetailHeadView.m; sourceTree = "<group>"; };
+		6BBFDC5F272B9037009950B6 /* FeedVideoModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FeedVideoModel.h; sourceTree = "<group>"; };
+		6BBFDC60272B9037009950B6 /* FeedVideoModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FeedVideoModel.m; sourceTree = "<group>"; };
+		6BDE575D2732620D003A7813 /* FeedDetailViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FeedDetailViewCell.h; sourceTree = "<group>"; };
+		6BDE575E2732620D003A7813 /* FeedDetailViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FeedDetailViewCell.m; sourceTree = "<group>"; };
+		6BDE576C27326234003A7813 /* FeedDetailModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FeedDetailModel.h; sourceTree = "<group>"; };
+		6BDE576D27326234003A7813 /* FeedDetailModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FeedDetailModel.m; sourceTree = "<group>"; };
+		6BDE577D2733788D003A7813 /* FeedDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FeedDetailViewController.h; sourceTree = "<group>"; };
+		6BDE577E2733788D003A7813 /* FeedDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FeedDetailViewController.m; sourceTree = "<group>"; };
+		6BE60181272BCAC80011BE60 /* FeedTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FeedTableViewCell.h; sourceTree = "<group>"; };
+		6BE60182272BCAC80011BE60 /* FeedTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FeedTableViewCell.m; sourceTree = "<group>"; };
+		6BE60191272BE98E0011BE60 /* FeedVideoPlayMem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FeedVideoPlayMem.h; sourceTree = "<group>"; };
+		6BE60198272F86A10011BE60 /* FeedHeadView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FeedHeadView.h; sourceTree = "<group>"; };
+		6BE60199272F86A10011BE60 /* FeedHeadView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FeedHeadView.m; sourceTree = "<group>"; };
+		6BE601B1272FC3E90011BE60 /* FeedHeadModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FeedHeadModel.h; sourceTree = "<group>"; };
+		6BE601B2272FC3E90011BE60 /* FeedHeadModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FeedHeadModel.m; sourceTree = "<group>"; };
 		6BF315D2271E715300D4A72C /* ShortVideo.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = ShortVideo.xcassets; sourceTree = "<group>"; };
 		6BF315DE271E71A700D4A72C /* TXVideoViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TXVideoViewModel.h; sourceTree = "<group>"; };
 		6BF315DF271E71A700D4A72C /* TXVideoViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TXVideoViewModel.m; sourceTree = "<group>"; };
@@ -360,6 +403,49 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		172F22E127311FFE00FA7882 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				172F22E8273120B500FA7882 /* Live */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		172F22E8273120B500FA7882 /* Live */ = {
+			isa = PBXGroup;
+			children = (
+				172F22E92731218500FA7882 /* v2live.xcassets */,
+			);
+			path = Live;
+			sourceTree = "<group>";
+		};
+		17C0D175273BBDE6009910EC /* TCHttpUtil */ = {
+			isa = PBXGroup;
+			children = (
+				17C0D176273BBDE6009910EC /* TCHttpUtil.m */,
+				17C0D177273BBDE6009910EC /* TCHttpUtil.h */,
+			);
+			path = TCHttpUtil;
+			sourceTree = "<group>";
+		};
+		17C0D183273BC5F7009910EC /* SmallButton */ = {
+			isa = PBXGroup;
+			children = (
+				17C0D184273BC5F7009910EC /* SmallButton.m */,
+				17C0D185273BC5F7009910EC /* SmallButton.h */,
+			);
+			path = SmallButton;
+			sourceTree = "<group>";
+		};
+		17C0D18C273BC641009910EC /* QRScan */ = {
+			isa = PBXGroup;
+			children = (
+				17C0D18D273BC641009910EC /* ScanQRController.h */,
+				17C0D18E273BC641009910EC /* ScanQRController.mm */,
+			);
+			path = QRScan;
+			sourceTree = "<group>";
+		};
 		17EB75B326E9BC5200D09EC8 /* config */ = {
 			isa = PBXGroup;
 			children = (
@@ -379,19 +465,8 @@
 		4053392324654D0F00A6B478 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				40F853541EE8FCDF00EE47D7 /* QRScan */,
-				4053392424654D2700A6B478 /* TCHttpUtil */,
 			);
 			path = Common;
-			sourceTree = "<group>";
-		};
-		4053392424654D2700A6B478 /* TCHttpUtil */ = {
-			isa = PBXGroup;
-			children = (
-				4053392524654D2700A6B478 /* TCHttpUtil.m */,
-				4053392624654D2700A6B478 /* TCHttpUtil.h */,
-			);
-			path = TCHttpUtil;
 			sourceTree = "<group>";
 		};
 		405874162445AA10009B3503 /* SuperPlayerKit */ = {
@@ -454,6 +529,8 @@
 		40F853051EE8FB3800EE47D7 /* TXLiteAVDemo */ = {
 			isa = PBXGroup;
 			children = (
+				172F22E127311FFE00FA7882 /* Resources */,
+				6BBFDBF9272AA15E009950B6 /* SuperPlayFeedDemo */,
 				6BF315A9271E705900D4A72C /* UGCShortVideoPlayDemo */,
 				40F853241EE8FC8400EE47D7 /* App */,
 				40F8531D1EE8FC1E00EE47D7 /* Supporting Files */,
@@ -491,20 +568,13 @@
 				40F853261EE8FC8400EE47D7 /* AppDelegate.m */,
 				17EB760926E9BCCC00D09EC8 /* TXConfigManager.h */,
 				17EB760A26E9BCCC00D09EC8 /* TXConfigManager.m */,
+				04DE0FEA274CCE3E00E3005A /* TXAppInfo.h */,
+				04DE0FEB274CCE3E00E3005A /* TXAppInfo.m */,
 				40F853271EE8FC8400EE47D7 /* AppLogMgr.h */,
 				40F853281EE8FC8400EE47D7 /* AppLogMgr.m */,
 				D6E5D1C020B7B61F00812B2F /* ReplayKit2Define.h */,
 			);
 			path = App;
-			sourceTree = "<group>";
-		};
-		40F853541EE8FCDF00EE47D7 /* QRScan */ = {
-			isa = PBXGroup;
-			children = (
-				40F853551EE8FCDF00EE47D7 /* ScanQRController.h */,
-				40F853561EE8FCDF00EE47D7 /* ScanQRController.mm */,
-			);
-			path = QRScan;
 			sourceTree = "<group>";
 		};
 		40F853721EE8FD0700EE47D7 /* Resource */ = {
@@ -636,6 +706,9 @@
 		47E8CAAB260B5C05001CF672 /* AppCommon */ = {
 			isa = PBXGroup;
 			children = (
+				17C0D18C273BC641009910EC /* QRScan */,
+				17C0D183273BC5F7009910EC /* SmallButton */,
+				17C0D175273BBDE6009910EC /* TCHttpUtil */,
 				47E8CAAC260B5C05001CF672 /* Catetory */,
 				47E8CAD6260B5C06001CF672 /* CommonUtils */,
 				47E8CADB260B5C06001CF672 /* ColorMacro.h */,
@@ -693,6 +766,102 @@
 				47E8CCCF260C4EB2001CF672 /* InfoPlist.strings */,
 			);
 			path = TRTCInfoPlist;
+			sourceTree = "<group>";
+		};
+		6BBFDBF9272AA15E009950B6 /* SuperPlayFeedDemo */ = {
+			isa = PBXGroup;
+			children = (
+				6BBFDC02272AB7ED009950B6 /* Utils */,
+				6BBFDC01272AB7E5009950B6 /* Model */,
+				6BBFDBFF272AB7D3009950B6 /* Views */,
+				6BBFDBFE272AB7CA009950B6 /* Controller */,
+			);
+			path = SuperPlayFeedDemo;
+			sourceTree = "<group>";
+		};
+		6BBFDBFE272AB7CA009950B6 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				6BBFDC03272AC2E0009950B6 /* FeedPlayViewController.h */,
+				6BBFDC04272AC2E0009950B6 /* FeedPlayViewController.m */,
+				6BDE577D2733788D003A7813 /* FeedDetailViewController.h */,
+				6BDE577E2733788D003A7813 /* FeedDetailViewController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		6BBFDBFF272AB7D3009950B6 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				6BE60180272BC9B40011BE60 /* Cell */,
+				6BBFDC37272B8A5E009950B6 /* FeedHeadView */,
+				6BBFDC36272B85E8009950B6 /* FeedBaseView */,
+				6BBFDC35272B85CD009950B6 /* FeedDetailView */,
+				6BBFDC14272ACC84009950B6 /* SuperFeedPlayView.h */,
+				6BBFDC15272ACC84009950B6 /* SuperFeedPlayView.m */,
+				6BBFDC1F272ACC9C009950B6 /* FeedDetailView.h */,
+				6BBFDC20272ACC9C009950B6 /* FeedDetailView.m */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		6BBFDC01272AB7E5009950B6 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				6BBFDC5F272B9037009950B6 /* FeedVideoModel.h */,
+				6BBFDC60272B9037009950B6 /* FeedVideoModel.m */,
+				6BE601B1272FC3E90011BE60 /* FeedHeadModel.h */,
+				6BE601B2272FC3E90011BE60 /* FeedHeadModel.m */,
+				6BDE576C27326234003A7813 /* FeedDetailModel.h */,
+				6BDE576D27326234003A7813 /* FeedDetailModel.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		6BBFDC02272AB7ED009950B6 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				6BE60191272BE98E0011BE60 /* FeedVideoPlayMem.h */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		6BBFDC35272B85CD009950B6 /* FeedDetailView */ = {
+			isa = PBXGroup;
+			children = (
+				6BBFDC38272B8BD8009950B6 /* FeedDetailHeadView.h */,
+				6BBFDC39272B8BD8009950B6 /* FeedDetailHeadView.m */,
+			);
+			path = FeedDetailView;
+			sourceTree = "<group>";
+		};
+		6BBFDC36272B85E8009950B6 /* FeedBaseView */ = {
+			isa = PBXGroup;
+			children = (
+				6BBFDC2A272ACCBD009950B6 /* FeedBaseView.h */,
+				6BBFDC2B272ACCBD009950B6 /* FeedBaseView.m */,
+			);
+			path = FeedBaseView;
+			sourceTree = "<group>";
+		};
+		6BBFDC37272B8A5E009950B6 /* FeedHeadView */ = {
+			isa = PBXGroup;
+			children = (
+				6BE60198272F86A10011BE60 /* FeedHeadView.h */,
+				6BE60199272F86A10011BE60 /* FeedHeadView.m */,
+			);
+			path = FeedHeadView;
+			sourceTree = "<group>";
+		};
+		6BE60180272BC9B40011BE60 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				6BE60181272BCAC80011BE60 /* FeedTableViewCell.h */,
+				6BE60182272BCAC80011BE60 /* FeedTableViewCell.m */,
+				6BDE575D2732620D003A7813 /* FeedDetailViewCell.h */,
+				6BDE575E2732620D003A7813 /* FeedDetailViewCell.m */,
+			);
+			path = Cell;
 			sourceTree = "<group>";
 		};
 		6BF315A9271E705900D4A72C /* UGCShortVideoPlayDemo */ = {
@@ -1141,27 +1310,31 @@
 				912A62102160D78A00C16E41 /* CFDanmaku.m in Sources */,
 				6BF31678271E745100D4A72C /* UITableView+indexPath.m in Sources */,
 				402A010424506F740037A219 /* main.m in Sources */,
+				6BBFDC3C272B8BD8009950B6 /* FeedDetailHeadView.m in Sources */,
 				6BF31650271E738600D4A72C /* TXVideoBaseView.m in Sources */,
 				47CAEE6726AE9F0800DABA5B /* TCUtil.m in Sources */,
 				6BF316A0271E752600D4A72C /* TXPlayerCacheManager.m in Sources */,
 				6BF315E1271E71A700D4A72C /* TXVideoViewModel.m in Sources */,
 				883AC83326AEA0A500C3A1B7 /* TCUtil.m in Sources */,
 				40A1DF372638415A0011E532 /* UIButton+Additions.m in Sources */,
+				6BDE57812733788D003A7813 /* FeedDetailViewController.m in Sources */,
 				D6BEF8222040368000CBE2BD /* ListVideoCell.m in Sources */,
+				17C0D193273BC641009910EC /* ScanQRController.mm in Sources */,
 				40A1DF63263841900011E532 /* UIColor+MLPFlatColors.m in Sources */,
 				17EB761026E9BCCD00D09EC8 /* TXConfigManager.m in Sources */,
+				6BBFDC18272ACC84009950B6 /* SuperFeedPlayView.m in Sources */,
 				40A1DF8F2638419E0011E532 /* UIView+CustomAutoLayout.m in Sources */,
-				4053392724654D2700A6B478 /* TCHttpUtil.m in Sources */,
 				D6BEF8232040368000CBE2BD /* MoviePlayerViewController.m in Sources */,
 				6BF316AA271E754C00D4A72C /* TXVideoPlayer.m in Sources */,
 				6BF316BB271E757F00D4A72C /* TXVideoUtils.m in Sources */,
 				40A1DFA5263841AB0011E532 /* UIViewController+BackButtonHandler.m in Sources */,
+				6BE601B5272FC3EA0011BE60 /* FeedHeadModel.m in Sources */,
 				6BF315F9271E723000D4A72C /* TXTimeView.m in Sources */,
 				6BF31682271E748200D4A72C /* SuperShortVideoView.m in Sources */,
+				6BE601AA272F91A10011BE60 /* FeedTableViewCell.m in Sources */,
 				912A62222160D78A00C16E41 /* CFDanmakuInfo.m in Sources */,
 				47CAEE6A26AE9F1E00DABA5B /* TCLog.m in Sources */,
 				883AC83626AEA0AA00C3A1B7 /* TCLog.m in Sources */,
-				400922B31F4FCC6E009B882D /* ScanQRController.mm in Sources */,
 				40A1DF79263841950011E532 /* UIImage+Additions.m in Sources */,
 				400922B71F4FCC6E009B882D /* AppDelegate.m in Sources */,
 				40A1DEF52638413F0011E532 /* NSObject+CommonBlock.m in Sources */,
@@ -1171,25 +1344,34 @@
 				6BF31622271E72DD00D4A72C /* TXProgressSlideGuideView.m in Sources */,
 				6BF316F3271E767400D4A72C /* TXCollectionLayout.m in Sources */,
 				6BF31617271E72AB00D4A72C /* TXPauseGuideView.m in Sources */,
+				6BDE57612732620D003A7813 /* FeedDetailViewCell.m in Sources */,
 				6BF31603271E725C00D4A72C /* TXSliderView.m in Sources */,
+				04DE0FF1274CCE3E00E3005A /* TXAppInfo.m in Sources */,
 				6BF3165A271E73B900D4A72C /* TXTableViewCell.m in Sources */,
 				91DB2F03212554B500013D74 /* SuperPlayerGuideView.m in Sources */,
 				910E17A22080A27500178D86 /* TXMoviePlayerNetApi.m in Sources */,
 				6BF31632271E730600D4A72C /* TXUpSlideGuideView.m in Sources */,
+				6BBFDC23272ACC9C009950B6 /* FeedDetailView.m in Sources */,
 				400922BE1F4FCC6E009B882D /* AppLogMgr.m in Sources */,
 				6BF31695271E74E800D4A72C /* TXVideoRequest.m in Sources */,
 				40A1DEC22638412E0011E532 /* NSData+Common.m in Sources */,
+				6BBFDC07272AC2E0009950B6 /* FeedPlayViewController.m in Sources */,
 				400922C11F4FCC6E009B882D /* MainTableViewCell.m in Sources */,
 				6BF316E9271E762F00D4A72C /* TXVideoListViewController.m in Sources */,
 				6BF31646271E735A00D4A72C /* TXLineLoadingView.m in Sources */,
 				6BF31664271E73E400D4A72C /* TXVideoCell.m in Sources */,
+				6BE6019C272F86A10011BE60 /* FeedHeadView.m in Sources */,
 				6BF316DF271E760700D4A72C /* ShortVideoPlayViewController.m in Sources */,
+				6BBFDC2E272ACCBD009950B6 /* FeedBaseView.m in Sources */,
 				400922C71F4FCC6E009B882D /* MainViewController.m in Sources */,
+				6BBFDC63272B9037009950B6 /* FeedVideoModel.m in Sources */,
 				910E17AB2080A38400178D86 /* TXMoviePlayInfoResponse.m in Sources */,
 				6BF3160D271E728400D4A72C /* TXLeftSlideGuideView.m in Sources */,
+				6BDE577027326234003A7813 /* FeedDetailModel.m in Sources */,
 				912A62342160D78A00C16E41 /* CFDanmakuView.m in Sources */,
 				6BF3163C271E733000D4A72C /* TXLoadingView.m in Sources */,
 				6BF3166E271E742200D4A72C /* UIScrollView+GestureConflict.m in Sources */,
+				17C0D180273BBDE6009910EC /* TCHttpUtil.m in Sources */,
 				47E8C8E6260AECC4001CF672 /* AppLocalized.m in Sources */,
 				45D8449523B643A5001CD3A9 /* UGCUploadList.m in Sources */,
 				6BF316C5271E75AE00D4A72C /* TXVideoModel.m in Sources */,

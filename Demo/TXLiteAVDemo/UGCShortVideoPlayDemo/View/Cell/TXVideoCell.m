@@ -65,7 +65,8 @@
     
     self.nameLabel.text = videoModel.name;
     
-    self.durationLabel.text = [NSString stringWithFormat:@"%02ld:%02ld", (NSInteger)(videoModel.duration.intValue) /60, (NSInteger)(videoModel.duration.intValue) % 60];
+    NSInteger duration = (NSInteger)(videoModel.duration.intValue);
+    self.durationLabel.text = [NSString stringWithFormat:@"%02ld:%02ld", duration /60, duration % 60];
 }
 
 #pragma mark - 懒加载

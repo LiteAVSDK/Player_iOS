@@ -132,7 +132,8 @@ static const UIEdgeInsets defaultEdgeInsets = {10,10,10,10};
     //collectionView的宽度
     CGFloat collectionViewW = self.collectionView.frame.size.width;
     // 设置布局属性的frame
-    CGFloat cellW = (collectionViewW - self.defaultEdgeInsets.left - self.defaultEdgeInsets.right - (self.columCount - 1) * self.columMargin) / self.columCount ;
+    CGFloat totalWidth = collectionViewW - self.defaultEdgeInsets.left - self.defaultEdgeInsets.right - (self.columCount - 1) * self.columMargin;
+    CGFloat cellW = totalWidth / self.columCount ;
     
     CGFloat cellH = [self.delegate collectionLayout:self heightForRowAtIndex:indexPath.item itemWidth:cellW];
     // 找出最短的那一列

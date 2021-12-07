@@ -26,6 +26,12 @@
 					<key>title</key>
 					<string>MLVB.MainMenu.shortVideoPlay</string>
 				</dict>
+				<dict>
+					<key>class</key>
+					<string>FeedPlayViewController</string>
+					<key>title</key>
+					<string>MLVB.MainMenu.FeedVideoPlay</string>
+				</dict>
 			</array>
 			<key>title</key>
 			<string>MLVB.MainMenu.Player</string>

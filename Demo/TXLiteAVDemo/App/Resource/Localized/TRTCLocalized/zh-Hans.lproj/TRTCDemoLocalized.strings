@@ -316,6 +316,7 @@
 "Demo.TRTC.Salon.online" = "在线";
 "Demo.TRTC.Home.appusetoshowfunc" = "本APP用于展示腾讯云视立方终端产品的各类功能";
 "Demo.TRTC.Home.newversionpublic" = "有新版本发布啦~";
+"Demo.TRTC.Home.devopsupdate" = "检测到当前iOS新版本:%@, 请升级后使用。";
 "Demo.TRTC.Home.updatenow" = "现在更新";
 "Demo.TRTC.Home.later" = "稍后再说";
 "Demo.TRTC.Streaming.tips" = "温馨提示";
@@ -634,3 +635,6 @@
 
 "Demo.TRTC.gSenorClose" = "重力感应已关闭";
 "Demo.TRTC.videoClosed" = "视频已关闭";
+
+"Demo.TRTC.Live.audioParallelMaxCount" = "最大并发播放数";
+"Demo.TRTC.Live.audioParallelMustPlay" = "音频必定播放";

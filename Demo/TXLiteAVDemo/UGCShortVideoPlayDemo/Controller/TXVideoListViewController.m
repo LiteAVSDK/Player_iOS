@@ -112,7 +112,8 @@
     if (!_collectionView) {
         // 获取导航栏的高度
         CGFloat naviHeight = self.navigationController.navigationBar.frame.size.height;
-        _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, naviHeight + STATUS_HEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT - naviHeight - STATUS_HEIGHT) collectionViewLayout:self.layout];
+        CGRect frame = CGRectMake(0, naviHeight + STATUS_HEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT - naviHeight - STATUS_HEIGHT);
+        _collectionView = [[UICollectionView alloc] initWithFrame:frame collectionViewLayout:self.layout];
         _collectionView.delegate = self;
         _collectionView.dataSource = self;
         _collectionView.backgroundColor = [UIColor clearColor];

@@ -93,7 +93,7 @@
         if (!isShowedGuideView) {
             [self.videoView showGuideView];
         }
-        [self.videoView setModels:self.videosArray viewCount:kTXDefaultVideoCountOfScreen];
+        [self.videoView setModels:self.videosArray viewCount:DEFAULT_VIDEO_COUNT_SCREEN];
     });
 }
 

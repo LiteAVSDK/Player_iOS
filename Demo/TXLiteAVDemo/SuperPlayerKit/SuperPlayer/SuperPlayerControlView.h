@@ -39,6 +39,30 @@
 - (void)setPlayState:(BOOL)isPlay;
 
 /**
+ * 是否显示或隐藏返回按钮
+ * @param isShow YES显示，NO隐藏
+ */
+- (void)showOrHideBackBtn:(BOOL)isShow;
+
+/**
+ * 是否禁止拖动进度条
+ * @param isEnable  YES允许，NO禁止
+ */
+- (void)setSliderState:(BOOL)isEnable;
+
+/**
+ * 是否隐藏标题、弹幕、截图控件
+ * @param isShow  YES显示，NO隐藏
+ */
+- (void)setTopViewState:(BOOL)isShow;
+
+/**
+ * 是否隐藏切换分辨率控件
+ * @param isShow  YES显示，NO隐藏
+ */
+- (void)setResolutionViewState:(BOOL)isShow;
+
+/**
  * 重置播放控制面板
  * @param resolutionNames 清晰度名称
  * @param resolutionIndex 正在播放的清晰度的下标

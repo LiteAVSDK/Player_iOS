@@ -43,6 +43,7 @@
 #if !defined(UGC) && !defined(PLAYER)
 #import <ImSDK/ImSDK.h>
 #import "LoginViewController.h"
+#import "LoginMockViewController.h"
 #endif
 
 #if defined(ENTERPRISE) || defined(PROFESSIONAL) || defined(SMART) || defined(TRTC)
@@ -51,6 +52,11 @@
 
 #if defined(PLAYER) || defined(PROFESSIONAL) || defined(ENTERPRISE)
 #import "TXLaunchMoviePlayProtocol.h"
+#endif
+
+#if defined(ENTERPRISE)
+#import "DevOpsCheckManager.h"
+#import "ProfileManager.h"
 #endif
 
 NSString *helpUrlDb[] = {
@@ -117,6 +123,7 @@ NSString *helpUrlDb[] = {
     [[TXConfigManager shareInstance] loadConfig];
     [[TXConfigManager shareInstance] setLicence];
     [[TXConfigManager shareInstance] setLogConfig];
+    [[TXConfigManager shareInstance] initDebug];
     [[TXConfigManager shareInstance] setupBugly];
     // Override point for customization after application launch.
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
@@ -314,19 +321,38 @@ NSString *helpUrlDb[] = {
 #pragma mark - 登录跳转方法
 - (void)showPortalConroller {
     UINavigationController *nav        = nil;
-    NSString *              appStoreID = @"1152295397";
     nav                                = [[UINavigationController alloc] initWithRootViewController:self.mainViewController];
     self.window.rootViewController     = nav;
     [self playVideoFromLaunchInfo:self.launchInfo];
+    
+    // 检测是否需要更新
+    [self checkAppUpdateVersion];
+}
 
-#if !defined(ENABLE_INTERNATIONAL)
-    [self checkStoreVersion:appStoreID];
+/// @brief 检测版本更新
+/// @note  检查蓝盾版本更新 - 需在对应的config.plist文件配置needCheckDevOpsVersion 默认为NO 不触发
+- (void)checkAppUpdateVersion {
+#if defined(ENTERPRISE)
+    if ([[TXConfigManager shareInstance] isRelease]) {
+        // 检查商店版本更新
+        NSString *appStoreID = @"1152295397";
+        [self checkStoreVersion:appStoreID];
+    } else if ([[TXConfigManager shareInstance] needCheckDevOpsVersion]) {
+        // 工具包 - 开启检查蓝盾构建新版本
+        NSString *userId = [[ProfileManager shared] curUserID];
+        [DevOpsCheckManager checkUpdateWithUserId:userId];
+    }
 #endif
 }
 
 - (void)showLoginController {
 #ifndef NOT_LOGIN
-    LoginViewController *vc        = [[LoginViewController alloc] init];
+    LoginViewController *vc;
+    if ([TXConfigManager shareInstance].isRelease) {
+        vc = [[LoginViewController alloc] init];
+    } else {
+        vc = [[LoginMockViewController alloc] init];
+    }
     self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:vc];
 #endif
 }
@@ -372,8 +398,7 @@ NSString *helpUrlDb[] = {
 }
 
 - (BOOL)compareVersion:(NSString *)appStoreVersion {
-    NSDictionary *infoDic        = [[NSBundle mainBundle] infoDictionary];
-    NSString *    currentVersion = [infoDic objectForKey:@"CFBundleShortVersionString"];
+    NSString *    currentVersion = [TXAppInfo appVersion];
     NSLog(@"====== current version is %@ ======", currentVersion);
     return [appStoreVersion compare:currentVersion options:NSNumericSearch] == NSOrderedDescending;
 }

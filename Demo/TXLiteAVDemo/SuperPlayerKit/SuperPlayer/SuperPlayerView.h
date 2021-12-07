@@ -8,6 +8,9 @@
 @class SuperPlayerControlView;
 @class SuperPlayerView;
 @class TXImageSprite;
+@class TXVipTipView;
+@class TXVipWatchView;
+@class TXVipWatchModel;
 @protocol SuperPlayerDelegate <NSObject>
 @optional
 /// 返回事件
@@ -27,6 +30,7 @@
 typedef NS_ENUM(NSInteger, SuperPlayerState) {
     StateFailed,     // 播放失败
     StateBuffering,  // 缓冲中
+    StatePrepare,    // 准备就绪
     StatePlaying,    // 播放中
     StateStopped,    // 停止播放
     StatePause,      // 暂停播放
@@ -47,7 +51,6 @@ typedef NS_ENUM(NSInteger, SuperPlayerLayoutStyle) {
 
 /// 设置播放器的父view。播放过程中调用可实现播放窗口转移
 @property(nonatomic, weak) UIView *fatherView;
-
 /// 播放器的状态
 @property(nonatomic, assign) SuperPlayerState state;
 /// 是否全屏
@@ -64,18 +67,24 @@ typedef NS_ENUM(NSInteger, SuperPlayerLayoutStyle) {
 @property(readonly) BOOL isDragging;
 /// 是否加载成功
 @property(readonly) BOOL isLoaded;
-/// 设置封面图片
+/// 封面图片
 @property(nonatomic) UIImageView *coverImageView;
+/// 设置vipTipView
+@property(nonatomic) TXVipTipView *vipTipView;
+/// 设置vipWatchView
+@property(nonatomic) TXVipWatchView *vipWatchView;
+/// 设置vip试看的model
+@property(nonatomic) TXVipWatchModel *vipWatchModel;
+/// 设置vip试看的model
+@property(nonatomic, assign) BOOL isCanShowVipTipView;
 /// 重播按钮
 @property(nonatomic, strong) UIButton *repeatBtn;
+/// 播放按钮
+@property(nonatomic, strong) UIButton *centerPlayBtn;
 /// 全屏退出
 @property(nonatomic, strong) UIButton *repeatBackBtn;
-/// 是否自动播放（在playWithModel前设置)
-@property BOOL autoPlay;
 /// 视频总时长
 @property(nonatomic) CGFloat playDuration;
-/// 原始视频总时长，主要用于试看场景下显示总时长
-@property(nonatomic) NSTimeInterval originalDuration;
 /// 视频当前播放时间
 @property(nonatomic) CGFloat playCurrentTime;
 /// 起始播放时间，用于从上次位置开播
@@ -116,10 +125,42 @@ typedef NS_ENUM(NSInteger, SuperPlayerLayoutStyle) {
 - (void)pause;
 
 /**
+ * 停止播放
+ */
+- (void)removeVideo;
+
+/**
  *  从xx秒开始播放视频跳转
  *
  *  @param dragedSeconds 视频跳转的秒数
  */
 - (void)seekToTime:(NSInteger)dragedSeconds;
+
+/**
+ *  展示vipTipView
+ */
+- (void)showVipTipView;
+
+/**
+ *  隐藏vipTipView
+ */
+- (void)hideVipTipView;
+
+/**
+ *  展示vipWatchView
+ */
+- (void)showVipWatchView;
+
+/**
+ *  隐藏vipWatchView
+ */
+- (void)hideVipWatchView;
+
+/**
+ *  是否显示视频左上方的返回按钮
+ *
+ *  @param isShow 是否显示
+ */
+- (void)showOrHideBackBtn:(BOOL)isShow;
 
 @end

@@ -317,6 +317,7 @@
 "Demo.TRTC.Salon.online" = "online";
 "Demo.TRTC.Home.appusetoshowfunc" = "This app demonstrates the features of Tencent Video Cloud terminal products.";
 "Demo.TRTC.Home.newversionpublic" = "A new version is available";
+"Demo.TRTC.Home.devopsupdate" = "The current iOS new version is detected: %@, please use after upgrading.";
 "Demo.TRTC.Home.updatenow" = "Update Now";
 "Demo.TRTC.Home.later" = "Later";
 "Demo.TRTC.Streaming.tips" = "Tips";
@@ -577,3 +578,6 @@
 
 "Demo.TRTC.gSenorClose" = "Gravity has been turned off";
 "Demo.TRTC.videoClosed" = "Video Closed";
+
+"Demo.TRTC.Live.audioParallelMaxCount" = "Max remote streams";
+"Demo.TRTC.Live.audioParallelMustPlay" = "Audio must play";

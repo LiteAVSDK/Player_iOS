@@ -17,10 +17,18 @@
  */
 @class SuperPlayerVideoId;
 @class SuperPlayerVideoIdV2;
+
+// 播放模式
+typedef NS_ENUM(NSInteger, SuperPlayerAction) {
+    PLAY_ACTION_AUTO_PLAY = 0,     //自动播放
+    PLAY_ACTION_MANUAL_PLAY,   //手动播放
+    PLAY_ACTION_PRELOAD        //预加载
+};
+
 @interface SuperPlayerModel : NSObject
 
 /// AppId 用于腾讯云点播 File ID 播放及腾讯云直播时移功能
-@property long appId;
+@property(nonatomic, assign) long appId;
 
 // ------------------------------------------------------------------
 // URL 播放方式
@@ -54,19 +62,34 @@
 /// 用于兼容旧版本(V2)腾讯云点播 File ID 播放参数（即将废弃，不推荐使用）
 @property SuperPlayerVideoIdV2 *videoIdV2;
 
+/// 用户自定义的封面图片URL
+@property (nonatomic, strong) NSString *customCoverImageUrl;
+
+/// 默认的封面图片URL
+@property (nonatomic, strong) NSString *defaultCoverImageUrl;
+
+/// 播放模式
+@property (nonatomic, assign) SuperPlayerAction action;
+
+/// 视频时长
+@property (nonatomic, assign) NSTimeInterval duration;
+
+/// 视频名称
+@property (nonatomic, strong) NSString *name;
+
 @end
 
 /// 腾讯云点播 File ID 播放参数
 @interface SuperPlayerVideoId : NSObject
 
 /// 云点播 File ID
-@property NSString *fileId;
+@property(nonatomic, strong) NSString *fileId;
 
 /**
  * 防盗链签名
  * (使用 fileId 播放时填写)
  */
-@property NSString *psign;
+@property(nonatomic, strong) NSString *psign;
 
 @end
 
@@ -80,26 +103,26 @@
 /**
  * 云点播 File Id
  */
-@property NSString *fileId;
+@property(nonatomic, strong) NSString *fileId;
 /**
  * 加密链接超时时间戳，转换为16进制小写字符串，腾讯云 CDN 服务器会根据该时间判断该链接是否有效。可选
  * (使用 fileId 播放时填写)
  */
-@property NSString *timeout;
+@property(nonatomic, strong) NSString *timeout;
 /**
  * 试看时长，单位：秒。可选
  * (使用 fileId 播放时填写)
  */
-@property int exper;
+@property(nonatomic, assign) int exper;
 /**
  * 唯一标识请求，增加链接唯一性
  * (使用 fileId 播放时填写)
  */
-@property NSString *us;
+@property(nonatomic, strong) NSString *us;
 /**
  * 防盗链签名
  * (使用 fileId 播放时填写)
  */
-@property NSString *sign;
+@property(nonatomic, strong) NSString *sign;
 
 @end

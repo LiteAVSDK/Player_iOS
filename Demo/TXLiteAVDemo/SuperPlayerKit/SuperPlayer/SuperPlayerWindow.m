@@ -53,7 +53,6 @@
     [_rootView addGestureRecognizer:panGesture];
 
     UIButton *closeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    closeBtn           = [UIButton buttonWithType:UIButtonTypeCustom];
     [closeBtn setImage:SuperPlayerImage(@"close") forState:UIControlStateNormal];
     [closeBtn addTarget:self action:@selector(closeBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     [_rootView addSubview:closeBtn];

@@ -13,19 +13,19 @@ NSInteger const TXAFNetworkingTimeoutInterval = 30;
 
 @implementation TXVideoRequest
 
-static AFHTTPSessionManager *AFManager;
+static AFHTTPSessionManager *gAFManager;
 + (AFHTTPSessionManager *)sharedAFManager {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        AFManager = [AFHTTPSessionManager manager];
+        gAFManager = [AFHTTPSessionManager manager];
         
-        AFManager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"text/html",@"text/xml",@"text/json",@"text/plain",@"text/JavaScript",@"application/json",@"image/jpeg",@"image/png",@"application/octet-stream",nil];
-        AFManager.responseSerializer = [AFHTTPResponseSerializer serializer];
+        gAFManager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"text/html",@"text/xml",@"text/json",@"text/plain",@"text/JavaScript",@"application/json",@"image/jpeg",@"image/png",@"application/octet-stream",nil];
+        gAFManager.responseSerializer = [AFHTTPResponseSerializer serializer];
         
         // 设置超时时间
-        AFManager.requestSerializer.timeoutInterval = TXAFNetworkingTimeoutInterval;
+        gAFManager.requestSerializer.timeoutInterval = TXAFNetworkingTimeoutInterval;
     });
-    return AFManager;
+    return gAFManager;
 }
 
 + (void)requestWithtype:(TXVideoRequestType)type urlString:(NSString *)urlString parameters:(NSDictionary *)parameters headers:(NSDictionary *)headers successBlock:(nonnull TXVideoRequestSuccessBlock)successBlock failureBlock:(nonnull TXVideoRequestFailedBlock)failureBlock {

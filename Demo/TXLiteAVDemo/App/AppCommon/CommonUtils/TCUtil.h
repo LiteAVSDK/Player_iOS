@@ -8,6 +8,23 @@
 
 #import "TCLog.h"
 
+#ifndef weakify
+    #if __has_feature(objc_arc)
+        #define weakify(object) try{} @finally{} {} __weak __typeof__(object) weak##_##object = object;
+    #else
+        #define weakify(object) try{} @finally{} {} __block __typeof__(object) block##_##object = object;
+    #endif
+#endif
+
+
+#ifndef strongify
+    #if __has_feature(objc_arc)
+        #define strongify(object) try{} @finally{} __typeof__(object) object = weak##_##object;
+    #else
+        #define strongify(object) try{} @finally{} __typeof__(object) object = block##_##object;
+    #endif
+#endif
+
 #define IPHONE_X                                                                                        \
     ({                                                                                                  \
         BOOL isPhoneX = NO;                                                                             \
@@ -21,6 +38,7 @@ typedef void (^videoIsReadyBlock)(void);
 #define DEBUGSwitch [TCUtil getDEBUGSwitch]
 
 static NSString *const kMainMenuDEBUGSwitch = @"kMainMenuDEBUGSwitch";
+static NSString *const kIsFirstStart = @"kIsFirstStart";
 
 @interface TCUtil : NSObject
 
