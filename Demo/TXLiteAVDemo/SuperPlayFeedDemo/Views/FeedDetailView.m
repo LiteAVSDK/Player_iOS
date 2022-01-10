@@ -49,7 +49,7 @@ NSString * const FeedDetailVideoCellIdentifier = @"FeedDetailVideoCellIdentifier
             make.left.equalTo(self);
             make.right.equalTo(self);
             make.top.equalTo(self);
-            make.height.mas_equalTo(200);
+            make.height.mas_equalTo(cellHeight);
         }];
     }
     return self;
@@ -65,7 +65,7 @@ NSString * const FeedDetailVideoCellIdentifier = @"FeedDetailVideoCellIdentifier
     CGFloat subHeight = subtitlelabelRect.size.height > 14 ? subtitlelabelRect.size.height : 14;
     [self.headView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self);
-        make.top.equalTo(self).offset(200);
+        make.top.equalTo(self).offset(cellHeight);
         make.right.equalTo(self);
         make.height.mas_equalTo(44 + subHeight + deslabelRect.size.height);
     }];
@@ -73,7 +73,7 @@ NSString * const FeedDetailVideoCellIdentifier = @"FeedDetailVideoCellIdentifier
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self);
         make.right.equalTo(self);
-        make.top.equalTo(self).offset(200 + 44 + subHeight + deslabelRect.size.height);
+        make.top.equalTo(self).offset(cellHeight + 44 + subHeight + deslabelRect.size.height);
         make.bottom.equalTo(self);
     }];
     
@@ -93,7 +93,7 @@ NSString * const FeedDetailVideoCellIdentifier = @"FeedDetailVideoCellIdentifier
         make.edges.equalTo(self.videoView);
     }];
     
-    if (superPlayView.state != StatePlaying) {
+    if (superPlayView.state == StatePause || superPlayView.state == StatePrepare) {
         [self.superPlayView resume];
     }
 }
@@ -180,6 +180,7 @@ NSString * const FeedDetailVideoCellIdentifier = @"FeedDetailVideoCellIdentifier
 - (UIView *)videoView {
     if (!_videoView) {
         _videoView = [UIView new];
+        _videoView.backgroundColor = [UIColor blackColor];
     }
     return _videoView;
 }

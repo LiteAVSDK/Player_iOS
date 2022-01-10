@@ -49,6 +49,9 @@
 - (void)setResolutionViewState:(BOOL)isShow {
 }
 
+- (void)setNextBtnState:(BOOL)isShow {
+}
+
 - (void)setProgressTime:(NSInteger)currentTime totalTime:(NSInteger)totalTime progressValue:(CGFloat)progress playableValue:(CGFloat)playable {
 }
 

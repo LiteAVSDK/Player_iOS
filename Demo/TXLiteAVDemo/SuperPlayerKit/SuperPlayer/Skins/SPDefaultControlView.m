@@ -36,6 +36,7 @@
         [self.bottomImageView addSubview:self.resolutionBtn];
         [self.bottomImageView addSubview:self.fullScreenBtn];
         [self.bottomImageView addSubview:self.totalTimeLabel];
+        [self.bottomImageView addSubview:self.nextBtn];
 
         [self.topImageView addSubview:self.captureBtn];
         [self.topImageView addSubview:self.danmakuBtn];
@@ -57,6 +58,7 @@
         self.moreBtn.hidden         = YES;
         self.resolutionBtn.hidden   = YES;
         self.moreContentView.hidden = YES;
+        self.nextBtn.hidden         = YES;
         // 初始化时重置controlView
         [self playerResetControlView];
     }
@@ -121,27 +123,38 @@
     [self.currentTimeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.leading.equalTo(self.startBtn.mas_trailing);
         make.centerY.equalTo(self.startBtn.mas_centerY);
-        make.width.mas_equalTo(60);
+        make.width.mas_equalTo(50);
     }];
 
     [self.fullScreenBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.height.mas_equalTo(30);
-        make.trailing.equalTo(self.bottomImageView.mas_trailing).offset(-8);
+        make.trailing.equalTo(self.bottomImageView.mas_trailing).offset(-5);
         make.centerY.equalTo(self.startBtn.mas_centerY);
     }];
 
     [self.resolutionBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.height.mas_equalTo(30);
         make.width.mas_greaterThanOrEqualTo(45);
-        make.trailing.equalTo(self.bottomImageView.mas_trailing).offset(-8);
+        make.trailing.equalTo(self.bottomImageView.mas_trailing).offset(-5);
         make.centerY.equalTo(self.startBtn.mas_centerY);
+    }];
+    
+    [self.nextBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.trailing.equalTo(self.fullScreenBtn.mas_leading);
+        make.centerY.equalTo(self.startBtn.mas_centerY);
+        make.width.height.mas_equalTo(30);
     }];
 
     [self.totalTimeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.trailing.equalTo(self.fullScreenBtn.mas_leading);
+        if (self.nextBtn.hidden) {
+            make.trailing.equalTo(self.fullScreenBtn.mas_leading);
+        } else {
+            make.trailing.equalTo(self.nextBtn.mas_leading);
+        }
         make.centerY.equalTo(self.startBtn.mas_centerY);
-        make.width.mas_equalTo(60);
+        make.width.mas_equalTo(50);
     }];
+    
 
     [self.videoSlider mas_makeConstraints:^(MASConstraintMaker *make) {
         make.leading.equalTo(self.currentTimeLabel.mas_trailing);
@@ -334,6 +347,12 @@
         self.danmakuBtn.hidden = disableDanmakuBtn;
     }
 }
+
+- (void)nextJumpClick:(UIButton *)sender {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(controlViewNextClick:)]) {
+        [self.delegate controlViewNextClick:self];
+    }
+}
 /**
  *  屏幕方向发生变化会调用这里
  */
@@ -348,11 +367,28 @@
     self.danmakuBtn.hidden      = self.disableDanmakuBtn;
 
     [self.backBtn setImage:SuperPlayerImage(@"back_full") forState:UIControlStateNormal];
+    
+    if (!self.nextBtn.hidden) {
+        [self.nextBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            if (self.resolutionArray.count > 0) {
+                make.trailing.equalTo(self.resolutionBtn.mas_leading);
+            } else {
+                make.trailing.equalTo(self.bottomImageView.mas_trailing).offset(-5);
+            }
+            make.centerY.equalTo(self.startBtn.mas_centerY);
+            make.width.mas_equalTo(self.isLive ? 10 : 60);
+        }];
+    }
+    
     [self.totalTimeLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
-        if (self.resolutionArray.count > 0) {
-            make.trailing.equalTo(self.resolutionBtn.mas_leading);
+        if (!self.nextBtn.hidden) {
+            make.trailing.equalTo(self.nextBtn.mas_leading);
         } else {
-            make.trailing.equalTo(self.bottomImageView.mas_trailing);
+            if (self.resolutionArray.count > 0) {
+                make.trailing.equalTo(self.resolutionBtn.mas_leading);
+            } else {
+                make.trailing.equalTo(self.bottomImageView.mas_trailing).offset(-5);
+            }
         }
         make.centerY.equalTo(self.startBtn.mas_centerY);
         make.width.mas_equalTo(self.isLive ? 10 : 60);
@@ -381,7 +417,12 @@
     self.resolutionView.hidden  = YES;
 
     [self.totalTimeLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.trailing.equalTo(self.fullScreenBtn.mas_leading);
+        if (!self.nextBtn.hidden) {
+            make.trailing.equalTo(self.nextBtn.mas_leading);
+        } else {
+            make.trailing.equalTo(self.fullScreenBtn.mas_leading);
+        }
+        
         make.centerY.equalTo(self.startBtn.mas_centerY);
         make.width.mas_equalTo(self.isLive ? 10 : 60);
     }];
@@ -585,6 +626,16 @@
     return _moreContentView;
 }
 
+- (UIButton *)nextBtn {
+    if (!_nextBtn) {
+        _nextBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        _nextBtn.hidden = YES;
+        [_nextBtn setImage:SuperPlayerImage(@"play_next") forState:UIControlStateNormal];
+        [_nextBtn addTarget:self action:@selector(nextJumpClick:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _nextBtn;
+}
+
 #pragma mark - UIGestureRecognizerDelegate
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
@@ -753,6 +804,10 @@
 
 - (void)setResolutionViewState:(BOOL)isShow {
     self.resolutionView.hidden = !isShow;
+}
+
+- (void)setNextBtnState:(BOOL)isShow {
+    self.nextBtn.hidden = !isShow;
 }
 
 #pragma clang diagnostic pop

@@ -100,6 +100,16 @@ typedef NS_ENUM(NSUInteger, TXVideoPlayerStatus) {
  */
 - (void)setBitrateIndex:(NSInteger)index;
 
+/**
+ 应用进入前台处理
+ */
+- (void)detailAppWillEnterForeground;
+
+/**
+ 应用退到后台处理
+ */
+- (void)detailAppDidEnterBackground;
+
 @end
 
 NS_ASSUME_NONNULL_END

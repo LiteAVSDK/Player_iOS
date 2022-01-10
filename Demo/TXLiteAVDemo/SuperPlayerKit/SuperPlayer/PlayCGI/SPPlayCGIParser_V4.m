@@ -24,7 +24,8 @@
         do {
             //解析视频名称
             ret.name                 = [media valueForKeyPath:@"basicInfo.name"];
-            NSDictionary *streamInfo = [media valueForKeyPath:@"streamingInfo.plainOutput"];
+            NSString* audioVideoType = [media valueForKey:@"audioVideoType"];
+            NSDictionary *streamInfo = [self getStreamInfo:audioVideoType media:media];
             if (streamInfo == nil) {
                 NSArray *drmOutputs = [media valueForKeyPath:@"streamingInfo.drmOutput"];
                 for (NSDictionary *drmOutput in drmOutputs) {
@@ -46,14 +47,7 @@
             }
             // 解析分辨率名称
             NSArray *       subStreamDictArray = J2Array(streamInfo[@"subStreams"]);
-            NSMutableArray *subStreamInfoArray = [NSMutableArray arrayWithCapacity:subStreamDictArray.count];
-            for (NSDictionary *resInfo in subStreamDictArray) {
-                SuperPlayerUrl *url = [[SuperPlayerUrl alloc] init];
-                url.title           = J2Str(resInfo[@"resolutionName"]);
-                //                SPSubStreamInfo *info = [SPSubStreamInfo infoWithDictionary:resInfo];
-                [subStreamInfoArray addObject:url];
-            }
-            ret.multiVideoURLs = subStreamInfoArray;
+            ret.multiVideoURLs = [self parseResolutionName:subStreamDictArray];
 
             //解析视频播放url
             NSString *url = streamInfo[@"url"];
@@ -102,19 +96,46 @@
             if ([keyFrameDescInfo isKindOfClass:[NSDictionary class]]) {
                 NSArray *keyFrameDescList = keyFrameDescInfo[@"keyFrameDescList"];
                 if ([keyFrameDescList isKindOfClass:[NSArray class]] && keyFrameDescList.count > 0) {
-                    NSMutableArray<SPVideoFrameDescription *> *videoPoints = [NSMutableArray array];
-                    for (NSDictionary *jsonObject in keyFrameDescList) {
-                        SPVideoFrameDescription *point = [SPVideoFrameDescription instanceFromDictionary:jsonObject];
-                        if (point) {
-                            [videoPoints addObject:point];
-                        }
-                    }
-                    ret.keyFrameDescList = videoPoints;
+                    ret.keyFrameDescList = [self parseKeyframeData:keyFrameDescList];
                 }
             }
         } while (0);
     }
     return ret;
+}
+
++(NSDictionary *) getStreamInfo:(NSString*) audioVideoType media:(NSDictionary*) media{
+    NSDictionary *streamInfo;
+    if ([audioVideoType isEqualToString:@"Original"]) { //原视频输出
+        streamInfo = [media valueForKey:@"originalInfo"];
+    }else if ([audioVideoType isEqualToString:@"Transcode"]){ //转码输出
+        streamInfo = [media valueForKey:@"transcodeInfo"];
+    }else{                                                    //自适应码流输出
+        streamInfo = [media valueForKeyPath:@"streamingInfo.plainOutput"];
+    }
+    return  streamInfo;;
+}
+
++(NSMutableArray *) parseResolutionName:(NSArray*) subStreamDictArray{
+    NSMutableArray *subStreamInfoArray = [NSMutableArray arrayWithCapacity:subStreamDictArray.count];
+    for (NSDictionary *resInfo in subStreamDictArray) {
+        SuperPlayerUrl *url = [[SuperPlayerUrl alloc] init];
+        url.title           = J2Str(resInfo[@"resolutionName"]);
+        //                SPSubStreamInfo *info = [SPSubStreamInfo infoWithDictionary:resInfo];
+        [subStreamInfoArray addObject:url];
+    }
+    return subStreamInfoArray;
+}
+
++(NSMutableArray<SPVideoFrameDescription *> *) parseKeyframeData:(NSArray *)keyFrameDescList{
+    NSMutableArray<SPVideoFrameDescription *> *videoPoints = [NSMutableArray array];
+    for (NSDictionary *jsonObject in keyFrameDescList) {
+        SPVideoFrameDescription *point = [SPVideoFrameDescription instanceFromDictionary:jsonObject];
+        if (point) {
+            [videoPoints addObject:point];
+        }
+    }
+    return videoPoints;
 }
 
 @end

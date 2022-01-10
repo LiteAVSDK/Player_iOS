@@ -59,6 +59,8 @@ typedef NS_ENUM(NSInteger, SuperPlayerLayoutStyle) {
 @property(nonatomic, assign) BOOL isLockScreen;
 /// 是否是直播流
 @property(readonly) BOOL isLive;
+/// 是否自动播放（在playWithModel前设置)
+@property BOOL autoPlay;
 /// 超级播放器控制层
 @property(nonatomic) SuperPlayerControlView *controlView;
 /// 是否允许竖屏手势
@@ -107,6 +109,15 @@ typedef NS_ENUM(NSInteger, SuperPlayerLayoutStyle) {
  * 播放model
  */
 - (void)playWithModel:(SuperPlayerModel *)playerModel;
+
+/**
+ * 播放一组视频
+ *
+ *  @param playModelList    视频模型数组
+ *  @param isLoop    是否循环播放
+ *  @param index   起始位置
+ */
+- (void)playWithModelList:(NSArray *)playModelList isLoopPlayList:(BOOL)isLoop startIndex:(NSInteger)index;
 
 /**
  * 重置player

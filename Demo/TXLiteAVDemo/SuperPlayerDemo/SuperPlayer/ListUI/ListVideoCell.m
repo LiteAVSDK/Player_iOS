@@ -51,6 +51,9 @@
     model.action                = self.playAction;
     model.duration              = self.duration;
     model.name                  = self.title;
+    if (self.dynamicWaterModel) {
+        model.dynamicWaterModel = self.dynamicWaterModel;
+    }
 
     if (self.hdUrl) {
         NSMutableArray *array = @[].mutableCopy;
@@ -136,8 +139,11 @@
 
     int duration = source.duration;
     [self.thumb sd_setImageWithURL:[NSURL URLWithString:_source.coverUrl] placeholderImage:SuperPlayerImage(@"loading_bgView")];
-    if (source.type == 0) {
+    if (source.type == 0 && duration > 0) {
+        self.durationLabel.hidden = NO;
         self.durationLabel.text = [NSString stringWithFormat:@"%02d:%02d", duration / 60, duration % 60];
+    } else {
+        self.durationLabel.hidden = YES;
     }
     self.title.text = source.title;
 }

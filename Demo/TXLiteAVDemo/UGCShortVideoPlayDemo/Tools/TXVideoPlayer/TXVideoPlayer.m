@@ -28,9 +28,7 @@
 
 - (instancetype)init {
     if (self = [super init]) {
-        // 监听APP进入前台或者退到后台
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillEnterForeground:) name:UIApplicationWillEnterForegroundNotification object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appDidEnterBackground:) name:UIApplicationDidEnterBackgroundNotification object:nil];
+
     }
     return self;
 }
@@ -122,17 +120,8 @@
     [self.player setBitrateIndex:index];
 }
 
-#pragma mark - Private Methods
-- (void)playerStatusChange:(TXVideoPlayerStatus)status {
-    self.status = status;
-    if (self.delegate && [self.delegate respondsToSelector:@selector(player:statusChanged:)]) {
-        [self.delegate player:self statusChanged:status];
-    }
-}
-
-#pragma mark - Notification Click
-// APP进入前台
-- (void)appWillEnterForeground:(NSNotification *)notify {
+- (void)detailAppWillEnterForeground {
+    
     if (self.isNeedResume && self.status == TXVideoPlayerStatusPaused) {
         self.isNeedResume = NO;
         
@@ -140,19 +129,25 @@
         [[AVAudioSession sharedInstance] setActive:YES error:nil];
         
         WEAKIFY(self);
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             STRONGIFY(self);
             [self resumePlay];
         });
     }
 }
 
-// APP退到后台
-- (void)appDidEnterBackground:(NSNotification *)notify {
-    if (self.status == TXVideoPlayerStatusLoading || self.status == TXVideoPlayerStatusPlaying) {
+- (void)detailAppDidEnterBackground {
+    if (self.status == TXVideoPlayerStatusLoading || self.status == TXVideoPlayerStatusPlaying || self.status == TXVideoPlayerStatusPrepared) {
         [self pausePlay];
-        
         self.isNeedResume = YES;
+    }
+}
+
+#pragma mark - Private Methods
+- (void)playerStatusChange:(TXVideoPlayerStatus)status {
+    self.status = status;
+    if (self.delegate && [self.delegate respondsToSelector:@selector(player:statusChanged:)]) {
+        [self.delegate player:self statusChanged:status];
     }
 }
 

@@ -69,6 +69,11 @@ NSString * const TXShortVideoCellIdentifier = @"TXShortVideoCellIdentifier";
 
 - (instancetype)initWithViewController:(UIViewController *)vc {
     if (self = [super init]) {
+        
+        // 监听APP进入前台或者退到后台
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillEnterForeground:) name:UIApplicationWillEnterForegroundNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appDidEnterBackground:) name:UIApplicationDidEnterBackgroundNotification object:nil];
+        
         _vc = vc;
         [self addSubview:self.bgImageView];
         [self.bgImageView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -184,7 +189,9 @@ NSString * const TXShortVideoCellIdentifier = @"TXShortVideoCellIdentifier";
 }
 
 - (void)jumpToCellWithIndex:(NSInteger)index {
-    self.currentPlayingCell = nil;
+    if (index != self.currentPlayIndex) {
+        self.currentPlayingCell = nil;
+    }
     NSIndexPath *indexpath = [NSIndexPath indexPathForRow:index inSection:0];
     [self.tableView scrollToRowAtIndexPath:indexpath atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
 }
@@ -435,6 +442,17 @@ NSString * const TXShortVideoCellIdentifier = @"TXShortVideoCellIdentifier";
     [self.progressSlideGuideView removeFromSuperview];
     self.progressSlideGuideView = nil;
     [self.vc.navigationController popToRootViewControllerAnimated:NO];
+}
+
+#pragma mark - Notification Click
+// APP进入前台
+- (void)appWillEnterForeground:(NSNotification *)notify {
+    [self.currentPlayer detailAppWillEnterForeground];
+}
+
+// APP退到后台
+- (void)appDidEnterBackground:(NSNotification *)notify {
+    [self.currentPlayer detailAppDidEnterBackground];
 }
 
 #pragma mark - 懒加载

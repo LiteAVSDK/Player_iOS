@@ -12,8 +12,14 @@
 #import "TXMoviePlayInfoResponse.h"
 
 @interface ListVideoUrl : NSObject
-@property NSString *title;
-@property NSString *url;
+@property(nonatomic, strong) NSString *title;
+@property(nonatomic, strong) NSString *url;
+@end
+
+@interface DynamicWaterModel : NSObject
+@property(nonatomic, assign) CGFloat  textFont;
+@property(nonatomic, strong) NSString *dynamicWatermarkTip;
+@property(nonatomic, strong) UIColor  *textColor;
 @end
 
 @interface ListVideoModel : NSObject
@@ -27,6 +33,7 @@
 @property(nonatomic, strong) NSArray<ListVideoUrl *> *hdUrl;
 @property(nonatomic, assign) int type;  // 0 - 点播；1 - 直播
 @property(nonatomic, strong) NSString *psign;
+@property(nonatomic, strong) DynamicWaterModel *dynamicWaterModel;
 @property(nonatomic, assign) int playAction; // 0 - 自动播放；1 - 手动播放  2 - 预加载
 - (void)addHdUrl:(NSString *)url withTitle:(NSString *)title;
 - (void)setModel:(SuperPlayerModel *)model;

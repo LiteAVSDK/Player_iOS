@@ -12,6 +12,8 @@
 - (void)controlViewPlay:(UIView *)controlView;
 /** 暂停 */
 - (void)controlViewPause:(UIView *)controlView;
+/** 播放下一个 */
+- (void)controlViewNextClick:(UIView *)controlView;
 /** 播放器全屏 */
 - (void)controlViewChangeScreen:(UIView *)controlView withFullScreen:(BOOL)isFullScreen;
 - (void)controlViewDidChangeScreen:(UIView *)controlView;

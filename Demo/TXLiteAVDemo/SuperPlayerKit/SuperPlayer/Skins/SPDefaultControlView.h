@@ -67,6 +67,8 @@
 /** 滑杆 */
 @property(nonatomic, strong) PlayerSlider *videoSlider;
 
+@property(nonatomic, strong) UIButton *nextBtn;
+
 /** 重播按钮 */
 @property(nonatomic, strong) UIButton *repeatBtn;
 
