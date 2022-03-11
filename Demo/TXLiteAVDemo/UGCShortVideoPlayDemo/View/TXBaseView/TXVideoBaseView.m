@@ -64,11 +64,13 @@
     
     _model = model;
     
-    if ([model.width floatValue] > [model.height floatValue]) {
-        self.coverImgView.contentMode = UIViewContentModeScaleAspectFit;
-    }else {
-        self.coverImgView.contentMode = UIViewContentModeScaleAspectFill;
-    }
+//    if ([model.width floatValue] > [model.height floatValue]) {
+//        self.coverImgView.contentMode = UIViewContentModeScaleAspectFit;
+//    }else {
+//        self.coverImgView.contentMode = UIViewContentModeScaleAspectFill;
+//    }
+    
+    self.coverImgView.contentMode = UIViewContentModeScaleAspectFit;
     
     if (model.coverUrl) {
         [self.coverImgView sd_setImageWithURL:[NSURL URLWithString:model.coverUrl] placeholderImage:[UIImage imageNamed:@"img_video_loading"]];

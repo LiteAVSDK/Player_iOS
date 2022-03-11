@@ -159,7 +159,7 @@
         _player.vodDelegate = self;
         TXVodPlayConfig *config = [TXVodPlayConfig new];
         config.maxBufferSize = 1;
-        config.smoothSwitchBitrate = YES;
+        config.smoothSwitchBitrate = NO;
         _player.config = config;
         [_player setRenderMode:RENDER_MODE_FILL_SCREEN];
     }

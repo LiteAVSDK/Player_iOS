@@ -188,7 +188,7 @@ static UISlider *_volumeSlider;
     [super layoutSubviews];
     if (self.subviews.count > 0) {
         UIView *innerView = self.subviews[0];
-        if ([innerView isKindOfClass:NSClassFromString(@"TXIJKSDLGLView")] || [innerView isKindOfClass:NSClassFromString(@"TXCAVPlayerView")]) {
+        if ([innerView isKindOfClass:NSClassFromString(@"TXIJKSDLGLView")] || [innerView isKindOfClass:NSClassFromString(@"TXCAVPlayerView")] || [innerView isKindOfClass:NSClassFromString(@"TXCThumbPlayerView")]) {
             innerView.frame = self.bounds;
         }
     }
@@ -348,9 +348,6 @@ static UISlider *_volumeSlider;
             if (self.state == StatePrepare) {
                 self.state         = StatePlaying;
                 [self.vodPlayer resume];
-                if (self.delegate && [self.delegate respondsToSelector:@selector(superPlayerDidStart:)]) {
-                    [self.delegate superPlayerDidStart:self];
-                }
             } else {
                 _isPrepare = YES;
             }
@@ -558,45 +555,18 @@ static UISlider *_volumeSlider;
             self.livePlayer          = [[TXLivePlayer alloc] init];
             self.livePlayer.delegate = self;
         }
-        TXLivePlayConfig *config      = [[TXLivePlayConfig alloc] init];
-        config.bAutoAdjustCacheTime   = NO;
-        config.maxAutoAdjustCacheTime = 5.0f;
-        config.minAutoAdjustCacheTime = 5.0f;
-        config.headers                = self.playerConfig.headers;
-        [self.livePlayer setConfig:config];
+        [self setLivePlayerConfig];
 
-        self.livePlayer.enableHWAcceleration = self.playerConfig.hwAcceleration;
         [self.livePlayer startPlay:videoURL type:liveType];
-        [self.livePlayer setupVideoWidget:CGRectZero containView:self insertIndex:0];
         TXCUrl *curl = [[TXCUrl alloc] initWithString:videoURL];
         [self.livePlayer prepareLiveSeek:self.playerConfig.playShiftDomain bizId:curl.bizid];
-        [self.livePlayer setMute:self.playerConfig.mute];
-        [self.livePlayer setRenderMode:self.playerConfig.renderMode];
-        self.isPauseByUser = NO;
     } else {
         if (!self.vodPlayer) {
             self.vodPlayer             = [[TXVodPlayer alloc] init];
             self.vodPlayer.vodDelegate = self;
         }
         
-        TXVodPlayConfig *config    = [[TXVodPlayConfig alloc] init];
-        config.smoothSwitchBitrate = YES;
-        if (self.playerConfig.maxCacheItem) {
-            // https://github.com/tencentyun/SuperPlayer_iOS/issues/64
-            config.cacheFolderPath = [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingString:@"/TXCache"];
-            config.maxCacheItems   = (int)self.playerConfig.maxCacheItem;
-        }
-        config.progressInterval = 0.02;
-        self.vodPlayer.token    = self.playerModel.drmToken;
-        config.headers = self.playerConfig.headers;
-
-        config.overlayIv = self.playerModel.overlayIv;
-        config.overlayKey = self.playerModel.overlayKey;
-        [self.vodPlayer setConfig:config];
-
-        self.vodPlayer.enableHWAcceleration = self.playerConfig.hwAcceleration;
-        [self.vodPlayer setStartTime:self.startTime];
-        self.startTime = 0;
+        [self setVodPlayConfig];
 
         NSString *appParameter     = [NSString stringWithFormat:@"spappid=%ld", self.playerModel.appId];
         NSString *fileidParameter  = [NSString stringWithFormat:@"spfileid=%@", self.playerModel.videoId.fileId];
@@ -606,14 +576,42 @@ static UISlider *_volumeSlider;
         vodParamVideoUrl           = [NSString appendParameter:drmtypeParameter WithOriginUrl:vodParamVideoUrl];
         
         [self preparePlayWithVideoUrl:([self isSupportAppendParam] ? vodParamVideoUrl : videoURL)];
-        [self.vodPlayer setBitrateIndex:self.playerModel.playingDefinitionIndex];
-
-        [self.vodPlayer setRate:self.playerConfig.playRate];
-        [self.vodPlayer setMirror:self.playerConfig.mirror];
-        [self.vodPlayer setMute:self.playerConfig.mute];
-        [self.vodPlayer setRenderMode:self.playerConfig.renderMode];
-        [self.vodPlayer setLoop:self.loop];
     }
+    [self resetControlViewWithLive:self.isLive shiftPlayback:self.isShiftPlayback isPlaying:self.state == StatePlaying ? YES : NO];
+    self.controlView.playerConfig = self.playerConfig;
+    self.repeatBtn.hidden         = YES;
+    self.playDidEnd               = NO;
+    [self.middleBlackBtn fadeOut:0.1];
+}
+
+- (void)setVodPlayConfig {
+    TXVodPlayConfig *config    = [[TXVodPlayConfig alloc] init];
+    config.smoothSwitchBitrate = YES;
+    if (self.playerConfig.maxCacheItem) {
+        // https://github.com/tencentyun/SuperPlayer_iOS/issues/64
+        config.cacheFolderPath = [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingString:@"/TXCache"];
+        config.maxCacheItems   = (int)self.playerConfig.maxCacheItem;
+    }
+    config.progressInterval = 0.02;
+    config.headers = self.playerConfig.headers;
+
+    config.overlayIv = self.playerModel.overlayIv;
+    config.overlayKey = self.playerModel.overlayKey;
+    [self.vodPlayer setConfig:config];
+    
+    self.vodPlayer.token    = self.playerModel.drmToken;
+
+    self.vodPlayer.enableHWAcceleration = self.playerConfig.hwAcceleration;
+    [self.vodPlayer setStartTime:self.startTime];
+    self.startTime = 0;
+    
+    [self.vodPlayer setBitrateIndex:self.playerModel.playingDefinitionIndex];
+    [self.vodPlayer setRate:self.playerConfig.playRate];
+    [self.vodPlayer setMirror:self.playerConfig.mirror];
+    [self.vodPlayer setMute:self.playerConfig.mute];
+    [self.vodPlayer setRenderMode:self.playerConfig.renderMode];
+    [self.vodPlayer setLoop:self.loop];
+    
     [self.netWatcher startWatch];
     __weak SuperPlayerView *weakSelf = self;
     [self.netWatcher setNotifyTipsBlock:^(NSString *msg) {
@@ -623,11 +621,31 @@ static UISlider *_volumeSlider;
             [strongSelf.middleBlackBtn fadeOut:2];
         }
     }];
-    [self resetControlViewWithLive:self.isLive shiftPlayback:self.isShiftPlayback isPlaying:self.state == StatePlaying ? YES : NO];
-    self.controlView.playerConfig = self.playerConfig;
-    self.repeatBtn.hidden         = YES;
-    self.playDidEnd               = NO;
-    [self.middleBlackBtn fadeOut:0.1];
+}
+
+- (void)setLivePlayerConfig {
+    TXLivePlayConfig *config      = [[TXLivePlayConfig alloc] init];
+    config.bAutoAdjustCacheTime   = NO;
+    config.maxAutoAdjustCacheTime = 5.0f;
+    config.minAutoAdjustCacheTime = 5.0f;
+    config.headers                = self.playerConfig.headers;
+    [self.livePlayer setConfig:config];
+    
+    self.livePlayer.enableHWAcceleration = self.playerConfig.hwAcceleration;
+    [self.livePlayer setupVideoWidget:CGRectZero containView:self insertIndex:0];
+    [self.livePlayer setMute:self.playerConfig.mute];
+    [self.livePlayer setRenderMode:self.playerConfig.renderMode];
+    self.isPauseByUser = NO;
+    
+    [self.netWatcher startWatch];
+    __weak SuperPlayerView *weakSelf = self;
+    [self.netWatcher setNotifyTipsBlock:^(NSString *msg) {
+        SuperPlayerView *strongSelf = weakSelf;
+        if (strongSelf) {
+            [strongSelf showMiddleBtnMsg:msg withAction:ActionSwitch];
+            [strongSelf.middleBlackBtn fadeOut:2];
+        }
+    }];
 }
 
 - (void)preparePlayWithVideoUrl:(NSString *)videoUrl {
@@ -691,7 +709,6 @@ static UISlider *_volumeSlider;
     if ([self.vodPlayer supportedBitrates].count > 1) {
         [self.vodPlayer resume];
     } else {
-        [self.vodPlayer stopPlay];
         [self.vodPlayer startPlay:url];
         if (_playerModel.action == PLAY_ACTION_PRELOAD) {
             [self resume];
@@ -762,9 +779,6 @@ static UISlider *_volumeSlider;
         self.isPauseByUser = NO;
         [self.controlView setPlayState:YES];
         self.centerPlayBtn.hidden = YES;
-        if ([self.delegate respondsToSelector:@selector(superPlayerDidStart:)]) {
-            [self.delegate superPlayerDidStart:self];
-        }
     }
 }
 
@@ -822,6 +836,10 @@ static UISlider *_volumeSlider;
     if (!self.autoPlay) {
         self.autoPlay = YES; // 下次用户设置自动播放失效
         [self pause];
+    }
+    
+    if ([self.delegate respondsToSelector:@selector(superPlayerDidStart:)]) {
+        [self.delegate superPlayerDidStart:self];
     }
 }
 
@@ -1018,6 +1036,8 @@ static UISlider *_volumeSlider;
     [self.controlView fadeShow];
     
     if (self.playDidEnd) {
+        [self.vodPlayer stopPlay];
+        [self setVodPlayConfig];
         [self restart];
     } else {
         if (self.isPauseByUser) {
@@ -1552,6 +1572,8 @@ static UISlider *_volumeSlider;
 
 - (void)controlViewPlay:(SuperPlayerControlView *)controlView {
     if (self.playDidEnd) {
+        [self.vodPlayer stopPlay];
+        [self setVodPlayConfig];
         [self restart];
     } else {
         [self controllViewPlayClick];
@@ -1844,6 +1866,7 @@ static UISlider *_volumeSlider;
         if ([w isKindOfClass:NSClassFromString(@"TXCRenderView")]) [w removeFromSuperview];
         if ([w isKindOfClass:NSClassFromString(@"TXIJKSDLGLView")]) [w removeFromSuperview];
         if ([w isKindOfClass:NSClassFromString(@"TXCAVPlayerView")]) [w removeFromSuperview];
+        if ([w isKindOfClass:NSClassFromString(@"TXCThumbPlayerView")]) [w removeFromSuperview];
     }
 }
 
@@ -2141,6 +2164,8 @@ static UISlider *_volumeSlider;
 }
 
 - (void)repeatBtnClick:(UIButton *)sender {
+    [self.vodPlayer stopPlay];
+    [self setVodPlayConfig];
     [self restart];
 }
 

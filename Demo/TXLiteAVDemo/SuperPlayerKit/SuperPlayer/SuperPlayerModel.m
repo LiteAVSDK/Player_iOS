@@ -44,7 +44,10 @@ const NSInteger kInvalidResponseErrorCode = -100;
     // 初始播放清晰度url获取失败，获取第一条转码流
     if (url == nil) {
         if (self.multiVideoURLs.count > 0) {
-            url = self.multiVideoURLs.firstObject.url;
+            url = self.multiVideoURLs.lastObject.url;
+            if (url) {
+                self.playingDefinition = self.multiVideoURLs.lastObject.title;
+            }
         }
     }
     // 转码流获取失败，用原始地址

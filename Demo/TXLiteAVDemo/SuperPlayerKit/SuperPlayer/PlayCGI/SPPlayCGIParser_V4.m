@@ -116,7 +116,7 @@
     return  streamInfo;;
 }
 
-+(NSMutableArray *) parseResolutionName:(NSArray*) subStreamDictArray{
++(NSMutableArray *) parseResolutionName:(NSArray*)subStreamDictArray{
     NSMutableArray *subStreamInfoArray = [NSMutableArray arrayWithCapacity:subStreamDictArray.count];
     for (NSDictionary *resInfo in subStreamDictArray) {
         SuperPlayerUrl *url = [[SuperPlayerUrl alloc] init];

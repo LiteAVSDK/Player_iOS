@@ -100,6 +100,39 @@ __weak UITextField *psignField;
     }
 }
 
+- (void)addObservers {
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    [center addObserver:self
+               selector:@selector(updateLockScreenInfo)
+                   name:UIApplicationDidEnterBackgroundNotification
+                 object:nil];
+}
+
+// 更新锁屏界面信息
+- (void)updateLockScreenInfo {
+    // 1.获取锁屏中心
+    MPNowPlayingInfoCenter *playingInfoCenter = [MPNowPlayingInfoCenter defaultCenter];
+    // 初始化一个存放音乐信息的字典
+    NSMutableDictionary *playingInfoDict = [NSMutableDictionary dictionary];
+    
+    // 2、设置名称
+    [playingInfoDict setObject:[NSString stringWithFormat:@"歌曲1"]
+                        forKey:MPMediaItemPropertyTitle];
+    [playingInfoDict setObject:[NSString stringWithFormat:@"专辑1"]
+                        forKey:MPMediaItemPropertyAlbumTitle];
+    
+    
+    // 3、设置封面的图片
+    UIImage *image = [UIImage imageNamed:@"TengXunYun_logo"];
+    if (image) {
+        MPMediaItemArtwork *artwork = [[MPMediaItemArtwork alloc] initWithImage:image];
+        [playingInfoDict setObject:artwork forKey:MPMediaItemPropertyArtwork];
+    }
+    
+    //音乐信息赋值给获取锁屏中心的nowPlayingInfo属性
+    playingInfoCenter.nowPlayingInfo = playingInfoDict;
+}
+
 - (void)dealloc {
     NSLog(@"%@", LocalizeReplaceXX(LivePlayerLocalize(@"SuperPlayerDemo.MoviePlayer.xxtherelease"), NSStringFromClass(self.class)));
     [_manager invalidateSessionCancelingTasks:YES resetSession:NO];
@@ -118,6 +151,8 @@ __weak UITextField *psignField;
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:NO];
+    
+    [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
 
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:self.view.bounds];
     imageView.image        = [UIImage imageNamed:@"背景"];
@@ -182,6 +217,8 @@ __weak UITextField *psignField;
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:NO];
+    
+    [[UIApplication sharedApplication] endReceivingRemoteControlEvents];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -208,6 +245,8 @@ __weak UITextField *psignField;
     _authParamArray      = [NSMutableArray new];
     _vodDataSourceArray  = [NSMutableArray new];
     _liveDataSourceArray = [NSMutableArray new];
+    
+    [self addObservers];
 
     if (self.videoURL) {
         SuperPlayerModel *playerModel = [[SuperPlayerModel alloc] init];
