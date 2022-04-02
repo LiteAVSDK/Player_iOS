@@ -90,6 +90,9 @@
     playerModel.duration = model.duration;
 
     [self.superPlayView playWithModel:playerModel];
+    
+    SPDefaultControlView *dv = (SPDefaultControlView *)self.superPlayView.controlView;
+    dv.disableDanmakuBtn = YES;
 }
 
 - (void)pause {

@@ -47,6 +47,9 @@ NS_ASSUME_NONNULL_BEGIN
 // 视频播放时长和总时长控件
 @property (nonatomic, strong) TXTimeView                   *timeView;
 
+// 视频播放view
+@property (nonatomic, strong) UIView                       *videoFatherView;
+
 /**
  * 设置slider的进度条
  * @param progress  进度条大小

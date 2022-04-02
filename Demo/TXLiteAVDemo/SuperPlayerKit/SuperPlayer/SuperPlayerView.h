@@ -11,6 +11,36 @@
 @class TXVipTipView;
 @class TXVipWatchView;
 @class TXVipWatchModel;
+@class TXLivePlayer;
+@class TXVodPlayer;
+
+@protocol SuperPlayerPlayListener <NSObject>
+@optional
+
+/// 直播事件通知
+/// @param player 直播播放器
+/// @param evtID 参见 TXLiveSDKEventDef.h
+/// @param param 参见 TXLiveSDKTypeDef.h
+- (void)onLivePlayEvent:(TXLivePlayer *)player event:(int)evtID withParam:(NSDictionary *)param;
+
+/// 直播网络状态通知
+/// @param player 直播播放器
+/// @param param 参见 TXLiveSDKTypeDef.h
+- (void)onLiveNetStatus:(TXLivePlayer *)player withParam:(NSDictionary *)param;
+
+/// 点播事件通知
+/// @param player 点播播放器
+/// @param evtID 参见TXLiveSDKTypeDef.h
+/// @param param 参见TXLiveSDKTypeDef.h
+- (void)onVodPlayEvent:(TXVodPlayer *)player event:(int)evtID withParam:(NSDictionary *)param;
+
+/// 点播网络状态通知
+/// @param player 点播播放器
+/// @param param 参见TXLiveSDKTypeDef.h
+- (void)onVodNetStatus:(TXVodPlayer *)player withParam:(NSDictionary *)param;
+
+@end
+
 @protocol SuperPlayerDelegate <NSObject>
 @optional
 /// 返回事件
@@ -34,6 +64,7 @@ typedef NS_ENUM(NSInteger, SuperPlayerState) {
     StatePlaying,    // 播放中
     StateStopped,    // 停止播放
     StatePause,      // 暂停播放
+    StateFirstFrame, // 第一帧画面
 };
 
 /// 播放器布局样式
@@ -46,6 +77,8 @@ typedef NS_ENUM(NSInteger, SuperPlayerLayoutStyle) {
 
 /** 设置代理 */
 @property(nonatomic, weak) id<SuperPlayerDelegate> delegate;
+
+@property(nonatomic, weak) id<SuperPlayerPlayListener> playListener;
 
 @property(nonatomic, assign) SuperPlayerLayoutStyle layoutStyle;
 

@@ -35,7 +35,6 @@
 		400923631F4FCC6E009B882D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 40F853221EE8FC7300EE47D7 /* Assets.xcassets */; };
 		4009238F1F4FCC6E009B882D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 40F853331EE8FC9B00EE47D7 /* Main.storyboard */; };
 		402A010424506F740037A219 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 402A010024506F740037A219 /* main.m */; };
-		4071CF5B24441578000B7707 /* TXLiteAVSDK_Player.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4071CF5924441578000B7707 /* TXLiteAVSDK_Player.framework */; };
 		40A1DEC22638412E0011E532 /* NSData+Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 47E8CAB6260B5C05001CF672 /* NSData+Common.m */; };
 		40A1DED8263841360011E532 /* NSDictionary+Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 47E8CAC5260B5C05001CF672 /* NSDictionary+Common.m */; };
 		40A1DEF52638413F0011E532 /* NSObject+CommonBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 47E8CAB3260B5C05001CF672 /* NSObject+CommonBlock.m */; };
@@ -176,7 +175,6 @@
 		402A010724506F9C0037A219 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = App/Info.plist; sourceTree = "<group>"; };
 		4030B1EC245563B200CF5926 /* SuperPlayer.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = SuperPlayer.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		40407ACA1F3035CA006C7301 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		4071CF5924441578000B7707 /* TXLiteAVSDK_Player.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TXLiteAVSDK_Player.framework; sourceTree = "<group>"; };
 		4071CF702444477A000B7707 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
 		40A49D5E24598CD200BFCB18 /* UGCKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = UGCKit.xcodeproj; path = UGCKit/UGCKit.xcodeproj; sourceTree = "<group>"; };
 		40A7CFED2461102E00E792A5 /* SuperPlayer.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = SuperPlayer.bundle; path = SuperPlayer/Resource/SuperPlayer.bundle; sourceTree = "<group>"; };
@@ -384,7 +382,6 @@
 				400922E21F4FCC6E009B882D /* AVFoundation.framework in Frameworks */,
 				400922E31F4FCC6E009B882D /* MediaPlayer.framework in Frameworks */,
 				400922E51F4FCC6E009B882D /* libiconv.tbd in Frameworks */,
-				4071CF5B24441578000B7707 /* TXLiteAVSDK_Player.framework in Frameworks */,
 				400922E61F4FCC6E009B882D /* libz.tbd in Frameworks */,
 				400922E71F4FCC6E009B882D /* libc++.tbd in Frameworks */,
 				400922E91F4FCC6E009B882D /* libresolv.tbd in Frameworks */,
@@ -510,7 +507,6 @@
 		40F852FA1EE8FB3800EE47D7 = {
 			isa = PBXGroup;
 			children = (
-				45736E91243F5B2200F7F601 /* SDK */,
 				40F853051EE8FB3800EE47D7 /* TXLiteAVDemo */,
 				40F854FF1EE8FD2F00EE47D7 /* Frameworks */,
 				40F853041EE8FB3800EE47D7 /* Products */,
@@ -620,15 +616,6 @@
 				47258C0972C94E28C1B82D68 /* libPods-TXLiteAVDemo_Player.a */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		45736E91243F5B2200F7F601 /* SDK */ = {
-			isa = PBXGroup;
-			children = (
-				4071CF5924441578000B7707 /* TXLiteAVSDK_Player.framework */,
-			);
-			name = SDK;
-			path = ../SDK;
 			sourceTree = "<group>";
 		};
 		45D8448A23B63C77001CD3A9 /* UGCUpload */ = {

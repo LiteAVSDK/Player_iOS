@@ -158,7 +158,8 @@
         _player.enableHWAcceleration = YES;
         _player.vodDelegate = self;
         TXVodPlayConfig *config = [TXVodPlayConfig new];
-        config.maxBufferSize = 1;
+        config.maxBufferSize = 3;
+        config.maxBufferSize = 8;
         config.smoothSwitchBitrate = NO;
         _player.config = config;
         [_player setRenderMode:RENDER_MODE_FILL_SCREEN];

@@ -61,8 +61,6 @@ NSString * const TXShortVideoCellIdentifier = @"TXShortVideoCellIdentifier";
 
 @property (nonatomic, strong) NSIndexPath                *willPlayIndexPath;
 
-@property (nonatomic, assign) NSTimeInterval             lastCheckPlayTimeInAdvance;
-
 @end
 
 @implementation SuperShortVideoView
@@ -297,7 +295,7 @@ NSString * const TXShortVideoCellIdentifier = @"TXShortVideoCellIdentifier";
     // 重新播放
     NSString *url = cell.model.videourl;
     if (url.length > 0) {
-        [self.currentPlayer playVideoWithView:cell.baseView.coverImgView url:url];
+        [self.currentPlayer playVideoWithView:cell.baseView.videoFatherView url:url];
     }
 }
 
@@ -343,10 +341,6 @@ NSString * const TXShortVideoCellIdentifier = @"TXShortVideoCellIdentifier";
 - (void)player:(TXVideoPlayer *)player statusChanged:(TXVideoPlayerStatus)status {
     switch (status) {
         case TXVideoPlayerStatusUnload:
-            break;
-        case TXVideoPlayerStatusPrepared: {
-            [self.currentPlayingCell startLoading];
-        }
             break;
         case TXVideoPlayerStatusLoading:
             [self.currentPlayingCell hidePlayBtn];
@@ -614,25 +608,10 @@ NSString * const TXShortVideoCellIdentifier = @"TXShortVideoCellIdentifier";
     self.willPlayIndexPath = indexPath;
 }
 
-- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
-    self.isDragging = YES;
-}
-
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    if (self.isDragging) {
-        return;
-    }
-
     CGFloat oldContentOffsetY = self.lastContentOffsetY;
     self.lastContentOffsetY = scrollView.contentOffset.y;
-
-    NSTimeInterval now = [[NSDate date] timeIntervalSince1970];
-    if (now - self.lastCheckPlayTimeInAdvance < 0.05) {
-        return;
-    }
-    self.lastCheckPlayTimeInAdvance = now;
-
-    if (self.lastContentOffsetY > oldContentOffsetY) {
+    if ((self.lastContentOffsetY > oldContentOffsetY) && self.lastContentOffsetY >= self.willPlayIndexPath.row * SCREEN_HEIGHT) {
         // scroll up
         if (self.currentPlayIndex < self.willPlayIndexPath.row) {
             NSIndexPath *currentIndexPath = [self.tableView currentIndexPathForFullScreenCell];
@@ -642,7 +621,7 @@ NSString * const TXShortVideoCellIdentifier = @"TXShortVideoCellIdentifier";
                 }
             }
         }
-    } else {
+    } else if ((self.lastContentOffsetY < oldContentOffsetY) && self.lastContentOffsetY <= self.willPlayIndexPath.row * SCREEN_HEIGHT) {
         // scroll down
         if (self.currentPlayIndex > self.willPlayIndexPath.row) {
             NSIndexPath *currentIndexPath = [self.tableView currentIndexPathForFullScreenCell];
@@ -661,7 +640,6 @@ NSString * const TXShortVideoCellIdentifier = @"TXShortVideoCellIdentifier";
 }
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
-    self.isDragging = NO;
     if (!decelerate) {
         //滑动播放
         [self handleScrollPlaying:scrollView];

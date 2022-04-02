@@ -289,7 +289,7 @@
     self.resolutionView.hidden = NO;
     [DataReport report:@"change_resolution" param:nil];
 
-    [self cancelFadeOut];
+    [self fadeShow];
     self.isShowSecondView = YES;
 }
 

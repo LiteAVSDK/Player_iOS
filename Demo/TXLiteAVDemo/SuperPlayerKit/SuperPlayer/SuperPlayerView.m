@@ -339,6 +339,7 @@ static UISlider *_volumeSlider;
     } else {
         if (self.state == StatePause) {
             [self.vodPlayer resume];
+            self.state = StatePlaying;
             if (self.delegate && [self.delegate respondsToSelector:@selector(superPlayerDidStart:)]) {
                 [self.delegate superPlayerDidStart:self];
             }
@@ -586,7 +587,7 @@ static UISlider *_volumeSlider;
 
 - (void)setVodPlayConfig {
     TXVodPlayConfig *config    = [[TXVodPlayConfig alloc] init];
-    config.smoothSwitchBitrate = YES;
+    config.smoothSwitchBitrate = NO;
     if (self.playerConfig.maxCacheItem) {
         // https://github.com/tencentyun/SuperPlayer_iOS/issues/64
         config.cacheFolderPath = [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingString:@"/TXCache"];
@@ -1143,6 +1144,11 @@ static UISlider *_volumeSlider;
     if (!self.isPauseByUser && (self.state != StateStopped && self.state != StateFailed)) {
         self.state = StatePlaying;
         [_vodPlayer resume];
+        CGFloat value        = _vodPlayer.currentPlaybackTime / _vodPlayer.duration;
+        CGFloat playable     = _vodPlayer.playableDuration / _vodPlayer.duration;
+        self.controlView.isDragging = NO;
+        [self.controlView setProgressTime:self.playCurrentTime totalTime:_vodPlayer.duration progressValue:value playableValue:playable];
+        [self fastViewUnavaliable];
     }
 }
 
@@ -1484,6 +1490,9 @@ static UISlider *_volumeSlider;
         [[NSNotificationCenter defaultCenter] removeObserver:self name:@"AVSystemController_SystemVolumeDidChangeNotification" object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(volumeChanged:) name:@"AVSystemController_SystemVolumeDidChangeNotification" object:nil];
 
+        
+    } else if (state == StateFirstFrame) {
+        _state = StatePlaying;
         if (self.coverImageView.alpha == 1) {
             [UIView animateWithDuration:0.2
                              animations:^{
@@ -1871,6 +1880,10 @@ static UISlider *_volumeSlider;
 }
 
 - (void)onPlayEvent:(TXVodPlayer *)player event:(int)EvtID withParam:(NSDictionary *)param {
+    if ((int)player.duration == 102) {
+        NSLog(@"simonplu---onPlayEvent:%d:%@:%f:%d",EvtID,player,player.duration,player.isPlaying);
+    }
+    
     dispatch_async(dispatch_get_main_queue(), ^{
         if (EvtID != PLAY_EVT_PLAY_PROGRESS) {
             NSString *desc = [param description];
@@ -1878,23 +1891,27 @@ static UISlider *_volumeSlider;
         }
 
         float duration = self->_playerModel.duration > 0 ? self->_playerModel.duration : player.duration;
+        
+        if (EvtID == PLAY_EVT_RCV_FIRST_I_FRAME) {
+            self.state = StateFirstFrame;
+        }
 
-        if (EvtID == PLAY_EVT_PLAY_BEGIN || EvtID == PLAY_EVT_RCV_FIRST_I_FRAME) {
+        if (EvtID == EVT_VIDEO_PLAY_BEGIN) {
             [self setNeedsLayout];
             [self layoutIfNeeded];
             self.isLoaded = YES;
             [self _removeOldPlayer];
             [self.vodPlayer setupVideoWidget:self insertIndex:0];
             [self layoutSubviews];  // 防止横屏状态下添加view显示不全
-            self.state = StatePlaying;
 
             [self updateBitrates:player.supportedBitrates];
             for (SPVideoFrameDescription *p in self.keyFrameDescList) {
                 if (player.duration > 0) p.where = p.time / duration;
             }
             self.controlView.pointArray = self.keyFrameDescList;
-            
+            self.state = StatePlaying;
             [self.controlView setPlayState:YES];
+            self.centerPlayBtn.hidden = YES;
             self.controlView.hidden = SuperPlayerWindowShared.isShowing ? YES : NO;
             
             // 不使用vodPlayer.autoPlay的原因是暂停的时候会黑屏，影响体验
@@ -1912,11 +1929,10 @@ static UISlider *_volumeSlider;
             CGFloat totalTime    = duration;
             CGFloat value        = player.currentPlaybackTime / duration;
             CGFloat playable     = player.playableDuration / duration;
-
-            [self.vipWatchView setCurrentTime:self.playCurrentTime];
             
             if (self.state == StatePlaying) {
                 [self.controlView setProgressTime:self.playCurrentTime totalTime:totalTime progressValue:value playableValue:playable];
+                [self.vipWatchView setCurrentTime:self.playCurrentTime];
             }
             
         } else if (EvtID == PLAY_EVT_PLAY_END) {
@@ -1934,6 +1950,26 @@ static UISlider *_volumeSlider;
             if (player.height != 0) {
                 self.videoRatio = (GLfloat)player.width / player.height;
             }
+        }
+        
+        [self onVodPlayEvent:player event:EvtID withParam:param];
+    });
+}
+
+- (void)onVodPlayEvent:(TXVodPlayer *)player event:(int)evtID withParam:(NSDictionary *)param
+{
+    if ([self.playListener respondsToSelector:@selector(onVodPlayEvent:event:withParam:)]) {
+        [self.playListener onVodPlayEvent:player event:evtID withParam:param];
+    }
+}
+
+-(void) onNetStatus:(TXVodPlayer *)player withParam:(NSDictionary*)param
+{
+    NSDictionary *dict = param;
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if ([self.playListener respondsToSelector:@selector(onVodNetStatus:withParam:)]) {
+            [self.playListener onVodNetStatus:player withParam:dict];
         }
     });
 }
@@ -2038,6 +2074,21 @@ static UISlider *_volumeSlider;
             } else {
                 [self.controlView setProgressTime:self.maxLiveProgressTime totalTime:-1 progressValue:1 playableValue:0];
             }
+        }
+        
+        if ([self.playListener respondsToSelector:@selector(onLivePlayEvent:event:withParam:)]) {
+            [self.playListener onLivePlayEvent:self.livePlayer event:EvtID withParam:dict];
+        }
+    });
+}
+
+- (void)onNetStatus:(NSDictionary *)param
+{
+    NSDictionary *dict = param;
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if ([self.playListener respondsToSelector:@selector(onLiveNetStatus:withParam:)]) {
+            [self.playListener onLiveNetStatus:self.livePlayer withParam:dict];
         }
     });
 }
