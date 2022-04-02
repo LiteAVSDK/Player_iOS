@@ -173,6 +173,15 @@ NSString * const FeedDetailVideoCellIdentifier = @"FeedDetailVideoCellIdentifier
         [self.temPlayView playWithModel:[self setSuperPlayerModel:cell.model]];
         [self.temPlayView.controlView setTitle:cell.model.title];
         [self.temPlayView showOrHideBackBtn:NO];
+        
+        // 修改介绍
+        FeedHeadModel *model = [[FeedHeadModel alloc] init];
+        model.headImageUrl = cell.model.coverUrl;
+        model.videoNameStr = cell.model.title;
+        model.videoSubTitleStr = cell.model.videoIntroduce;
+        model.videoDesStr = cell.model.videoDesStr;
+        [self setModel:model];
+
     }
 }
 

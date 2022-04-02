@@ -25,7 +25,7 @@
     
     // 左侧返回按钮
     UIButton *leftbutton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [leftbutton setFrame:CGRectMake(0, 0, 60, 25)];
+    [leftbutton setFrame:CGRectMake(5, 0, 150, 35)];
     [leftbutton setBackgroundImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
     [leftbutton addTarget:self action:@selector(backClick) forControlEvents:UIControlEventTouchUpInside];
     [leftbutton sizeToFit];

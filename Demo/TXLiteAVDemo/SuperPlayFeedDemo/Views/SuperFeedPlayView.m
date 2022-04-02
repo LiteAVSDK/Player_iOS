@@ -275,12 +275,19 @@ NSString * const FeedVideoCellIdentifier = @"FeedVideoCellIdentifier";
 
 // 松手时已经静止，只会调用scrollViewDidEndDragging
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
+    if (self.tableView.mj_header.isRefreshing) {
+        return;
+    }
+    
     if (!decelerate) {
         [self handleScroll];
     }
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    if (self.tableView.mj_header.isRefreshing) {
+        return;
+    }
     [self handleScroll];
 }
 

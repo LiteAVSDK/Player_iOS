@@ -26,11 +26,16 @@
     if (self = [super init]) {
         
         [self addSubview:self.coverImgView];
+        [self addSubview:self.videoFatherView];
         [self addSubview:self.playBtn];
         [self addSubview:self.sliderView];
         [self addSubview:self.timeView];
         
         [self.coverImgView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.edges.equalTo(self);
+        }];
+        
+        [self.videoFatherView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.edges.equalTo(self);
         }];
         
@@ -69,7 +74,7 @@
 //    }else {
 //        self.coverImgView.contentMode = UIViewContentModeScaleAspectFill;
 //    }
-    
+    [self hidePlayBtn];
     self.coverImgView.contentMode = UIViewContentModeScaleAspectFit;
     
     if (model.coverUrl) {
@@ -117,8 +122,7 @@
 
 #pragma mark - Action
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    NSTimeInterval delayTime = 0.3f;
-    [self performSelector:@selector(controlViewDidClick) withObject:nil afterDelay:delayTime];
+    [self controlViewDidClick];
 }
 
 - (void)controlViewDidClick {
@@ -193,6 +197,14 @@
         _timeView.layer.masksToBounds = YES;
     }
     return _timeView;
+}
+
+- (UIView *)videoFatherView {
+    if (!_videoFatherView) {
+        _videoFatherView = [[UIView alloc] init];
+        _videoFatherView.backgroundColor = [UIColor clearColor];
+    }
+    return _videoFatherView;
 }
 
 @end

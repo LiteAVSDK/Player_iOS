@@ -116,10 +116,7 @@ __weak UITextField *psignField;
     NSMutableDictionary *playingInfoDict = [NSMutableDictionary dictionary];
     
     // 2、设置名称
-    [playingInfoDict setObject:[NSString stringWithFormat:@"歌曲1"]
-                        forKey:MPMediaItemPropertyTitle];
-    [playingInfoDict setObject:[NSString stringWithFormat:@"专辑1"]
-                        forKey:MPMediaItemPropertyAlbumTitle];
+    [playingInfoDict setObject:self.playerView.playerModel.name forKey:MPMediaItemPropertyTitle];
     
     
     // 3、设置封面的图片
@@ -255,8 +252,6 @@ __weak UITextField *psignField;
         [self.playerView.controlView setTitle:LivePlayerLocalize(@"SuperPlayerDemo.MoviePlayer.uploadvideo")];
     }
 
-    self.playerFatherView                 = [[UIView alloc] init];
-    self.playerFatherView.backgroundColor = [UIColor blackColor];
     [self.view addSubview:self.playerFatherView];
     [self.playerFatherView mas_makeConstraints:^(MASConstraintMaker *make) {
         if (@available(iOS 11.0, *)) {
@@ -542,6 +537,14 @@ __weak UITextField *psignField;
         [self setupDanmakuData];
     }
     return _playerView;
+}
+
+- (UIView *)playerFatherView {
+    if (!_playerFatherView) {
+        _playerFatherView = [[UIView alloc] init];
+        _playerFatherView.backgroundColor = [UIColor blackColor];
+    }
+    return _playerFatherView;
 }
 
 - (void)onNetSuccess:(NSArray *)videoArray {
@@ -837,6 +840,7 @@ __weak UITextField *psignField;
     } else {
         model.videoURL = result;
     }
+    model.name = [NSString stringWithFormat:@"%@%lu", LivePlayerLocalize(@"SuperPlayerDemo.MoviePlayer.video"), (unsigned long)_vodDataSourceArray.count + 1];
     [self playModel:model];
 
     ListVideoModel *m = [ListVideoModel new];

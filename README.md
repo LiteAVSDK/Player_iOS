@@ -3,8 +3,6 @@
 本目录包含 iOS 版 播放器(Player) SDK 的Demo 源代码，主要演示接口如何调用以及最基本的功能。
 
 ```
-├─ SDK 
-|  ├─ TXLiteAVSDK_Player.framework   // 播放器的framework静态库
 ├─ Demo // 超级播放器Demo
 └── TXLiteAVDemo
     ├── App               // 程序入口界面
