@@ -26,57 +26,55 @@
     if (self = [super init]) {
         
         [self addSubview:self.coverImgView];
-        [self addSubview:self.videoFatherView];
-        [self addSubview:self.playBtn];
-        [self addSubview:self.sliderView];
-        [self addSubview:self.timeView];
         
         [self.coverImgView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.edges.equalTo(self);
         }];
         
-        [self.videoFatherView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.edges.equalTo(self);
-        }];
-        
-        [self.playBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.center.equalTo(self);
-            make.width.mas_equalTo(80);
-            make.height.mas_equalTo(80);
-        }];
-
-        [self.sliderView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.centerX.equalTo(self);
-            make.bottom.equalTo(self).offset(-52);
-            make.width.equalTo(self);
-            make.height.mas_equalTo(80);
-        }];
-
-        [self.timeView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.centerX.equalTo(self);
-            make.bottom.equalTo(self.sliderView).offset(-20);
-            make.width.mas_equalTo(120);
-            make.height.mas_equalTo(30);
-        }];
+        [self addChildView];
     }
     return self;
 }
 
-- (void)setModel:(TXVideoModel *)model {
-    float duration = [model.duration floatValue];
-    self.sliderView.slider.maximumValue = duration;
-    [self.sliderView.slider setValue:0];
+- (void)addChildView {
+    [self addSubview:self.videoFatherView];
+    [self addSubview:self.playBtn];
+    [self addSubview:self.sliderView];
+    [self addSubview:self.timeView];
     
+    [self.videoFatherView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self);
+    }];
+    
+    [self.playBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.center.equalTo(self);
+        make.width.mas_equalTo(80);
+        make.height.mas_equalTo(80);
+    }];
+
+    [self.sliderView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self);
+        make.bottom.equalTo(self).offset(-52);
+        make.width.equalTo(self);
+        make.height.mas_equalTo(80);
+    }];
+
+    [self.timeView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self);
+        make.bottom.equalTo(self.sliderView).offset(-20);
+        make.width.mas_equalTo(120);
+        make.height.mas_equalTo(30);
+    }];
+}
+
+- (void)setModel:(TXVideoModel *)model {
     _model = model;
     
-//    if ([model.width floatValue] > [model.height floatValue]) {
-//        self.coverImgView.contentMode = UIViewContentModeScaleAspectFit;
-//    }else {
-//        self.coverImgView.contentMode = UIViewContentModeScaleAspectFill;
-//    }
+    [self addChildView];
+    
     [self hidePlayBtn];
     self.coverImgView.contentMode = UIViewContentModeScaleAspectFit;
-    
+
     if (model.coverUrl) {
         [self.coverImgView sd_setImageWithURL:[NSURL URLWithString:model.coverUrl] placeholderImage:[UIImage imageNamed:@"img_video_loading"]];
     }

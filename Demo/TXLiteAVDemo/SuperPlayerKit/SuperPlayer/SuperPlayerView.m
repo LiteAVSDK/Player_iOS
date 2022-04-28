@@ -1121,6 +1121,7 @@ static UISlider *_volumeSlider;
  *  应用退到后台
  */
 - (void)appDidEnterBackground:(NSNotification *)notify {
+    [self fastViewUnavaliable];
     NSLog(@"appDidEnterBackground");
     self.didEnterBackground = YES;
     if (self.isLive) {
@@ -1136,6 +1137,7 @@ static UISlider *_volumeSlider;
  *  应用进入前台
  */
 - (void)appDidEnterPlayground:(NSNotification *)notify {
+    [self fastViewUnavaliable];
     NSLog(@"appDidEnterPlayground");
     self.didEnterBackground = NO;
     if (self.isLive) {
@@ -1148,7 +1150,6 @@ static UISlider *_volumeSlider;
         CGFloat playable     = _vodPlayer.playableDuration / _vodPlayer.duration;
         self.controlView.isDragging = NO;
         [self.controlView setProgressTime:self.playCurrentTime totalTime:_vodPlayer.duration progressValue:value playableValue:playable];
-        [self fastViewUnavaliable];
     }
 }
 
@@ -1683,6 +1684,11 @@ static UISlider *_volumeSlider;
     }
     
     [self.controlView setResolutionViewState:NO];
+    
+    [self.vodPlayer setRate:self.playerConfig.playRate];
+    [self.vodPlayer setMirror:self.playerConfig.mirror];
+    [self.vodPlayer setMute:self.playerConfig.mute];
+    [self.vodPlayer setRenderMode:self.playerConfig.renderMode];
 }
 
 - (void)controlViewConfigUpdate:(SuperPlayerView *)controlView withReload:(BOOL)reload {
@@ -2012,8 +2018,12 @@ static UISlider *_volumeSlider;
             NSString *desc = [param description];
             NSLog(@"%@", [NSString stringWithCString:[desc cStringUsingEncoding:NSUTF8StringEncoding] encoding:NSNonLossyASCIIStringEncoding]);
         }
+        
+        if (EvtID == PLAY_EVT_RCV_FIRST_I_FRAME) {
+            self.state = StateFirstFrame;
+        }
 
-        if (EvtID == PLAY_EVT_PLAY_BEGIN || EvtID == PLAY_EVT_RCV_FIRST_I_FRAME) {
+        if (EvtID == PLAY_EVT_PLAY_BEGIN) {
             if (!self.isLoaded) {
                 [self setNeedsLayout];
                 [self layoutIfNeeded];

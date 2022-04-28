@@ -42,6 +42,11 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)showGuideView;
 
 /**
+ * 显示网络异常控件
+*/
+- (void)showNoNetView;
+
+/**
  * 暂停
 */
 - (void)pause;

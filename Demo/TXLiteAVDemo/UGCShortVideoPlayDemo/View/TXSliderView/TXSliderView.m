@@ -83,7 +83,7 @@
         _slider.minimumTrackTintColor = [UIColor whiteColor];
         _slider.maximumTrackTintColor = [UIColor colorWithRed:216/255.0 green:216/255.0 blue:216/255.0 alpha:0.29952469405594406/1.0];
         [_slider setThumbImage:[self imageWithColor:[UIColor whiteColor] size:CGSizeMake(10, 10)] forState:UIControlStateNormal];
-        _slider.maximumValue = 0;
+        _slider.maximumValue = 1;
         _slider.minimumValue = 0;
         _slider.value = 0;
         _slider.continuous = NO;

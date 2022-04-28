@@ -27,6 +27,12 @@
     return self;
 }
 
+- (void)prepareForReuse {
+    [super prepareForReuse];
+    [self.baseView.videoFatherView removeFromSuperview];
+    self.baseView.videoFatherView = nil;
+}
+
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
@@ -75,7 +81,8 @@
 
 - (void)seekToTime:(float)time {
     if (self.delegate && [self.delegate respondsToSelector:@selector(seekToTime:)]) {
-        [self.delegate seekToTime:time];
+        float duration = [self.model.duration floatValue];
+        [self.delegate seekToTime:time * duration];
     }
 }
 

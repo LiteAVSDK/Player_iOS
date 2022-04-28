@@ -48,7 +48,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) TXTimeView                   *timeView;
 
 // 视频播放view
-@property (nonatomic, strong) UIView                       *videoFatherView;
+@property (nonatomic, strong) UIView                       *__nullable videoFatherView;
 
 /**
  * 设置slider的进度条

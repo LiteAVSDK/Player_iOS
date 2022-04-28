@@ -11,6 +11,7 @@
 #import "TXLiveBase.h"
 #import "TXVodPlayer.h"
 #import "TXVodPlayListener.h"
+#import "TXPlayerGlobalSetting.h"
 
 @interface TXVideoPlayer()<TXVodPlayListener>
 
@@ -158,11 +159,14 @@
         _player.enableHWAcceleration = YES;
         _player.vodDelegate = self;
         TXVodPlayConfig *config = [TXVodPlayConfig new];
-        config.maxBufferSize = 3;
-        config.maxBufferSize = 8;
+        NSString *cachesDir = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) firstObject];
+        NSString *path = [NSString stringWithFormat:@"%@/shortVideoCache",cachesDir];
+        [TXPlayerGlobalSetting  setCacheFolderPath:path];
+        [TXPlayerGlobalSetting  setMaxCacheSize:8];
+        config.maxBufferSize = 1;
         config.smoothSwitchBitrate = NO;
         _player.config = config;
-        [_player setRenderMode:RENDER_MODE_FILL_SCREEN];
+        [_player setRenderMode:RENDER_MODE_FILL_EDGE];
     }
     return _player;
 }

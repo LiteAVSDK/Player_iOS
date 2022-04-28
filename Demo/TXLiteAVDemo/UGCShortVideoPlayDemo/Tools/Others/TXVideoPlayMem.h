@@ -47,4 +47,6 @@
 
 #define DEFAULT_VIDEO_COUNT_SCREEN 1
 
+#define SHORT_VIDEO_CACHE_DATA_KEY @"shortVideoCacheData"
+
 #endif /* TXVideoPlayMem_h */

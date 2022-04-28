@@ -36,14 +36,8 @@
         make.edges.equalTo(self.view);
     }];
     
-    self.childVCs = @[self.mainVC, self.videoListVC];
-    
-    [self.childVCs enumerateObjectsUsingBlock:^(UIViewController *vc, NSUInteger idx, BOOL * _Nonnull stop) {
-        [self addChildViewController:vc];
-        [self.mainScrollView addSubview:vc.view];
-        
-        vc.view.frame = CGRectMake(idx * SCREEN_WIDTH, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-    }];
+    [self addChildViewController:self.videoListVC];
+    [self addChildViewController:self.mainVC];
     
     WEAKIFY(self);
     self.mainVC.videoDataBlock = ^(NSMutableArray * _Nonnull videoArray) {
@@ -51,6 +45,12 @@
         self.videoListVC.listArray = videoArray;
         [self.videoListVC reloadData];
     };
+    
+    self.childVCs = @[self.mainVC, self.videoListVC];
+    [self.childVCs enumerateObjectsUsingBlock:^(UIViewController *vc, NSUInteger idx, BOOL * _Nonnull stop) {
+        [self.mainScrollView addSubview:vc.view];
+        vc.view.frame = CGRectMake(idx * SCREEN_WIDTH, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+    }];
     
     self.videoListVC.selectedItemBlock = ^(NSInteger index) {
         STRONGIFY(self);

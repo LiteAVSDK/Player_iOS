@@ -41,6 +41,12 @@ NSString * const TXShortVideoCellIdentifier = @"TXShortVideoCellIdentifier";
 
 @property (nonatomic, strong) UIImageView                *bgImageView;
 
+@property (nonatomic, strong) UIView                     *centerView;
+
+@property (nonatomic, strong) UIImageView                *noNetImageView;
+
+@property (nonatomic, strong) UILabel                    *noNetLabel;
+
 @property (nonatomic, strong) UIViewController           *vc;
 
 @property (nonatomic, assign) BOOL                       isPlayEnd;
@@ -53,13 +59,7 @@ NSString * const TXShortVideoCellIdentifier = @"TXShortVideoCellIdentifier";
 
 @property (nonatomic, strong) TXTableViewCell            *currentPlayingCell;
 
-@property (nonatomic, assign) BOOL                       isDragging;
-
-@property (nonatomic, assign) CGFloat                    lastContentOffsetY;
-
 @property (nonatomic, assign) NSInteger                  currentPlayIndex;
-
-@property (nonatomic, strong) NSIndexPath                *willPlayIndexPath;
 
 @end
 
@@ -83,22 +83,22 @@ NSString * const TXShortVideoCellIdentifier = @"TXShortVideoCellIdentifier";
             make.edges.equalTo(self.bgImageView);
         }];
         
-        [self addSubview:self.tableView];
+        [self.bgImageView addSubview:self.tableView];
         [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.edges.equalTo(self);
+            make.edges.equalTo(self.bgImageView);
         }];
-        
-        [self addSubview:self.backBtn];
+
+        [self.bgImageView addSubview:self.backBtn];
         [self.backBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self).offset(17);
+            make.left.equalTo(self.bgImageView).offset(17);
             make.top.mas_equalTo(kStatusBarHeight + 11);
             make.size.mas_equalTo(CGSizeMake(23, 23));
         }];
         
-        [self addSubview:self.titleLabel];
+        [self.bgImageView addSubview:self.titleLabel];
         [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.mas_equalTo(kStatusBarHeight + 8);
-            make.centerX.equalTo(self);
+            make.centerX.equalTo(self.bgImageView);
             make.size.mas_equalTo(CGSizeMake(120, 30));
         }];
         
@@ -109,6 +109,34 @@ NSString * const TXShortVideoCellIdentifier = @"TXShortVideoCellIdentifier";
 #pragma mark - Public Methods
 - (void)showLoading {
     [self.loadingView startLoading];
+}
+
+- (void)showNoNetView {
+    [self.loadingView stopLoading];
+    [self.loadingView removeFromSuperview];
+    
+    [self.bgImageView addSubview:self.centerView];
+    [self.centerView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.center.equalTo(self.bgImageView);
+        make.width.mas_equalTo(200);
+        make.height.mas_equalTo(200);
+    }];
+    
+    [self.centerView addSubview:self.noNetImageView];
+    [self.noNetImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.centerView);
+        make.left.equalTo(self.centerView).offset(25);
+        make.right.equalTo(self.centerView).offset(-25);
+        make.height.mas_equalTo(150);
+    }];
+    
+    [self.centerView addSubview:self.noNetLabel];
+    [self.noNetLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(self.centerView).offset(-10);
+        make.left.equalTo(self.centerView);
+        make.right.equalTo(self.centerView);
+        make.height.mas_equalTo(30);
+    }];
 }
 
 - (void)showGuideView {
@@ -142,23 +170,23 @@ NSString * const TXShortVideoCellIdentifier = @"TXShortVideoCellIdentifier";
     self.viewCount = viewCount;
     [self.videos removeAllObjects];
     [self.videos addObjectsFromArray:models];
-    
-    self.titleLabel.hidden = NO;
-    self.backBtn.hidden = NO;
+
     self.tableView.hidden = NO;
     [self.loadingView stopLoading];
     [self.loadingView removeFromSuperview];
-        
+    
+    [self.centerView removeFromSuperview];
+
     if (viewCount == 0) {
         return;
     }
-    
+
     if (models.count == 0) return;
-    
+
     if (viewCount == 1) {
         _tableView.pagingEnabled = YES;
     }
-    
+
     [self.tableView reloadData];
     [self playVideoInVisiableCells];
 }
@@ -207,7 +235,6 @@ NSString * const TXShortVideoCellIdentifier = @"TXShortVideoCellIdentifier";
     }
     // 播放第一个视频
     [self playVideoFrom:firstCell];
-    self.lastContentOffsetY = 0;
 }
 
 - (void)handleScrollPlaying:(UIScrollView *)scrollView {
@@ -294,8 +321,21 @@ NSString * const TXShortVideoCellIdentifier = @"TXShortVideoCellIdentifier";
     [self.currentPlayingCell setTXtimeLabel:curTimeLabelStr];
     // 重新播放
     NSString *url = cell.model.videourl;
+    
+    // 移除旧的视图
+    [self _removeOldPlayer];
+    
     if (url.length > 0) {
         [self.currentPlayer playVideoWithView:cell.baseView.videoFatherView url:url];
+    }
+}
+
+- (void)_removeOldPlayer {
+    for (UIView *w in [self.currentPlayingCell.baseView.videoFatherView subviews]) {
+        if ([w isKindOfClass:NSClassFromString(@"TXCRenderView")]) [w removeFromSuperview];
+        if ([w isKindOfClass:NSClassFromString(@"TXIJKSDLGLView")]) [w removeFromSuperview];
+        if ([w isKindOfClass:NSClassFromString(@"TXCAVPlayerView")]) [w removeFromSuperview];
+        if ([w isKindOfClass:NSClassFromString(@"TXCThumbPlayerView")]) [w removeFromSuperview];
     }
 }
 
@@ -457,7 +497,6 @@ NSString * const TXShortVideoCellIdentifier = @"TXShortVideoCellIdentifier";
         _titleLabel.font = [UIFont fontWithName:@"PingFangSC" size:16];
         _titleLabel.textColor = [UIColor whiteColor];
         _titleLabel.textAlignment = NSTextAlignmentCenter;
-        _titleLabel.hidden = YES;
     }
     return _titleLabel;
 }
@@ -467,9 +506,38 @@ NSString * const TXShortVideoCellIdentifier = @"TXShortVideoCellIdentifier";
         _backBtn = [UIButton new];
         [_backBtn setImage:[UIImage imageNamed:@"back.png"] forState:UIControlStateNormal];
         [_backBtn addTarget:self action:@selector(backHomeVC) forControlEvents:UIControlEventTouchUpInside];
-        _backBtn.hidden = YES;
     }
     return _backBtn;
+}
+
+- (UIView *)centerView {
+    if (!_centerView) {
+        _centerView = [[UIView alloc] init];
+        _centerView.backgroundColor = [UIColor clearColor];
+    }
+    return _centerView;
+}
+
+- (UIImageView *)noNetImageView {
+    if (!_noNetImageView) {
+        _noNetImageView = [UIImageView new];
+        _noNetImageView.image = [UIImage imageNamed:@"shortVideo_NoNet"];
+        _noNetImageView.contentMode = UIViewContentModeScaleAspectFill;
+        _noNetImageView.clipsToBounds = YES;
+        _noNetImageView.userInteractionEnabled = YES;
+    }
+    return _noNetImageView;
+}
+
+- (UILabel *)noNetLabel {
+    if (!_noNetLabel) {
+        _noNetLabel = [UILabel new];
+        _noNetLabel.text = @"好像网络断开啦~";
+        _noNetLabel.font = [UIFont fontWithName:@"PingFangSC" size:15];
+        _noNetLabel.textColor = [UIColor whiteColor];
+        _noNetLabel.textAlignment = NSTextAlignmentCenter;
+    }
+    return _noNetLabel;
 }
 
 - (NSMutableArray *)videos {
@@ -558,6 +626,7 @@ NSString * const TXShortVideoCellIdentifier = @"TXShortVideoCellIdentifier";
         _bgImageView.image = [UIImage imageNamed:@"img_video_loading"];
         _bgImageView.contentMode = UIViewContentModeScaleAspectFill;
         _bgImageView.clipsToBounds = YES;
+        _bgImageView.userInteractionEnabled = YES;
     }
     return _bgImageView;
 }
@@ -604,33 +673,10 @@ NSString * const TXShortVideoCellIdentifier = @"TXShortVideoCellIdentifier";
     return cell;
 }
 
-- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
-    self.willPlayIndexPath = indexPath;
-}
-
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    CGFloat oldContentOffsetY = self.lastContentOffsetY;
-    self.lastContentOffsetY = scrollView.contentOffset.y;
-    if ((self.lastContentOffsetY > oldContentOffsetY) && self.lastContentOffsetY >= self.willPlayIndexPath.row * SCREEN_HEIGHT) {
-        // scroll up
-        if (self.currentPlayIndex < self.willPlayIndexPath.row) {
-            NSIndexPath *currentIndexPath = [self.tableView currentIndexPathForFullScreenCell];
-            if (currentIndexPath.row == self.willPlayIndexPath.row) {
-                if (self.currentPlayIndex != [self.tableView currentIndexPathForFullScreenCell].row) {
-                    [self.currentPlayer removeVideo];
-                }
-            }
-        }
-    } else if ((self.lastContentOffsetY < oldContentOffsetY) && self.lastContentOffsetY <= self.willPlayIndexPath.row * SCREEN_HEIGHT) {
-        // scroll down
-        if (self.currentPlayIndex > self.willPlayIndexPath.row) {
-            NSIndexPath *currentIndexPath = [self.tableView currentIndexPathForFullScreenCell];
-            if (currentIndexPath.row == self.willPlayIndexPath.row) {
-                if (self.currentPlayIndex != [self.tableView currentIndexPathForFullScreenCell].row) {
-                    [self.currentPlayer removeVideo];
-                }
-            }
-        }
+- (void)tableView:(UITableView *)tableView didEndDisplayingCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (self.currentPlayingCell == cell && indexPath.row == self.currentPlayIndex) {
+        self.currentPlayingCell = nil;
+        [self.currentPlayer removeVideo];
     }
 }
 

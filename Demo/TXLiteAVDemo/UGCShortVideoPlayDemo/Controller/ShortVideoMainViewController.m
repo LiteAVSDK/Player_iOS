@@ -17,6 +17,8 @@
 
 @property (nonatomic, strong)   NSMutableArray        *videosArray;
 
+@property (nonatomic, assign)   BOOL                  isLoadVideo;
+
 @end
 
 @implementation ShortVideoMainViewController
@@ -24,22 +26,43 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
+    self.isLoadVideo = NO;
     [self.view addSubview:self.videoView];
-
-    WEAKIFY(self);
-    [self.videoView.viewModel refreshNewListWithsuccess:^(NSArray * _Nonnull list) {
-        STRONGIFY(self);
+    [self.videoView showLoading];
+    
+    NSData *listData = [[NSUserDefaults standardUserDefaults] objectForKey:SHORT_VIDEO_CACHE_DATA_KEY];
+    NSArray <TXVideoModel *> *list = [NSKeyedUnarchiver unarchiveObjectWithData:listData];
+    if (list.count > 0) {
+        [self.videosArray removeAllObjects];
         [self.videosArray addObjectsFromArray:list];
         if (self.videoDataBlock) {
             self.videoDataBlock(self.videosArray);
         }
         [self showVideoView];
-    } failure:^(NSError * _Nonnull error) {
-
-    }];
-
-    [self.videoView showLoading];
+        self.isLoadVideo = YES;
+    }
+    
+    WEAKIFY(self);
+    dispatch_async(dispatch_get_global_queue(0,0), ^{
+        [self.videoView.viewModel refreshNewListWithsuccess:^(NSArray * _Nonnull list) {
+            STRONGIFY(self);
+            NSData *data = [NSKeyedArchiver archivedDataWithRootObject:list];
+            [[NSUserDefaults standardUserDefaults] setObject:data forKey:SHORT_VIDEO_CACHE_DATA_KEY];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+            [self.videosArray addObjectsFromArray:list];
+            
+            if (!self.isLoadVideo) {
+                [self showVideoView];
+                if (self.videoDataBlock) {
+                    self.videoDataBlock(self.videosArray);
+                }
+            }
+        } failure:^(NSError * _Nonnull error) {
+            if (!self.isLoadVideo) {
+                [self.videoView showNoNetView];
+            }
+        }];
+    });
 }
 
 - (void)viewWillAppear:(BOOL)animated {

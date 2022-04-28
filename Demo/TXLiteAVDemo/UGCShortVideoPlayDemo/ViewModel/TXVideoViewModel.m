@@ -71,6 +71,11 @@
     dispatch_group_notify(downloadVideoGroup, dispatch_get_main_queue(), ^{
         if (success && resultArray.count > 0) {
             success(resultArray);
+        } else {
+            if (failure) {
+                NSError *error = [NSError errorWithDomain:@"似乎已断开与互联网的连接" code:-9999 userInfo:nil];
+                failure(error);
+            }
         }
     });
 }

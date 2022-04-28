@@ -52,6 +52,10 @@ NSString * const FeedVideoCellIdentifier = @"FeedVideoCellIdentifier";
     [self.tableView reloadData];
     
     if (isNeedCleanData) {
+        if (self.currentTableViewCell) {
+            [self.currentTableViewCell pause];
+            self.currentTableViewCell = nil;
+        }
         [self playVideoInVisiableCells];
     }
 }
@@ -109,7 +113,9 @@ NSString * const FeedVideoCellIdentifier = @"FeedVideoCellIdentifier";
 }
 
 - (void)playVideoFromCell:(FeedTableViewCell *)cell {
-    [self.currentTableViewCell pause];
+    if (self.currentTableViewCell) {
+        [self.currentTableViewCell pause];
+    }
     self.currentTableViewCell = cell;
     
     self.currentPlayIndex = [self indexOfModel:cell.model];
