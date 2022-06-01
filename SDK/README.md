@@ -1,4 +1,4 @@
-# Player SDK （iOS）
+# Player SDK(iOS)
 
 ## 下载地址
 
