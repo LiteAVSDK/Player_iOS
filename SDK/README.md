@@ -1,4 +1,4 @@
-# Player SDK （Android）
+# Player SDK （iOS）
 
 ## 下载地址
 
