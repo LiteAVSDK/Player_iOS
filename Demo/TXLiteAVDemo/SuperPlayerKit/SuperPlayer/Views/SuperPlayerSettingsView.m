@@ -52,7 +52,7 @@
     [self addSubview:[self mirrorCell]];
     [self addSubview:[self hwCell]];
 
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(volumeChanged:) name:@"AVSystemController_SystemVolumeDidChangeNotification" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(volumeSettingChanged:) name:VOLUME_NOTIFICATION_NAME object:nil];
 
     return self;
 }
@@ -61,11 +61,13 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-- (void)volumeChanged:(NSNotification *)notify {
+- (void)volumeSettingChanged:(NSNotification *)notify {
     if (!self.isVolume) {
         if (self.volumeEndTime != nil && -[self.volumeEndTime timeIntervalSinceNow] < 2.f) return;
-        float volume           = [[[notify userInfo] objectForKey:@"AVSystemController_AudioVolumeNotificationParameter"] floatValue];
-        self.soundSlider.value = volume;
+        float volume           = [[[notify userInfo] objectForKey:VOLUME_CHANGE_KEY] floatValue];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.soundSlider.value = volume;
+        });
     }
 }
 

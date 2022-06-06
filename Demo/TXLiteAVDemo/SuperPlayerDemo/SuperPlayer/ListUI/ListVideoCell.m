@@ -51,6 +51,7 @@
     model.action                = self.playAction;
     model.duration              = self.duration;
     model.name                  = self.title;
+    model.isEnableCache         = self.isEnableCache;
     if (self.dynamicWaterModel) {
         model.dynamicWaterModel = self.dynamicWaterModel;
     }

@@ -60,7 +60,6 @@
 }
 
 - (void)backClick {
-    [self.superPlayView removeFromSuperview];
     [self.detailView destory];
     [self.navigationController popViewControllerAnimated:NO];
 }

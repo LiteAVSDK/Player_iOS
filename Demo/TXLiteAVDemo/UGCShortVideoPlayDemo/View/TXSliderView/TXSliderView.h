@@ -30,6 +30,12 @@ NS_ASSUME_NONNULL_BEGIN
 */
 -(void)onSeekEnd:(UISlider *)slider;
 
+/**
+ * sliderView拖拽退出的回调
+ * @param slider  UISlider控件
+*/
+-(void)onSeekOutSide:(UISlider *)slider;
+
 @end
 
 @interface TXSliderView : UIView

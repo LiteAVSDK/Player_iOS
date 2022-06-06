@@ -54,6 +54,8 @@
 /// 播放错误通知
 - (void)superPlayerError:(SuperPlayerView *)player errCode:(int)code errMessage:(NSString *)why;
 // 需要通知到父view的事件在此添加
+/// 轻拍事件回调
+- (void)singleTapClick;
 @end
 
 /// 播放器的状态
@@ -102,6 +104,8 @@ typedef NS_ENUM(NSInteger, SuperPlayerLayoutStyle) {
 @property(readonly) BOOL isDragging;
 /// 是否加载成功
 @property(readonly) BOOL isLoaded;
+/// 是否允许音量按钮控制，默认是不允许
+@property(nonatomic, assign) BOOL disableVolumControl;
 /// 封面图片
 @property(nonatomic) UIImageView *coverImageView;
 /// 设置vipTipView

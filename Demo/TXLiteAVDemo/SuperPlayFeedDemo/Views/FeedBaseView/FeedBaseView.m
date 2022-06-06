@@ -91,8 +91,8 @@
 
     [self.superPlayView playWithModel:playerModel];
     
-    SPDefaultControlView *dv = (SPDefaultControlView *)self.superPlayView.controlView;
-    dv.disableDanmakuBtn = YES;
+    SPDefaultControlView *defaultControlView = (SPDefaultControlView *)self.superPlayView.controlView;
+    defaultControlView.disableDanmakuBtn = YES;
 }
 
 - (void)pause {
@@ -114,6 +114,7 @@
 - (void)addSuperPlayView:(UIView *)view {
     self.superPlayView = (SuperPlayerView *)view;
     [self addSubview:self.superPlayView];
+    self.superPlayView.fatherView = self.fatherView;
     [self.superPlayView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self).offset(8);
         make.left.equalTo(self).offset(8);
@@ -175,6 +176,7 @@
         _superPlayView.backgroundColor = [UIColor clearColor];
         _superPlayView.disableGesture = NO;
         _superPlayView.delegate = self;
+        _superPlayView.disableVolumControl = YES;
     }
     return _superPlayView;
 }

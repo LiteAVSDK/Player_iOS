@@ -337,7 +337,11 @@
     _resolutionArray = resolutionNames;
     NSAssert(currentResolutionIndex < resolutionNames.count, @"Invalid argument when reseeting %@", NSStringFromClass(self.class));
     if (resolutionNames.count > 0) {
-        [self.resolutionBtn setTitle:resolutionNames[currentResolutionIndex] forState:UIControlStateNormal];
+        NSArray *titlesArray = [resolutionNames[currentResolutionIndex] componentsSeparatedByString:@"（"];
+        NSArray *resoluArray = [titlesArray.lastObject componentsSeparatedByString:@"）"];
+        NSString *title = titlesArray.firstObject;
+        [self.resolutionBtn setTitle:title.length > 0 ? title : resoluArray.firstObject forState:UIControlStateNormal];
+
     }
     for (UIView *subview in self.resolutionView.subviews) [subview removeFromSuperview];
 
@@ -392,8 +396,13 @@
     self.resoultionCurrentBtn.backgroundColor = RGBA(34, 30, 24, 1);
 
     // topImageView上的按钮的文字
-    [self.resolutionBtn setTitle:sender.titleLabel.text forState:UIControlStateNormal];
-    [self.delegate controlViewSwitch:self withDefinition:sender.titleLabel.text];
+    NSString *titleString = sender.titleLabel.text;
+    NSArray *titlesArray = [titleString componentsSeparatedByString:@"（"];
+    NSArray *resoluArray = [titlesArray.lastObject componentsSeparatedByString:@"）"];
+    NSString *title = titlesArray.firstObject;
+    [self.resolutionBtn setTitle:title.length > 0 ? title : resoluArray.firstObject forState:UIControlStateNormal];
+    [self.delegate controlViewSwitch:self withDefinition:titleString];
+
 }
 
 - (void)setOrientationLandscapeConstraint {

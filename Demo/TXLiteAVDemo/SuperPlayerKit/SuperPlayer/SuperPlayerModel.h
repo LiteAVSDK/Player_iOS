@@ -18,6 +18,7 @@
 @class SuperPlayerVideoId;
 @class SuperPlayerVideoIdV2;
 @class DynamicWaterModel;
+@class TXVodDownloadMediaInfo;
 
 // 播放模式
 typedef NS_ENUM(NSInteger, SuperPlayerAction) {
@@ -78,7 +79,12 @@ typedef NS_ENUM(NSInteger, SuperPlayerAction) {
 /// 视频名称
 @property (nonatomic, strong) NSString *name;
 
+/// 是否开启缓存
+@property (nonatomic, assign) BOOL isEnableCache;
+
 @property (nonatomic, strong) DynamicWaterModel *dynamicWaterModel;
+
+@property (nonatomic, strong) TXVodDownloadMediaInfo *mediaInfo;
 
 @end
 

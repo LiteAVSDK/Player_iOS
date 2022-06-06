@@ -69,6 +69,12 @@
 - (void)setNextBtnState:(BOOL)isShow;
 
 /**
+ * 是否禁用离线缓存控件
+ * @param disableOfflineBtn  YES禁用，NO不禁用
+ */
+- (void)setDisableOfflineBtn:(BOOL)disableOfflineBtn;
+
+/**
  * 重置播放控制面板
  * @param resolutionNames 清晰度名称
  * @param resolutionIndex 正在播放的清晰度的下标

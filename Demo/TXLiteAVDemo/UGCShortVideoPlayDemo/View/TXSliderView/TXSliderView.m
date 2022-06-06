@@ -57,6 +57,12 @@
     }
 }
 
+-(void)onSeekOutSide:(UISlider *)slider {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(onSeekOutSide:)]) {
+        [self.delegate onSeekOutSide:slider];
+    }
+}
+
 #pragma mark - Private Method
 - (UIImage *)imageWithColor:(UIColor *)color size:(CGSize)size {
     
@@ -90,7 +96,7 @@
         [_slider addTarget:self action:@selector(onSeekBegin:) forControlEvents:UIControlEventTouchDown];
         [_slider addTarget:self action:@selector(onSeek:) forControlEvents:(UIControlEventValueChanged)];
         [_slider addTarget:self action:@selector(onSeekEnd:) forControlEvents:UIControlEventTouchUpInside];
-        
+        [_slider addTarget:self action:@selector(onSeekOutSide:) forControlEvents:UIControlEventTouchUpOutside];
     }
     return _slider;
 }

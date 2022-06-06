@@ -159,12 +159,9 @@
         _player.enableHWAcceleration = YES;
         _player.vodDelegate = self;
         TXVodPlayConfig *config = [TXVodPlayConfig new];
-        NSString *cachesDir = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) firstObject];
-        NSString *path = [NSString stringWithFormat:@"%@/shortVideoCache",cachesDir];
-        [TXPlayerGlobalSetting  setCacheFolderPath:path];
-        [TXPlayerGlobalSetting  setMaxCacheSize:8];
-        config.maxBufferSize = 1;
-        config.smoothSwitchBitrate = NO;
+        config.maxPreloadSize = 1;
+        config.smoothSwitchBitrate = YES;
+        config.preferredResolution = 720 * 1280;
         _player.config = config;
         [_player setRenderMode:RENDER_MODE_FILL_EDGE];
     }

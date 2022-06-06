@@ -35,6 +35,7 @@
 @property(nonatomic, strong) NSString *psign;
 @property(nonatomic, strong) DynamicWaterModel *dynamicWaterModel;
 @property(nonatomic, assign) int playAction; // 0 - 自动播放；1 - 手动播放  2 - 预加载
+@property(nonatomic, assign) BOOL isEnableCache;  // 是否启用缓存模块
 - (void)addHdUrl:(NSString *)url withTitle:(NSString *)title;
 - (void)setModel:(SuperPlayerModel *)model;
 - (SuperPlayerModel *)getPlayerModel;

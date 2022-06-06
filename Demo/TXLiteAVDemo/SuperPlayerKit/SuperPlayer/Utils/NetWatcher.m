@@ -135,23 +135,20 @@
     if ([def isEqualToString:@"标清"]) {
         return 15;
     }
-    if ([def isEqualToString:@"高清"]) {
+    if ([def isEqualToString:@"全标清"]) {
         return 20;
     }
-    if ([def isEqualToString:@"全高清"]) {
+    if ([def isEqualToString:@"高清"]) {
         return 40;
     }
     if ([def isEqualToString:@"超清"]) {
         return 50;
     }
-    if ([def isEqualToString:@"原画"]) {
+    if ([def isEqualToString:@"2K"]) {
         return 60;
     }
-    if ([def isEqualToString:@"2K"]) {
-        return 70;
-    }
     if ([def isEqualToString:@"4K"]) {
-        return 80;
+        return 70;
     }
     return 10000;
 }

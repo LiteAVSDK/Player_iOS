@@ -25,6 +25,9 @@
 #import "UIView+MMLayout.h"
 #import "AppLocalized.h"
 #import "TXPlayerAuthParams.h"
+#import "VideoCacheView.h"
+
+#define OFFLINE_VIDEOCATCHVIEW_HEIGHT 282
 
 #define LIST_VIDEO_CELL_ID @"LIST_VIDEO_CELL_ID"
 #define LIST_LIVE_CELL_ID  @"LIST_LIVE_CELL_ID"
@@ -32,20 +35,27 @@
 #define VIP_VIDEO_DEFAULT_TITLE @"Android录屏"
 #define VIP_VIDEO_DEFAULT_CELL_TITLE @"试看功能演示"
 
-#define DYNAMIC_WATER_VIDEO_DEFAULT_TITLE @"特效剪辑"
 #define DYNAMIC_WATER_VIDEO_DEFAULT_CELL_TITLE @"动态水印演示"
 
 #define COVER_DEFAULT_DEFAULT_TITLE  @"自定义封面"
 #define COVER_DEFAULT_URL    @"http://1500005830.vod2.myqcloud.com/6c9a5118vodcq1500005830/cc1e28208602268011087336518/MXUW1a5I9TsA.png"
 
 #define VIDEO_LOOP_PLAY_DEFAULT_TITLE @"视频列表轮播演示"
-#define VIDEO_LOOP_PLAY_DEFAULT_URL    @"http://1500005830.vod2.myqcloud.com/6c9a5118vodcq1500005830/f817e7c8387702291186401215/gk5EbAYcy10A.png"
+#define VIDEO_LOOP_PLAY_DEFAULT_URL    @"http://1400155958.vod2.myqcloud.com/facd87c8vodcq1400155958/06622723387702299939461564/G5gEpcHlyaYA.png"
+
+#define VIDEO_OFFLINE_CACHE_DEFAULT_TITLE  @"离线缓存(全屏)演示"
+#define VIDEO_OFFLINE_CACHE_DEFAULT_URL    @"http://1400155958.vod2.myqcloud.com/facd87c8vodcq1400155958/0183245d387702299939234236/c7yiepstuHcA.png"
+
+#define LOCAL_LIVE_TITLE    @"测试视频"
+#define LOCAL_LIVE_COVERURL @"http://1500005830.vod2.myqcloud.com/6c9a5118vodcq1500005830/66bc542f387702300661648850/0RyP1rZfkdQA.png"
+#define LOCAL_LIVE_URL      @"http://liteavapp.qcloud.com/live/liteavdemoplayerstreamid.flv"
 
 
 __weak UITextField *appField;
 __weak UITextField *fileidField;
 __weak UITextField *urlField;
 __weak UITextField *psignField;
+__weak UITextField *cacheField;
 
 @interface MoviePlayerViewController () <SuperPlayerDelegate, ScanQRDelegate, UITableViewDelegate, UITableViewDataSource, CFDanmakuDelegate>
 /** 播放器View的父视图*/
@@ -80,7 +90,16 @@ __weak UITextField *psignField;
 
 @property(nonatomic, strong) CFDanmakuView *danmakuView;
 
+@property (nonatomic, strong) VideoCacheView *cacheView;
+
+// 当前正在播放的视频列表，可能是单个视频，可能是一组视频
+@property (nonatomic, strong) NSMutableArray *currentPlayVideoArray;
+
 @property(nonatomic, assign) BOOL stopAutoPlayVOD;  //从外部拉起播放时，停止自动播放VOD视频
+
+@property (nonatomic, assign) BOOL isAddLoopVideo;
+
+@property (nonatomic, strong) NSMutableDictionary *cacheDic;
 
 @end
 
@@ -116,8 +135,9 @@ __weak UITextField *psignField;
     NSMutableDictionary *playingInfoDict = [NSMutableDictionary dictionary];
     
     // 2、设置名称
-    [playingInfoDict setObject:self.playerView.playerModel.name forKey:MPMediaItemPropertyTitle];
-    
+    if (self.playerView.playerModel.name.length > 0) {
+        [playingInfoDict setObject:self.playerView.playerModel.name forKey:MPMediaItemPropertyTitle];
+    }
     
     // 3、设置封面的图片
     UIImage *image = [UIImage imageNamed:@"TengXunYun_logo"];
@@ -242,14 +262,21 @@ __weak UITextField *psignField;
     _authParamArray      = [NSMutableArray new];
     _vodDataSourceArray  = [NSMutableArray new];
     _liveDataSourceArray = [NSMutableArray new];
+    _currentPlayVideoArray = [NSMutableArray array];
+    _cacheDic = [NSMutableDictionary dictionary];
+    
+    self.isAddLoopVideo = YES;
     
     [self addObservers];
 
     if (self.videoURL) {
         SuperPlayerModel *playerModel = [[SuperPlayerModel alloc] init];
         playerModel.videoURL          = self.videoURL;
+        playerModel.isEnableCache     = NO;
         [self.playerView playWithModel:playerModel];
         [self.playerView.controlView setTitle:LivePlayerLocalize(@"SuperPlayerDemo.MoviePlayer.uploadvideo")];
+        [_currentPlayVideoArray removeAllObjects];
+        [_currentPlayVideoArray addObject:playerModel];
     }
 
     [self.view addSubview:self.playerFatherView];
@@ -366,43 +393,36 @@ __weak UITextField *psignField;
     if (nil == self.videoURL) {
         NSMutableArray *videoArray = [NSMutableArray array];
         TXPlayerAuthParams *p = [[TXPlayerAuthParams alloc] init];
-        p.appId               = 1252463788;
-        p.fileId              = @"5285890781763144364";
+        p.appId               = 1500005830;
+        p.fileId              = @"387702299774251236";
         [videoArray addObject:p];
         [_authParamArray addObject:videoArray];
         
         videoArray = [NSMutableArray array];
         p        = [[TXPlayerAuthParams alloc] init];
-        p.appId  = 1400329073;
-        p.fileId = @"5285890800381567412";
+        p.appId  = 1500005830;
+        p.fileId = @"387702299774390972";
         [videoArray addObject:p];
         [_authParamArray addObject:videoArray];
         
         videoArray = [NSMutableArray array];
         p        = [[TXPlayerAuthParams alloc] init];
-        p.appId  = 1400329073;
-        p.fileId = @"5285890800381530399";
+        p.appId  = 1500005830;
+        p.fileId = @"387702299774253670";
         [videoArray addObject:p];
         [_authParamArray addObject:videoArray];
         
         videoArray = [NSMutableArray array];
         p        = [[TXPlayerAuthParams alloc] init];
-        p.appId  = 1252463788;
-        p.fileId = @"4564972819219071668";
+        p.appId  = 1500005830;
+        p.fileId = @"387702299774574470";
         [videoArray addObject:p];
         [_authParamArray addObject:videoArray];
         
         videoArray = [NSMutableArray array];
         p        = [[TXPlayerAuthParams alloc] init];
-        p.appId  = 1252463788;
-        p.fileId = @"4564972819219071679";
-        [videoArray addObject:p];
-        [_authParamArray addObject:videoArray];
-        
-        videoArray = [NSMutableArray array];
-        p        = [[TXPlayerAuthParams alloc] init];
-        p.appId  = 1252463788;
-        p.fileId = @"4564972819219081699";
+        p.appId  = 1500005830;
+        p.fileId = @"387702299774545556";
         [videoArray addObject:p];
         [_authParamArray addObject:videoArray];
         
@@ -413,8 +433,11 @@ __weak UITextField *psignField;
         [videoArray addObject:p];
         [_authParamArray addObject:videoArray];
         
+        // 增加轮播视频源
         [self loadVideoListData];
-        [self getNextInfo];
+        // 增加离线缓存视频源
+        [self loadOfflineVideoListData];
+        [self getNextInfoIsCache:NO];
     } else {
         __weak __typeof(self) wself = self;
         [self.ugcUplaodList
@@ -431,6 +454,8 @@ __weak UITextField *psignField;
                     [self.playerView.controlView setTitle:[self.vodDataSourceArray[0] title]];
                     [self.playerView playWithModel:[self.vodDataSourceArray[0] getPlayerModel]];
                     [self showControlView:YES];
+                    [self->_currentPlayVideoArray removeAllObjects];
+                    [self->_currentPlayVideoArray addObject:[self.vodDataSourceArray[0] getPlayerModel]];
                 }
             }
             completion:^(int code, NSString *_Nonnull message) {
@@ -444,18 +469,48 @@ __weak UITextField *psignField;
 - (void)loadVideoListData {
     NSMutableArray *videoArray = [NSMutableArray array];
     TXPlayerAuthParams *p = [[TXPlayerAuthParams alloc] init];
-    p.appId               = 1400329073;
-    p.fileId              = @"5285890800381530399";
+    p.appId               = 1500005830;
+    p.fileId              = @"387702299774211080";
     [videoArray addObject:p];
     
     p = [[TXPlayerAuthParams alloc] init];
-    p.appId               = 1252463788;
-    p.fileId              = @"4564972819219071679";
+    p.appId               = 1500005830;
+    p.fileId              = @"387702299774644824";
     [videoArray addObject:p];
     
     p = [[TXPlayerAuthParams alloc] init];
-    p.appId               = 1252463788;
-    p.fileId              = @"4564972819219071668";
+    p.appId               = 1500005830;
+    p.fileId              = @"387702299774544650";
+    [videoArray addObject:p];
+    
+    [_authParamArray addObject:videoArray];
+}
+
+- (void)loadOfflineVideoListData {
+    NSMutableArray *videoArray = [NSMutableArray array];
+    TXPlayerAuthParams *p = [[TXPlayerAuthParams alloc] init];
+    p.appId               = 1500005830;
+    p.fileId              = @"387702299773851453";
+    [videoArray addObject:p];
+    
+    p = [[TXPlayerAuthParams alloc] init];
+    p.appId               = 1500005830;
+    p.fileId              = @"387702299774155981";
+    [videoArray addObject:p];
+    
+    p = [[TXPlayerAuthParams alloc] init];
+    p.appId               = 1500005830;
+    p.fileId              = @"387702299773830943";
+    [videoArray addObject:p];
+    
+    p = [[TXPlayerAuthParams alloc] init];
+    p.appId               = 1500005830;
+    p.fileId              = @"387702299773823860";
+    [videoArray addObject:p];
+    
+    p = [[TXPlayerAuthParams alloc] init];
+    p.appId               = 1500005830;
+    p.fileId              = @"387702299774156604";
     [videoArray addObject:p];
     
     [_authParamArray addObject:videoArray];
@@ -463,39 +518,52 @@ __weak UITextField *psignField;
 
 - (void)_refreshLiveList {
     // Refresh Video list
-    AFHTTPSessionManager *manager  = self.manager;
-    __weak __typeof(self) weakSelf = self;
-    [manager GET:@"http://xzb.qcloud.com/get_live_list2"
-        parameters:nil
-           headers:nil
-          progress:nil
-           success:^(NSURLSessionDataTask *_Nonnull task, id _Nullable responseObject) {
-               __strong __typeof(weakSelf) self = weakSelf;
-               if ([J2Num([responseObject valueForKeyPath:@"code"]) intValue] != 200) {
-                   [self hudMessage:LivePlayerLocalize(@"SuperPlayerDemo.MoviePlayer.getlivelisterror")];
-                   return;
-               }
-               NSMutableArray *allList = @[].mutableCopy;
-               NSArray *       list    = J2Array([responseObject valueForKeyPath:@"data.list"]);
-               for (id play in list) {
-                   ListVideoModel *m = [ListVideoModel new];
-                   m.appId           = [J2Num([play valueForKeyPath:@"appId"]) intValue];
-                   m.coverUrl        = J2Str([play valueForKey:@"coverUrl"]);
-                   m.title           = J2Str([play valueForKeyPath:@"name"]);
-                   m.type            = 1;
-                   NSArray *playUrl  = J2Array([play valueForKeyPath:@"playUrl"]);
-                   for (id url in playUrl) {
-                       [m addHdUrl:J2Str([url valueForKeyPath:@"url"]) withTitle:J2Str([url valueForKeyPath:@"title"])];
+    BOOL mUseLocalLiveData = true;
+    NSMutableArray *allList = @[].mutableCopy;
+    if (mUseLocalLiveData) {
+        ListVideoModel *model = [ListVideoModel new];
+        model.url = LOCAL_LIVE_URL;
+        model.title = LOCAL_LIVE_TITLE;
+        model.coverUrl = LOCAL_LIVE_COVERURL;
+        model.type = 1;
+        [allList addObject:model];
+        self.liveDataSourceArray = allList;
+        [self.liveListView reloadData];
+    } else {
+        AFHTTPSessionManager *manager  = self.manager;
+        __weak __typeof(self) weakSelf = self;
+        [manager GET:@"http://xzb.qcloud.com/get_live_list2"
+            parameters:nil
+               headers:nil
+              progress:nil
+               success:^(NSURLSessionDataTask *_Nonnull task, id _Nullable responseObject) {
+                   __strong __typeof(weakSelf) self = weakSelf;
+                   if ([J2Num([responseObject valueForKeyPath:@"code"]) intValue] != 200) {
+                       [self hudMessage:LivePlayerLocalize(@"SuperPlayerDemo.MoviePlayer.getlivelisterror")];
+                       return;
                    }
+                   NSArray *       list    = J2Array([responseObject valueForKeyPath:@"data.list"]);
+                   for (id play in list) {
+                       ListVideoModel *m = [ListVideoModel new];
+                       m.appId           = [J2Num([play valueForKeyPath:@"appId"]) intValue];
+                       m.coverUrl        = J2Str([play valueForKey:@"coverUrl"]);
+                       m.title           = J2Str([play valueForKeyPath:@"name"]);
+                       m.type            = 1;
+                       NSArray *playUrl  = J2Array([play valueForKeyPath:@"playUrl"]);
+                       for (id url in playUrl) {
+                           [m addHdUrl:J2Str([url valueForKeyPath:@"url"]) withTitle:J2Str([url valueForKeyPath:@"title"])];
+                       }
 
-                   [allList addObject:m];
+                       [allList addObject:m];
+                   }
+                   self.liveDataSourceArray = allList;
+                   [self.liveListView reloadData];
                }
-               self.liveDataSourceArray = allList;
-               [self.liveListView reloadData];
-           }
-           failure:^(NSURLSessionDataTask *_Nullable task, NSError *_Nonnull error){
+               failure:^(NSURLSessionDataTask *_Nullable task, NSError *_Nonnull error){
 
-           }];
+               }];
+    }
+    
 }
 
 // 返回值要必须为NO
@@ -517,6 +585,57 @@ __weak UITextField *psignField;
     [self backClick];
 }
 
+- (void)superPlayerDidStart:(SuperPlayerView *)player {
+    if (!player.playerModel.isEnableCache) {
+        return;
+    }
+    
+    if (!_cacheView.hidden) {
+        return;
+    }
+    
+    if (_cacheView) {
+        [_cacheView setVideoModels:_currentPlayVideoArray currentPlayingModel:player.playerModel];
+    }
+}
+
+- (void)superPlayerFullScreenChanged:(SuperPlayerView *)player {
+    [[UIApplication sharedApplication] setStatusBarHidden:player.isFullScreen];
+    [self.playerView showVipWatchView];
+    [player hideVipTipView];
+    if (player.isCanShowVipTipView) {
+        [player showVipTipView];
+    }
+    
+    if (!player.isFullScreen) {
+        _cacheView.hidden = YES;
+    }
+}
+
+- (void)superPlayerDidEnd:(SuperPlayerView *)player {
+    if (!_cacheView.hidden) {
+        [UIView animateWithDuration:1.0 animations:^{
+            self->_cacheView.transform = CGAffineTransformMakeTranslation(self->_cacheView.frame.size.width + HomeIndicator_Height, 0);
+        } completion:^(BOOL finished) {
+            if (finished) {
+                self->_cacheView.hidden = YES;
+            }
+        }];
+    }
+}
+
+- (void)singleTapClick {
+    if (!_cacheView.hidden) {
+        [UIView animateWithDuration:1.0 animations:^{
+            self->_cacheView.transform = CGAffineTransformMakeTranslation(self->_cacheView.frame.size.width + HomeIndicator_Height, 0);
+        } completion:^(BOOL finished) {
+            if (finished) {
+                self->_cacheView.hidden = YES;
+            }
+        }];
+    }
+}
+
 #pragma mark - Getter
 - (UGCUploadList *)ugcUplaodList {
     if (!_ugcUplaodList) {
@@ -532,6 +651,7 @@ __weak UITextField *psignField;
         _playerView.disableGesture = YES;
         // 设置代理
         _playerView.delegate = self;
+        _playerView.disableVolumControl = YES;
         // demo的时移域名，请根据您项目实际情况修改这里
         _playerView.playerConfig.playShiftDomain = @"liteavapp.timeshift.qcloud.com";
         [self setupDanmakuData];
@@ -556,12 +676,15 @@ __weak UITextField *psignField;
     });
     
     if (_vodDataSourceArray.count == 1 && !self.stopAutoPlayVOD) {
-        [self.playerView.controlView setTitle:[[self.vodDataSourceArray[0] firstObject] title]];
+        NSArray *array = [[[self.vodDataSourceArray[0] firstObject] title] componentsSeparatedByString:@"."];
+        [self.playerView.controlView setTitle:array.firstObject];
         [self.playerView playWithModel:[[self.vodDataSourceArray[0] firstObject] getPlayerModel]];
         [self showControlView:YES];
+        [self->_currentPlayVideoArray removeAllObjects];
+        [self->_currentPlayVideoArray addObject:[[self.vodDataSourceArray[0] firstObject] getPlayerModel]];
     }
     
-    [self getNextInfo];
+    [self getNextInfoIsCache:NO];
 }
 
 - (NSArray *)getVideoModelWithVideoArray:(NSArray *)videoArray {
@@ -571,7 +694,9 @@ __weak UITextField *psignField;
         m.appId           = playInfo.appId;
         m.fileId          = playInfo.fileId;
         m.duration        = playInfo.duration;
-        m.title           = playInfo.videoDescription ?: playInfo.name;
+        NSArray *array = [playInfo.name componentsSeparatedByString:@"."];
+        m.title           = playInfo.videoDescription.length > 0 ? playInfo.videoDescription : array.firstObject;
+        m.isEnableCache   = playInfo.isCache;
         if (!m.title || [m.title isEqualToString:@""]) {
             if (playInfo.name && playInfo.name.length >0) {
                 m.title = playInfo.name;
@@ -584,12 +709,12 @@ __weak UITextField *psignField;
             m.title = VIP_VIDEO_DEFAULT_CELL_TITLE;
         }
         
-        if ([m.title containsString:DYNAMIC_WATER_VIDEO_DEFAULT_TITLE]) {
+        if ([m.title containsString:DYNAMIC_WATER_VIDEO_DEFAULT_CELL_TITLE]) {
             m.title = DYNAMIC_WATER_VIDEO_DEFAULT_CELL_TITLE;
             DynamicWaterModel *model = [[DynamicWaterModel alloc] init];
             model.dynamicWatermarkTip = @"shipinyun";
             model.textFont = 30;
-            model.textColor = [UIColor colorWithRed:255.0/255.0 green:255.0/255.0 blue:255.0/255.0 alpha:0.8];
+            model.textColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:0/255.0 alpha:0.8];
             m.dynamicWaterModel = model;
         }
         
@@ -603,7 +728,18 @@ __weak UITextField *psignField;
             m.playAction = 0;
         }
         
+        if (!self.isAddLoopVideo && videoArray.count > 1) {
+            m.isEnableCache = YES;
+        }
+        
         [modelArray addObject:m];
+    }
+    
+    if (modelArray.count > 1 && self.isAddLoopVideo) {
+        [modelArray addObject:VIDEO_LOOP_PLAY_DEFAULT_TITLE];
+        self.isAddLoopVideo = NO;
+    } else if (modelArray.count > 1 && !self.isAddLoopVideo) {
+        [modelArray addObject:VIDEO_OFFLINE_CACHE_DEFAULT_TITLE];
     }
     
     return modelArray;
@@ -623,7 +759,7 @@ __weak UITextField *psignField;
     [self hudMessage:LivePlayerLocalize(@"SuperPlayerDemo.MoviePlayer.fileidrequesterror")];
 }
 
-- (void)getNextInfo {
+- (void)getNextInfoIsCache:(BOOL)isCache {
     if (_authParamArray.count == 0) return;
     NSMutableArray *videoArray = [_authParamArray objectAtIndex:0];
     if (videoArray.count == 0) return;
@@ -648,6 +784,7 @@ __weak UITextField *psignField;
                                      if (error) {
                                              [wself hudMessage:LivePlayerLocalize(@"SuperPlayerDemo.MoviePlayer.fileidrequesterror")];
                                      } else {
+                                         resp.isCache = isCache;
                                          [resultArray addObject:resp];
                                      }
                                      dispatch_semaphore_signal(sem);
@@ -673,20 +810,35 @@ __weak UITextField *psignField;
         if ([dataObj isKindOfClass:[NSDictionary class]]) {
             [dataInfo addEntriesFromDictionary:dataObj];
         }
-        NSString *appId  = dataInfo[@"appId"];
-        NSString *fileId = dataInfo[@"fileId"];
-        NSString *psign  = dataInfo[@"psign"];
-        if (appId && fileId && psign) {
-            SuperPlayerModel *model = [SuperPlayerModel new];
-            model.appId             = [appId longLongValue];
-            model.videoId           = [[SuperPlayerVideoId alloc] init];
-            model.videoId.fileId    = fileId;
-            model.videoId.psign     = psign;
-            [self playModel:model];
+        
+        SuperPlayerModel *playerModel = dataInfo[@"playerModel"];
+        BOOL isEnableCache = playerModel.isEnableCache;
+        if (playerModel) {
+            if (isEnableCache) {
+                SPDefaultControlView *defaultControlView = (SPDefaultControlView *)self.playerView.controlView;
+                [defaultControlView.offlineBtn addTarget:self action:@selector(cacheViewShow) forControlEvents:UIControlEventTouchUpInside];
+            }
+            
+            [self playModel:playerModel];
             success = YES;
         } else {
-            NSLog(@"%@", LocalizeReplaceThreeCharacter(LivePlayerLocalize(@"SuperPlayerDemo.MoviePlayer.lackofparameterxxyyzz"), [NSString stringWithFormat:@"%@", appId],
-                                                       [NSString stringWithFormat:@"%@", fileId], [NSString stringWithFormat:@"%@", psign]));
+            NSString *appId  = dataInfo[@"appId"];
+            NSString *fileId = dataInfo[@"fileId"];
+            NSString *psign  = dataInfo[@"psign"];
+            
+            if (appId && fileId && psign) {
+                SuperPlayerModel *model = [SuperPlayerModel new];
+                model.appId             = [appId longLongValue];
+                model.videoId           = [[SuperPlayerVideoId alloc] init];
+                model.videoId.fileId    = fileId;
+                model.videoId.psign     = psign;
+                model.isEnableCache     = NO;
+                [self playModel:model];
+                success = YES;
+            } else {
+                NSLog(@"%@", LocalizeReplaceThreeCharacter(LivePlayerLocalize(@"SuperPlayerDemo.MoviePlayer.lackofparameterxxyyzz"), [NSString stringWithFormat:@"%@", appId],
+                                                           [NSString stringWithFormat:@"%@", fileId], [NSString stringWithFormat:@"%@", psign]));
+            }
         }
     }
     if (complete) {
@@ -841,6 +993,7 @@ __weak UITextField *psignField;
         model.videoURL = result;
     }
     model.name = [NSString stringWithFormat:@"%@%lu", LivePlayerLocalize(@"SuperPlayerDemo.MoviePlayer.video"), (unsigned long)_vodDataSourceArray.count + 1];
+    model.isEnableCache = NO;
     [self playModel:model];
 
     ListVideoModel *m = [ListVideoModel new];
@@ -879,9 +1032,14 @@ __weak UITextField *psignField;
     [self.playerView hideVipTipView];
     [self.playerView hideVipWatchView];
     self.playerView.isCanShowVipTipView = NO;
-    [self.playerView.controlView setTitle:LivePlayerLocalize(@"SuperPlayerDemo.MoviePlayer.newplayvideo")];
+    [self.playerView.controlView setTitle:model.name.length > 0 ? model.name : LivePlayerLocalize(@"SuperPlayerDemo.MoviePlayer.newplayvideo")];
     [self.playerView.coverImageView setImage:nil];
     [self.playerView playWithModel:model];
+    
+    if (model.isEnableCache) {
+        [self->_currentPlayVideoArray removeAllObjects];
+        [self->_currentPlayVideoArray addObject:model];
+    }
 }
 
 #pragma mark - -
@@ -903,6 +1061,11 @@ __weak UITextField *psignField;
         [control addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
             textField.placeholder = LivePlayerLocalize(@"SuperPlayerDemo.MoviePlayer.enterlivepsign");
             psignField = textField;
+        }];
+        
+        [control addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+            textField.placeholder = LivePlayerLocalize(@"SuperPlayerDemo.MoviePlayer.enterStartCache");
+            cacheField = textField;
         }];
     } else {
         [control addTextFieldWithConfigurationHandler:^(UITextField *_Nonnull textField) {
@@ -926,8 +1089,13 @@ __weak UITextField *psignField;
                                                       NSMutableArray *videoArray = [NSMutableArray array];
                                                       [videoArray addObject:p];
                                                       [self.authParamArray addObject:videoArray];
-
-                                                      [self getNextInfo];
+                                                      
+                                                      if ([cacheField.text isEqualToString:@"1"]) {
+                                                          [self getNextInfoIsCache:YES];
+                                                      } else {
+                                                          [self getNextInfoIsCache:NO];
+                                                      }
+                                                      
                                                   } else {
                                                       if (urlField.text.length == 0) {
                                                           [self hudMessage:LivePlayerLocalize(@"SuperPlayerDemo.MoviePlayer.enterplayeraddress")];
@@ -939,6 +1107,7 @@ __weak UITextField *psignField;
                                                       m.title           = [NSString
                                                           stringWithFormat:@"%@%lu", LivePlayerLocalize(@"SuperPlayerDemo.MoviePlayer.video"), (unsigned long)self.liveDataSourceArray.count + 1];
                                                       m.type            = 1;
+                                                    
                                                       [self.liveDataSourceArray addObject:m];
                                                       [self.liveListView reloadData];
                                                   }
@@ -977,10 +1146,14 @@ __weak UITextField *psignField;
     ListVideoModel *param;
     if (tableView == self.vodListView) {
         NSArray *modelArray = [_vodDataSourceArray objectAtIndex:row];
-        if (modelArray.count > 1) {
+        if (modelArray.count > 1 && [modelArray.lastObject isEqualToString:VIDEO_LOOP_PLAY_DEFAULT_TITLE]) {
             param = [ListVideoModel new];
             param.title = VIDEO_LOOP_PLAY_DEFAULT_TITLE;
             param.coverUrl = VIDEO_LOOP_PLAY_DEFAULT_URL;
+        } else if (modelArray.count > 1 && [modelArray.lastObject isEqualToString:VIDEO_OFFLINE_CACHE_DEFAULT_TITLE]) {
+            param = [ListVideoModel new];
+            param.title = VIDEO_OFFLINE_CACHE_DEFAULT_TITLE;
+            param.coverUrl = VIDEO_OFFLINE_CACHE_DEFAULT_URL;
         } else {
             param = [modelArray firstObject];
         }
@@ -1005,15 +1178,37 @@ __weak UITextField *psignField;
         
         if ([[cell getSource].title containsString:VIDEO_LOOP_PLAY_DEFAULT_TITLE]) {
             // 模型转换
-            NSArray *videoModelArray = self.vodDataSourceArray[indexPath.row];
+            NSMutableArray *videoModelArray = self.vodDataSourceArray[indexPath.row];
+            
             NSMutableArray *videoList = [NSMutableArray array];
-            for (ListVideoModel *model in videoModelArray) {
+            for (int i = 0; i < videoModelArray.count - 1; i++) {
+                ListVideoModel *model = videoModelArray[i];
                 [videoList addObject:[model getPlayerModel]];
             }
             [self.playerView playWithModelList:videoList isLoopPlayList:YES startIndex:0];
+            [self->_currentPlayVideoArray removeAllObjects];
+            [self->_currentPlayVideoArray addObjectsFromArray:videoList];
+        } else if ([[cell getSource].title containsString:VIDEO_OFFLINE_CACHE_DEFAULT_TITLE]) {
+            // 模型转换
+            NSMutableArray *videoModelArray = self.vodDataSourceArray[indexPath.row];
+            NSMutableArray *videoList = [NSMutableArray array];
+            for (int i = 0; i < videoModelArray.count - 1; i++) {
+                ListVideoModel *model = videoModelArray[i];
+                [videoList addObject:[model getPlayerModel]];
+            }
+            [self.playerView playWithModelList:videoList isLoopPlayList:YES startIndex:0];
+            [self->_currentPlayVideoArray removeAllObjects];
+            [self->_currentPlayVideoArray addObjectsFromArray:videoList];
+            [self setVideoCacheData];
         } else {
+            SuperPlayerModel *model = [cell getPlayerModel];
             [self.playerView.controlView setTitle:[cell getSource].title];
-            [self.playerView playWithModel:[cell getPlayerModel]];
+            [self.playerView playWithModel:model];
+            [self->_currentPlayVideoArray removeAllObjects];
+            [self->_currentPlayVideoArray addObject:model];
+            if ([cell getSource].isEnableCache) {
+                [self setVideoCacheData];
+            }
         }
     }
 }
@@ -1072,8 +1267,8 @@ __weak UITextField *psignField;
         make.right.equalTo(self.playerView);
     }];
 
-    SPDefaultControlView *dv = (SPDefaultControlView *)self.playerView.controlView;
-    [dv.danmakuBtn addTarget:self action:@selector(danmakuShow:) forControlEvents:UIControlEventTouchUpInside];
+    SPDefaultControlView *defaultControlView = (SPDefaultControlView *)self.playerView.controlView;
+    [defaultControlView.danmakuBtn addTarget:self action:@selector(danmakuShow:) forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (void)showControlView:(BOOL)isShow {
@@ -1112,20 +1307,6 @@ __weak UITextField *psignField;
     [self.scrollView scrollRectToVisible:CGRectMake(ScreenWidth, 0, ScreenWidth, self.scrollView.mm_h) animated:YES];
 }
 
-- (void)superPlayerFullScreenChanged:(SuperPlayerView *)player {
-    [[UIApplication sharedApplication] setStatusBarHidden:player.isFullScreen];
-    [self.playerView showVipWatchView];
-    [player hideVipTipView];
-    if (player.isCanShowVipTipView) {
-        [player showVipTipView];
-    }
-}
-
-- (void)superPlayerDidEnd:(SuperPlayerView *)player {
-}
-
-- (void)superPlayerDidStart:(SuperPlayerView *)player {
-}
 #pragma mark - 弹幕
 
 static NSTimeInterval danmaku_start_time;  // 测试用的，因为demo里的直播时间可能非常大，本地的测试弹幕时间很短
@@ -1150,6 +1331,32 @@ static NSTimeInterval danmaku_start_time;  // 测试用的，因为demo里的直
         [_danmakuView pause];
         _danmakuView.hidden = YES;
     }
+}
+
+#pragma mark - 离线缓存
+
+- (void)setVideoCacheData {
+    _cacheView = [[VideoCacheView alloc] initWithFrame:CGRectZero];
+    _cacheView.hidden = YES;
+    [self.playerView addSubview:_cacheView];
+
+    [_cacheView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.playerView);
+        make.bottom.equalTo(self.playerView);
+        make.right.equalTo(self.playerView).offset(OFFLINE_VIDEOCATCHVIEW_HEIGHT + HomeIndicator_Height);
+        make.width.mas_equalTo(OFFLINE_VIDEOCATCHVIEW_HEIGHT);
+    }];
+
+    SPDefaultControlView *defaultControlView = (SPDefaultControlView *)self.playerView.controlView;
+    [defaultControlView.offlineBtn addTarget:self action:@selector(cacheViewShow) forControlEvents:UIControlEventTouchUpInside];
+}
+
+- (void)cacheViewShow {
+    [UIView animateWithDuration:1.0 animations:^{
+        self->_cacheView.transform = CGAffineTransformMakeTranslation(-(OFFLINE_VIDEOCATCHVIEW_HEIGHT + HomeIndicator_Height), 0);
+    }];
+    
+    _cacheView.hidden = NO;
 }
 
 @end

@@ -18,9 +18,10 @@
 @property(nonatomic, readonly) int       duration;
 @property(nonatomic, readonly) NSString *title;
 
-@property NSInteger appId;
-@property NSString *fileId;
-@property NSString *pSign;
+@property (nonatomic, assign) NSInteger appId;
+@property (nonatomic, strong) NSString *fileId;
+@property (nonatomic, strong) NSString *pSign;
+@property (nonatomic, assign) BOOL isCache;
 
 - (instancetype)initWithResponse:(NSDictionary *)dict;
 

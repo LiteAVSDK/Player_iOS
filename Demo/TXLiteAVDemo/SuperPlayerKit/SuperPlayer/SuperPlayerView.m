@@ -49,6 +49,7 @@
 #import "TXVodPlayConfig.h"
 #import "TXVodPlayListener.h"
 #import "TXVodPlayer.h"
+#import "TXPlayerGlobalSetting.h"
 
 static UISlider *_volumeSlider;
 
@@ -82,6 +83,13 @@ static UISlider *_volumeSlider;
 }
 
 #pragma mark - life Cycle
+
++ (void)initialize {
+    NSString *path = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    NSString *cachePath = [path stringByAppendingString:@"/TXCache"];
+    [TXPlayerGlobalSetting setCacheFolderPath:cachePath];
+    [TXPlayerGlobalSetting setMaxCacheSize:800];
+}
 
 /**
  *  代码初始化调用此方法
@@ -209,6 +217,7 @@ static UISlider *_volumeSlider;
 
 - (void)playWithModel:(SuperPlayerModel *)playerModel {
     LOG_ME;
+    _videoModelList = nil;
     _playerModel = playerModel;
     _isVideoList = NO;
     [self.controlView setNextBtnState:NO];
@@ -337,7 +346,7 @@ static UISlider *_volumeSlider;
         self.state         = StatePlaying;
         [_livePlayer resume];
     } else {
-        if (self.state == StatePause) {
+        if (self.state == StatePause || self.state == StateBuffering) {
             [self.vodPlayer resume];
             self.state = StatePlaying;
             if (self.delegate && [self.delegate respondsToSelector:@selector(superPlayerDidStart:)]) {
@@ -536,6 +545,8 @@ static UISlider *_volumeSlider;
     
     [self.vodPlayer stopPlay];
     [self.livePlayer stopPlay];
+    [self.vodPlayer removeVideoWidget];
+    [self.livePlayer removeVideoWidget];
 
     self.liveProgressTime = self.maxLiveProgressTime = 0;
 
@@ -587,17 +598,13 @@ static UISlider *_volumeSlider;
 
 - (void)setVodPlayConfig {
     TXVodPlayConfig *config    = [[TXVodPlayConfig alloc] init];
-    config.smoothSwitchBitrate = NO;
-    if (self.playerConfig.maxCacheItem) {
-        // https://github.com/tencentyun/SuperPlayer_iOS/issues/64
-        config.cacheFolderPath = [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingString:@"/TXCache"];
-        config.maxCacheItems   = (int)self.playerConfig.maxCacheItem;
-    }
+    config.smoothSwitchBitrate = YES;
     config.progressInterval = 0.02;
     config.headers = self.playerConfig.headers;
 
     config.overlayIv = self.playerModel.overlayIv;
     config.overlayKey = self.playerModel.overlayKey;
+    config.preferredResolution = 720 * 1280;
     [self.vodPlayer setConfig:config];
     
     self.vodPlayer.token    = self.playerModel.drmToken;
@@ -606,7 +613,6 @@ static UISlider *_volumeSlider;
     [self.vodPlayer setStartTime:self.startTime];
     self.startTime = 0;
     
-    [self.vodPlayer setBitrateIndex:self.playerModel.playingDefinitionIndex];
     [self.vodPlayer setRate:self.playerConfig.playRate];
     [self.vodPlayer setMirror:self.playerConfig.mirror];
     [self.vodPlayer setMute:self.playerConfig.mute];
@@ -784,7 +790,14 @@ static UISlider *_volumeSlider;
 }
 
 - (void)detailProgress {
+    // StateStopped 是当前播放的状态  playDidEnd 是否播放完了
+    // StatePrepare 是在接受到onPlayEvent回调的状态  _isPrepare是用户主动触发resume的状态
     if (self.state == StateStopped) return;
+    if (self.playDidEnd) return;
+    if (self.state == StatePrepare || !self->_isPrepare) {
+        return;
+    };
+    self.state = StatePlaying;
     if (self.state == StatePlaying) {
         self.centerPlayBtn.hidden = YES;
         self.repeatBtn.hidden = YES;
@@ -828,6 +841,8 @@ static UISlider *_volumeSlider;
         self.state         = StateBuffering;
         [self.spinner startAnimating];
     }
+    
+    [self.controlView setDisableOfflineBtn:!self.playerModel.isEnableCache];
     self.repeatBtn.hidden     = YES;
     // 播放时添加监听
     [self addNotifications];
@@ -1011,10 +1026,13 @@ static UISlider *_volumeSlider;
 - (void)singleTapAction:(UIGestureRecognizer *)gesture {
     if (gesture.state == UIGestureRecognizerStateRecognized) {
         if (SuperPlayerWindowShared.isShowing) return;
+        
+        if (self.delegate && [self.delegate respondsToSelector:@selector(singleTapClick)] && self.isFullScreen) {
+            [self.delegate singleTapClick];
+        }
 
         if (self.controlView.hidden) {
             [[self.controlView fadeShow] fadeOut:5];
-            [self.controlView setPlayState:self.state == StatePlaying ? YES : NO];
         } else {
             [self.controlView fadeOut:0.2];
         }
@@ -1084,6 +1102,7 @@ static UISlider *_volumeSlider;
             }
         }
     }
+    [self.controlView setPlayState:NO];
     [self.controlView fadeOut:0.2];
     [self fastViewUnavaliable];
     [self.netWatcher stopWatch];
@@ -1394,12 +1413,16 @@ static UISlider *_volumeSlider;
 - (void)volumeChanged:(NSNotification *)notification {
     if (self.isDragging) return;  // 正在拖动，不响应音量事件
 
-    if (![[[notification userInfo] objectForKey:@"AVSystemController_AudioVolumeChangeReasonNotificationParameter"] isEqualToString:@"ExplicitVolumeChange"]) {
+    if (![[[notification userInfo] objectForKey:VOLUME_CHANGE_PARAMATER] isEqualToString:VOLUME_EXPLICIT_CHANGE]) {
         return;
     }
-    float volume = [[[notification userInfo] objectForKey:@"AVSystemController_AudioVolumeNotificationParameter"] floatValue];
-    [self fastViewImageAvaliable:SuperPlayerImage(@"sound_max") progress:volume];
-    [self.fastView fadeOut:1];
+    float volume = [[[notification userInfo] objectForKey:VOLUME_CHANGE_KEY] floatValue];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (self.disableVolumControl) {
+            [self fastViewImageAvaliable:SuperPlayerImage(@"sound_max") progress:volume];
+            [self.fastView fadeOut:1];
+        }
+    });
 }
 
 - (SuperPlayerFastView *)fastView {
@@ -1466,6 +1489,10 @@ static UISlider *_volumeSlider;
     if ([touch.view isKindOfClass:[UISlider class]] || [touch.view.superview isKindOfClass:[UISlider class]]) {
         return NO;
     }
+    
+    if ([NSStringFromClass([touch.view class]) isEqualToString:@"UITableViewCellContentView"] || [NSStringFromClass([touch.view class]) isEqualToString:@"UITableView"]) {
+        return NO;
+    }
 
     if (SuperPlayerWindowShared.isShowing) return NO;
 
@@ -1488,10 +1515,8 @@ static UISlider *_volumeSlider;
         [self.spinner stopAnimating];
     }
     if (state == StatePlaying) {
-        [[NSNotificationCenter defaultCenter] removeObserver:self name:@"AVSystemController_SystemVolumeDidChangeNotification" object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(volumeChanged:) name:@"AVSystemController_SystemVolumeDidChangeNotification" object:nil];
-
-        
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:VOLUME_NOTIFICATION_NAME object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(volumeChanged:) name:VOLUME_NOTIFICATION_NAME object:nil];
     } else if (state == StateFirstFrame) {
         _state = StatePlaying;
         if (self.coverImageView.alpha == 1) {
@@ -1502,7 +1527,7 @@ static UISlider *_volumeSlider;
         }
     } else if (state == StateFailed) {
     } else if (state == StateStopped) {
-        [[NSNotificationCenter defaultCenter] removeObserver:self name:@"AVSystemController_SystemVolumeDidChangeNotification" object:nil];
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:VOLUME_NOTIFICATION_NAME object:nil];
         
         // 如果在播放结束需要显示封面，打开此行
 //        self.coverImageView.hidden = NO;
@@ -1540,11 +1565,9 @@ static UISlider *_volumeSlider;
 - (void)setDragging:(BOOL)dragging {
     _isDragging = dragging;
     if (dragging) {
-        [[NSNotificationCenter defaultCenter] removeObserver:self name:@"AVSystemController_SystemVolumeDidChangeNotification" object:nil];
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:VOLUME_NOTIFICATION_NAME object:nil];
     } else {
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(volumeChanged:) name:@"AVSystemController_SystemVolumeDidChangeNotification" object:nil];
-        });
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(volumeChanged:) name:VOLUME_NOTIFICATION_NAME object:nil];
     }
 }
 
@@ -1886,10 +1909,6 @@ static UISlider *_volumeSlider;
 }
 
 - (void)onPlayEvent:(TXVodPlayer *)player event:(int)EvtID withParam:(NSDictionary *)param {
-    if ((int)player.duration == 102) {
-        NSLog(@"simonplu---onPlayEvent:%d:%@:%f:%d",EvtID,player,player.duration,player.isPlaying);
-    }
-    
     dispatch_async(dispatch_get_main_queue(), ^{
         if (EvtID != PLAY_EVT_PLAY_PROGRESS) {
             NSString *desc = [param description];
@@ -1910,7 +1929,6 @@ static UISlider *_volumeSlider;
             [self.vodPlayer setupVideoWidget:self insertIndex:0];
             [self layoutSubviews];  // 防止横屏状态下添加view显示不全
 
-            [self updateBitrates:player.supportedBitrates];
             for (SPVideoFrameDescription *p in self.keyFrameDescList) {
                 if (player.duration > 0) p.where = p.time / duration;
             }
@@ -1927,6 +1945,7 @@ static UISlider *_volumeSlider;
             // 防止暂停导致加载进度不消失
             if (self.isPauseByUser) [self.spinner stopAnimating];
             self.state = StatePrepare;
+            [self updateBitrates:player.supportedBitrates];
             [self detailPrepareState];
         }
         if (EvtID == PLAY_EVT_PLAY_PROGRESS) {
@@ -1983,6 +2002,11 @@ static UISlider *_volumeSlider;
 // 更新当前播放的视频信息，包括清晰度、码率等
 - (void)updateBitrates:(NSArray<TXBitrateItem *> *)bitrates;
 {
+    // 播放离线视频，不更新清晰度，离线视频只有一个清晰度
+    if ([_currentVideoUrl containsString:@"/var/mobile/Containers/Data/Application/"]) {
+        return;
+    }
+    
     if (bitrates.count > 0) {
         if (self.resolutions) {
             if (_playerModel.multiVideoURLs == nil) {
@@ -1998,13 +2022,19 @@ static UISlider *_volumeSlider;
             NSArray *titles             = [TXBitrateItemHelper sortWithBitrate:bitrates];
             _playerModel.multiVideoURLs = titles;
             self.netWatcher.playerModel = _playerModel;
-            if (_playerModel.playingDefinition == nil) _playerModel.playingDefinition = self.netWatcher.adviseDefinition;
+            NSInteger index = self.vodPlayer.bitrateIndex;
+            if (_playerModel.playDefinitions.count > 0) {
+                if (_playerModel.playDefinitions.count > index) {
+                    _playerModel.playingDefinition = _playerModel.playDefinitions[index < 0 ? 0 : index];
+                } else {
+                    _playerModel.playingDefinition = _playerModel.playDefinitions.lastObject;
+                }
+            }
         }
         [self resetControlViewWithLive:self.isLive shiftPlayback:self.isShiftPlayback isPlaying:self.state == StatePlaying ? YES : NO];
         if (_isFullScreen) {
             [self.controlView setOrientationLandscapeConstraint];
         }
-        [self.vodPlayer setBitrateIndex:_playerModel.playingDefinitionIndex];
     }
 }
 
@@ -2251,8 +2281,9 @@ static UISlider *_volumeSlider;
     if (!_coverImageView) {
         _coverImageView                        = [[UIImageView alloc] init];
         _coverImageView.userInteractionEnabled = YES;
+        _coverImageView.clipsToBounds = YES;
         _coverImageView.image = SuperPlayerImage(@"defaultCoverImage");
-        _coverImageView.contentMode            = UIViewContentModeScaleAspectFit;
+        _coverImageView.contentMode            = UIViewContentModeScaleAspectFill;
         [self insertSubview:_coverImageView belowSubview:self.controlView];
         [_coverImageView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.edges.mas_equalTo(UIEdgeInsetsZero);

@@ -323,14 +323,14 @@ NSString * const TXShortVideoCellIdentifier = @"TXShortVideoCellIdentifier";
     NSString *url = cell.model.videourl;
     
     // 移除旧的视图
-    [self _removeOldPlayer];
+    [self removeOldPlayer];
     
     if (url.length > 0) {
         [self.currentPlayer playVideoWithView:cell.baseView.videoFatherView url:url];
     }
 }
 
-- (void)_removeOldPlayer {
+- (void)removeOldPlayer {
     for (UIView *w in [self.currentPlayingCell.baseView.videoFatherView subviews]) {
         if ([w isKindOfClass:NSClassFromString(@"TXCRenderView")]) [w removeFromSuperview];
         if ([w isKindOfClass:NSClassFromString(@"TXIJKSDLGLView")]) [w removeFromSuperview];

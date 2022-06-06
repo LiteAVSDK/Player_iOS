@@ -88,7 +88,7 @@ NSString * const FeedDetailVideoCellIdentifier = @"FeedDetailVideoCellIdentifier
 - (void)setSuperPlayView:(SuperPlayerView *)superPlayView {
     _superPlayView = superPlayView;
     [self.videoView addSubview:superPlayView];
-    _superPlayView.fatherView = self.videoView;
+    superPlayView.fatherView = self.videoView;
     [superPlayView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.videoView);
     }];
@@ -168,11 +168,13 @@ NSString * const FeedDetailVideoCellIdentifier = @"FeedDetailVideoCellIdentifier
     if (cell) {
         // 先暂停掉正在播放的
         [self.superPlayView pause];
-        [self.superPlayView removeFromSuperview];
         
         [self.temPlayView playWithModel:[self setSuperPlayerModel:cell.model]];
         [self.temPlayView.controlView setTitle:cell.model.title];
         [self.temPlayView showOrHideBackBtn:NO];
+        
+        SPDefaultControlView *defaultControlView = (SPDefaultControlView *)self.temPlayView.controlView;
+        defaultControlView.disableDanmakuBtn = YES;
         
         // 修改介绍
         FeedHeadModel *model = [[FeedHeadModel alloc] init];
@@ -181,7 +183,6 @@ NSString * const FeedDetailVideoCellIdentifier = @"FeedDetailVideoCellIdentifier
         model.videoSubTitleStr = cell.model.videoIntroduce;
         model.videoDesStr = cell.model.videoDesStr;
         [self setModel:model];
-
     }
 }
 

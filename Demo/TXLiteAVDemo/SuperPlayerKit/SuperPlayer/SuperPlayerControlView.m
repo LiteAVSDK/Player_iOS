@@ -52,6 +52,9 @@
 - (void)setNextBtnState:(BOOL)isShow {
 }
 
+- (void)setDisableOfflineBtn:(BOOL)disableOfflineBtn {
+}
+
 - (void)setProgressTime:(NSInteger)currentTime totalTime:(NSInteger)totalTime progressValue:(CGFloat)progress playableValue:(CGFloat)playable {
 }
 

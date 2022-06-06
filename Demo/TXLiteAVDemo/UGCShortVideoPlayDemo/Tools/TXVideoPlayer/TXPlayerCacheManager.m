@@ -9,6 +9,7 @@
 #import "TXPlayerCacheManager.h"
 #import "TXVideoPlayer.h"
 #import "TXVideoModel.h"
+#import "TXPlayerGlobalSetting.h"
 
 @interface TXPlayerCacheManager()
 
@@ -34,6 +35,10 @@
 - (instancetype)init {
     if (self = [super init]) {
         _playerCacheDic = [NSMutableDictionary dictionary];
+        NSString *cachesDir = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) firstObject];
+        NSString *path = [NSString stringWithFormat:@"%@/shortVideoCache",cachesDir];
+        [TXPlayerGlobalSetting  setCacheFolderPath:path];
+        [TXPlayerGlobalSetting  setMaxCacheSize:800];
     }
     return self;
 }

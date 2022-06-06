@@ -158,6 +158,10 @@
     }
 }
 
+- (void)onSeekOutSide:(UISlider *)slider {
+    _isStartSeek = NO;
+}
+
 #pragma mark - 懒加载
 - (UIButton *)playBtn {
     if (!_playBtn) {

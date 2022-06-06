@@ -40,6 +40,7 @@
 
         [self.topImageView addSubview:self.captureBtn];
         [self.topImageView addSubview:self.danmakuBtn];
+        [self.topImageView addSubview:self.offlineBtn];
         [self.topImageView addSubview:self.moreBtn];
         [self addSubview:self.lockBtn];
         [self.topImageView addSubview:self.backBtn];
@@ -55,6 +56,7 @@
 
         self.captureBtn.hidden      = YES;
         self.danmakuBtn.hidden      = YES;
+        self.offlineBtn.hidden      = YES;
         self.moreBtn.hidden         = YES;
         self.resolutionBtn.hidden   = YES;
         self.moreContentView.hidden = YES;
@@ -100,6 +102,13 @@
         make.width.mas_equalTo(40);
         make.height.mas_equalTo(49);
         make.trailing.equalTo(self.captureBtn.mas_leading).offset(-10);
+        make.centerY.equalTo(self.backBtn.mas_centerY);
+    }];
+    
+    [self.offlineBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.mas_equalTo(40);
+        make.height.mas_equalTo(49);
+        make.trailing.equalTo(self.danmakuBtn.mas_leading).offset(-10);
         make.centerY.equalTo(self.backBtn.mas_centerY);
     }];
 
@@ -193,8 +202,13 @@
     self.resoultionCurrentBtn.backgroundColor = RGBA(34, 30, 24, 1);
 
     // topImageView上的按钮的文字
-    [self.resolutionBtn setTitle:sender.titleLabel.text forState:UIControlStateNormal];
-    [self.delegate controlViewSwitch:self withDefinition:sender.titleLabel.text];
+    NSString *titleString = sender.titleLabel.text;
+    NSArray *titlesArray = [titleString componentsSeparatedByString:@"（"];
+    NSArray *resoluArray = [titlesArray.lastObject componentsSeparatedByString:@"）"];
+    NSString *title = titlesArray.firstObject;
+    [self.resolutionBtn setTitle:title.length > 0 ? title : resoluArray.firstObject forState:UIControlStateNormal];
+    [self.delegate controlViewSwitch:self withDefinition:titleString];
+
 }
 
 - (void)backBtnClick:(UIButton *)sender {
@@ -248,6 +262,11 @@
     [self fadeOut:3];
 }
 
+- (void)offlineBtnClick:(UIButton *)sender {
+    sender.selected = !sender.selected;
+    [self fadeOut:3];
+}
+
 - (void)moreBtnClick:(UIButton *)sender {
     self.topImageView.hidden    = YES;
     self.bottomImageView.hidden = YES;
@@ -284,7 +303,7 @@
     self.topImageView.hidden    = YES;
     self.bottomImageView.hidden = YES;
     self.lockBtn.hidden         = YES;
-
+    
     // 显示隐藏分辨率View
     self.resolutionView.hidden = NO;
     [DataReport report:@"change_resolution" param:nil];
@@ -334,6 +353,13 @@
     }
 }
 
+- (void)setDisableResolutionBtn:(BOOL)disableResolutionBtn {
+    _disableResolutionBtn = disableResolutionBtn;
+    if (self.fullScreen) {
+        self.resolutionBtn.hidden = disableResolutionBtn;
+    }
+}
+
 - (void)setDisableCaptureBtn:(BOOL)disableCaptureBtn {
     _disableCaptureBtn = disableCaptureBtn;
     if (self.fullScreen) {
@@ -345,6 +371,13 @@
     _disableDanmakuBtn = disableDanmakuBtn;
     if (self.fullScreen) {
         self.danmakuBtn.hidden = disableDanmakuBtn;
+    }
+}
+
+- (void)setDisableOfflineBtn:(BOOL)disableOfflineBtn {
+    _disableOfflineBtn = disableOfflineBtn;
+    if (self.fullScreen) {
+        self.offlineBtn.hidden = disableOfflineBtn;
     }
 }
 
@@ -361,10 +394,15 @@
     self.lockBtn.hidden         = NO;
     self.fullScreenBtn.selected = self.isLockScreen;
     self.fullScreenBtn.hidden   = YES;
-    self.resolutionBtn.hidden   = self.resolutionArray.count == 0;
+    if (self.disableResolutionBtn) {
+        self.resolutionBtn.hidden   = YES;
+    } else {
+        self.resolutionBtn.hidden   = self.resolutionArray.count == 0;
+    }
     self.moreBtn.hidden         = self.disableMoreBtn;
     self.captureBtn.hidden      = self.disableCaptureBtn;
     self.danmakuBtn.hidden      = self.disableDanmakuBtn;
+    self.offlineBtn.hidden      = self.disableOfflineBtn;
 
     [self.backBtn setImage:SuperPlayerImage(@"back_full") forState:UIControlStateNormal];
     
@@ -413,6 +451,7 @@
     self.moreBtn.hidden         = YES;
     self.captureBtn.hidden      = YES;
     self.danmakuBtn.hidden      = YES;
+    self.offlineBtn.hidden      = YES;
     self.moreContentView.hidden = YES;
     self.resolutionView.hidden  = YES;
 
@@ -561,6 +600,15 @@
     return _danmakuBtn;
 }
 
+- (UIButton *)offlineBtn {
+    if (!_offlineBtn) {
+        _offlineBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_offlineBtn setImage:SuperPlayerImage(@"offline_download") forState:UIControlStateNormal];
+        [_offlineBtn addTarget:self action:@selector(offlineBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _offlineBtn;
+}
+
 - (UIButton *)moreBtn {
     if (!_moreBtn) {
         _moreBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -676,6 +724,7 @@
     self.lockBtn.hidden                    = !self.isFullScreen;
 
     self.danmakuBtn.enabled = YES;
+    self.offlineBtn.enabled = YES;
     self.captureBtn.enabled = YES;
     self.backLiveBtn.hidden = YES;
 }
@@ -728,7 +777,11 @@
                   isTimeShifting:(BOOL)isTimeShifting
                        isPlaying:(BOOL)isPlaying {
     NSAssert(resolutionNames.count == 0 || currentResolutionIndex < resolutionNames.count, @"Invalid argument when reseeting %@", NSStringFromClass(self.class));
-
+    
+    if (self.disableResolutionBtn) {
+        return;
+    }
+    
     [self setPlayState:isPlaying];
     self.backLiveBtn.hidden                          = !isTimeShifting;
     self.moreContentView.enableSpeedAndMirrorControl = !isLive;
@@ -737,7 +790,11 @@
 
     _resolutionArray = resolutionNames;
     if (_resolutionArray.count > 0) {
-        [self.resolutionBtn setTitle:resolutionNames[currentResolutionIndex] forState:UIControlStateNormal];
+        NSArray *titlesArray = [resolutionNames[currentResolutionIndex] componentsSeparatedByString:@"（"];
+        NSArray *resoluArray = [titlesArray.lastObject componentsSeparatedByString:@"）"];
+        NSString *title = titlesArray.firstObject;
+        [self.resolutionBtn setTitle:title.length > 0 ? title : resoluArray.firstObject forState:UIControlStateNormal];
+
     }
     UILabel *lable      = [UILabel new];
     lable.text          = @"清晰度";
@@ -808,6 +865,10 @@
 
 - (void)setNextBtnState:(BOOL)isShow {
     self.nextBtn.hidden = !isShow;
+}
+
+- (void)setOfflineBtnState:(BOOL)isShow {
+    self.disableOfflineBtn = !isShow;
 }
 
 #pragma clang diagnostic pop

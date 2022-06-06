@@ -109,6 +109,16 @@
 		D6BEF7ED2040362B00CBE2BD /* danmakufile in Resources */ = {isa = PBXBuildFile; fileRef = D6BEF79D204035CB00CBE2BD /* danmakufile */; };
 		D6BEF8222040368000CBE2BD /* ListVideoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D6BEF7242040353E00CBE2BD /* ListVideoCell.m */; };
 		D6BEF8232040368000CBE2BD /* MoviePlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6BEF7262040353E00CBE2BD /* MoviePlayerViewController.m */; };
+		EDC1B2B92847C9A60077A920 /* VideoCacheModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EDC1B2A32847C9A60077A920 /* VideoCacheModel.m */; };
+		EDC1B2BA2847C9A60077A920 /* TXVodDownloadCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = EDC1B2A72847C9A60077A920 /* TXVodDownloadCenter.m */; };
+		EDC1B2BB2847C9A60077A920 /* DownloadCallback.m in Sources */ = {isa = PBXBuildFile; fileRef = EDC1B2A82847C9A60077A920 /* DownloadCallback.m */; };
+		EDC1B2BC2847C9A60077A920 /* VideoCacheCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EDC1B2A92847C9A60077A920 /* VideoCacheCell.m */; };
+		EDC1B2BD2847C9A60077A920 /* ResolutionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EDC1B2AA2847C9A60077A920 /* ResolutionModel.m */; };
+		EDC1B2BE2847C9A60077A920 /* ResolutionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EDC1B2AB2847C9A60077A920 /* ResolutionCell.m */; };
+		EDC1B2BF2847C9A60077A920 /* VideoCacheView.m in Sources */ = {isa = PBXBuildFile; fileRef = EDC1B2AC2847C9A60077A920 /* VideoCacheView.m */; };
+		EDC1B2C02847C9A60077A920 /* VideoCacheListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EDC1B2AE2847C9A60077A920 /* VideoCacheListCell.m */; };
+		EDC1B2C12847C9A60077A920 /* VideoCacheListView.m in Sources */ = {isa = PBXBuildFile; fileRef = EDC1B2AF2847C9A60077A920 /* VideoCacheListView.m */; };
+		EDC1B2C22847C9A60077A920 /* VideoCacheListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EDC1B2B32847C9A60077A920 /* VideoCacheListModel.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -369,6 +379,26 @@
 		D6BEF7262040353E00CBE2BD /* MoviePlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoviePlayerViewController.m; sourceTree = "<group>"; };
 		D6BEF79D204035CB00CBE2BD /* danmakufile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = danmakufile; sourceTree = "<group>"; };
 		D6E5D1C020B7B61F00812B2F /* ReplayKit2Define.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReplayKit2Define.h; sourceTree = "<group>"; };
+		EDC1B2A32847C9A60077A920 /* VideoCacheModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoCacheModel.m; sourceTree = "<group>"; };
+		EDC1B2A52847C9A60077A920 /* DownloadCallback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownloadCallback.h; sourceTree = "<group>"; };
+		EDC1B2A62847C9A60077A920 /* TXVodDownloadCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TXVodDownloadCenter.h; sourceTree = "<group>"; };
+		EDC1B2A72847C9A60077A920 /* TXVodDownloadCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TXVodDownloadCenter.m; sourceTree = "<group>"; };
+		EDC1B2A82847C9A60077A920 /* DownloadCallback.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DownloadCallback.m; sourceTree = "<group>"; };
+		EDC1B2A92847C9A60077A920 /* VideoCacheCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoCacheCell.m; sourceTree = "<group>"; };
+		EDC1B2AA2847C9A60077A920 /* ResolutionModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResolutionModel.m; sourceTree = "<group>"; };
+		EDC1B2AB2847C9A60077A920 /* ResolutionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResolutionCell.m; sourceTree = "<group>"; };
+		EDC1B2AC2847C9A60077A920 /* VideoCacheView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoCacheView.m; sourceTree = "<group>"; };
+		EDC1B2AE2847C9A60077A920 /* VideoCacheListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoCacheListCell.m; sourceTree = "<group>"; };
+		EDC1B2AF2847C9A60077A920 /* VideoCacheListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoCacheListView.m; sourceTree = "<group>"; };
+		EDC1B2B02847C9A60077A920 /* VideoCacheListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoCacheListModel.h; sourceTree = "<group>"; };
+		EDC1B2B12847C9A60077A920 /* VideoCacheListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoCacheListCell.h; sourceTree = "<group>"; };
+		EDC1B2B22847C9A60077A920 /* VideoCacheListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoCacheListView.h; sourceTree = "<group>"; };
+		EDC1B2B32847C9A60077A920 /* VideoCacheListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoCacheListModel.m; sourceTree = "<group>"; };
+		EDC1B2B42847C9A60077A920 /* VideoCacheModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoCacheModel.h; sourceTree = "<group>"; };
+		EDC1B2B52847C9A60077A920 /* ResolutionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResolutionCell.h; sourceTree = "<group>"; };
+		EDC1B2B62847C9A60077A920 /* ResolutionModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResolutionModel.h; sourceTree = "<group>"; };
+		EDC1B2B72847C9A60077A920 /* VideoCacheCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoCacheCell.h; sourceTree = "<group>"; };
+		EDC1B2B82847C9A60077A920 /* VideoCacheView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoCacheView.h; sourceTree = "<group>"; };
 		FD55FF487EC5F3A9A38203AA /* Pods-TXLiteAVDemo_Player.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TXLiteAVDemo_Player.debug.xcconfig"; path = "Target Support Files/Pods-TXLiteAVDemo_Player/Pods-TXLiteAVDemo_Player.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -1081,6 +1111,7 @@
 		D6BEF7212040353E00CBE2BD /* SuperPlayer */ = {
 			isa = PBXGroup;
 			children = (
+				EDC1B2A22847C9A60077A920 /* CacheView */,
 				912A62052160D78A00C16E41 /* CFDanmaku */,
 				D6BEF7222040353E00CBE2BD /* ListUI */,
 				D6BEF7252040353E00CBE2BD /* MoviePlayerViewController.h */,
@@ -1115,6 +1146,49 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		EDC1B2A22847C9A60077A920 /* CacheView */ = {
+			isa = PBXGroup;
+			children = (
+				EDC1B2A32847C9A60077A920 /* VideoCacheModel.m */,
+				EDC1B2A42847C9A60077A920 /* VodDownloadCenter */,
+				EDC1B2A92847C9A60077A920 /* VideoCacheCell.m */,
+				EDC1B2AA2847C9A60077A920 /* ResolutionModel.m */,
+				EDC1B2AB2847C9A60077A920 /* ResolutionCell.m */,
+				EDC1B2AC2847C9A60077A920 /* VideoCacheView.m */,
+				EDC1B2AD2847C9A60077A920 /* VideoCacheListView */,
+				EDC1B2B42847C9A60077A920 /* VideoCacheModel.h */,
+				EDC1B2B52847C9A60077A920 /* ResolutionCell.h */,
+				EDC1B2B62847C9A60077A920 /* ResolutionModel.h */,
+				EDC1B2B72847C9A60077A920 /* VideoCacheCell.h */,
+				EDC1B2B82847C9A60077A920 /* VideoCacheView.h */,
+			);
+			path = CacheView;
+			sourceTree = "<group>";
+		};
+		EDC1B2A42847C9A60077A920 /* VodDownloadCenter */ = {
+			isa = PBXGroup;
+			children = (
+				EDC1B2A52847C9A60077A920 /* DownloadCallback.h */,
+				EDC1B2A62847C9A60077A920 /* TXVodDownloadCenter.h */,
+				EDC1B2A72847C9A60077A920 /* TXVodDownloadCenter.m */,
+				EDC1B2A82847C9A60077A920 /* DownloadCallback.m */,
+			);
+			path = VodDownloadCenter;
+			sourceTree = "<group>";
+		};
+		EDC1B2AD2847C9A60077A920 /* VideoCacheListView */ = {
+			isa = PBXGroup;
+			children = (
+				EDC1B2AE2847C9A60077A920 /* VideoCacheListCell.m */,
+				EDC1B2AF2847C9A60077A920 /* VideoCacheListView.m */,
+				EDC1B2B02847C9A60077A920 /* VideoCacheListModel.h */,
+				EDC1B2B12847C9A60077A920 /* VideoCacheListCell.h */,
+				EDC1B2B22847C9A60077A920 /* VideoCacheListView.h */,
+				EDC1B2B32847C9A60077A920 /* VideoCacheListModel.m */,
+			);
+			path = VideoCacheListView;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1128,6 +1202,7 @@
 				400922F41F4FCC6E009B882D /* Resources */,
 				4088EB84245A7199005BF1DD /* Embed Frameworks */,
 				AB7D42C4D97F2F1563F9AA1C /* [CP] Copy Pods Resources */,
+				303477033356E3CB1ECBD3D0 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1247,6 +1322,26 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		303477033356E3CB1ECBD3D0 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TXLiteAVDemo_Player/Pods-TXLiteAVDemo_Player-frameworks.sh",
+				"${PODS_XCFRAMEWORKS_BUILD_DIR}/TXLiteAVSDK_Player/TXSoundTouch.framework/TXSoundTouch",
+				"${PODS_XCFRAMEWORKS_BUILD_DIR}/TXLiteAVSDK_Player/TXFFmpeg.framework/TXFFmpeg",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TXSoundTouch.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TXFFmpeg.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TXLiteAVDemo_Player/Pods-TXLiteAVDemo_Player-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		6C4F8C3A6FA0475623441E96 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1295,11 +1390,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				912A62102160D78A00C16E41 /* CFDanmaku.m in Sources */,
+				EDC1B2BE2847C9A60077A920 /* ResolutionCell.m in Sources */,
 				6BF31678271E745100D4A72C /* UITableView+indexPath.m in Sources */,
 				402A010424506F740037A219 /* main.m in Sources */,
 				6BBFDC3C272B8BD8009950B6 /* FeedDetailHeadView.m in Sources */,
 				6BF31650271E738600D4A72C /* TXVideoBaseView.m in Sources */,
+				EDC1B2C02847C9A60077A920 /* VideoCacheListCell.m in Sources */,
 				47CAEE6726AE9F0800DABA5B /* TCUtil.m in Sources */,
+				EDC1B2BC2847C9A60077A920 /* VideoCacheCell.m in Sources */,
 				6BF316A0271E752600D4A72C /* TXPlayerCacheManager.m in Sources */,
 				6BF315E1271E71A700D4A72C /* TXVideoViewModel.m in Sources */,
 				883AC83326AEA0A500C3A1B7 /* TCUtil.m in Sources */,
@@ -1315,6 +1413,7 @@
 				6BF316AA271E754C00D4A72C /* TXVideoPlayer.m in Sources */,
 				6BF316BB271E757F00D4A72C /* TXVideoUtils.m in Sources */,
 				40A1DFA5263841AB0011E532 /* UIViewController+BackButtonHandler.m in Sources */,
+				EDC1B2BB2847C9A60077A920 /* DownloadCallback.m in Sources */,
 				6BE601B5272FC3EA0011BE60 /* FeedHeadModel.m in Sources */,
 				6BF315F9271E723000D4A72C /* TXTimeView.m in Sources */,
 				6BF31682271E748200D4A72C /* SuperShortVideoView.m in Sources */,
@@ -1324,10 +1423,13 @@
 				883AC83626AEA0AA00C3A1B7 /* TCLog.m in Sources */,
 				40A1DF79263841950011E532 /* UIImage+Additions.m in Sources */,
 				400922B71F4FCC6E009B882D /* AppDelegate.m in Sources */,
+				EDC1B2BF2847C9A60077A920 /* VideoCacheView.m in Sources */,
 				40A1DEF52638413F0011E532 /* NSObject+CommonBlock.m in Sources */,
 				6BF316D5271E75DD00D4A72C /* ShortVideoMainViewController.m in Sources */,
 				40A1DED8263841360011E532 /* NSDictionary+Common.m in Sources */,
 				40A1DF0B2638414D0011E532 /* NSString+Common.m in Sources */,
+				EDC1B2BD2847C9A60077A920 /* ResolutionModel.m in Sources */,
+				EDC1B2BA2847C9A60077A920 /* TXVodDownloadCenter.m in Sources */,
 				6BF31622271E72DD00D4A72C /* TXProgressSlideGuideView.m in Sources */,
 				6BF316F3271E767400D4A72C /* TXCollectionLayout.m in Sources */,
 				6BF31617271E72AB00D4A72C /* TXPauseGuideView.m in Sources */,
@@ -1346,9 +1448,12 @@
 				400922C11F4FCC6E009B882D /* MainTableViewCell.m in Sources */,
 				6BF316E9271E762F00D4A72C /* TXVideoListViewController.m in Sources */,
 				6BF31646271E735A00D4A72C /* TXLineLoadingView.m in Sources */,
+				EDC1B2B92847C9A60077A920 /* VideoCacheModel.m in Sources */,
 				6BF31664271E73E400D4A72C /* TXVideoCell.m in Sources */,
 				6BE6019C272F86A10011BE60 /* FeedHeadView.m in Sources */,
+				EDC1B2C12847C9A60077A920 /* VideoCacheListView.m in Sources */,
 				6BF316DF271E760700D4A72C /* ShortVideoPlayViewController.m in Sources */,
+				EDC1B2C22847C9A60077A920 /* VideoCacheListModel.m in Sources */,
 				6BBFDC2E272ACCBD009950B6 /* FeedBaseView.m in Sources */,
 				400922C71F4FCC6E009B882D /* MainViewController.m in Sources */,
 				6BBFDC63272B9037009950B6 /* FeedVideoModel.m in Sources */,

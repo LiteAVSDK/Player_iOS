@@ -34,6 +34,13 @@
 #define IS_IPHONE (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
 #define IS_IPHONEX SCREEN_WIDTH >=375.0f && SCREEN_HEIGHT >=812.0f&& IS_IPHONE
 
+#define HomeIndicator_Height ((IS_IPHONEX) ? 34 : 0)
+
+/*状态栏高度*/
+#define kStatusBarHeight (CGFloat)(IS_IPHONEX ? (44.0):(20.0))
+/*导航栏高度*/
+#define kNavBarHeight (44)
+
 #define VIP_TIPVIEW_DEFAULT_HEIGHT  20
 #define VIP_TIPVIEW_DEFAULT_LEFT    10
 #define VIP_TIPVIEW_DEFAULT_BOTTOM  40
@@ -72,5 +79,21 @@
 #define DYNAMIC_WATERMARK_BORDER_TOP 1
 #define DYNAMIC_WATERMARK_BORDER_RIGHT 2
 #define DYNAMIC_WATERMARK_BORDER_BOTTOM  3
+
+#define DEFAULT_VIDEO_RESOLUTION_FLU @"流畅"
+#define DEFAULT_VIDEO_RESOLUTION_SD  @"标清"
+#define DEFAULT_VIDEO_RESOLUTION_FSD @"全标清"
+#define DEFAULT_VIDEO_RESOLUTION_HD  @"高清"
+#define DEFAULT_VIDEO_RESOLUTION_FHD @"超清"
+#define DEFAULT_VIDEO_RESOLUTION_2K  @"2K"
+#define DEFAULT_VIDEO_RESOLUTION_4K  @"4K"
+
+#define DEVICE_VERSION (CGFloat) [[UIDevice currentDevice].systemVersion floatValue]
+#define IS_MORE_THAN_15 (DEVICE_VERSION >= 15.0 ? YES : NO)
+
+#define VOLUME_NOTIFICATION_NAME @"SystemVolumeDidChange"
+#define VOLUME_CHANGE_PARAMATER  (IS_MORE_THAN_15 ? @"Reason" : @"AudioVolumeChangeReason")
+#define VOLUME_CHANGE_KEY        (IS_MORE_THAN_15 ? @"Volume" : @"AudioVolume")
+#define VOLUME_EXPLICIT_CHANGE   @"ExplicitVolumeChange"
 
 #endif /* SuperPlayerHelpers_h */

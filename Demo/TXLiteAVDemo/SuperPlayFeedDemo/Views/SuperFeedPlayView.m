@@ -240,8 +240,11 @@ NSString * const FeedVideoCellIdentifier = @"FeedVideoCellIdentifier";
 
 - (void)superPlayerDidStartWithCell:(FeedTableViewCell *)cell {
     if (cell != self.currentTableViewCell) {
+        // 禁止音量按钮事件触发
+        self.currentTableViewCell.baseView.superPlayView.disableVolumControl = NO;
         [self.currentTableViewCell pause];
         self.currentTableViewCell = cell;
+        cell.baseView.superPlayView.disableVolumControl = YES;
     }
 }
 
