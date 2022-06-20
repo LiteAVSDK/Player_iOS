@@ -1,3 +1,5 @@
+简体中文| [English](./README-EN.md)
+
 ## 目录结构说明
 
 本目录包含 iOS 版 播放器(Player) SDK 的Demo 源代码，主要演示接口如何调用以及最基本的功能。
