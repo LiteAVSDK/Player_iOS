@@ -1936,6 +1936,7 @@ static UISlider *_volumeSlider;
             self.state = StatePlaying;
             [self.controlView setPlayState:YES];
             self.centerPlayBtn.hidden = YES;
+            self.playDidEnd = NO;
             self.controlView.hidden = SuperPlayerWindowShared.isShowing ? YES : NO;
             
             // 不使用vodPlayer.autoPlay的原因是暂停的时候会黑屏，影响体验

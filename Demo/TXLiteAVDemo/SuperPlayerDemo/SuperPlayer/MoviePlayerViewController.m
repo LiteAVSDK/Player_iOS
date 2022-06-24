@@ -782,7 +782,9 @@ __weak UITextField *cacheField;
                                       psign:p.sign
                                  completion:^(TXMoviePlayInfoResponse *resp, NSError *error) {
                                      if (error) {
+                                         dispatch_async(dispatch_get_main_queue(), ^{
                                              [wself hudMessage:LivePlayerLocalize(@"SuperPlayerDemo.MoviePlayer.fileidrequesterror")];
+                                         });
                                      } else {
                                          resp.isCache = isCache;
                                          [resultArray addObject:resp];
