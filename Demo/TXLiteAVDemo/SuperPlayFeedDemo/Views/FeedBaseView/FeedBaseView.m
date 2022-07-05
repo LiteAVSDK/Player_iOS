@@ -93,6 +93,7 @@
     
     SPDefaultControlView *defaultControlView = (SPDefaultControlView *)self.superPlayView.controlView;
     defaultControlView.disableDanmakuBtn = YES;
+    defaultControlView.disablePipBtn = YES;
 }
 
 - (void)pause {

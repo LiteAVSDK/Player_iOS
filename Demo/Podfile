@@ -25,7 +25,7 @@ def common_pods_all
   pod 'AFNetworking'
   pod 'BlocksKit', '~> 2.2.5'
   pod 'CWStatusBarNotification', '~> 2.3.5'
-  pod 'TXLiteAVSDK_Player', '~> 10.2.11418'
+  pod 'TXLiteAVSDK_Player', '~> 10.3.11513'
 end
 
 def common_pods_smart

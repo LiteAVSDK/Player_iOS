@@ -175,6 +175,7 @@ NSString * const FeedDetailVideoCellIdentifier = @"FeedDetailVideoCellIdentifier
         
         SPDefaultControlView *defaultControlView = (SPDefaultControlView *)self.temPlayView.controlView;
         defaultControlView.disableDanmakuBtn = YES;
+        defaultControlView.disablePipBtn = YES;
         
         // 修改介绍
         FeedHeadModel *model = [[FeedHeadModel alloc] init];

@@ -63,6 +63,8 @@ static UISlider *_volumeSlider;
 
 @interface SuperPlayerView()<TXVipTipViewDelegate,TXVipWatchViewDelegate>
 
+@property (nonatomic, strong) UIActivityIndicatorView  *pipLoadingView;
+
 @end
 
 @implementation SuperPlayerView {
@@ -73,6 +75,9 @@ static UISlider *_volumeSlider;
     BOOL  isShowVipWatchView;
     NSString               *_currentVideoUrl;
     BOOL                   _isPrepare;
+    BOOL                   _hasStartPip;
+    BOOL                   _restoreUI;
+    BOOL                   _hasStartPipLoading;
 
     NSInteger              _playingIndex;
     BOOL                   _isLoopPlayList;
@@ -159,6 +164,9 @@ static UISlider *_volumeSlider;
     [self createGesture];
     
     self.autoPlay = YES;
+    _hasStartPip = NO;
+    _restoreUI = NO;
+    _hasStartPipLoading = NO;
 }
 
 - (void)dealloc {
@@ -547,6 +555,10 @@ static UISlider *_volumeSlider;
     [self.livePlayer stopPlay];
     [self.vodPlayer removeVideoWidget];
     [self.livePlayer removeVideoWidget];
+    
+    [self.vodPlayer exitPictureInPicture];
+    _hasStartPip = NO;
+    _vodPlayer = nil;
 
     self.liveProgressTime = self.maxLiveProgressTime = 0;
 
@@ -573,10 +585,6 @@ static UISlider *_volumeSlider;
         TXCUrl *curl = [[TXCUrl alloc] initWithString:videoURL];
         [self.livePlayer prepareLiveSeek:self.playerConfig.playShiftDomain bizId:curl.bizid];
     } else {
-        if (!self.vodPlayer) {
-            self.vodPlayer             = [[TXVodPlayer alloc] init];
-            self.vodPlayer.vodDelegate = self;
-        }
         
         [self setVodPlayConfig];
 
@@ -794,9 +802,13 @@ static UISlider *_volumeSlider;
     // StatePrepare 是在接受到onPlayEvent回调的状态  _isPrepare是用户主动触发resume的状态
     if (self.state == StateStopped) return;
     if (self.playDidEnd) return;
-    if (self.state == StatePrepare || !self->_isPrepare) {
-        return;
-    };
+    if (_playerModel.action == PLAY_ACTION_PRELOAD) {
+        // 预加载状态下才会有此判断
+        if (self.state == StatePrepare || !self->_isPrepare) {
+            return;
+        };
+    }
+    
     self.state = StatePlaying;
     if (self.state == StatePlaying) {
         self.centerPlayBtn.hidden = YES;
@@ -1146,6 +1158,11 @@ static UISlider *_volumeSlider;
     if (self.isLive) {
         return;
     }
+    
+    if (_hasStartPip) {
+        return;
+    }
+    
     if (!self.isPauseByUser && (self.state != StateStopped && self.state != StateFailed)) {
         [_vodPlayer pause];
         self.state = StatePause;
@@ -1162,6 +1179,11 @@ static UISlider *_volumeSlider;
     if (self.isLive) {
         return;
     }
+    
+    if (_hasStartPip) {
+        return;
+    }
+    
     if (!self.isPauseByUser && (self.state != StateStopped && self.state != StateFailed)) {
         self.state = StatePlaying;
         [_vodPlayer resume];
@@ -1169,6 +1191,7 @@ static UISlider *_volumeSlider;
         CGFloat playable     = _vodPlayer.playableDuration / _vodPlayer.duration;
         self.controlView.isDragging = NO;
         [self.controlView setProgressTime:self.playCurrentTime totalTime:_vodPlayer.duration progressValue:value playableValue:playable];
+        [_vodPlayer seek:self.playCurrentTime];
     }
 }
 
@@ -1237,9 +1260,14 @@ static UISlider *_volumeSlider;
             [self resetControlViewWithLive:YES shiftPlayback:self.isShiftPlayback isPlaying:YES];  //时移播放不能切码率
         }
     } else {
-        [self.vodPlayer resume];
-        [self.vodPlayer seek:dragedSeconds];
-        [self.controlView setPlayState:YES];
+        if (!_vodPlayer) {
+            [self setVodPlayConfig];
+            [self restart];
+        } else {
+            [self.vodPlayer resume];
+            [self.vodPlayer seek:dragedSeconds];
+            [self.controlView setPlayState:YES];
+        }
     }
 }
 
@@ -1851,6 +1879,30 @@ static UISlider *_volumeSlider;
     }
 }
 
+- (void)controlViewPip:(UIView *)controlView {
+    if (![TXVodPlayer isSupportPictureInPicture]) {
+        return;
+    }
+    
+    if (_hasStartPip) {
+        return;
+    } else {
+        
+        if (_hasStartPipLoading) {
+            return;
+        }
+        
+        if (self.state == StateStopped) {
+            return;
+        }
+        
+        [self setPipLoadingWithText:PIP_START_LOADING_TEXT];
+        [self.pipLoadingView startAnimating];
+        _hasStartPipLoading = YES;
+        [_vodPlayer enterPictureInPicture];
+    }
+}
+
 - (void)onCloseClick {
     [self hideVipTipView];
     isShowVipTipView = NO;
@@ -1894,6 +1946,8 @@ static UISlider *_volumeSlider;
     [self pause];
     [self hideVipTipView];
     [self showVipWatchView];
+    [_vodPlayer exitPictureInPicture];
+    _vodPlayer = nil;
 }
 
 #pragma clang diagnostic pop
@@ -1936,6 +1990,7 @@ static UISlider *_volumeSlider;
             self.state = StatePlaying;
             [self.controlView setPlayState:YES];
             self.centerPlayBtn.hidden = YES;
+            self.repeatBtn.hidden = YES;
             self.playDidEnd = NO;
             self.controlView.hidden = SuperPlayerWindowShared.isShowing ? YES : NO;
             
@@ -2166,6 +2221,75 @@ static UISlider *_volumeSlider;
     self.reportTime = nil;
 }
 
+#pragma mark - 画中画回调
+/**
+ * 画中画状态回调
+ */
+- (void)onPlayer:(TXVodPlayer *)player pictureInPictureStateDidChange:(TX_VOD_PLAYER_PIP_STATE)pipState withParam:(NSDictionary *)param {
+    if (pipState == TX_VOD_PLAYER_PIP_STATE_DID_START) {
+        _hasStartPip = YES;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            // 需要关掉菊花
+            [self.pipLoadingView stopAnimating];
+            self->_hasStartPipLoading = NO;
+        });
+        
+    }
+    
+    if (pipState == TX_VOD_PLAYER_PIP_STATE_RESTORE_UI) {
+        _restoreUI = YES;
+    }
+    
+    if (pipState == TX_VOD_PLAYER_PIP_STATE_DID_STOP) {
+        _hasStartPip = NO;
+        if (!_playDidEnd && !isShowVipWatchView && _restoreUI) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [player resume];
+                self->_restoreUI = NO;
+            });
+        } else {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self pause];
+                [player stopPlay];
+                [player removeVideoWidget];
+                [self.vodPlayer stopPlay];
+                [self.vodPlayer removeVideoWidget];
+                self.vodPlayer = nil;
+                self.state = StateStopped;
+            });
+        }
+    }
+}
+
+/**
+ * 画中画状态回调
+ */
+- (void)onPlayer:(TXVodPlayer *)player pictureInPictureErrorDidOccur:(TX_VOD_PLAYER_PIP_ERROR_TYPE)errorType withParam:(NSDictionary *)param {
+    if (errorType == TX_VOD_PLAYER_PIP_ERROR_TYPE_DEVICE_NOT_SUPPORT
+        || errorType == TX_VOD_PLAYER_PIP_ERROR_TYPE_PLAYER_NOT_SUPPORT
+        || errorType == TX_VOD_PLAYER_PIP_ERROR_TYPE_VIDEO_NOT_SUPPORT
+        || errorType == TX_VOD_PLAYER_PIP_ERROR_TYPE_PIP_IS_NOT_POSSIBLE
+        || errorType == TX_VOD_PLAYER_PIP_ERROR_TYPE_ERROR_FROM_SYSTEM
+        || errorType == TX_VOD_PLAYER_PIP_ERROR_TYPE_PIP_NOT_RUNNING) {
+        _hasStartPip = NO;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (self->_hasStartPipLoading) {
+                return;
+            }
+            
+            [self setPipLoadingWithText:PIP_ERROR_LOADING_TEXT];
+            [self.pipLoadingView startAnimating];
+            self->_hasStartPipLoading = YES;
+            
+            dispatch_time_t time = dispatch_time(DISPATCH_TIME_NOW, (ino64_t)(0.5 * NSEC_PER_SEC));
+            dispatch_after(time, dispatch_get_main_queue(), ^{
+                [self.pipLoadingView stopAnimating];
+                self->_hasStartPipLoading = NO;
+            });
+        });
+    }
+}
+
 #pragma mark - middle btn
 
 - (UIButton *)middleBlackBtn {
@@ -2323,6 +2447,33 @@ static UISlider *_volumeSlider;
         }];
     }
     return _centerPlayBtn;
+}
+
+- (TXVodPlayer *)vodPlayer {
+    if (!_vodPlayer) {
+        _vodPlayer = [[TXVodPlayer alloc] init];
+        _vodPlayer.vodDelegate = self;
+    }
+    return _vodPlayer;
+}
+
+
+- (void)setPipLoadingWithText:(NSString *)text {
+    CGFloat width=[(NSString *)text boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, 21) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:DEFAULT_PIP_LOADING_FONT_SIZE]} context:nil].size.width;
+    
+    _pipLoadingView = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake((ScreenWidth - (width + DEFAULT_PIP_LOADING_WIDTH_MARGIN)) / 2, (ScreenHeight/2) - DEFAULT_PIP_LOADING_HEIGHT, width + DEFAULT_PIP_LOADING_WIDTH_MARGIN, DEFAULT_PIP_LOADING_HEIGHT * 2)];
+    _pipLoadingView.backgroundColor = [UIColor blackColor];
+    _pipLoadingView.layer.cornerRadius = 10;
+    _pipLoadingView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhiteLarge;
+    
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(DEFAULT_PIP_LOADING_LABEL_MARGIN, DEFAULT_PIP_LOADING_LABEL_MARGIN + DEFAULT_PIP_LOADING_HEIGHT, width, DEFAULT_PIP_LOADING_LABEL_HEIGHT)];
+    label.text = text;
+    label.font = [UIFont systemFontOfSize:DEFAULT_PIP_LOADING_FONT_SIZE];
+    label.textAlignment = NSTextAlignmentCenter;
+    label.textColor = [UIColor whiteColor];
+    
+    [_pipLoadingView addSubview:label];
+    [self.fatherView.viewController.view addSubview:_pipLoadingView];
 }
 
 @end

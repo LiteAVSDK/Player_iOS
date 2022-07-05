@@ -75,6 +75,12 @@
 - (void)setDisableOfflineBtn:(BOOL)disableOfflineBtn;
 
 /**
+ * 是否显示画中画控件
+ * @param isShow  YES显示，NO隐藏
+ */
+- (void)setPipBtnState:(BOOL)isShow;
+
+/**
  * 重置播放控制面板
  * @param resolutionNames 清晰度名称
  * @param resolutionIndex 正在播放的清晰度的下标

@@ -96,4 +96,12 @@
 #define VOLUME_CHANGE_KEY        (IS_MORE_THAN_15 ? @"Volume" : @"AudioVolume")
 #define VOLUME_EXPLICIT_CHANGE   @"ExplicitVolumeChange"
 
+#define PIP_START_LOADING_TEXT @"正在开启画中画"
+#define PIP_ERROR_LOADING_TEXT @"画中画开启失败了"
+#define DEFAULT_PIP_LOADING_WIDTH_MARGIN 20
+#define DEFAULT_PIP_LOADING_HEIGHT 50
+#define DEFAULT_PIP_LOADING_LABEL_MARGIN 10
+#define DEFAULT_PIP_LOADING_LABEL_HEIGHT 40
+#define DEFAULT_PIP_LOADING_FONT_SIZE 14
+
 #endif /* SuperPlayerHelpers_h */

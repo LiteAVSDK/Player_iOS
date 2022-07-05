@@ -25,7 +25,7 @@
 /** 返回按钮*/
 @property(nonatomic, strong) UIButton *backBtn;
 /// 是否禁用返回
-@property(nonatomic) BOOL disableBackBtn;
+@property(nonatomic, assign) BOOL disableBackBtn;
 /** bottomView*/
 @property(nonatomic, strong) UIImageView *bottomImageView;
 /** topView */
@@ -33,25 +33,29 @@
 /** 弹幕按钮 */
 @property(nonatomic, strong) UIButton *danmakuBtn;
 /// 是否禁用弹幕
-@property(nonatomic) BOOL disableDanmakuBtn;
+@property(nonatomic, assign) BOOL disableDanmakuBtn;
 /** 离线缓存按钮 */
 @property(nonatomic, strong) UIButton *offlineBtn;
 /// 是否禁用离线缓存
-@property(nonatomic) BOOL disableOfflineBtn;
+@property(nonatomic, assign) BOOL disableOfflineBtn;
 /** 截图按钮 */
 @property(nonatomic, strong) UIButton *captureBtn;
 /// 是否禁用截图
-@property(nonatomic) BOOL disableCaptureBtn;
+@property(nonatomic, assign) BOOL disableCaptureBtn;
+/** 画中画按钮 */
+@property(nonatomic, strong) UIButton *pipBtn;
+/// 是否禁用画中画
+@property(nonatomic, assign) BOOL disablePipBtn;
 /** 更多按钮 */
 @property(nonatomic, strong) UIButton *moreBtn;
 /// 是否禁用更多
-@property(nonatomic) BOOL disableMoreBtn;
+@property(nonatomic, assign) BOOL disableMoreBtn;
 /** 切换分辨率按钮 */
 @property(nonatomic, strong) UIButton *resolutionBtn;
 /** 分辨率的View */
 @property(nonatomic, strong) UIView *resolutionView;
 /// 是否禁用分辨率按钮
-@property(nonatomic) BOOL disableResolutionBtn;
+@property(nonatomic, assign) BOOL disableResolutionBtn;
 /** 播放按钮 */
 @property(nonatomic, strong) UIButton *playeBtn;
 /** 加载失败按钮 */

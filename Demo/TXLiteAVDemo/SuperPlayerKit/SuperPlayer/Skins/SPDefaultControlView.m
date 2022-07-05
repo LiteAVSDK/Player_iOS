@@ -43,6 +43,7 @@
         [self.topImageView addSubview:self.offlineBtn];
         [self.topImageView addSubview:self.moreBtn];
         [self addSubview:self.lockBtn];
+        [self addSubview:self.pipBtn];
         [self.topImageView addSubview:self.backBtn];
 
         [self addSubview:self.playeBtn];
@@ -55,6 +56,7 @@
         [self makeSubViewsConstraints];
 
         self.captureBtn.hidden      = YES;
+        self.pipBtn.hidden          = YES;
         self.danmakuBtn.hidden      = YES;
         self.offlineBtn.hidden      = YES;
         self.moreBtn.hidden         = YES;
@@ -176,6 +178,12 @@
         make.centerY.equalTo(self.mas_centerY);
         make.width.height.mas_equalTo(32);
     }];
+    
+    [self.pipBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.trailing.equalTo(self.mas_trailing).offset(-15);
+        make.centerY.equalTo(self.mas_centerY);
+        make.width.height.mas_equalTo(32);
+    }];
 
     [self.playeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.height.mas_equalTo(50);
@@ -235,6 +243,12 @@
     [self fadeOut:3];
 }
 
+- (void)pipBtnClick:(UIButton *)sender {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(controlViewPip:)]) {
+        [self.delegate controlViewPip:self];
+    }
+}
+
 - (void)playBtnClick:(UIButton *)sender {
     sender.selected = !sender.selected;
     if (sender.selected) {
@@ -271,6 +285,7 @@
     self.topImageView.hidden    = YES;
     self.bottomImageView.hidden = YES;
     self.lockBtn.hidden         = YES;
+    self.pipBtn.hidden          = YES;
 
     self.moreContentView.playerConfig = self.playerConfig;
     [self.moreContentView update];
@@ -303,6 +318,7 @@
     self.topImageView.hidden    = YES;
     self.bottomImageView.hidden = YES;
     self.lockBtn.hidden         = YES;
+    self.pipBtn.hidden          = YES;
     
     // 显示隐藏分辨率View
     self.resolutionView.hidden = NO;
@@ -367,6 +383,13 @@
     }
 }
 
+- (void)setDisablePipBtn:(BOOL)disablePipBtn {
+    _disablePipBtn = disablePipBtn;
+    if (self.fullScreen) {
+        self.pipBtn.hidden = YES;
+    }
+}
+
 - (void)setDisableDanmakuBtn:(BOOL)disableDanmakuBtn {
     _disableDanmakuBtn = disableDanmakuBtn;
     if (self.fullScreen) {
@@ -392,6 +415,7 @@
 - (void)setOrientationLandscapeConstraint {
     self.fullScreen             = YES;
     self.lockBtn.hidden         = NO;
+    self.pipBtn.hidden          = YES;
     self.fullScreenBtn.selected = self.isLockScreen;
     self.fullScreenBtn.hidden   = YES;
     if (self.disableResolutionBtn) {
@@ -445,6 +469,7 @@
 - (void)setOrientationPortraitConstraint {
     self.fullScreen             = NO;
     self.lockBtn.hidden         = YES;
+    self.pipBtn.hidden          = self.disablePipBtn;
     self.fullScreenBtn.selected = NO;
     self.fullScreenBtn.hidden   = NO;
     self.resolutionBtn.hidden   = YES;
@@ -523,6 +548,15 @@
         [_lockBtn addTarget:self action:@selector(lockScrrenBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _lockBtn;
+}
+
+- (UIButton *)pipBtn {
+    if (!_pipBtn) {
+        _pipBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_pipBtn setImage:SuperPlayerImage(@"pip_play_icon") forState:UIControlStateNormal];
+        [_pipBtn addTarget:self action:@selector(pipBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _pipBtn;
 }
 
 - (UIButton *)startBtn {
@@ -707,6 +741,12 @@
     }
 
     self.lockBtn.hidden      = !self.isFullScreen;
+    if (self.disablePipBtn) {
+        self.pipBtn.hidden = YES;
+    } else {
+        self.pipBtn.hidden       = self.isFullScreen;
+    }
+    
     self.isShowSecondView    = NO;
     self.pointJumpBtn.hidden = YES;
 }
@@ -722,7 +762,12 @@
     self.backgroundColor                   = [UIColor clearColor];
     self.moreBtn.enabled                   = !self.disableMoreBtn;
     self.lockBtn.hidden                    = !self.isFullScreen;
-
+    if (self.disablePipBtn) {
+        self.pipBtn.hidden = YES;
+    } else {
+        self.pipBtn.hidden                     = self.isFullScreen;
+    }
+    
     self.danmakuBtn.enabled = YES;
     self.offlineBtn.enabled = YES;
     self.captureBtn.enabled = YES;
@@ -865,6 +910,16 @@
 
 - (void)setNextBtnState:(BOOL)isShow {
     self.nextBtn.hidden = !isShow;
+}
+
+- (void)setPipBtnState:(BOOL)isShow {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (self.fullScreen) {
+            self.pipBtn.hidden = YES;
+        } else {
+            self.pipBtn.hidden = !isShow;
+        }
+    });
 }
 
 - (void)setOfflineBtnState:(BOOL)isShow {

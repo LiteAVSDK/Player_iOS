@@ -19,6 +19,8 @@
 - (void)controlViewDidChangeScreen:(UIView *)controlView;
 /** 锁定屏幕方向 */
 - (void)controlViewLockScreen:(UIView *)controlView withLock:(BOOL)islock;
+/** 画中画事件 */
+- (void)controlViewPip:(UIView *)controlView;
 /** 截屏事件 */
 - (void)controlViewSnapshot:(UIView *)controlView;
 /** 切换分辨率按钮事件 */
