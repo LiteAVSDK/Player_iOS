@@ -11,6 +11,11 @@
     ├── SuperPlayerDemo   // 超级播放器 Demo
     └── SuperPlayerKit    // 超级播放器组件
 ```
+## **集成说明**
+请参考[Wiki部分相关内容](https://github.com/LiteAVSDK/Player_iOS/wiki)
+
+## **配置说明**
+请参考[播放器集成相关配置](https://github.com/LiteAVSDK/Player_iOS/wiki/播放器集成相关配置)
 
 ## **升级说明**
 
