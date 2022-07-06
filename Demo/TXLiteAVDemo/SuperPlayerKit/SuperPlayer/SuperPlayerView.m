@@ -1192,6 +1192,8 @@ static UISlider *_volumeSlider;
         self.controlView.isDragging = NO;
         [self.controlView setProgressTime:self.playCurrentTime totalTime:_vodPlayer.duration progressValue:value playableValue:playable];
         [_vodPlayer seek:self.playCurrentTime];
+    } else if (self.state != StateStopped) {
+        self.repeatBtn.hidden = YES;
     }
 }
 
@@ -2233,11 +2235,11 @@ static UISlider *_volumeSlider;
             [self.pipLoadingView stopAnimating];
             self->_hasStartPipLoading = NO;
         });
-        
     }
     
     if (pipState == TX_VOD_PLAYER_PIP_STATE_RESTORE_UI) {
         _restoreUI = YES;
+        [player exitPictureInPicture];
     }
     
     if (pipState == TX_VOD_PLAYER_PIP_STATE_DID_STOP) {
@@ -2459,14 +2461,25 @@ static UISlider *_volumeSlider;
 
 
 - (void)setPipLoadingWithText:(NSString *)text {
-    CGFloat width=[(NSString *)text boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, 21) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:DEFAULT_PIP_LOADING_FONT_SIZE]} context:nil].size.width;
-    
-    _pipLoadingView = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake((ScreenWidth - (width + DEFAULT_PIP_LOADING_WIDTH_MARGIN)) / 2, (ScreenHeight/2) - DEFAULT_PIP_LOADING_HEIGHT, width + DEFAULT_PIP_LOADING_WIDTH_MARGIN, DEFAULT_PIP_LOADING_HEIGHT * 2)];
+    CGFloat width=[(NSString *)text boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, 21)
+                                                 options:NSStringDrawingUsesLineFragmentOrigin
+                                              attributes:@{NSFontAttributeName:
+                                                               [UIFont systemFontOfSize:DEFAULT_PIP_LOADING_FONT_SIZE]}
+                                                 context:nil].size.width;
+    CGFloat x = (ScreenWidth - (width + DEFAULT_PIP_LOADING_WIDTH_MARGIN)) / 2;
+    CGFloat y = (ScreenHeight/2) - DEFAULT_PIP_LOADING_HEIGHT;
+    CGFloat w = width + DEFAULT_PIP_LOADING_WIDTH_MARGIN;
+    CGFloat h = DEFAULT_PIP_LOADING_HEIGHT * 2;
+    _pipLoadingView = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(x,y,w,h)];
     _pipLoadingView.backgroundColor = [UIColor blackColor];
     _pipLoadingView.layer.cornerRadius = 10;
     _pipLoadingView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhiteLarge;
     
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(DEFAULT_PIP_LOADING_LABEL_MARGIN, DEFAULT_PIP_LOADING_LABEL_MARGIN + DEFAULT_PIP_LOADING_HEIGHT, width, DEFAULT_PIP_LOADING_LABEL_HEIGHT)];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(
+                                                               DEFAULT_PIP_LOADING_LABEL_MARGIN,
+                                                               DEFAULT_PIP_LOADING_LABEL_MARGIN + DEFAULT_PIP_LOADING_HEIGHT,
+                                                               width,
+                                                               DEFAULT_PIP_LOADING_LABEL_HEIGHT)];
     label.text = text;
     label.font = [UIFont systemFontOfSize:DEFAULT_PIP_LOADING_FONT_SIZE];
     label.textAlignment = NSTextAlignmentCenter;
