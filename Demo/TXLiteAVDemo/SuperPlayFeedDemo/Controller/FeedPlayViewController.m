@@ -11,8 +11,9 @@
 #import "SuperFeedPlayView.h"
 #import "FeedVideoPlayMem.h"
 #import <Masonry/Masonry.h>
-
+#import <SDWebImage/SDImageCache.h>
 #import "FeedVideoModel.h"
+#import "FeedRequestUtil.h"
 
 @interface FeedPlayViewController ()<SuperFeedPlayViewDelegate, CAAnimationDelegate>
 
@@ -68,36 +69,44 @@
     
     // 初始化feedPlayView的子组件
     [self.feedPlayView initChildView];
-    
-    [self.feedPlayView setFeedData:[self loadTestData] isCleanData:YES];
 }
 
 #pragma mark - click
 - (void)backClick {
     [self.feedPlayView removeVideo];
+    [self.feedPlayView destory];
     self.feedPlayView = nil;
+    [[SDImageCache sharedImageCache] clearMemory];
     [self.navigationController popToRootViewControllerAnimated:NO];
 }
 
 #pragma mark - SuperFeedPlayViewDelegate
 - (void)refreshNewFeedData {
-    [self.feedPlayView finishRefresh];
-    [self.feedPlayView setFeedData:[self getRandomArrFrome:[self loadTestData]] isCleanData:YES];
+    __weak typeof(self) weakSelf = self;
+    [self loadTestDataWithsuccess:^(NSMutableArray *list) {
+        [weakSelf.feedPlayView finishRefresh];
+        [weakSelf.feedPlayView setFeedData:[weakSelf getRandomArrFrome:list] isCleanData:YES];
+    }];
 }
 
 - (void)loadNewFeedDataWithPage:(NSInteger)page {
-    [self.feedPlayView finishLoadMore];
-    [self.feedPlayView setFeedData:[self getRandomArrFrome:[self loadTestData]] isCleanData:NO];
+    __weak typeof(self) weakSelf = self;
+    [self loadTestDataWithsuccess:^(NSMutableArray *list) {
+        [weakSelf.feedPlayView finishLoadMore];
+        [weakSelf.feedPlayView setFeedData:[weakSelf getRandomArrFrome:list] isCleanData:NO];
+    }];
 }
 
 - (void)showFeedDetailViewWithHeadModel:(FeedHeadModel *)model videoModel:(FeedVideoModel *)videoModel playView:(UIView *)superPlayView {
     self.isPushToDetail = YES;
     self.superPlayView = superPlayView;
     
-    FeedDetailViewController *detailVC = [[FeedDetailViewController alloc] init];
+    __block FeedDetailViewController *detailVC = [[FeedDetailViewController alloc] init];
     detailVC.headModel = model;
     detailVC.superPlayView = superPlayView;
-    detailVC.detailListData = [self loadTestData];
+    [self loadTestDataWithsuccess:^(NSMutableArray *list) {
+        detailVC.detailListData = list;
+    }];
     detailVC.videoModel = videoModel;
     [self.navigationController pushViewController:detailVC animated:NO];
 }
@@ -113,7 +122,32 @@
 }
 
 #pragma mark - 测试数据
-- (NSMutableArray *)loadTestData {
+- (void)loadTestDataWithsuccess:(void(^)(NSMutableArray *list))success {
+    NSMutableArray *result = [self loadVideoData];
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        dispatch_group_t downloadVideoGroup = dispatch_group_create();
+        [result enumerateObjectsUsingBlock:^(FeedVideoModel  *_Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            dispatch_group_enter(downloadVideoGroup);
+            [FeedRequestUtil getPlayInfo:(int)obj.appId
+                                  fileId:obj.fileId
+                                   psign:obj.pSign
+                              completion:^(NSMutableDictionary * _Nonnull dic, NSError * _Nonnull error) {
+                obj.videoURL = [dic objectForKey:@"videoUrl"];
+                obj.multiVideoURLs = [dic objectForKey:@"multiVideoURLs"];
+                dispatch_group_leave(downloadVideoGroup);
+            }];
+        }];
+        
+        dispatch_group_notify(downloadVideoGroup, dispatch_get_main_queue(), ^{
+            if (success && result.count > 0) {
+                success(result);
+            }
+        });
+    });
+}
+
+- (NSMutableArray *)loadVideoData {
     NSMutableArray *result = [NSMutableArray array];
     
     FeedVideoModel *model1 = [FeedVideoModel new];

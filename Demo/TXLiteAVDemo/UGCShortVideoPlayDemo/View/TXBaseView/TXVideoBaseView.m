@@ -76,7 +76,9 @@
     self.coverImgView.contentMode = UIViewContentModeScaleAspectFit;
 
     if (model.coverUrl) {
-        [self.coverImgView sd_setImageWithURL:[NSURL URLWithString:model.coverUrl] placeholderImage:[UIImage imageNamed:@"img_video_loading"]];
+        [self.coverImgView sd_setImageWithURL:[NSURL URLWithString:model.coverUrl]
+                             placeholderImage:[UIImage imageNamed:@"img_video_loading"]
+                                      options:SDWebImageAvoidDecodeImage];
     }
 }
 

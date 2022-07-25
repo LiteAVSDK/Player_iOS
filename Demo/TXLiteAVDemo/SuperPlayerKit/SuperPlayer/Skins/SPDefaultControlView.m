@@ -912,16 +912,6 @@
     self.nextBtn.hidden = !isShow;
 }
 
-- (void)setPipBtnState:(BOOL)isShow {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        if (self.fullScreen) {
-            self.pipBtn.hidden = YES;
-        } else {
-            self.pipBtn.hidden = !isShow;
-        }
-    });
-}
-
 - (void)setOfflineBtnState:(BOOL)isShow {
     self.disableOfflineBtn = !isShow;
 }

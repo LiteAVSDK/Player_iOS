@@ -26,6 +26,8 @@ NSString * const FeedVideoCellIdentifier = @"FeedVideoCellIdentifier";
 
 @property (nonatomic, assign) NSInteger                currentPlayIndex;
 
+@property (nonatomic, assign) BOOL                     isRefresh;
+
 @end
 
 @implementation SuperFeedPlayView
@@ -40,6 +42,9 @@ NSString * const FeedVideoCellIdentifier = @"FeedVideoCellIdentifier";
     self.tableView.mj_header = header;
     
     self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreData)];
+    
+    self.isRefresh = YES;
+    [self getNewFeedData];
 }
 
 - (void)setFeedData:(NSArray *)feedData isCleanData:(BOOL)isNeedCleanData {
@@ -50,21 +55,31 @@ NSString * const FeedVideoCellIdentifier = @"FeedVideoCellIdentifier";
     [self.feedVideoArray addObjectsFromArray:feedData];
     
     [self.tableView reloadData];
+    self.isRefresh = NO;
     
     if (isNeedCleanData) {
         if (self.currentTableViewCell) {
             [self.currentTableViewCell pause];
             self.currentTableViewCell = nil;
         }
+        [self prepareVideo];
         [self playVideoInVisiableCells];
     }
 }
 
 - (void)finishRefresh {
+    if (self.isRefresh) {
+        return;
+    }
+
     [self.tableView.mj_header endRefreshing];
 }
 
 - (void)finishLoadMore {
+    if (self.isRefresh) {
+        return;
+    }
+
     [self.tableView.mj_footer endRefreshing];
 }
 
@@ -80,6 +95,16 @@ NSString * const FeedVideoCellIdentifier = @"FeedVideoCellIdentifier";
 
 - (void)removeVideo {
     [self.currentTableViewCell removeVideo];
+}
+
+- (void)destory {
+    [self.feedVideoArray removeAllObjects];
+    NSInteger rows = [self.tableView numberOfRowsInSection:0];
+    for(int row = 0;row < rows;row++) {
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:0];
+        FeedTableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+        [cell removeVideo];
+    }
 }
 
 #pragma mark - Action
@@ -220,6 +245,13 @@ NSString * const FeedVideoCellIdentifier = @"FeedVideoCellIdentifier";
     return index;
 }
 
+- (void)prepareVideo {
+    NSArray *visiableCells = [self.tableView visibleCells];
+    for (FeedTableViewCell *cell in visiableCells) {
+        [cell prepare];
+    }
+}
+
 #pragma mark - FeedTableViewCellDelegate
 - (void)headViewClickWithCell:(FeedTableViewCell *)cell {
     if (self.delegate && [self.delegate respondsToSelector:@selector(showFeedDetailViewWithHeadModel:videoModel:playView:)]) {
@@ -266,7 +298,6 @@ NSString * const FeedVideoCellIdentifier = @"FeedVideoCellIdentifier";
 
     if (cell) {
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        [cell removeVideo];
         cell.indexPath = indexPath;
         cell.model = self.feedVideoArray[indexPath.row];
         cell.delegate = self;
@@ -282,21 +313,31 @@ NSString * const FeedVideoCellIdentifier = @"FeedVideoCellIdentifier";
     return cell;
 }
 
+- (void)tableView:(UITableView *)tableView didEndDisplayingCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (self.currentTableViewCell == cell) {
+        [self.currentTableViewCell removeVideo];
+        self.currentTableViewCell = nil;
+    }
+}
+
 // 松手时已经静止，只会调用scrollViewDidEndDragging
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
-    if (self.tableView.mj_header.isRefreshing) {
+    if ((self.tableView.mj_header.isRefreshing || self.tableView.mj_footer.isRefreshing) && self.isRefresh) {
         return;
     }
     
     if (!decelerate) {
+        [self prepareVideo];
         [self handleScroll];
     }
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
-    if (self.tableView.mj_header.isRefreshing) {
+    if ((self.tableView.mj_header.isRefreshing || self.tableView.mj_footer.isRefreshing) && self.isRefresh) {
         return;
     }
+    
+    [self prepareVideo];
     [self handleScroll];
 }
 

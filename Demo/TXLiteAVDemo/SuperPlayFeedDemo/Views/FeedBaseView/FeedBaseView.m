@@ -9,15 +9,21 @@
 #import "FeedBaseView.h"
 #import "FeedHeadModel.h"
 #import "FeedVideoPlayMem.h"
+#import "SuperPlayerHelpers.h"
+#import <SDWebImage.h>
 #import <Masonry/Masonry.h>
 
 @interface FeedBaseView()<SuperPlayerDelegate>
 
-@property (nonatomic, strong) SuperPlayerView *tempPlayView;
+@property (nonatomic, strong) SuperPlayerView  *tempPlayView;
 
-@property (nonatomic, strong) UIView          *fatherView;
+@property (nonatomic, strong) UIView           *fatherView;
 
-@property (nonatomic, strong) UIView          *marginView;
+@property (nonatomic, strong) UIView           *marginView;
+
+@property (nonatomic, assign) BOOL             isPrepare;
+
+@property (nonatomic, strong) SuperPlayerModel *playerModel;
 
 @end
 
@@ -63,6 +69,7 @@
 
 #pragma mark - Public Method
 - (void)setModel:(FeedVideoModel *)model {
+    self.isPrepare = NO;
     _model = model;
     FeedHeadModel *headModel = [FeedHeadModel new];
     headModel.headImageUrl = model.coverUrl;
@@ -71,7 +78,6 @@
     
     [self.headView setHeadModel:headModel];
     [self.superPlayView.controlView setTitle:model.title];
-    [self.superPlayView showOrHideBackBtn:NO];
     
     [self playVideoWithModel:model];
 }
@@ -82,18 +88,32 @@
 
     playerModel.appId = model.appId;
     videoId.fileId    = model.fileId;
-    videoId.psign = nil;
+    videoId.psign = model.pSign;
     playerModel.videoId = videoId;
-    playerModel.videoURL = nil;
+    playerModel.videoURL = model.videoURL;
     playerModel.action = PLAY_ACTION_PRELOAD;
     playerModel.defaultCoverImageUrl = model.coverUrl;
     playerModel.duration = model.duration;
 
-    [self.superPlayView playWithModel:playerModel];
+    playerModel.multiVideoURLs = model.multiVideoURLs;
+    self.playerModel = playerModel;
+    [self.superPlayView.coverImageView sd_setImageWithURL:[NSURL URLWithString:model.coverUrl] placeholderImage:SuperPlayerImage(@"defaultCoverImage")];
+    self.superPlayView.centerPlayBtn.hidden = NO;
+    self.superPlayView.controlView.hidden = YES;
+    [self.superPlayView showOrHideBackBtn:NO];
     
     SPDefaultControlView *defaultControlView = (SPDefaultControlView *)self.superPlayView.controlView;
     defaultControlView.disableDanmakuBtn = YES;
     defaultControlView.disablePipBtn = YES;
+}
+
+- (void)prepare {
+    if (self.isPrepare) {
+        return;
+    }
+    
+    self.isPrepare = YES;
+    [self.superPlayView playWithModel:self.playerModel];
 }
 
 - (void)pause {

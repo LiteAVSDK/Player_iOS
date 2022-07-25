@@ -340,7 +340,6 @@ static UISlider *_volumeSlider;
  */
 - (void)resume {
     LOG_ME;
-    [self.spinner startAnimating];
     [self.controlView setPlayState:YES];
     self.isPauseByUser = NO;
     self.centerPlayBtn.hidden = YES;
@@ -365,8 +364,10 @@ static UISlider *_volumeSlider;
         } else {
             if (self.state == StatePrepare) {
                 self.state         = StatePlaying;
+                self.coverImageView.hidden = YES;
                 [self.vodPlayer resume];
             } else {
+                self.centerPlayBtn.hidden = NO;
                 _isPrepare = YES;
             }
         }
@@ -702,12 +703,15 @@ static UISlider *_volumeSlider;
 }
 
 - (void)setCoverImage {
+    if (!self.coverImageView.hidden) {
+        return;
+    }
     self.coverImageView.hidden = NO;
     NSURL *customUrl = [NSURL URLWithString:_playerModel.customCoverImageUrl];
     NSURL *defaultUrl = [NSURL URLWithString:_playerModel.defaultCoverImageUrl];
-    [self.coverImageView sd_setImageWithURL:_playerModel.customCoverImageUrl.length > 0 ? customUrl : defaultUrl placeholderImage:SuperPlayerImage(@"defaultCoverImage") completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
-
-    }];
+    [self.coverImageView sd_setImageWithURL:_playerModel.customCoverImageUrl.length > 0 ? customUrl : defaultUrl
+                           placeholderImage:SuperPlayerImage(@"defaultCoverImage")
+                                    options:SDWebImageAvoidDecodeImage];
 }
 
 - (void)startPlayWithUrl:(NSString *)videoUrl {
@@ -788,6 +792,9 @@ static UISlider *_volumeSlider;
 }
 
 - (void)detailPrepareState {
+    // 防止暂停导致加载进度不消失
+    if (self.isPauseByUser) [self.spinner stopAnimating];
+    self.state = StatePrepare;
     if (self->_isPrepare) {
         [self.vodPlayer resume];
         self->_isPrepare = NO;
@@ -2000,9 +2007,6 @@ static UISlider *_volumeSlider;
             [self prepareAutoplay];
         }
         if (EvtID == PLAY_EVT_VOD_PLAY_PREPARED) {
-            // 防止暂停导致加载进度不消失
-            if (self.isPauseByUser) [self.spinner stopAnimating];
-            self.state = StatePrepare;
             [self updateBitrates:player.supportedBitrates];
             [self detailPrepareState];
         }
@@ -2026,7 +2030,9 @@ static UISlider *_volumeSlider;
             
         } else if (EvtID == PLAY_EVT_PLAY_LOADING) {
             // 当缓冲是空的时候
-            self.state = StateBuffering;
+            if (self->_playerModel.action != PLAY_ACTION_PRELOAD) {
+                self.state = StateBuffering;
+            }
         } else if (EvtID == PLAY_EVT_VOD_LOADING_END) {
             [self.spinner stopAnimating];
         } else if (EvtID == PLAY_EVT_CHANGE_RESOLUTION) {
@@ -2235,6 +2241,7 @@ static UISlider *_volumeSlider;
             [self.pipLoadingView stopAnimating];
             self->_hasStartPipLoading = NO;
         });
+        
     }
     
     if (pipState == TX_VOD_PLAYER_PIP_STATE_RESTORE_UI) {

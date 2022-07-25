@@ -47,6 +47,11 @@ typedef NS_ENUM(NSUInteger, FeedCellStyle) {
 @property (nonatomic, strong) NSIndexPath                    *indexPath;
 
 /**
+ * 预加载
+*/
+- (void)prepare;
+
+/**
  * 暂停
 */
 - (void)pause;

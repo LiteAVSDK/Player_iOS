@@ -109,6 +109,7 @@
 		D6BEF7ED2040362B00CBE2BD /* danmakufile in Resources */ = {isa = PBXBuildFile; fileRef = D6BEF79D204035CB00CBE2BD /* danmakufile */; };
 		D6BEF8222040368000CBE2BD /* ListVideoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D6BEF7242040353E00CBE2BD /* ListVideoCell.m */; };
 		D6BEF8232040368000CBE2BD /* MoviePlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6BEF7262040353E00CBE2BD /* MoviePlayerViewController.m */; };
+		EDA70D95288E74FB00A9E10B /* FeedRequestUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = EDA70D93288E74FB00A9E10B /* FeedRequestUtil.m */; };
 		EDC1B2B92847C9A60077A920 /* VideoCacheModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EDC1B2A32847C9A60077A920 /* VideoCacheModel.m */; };
 		EDC1B2BA2847C9A60077A920 /* TXVodDownloadCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = EDC1B2A72847C9A60077A920 /* TXVodDownloadCenter.m */; };
 		EDC1B2BB2847C9A60077A920 /* DownloadCallback.m in Sources */ = {isa = PBXBuildFile; fileRef = EDC1B2A82847C9A60077A920 /* DownloadCallback.m */; };
@@ -379,6 +380,8 @@
 		D6BEF7262040353E00CBE2BD /* MoviePlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoviePlayerViewController.m; sourceTree = "<group>"; };
 		D6BEF79D204035CB00CBE2BD /* danmakufile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = danmakufile; sourceTree = "<group>"; };
 		D6E5D1C020B7B61F00812B2F /* ReplayKit2Define.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReplayKit2Define.h; sourceTree = "<group>"; };
+		EDA70D93288E74FB00A9E10B /* FeedRequestUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedRequestUtil.m; sourceTree = "<group>"; };
+		EDA70D94288E74FB00A9E10B /* FeedRequestUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedRequestUtil.h; sourceTree = "<group>"; };
 		EDC1B2A32847C9A60077A920 /* VideoCacheModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoCacheModel.m; sourceTree = "<group>"; };
 		EDC1B2A52847C9A60077A920 /* DownloadCallback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownloadCallback.h; sourceTree = "<group>"; };
 		EDC1B2A62847C9A60077A920 /* TXVodDownloadCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TXVodDownloadCenter.h; sourceTree = "<group>"; };
@@ -839,6 +842,8 @@
 			isa = PBXGroup;
 			children = (
 				6BE60191272BE98E0011BE60 /* FeedVideoPlayMem.h */,
+				EDA70D94288E74FB00A9E10B /* FeedRequestUtil.h */,
+				EDA70D93288E74FB00A9E10B /* FeedRequestUtil.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -1406,6 +1411,7 @@
 				D6BEF8222040368000CBE2BD /* ListVideoCell.m in Sources */,
 				17C0D193273BC641009910EC /* ScanQRController.mm in Sources */,
 				40A1DF63263841900011E532 /* UIColor+MLPFlatColors.m in Sources */,
+				EDA70D95288E74FB00A9E10B /* FeedRequestUtil.m in Sources */,
 				17EB761026E9BCCD00D09EC8 /* TXConfigManager.m in Sources */,
 				6BBFDC18272ACC84009950B6 /* SuperFeedPlayView.m in Sources */,
 				40A1DF8F2638419E0011E532 /* UIView+CustomAutoLayout.m in Sources */,

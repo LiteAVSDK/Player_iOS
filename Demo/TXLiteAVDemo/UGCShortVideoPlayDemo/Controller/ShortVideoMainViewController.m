@@ -10,6 +10,7 @@
 #import "SuperShortVideoView.h"
 #import "TXVideoPlayMem.h"
 #import "TXVideoViewModel.h"
+#import <SDWebImage/SDImageCache.h>
 
 @interface ShortVideoMainViewController ()
 
@@ -26,6 +27,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    // SDImageCache设置内存大小
+    [SDImageCache sharedImageCache].config.maxMemoryCost = 20 * 1024 * 1024;
+    
     self.isLoadVideo = NO;
     [self.view addSubview:self.videoView];
     [self.videoView showLoading];

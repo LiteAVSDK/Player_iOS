@@ -19,6 +19,7 @@
 #import "TXTableViewCell.h"
 #import "UITableView+indexPath.h"
 #import "TXVideoModel.h"
+#import <SDWebImage/SDImageCache.h>
 
 NSString * const TXShortVideoCellIdentifier = @"TXShortVideoCellIdentifier";
 
@@ -475,6 +476,10 @@ NSString * const TXShortVideoCellIdentifier = @"TXShortVideoCellIdentifier";
     self.leftSlideGuideView = nil;
     [self.progressSlideGuideView removeFromSuperview];
     self.progressSlideGuideView = nil;
+    
+    // 清楚SD的图片在内存中的缓存，防止退出短视频播放内存降不下来的问题
+    [[SDImageCache sharedImageCache] clearMemory];
+    
     [self.vc.navigationController popToRootViewControllerAnimated:NO];
 }
 

@@ -32,7 +32,6 @@
 #define LIST_VIDEO_CELL_ID @"LIST_VIDEO_CELL_ID"
 #define LIST_LIVE_CELL_ID  @"LIST_LIVE_CELL_ID"
 
-#define VIP_VIDEO_DEFAULT_TITLE @"Android录屏"
 #define VIP_VIDEO_DEFAULT_CELL_TITLE @"试看功能演示"
 
 #define DYNAMIC_WATER_VIDEO_DEFAULT_CELL_TITLE @"动态水印演示"
@@ -705,10 +704,6 @@ __weak UITextField *cacheField;
             }
         }
         
-        if ([m.title containsString:VIP_VIDEO_DEFAULT_TITLE]) {
-            m.title = VIP_VIDEO_DEFAULT_CELL_TITLE;
-        }
-        
         if ([m.title containsString:DYNAMIC_WATER_VIDEO_DEFAULT_CELL_TITLE]) {
             m.title = DYNAMIC_WATER_VIDEO_DEFAULT_CELL_TITLE;
             DynamicWaterModel *model = [[DynamicWaterModel alloc] init];
@@ -1168,6 +1163,12 @@ __weak UITextField *cacheField;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    SPDefaultControlView *defaultControlView = (SPDefaultControlView *)self.playerView.controlView;
+    if (tableView == self.liveListView) {
+        defaultControlView.disablePipBtn = YES;
+    } else {
+        defaultControlView.disablePipBtn = NO;
+    }
     ListVideoCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     [self.playerView hideVipTipView];
     [self.playerView hideVipWatchView];

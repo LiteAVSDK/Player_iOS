@@ -39,6 +39,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) FeedVideoModel            *model;
 
 /**
+ * 预加载
+*/
+- (void)prepare;
+
+/**
  * 暂停
 */
 - (void)pause;

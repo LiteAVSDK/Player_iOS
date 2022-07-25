@@ -52,9 +52,6 @@
 - (void)setNextBtnState:(BOOL)isShow {
 }
 
-- (void)setPipBtnState:(BOOL)isShow {
-}
-
 - (void)setDisableOfflineBtn:(BOOL)disableOfflineBtn {
 }
 

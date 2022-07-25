@@ -26,10 +26,20 @@
     return self;
 }
 
+- (void)prepareForReuse {
+    [super prepareForReuse];
+    [self.baseView.superPlayView removeFromSuperview];
+    self.baseView.superPlayView = nil;
+}
+
 #pragma mark - Public Method
 - (void)setModel:(FeedVideoModel *)model {
     _model = model;
     [self.baseView setModel:model];
+}
+
+- (void)prepare {
+    [self.baseView prepare];
 }
 
 - (void)pause {

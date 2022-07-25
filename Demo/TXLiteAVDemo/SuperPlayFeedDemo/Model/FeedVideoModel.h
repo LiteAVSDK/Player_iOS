@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "FeedHeadModel.h"
+#import "SuperPlayerUrl.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -23,6 +24,12 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString      *title;
 @property (nonatomic, strong) NSString      *videoIntroduce;
 @property (nonatomic, strong) NSString      *videoDesStr;
+
+@property (nonatomic, strong) NSString      *pSign;
+
+@property (nonatomic, strong) NSString      *videoURL;
+
+@property(nonatomic, strong) NSArray<SuperPlayerUrl *> *multiVideoURLs;
 
 @end
 
