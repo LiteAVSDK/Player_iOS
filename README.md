@@ -8,8 +8,10 @@
 ├─ Demo // 超级播放器Demo
 └── TXLiteAVDemo
     ├── App               // 程序入口界面
-    ├── SuperPlayerDemo   // 超级播放器 Demo
+    ├── SuperPlayerDemo   // 超级播放器Demo
     └── SuperPlayerKit    // 超级播放器组件
+    ├── SuperPlayFeedDemo   // Feed流播放器Demo
+    └── UGCShortVideoPlayDemo    // 短视频播放器Demo
 ```
 ## **集成说明**
 请参考[Wiki部分相关内容](https://github.com/LiteAVSDK/Player_iOS/wiki)
