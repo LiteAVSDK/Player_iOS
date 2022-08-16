@@ -176,7 +176,7 @@ __weak UITextField *cacheField;
 
     // 右侧
     UIButton *buttonh = [UIButton buttonWithType:UIButtonTypeCustom];
-    buttonh.tag       = Help_超级播放器;
+    buttonh.tag       = Help_播放器组件;
     [buttonh setFrame:CGRectMake(0, 0, 60, 25)];
     [buttonh setBackgroundImage:[UIImage imageNamed:@"help_small"] forState:UIControlStateNormal];
     [buttonh addTarget:[[UIApplication sharedApplication] delegate] action:@selector(clickHelp:) forControlEvents:UIControlEventTouchUpInside];
@@ -202,7 +202,7 @@ __weak UITextField *cacheField;
     UIBarButtonItem *leftItem              = [[UIBarButtonItem alloc] initWithCustomView:leftbutton];
     self.navigationItem.leftBarButtonItems = @[ leftItem ];
 
-    self.title = @"超级播放器";
+    self.title = @"播放器组件";
 
     // guide view
     NSUserDefaults *df = [NSUserDefaults standardUserDefaults];

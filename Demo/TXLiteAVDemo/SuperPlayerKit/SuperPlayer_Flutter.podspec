@@ -4,7 +4,7 @@ Pod::Spec.new do |spec|
     spec.license = { :type => 'MIT' }
     spec.homepage = 'https://cloud.tencent.com/product/player'
     spec.authors = { 'annidyfeng' => 'annidyfeng@tencent.com' }
-    spec.summary = '超级播放器'
+    spec.summary = '播放器组件'
     spec.source = { :git => 'https://github.com/tencentyun/SuperPlayer_iOS.git', :tag => 'v3.1.1' }
 
     spec.ios.deployment_target = '8.0'

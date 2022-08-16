@@ -29,7 +29,7 @@ NS_ASSUME_NONNULL_END
 typedef enum : NSUInteger {
     Help_MLVBLiveRoom,
     Help_录屏直播,
-    Help_超级播放器,
+    Help_播放器组件,
     Help_视频录制,
     Help_特效编辑,
     Help_视频拼接,

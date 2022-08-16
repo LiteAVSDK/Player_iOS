@@ -62,7 +62,7 @@
 NSString *helpUrlDb[] = {
     [Help_MLVBLiveRoom] = @"https://cloud.tencent.com/document/product/454/14606",
     [Help_录屏直播]     = @"https://cloud.tencent.com/document/product/454/7883",
-    [Help_超级播放器]   = @"https://cloud.tencent.com/document/product/454/18871",
+    [Help_播放器组件]   = @"https://cloud.tencent.com/document/product/454/18871",
     [Help_视频录制]     = @"https://cloud.tencent.com/document/product/584/9367",
     [Help_特效编辑]     = @"https://cloud.tencent.com/document/product/584/9375",
     [Help_视频拼接]     = @"https://cloud.tencent.com/document/product/584/9370",

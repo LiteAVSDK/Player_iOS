@@ -5,11 +5,11 @@
 本目录包含 iOS 版 播放器(Player) SDK 的Demo 源代码，主要演示接口如何调用以及最基本的功能。
 
 ```
-├─ Demo // 超级播放器Demo
+├─ Demo // 播放器组件Demo
 └── TXLiteAVDemo
     ├── App               // 程序入口界面
-    ├── SuperPlayerDemo   // 超级播放器Demo
-    └── SuperPlayerKit    // 超级播放器组件
+    ├── SuperPlayerDemo   // 播放器组件Demo
+    └── SuperPlayerKit    // 播放器组件
     ├── SuperPlayFeedDemo   // Feed流播放器Demo
     └── UGCShortVideoPlayDemo    // 短视频播放器Demo
 ```

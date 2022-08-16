@@ -1,6 +1,6 @@
 # SuperPlayer
 
-SuperPlayer(超级播放器)是基于[腾讯云移动直播](https://cloud.tencent.com/document/product/454/7873)的播放器，能快速的集成视频信息拉取、横竖屏切换、清晰度选择、弹幕、直播时移等功能。灵活易用，可高度定制和二次开发。
+SuperPlayer(播放器组件)是基于[腾讯云移动直播](https://cloud.tencent.com/document/product/454/7873)的播放器，能快速的集成视频信息拉取、横竖屏切换、清晰度选择、弹幕、直播时移等功能。灵活易用，可高度定制和二次开发。
 
 ## 概述
 

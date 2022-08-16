@@ -96,7 +96,7 @@ typedef NS_ENUM(NSInteger, SuperPlayerLayoutStyle) {
 @property(readonly) BOOL isLive;
 /// 是否自动播放（在playWithModel前设置)
 @property BOOL autoPlay;
-/// 超级播放器控制层
+/// 播放器组件控制层
 @property(nonatomic) SuperPlayerControlView *controlView;
 /// 是否允许竖屏手势
 @property(nonatomic) BOOL disableGesture;

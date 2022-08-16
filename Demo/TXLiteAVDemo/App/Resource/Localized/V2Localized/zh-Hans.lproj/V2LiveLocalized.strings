@@ -218,7 +218,7 @@
 "MLVB.MainMenu.VideoUpload" = "视频上传";
 
 "MLVB.MainMenu.Player" = "播放器";
-"MLVB.MainMenu.SuperPlayer" = "超级播放器";
+"MLVB.MainMenu.SuperPlayer" = "播放器组件";
 "MLVB.MainMenu.VodPlayer" = "点播播放器";
 "MLVB.MainMenu.shortVideoPlay" = "短视频播放";
 "MLVB.MainMenu.FeedVideoPlay" = "Feed流播放";
