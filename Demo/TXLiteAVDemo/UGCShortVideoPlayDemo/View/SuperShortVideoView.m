@@ -19,6 +19,7 @@
 #import "TXTableViewCell.h"
 #import "UITableView+indexPath.h"
 #import "TXVideoModel.h"
+#import "AppLocalized.h"
 #import <SDWebImage/SDImageCache.h>
 
 NSString * const TXShortVideoCellIdentifier = @"TXShortVideoCellIdentifier";
@@ -100,7 +101,7 @@ NSString * const TXShortVideoCellIdentifier = @"TXShortVideoCellIdentifier";
         [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.mas_equalTo(kStatusBarHeight + 8);
             make.centerX.equalTo(self.bgImageView);
-            make.size.mas_equalTo(CGSizeMake(120, 30));
+            make.size.mas_equalTo(CGSizeMake(200, 30));
         }];
         
     }
@@ -498,7 +499,7 @@ NSString * const TXShortVideoCellIdentifier = @"TXShortVideoCellIdentifier";
 - (UILabel *)titleLabel {
     if (!_titleLabel) {
         _titleLabel = [UILabel new];
-        _titleLabel.text = @"短视频播放";
+        _titleLabel.text = playerLocalize(@"SuperPlayerDemo.ShortVideo.title");
         _titleLabel.font = [UIFont fontWithName:@"PingFangSC" size:16];
         _titleLabel.textColor = [UIColor whiteColor];
         _titleLabel.textAlignment = NSTextAlignmentCenter;

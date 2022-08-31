@@ -16,10 +16,12 @@
 #import "SuperPlayer.h"
 #import "MoviePlayerViewController.h"
 #import <Masonry/Masonry.h>
+#import "AppDelegate.h"
+#import "AppLocalized.h"
 
 #define OFFLINE_VIDEOCATCHVIEW_HEIGHT 282
 NSString * const VideoCacheListCellIdentifier = @"VideoCacheListCellIdentifier";
-@interface VideoCacheListView()<UITableViewDelegate, UITableViewDataSource, UIAlertViewDelegate, ScanQRDelegate>
+@interface VideoCacheListView()<UITableViewDelegate, UITableViewDataSource, ScanQRDelegate>
 
 @property (nonatomic, strong) UIView *topView;
 
@@ -75,7 +77,7 @@ NSString * const VideoCacheListCellIdentifier = @"VideoCacheListCellIdentifier";
         [self.topView addSubview:self.titleLabel];
         [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.height.mas_equalTo(36);
-            make.width.mas_equalTo(100);
+            make.width.mas_equalTo(150);
             make.center.equalTo(self.topView);
         }];
 
@@ -184,7 +186,7 @@ NSString * const VideoCacheListCellIdentifier = @"VideoCacheListCellIdentifier";
 - (UILabel *)titleLabel {
     if (!_titleLabel) {
         _titleLabel = [[UILabel alloc] init];
-        _titleLabel.text = @"离线缓存";
+        _titleLabel.text = playerLocalize(@"SuperPlayerDemo.MoviePlayer.offlinecache");
         _titleLabel.font = [UIFont systemFontOfSize:16];
         _titleLabel.textColor = [UIColor whiteColor];
         _titleLabel.textAlignment = NSTextAlignmentCenter;
@@ -230,7 +232,7 @@ NSString * const VideoCacheListCellIdentifier = @"VideoCacheListCellIdentifier";
     if (!_centerLabel) {
         _centerLabel = [[UILabel alloc] init];
         _centerLabel.frame = CGRectMake(0, 150 + 5, 200, 25);
-        _centerLabel.text = @"暂无数据";
+        _centerLabel.text = playerLocalize(@"SuperPlayerDemo.MoviePlayer.nodata");
         _centerLabel.font = [UIFont systemFontOfSize:16];
         _centerLabel.textColor = [UIColor colorWithRed:74.0/255.0 green:92.0/255.0 blue:130.0/255.0 alpha:1.0];
         _centerLabel.textAlignment = NSTextAlignmentCenter;
@@ -273,8 +275,48 @@ NSString * const VideoCacheListCellIdentifier = @"VideoCacheListCellIdentifier";
 
 // 弹窗方法
 - (void)longPressDelete {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"确定删除视频吗" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
-    [alert show];
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:
+                                          playerLocalize(@"SuperPlayerDemo.MoviePlayer.hint")
+                                                                             message:playerLocalize(@"SuperPlayerDemo.MoviePlayer.suretodeletevideo")
+                                                                      preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:
+                               playerLocalize(@"SuperPlayerDemo.MoviePlayer.sure") style:
+                               UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        if (self.longPressIndex >= 0) {
+            VideoCacheListModel *model = self.videoCacheArray[self.longPressIndex];
+            BOOL isSuccess = [[TXVodDownloadManager shareInstance] deleteDownloadFile:model.mediaInfo.playPath];
+            [[TXVodDownloadManager shareInstance] deleteDownloadMediaInfo:model.mediaInfo];
+            [self showToastViewisSuccess:isSuccess];
+            if (isSuccess) {
+                [self.videoCacheArray removeObjectAtIndex:self.longPressIndex];
+                [self.videoTableView reloadData];
+                
+                if (self.videoCacheArray.count <= 0) {
+                    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 1 * NSEC_PER_SEC);
+                    dispatch_after(popTime, dispatch_get_main_queue(), ^() {
+                        [self addCenterView];
+                    });
+                }
+            } else {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self showToastViewisSuccess:NO];
+                });
+            }
+        }
+    }];
+    
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:
+                                   playerLocalize(@"SuperPlayerDemo.MoviePlayer.cancel") style:
+                                   UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        
+    }];
+    
+    [alertController addAction:okAction];
+    [alertController addAction:cancelAction];
+    
+    AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    [appDelegate.window.rootViewController presentViewController:alertController animated:YES completion:nil];
 }
 
 - (void)showToastViewisSuccess:(BOOL)isSuccess {
@@ -300,10 +342,10 @@ NSString * const VideoCacheListCellIdentifier = @"VideoCacheListCellIdentifier";
     [toastView addSubview:label];
     
     if (isSuccess) {
-        label.text = @"删除成功";
+        label.text = playerLocalize(@"SuperPlayerDemo.MoviePlayer.deletesuccess");
         imageView.image = SuperPlayerImage(@"videoCache_success");
     } else {
-        label.text = @"删除失败";
+        label.text = playerLocalize(@"SuperPlayerDemo.MoviePlayer.deletefailure");
         imageView.image = SuperPlayerImage(@"videoCache_fail");
     }
    
@@ -344,40 +386,14 @@ NSString * const VideoCacheListCellIdentifier = @"VideoCacheListCellIdentifier";
     VideoCacheListCell *cell = [self.videoTableView cellForRowAtIndexPath:indexPath];
     TXVodDownloadMediaInfo *model = cell.model.mediaInfo;
 
-    if (model.downloadState == 0 || model.downloadState == 1) {  // 缓存中,点击后缓存暂停
+    if (model.downloadState == TXVodDownloadMediaInfoStateInit || model.downloadState == TXVodDownloadMediaInfoStateStart) {  // 缓存中,点击后缓存暂停
         VideoCacheListCell *cell = [self.videoTableView cellForRowAtIndexPath:indexPath];
         [cell stopDownload];
-    } else if (model.downloadState == 2 || model.downloadState == 3) { // 暂停缓存，点击后缓存中
+    } else if (model.downloadState == TXVodDownloadMediaInfoStateStop || model.downloadState == TXVodDownloadMediaInfoStateError) { // 暂停缓存，点击后缓存中
         VideoCacheListCell *cell = [self.videoTableView cellForRowAtIndexPath:indexPath];
         [cell startDownload];
     } else {
         [self playWithModel:[cell getSuperPlayModel]];
-    }
-}
-
-#pragma mark - UIAlertViewDelegate
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if (buttonIndex == 1) {
-        NSLog(@"点击了确定按钮");
-        if (self.longPressIndex >= 0) {
-            VideoCacheListModel *model = self.videoCacheArray[self.longPressIndex];
-            BOOL isSuccess = [[TXVodDownloadManager shareInstance] deleteDownloadFile:model.mediaInfo.playPath];
-            [[TXVodDownloadManager shareInstance] deleteDownloadMediaInfo:model.mediaInfo];
-            [self showToastViewisSuccess:isSuccess];
-            if (isSuccess) {
-                [self.videoCacheArray removeObjectAtIndex:self.longPressIndex];
-                [self.videoTableView reloadData];
-                
-                if (self.videoCacheArray.count <= 0) {
-                    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 1 * NSEC_PER_SEC);
-                    dispatch_after(popTime, dispatch_get_main_queue(), ^() {
-                        [self addCenterView];
-                    });
-                }
-            }
-        }
-    } else {
-        NSLog(@"点击了取消按钮");
     }
 }
 

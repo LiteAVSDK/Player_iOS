@@ -12,7 +12,7 @@
 /// 是否镜像，默认NO
 @property BOOL mirror;
 /// 是否硬件加速，默认YES
-@property BOOL hwAcceleration;
+@property(nonatomic, assign) BOOL hwAcceleration;
 /// 播放速度，默认1.0
 @property CGFloat playRate;
 /// 是否静音，默认NO

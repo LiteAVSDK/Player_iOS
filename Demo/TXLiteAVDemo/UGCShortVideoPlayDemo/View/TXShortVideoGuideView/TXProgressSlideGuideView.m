@@ -7,6 +7,7 @@
 //
 
 #import "TXProgressSlideGuideView.h"
+#import "AppLocalized.h"
 #import <Masonry/Masonry.h>
 
 @interface TXProgressSlideGuideView()
@@ -76,7 +77,7 @@
 - (UILabel *)describeLabel {
     if (!_describeLabel) {
         _describeLabel = [UILabel new];
-        _describeLabel.text = @"拖拽进度条快速查看视频";
+        _describeLabel.text = playerLocalize(@"SuperPlayerDemo.ShortVideo.drag");
         _describeLabel.textAlignment = NSTextAlignmentCenter;
         _describeLabel.font = [UIFont fontWithName:@"PingFangSC" size:16];
         _describeLabel.textColor = [UIColor colorWithRed:255.0/255.0 green:255.0/255.0 blue:255.0/255.0 alpha:1.0];
@@ -87,7 +88,7 @@
 - (UIButton *)knowBtn {
     if (!_knowBtn) {
         _knowBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_knowBtn setTitle:@"知道了" forState:UIControlStateNormal];
+        [_knowBtn setTitle:playerLocalize(@"SuperPlayerDemo.ShortVideo.gotit") forState:UIControlStateNormal];
         [_knowBtn setTitleColor:[UIColor colorWithRed:255.0/255.0 green:255.0/255.0 blue:255.0/255.0 alpha:1.0] forState:UIControlStateNormal];
         [_knowBtn addTarget:self action:@selector(knowClick) forControlEvents:UIControlEventTouchUpInside];
         _knowBtn.layer.cornerRadius = 20;

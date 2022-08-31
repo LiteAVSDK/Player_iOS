@@ -10,6 +10,7 @@
 #import "FeedDetailView.h"
 #import "FeedVideoPlayMem.h"
 #import "SuperPlayer.h"
+#import "AppLocalized.h"
 
 @interface FeedDetailViewController ()
 
@@ -32,7 +33,7 @@
     UIBarButtonItem *leftItem = [[UIBarButtonItem alloc] initWithCustomView:leftbutton];
     self.navigationItem.leftBarButtonItems = @[leftItem];
 
-    self.title = @"视频详情";
+    self.title = playerLocalize(@"SuperPlayerDemo.VideoFeeds.detailtitle");
     
     // 背景色
     self.view.backgroundColor = [UIColor whiteColor];

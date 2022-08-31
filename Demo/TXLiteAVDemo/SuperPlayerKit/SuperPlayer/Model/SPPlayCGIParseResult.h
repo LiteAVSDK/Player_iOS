@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-//#import "SPResolutionDefination.h"
 #import "AdaptiveStream.h"
 #import "SPSubStreamInfo.h"
 #import "SPVideoFrameDescription.h"

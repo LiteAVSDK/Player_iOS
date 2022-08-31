@@ -68,11 +68,6 @@ NS_ASSUME_NONNULL_BEGIN
 */
 - (void)removeVideo;
 
-/**
- * 释放内存
-*/
-- (void)destory;
-
 @end
 
 NS_ASSUME_NONNULL_END

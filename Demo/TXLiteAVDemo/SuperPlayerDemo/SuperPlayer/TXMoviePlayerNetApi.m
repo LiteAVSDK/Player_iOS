@@ -154,9 +154,10 @@
 }
 
 - (NSString *)URLEscaped:(NSString *)strIn withEncoding:(NSStringEncoding)encoding {
-    CFStringRef escaped = CFURLCreateStringByAddingPercentEscapes(NULL, (CFStringRef)strIn, NULL, (CFStringRef) @"!*'();:@&=+$,/?%#[]", CFStringConvertNSStringEncodingToEncoding(encoding));
-    NSString *  strOut  = [NSString stringWithString:(__bridge NSString *)escaped];
-    CFRelease(escaped);
+    NSString *charactersToEscape = @"#[]@!$'()*+,;\"<>%{}|^~`";
+    NSCharacterSet *allowedCharacters = [[NSCharacterSet characterSetWithCharactersInString:charactersToEscape] invertedSet];
+    NSString *escaped = [[strIn description] stringByAddingPercentEncodingWithAllowedCharacters:allowedCharacters];
+    NSString *strOut  = [NSString stringWithString:escaped];
     return strOut;
 }
 

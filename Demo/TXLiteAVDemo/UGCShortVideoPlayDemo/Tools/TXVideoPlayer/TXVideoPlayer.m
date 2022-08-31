@@ -11,7 +11,6 @@
 #import "TXLiveBase.h"
 #import "TXVodPlayer.h"
 #import "TXVodPlayListener.h"
-#import "TXPlayerGlobalSetting.h"
 
 @interface TXVideoPlayer()<TXVodPlayListener>
 

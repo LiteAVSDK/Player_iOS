@@ -16,6 +16,7 @@
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "TXVodDownloadManager.h"
 #import "SuperPlayerModelInternal.h"
+#import "AppLocalized.h"
 
 #define BASE_URL   @"http://playvideo.qcloud.com/getplayinfo/v4"
 
@@ -56,10 +57,13 @@ static NSDictionary *gQualityDic;
 + (void)initialize {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        gQualityDic = @ {@"原画" : @(TXVodQualityOD), @"流畅" : @(TXVodQualityFLU),
-                        @"标清" : @(TXVodQualitySD), @"高清" : @(TXVodQualityHD),
-                        @"超清" : @(TXVodQualityFHD), @"2K" : @(TXVodQuality2K),
-                        @"4K" : @(TXVodQuality4K)};
+        gQualityDic = @ {playerLocalize(@"SuperPlayerDemo.MoviePlayer.original") : @(TXVodQualityOD),
+                        playerLocalize(@"SuperPlayerDemo.MoviePlayer.smooth") : @(TXVodQualityFLU),
+                        playerLocalize(@"SuperPlayerDemo.MoviePlayer.SD") : @(TXVodQualitySD),
+                        playerLocalize(@"SuperPlayerDemo.MoviePlayer.HD") : @(TXVodQualityHD),
+                        playerLocalize(@"SuperPlayerDemo.MoviePlayer.FHD") : @(TXVodQualityFHD),
+                        playerLocalize(@"SuperPlayerDemo.MoviePlayer.2K") : @(TXVodQuality2K),
+                        playerLocalize(@"SuperPlayerDemo.MoviePlayer.4K") : @(TXVodQuality4K)};
     });
 }
 
@@ -112,13 +116,13 @@ static NSDictionary *gQualityDic;
         [self.statusLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.right.equalTo(self).offset(-20);
             make.top.equalTo(self).offset(10 + 16 + 24 + 2);
-            make.width.mas_equalTo(50);
+            make.width.mas_equalTo(60);
             make.height.mas_equalTo(20);
         }];
         
         [self addSubview:self.statusView];
         [self.statusView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.right.equalTo(self).offset(-(20 + 50 + 4));
+            make.right.equalTo(self).offset(-(20 + 60 + 4));
             make.top.equalTo(self).offset(10 + 16 + 24 + 5);
             make.width.mas_equalTo(10);
             make.height.mas_equalTo(10);
@@ -263,27 +267,27 @@ static NSDictionary *gQualityDic;
         switch (state) {
             case 0 : {
                 self.statusView.backgroundColor = [UIColor colorWithRed:223.0/255.0 green:147.0/255.0 blue:33.0/255.0 alpha:1.0];
-                self.statusLabel.text = @"缓存中";
+                self.statusLabel.text = playerLocalize(@"SuperPlayerDemo.MoviePlayer.incache");
             }
                 break;
             case 1: {
                 self.statusView.backgroundColor = [UIColor colorWithRed:223.0/255.0 green:147.0/255.0 blue:33.0/255.0 alpha:1.0];
-                self.statusLabel.text = @"缓存中";
+                self.statusLabel.text = playerLocalize(@"SuperPlayerDemo.MoviePlayer.incache");
             }
                 break;
             case 2: {
                 self.statusView.backgroundColor = [UIColor colorWithRed:255.0/255.0 green:118.0/255.0 blue:87.0/255.0 alpha:1.0];
-                self.statusLabel.text = @"缓存暂停";
+                self.statusLabel.text = playerLocalize(@"SuperPlayerDemo.MoviePlayer.cachepause");
             }
                 break;
             case 3: {
                 self.statusView.backgroundColor = [UIColor colorWithRed:255.0/255.0 green:118.0/255.0 blue:87.0/255.0 alpha:1.0];
-                self.statusLabel.text = @"缓存暂停";
+                self.statusLabel.text = playerLocalize(@"SuperPlayerDemo.MoviePlayer.cachepause");
             }
                 break;
             case 4: {
                 self.statusView.backgroundColor = [UIColor colorWithRed:31.0/255.0 green:201.0/255.0 blue:111.0/255.0 alpha:1.0];
-                self.statusLabel.text = @"缓存结束";
+                self.statusLabel.text = playerLocalize(@"SuperPlayerDemo.MoviePlayer.cacheend");
             }
                 break;
         }
@@ -292,7 +296,8 @@ static NSDictionary *gQualityDic;
 
 - (void)updateProgress:(float)progress {
     dispatch_async(dispatch_get_main_queue(), ^{
-        self.cacheProgressLabel.text = [[NSString stringWithFormat:@"缓存进度：%d",(int)(ceil(progress * 100))] stringByAppendingString:@"%"];
+        self.cacheProgressLabel.text = LocalizeReplaceXX(playerLocalize(@"SuperPlayerDemo.MoviePlayer.cacheprogress：xx"),
+                                                         [[NSString stringWithFormat:@"%d",(int)(ceil(progress * 100))] stringByAppendingString:@"%"]);
     });
 }
 

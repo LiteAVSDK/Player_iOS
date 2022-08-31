@@ -46,13 +46,6 @@
 		91A1D65B2147769500EA9A19 /* SuperPlayerSettingsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 91A1D5C9214673F300EA9A19 /* SuperPlayerSettingsView.m */; };
 		91A1D65C2147769500EA9A19 /* PlayerSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 91A1D5CB214673F300EA9A19 /* PlayerSlider.m */; };
 		91A1D65E2147769500EA9A19 /* SuperPlayerFastView.m in Sources */ = {isa = PBXBuildFile; fileRef = 91A1D5CF214673F300EA9A19 /* SuperPlayerFastView.m */; };
-		EDBA2F0F288FAF6B0082DB6A /* DynamicWaterModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EDBA2F0B288FAF6B0082DB6A /* DynamicWaterModel.m */; };
-		EDBA2F10288FAF6B0082DB6A /* TXVipWatchModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EDBA2F0C288FAF6B0082DB6A /* TXVipWatchModel.m */; };
-		EDBA2F16288FAF930082DB6A /* TXVipWatchView.m in Sources */ = {isa = PBXBuildFile; fileRef = EDBA2F14288FAF930082DB6A /* TXVipWatchView.m */; };
-		EDBA2F17288FAF930082DB6A /* TXVipTipView.m in Sources */ = {isa = PBXBuildFile; fileRef = EDBA2F15288FAF930082DB6A /* TXVipTipView.m */; };
-		EDBA2F1B288FAF9A0082DB6A /* DynamicWatermarkView.m in Sources */ = {isa = PBXBuildFile; fileRef = EDBA2F1A288FAF9A0082DB6A /* DynamicWatermarkView.m */; };
-		EDBA2F1E288FB0180082DB6A /* UILabel+Size.m in Sources */ = {isa = PBXBuildFile; fileRef = EDBA2F1C288FB0180082DB6A /* UILabel+Size.m */; };
-		EDBA2F21288FB0350082DB6A /* NSString+URL.m in Sources */ = {isa = PBXBuildFile; fileRef = EDBA2F1F288FB0350082DB6A /* NSString+URL.m */; };
 		F222F67123F29F3D002D52B7 /* SPSubStreamInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = F222F67023F29F3D002D52B7 /* SPSubStreamInfo.m */; };
 /* End PBXBuildFile section */
 
@@ -117,6 +110,7 @@
 		919D18F221533DAB00947BF5 /* UINavigationController+SuperPlayerRotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+SuperPlayerRotation.m"; sourceTree = "<group>"; };
 		919D18F321533DAB00947BF5 /* UIViewController+SuperPlayerRotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+SuperPlayerRotation.h"; sourceTree = "<group>"; };
 		919D18F421533DAB00947BF5 /* UIViewController+SuperPlayerRotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+SuperPlayerRotation.m"; sourceTree = "<group>"; };
+		91A1D5B12146719900EA9A19 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		91A1D5C1214673F200EA9A19 /* SuperPlayerWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SuperPlayerWindow.m; sourceTree = "<group>"; };
 		91A1D5C2214673F200EA9A19 /* SuperPlayerWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SuperPlayerWindow.h; sourceTree = "<group>"; };
 		91A1D5C4214673F300EA9A19 /* SuperPlayerModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SuperPlayerModel.h; sourceTree = "<group>"; };
@@ -143,22 +137,6 @@
 		91A1D5EB214673F400EA9A19 /* SuperPlayerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SuperPlayerView.m; sourceTree = "<group>"; };
 		91A1D6362147703B00EA9A19 /* libSuperPlayer.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSuperPlayer.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		91A1D6482147749100EA9A19 /* SuperPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SuperPlayer.h; sourceTree = "<group>"; };
-		ED36ED40288FBD6A002F6241 /* SuperPlayer.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SuperPlayer.bundle; sourceTree = "<group>"; };
-		ED36ED43288FBECC002F6241 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		EDBA2F0B288FAF6B0082DB6A /* DynamicWaterModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DynamicWaterModel.m; sourceTree = "<group>"; };
-		EDBA2F0C288FAF6B0082DB6A /* TXVipWatchModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TXVipWatchModel.m; sourceTree = "<group>"; };
-		EDBA2F0D288FAF6B0082DB6A /* TXVipWatchModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TXVipWatchModel.h; sourceTree = "<group>"; };
-		EDBA2F0E288FAF6B0082DB6A /* DynamicWaterModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DynamicWaterModel.h; sourceTree = "<group>"; };
-		EDBA2F12288FAF930082DB6A /* TXVipWatchView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TXVipWatchView.h; sourceTree = "<group>"; };
-		EDBA2F13288FAF930082DB6A /* TXVipTipView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TXVipTipView.h; sourceTree = "<group>"; };
-		EDBA2F14288FAF930082DB6A /* TXVipWatchView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TXVipWatchView.m; sourceTree = "<group>"; };
-		EDBA2F15288FAF930082DB6A /* TXVipTipView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TXVipTipView.m; sourceTree = "<group>"; };
-		EDBA2F19288FAF9A0082DB6A /* DynamicWatermarkView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DynamicWatermarkView.h; sourceTree = "<group>"; };
-		EDBA2F1A288FAF9A0082DB6A /* DynamicWatermarkView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DynamicWatermarkView.m; sourceTree = "<group>"; };
-		EDBA2F1C288FB0180082DB6A /* UILabel+Size.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+Size.m"; sourceTree = "<group>"; };
-		EDBA2F1D288FB0180082DB6A /* UILabel+Size.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+Size.h"; sourceTree = "<group>"; };
-		EDBA2F1F288FB0350082DB6A /* NSString+URL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+URL.m"; sourceTree = "<group>"; };
-		EDBA2F20288FB0350082DB6A /* NSString+URL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+URL.h"; sourceTree = "<group>"; };
 		F222F66F23F29F3D002D52B7 /* SPSubStreamInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPSubStreamInfo.h; sourceTree = "<group>"; };
 		F222F67023F29F3D002D52B7 /* SPSubStreamInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPSubStreamInfo.m; sourceTree = "<group>"; };
 		F296BE7323F4260300E595B1 /* SuperPlayerModelInternal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SuperPlayerModelInternal.h; sourceTree = "<group>"; };
@@ -178,10 +156,6 @@
 		45D5D64323B4A9AC00767C58 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				EDBA2F0E288FAF6B0082DB6A /* DynamicWaterModel.h */,
-				EDBA2F0B288FAF6B0082DB6A /* DynamicWaterModel.m */,
-				EDBA2F0D288FAF6B0082DB6A /* TXVipWatchModel.h */,
-				EDBA2F0C288FAF6B0082DB6A /* TXVipWatchModel.m */,
 				45D5D64723B4A9AC00767C58 /* AdaptiveStream.h */,
 				45D5D64E23B4A9AC00767C58 /* AdaptiveStream.m */,
 				45D5D64423B4A9AC00767C58 /* SPPlayCGIParseResult.h */,
@@ -227,7 +201,6 @@
 			isa = PBXGroup;
 			children = (
 				91A1D5AF2146719900EA9A19 /* SuperPlayer */,
-				ED36ED43288FBECC002F6241 /* Info.plist */,
 				91A1D5AE2146719900EA9A19 /* Products */,
 				91A1D619214697D000EA9A19 /* Frameworks */,
 			);
@@ -245,7 +218,6 @@
 			isa = PBXGroup;
 			children = (
 				45C5CC352429F0B800E24052 /* SuperPlayerHelpers.h */,
-				ED36ED3F288FBD6A002F6241 /* Resource */,
 				45D5D64323B4A9AC00767C58 /* Model */,
 				45E7523823B3879D00C22B31 /* PlayCGI */,
 				917AB0F721ED838400D6B041 /* Skins */,
@@ -264,6 +236,7 @@
 				91A1D5C1214673F200EA9A19 /* SuperPlayerWindow.m */,
 				91A1D5D4214673F300EA9A19 /* Utils */,
 				91A1D5C5214673F300EA9A19 /* Views */,
+				91A1D5B12146719900EA9A19 /* Info.plist */,
 				F296BE7323F4260300E595B1 /* SuperPlayerModelInternal.h */,
 			);
 			path = SuperPlayer;
@@ -272,8 +245,6 @@
 		91A1D5C5214673F300EA9A19 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				EDBA2F18288FAF9A0082DB6A /* DynamicWaterMarkView */,
-				EDBA2F11288FAF930082DB6A /* VipView */,
 				91A1D5C6214673F300EA9A19 /* MMMaterialDesignSpinner.h */,
 				91A1D5C7214673F300EA9A19 /* MMMaterialDesignSpinner.m */,
 				91A1D5C8214673F300EA9A19 /* SuperPlayerSettingsView.h */,
@@ -290,8 +261,6 @@
 		91A1D5D4214673F300EA9A19 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				EDBA2F1D288FB0180082DB6A /* UILabel+Size.h */,
-				EDBA2F1C288FB0180082DB6A /* UILabel+Size.m */,
 				917AB0EF21ED836D00D6B041 /* StrUtils.h */,
 				917AB0F021ED836D00D6B041 /* StrUtils.m */,
 				917AB0EE21ED836C00D6B041 /* TXBitrateItemHelper.h */,
@@ -313,8 +282,6 @@
 		91A1D5E2214673F300EA9A19 /* Category */ = {
 			isa = PBXGroup;
 			children = (
-				EDBA2F20288FB0350082DB6A /* NSString+URL.h */,
-				EDBA2F1F288FB0350082DB6A /* NSString+URL.m */,
 				919D18F121533DAB00947BF5 /* UINavigationController+SuperPlayerRotation.h */,
 				919D18F221533DAB00947BF5 /* UINavigationController+SuperPlayerRotation.m */,
 				919D18F321533DAB00947BF5 /* UIViewController+SuperPlayerRotation.h */,
@@ -330,34 +297,6 @@
 			children = (
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		ED36ED3F288FBD6A002F6241 /* Resource */ = {
-			isa = PBXGroup;
-			children = (
-				ED36ED40288FBD6A002F6241 /* SuperPlayer.bundle */,
-			);
-			path = Resource;
-			sourceTree = "<group>";
-		};
-		EDBA2F11288FAF930082DB6A /* VipView */ = {
-			isa = PBXGroup;
-			children = (
-				EDBA2F12288FAF930082DB6A /* TXVipWatchView.h */,
-				EDBA2F14288FAF930082DB6A /* TXVipWatchView.m */,
-				EDBA2F13288FAF930082DB6A /* TXVipTipView.h */,
-				EDBA2F15288FAF930082DB6A /* TXVipTipView.m */,
-			);
-			path = VipView;
-			sourceTree = "<group>";
-		};
-		EDBA2F18288FAF9A0082DB6A /* DynamicWaterMarkView */ = {
-			isa = PBXGroup;
-			children = (
-				EDBA2F19288FAF9A0082DB6A /* DynamicWatermarkView.h */,
-				EDBA2F1A288FAF9A0082DB6A /* DynamicWatermarkView.m */,
-			);
-			path = DynamicWaterMarkView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -416,25 +355,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EDBA2F17288FAF930082DB6A /* TXVipTipView.m in Sources */,
-				EDBA2F16288FAF930082DB6A /* TXVipWatchView.m in Sources */,
 				45D5D65223B4A9AC00767C58 /* SuperPlayerUrl.m in Sources */,
 				919D18F621533DAC00947BF5 /* UIViewController+SuperPlayerRotation.m in Sources */,
 				45D5D65323B4A9AC00767C58 /* SPPlayCGIParseResult.m in Sources */,
 				917AB0FD21ED838400D6B041 /* SPWeiboControlView.m in Sources */,
 				917AB0FC21ED838400D6B041 /* SPDefaultControlView.m in Sources */,
 				917AB0EC21ED833300D6B041 /* SuperPlayerControlView.m in Sources */,
-				EDBA2F1B288FAF9A0082DB6A /* DynamicWatermarkView.m in Sources */,
 				F222F67123F29F3D002D52B7 /* SPSubStreamInfo.m in Sources */,
 				45D5D65523B4A9AC00767C58 /* AdaptiveStream.m in Sources */,
 				917AB0F421ED836D00D6B041 /* StrUtils.m in Sources */,
-				EDBA2F0F288FAF6B0082DB6A /* DynamicWaterModel.m in Sources */,
 				91A1D65E2147769500EA9A19 /* SuperPlayerFastView.m in Sources */,
 				91A1D6542147765400EA9A19 /* SuperPlayerModel.m in Sources */,
 				91A1D6552147765400EA9A19 /* SuperPlayerView.m in Sources */,
 				91A1D6592147768C00EA9A19 /* NetWatcher.m in Sources */,
 				91A1D64E2147763B00EA9A19 /* UIView+MMLayout.m in Sources */,
-				EDBA2F10288FAF6B0082DB6A /* TXVipWatchModel.m in Sources */,
 				91A1D6562147765400EA9A19 /* SuperPlayerWindow.m in Sources */,
 				917AB0F621ED836D00D6B041 /* UIView+Fade.m in Sources */,
 				919D18F521533DAC00947BF5 /* UINavigationController+SuperPlayerRotation.m in Sources */,
@@ -445,9 +379,7 @@
 				91A1D6582147768C00EA9A19 /* J2Obj.m in Sources */,
 				45D5D66B23B4C98800767C58 /* SPPlayCGIParser.m in Sources */,
 				9165F738214FCC9300F5BB88 /* TXCUrl.m in Sources */,
-				EDBA2F1E288FB0180082DB6A /* UILabel+Size.m in Sources */,
 				45E7526123B39B8300C22B31 /* SPPlayCGIParser_V4.m in Sources */,
-				EDBA2F21288FB0350082DB6A /* NSString+URL.m in Sources */,
 				91A1D6572147768C00EA9A19 /* DataReport.m in Sources */,
 				45E7526423B39BD100C22B31 /* SPPlayCGIParser_V2.m in Sources */,
 				45D5D65423B4A9AC00767C58 /* SuperPlayerSprite.m in Sources */,

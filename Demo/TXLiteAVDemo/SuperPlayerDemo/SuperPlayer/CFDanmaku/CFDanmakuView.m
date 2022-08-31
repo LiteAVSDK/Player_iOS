@@ -212,7 +212,7 @@ static NSTimeInterval const timeMargin = 0.5;
     UILabel* label = info.playLabel;
 
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(duration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        if (_isPauseing) return;
+        if (self->_isPauseing) return;
 
         if (info.danmaku.position == CFDanmakuPositionCenterBottom) {
             self.centerBottomLinesDict[@(info.lineCount)] = @(0);

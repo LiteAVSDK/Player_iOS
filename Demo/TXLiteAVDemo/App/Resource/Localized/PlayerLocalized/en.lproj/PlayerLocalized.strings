@@ -1,0 +1,93 @@
+/* 
+  PlayerLocalized.strings
+  TXLiteAVDemo
+
+  Copyright © 2022 Tencent. All rights reserved.
+*/
+
+"SuperPlayerDemo.MoviePlayer.title" = "Superplayer";
+"SuperPlayerDemo.MoviePlayer.videopreview" = "Video Preview";
+"SuperPlayerDemo.MoviePlayer.dynamicwatermarking" = "Dynamic Watermarking";
+"SuperPlayerDemo.MoviePlayer.customthumbnail" = "Custom Thumbnails";
+"SuperPlayerDemo.MoviePlayer.videoplaylist" = "Video Playlist";
+"SuperPlayerDemo.MoviePlayer.downloadforofflineplayback" = "Download for Offline Playback";
+"SuperPlayerDemo.MoviePlayer.testvideo" = "Test Video";
+"SuperPlayerDemo.MoviePlayer.currentquality" = "Quality:";
+"SuperPlayerDemo.MoviePlayer.viewingcachelist" = "video download list";
+"SuperPlayerDemo.MoviePlayer.offlinecache" = "offline download";
+"SuperPlayerDemo.MoviePlayer.nodata" = "No Data";
+"SuperPlayerDemo.MoviePlayer.hint" = "Tip";
+"SuperPlayerDemo.MoviePlayer.suretodeletevideo" = "Are you sure you want to delete this video";
+"SuperPlayerDemo.MoviePlayer.sure" = "OK";
+"SuperPlayerDemo.MoviePlayer.cancel" = "Cancel";
+"SuperPlayerDemo.MoviePlayer.deletesuccess" = "Deleted successfully";
+"SuperPlayerDemo.MoviePlayer.deletefailure" = "Deleted failed";
+"SuperPlayerDemo.MoviePlayer.startdownloadvideo" = "start downloading video";
+"SuperPlayerDemo.MoviePlayer.videodownloadfinish" = "complete downloading video";
+"SuperPlayerDemo.MoviePlayer.videoxxnotexist" = "this video xxx quality is invalid,download failed,please download video by others quality";
+"SuperPlayerDemo.MoviePlayer.downloadvideoxxfailure" = "downloading video xxx failed";
+"SuperPlayerDemo.MoviePlayer.original" = "original";
+"SuperPlayerDemo.MoviePlayer.smooth" = "smooth";
+"SuperPlayerDemo.MoviePlayer.SD" = "SD";
+"SuperPlayerDemo.MoviePlayer.HD" = "HD";
+"SuperPlayerDemo.MoviePlayer.FHD" = "FHD";
+"SuperPlayerDemo.MoviePlayer.2K" = "2K";
+"SuperPlayerDemo.MoviePlayer.4K" = "4K";
+"SuperPlayerDemo.MoviePlayer.incache" = "downloading";
+"SuperPlayerDemo.MoviePlayer.cachepause" = "pause";
+"SuperPlayerDemo.MoviePlayer.cacheend" = "complete";
+"SuperPlayerDemo.MoviePlayer.cacheprogress：xx" = "progress：xxx";
+
+"SuperPlayerDemo.OndemandPlayer.ondemand" = "On demand";
+"SuperPlayerDemo.OndemandPlayer.live" = "Live";
+"SuperPlayerDemo.OndemandPlayer.tapplaybutton" = "Tap the play button";
+"SuperPlayerDemo.OndemandPlayer.auto" = "auto";
+"SuperPlayerDemo.OndemandPlayer.smooth" = "smooth";
+"SuperPlayerDemo.OndemandPlayer.SD" = "SD";
+"SuperPlayerDemo.OndemandPlayer.FSD" = "FSD";
+"SuperPlayerDemo.OndemandPlayer.HD" = "HD";
+"SuperPlayerDemo.OndemandPlayer.FHD" = "FHD";
+"SuperPlayerDemo.OndemandPlayer.2K" = "2K";
+"SuperPlayerDemo.OndemandPlayer.4K" = "4K";
+"SuperPlayerDemo.OndemandPlayer.enterorscan" = "Enter a playback URL or scan QR code.";
+"SuperPlayerDemo.OndemandPlayer.supporthardware" = "iOS version lower than 8.0 does not support hardware acceleration";
+"SuperPlayerDemo.OndemandPlayer.switchharddecode" = "Hardware acceleration enabled. The playback will restart.";
+"SuperPlayerDemo.OndemandPlayer.switchsoftdecode" = "Software acceleration enabled. The playback will restart.";
+"SuperPlayerDemo.OndemandPlayer.switchtowifi" = "Do you want to switch to Wifi and watch again?";
+"SuperPlayerDemo.OndemandPlayer.true" = "true";
+"SuperPlayerDemo.OndemandPlayer.false" = "false";
+
+"SuperPlayerDemo.ShortVideo.title" = "Short video playback";
+"SuperPlayerDemo.ShortVideo.list" = "Short video list";
+"SuperPlayerDemo.ShortVideo.swipeup" = "Swipe up to view more";
+"SuperPlayerDemo.ShortVideo.tap" = "Tap to pause";
+"SuperPlayerDemo.ShortVideo.swipeleft" = "Swipe left to show playlist";
+"SuperPlayerDemo.ShortVideo.drag" = "Drag the dot to scrub through the video";
+"SuperPlayerDemo.ShortVideo.gotit" = "Got it";
+
+"SuperPlayerDemo.VideoFeeds.title" = "Video feeds";
+"SuperPlayerDemo.VideoFeeds.detailtitle" = "Video details";
+"SuperPlayerDemo.VideoFeeds.excellence" = "Tencent Cloud Audio/Video Excellence";
+"SuperPlayerDemo.VideoFeeds.excellenceintroduce" = "No. 1 in audio/video cloud since 2018";
+"SuperPlayerDemo.VideoFeeds.excellencedetail" = "Proven track record in audio/video coding, cloud integration (RT-ONE), and SDKs (RT-Cube)";
+"SuperPlayerDemo.VideoFeeds.smooth" = "Tencent Cloud Audio/Video - Smooth";
+"SuperPlayerDemo.VideoFeeds.smoothintroduce" = "Smooth and stutter-free playback";
+"SuperPlayerDemo.VideoFeeds.smoothdetail" = "Smooth playback guaranteed by Tencent Cloud's rich experience and proprietary RT-ONE network";
+"SuperPlayerDemo.VideoFeeds.real" = "Tencent Cloud Audio/Video - Real";
+"SuperPlayerDemo.VideoFeeds.realintroduce" = "Just like in the real world";
+"SuperPlayerDemo.VideoFeeds.realdetail" = "Listen, talk, and interact like in the real world";
+"SuperPlayerDemo.VideoFeeds.versatile" = "Tencent Cloud Audio/Video - Versatile";
+"SuperPlayerDemo.VideoFeeds.versatileintroduce" = "A complete range of solutions";
+"SuperPlayerDemo.VideoFeeds.versatiledetail" = "A diverse product portfolio and various solutions for a wide range of application scenarios";
+"SuperPlayerDemo.VideoFeeds.gettoknow" = "Get to Know Tencent Cloud";
+"SuperPlayerDemo.VideoFeeds.gettoknowintroduce" = "A trusted partner for your digital journey";
+"SuperPlayerDemo.VideoFeeds.gettoknowdetail" = "Join Tencent Cloud to build digital infrastructure and help shape the digital economy";
+"SuperPlayerDemo.VideoFeeds.digitization" = "What is Digitization?";
+"SuperPlayerDemo.VideoFeeds.digitizationintroduce" = "What will a digital future look like?";
+"SuperPlayerDemo.VideoFeeds.digitizationdetail" = "Embrace digitization together with Tencent Cloud to boost productivity";
+"SuperPlayerDemo.VideoFeeds.simplerandlighter" = "Simpler and Lighter";
+"SuperPlayerDemo.VideoFeeds.simplerandlighterintroduce" = "Tencent Cloud is dedicated to bringing you simpler and lighter cloud solutions";
+"SuperPlayerDemo.VideoFeeds.simplerandlighterdetail" = "A simpler digitization process and lighter solutions to help you realize your ambition";
+"SuperPlayerDemo.VideoFeeds.tencentcloudAV" = "Tencent Cloud Audio/Video";
+"SuperPlayerDemo.VideoFeeds.tencentcloudAVintroduce" = "Online experiences have never been more real";
+"SuperPlayerDemo.VideoFeeds.tencentcloudAVdetail" = "Tencent Cloud offers a robust set of audio/video PaaS capabilities for you to leverage";

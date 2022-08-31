@@ -25,7 +25,7 @@
 }
 
 + (NSString *)deleteParameter:(NSString *)parameter WithOriginUrl:(NSString *)originUrl {
-    NSString *       finalStr       = [NSString string];
+    NSString *       finalStr       = @"";
     NSMutableString *mutStr         = [NSMutableString stringWithString:originUrl];
     NSArray *        strArray       = [mutStr componentsSeparatedByString:parameter];
     NSMutableString *firstStr       = [strArray objectAtIndex:0];

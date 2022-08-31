@@ -18,6 +18,7 @@
 #import "SuperPlayerView.h"
 #import "VideoCacheListView.h"
 #import "TXVodDownloadCenter.h"
+#import "AppLocalized.h"
 
 NSString * const VideoCacheCellIdentifier = @"VideoCacheCellIdentifier";
 NSString * const ResolutionCellIdentifier = @"ResolutionCellIdentifier";
@@ -447,7 +448,7 @@ NSString * const ResolutionCellIdentifier = @"ResolutionCellIdentifier";
         }
     }
     
-    [self toastTip:[NSString stringWithFormat:@"开始下载视频%@",toastName]];
+    [self toastTip:[playerLocalize(@"SuperPlayerDemo.MoviePlayer.startdownloadvideo") stringByAppendingFormat:@"%@",toastName]];
     [self.tableView reloadData];
 }
 
@@ -461,8 +462,9 @@ NSString * const ResolutionCellIdentifier = @"ResolutionCellIdentifier";
             break;
         }
     }
-    
-    [self toastTip:[NSString stringWithFormat:@"%@视频下载完成",toastName]];
+
+    [self toastTip:[[NSString stringWithFormat:@"%@",toastName] stringByAppendingString:
+                    playerLocalize(@"SuperPlayerDemo.MoviePlayer.videodownloadfinish")]];
 }
 /// 下载错误
 - (void)onCenterDownloadError:(TXVodDownloadMediaInfo *)mediaInfo errorCode:(NSInteger)code errorMsg:(NSString *)msg {
@@ -476,11 +478,21 @@ NSString * const ResolutionCellIdentifier = @"ResolutionCellIdentifier";
     }
     
     if (code == TXDownloadNoFile) {
-        [self toastTip:[NSString stringWithFormat:@"视频%@不存在该清晰度，下载失败，请尝试更换清晰度下载",toastName]];
+        [self toastTip:LocalizeReplaceXX(playerLocalize(@"SuperPlayerDemo.MoviePlayer.videoxxnotexist"), toastName)];
     } else {
-        [self toastTip:[NSString stringWithFormat:@"下载视频%@失败",toastName]];
+        [self toastTip:LocalizeReplaceXX(playerLocalize(@"SuperPlayerDemo.MoviePlayer.downloadvideoxxfailure"), toastName)];
     }
 }
+
+- (void)onCenterDownloadProgress:(nonnull TXVodDownloadMediaInfo *)mediaInfo {
+    
+}
+
+
+- (void)onCenterDownloadStop:(nonnull TXVodDownloadMediaInfo *)mediaInfo {
+    
+}
+
 
 
 #pragma mark - 懒加载
@@ -496,7 +508,7 @@ NSString * const ResolutionCellIdentifier = @"ResolutionCellIdentifier";
 - (UILabel *)clarityLabel {
     if (!_clarityLabel) {
         _clarityLabel = [[UILabel alloc] init];
-        _clarityLabel.text = @"当前清晰度:";
+        _clarityLabel.text = playerLocalize(@"SuperPlayerDemo.MoviePlayer.currentquality");
         _clarityLabel.font = [UIFont systemFontOfSize:14];
         _clarityLabel.textColor = [UIColor colorWithRed:235.0/255.0 green:244.0/255.0 blue:255.0/255.0 alpha:1.0];
         _clarityLabel.textAlignment = NSTextAlignmentLeft;
@@ -564,7 +576,7 @@ NSString * const ResolutionCellIdentifier = @"ResolutionCellIdentifier";
 - (UIButton *)viewCacheListBtn {
     if (!_viewCacheListBtn) {
         _viewCacheListBtn = [[UIButton alloc] init];
-        [_viewCacheListBtn setTitle:@"查看缓存列表" forState:UIControlStateNormal];
+        [_viewCacheListBtn setTitle:playerLocalize(@"SuperPlayerDemo.MoviePlayer.viewingcachelist") forState:UIControlStateNormal];
         [_viewCacheListBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         _viewCacheListBtn.backgroundColor = [UIColor colorWithRed:0/255.0 green:98.0/255.0 blue:227.0/255.0 alpha:1.0];
         _viewCacheListBtn.titleLabel.font = [UIFont systemFontOfSize:18];

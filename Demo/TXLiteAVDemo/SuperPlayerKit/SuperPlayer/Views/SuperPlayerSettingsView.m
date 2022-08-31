@@ -16,6 +16,7 @@
 #import "SuperPlayerControlView.h"
 #import "SuperPlayerView+Private.h"
 #import "UIView+MMLayout.h"
+#import "SuperPlayerLocalized.h"
 
 #define TAG_1_SPEED 1001
 #define TAG_2_SPEED 1002
@@ -105,7 +106,7 @@
 
         // 声音
         UILabel *sound  = [UILabel new];
-        sound.text      = @"声音";
+        sound.text      = superPlayerLocalized(@"SuperPlayer.volume");
         sound.textColor = [UIColor whiteColor];
         [sound sizeToFit];
         [_soundCell addSubview:sound];
@@ -147,7 +148,7 @@
 
         // 亮度
         UILabel *ligth  = [UILabel new];
-        ligth.text      = @"亮度";
+        ligth.text      = superPlayerLocalized(@"SuperPlayer.brightness");
         ligth.textColor = [UIColor whiteColor];
         [ligth sizeToFit];
         [_ligthCell addSubview:ligth];
@@ -192,14 +193,14 @@
 
         // 倍速
         UILabel *speed  = [UILabel new];
-        speed.text      = @"倍速播放";
+        speed.text      = superPlayerLocalized(@"SuperPlayer.speed");
         speed.textColor = [UIColor whiteColor];
         [speed sizeToFit];
         [_speedCell addSubview:speed];
         speed.m_centerY();
 
         UIButton *speed1 = [UIButton buttonWithType:UIButtonTypeCustom];
-        [speed1 setTitle:@"1.0X" forState:UIControlStateNormal];
+        [speed1 setTitle:superPlayerLocalized(@"SuperPlayer.speed1p0") forState:UIControlStateNormal];
         [speed1 setTitleColor:TintColor forState:UIControlStateSelected];
         speed1.selected = YES;
         speed1.tag      = TAG_1_SPEED;
@@ -210,7 +211,7 @@
         speed1.m_left(speed.mm_maxX + 10).m_centerY();
 
         UIButton *speed2 = [UIButton buttonWithType:UIButtonTypeCustom];
-        [speed2 setTitle:@"1.25X" forState:UIControlStateNormal];
+        [speed2 setTitle:superPlayerLocalized(@"SuperPlayer.speed1p25") forState:UIControlStateNormal];
         [speed2 setTitleColor:TintColor forState:UIControlStateSelected];
         speed2.tag = TAG_2_SPEED;
         [speed2 sizeToFit];
@@ -220,7 +221,7 @@
         speed2.m_left(speed1.mm_maxX + 12).m_centerY();
 
         UIButton *speed3 = [UIButton buttonWithType:UIButtonTypeCustom];
-        [speed3 setTitle:@"1.5X" forState:UIControlStateNormal];
+        [speed3 setTitle:superPlayerLocalized(@"SuperPlayer.speed1p5") forState:UIControlStateNormal];
         [speed3 setTitleColor:TintColor forState:UIControlStateSelected];
         speed3.tag = TAG_3_SPEED;
         [speed3 sizeToFit];
@@ -230,7 +231,7 @@
         speed3.m_left(speed2.mm_maxX + 12).m_centerY();
 
         UIButton *speed4 = [UIButton buttonWithType:UIButtonTypeCustom];
-        [speed4 setTitle:@"2.0X" forState:UIControlStateNormal];
+        [speed4 setTitle:superPlayerLocalized(@"SuperPlayer.speed2p0") forState:UIControlStateNormal];
         [speed4 setTitleColor:TintColor forState:UIControlStateSelected];
         speed4.tag = TAG_4_SPEED;
         [speed4 sizeToFit];
@@ -247,7 +248,7 @@
         _mirrorCell.m_width(MoreViewWidth).m_height(50).m_left(10);
 
         UILabel *mirror  = [UILabel new];
-        mirror.text      = @"镜像";
+        mirror.text      = superPlayerLocalized(@"SuperPlayer.mirror");
         mirror.textColor = [UIColor whiteColor];
         [mirror sizeToFit];
         [_mirrorCell addSubview:mirror];
@@ -268,7 +269,7 @@
         _hwCell.m_width(MoreViewWidth).m_height(50).m_left(10);
 
         UILabel *hd = [UILabel new];
-        hd.text     = @"硬件加速";
+        hd.text     = superPlayerLocalized(@"SuperPlayer.handware");
 
         hd.textColor = [UIColor whiteColor];
         [hd sizeToFit];

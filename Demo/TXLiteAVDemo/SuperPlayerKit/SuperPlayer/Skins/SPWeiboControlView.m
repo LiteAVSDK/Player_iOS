@@ -14,6 +14,7 @@
 #import "SuperPlayer.h"
 #import "UIView+Fade.h"
 #import "UIView+MMLayout.h"
+#import "SuperPlayerLocalized.h"
 
 @interface     SPWeiboControlView () <PlayerSliderDelegate>
 @property BOOL isLive;
@@ -346,7 +347,7 @@
     for (UIView *subview in self.resolutionView.subviews) [subview removeFromSuperview];
 
     UILabel *lable      = [UILabel new];
-    lable.text          = @"清晰度";
+    lable.text          = superPlayerLocalized(@"SuperPlayer.videoquality");
     lable.textAlignment = NSTextAlignmentCenter;
     lable.textColor     = [UIColor whiteColor];
     [self.resolutionView addSubview:lable];

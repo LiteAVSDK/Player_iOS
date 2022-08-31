@@ -111,3 +111,7 @@ NSString *      LoginNetworkLocalize(NSString *key) { return LocalizeFromTable(k
 #pragma mark - AppPortal
 NSString *const AppPortal_Localize_TableName = @"AppPortalLocalized";
 NSString *      AppPortalLocalize(NSString *key) { return LocalizeFromTable(key, AppPortal_Localize_TableName); }
+
+#pragma mark - Player
+NSString *const Player_Localize_TableName = @"PlayerLocalized";
+NSString *      playerLocalize(NSString *key) { return LocalizeFromTable(key, Player_Localize_TableName); }

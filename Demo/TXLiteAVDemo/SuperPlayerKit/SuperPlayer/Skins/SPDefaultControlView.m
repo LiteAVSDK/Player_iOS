@@ -12,6 +12,7 @@
 #import "SuperPlayerView+Private.h"
 #import "UIView+Fade.h"
 #import "UIView+MMLayout.h"
+#import "SuperPlayerLocalized.h"
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
@@ -151,16 +152,16 @@
     }];
     
     [self.nextBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.trailing.equalTo(self.fullScreenBtn.mas_leading);
+        make.trailing.equalTo(self.bottomImageView.mas_trailing).offset(-35);
         make.centerY.equalTo(self.startBtn.mas_centerY);
         make.width.height.mas_equalTo(30);
     }];
 
     [self.totalTimeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         if (self.nextBtn.hidden) {
-            make.trailing.equalTo(self.fullScreenBtn.mas_leading);
+            make.trailing.equalTo(self.bottomImageView.mas_trailing).offset(-35);
         } else {
-            make.trailing.equalTo(self.nextBtn.mas_leading);
+            make.trailing.equalTo(self.bottomImageView.mas_trailing).offset(-65);
         }
         make.centerY.equalTo(self.startBtn.mas_centerY);
         make.width.mas_equalTo(50);
@@ -192,7 +193,7 @@
 
     [self.backLiveBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.mas_equalTo(self.startBtn.mas_top).mas_offset(-15);
-        make.width.mas_equalTo(70);
+        make.width.mas_equalTo(150);
         make.centerX.equalTo(self);
     }];
 }
@@ -431,14 +432,14 @@
     [self.backBtn setImage:SuperPlayerImage(@"back_full") forState:UIControlStateNormal];
     
     if (!self.nextBtn.hidden) {
-        [self.nextBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        [self.nextBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
             if (self.resolutionArray.count > 0) {
                 make.trailing.equalTo(self.resolutionBtn.mas_leading);
             } else {
                 make.trailing.equalTo(self.bottomImageView.mas_trailing).offset(-5);
             }
             make.centerY.equalTo(self.startBtn.mas_centerY);
-            make.width.mas_equalTo(self.isLive ? 10 : 60);
+            make.width.height.mas_equalTo(30);
         }];
     }
     
@@ -666,7 +667,7 @@
 - (UIButton *)backLiveBtn {
     if (!_backLiveBtn) {
         _backLiveBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_backLiveBtn setTitle:@"返回直播" forState:UIControlStateNormal];
+        [_backLiveBtn setTitle:superPlayerLocalized(@"SuperPlayer.backtolive") forState:UIControlStateNormal];
         _backLiveBtn.titleLabel.font = [UIFont systemFontOfSize:14];
         UIImage *image               = SuperPlayerImage(@"qg_online_bg");
 
@@ -842,7 +843,7 @@
 
     }
     UILabel *lable      = [UILabel new];
-    lable.text          = @"清晰度";
+    lable.text          = superPlayerLocalized(@"SuperPlayer.videoquality");
     lable.textAlignment = NSTextAlignmentCenter;
     lable.textColor     = [UIColor whiteColor];
     [self.resolutionView addSubview:lable];

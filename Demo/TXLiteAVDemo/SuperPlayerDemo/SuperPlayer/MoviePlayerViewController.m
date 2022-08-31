@@ -23,7 +23,6 @@
 #import "UGCUploadList.h"
 #import "UIImageView+WebCache.h"
 #import "UIView+MMLayout.h"
-#import "AppLocalized.h"
 #import "TXPlayerAuthParams.h"
 #import "VideoCacheView.h"
 
@@ -33,19 +32,14 @@
 #define LIST_LIVE_CELL_ID  @"LIST_LIVE_CELL_ID"
 
 #define VIP_VIDEO_DEFAULT_CELL_TITLE @"试看功能演示"
-
 #define DYNAMIC_WATER_VIDEO_DEFAULT_CELL_TITLE @"动态水印演示"
-
 #define COVER_DEFAULT_DEFAULT_TITLE  @"自定义封面"
+
 #define COVER_DEFAULT_URL    @"http://1500005830.vod2.myqcloud.com/6c9a5118vodcq1500005830/cc1e28208602268011087336518/MXUW1a5I9TsA.png"
 
-#define VIDEO_LOOP_PLAY_DEFAULT_TITLE @"视频列表轮播演示"
 #define VIDEO_LOOP_PLAY_DEFAULT_URL    @"http://1400155958.vod2.myqcloud.com/facd87c8vodcq1400155958/06622723387702299939461564/G5gEpcHlyaYA.png"
-
-#define VIDEO_OFFLINE_CACHE_DEFAULT_TITLE  @"离线缓存(全屏)演示"
 #define VIDEO_OFFLINE_CACHE_DEFAULT_URL    @"http://1400155958.vod2.myqcloud.com/facd87c8vodcq1400155958/0183245d387702299939234236/c7yiepstuHcA.png"
 
-#define LOCAL_LIVE_TITLE    @"测试视频"
 #define LOCAL_LIVE_COVERURL @"http://1500005830.vod2.myqcloud.com/6c9a5118vodcq1500005830/66bc542f387702300661648850/0RyP1rZfkdQA.png"
 #define LOCAL_LIVE_URL      @"http://liteavapp.qcloud.com/live/liteavdemoplayerstreamid.flv"
 
@@ -139,9 +133,12 @@ __weak UITextField *cacheField;
     }
     
     // 3、设置封面的图片
-    UIImage *image = [UIImage imageNamed:@"TengXunYun_logo"];
+    __block UIImage *image = [UIImage imageNamed:@"TengXunYun_logo"];
     if (image) {
-        MPMediaItemArtwork *artwork = [[MPMediaItemArtwork alloc] initWithImage:image];
+        MPMediaItemArtwork *artwork = [[MPMediaItemArtwork alloc] initWithBoundsSize:CGSizeMake(100, 100)
+                                                                      requestHandler:^UIImage * _Nonnull(CGSize size) {
+            return image;
+        }];
         [playingInfoDict setObject:artwork forKey:MPMediaItemPropertyArtwork];
     }
     
@@ -202,7 +199,7 @@ __weak UITextField *cacheField;
     UIBarButtonItem *leftItem              = [[UIBarButtonItem alloc] initWithCustomView:leftbutton];
     self.navigationItem.leftBarButtonItems = @[ leftItem ];
 
-    self.title = @"超级播放器";
+    self.title = playerLocalize(@"SuperPlayerDemo.MoviePlayer.title");
 
     // guide view
     NSUserDefaults *df = [NSUserDefaults standardUserDefaults];
@@ -243,7 +240,7 @@ __weak UITextField *cacheField;
         [self clickVodList:nil];
     }
     
-    if ([self.playerView.playerModel.name isEqualToString:VIP_VIDEO_DEFAULT_CELL_TITLE]) {
+    if ([self.playerView.playerModel.name isEqualToString:playerLocalize(@"SuperPlayerDemo.MoviePlayer.videopreview")]) {
         [self.playerView showVipWatchView];
         if (self.playerView.isCanShowVipTipView) {
             [self.playerView showVipTipView];
@@ -522,7 +519,7 @@ __weak UITextField *cacheField;
     if (mUseLocalLiveData) {
         ListVideoModel *model = [ListVideoModel new];
         model.url = LOCAL_LIVE_URL;
-        model.title = LOCAL_LIVE_TITLE;
+        model.title = playerLocalize(@"SuperPlayerDemo.MoviePlayer.testvideo");
         model.coverUrl = LOCAL_LIVE_COVERURL;
         model.type = 1;
         [allList addObject:model];
@@ -704,8 +701,12 @@ __weak UITextField *cacheField;
             }
         }
         
+        if ([m.title containsString:VIP_VIDEO_DEFAULT_CELL_TITLE]) {
+            m.title = playerLocalize(@"SuperPlayerDemo.MoviePlayer.videopreview");
+        }
+        
         if ([m.title containsString:DYNAMIC_WATER_VIDEO_DEFAULT_CELL_TITLE]) {
-            m.title = DYNAMIC_WATER_VIDEO_DEFAULT_CELL_TITLE;
+            m.title = playerLocalize(@"SuperPlayerDemo.MoviePlayer.dynamicwatermarking");
             DynamicWaterModel *model = [[DynamicWaterModel alloc] init];
             model.dynamicWatermarkTip = @"shipinyun";
             model.textFont = 30;
@@ -716,7 +717,7 @@ __weak UITextField *cacheField;
         m.coverUrl = playInfo.coverUrl;
         m.psign = playInfo.pSign;
         if ([m.title containsString:COVER_DEFAULT_DEFAULT_TITLE]) {
-            m.title = COVER_DEFAULT_DEFAULT_TITLE;
+            m.title = playerLocalize(@"SuperPlayerDemo.MoviePlayer.customthumbnail");
             m.playAction = 1;
             m.customCoverUrl = COVER_DEFAULT_URL;
         } else {
@@ -731,10 +732,10 @@ __weak UITextField *cacheField;
     }
     
     if (modelArray.count > 1 && self.isAddLoopVideo) {
-        [modelArray addObject:VIDEO_LOOP_PLAY_DEFAULT_TITLE];
+        [modelArray addObject:playerLocalize(@"SuperPlayerDemo.MoviePlayer.videoplaylist")];
         self.isAddLoopVideo = NO;
     } else if (modelArray.count > 1 && !self.isAddLoopVideo) {
-        [modelArray addObject:VIDEO_OFFLINE_CACHE_DEFAULT_TITLE];
+        [modelArray addObject:playerLocalize(@"SuperPlayerDemo.MoviePlayer.downloadforofflineplayback")];
     }
     
     return modelArray;
@@ -1143,13 +1144,14 @@ __weak UITextField *cacheField;
     ListVideoModel *param;
     if (tableView == self.vodListView) {
         NSArray *modelArray = [_vodDataSourceArray objectAtIndex:row];
-        if (modelArray.count > 1 && [modelArray.lastObject isEqualToString:VIDEO_LOOP_PLAY_DEFAULT_TITLE]) {
+        if (modelArray.count > 1 && [modelArray.lastObject isEqualToString:playerLocalize(@"SuperPlayerDemo.MoviePlayer.videoplaylist")]) {
             param = [ListVideoModel new];
-            param.title = VIDEO_LOOP_PLAY_DEFAULT_TITLE;
+            param.title = playerLocalize(@"SuperPlayerDemo.MoviePlayer.videoplaylist");
             param.coverUrl = VIDEO_LOOP_PLAY_DEFAULT_URL;
-        } else if (modelArray.count > 1 && [modelArray.lastObject isEqualToString:VIDEO_OFFLINE_CACHE_DEFAULT_TITLE]) {
+        } else if (modelArray.count > 1 && [modelArray.lastObject isEqualToString:
+                                            playerLocalize(@"SuperPlayerDemo.MoviePlayer.downloadforofflineplayback")]) {
             param = [ListVideoModel new];
-            param.title = VIDEO_OFFLINE_CACHE_DEFAULT_TITLE;
+            param.title = playerLocalize(@"SuperPlayerDemo.MoviePlayer.downloadforofflineplayback");
             param.coverUrl = VIDEO_OFFLINE_CACHE_DEFAULT_URL;
         } else {
             param = [modelArray firstObject];
@@ -1175,11 +1177,11 @@ __weak UITextField *cacheField;
     self.playerView.isCanShowVipTipView = NO;
     [self.playerView removeVideo];
     if (cell) {
-        if ([[cell getSource].title containsString:VIP_VIDEO_DEFAULT_CELL_TITLE]) {
+        if ([[cell getSource].title containsString:playerLocalize(@"SuperPlayerDemo.MoviePlayer.videopreview")]) {
             [self.playerView showVipTipView];
         }
         
-        if ([[cell getSource].title containsString:VIDEO_LOOP_PLAY_DEFAULT_TITLE]) {
+        if ([[cell getSource].title containsString:playerLocalize(@"SuperPlayerDemo.MoviePlayer.videoplaylist")]) {
             // 模型转换
             NSMutableArray *videoModelArray = self.vodDataSourceArray[indexPath.row];
             
@@ -1191,7 +1193,8 @@ __weak UITextField *cacheField;
             [self.playerView playWithModelList:videoList isLoopPlayList:YES startIndex:0];
             [self->_currentPlayVideoArray removeAllObjects];
             [self->_currentPlayVideoArray addObjectsFromArray:videoList];
-        } else if ([[cell getSource].title containsString:VIDEO_OFFLINE_CACHE_DEFAULT_TITLE]) {
+        } else if ([[cell getSource].title containsString:
+                    playerLocalize(@"SuperPlayerDemo.MoviePlayer.downloadforofflineplayback")]) {
             // 模型转换
             NSMutableArray *videoModelArray = self.vodDataSourceArray[indexPath.row];
             NSMutableArray *videoList = [NSMutableArray array];

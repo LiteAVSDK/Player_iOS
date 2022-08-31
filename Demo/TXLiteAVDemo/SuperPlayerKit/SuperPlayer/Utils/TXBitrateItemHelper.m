@@ -8,6 +8,7 @@
 #import "TXBitrateItemHelper.h"
 #import "TXVodDownloadManager.h"
 #import "TXBitrateItem.h"
+#import "SuperPlayerLocalized.h"
 
 @implementation TXBitrateItemHelper
 
@@ -23,21 +24,8 @@
         }
     }
     
-    NSComparator cmptr = ^(NSNumber *number1, NSNumber *number2) {
-        if (number1.integerValue > number2.integerValue) {
-            return (NSComparisonResult)NSOrderedDescending;
-        }
-
-        if (number1.integerValue < number2.integerValue) {
-            return (NSComparisonResult)NSOrderedAscending;
-        }
-        return (NSComparisonResult)NSOrderedSame;
-    };
-
-    NSArray *result = [minBitrateArray sortedArrayUsingComparator:cmptr];
-    
     NSMutableArray *retArray = [NSMutableArray array];
-    for (NSNumber *bitrateNum in result) {
+    for (NSNumber *bitrateNum in minBitrateArray) {
         NSString *bitrateStr = @"";
         if (bitrateNum.integerValue == 180 || bitrateNum.integerValue == 240) {
             bitrateStr = [NSString stringWithFormat:@"%@（%ldP）",DEFAULT_VIDEO_RESOLUTION_FLU,(long)bitrateNum.integerValue];
@@ -60,11 +48,25 @@
         SuperPlayerUrl *sub = [SuperPlayerUrl new];
         sub.title           = bitrateStr;
         sub.qualityIndex = [self setQualityWithBitrateNum:bitrateNum];
+        sub.birtateIndex = [bitrates objectAtIndex:[minBitrateArray indexOfObject:bitrateNum]].index;
         
         [retArray addObject:sub];
     }
     
-    return retArray;
+    NSComparator cmptr = ^(SuperPlayerUrl *obj1, SuperPlayerUrl *obj2) {
+        if (obj1.birtateIndex > obj2.birtateIndex) {
+            return (NSComparisonResult)NSOrderedDescending;
+        }
+
+        if (obj1.birtateIndex < obj2.birtateIndex) {
+            return (NSComparisonResult)NSOrderedAscending;
+        }
+        return (NSComparisonResult)NSOrderedSame;
+    };
+
+    NSArray *result = [retArray sortedArrayUsingComparator:cmptr];
+    
+    return result;
 }
 
 + (int)setQualityWithBitrateNum:(NSNumber *)bitrateNum {

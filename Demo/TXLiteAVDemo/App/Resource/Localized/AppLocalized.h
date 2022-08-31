@@ -46,4 +46,8 @@ extern NSString *      LoginNetworkLocalize(NSString *key);
 extern NSString *const AppPortal_Localize_TableName;
 extern NSString *      AppPortalLocalize(NSString *key);
 
+#pragma mark - Player
+extern NSString *const Player_Localize_TableName;
+extern NSString *      playerLocalize(NSString *key);
+
 NS_ASSUME_NONNULL_END

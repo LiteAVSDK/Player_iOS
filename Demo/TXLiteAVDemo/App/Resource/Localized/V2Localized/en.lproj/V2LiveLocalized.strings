@@ -215,7 +215,7 @@
 "MLVB.MainMenu.Player" = "Player";
 "MLVB.MainMenu.SuperPlayer" = "Super Player";
 "MLVB.MainMenu.VodPlayer" = "On-demand player";
-"MLVB.MainMenu.shortVideoPlay" = "short Video Play";
+"MLVB.MainMenu.shortVideoPlay" = "Short Video Play";
 "MLVB.MainMenu.FeedVideoPlay" = "Feed Video Play";
 
 "MLVB.MainMenu.Scene" = "Scene";

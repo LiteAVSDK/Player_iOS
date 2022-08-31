@@ -10,6 +10,7 @@
 #import "TXVideoPlayMem.h"
 #import "TXCollectionLayout.h"
 #import "TXVideoCell.h"
+#import "AppLocalized.h"
 #import <Masonry/Masonry.h>
 
 @interface TXVideoListViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,TXCollectionLayoutDelegate>
@@ -143,7 +144,7 @@
 - (UILabel *)titleLabel {
     if (!_titleLabel) {
         _titleLabel = [UILabel new];
-        _titleLabel.text = @"短视频列表";
+        _titleLabel.text = playerLocalize(@"SuperPlayerDemo.ShortVideo.list");
         _titleLabel.font = [UIFont fontWithName:@"PingFangSC" size:16];
         _titleLabel.textColor = [UIColor whiteColor];
         _titleLabel.textAlignment = NSTextAlignmentCenter;

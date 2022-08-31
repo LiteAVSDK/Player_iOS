@@ -26,35 +26,48 @@ Pod::Spec.new do |spec|
     #     s.resource = 'SuperPlayer/Resource/*'
     # end
 #    spec.resource = 'SuperPlayer/Resource/*'
-    
     spec.subspec "Player" do |s|
+        s.exclude_files = 'SuperPlayer/SDKHeaders/**'
         s.source_files = 'SuperPlayer/**/*.{h,m}'
         s.private_header_files = 'SuperPlayer/Utils/TXBitrateItemHelper.h', 'SuperPlayer/Views/SuperPlayerView+Private.h'
 #        s.resource = 'SuperPlayer/Resource/*'
 #如果要使用cocopods管理的TXLiteAVSDK_Player，就不注释这一行
 #        s.dependency 'TXLiteAVSDK_Player', '= 5.3.6001'
 #如果要使用最新的TXLiteAVSDK_Player，就不注释这一行
+        framework_path="../../../SDK/TXLiteAVSDK_Player.framework"
+        s.pod_target_xcconfig={
+            'HEADER_SEARCH_PATHS'=>["$(PODS_TARGET_SRCROOT)/#{framework_path}/Headers"]
+        }
+        s.resource_bundles = {
+              'SuperPlayerKitBundle' => ['SuperPlayer/SuperPlayerLocalized/**/*.strings',]
+        }
     end
     spec.subspec "Professional" do |s|
+        s.exclude_files = 'SuperPlayer/SDKHeaders/**'
         s.source_files = 'SuperPlayer/**/*.{h,m}'
         s.private_header_files = 'SuperPlayer/Utils/TXBitrateItemHelper.h', 'SuperPlayer/Views/SuperPlayerView+Private.h'
 #        s.resource = 'SuperPlayer/Resource/*'
-    end
-    spec.subspec "Enterprise" do |s|
-        s.source_files = 'SuperPlayer/**/*.{h,m}'
-        s.private_header_files = 'SuperPlayer/Utils/TXBitrateItemHelper.h', 'SuperPlayer/Views/SuperPlayerView+Private.h'
-#        s.resource = 'SuperPlayer/Resource/*'
-    end
-    spec.subspec "Smart" do |s|
-        s.source_files = 'SuperPlayer/**/*.{h,m}'
-        s.private_header_files = 'SuperPlayer/Utils/TXBitrateItemHelper.h', 'SuperPlayer/Views/SuperPlayerView+Private.h'
-#        s.resource = 'SuperPlayer/Resource/*'
+        framework_path="../../../SDK/TXLiteAVSDK_Professional.framework"
+        s.pod_target_xcconfig={
+            'HEADER_SEARCH_PATHS'=>["$(PODS_TARGET_SRCROOT)/#{framework_path}/Headers"]
+        }
+        s.resource_bundles = {
+              'SuperPlayerKitBundle' => ['SuperPlayer/SuperPlayerLocalized/**/*.strings',]
+        }
     end
     spec.subspec "UGC" do |s|
+        s.exclude_files = 'SuperPlayer/SDKHeaders/**'
         s.source_files = 'SuperPlayer/**/*.{h,m}'
         s.private_header_files = 'SuperPlayer/Utils/TXBitrateItemHelper.h', 'SuperPlayer/Views/SuperPlayerView+Private.h'
 #        s.resource = 'SuperPlayer/Resource/*'
         # framework_path="Frameworks/TXLiteAVSDK_UGC.framework"
+        framework_path="../../../SDK/TXLiteAVSDK_UGC.framework"
+        s.pod_target_xcconfig={
+            'HEADER_SEARCH_PATHS'=>["$(PODS_TARGET_SRCROOT)/#{framework_path}/Headers"]
+        }
+        s.resource_bundles = {
+              'SuperPlayerKitBundle' => ['SuperPlayer/SuperPlayerLocalized/**/*.strings',]
+        }
     end
 #     spec.subspec "UGC_PITU" do |s|
 #         s.dependency 'SuperPlayer/Core'

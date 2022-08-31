@@ -5,7 +5,7 @@
 //  Created by annidyfeng on 2018/6/25.
 //  Copyright © 2018年 Tencent. All rights reserved.
 //
-#import <Foundation/Foundation.h>
+
 #ifndef J2Obj_h
 #define J2Obj_h
 

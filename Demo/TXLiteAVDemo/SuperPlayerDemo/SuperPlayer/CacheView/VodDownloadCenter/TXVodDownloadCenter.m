@@ -128,4 +128,9 @@
         }
     }];
 }
+
+- (int)hlsKeyVerify:(TXVodDownloadMediaInfo *)mediaInfo url:(NSString *)url data:(NSData *)data {
+    return 0;
+}
+
 @end

@@ -93,7 +93,7 @@
     if (!_promptLabel) {
         _promptLabel = [UILabel new];
         _promptLabel.numberOfLines = 1;
-        _promptLabel.font = [UIFont systemFontOfSize:14];
+        _promptLabel.font = [UIFont systemFontOfSize:12];
         _promptLabel.textColor = [UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:1.0];
         _promptLabel.textAlignment = NSTextAlignmentLeft;
     }
