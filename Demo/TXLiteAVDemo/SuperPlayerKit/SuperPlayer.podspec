@@ -10,7 +10,6 @@ Pod::Spec.new do |spec|
     spec.ios.deployment_target = '8.0'
     spec.requires_arc = true
 
-    spec.dependency 'AFNetworking'
     spec.dependency 'SDWebImage'
     spec.dependency 'Masonry'
     #spec.dependency 'MMLayout'

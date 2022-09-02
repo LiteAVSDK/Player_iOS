@@ -46,6 +46,8 @@
 		91A1D65B2147769500EA9A19 /* SuperPlayerSettingsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 91A1D5C9214673F300EA9A19 /* SuperPlayerSettingsView.m */; };
 		91A1D65C2147769500EA9A19 /* PlayerSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 91A1D5CB214673F300EA9A19 /* PlayerSlider.m */; };
 		91A1D65E2147769500EA9A19 /* SuperPlayerFastView.m in Sources */ = {isa = PBXBuildFile; fileRef = 91A1D5CF214673F300EA9A19 /* SuperPlayerFastView.m */; };
+		ED470D5C28C1C0FD000C2BB8 /* UILabel+Size.m in Sources */ = {isa = PBXBuildFile; fileRef = ED470D5928C1C0FD000C2BB8 /* UILabel+Size.m */; };
+		ED470D5D28C1C0FD000C2BB8 /* SuperPlayerReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = ED470D5B28C1C0FD000C2BB8 /* SuperPlayerReachability.m */; };
 		F222F67123F29F3D002D52B7 /* SPSubStreamInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = F222F67023F29F3D002D52B7 /* SPSubStreamInfo.m */; };
 /* End PBXBuildFile section */
 
@@ -137,6 +139,10 @@
 		91A1D5EB214673F400EA9A19 /* SuperPlayerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SuperPlayerView.m; sourceTree = "<group>"; };
 		91A1D6362147703B00EA9A19 /* libSuperPlayer.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSuperPlayer.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		91A1D6482147749100EA9A19 /* SuperPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SuperPlayer.h; sourceTree = "<group>"; };
+		ED470D5828C1C0FD000C2BB8 /* UILabel+Size.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+Size.h"; sourceTree = "<group>"; };
+		ED470D5928C1C0FD000C2BB8 /* UILabel+Size.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+Size.m"; sourceTree = "<group>"; };
+		ED470D5A28C1C0FD000C2BB8 /* SuperPlayerReachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SuperPlayerReachability.h; sourceTree = "<group>"; };
+		ED470D5B28C1C0FD000C2BB8 /* SuperPlayerReachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SuperPlayerReachability.m; sourceTree = "<group>"; };
 		F222F66F23F29F3D002D52B7 /* SPSubStreamInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPSubStreamInfo.h; sourceTree = "<group>"; };
 		F222F67023F29F3D002D52B7 /* SPSubStreamInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPSubStreamInfo.m; sourceTree = "<group>"; };
 		F296BE7323F4260300E595B1 /* SuperPlayerModelInternal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SuperPlayerModelInternal.h; sourceTree = "<group>"; };
@@ -261,6 +267,10 @@
 		91A1D5D4214673F300EA9A19 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				ED470D5A28C1C0FD000C2BB8 /* SuperPlayerReachability.h */,
+				ED470D5B28C1C0FD000C2BB8 /* SuperPlayerReachability.m */,
+				ED470D5828C1C0FD000C2BB8 /* UILabel+Size.h */,
+				ED470D5928C1C0FD000C2BB8 /* UILabel+Size.m */,
 				917AB0EF21ED836D00D6B041 /* StrUtils.h */,
 				917AB0F021ED836D00D6B041 /* StrUtils.m */,
 				917AB0EE21ED836C00D6B041 /* TXBitrateItemHelper.h */,
@@ -356,12 +366,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				45D5D65223B4A9AC00767C58 /* SuperPlayerUrl.m in Sources */,
+				ED470D5D28C1C0FD000C2BB8 /* SuperPlayerReachability.m in Sources */,
 				919D18F621533DAC00947BF5 /* UIViewController+SuperPlayerRotation.m in Sources */,
 				45D5D65323B4A9AC00767C58 /* SPPlayCGIParseResult.m in Sources */,
 				917AB0FD21ED838400D6B041 /* SPWeiboControlView.m in Sources */,
 				917AB0FC21ED838400D6B041 /* SPDefaultControlView.m in Sources */,
 				917AB0EC21ED833300D6B041 /* SuperPlayerControlView.m in Sources */,
 				F222F67123F29F3D002D52B7 /* SPSubStreamInfo.m in Sources */,
+				ED470D5C28C1C0FD000C2BB8 /* UILabel+Size.m in Sources */,
 				45D5D65523B4A9AC00767C58 /* AdaptiveStream.m in Sources */,
 				917AB0F421ED836D00D6B041 /* StrUtils.m in Sources */,
 				91A1D65E2147769500EA9A19 /* SuperPlayerFastView.m in Sources */,

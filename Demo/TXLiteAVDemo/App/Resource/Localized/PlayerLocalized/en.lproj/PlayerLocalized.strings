@@ -11,6 +11,9 @@
 "SuperPlayerDemo.MoviePlayer.customthumbnail" = "Custom Thumbnails";
 "SuperPlayerDemo.MoviePlayer.videoplaylist" = "Video Playlist";
 "SuperPlayerDemo.MoviePlayer.downloadforofflineplayback" = "Download for Offline Playback";
+"SuperPlayerDemo.MoviePlayer.tencentcloudaudiovideo" = "Tencent Cloud Audio/Video";
+"SuperPlayerDemo.MoviePlayer.simplerandlighter" = "Simpler and Lighter";
+"SuperPlayerDemo.MoviePlayer.whatisdigitization" = "What is Digitization?";
 "SuperPlayerDemo.MoviePlayer.testvideo" = "Test Video";
 "SuperPlayerDemo.MoviePlayer.currentquality" = "Quality:";
 "SuperPlayerDemo.MoviePlayer.viewingcachelist" = "video download list";

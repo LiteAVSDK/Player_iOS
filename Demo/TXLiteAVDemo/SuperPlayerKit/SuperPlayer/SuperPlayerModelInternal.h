@@ -6,7 +6,6 @@
 //  Copyright © 2020 annidy. All rights reserved.
 //
 
-#import "AFNetworking/AFNetworking.h"
 #import "SPPlayCGIParseResult.h"
 #import "SPVideoFrameDescription.h"
 #import "SuperPlayerModel.h"

@@ -10,12 +10,10 @@
 #define SuperPlayerView_Private_h
 #import <MediaPlayer/MediaPlayer.h>
 
-#import "AFNetworking/AFNetworking.h"
-#import "Masonry/Masonry.h"
+#import <Masonry/Masonry.h>
 #import "NetWatcher.h"
 #import "SuperPlayer.h"
 #import "SuperPlayerControlViewDelegate.h"
-//#import "SPResolutionDefination.h"
 #import <AVFoundation/AVFoundation.h>
 
 #import "SPSubStreamInfo.h"

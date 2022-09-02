@@ -701,6 +701,18 @@ __weak UITextField *cacheField;
             }
         }
         
+        if ([m.fileId isEqualToString:@"387702299774251236"]) {
+            m.title = playerLocalize(@"SuperPlayerDemo.MoviePlayer.tencentcloudaudiovideo");
+        }
+        
+        if ([m.fileId isEqualToString:@"387702299774253670"]) {
+            m.title = playerLocalize(@"SuperPlayerDemo.MoviePlayer.simplerandlighter");
+        }
+        
+        if ([m.fileId isEqualToString:@"387702299774574470"]) {
+            m.title = playerLocalize(@"SuperPlayerDemo.MoviePlayer.whatisdigitization");
+        }
+        
         if ([m.title containsString:VIP_VIDEO_DEFAULT_CELL_TITLE]) {
             m.title = playerLocalize(@"SuperPlayerDemo.MoviePlayer.videopreview");
         }

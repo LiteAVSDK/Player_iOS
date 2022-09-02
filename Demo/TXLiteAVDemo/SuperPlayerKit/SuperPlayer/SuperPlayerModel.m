@@ -1,6 +1,5 @@
 #import "SuperPlayerModel.h"
 
-#import "AFNetworking/AFNetworking.h"
 #import "AdaptiveStream.h"
 #import "J2Obj.h"
 #import "SuperPlayer.h"
@@ -81,7 +80,4 @@ const NSInteger kInvalidResponseErrorCode = -100;
     return 0;
 }
 
-@end
-
-@implementation SuperPlayerVideoIdV2
 @end

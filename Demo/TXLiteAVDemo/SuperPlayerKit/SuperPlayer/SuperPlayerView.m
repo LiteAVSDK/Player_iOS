@@ -2,7 +2,7 @@
 
 #import <AVFoundation/AVFoundation.h>
 #import <Photos/Photos.h>
-#import <SDWebImage.h>
+#import <SDWebImage/SDWebImage.h>
 
 #import "DataReport.h"
 #import "J2Obj.h"
@@ -2250,8 +2250,9 @@ TXLiveBaseDelegate,TXLivePlayListener,TXVodPlayListener>
             // 需要关掉菊花
             [self.pipLoadingView stopAnimating];
             self->_hasStartPipLoading = NO;
+            
+            self->_controlView.hidden = YES;
         });
-        
     }
     
     if (pipState == TX_VOD_PLAYER_PIP_STATE_RESTORE_UI) {
@@ -2305,6 +2306,8 @@ TXLiveBaseDelegate,TXLivePlayListener,TXVodPlayListener>
                 [self.pipLoadingView stopAnimating];
                 self->_hasStartPipLoading = NO;
             });
+            
+            self->_controlView.hidden = NO;
         });
     }
 }
