@@ -269,7 +269,7 @@ __weak UITextField *cacheField;
         SuperPlayerModel *playerModel = [[SuperPlayerModel alloc] init];
         playerModel.videoURL          = self.videoURL;
         playerModel.isEnableCache     = NO;
-        [self.playerView playWithModel:playerModel];
+        [self.playerView playWithModelNeedLicence:playerModel];
         [self.playerView.controlView setTitle:LivePlayerLocalize(@"SuperPlayerDemo.MoviePlayer.uploadvideo")];
         [_currentPlayVideoArray removeAllObjects];
         [_currentPlayVideoArray addObject:playerModel];
@@ -448,7 +448,7 @@ __weak UITextField *cacheField;
 
                 if (self.vodDataSourceArray.count == 1 && nil == self.videoURL) {
                     [self.playerView.controlView setTitle:[self.vodDataSourceArray[0] title]];
-                    [self.playerView playWithModel:[self.vodDataSourceArray[0] getPlayerModel]];
+                    [self.playerView playWithModelNeedLicence:[self.vodDataSourceArray[0] getPlayerModel]];
                     [self showControlView:YES];
                     [self->_currentPlayVideoArray removeAllObjects];
                     [self->_currentPlayVideoArray addObject:[self.vodDataSourceArray[0] getPlayerModel]];
@@ -674,7 +674,7 @@ __weak UITextField *cacheField;
     if (_vodDataSourceArray.count == 1 && !self.stopAutoPlayVOD) {
         NSArray *array = [[[self.vodDataSourceArray[0] firstObject] title] componentsSeparatedByString:@"."];
         [self.playerView.controlView setTitle:array.firstObject];
-        [self.playerView playWithModel:[[self.vodDataSourceArray[0] firstObject] getPlayerModel]];
+        [self.playerView playWithModelNeedLicence:[[self.vodDataSourceArray[0] firstObject] getPlayerModel]];
         [self showControlView:YES];
         [self->_currentPlayVideoArray removeAllObjects];
         [self->_currentPlayVideoArray addObject:[[self.vodDataSourceArray[0] firstObject] getPlayerModel]];
@@ -991,6 +991,7 @@ __weak UITextField *cacheField;
             isLive = NO;
         } else {
             model.videoURL = result;
+            isLive = YES;
         }
     } else if ([self _isURLTypeV4vodplayProtocol:result]) {
         //仅支持普通URL传参方式
@@ -1001,6 +1002,7 @@ __weak UITextField *cacheField;
         isLive         = YES;
     } else {
         model.videoURL = result;
+        isLive = NO;
     }
     model.name = [NSString stringWithFormat:@"%@%lu", LivePlayerLocalize(@"SuperPlayerDemo.MoviePlayer.video"), (unsigned long)_vodDataSourceArray.count + 1];
     model.isEnableCache = NO;
@@ -1044,7 +1046,7 @@ __weak UITextField *cacheField;
     self.playerView.isCanShowVipTipView = NO;
     [self.playerView.controlView setTitle:model.name.length > 0 ? model.name : LivePlayerLocalize(@"SuperPlayerDemo.MoviePlayer.newplayvideo")];
     [self.playerView.coverImageView setImage:nil];
-    [self.playerView playWithModel:model];
+    [self.playerView playWithModelNeedLicence:model];
     
     if (model.isEnableCache) {
         [self->_currentPlayVideoArray removeAllObjects];
@@ -1202,7 +1204,7 @@ __weak UITextField *cacheField;
                 ListVideoModel *model = videoModelArray[i];
                 [videoList addObject:[model getPlayerModel]];
             }
-            [self.playerView playWithModelList:videoList isLoopPlayList:YES startIndex:0];
+            [self.playerView playWithModelListNeedLicence:videoList isLoopPlayList:YES startIndex:0];
             [self->_currentPlayVideoArray removeAllObjects];
             [self->_currentPlayVideoArray addObjectsFromArray:videoList];
         } else if ([[cell getSource].title containsString:
@@ -1214,14 +1216,14 @@ __weak UITextField *cacheField;
                 ListVideoModel *model = videoModelArray[i];
                 [videoList addObject:[model getPlayerModel]];
             }
-            [self.playerView playWithModelList:videoList isLoopPlayList:YES startIndex:0];
+            [self.playerView playWithModelListNeedLicence:videoList isLoopPlayList:YES startIndex:0];
             [self->_currentPlayVideoArray removeAllObjects];
             [self->_currentPlayVideoArray addObjectsFromArray:videoList];
             [self setVideoCacheData];
         } else {
             SuperPlayerModel *model = [cell getPlayerModel];
             [self.playerView.controlView setTitle:[cell getSource].title];
-            [self.playerView playWithModel:model];
+            [self.playerView playWithModelNeedLicence:model];
             [self->_currentPlayVideoArray removeAllObjects];
             [self->_currentPlayVideoArray addObject:model];
             if ([cell getSource].isEnableCache) {

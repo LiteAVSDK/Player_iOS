@@ -144,17 +144,21 @@ typedef NS_ENUM(NSInteger, SuperPlayerLayoutStyle) {
 @property NSArray<SPVideoFrameDescription *> *keyFrameDescList;
 /**
  * 播放model
+ * 注意：10.7版本开始，需要通过{@link TXLiveBase#setLicence} 设置 Licence后方可成功播放， 否则将播放失败（黑屏），全局仅设置一次即可。
+ * 直播License、短视频License和视频播放Licence均可使用，若您暂未获取上述Licence，可<a href="https://cloud.tencent.com/act/event/License">快速免费申请Licence</a>以正常播放
+ * 
  */
-- (void)playWithModel:(SuperPlayerModel *)playerModel;
+- (void)playWithModelNeedLicence:(SuperPlayerModel *)playerModel;
 
 /**
  * 播放一组视频
- *
+ * 注意：10.7版本开始，需要通过{@link TXLiveBase#setLicence} 设置 Licence后方可成功播放， 否则将播放失败（黑屏），全局仅设置一次即可。
+ * 直播License、短视频License和视频播放License均可使用，若您暂未获取上述Licence，可<a href="https://cloud.tencent.com/act/event/License">快速免费申请Licence</a>以正常播放
  *  @param playModelList    视频模型数组
  *  @param isLoop    是否循环播放
  *  @param index   起始位置
  */
-- (void)playWithModelList:(NSArray *)playModelList isLoopPlayList:(BOOL)isLoop startIndex:(NSInteger)index;
+- (void)playWithModelListNeedLicence:(NSArray *)playModelList isLoopPlayList:(BOOL)isLoop startIndex:(NSInteger)index;
 
 /**
  * 重置player

@@ -53,7 +53,7 @@
     
     // 开始播放
     if (self.player.isAutoPlay) {
-        [self.player startPlay:url];
+        [self.player startVodPlay:url];
     } else {
         [self resumePlay];
     }
@@ -91,7 +91,7 @@
 }
 
 - (void)startPlayWithUrl:(NSString *)url {
-    [self.player startPlay:url];
+    [self.player startVodPlay:url];
 }
 
 - (BOOL)isPlaying {

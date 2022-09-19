@@ -180,6 +180,12 @@ TXLiveBaseDelegate,TXLivePlayListener,TXVodPlayListener>
     [self reportPlay];
     [self.netWatcher stopWatch];
     [self.volumeView removeFromSuperview];
+    
+    if (_vodPlayer) {
+        [_vodPlayer stopPlay];
+        [_vodPlayer removeVideoWidget];
+        _vodPlayer = nil;
+     }
 }
 
 #pragma mark - 观察者、通知
@@ -213,7 +219,7 @@ TXLiveBaseDelegate,TXLivePlayListener,TXVodPlayListener>
 }
 
 #pragma mark - Public Method
-- (void)playWithModelList:(NSArray *)playModelList isLoopPlayList:(BOOL)isLoop startIndex:(NSInteger)index {
+- (void)playWithModelListNeedLicence:(NSArray *)playModelList isLoopPlayList:(BOOL)isLoop startIndex:(NSInteger)index {
     if (playModelList.count <= 0) {
         return;
     }
@@ -225,7 +231,7 @@ TXLiveBaseDelegate,TXLivePlayListener,TXVodPlayListener>
     [self playModelInList:index];
 }
 
-- (void)playWithModel:(SuperPlayerModel *)playerModel {
+- (void)playWithModelNeedLicence:(SuperPlayerModel *)playerModel {
     LOG_ME;
     _videoModelList = nil;
     _playerModel = playerModel;
@@ -555,6 +561,8 @@ TXLiveBaseDelegate,TXLivePlayListener,TXVodPlayListener>
         liveType = [self livePlayerType];
         if (liveType >= 0) {
             self.isLive = YES;
+        } else {
+            self.isLive = NO;
         }
     } else {
         self.isLive = NO;
@@ -572,7 +580,7 @@ TXLiveBaseDelegate,TXLivePlayListener,TXVodPlayListener>
         }
         [self setLivePlayerConfig];
 
-        [self.livePlayer startPlay:self.playerModel.videoURL type:liveType];
+        [self.livePlayer startLivePlay:self.playerModel.videoURL type:liveType];
         _currentVideoUrl = self.playerModel.videoURL;
         TXCUrl *curl = [[TXCUrl alloc] initWithString:self.playerModel.videoURL];
         [self.livePlayer prepareLiveSeek:self.playerConfig.playShiftDomain bizId:curl.bizid];
@@ -693,7 +701,7 @@ TXLiveBaseDelegate,TXLivePlayListener,TXVodPlayListener>
         [self.controlView setSliderState:YES];
     } else {
         self.spinner.hidden = YES;
-        self.coverImageView.hidden = NO;
+        self.coverImageView.hidden = self.state == StateStopped ? NO : YES;
         self.centerPlayBtn.hidden = NO;
         self.isPauseByUser = YES;
         [self.controlView setPlayState:NO];
@@ -706,7 +714,7 @@ TXLiveBaseDelegate,TXLivePlayListener,TXVodPlayListener>
 - (void)preparePlayWithVideoParams:(TXPlayerAuthParams *)params {
     [self preparePlayVideo];
     if (_playerModel.action == PLAY_ACTION_AUTO_PLAY || _playerModel.action == PLAY_ACTION_PRELOAD) {
-        [self.vodPlayer startPlayWithParams:params];
+        [self.vodPlayer startVodPlayWithParams:params];
     }
 }
 
@@ -714,19 +722,19 @@ TXLiveBaseDelegate,TXLivePlayListener,TXVodPlayListener>
     _currentVideoUrl = videoUrl;
     [self preparePlayVideo];
     if (_playerModel.action == PLAY_ACTION_AUTO_PLAY || _playerModel.action == PLAY_ACTION_PRELOAD) {
-        [self.vodPlayer startPlay:videoUrl];
+        [self.vodPlayer startVodPlay:videoUrl];
     }
 }
 
 - (void)startPlay {
     if (_currentVideoUrl) {
-        [self.vodPlayer startPlay:_currentVideoUrl];
+        [self.vodPlayer startVodPlay:_currentVideoUrl];
     } else {
         TXPlayerAuthParams *params = [[TXPlayerAuthParams alloc] init];
         params.appId = (int)_playerModel.appId;
         params.fileId = _playerModel.videoId.fileId;
         params.sign = _playerModel.videoId.psign;
-        [self.vodPlayer startPlayWithParams:params];
+        [self.vodPlayer startVodPlayWithParams:params];
     }
 }
 
@@ -1741,7 +1749,7 @@ TXLiveBaseDelegate,TXLivePlayListener,TXVodPlayListener>
                 [self.vodPlayer stopPlay];
                 self.state = StateStopped;
                 [self.vodPlayer setStartTime:startTime];
-                [self.vodPlayer startPlay:_currentVideoUrl];
+                [self.vodPlayer startVodPlay:_currentVideoUrl];
                 if (_playerModel.action == PLAY_ACTION_PRELOAD) {
                     [self resume];
                 }
@@ -1775,8 +1783,8 @@ TXLiveBaseDelegate,TXLivePlayListener,TXVodPlayListener>
         if (!self.isLive) self.startTime = [self.vodPlayer currentPlaybackTime];
         self.isShiftPlayback = NO;
         [self configTXPlayer];
+        self.state = StateStopped;
         if (_playerModel.action == PLAY_ACTION_PRELOAD) {
-            self.state = StateStopped;
             [self resume];
         }
         
@@ -1874,7 +1882,7 @@ TXLiveBaseDelegate,TXLivePlayListener,TXVodPlayListener>
     } else {
         if (self.state == StateStopped) {
             [self.vodPlayer setStartTime:dragedSeconds];
-            [self.vodPlayer startPlay:_currentVideoUrl];
+            [self.vodPlayer startVodPlay:_currentVideoUrl];
         } else {
             [self seekToTime:dragedSeconds];
         }

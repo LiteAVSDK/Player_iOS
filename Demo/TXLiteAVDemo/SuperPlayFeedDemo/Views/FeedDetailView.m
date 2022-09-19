@@ -169,7 +169,7 @@ NSString * const FeedDetailVideoCellIdentifier = @"FeedDetailVideoCellIdentifier
         // 先暂停掉正在播放的
         [self.superPlayView pause];
         
-        [self.temPlayView playWithModel:[self setSuperPlayerModel:cell.model]];
+        [self.temPlayView playWithModelNeedLicence:[self setSuperPlayerModel:cell.model]];
         [self.temPlayView.controlView setTitle:cell.model.title];
         [self.temPlayView showOrHideBackBtn:NO];
         

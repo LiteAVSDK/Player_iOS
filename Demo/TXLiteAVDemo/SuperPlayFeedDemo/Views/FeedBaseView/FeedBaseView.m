@@ -113,7 +113,7 @@
     }
     
     self.isPrepare = YES;
-    [self.superPlayView playWithModel:self.playerModel];
+    [self.superPlayView playWithModelNeedLicence:self.playerModel];
 }
 
 - (void)pause {
