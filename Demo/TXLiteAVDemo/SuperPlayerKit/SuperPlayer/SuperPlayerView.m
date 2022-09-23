@@ -185,7 +185,7 @@ TXLiveBaseDelegate,TXLivePlayListener,TXVodPlayListener>
         [_vodPlayer stopPlay];
         [_vodPlayer removeVideoWidget];
         _vodPlayer = nil;
-     }
+    }
 }
 
 #pragma mark - 观察者、通知
@@ -257,7 +257,27 @@ TXLiveBaseDelegate,TXLivePlayListener,TXVodPlayListener>
     _currentVideoUrl = nil;
 
     self.controlView.hidden = YES;
-    [self configTXPlayer];
+
+    NSString *videoURL = playerModel.playingDefinitionUrl;
+    if (videoURL != nil) {
+        [self configTXPlayer];
+    } else if (playerModel.videoId || playerModel.videoIdV2) {
+        self.isLive                    = NO;
+        __weak __typeof(self) weakSelf = self;
+        _currentLoadingTask            = [_playerModel requestWithCompletion:^(NSError *error, SuperPlayerModel *model) {
+            if (error) {
+                [weakSelf _onModelLoadFailed:model error:error];
+            } else {
+                weakSelf.imageSprite      = model.imageSprite;
+                weakSelf.keyFrameDescList = model.keyFrameDescList;
+                [weakSelf _onModelLoadSucceed:model];
+            }
+        }];
+        return;
+    } else {
+        NSLog(@"无播放地址");
+        return;
+    }
 }
 
 - (void)_onModelLoadSucceed:(SuperPlayerModel *)model {
@@ -555,15 +575,9 @@ TXLiveBaseDelegate,TXLivePlayListener,TXVodPlayListener>
 
     self.liveProgressTime = self.maxLiveProgressTime = 0;
     
-    // 如果videoUrl存在，则是直播
-    int liveType = -1;
-    if (self.playerModel.videoURL && self.playerModel.videoURL.length > 0) {
-        liveType = [self livePlayerType];
-        if (liveType >= 0) {
-            self.isLive = YES;
-        } else {
-            self.isLive = NO;
-        }
+    int liveType = [self livePlayerType];
+    if (liveType >= 0) {
+        self.isLive = YES;
     } else {
         self.isLive = NO;
     }
@@ -571,6 +585,7 @@ TXLiveBaseDelegate,TXLivePlayListener,TXVodPlayListener>
     self.isLoaded = NO;
 
     self.netWatcher.playerModel = self.playerModel;
+    NSString *videoURL = self.playerModel.playingDefinitionUrl;
     // 时移
     [TXLiveBase setAppID:[NSString stringWithFormat:@"%ld", _playerModel.appId]];
     if (self.isLive) {
@@ -579,39 +594,23 @@ TXLiveBaseDelegate,TXLivePlayListener,TXVodPlayListener>
             self.livePlayer.delegate = self;
         }
         [self setLivePlayerConfig];
-
-        [self.livePlayer startLivePlay:self.playerModel.videoURL type:liveType];
-        _currentVideoUrl = self.playerModel.videoURL;
-        TXCUrl *curl = [[TXCUrl alloc] initWithString:self.playerModel.videoURL];
+        
+        [self.livePlayer startLivePlay:videoURL type:liveType];
+        TXCUrl *curl = [[TXCUrl alloc] initWithString:videoURL];
         [self.livePlayer prepareLiveSeek:self.playerConfig.playShiftDomain bizId:curl.bizid];
     } else {
         
         [self setVodPlayConfig];
         
-        NSString *videoUrlStr = _playerModel.videoURL;
-        if (videoUrlStr && videoUrlStr.length > 0) {
-            [self preparePlayWithUrl:videoUrlStr];
-        } else {
-            NSArray *multiVideoURLs = _playerModel.multiVideoURLs;
-            if (multiVideoURLs.count > 0 && multiVideoURLs.firstObject) {
-                SuperPlayerUrl *videoUrl = multiVideoURLs.firstObject;
-                if (videoUrl.url && videoUrl.url.length > 0) {
-                    [self preparePlayWithUrl:videoUrl.url];
-                } else {
-                    TXPlayerAuthParams *params = [[TXPlayerAuthParams alloc] init];
-                    params.appId = (int)_playerModel.appId;
-                    params.fileId = _playerModel.videoId.fileId;
-                    params.sign = _playerModel.videoId.psign;
-                    [self preparePlayWithVideoParams:params];
-                }
-            } else {
-                TXPlayerAuthParams *params = [[TXPlayerAuthParams alloc] init];
-                params.appId = (int)_playerModel.appId;
-                params.fileId = _playerModel.videoId.fileId;
-                params.sign = _playerModel.videoId.psign;
-                [self preparePlayWithVideoParams:params];
-            }
-        }
+        NSString *appParameter     = [NSString stringWithFormat:@"spappid=%ld", self.playerModel.appId];
+        NSString *fileidParameter  = [NSString stringWithFormat:@"spfileid=%@", self.playerModel.videoId.fileId];
+        NSString *drmtypeParameter = [NSString stringWithFormat:@"spdrmtype=%@", self.playerModel.drmType == SPDrmTypeSimpleAES ? @"SimpleAES" : @"plain"];
+        NSString *vodParamVideoUrl = [NSString appendParameter:appParameter WithOriginUrl:videoURL];
+        vodParamVideoUrl           = [NSString appendParameter:fileidParameter WithOriginUrl:vodParamVideoUrl];
+        vodParamVideoUrl           = [NSString appendParameter:drmtypeParameter WithOriginUrl:vodParamVideoUrl];
+        
+        [self preparePlayWithVideoUrl:([self isSupportAppendParam] ? vodParamVideoUrl : videoURL)];
+
     }
     [self resetControlViewWithLive:self.isLive shiftPlayback:self.isShiftPlayback isPlaying:self.state == StatePlaying ? YES : NO];
     self.controlView.playerConfig = self.playerConfig;
@@ -680,7 +679,8 @@ TXLiveBaseDelegate,TXLivePlayListener,TXVodPlayListener>
     }];
 }
 
-- (void)preparePlayVideo {
+- (void)preparePlayWithVideoUrl:(NSString *)videoUrl {
+    _currentVideoUrl = videoUrl;
     [self.controlView setProgressTime:0 totalTime:_playerModel.duration progressValue:0 playableValue:0 / _playerModel.duration];
     if (_playerModel.action == PLAY_ACTION_AUTO_PLAY) {
         if (!SuperPlayerWindowShared.isShowing) {
@@ -691,8 +691,10 @@ TXLiveBaseDelegate,TXLivePlayListener,TXVodPlayListener>
         }
         self.isPauseByUser = NO;
         self.centerPlayBtn.hidden = YES;
+        [self startPlayWithUrl:videoUrl];
     } else if (_playerModel.action == PLAY_ACTION_PRELOAD) {
         self.vodPlayer.isAutoPlay = NO;
+        [self startPlayWithUrl:videoUrl];
         self.spinner.hidden = YES;
         self.centerPlayBtn.hidden = NO;
         self.coverImageView.hidden = NO;
@@ -711,33 +713,6 @@ TXLiveBaseDelegate,TXLivePlayListener,TXVodPlayListener>
     }
 }
 
-- (void)preparePlayWithVideoParams:(TXPlayerAuthParams *)params {
-    [self preparePlayVideo];
-    if (_playerModel.action == PLAY_ACTION_AUTO_PLAY || _playerModel.action == PLAY_ACTION_PRELOAD) {
-        [self.vodPlayer startVodPlayWithParams:params];
-    }
-}
-
-- (void)preparePlayWithUrl:(NSString *)videoUrl {
-    _currentVideoUrl = videoUrl;
-    [self preparePlayVideo];
-    if (_playerModel.action == PLAY_ACTION_AUTO_PLAY || _playerModel.action == PLAY_ACTION_PRELOAD) {
-        [self.vodPlayer startVodPlay:videoUrl];
-    }
-}
-
-- (void)startPlay {
-    if (_currentVideoUrl) {
-        [self.vodPlayer startVodPlay:_currentVideoUrl];
-    } else {
-        TXPlayerAuthParams *params = [[TXPlayerAuthParams alloc] init];
-        params.appId = (int)_playerModel.appId;
-        params.fileId = _playerModel.videoId.fileId;
-        params.sign = _playerModel.videoId.psign;
-        [self.vodPlayer startVodPlayWithParams:params];
-    }
-}
-
 - (void)setCoverImage {
     self.coverImageView.hidden = NO;
     NSURL *customUrl = [NSURL URLWithString:_playerModel.customCoverImageUrl];
@@ -747,16 +722,21 @@ TXLiveBaseDelegate,TXLivePlayListener,TXVodPlayListener>
                                     options:SDWebImageAvoidDecodeImage];
 }
 
+- (void)startPlayWithUrl:(NSString *)videoUrl {
+    [self.vodPlayer startVodPlay:videoUrl];
+}
+
 - (void)restart {
     [self.spinner startAnimating];
     self.centerPlayBtn.hidden = YES;
     self.repeatBtn.hidden = YES;
     self.playDidEnd = NO;
     
+    NSString *url = self.playerModel.playingDefinitionUrl;
     if ([self.vodPlayer supportedBitrates].count > 1) {
         [self.vodPlayer resume];
     } else {
-        [self startPlay];
+        [self.vodPlayer startVodPlay:url];
         if (_playerModel.action == PLAY_ACTION_PRELOAD) {
             [self resume];
         }
@@ -777,7 +757,7 @@ TXLiveBaseDelegate,TXLivePlayListener,TXVodPlayListener>
             if (_playerModel.action == PLAY_ACTION_MANUAL_PLAY) {
                 [self showOrHideBackBtn:YES];
             }
-            [self startPlay];
+            [self startPlayWithUrl:_currentVideoUrl];
         } else {
             [self resume];
         }
@@ -1735,9 +1715,10 @@ TXLiveBaseDelegate,TXLivePlayListener,TXVodPlayListener>
     
     if ([self.playerModel.playingDefinition isEqualToString:definition]) return;
     self.playerModel.playingDefinition = definition;
+    NSString *url                      = self.playerModel.playingDefinitionUrl;
     
     if (self.isLive) {
-        [self.livePlayer switchStream:_currentVideoUrl];
+        [self.livePlayer switchStream:url];
         [self showMiddleBtnMsg:[NSString stringWithFormat:@"正在切换到%@...", definition] withAction:ActionNone];
     } else {
         self.controlView.hidden = YES;
@@ -1749,7 +1730,7 @@ TXLiveBaseDelegate,TXLivePlayListener,TXVodPlayListener>
                 [self.vodPlayer stopPlay];
                 self.state = StateStopped;
                 [self.vodPlayer setStartTime:startTime];
-                [self.vodPlayer startVodPlay:_currentVideoUrl];
+                [self.vodPlayer startVodPlay:url];
                 if (_playerModel.action == PLAY_ACTION_PRELOAD) {
                     [self resume];
                 }
@@ -2070,7 +2051,7 @@ TXLiveBaseDelegate,TXLivePlayListener,TXVodPlayListener>
     }
 }
 
--(void) onNetStatus:(TXVodPlayer *)player withParam:(NSDictionary*)param
+- (void)onNetStatus:(TXVodPlayer *)player withParam:(NSDictionary*)param
 {
     NSDictionary *dict = param;
     
@@ -2222,7 +2203,7 @@ TXLiveBaseDelegate,TXLivePlayListener,TXVodPlayListener>
 
 - (int)livePlayerType {
     int              playType   = -1;
-    NSString *       videoURL   = self.playerModel.videoURL;
+    NSString *       videoURL   = self.playerModel.playingDefinitionUrl;
     NSURLComponents *components = [NSURLComponents componentsWithString:videoURL];
     NSString *       scheme     = [[components scheme] lowercaseString];
     if ([scheme isEqualToString:@"rtmp"]) {
