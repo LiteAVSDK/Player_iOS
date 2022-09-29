@@ -473,6 +473,7 @@ NSString * const ResolutionCellIdentifier = @"ResolutionCellIdentifier";
     for (VideoCacheModel *model in self.videoArray) {
         if ((model.appId == mediaInfo.dataSource.appId) && ([model.fileId isEqualToString:mediaInfo.dataSource.fileId])) {
             toastName = model.videoTitle;
+            model.isCache = NO;
             break;
         }
     }

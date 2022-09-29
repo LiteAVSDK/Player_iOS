@@ -6,10 +6,8 @@
 //  Copyright © 2021 Tencent. All rights reserved.
 //
 
-#ifdef ENTERPRISE
-#import <BuglyOA/Bugly.h>
-#import <BuglyOA/BuglyConfig.h>
-#endif
+#import <Bugly/Bugly.h>
+#import <Bugly/BuglyConfig.h>
 
 #ifdef LIVE
 #import "V2TXLivePremier.h"
@@ -19,10 +17,17 @@
 
 #ifdef ENABLE_UGC
 #import "TXUGCBase.h"
+#import "TELicenseCheck.h"
 #endif
 
 #ifdef ENABLE_TRTC
 #import "TRTCCloud.h"
+#endif
+
+#if defined(TRTC) || defined(PROFESSIONAL)
+#import <ToolKitBase/ToolKitBase.h>
+#import <TRTCKit/TRTCKit.h>
+#import "ProfileManager.h"
 #endif
 
 #import "AppLocalized.h"
@@ -38,6 +43,7 @@ static TXConfigManager *_shareInstance = nil;
 
 @property(nonatomic, strong) NSDictionary *config;
 @property(nonatomic, weak) id actionTarget;
+@property(nonatomic, strong) NSMutableArray *routeArray;
 
 @end
 
@@ -47,6 +53,7 @@ static TXConfigManager *_shareInstance = nil;
     static dispatch_once_t predicate;
     dispatch_once(&predicate, ^{
         _shareInstance = [[TXConfigManager alloc] init];
+        _shareInstance.routeArray = [NSMutableArray arrayWithCapacity:2];
     });
     return _shareInstance;
 }
@@ -87,6 +94,10 @@ static TXConfigManager *_shareInstance = nil;
     
 #ifdef SMART
     plistName = @"Smart";
+#endif
+    
+#ifdef WECHATTOOLS
+    plistName = @"WeChatTools";
 #endif
     
     NSString *filePath = [[NSBundle mainBundle] pathForResource:plistName ofType:@"plist"];
@@ -135,14 +146,25 @@ static TXConfigManager *_shareInstance = nil;
     //添加UGC模块的
 #ifdef ENABLE_UGC
     [TXUGCBase setLicenceURL:licenceUrl key:licenceKey];
+    [TELicenseCheck setTELicense:licenceUrl key:licenceKey completion:^(NSInteger authresult, NSString * _Nonnull errorMsg) {
+                   if (authresult == TELicenseCheckOk) {
+                        NSLog(@"鉴权成功");
+                    } else {
+                        NSLog(@"鉴权失败");
+                    }
+            }];
 #endif
-#if !defined(UGC)
-#ifdef LIVE
-    [V2TXLivePremier setLicence:licenceUrl key:licenceKey];
-#else
+    
+#ifdef ENABLE_PLAY
     [TXLiveBase setLicenceURL:licenceUrl key:licenceKey];
 #endif
+    
 #endif
+
+#if defined(PLAYER)
+    NSString *licenceUrl = [self.licenceConfig objectForKey:@"licenceUrl"];
+    NSString *licenceKey = [self.licenceConfig objectForKey:@"licenceKey"];
+    [TXLiveBase setLicenceURL:licenceUrl key:licenceKey];
 #endif
 }
 
@@ -182,18 +204,24 @@ static TXConfigManager *_shareInstance = nil;
     }
 }
 - (void)setupBugly {
-    if (![self isRelease]) {
-        return;
-    }
-    
-#if defined(ENTERPRISE) && !defined(DEBUG)
     // 启动bugly组件，bugly组件为腾讯提供的用于crash上报和分析的开放组件，如果您不需要该组件，可以自行移除
     BuglyConfig *config  = [[BuglyConfig alloc] init];
-    config.version       = [TXAppInfo appVersionWithBuild];
-    config.channel       = @"LiteAV Release";
-    [Bugly startWithAppId:BUGLY_APP_ID config:config];
-    NSLog(@"rtmp demo init crash report");
+    if ([self isRelease]) {
+        // Release版本Channel设置
+        config.channel = @"LiteAV Release";
+    } else {
+#ifdef TRTC_EMBED
+        config.channel = @"LiteAV TRTC_Refactoring"; // 重构打包Chanel设置
+#else
+        config.channel = @"LiteAV Debug"; // 其他模式，内部测试用
 #endif
+    }
+#ifdef DEBUG
+    config.debugMode = YES;
+#endif
+    config.version = [TXAppInfo appVersionWithBuild];
+    [Bugly startWithAppId:BUGLY_APP_ID config:config];
+    
 }
 
 - (NSMutableArray<CellInfo *> *)getMenuConfig {
@@ -213,6 +241,7 @@ static TXConfigManager *_shareInstance = nil;
         for (NSDictionary *subMenu in subMenus) {
             NSString *subTitle = [subMenu objectForKey:@"title"];
             NSString *classStr = [subMenu objectForKey:@"class"];
+            NSString *routeName = [subMenu objectForKey:@"route"];
             bool debug = [subMenu objectForKey:@"debug"];
             if (debug && ![TCUtil getDEBUGSwitch]) {
                 continue;
@@ -226,6 +255,24 @@ static TXConfigManager *_shareInstance = nil;
                 CellInfo *subCellInfo = [CellInfo cellInfoWithTitle:subTitle
                                                 controllerClassName:classStr];
                 [subCells addObject:subCellInfo];
+#if defined(TRTC) || defined(PROFESSIONAL)
+            } else if (routeName.length > 0) {
+                TKBaseRouter *route = [[NSClassFromString(routeName) alloc] initWithNavigation:self.navigation];
+                if (isTrtc) {
+                    NSString *userID = [ProfileManager shared].curUserID;
+                    TRTCUserInfo *userInfo = [[TRTCUserInfo alloc] initWithUserId:userID];
+                    route = [[NSClassFromString(routeName) alloc] initWithNavigation:self.navigation userInfo:userInfo];
+                }
+                [self.routeArray addObject:route];
+                NSArray *entrances = [route entrances];
+                [entrances enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                    TKMainEntrance *entrance = obj;
+                    CellInfo *subCellInfo = [CellInfo cellInfoWithTitle:entrance.title actionBlock:^{
+                        entrance.action();
+                    }];
+                    [subCells addObject:subCellInfo];
+                }];
+#endif
             } else {
                 __weak __typeof(self) weakSelf = self;
                 CellInfo *subCellInfo =

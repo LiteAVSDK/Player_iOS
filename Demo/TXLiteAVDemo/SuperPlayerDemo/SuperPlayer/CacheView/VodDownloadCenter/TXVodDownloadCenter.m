@@ -118,7 +118,7 @@
 }
 /// 下载错误
 - (void)onDownloadError:(TXVodDownloadMediaInfo *)mediaInfo errorCode:(TXDownloadError)code errorMsg:(NSString *)msg {
-    if (self.delegate && [self.delegate respondsToSelector:@selector(onDownloadError:errorCode:errorMsg:)]) {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(onCenterDownloadError:errorCode:errorMsg:)]) {
         [self.delegate onCenterDownloadError:mediaInfo errorCode:code errorMsg:msg];
     }
     
