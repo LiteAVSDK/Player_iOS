@@ -21,7 +21,7 @@ typedef enum : NSInteger {
 //Reachability fully support IPv6.  For full details, see ReadMe.md.
 
 
-extern NSString *kReachabilityChangedNotification;
+extern NSString *kTXSuperPlayerReachabilityChangedNotification;
 
 
 @interface SuperPlayerReachability : NSObject

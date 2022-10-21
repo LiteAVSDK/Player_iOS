@@ -43,9 +43,12 @@
     [self stopWatch];
 
     // 监听网络状态改变的通知
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(networkChanged:) name:kReachabilityChangedNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(networkChanged:)
+                                                 name:kTXSuperPlayerReachabilityChangedNotification
+                                               object:nil];
 
-    // 开始监控网络(一旦网络状态发生改变, 就会发出通知kReachabilityChangedNotification)
+    // 开始监控网络(一旦网络状态发生改变, 就会发出通知kTXSuperPlayerReachabilityChangedNotification)
     [_reachAbility startNotifier];
 
     if (self.definitions.count <= 1) {
@@ -166,6 +169,12 @@
         _reachAbility = [SuperPlayerReachability reachabilityForInternetConnection];
     }
     return _reachAbility;
+}
+
+- (void)dealloc {
+    if (self.reachAbility) {
+        [self.reachAbility stopNotifier];
+    }
 }
 
 @end

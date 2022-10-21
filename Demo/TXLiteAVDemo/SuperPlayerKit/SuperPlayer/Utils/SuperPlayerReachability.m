@@ -20,7 +20,7 @@
 //Reachability fully support IPv6.  For full details, see ReadMe.md.
 
 
-NSString *kReachabilityChangedNotification = @"Super_Player_NetworkReachabilityChangedNotification";
+NSString *kTXSuperPlayerReachabilityChangedNotification = @"SuperPlayerNetworkReachabilityChangedNotification";
 
 
 #pragma mark - Supporting functions
@@ -56,7 +56,7 @@ static void reachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 
     SuperPlayerReachability* noteObject = (__bridge SuperPlayerReachability *)info;
     // Post a notification to notify the client that the network reachability changed.
-    [[NSNotificationCenter defaultCenter] postNotificationName: kReachabilityChangedNotification object: noteObject];
+    [[NSNotificationCenter defaultCenter] postNotificationName: kTXSuperPlayerReachabilityChangedNotification object: noteObject];
 }
 
 
