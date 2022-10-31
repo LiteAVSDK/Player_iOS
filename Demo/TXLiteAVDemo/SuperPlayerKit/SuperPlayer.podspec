@@ -12,7 +12,6 @@ Pod::Spec.new do |spec|
 
     spec.dependency 'SDWebImage'
     spec.dependency 'Masonry'
-    spec.dependency 'AFNetworking'
     #spec.dependency 'MMLayout'
 
     spec.static_framework = true
@@ -35,6 +34,22 @@ Pod::Spec.new do |spec|
 #        s.dependency 'TXLiteAVSDK_Player', '= 5.3.6001'
 #如果要使用最新的TXLiteAVSDK_Player，就不注释这一行
         framework_path="../../../SDK/TXLiteAVSDK_Player.framework"
+        s.pod_target_xcconfig={
+            'HEADER_SEARCH_PATHS'=>["$(PODS_TARGET_SRCROOT)/#{framework_path}/Headers"]
+        }
+        s.resource_bundles = {
+              'SuperPlayerKitBundle' => ['SuperPlayer/SuperPlayerLocalized/**/*.strings',]
+        }
+    end
+    spec.subspec "Player_Premium" do |s|
+        s.exclude_files = 'SuperPlayer/SDKHeaders/**'
+        s.source_files = 'SuperPlayer/**/*.{h,m}'
+        s.private_header_files = 'SuperPlayer/Utils/TXBitrateItemHelper.h', 'SuperPlayer/Views/SuperPlayerView+Private.h'
+#        s.resource = 'SuperPlayer/Resource/*'
+#如果要使用cocopods管理的TXLiteAVSDK_Player，就不注释这一行
+#        s.dependency 'TXLiteAVSDK_Player', '= 5.3.6001'
+#如果要使用最新的TXLiteAVSDK_Player，就不注释这一行
+        framework_path="../../../SDK/TXLiteAVSDK_Player_Premium.framework"
         s.pod_target_xcconfig={
             'HEADER_SEARCH_PATHS'=>["$(PODS_TARGET_SRCROOT)/#{framework_path}/Headers"]
         }

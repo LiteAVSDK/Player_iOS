@@ -133,9 +133,11 @@
                                   fileId:obj.fileId
                                    psign:obj.pSign
                               completion:^(NSMutableDictionary * _Nonnull dic, NSError * _Nonnull error) {
-                obj.videoURL = [dic objectForKey:@"videoUrl"];
-                obj.multiVideoURLs = [dic objectForKey:@"multiVideoURLs"];
-                dispatch_group_leave(downloadVideoGroup);
+                if (!error) {
+                    obj.videoURL = [dic objectForKey:@"videoUrl"];
+                    obj.multiVideoURLs = [dic objectForKey:@"multiVideoURLs"];
+                    dispatch_group_leave(downloadVideoGroup);
+                }
             }];
         }];
         

@@ -256,8 +256,10 @@ NSString * const VideoCacheListCellIdentifier = @"VideoCacheListCellIdentifier";
 
 - (void)clickScan {
     self.scanVC = [[ScanQRController alloc] init];
+    self.scanVC.modalPresentationStyle = UIModalPresentationFullScreen;
     self.scanVC.delegate = self;
-    [self addSubview:self.scanVC.view];
+    UIViewController *currentVC = [self currentViewController];
+    [currentVC presentViewController:self.scanVC animated:NO completion:nil];
 }
 
 - (void)longPress:(UILongPressGestureRecognizer *)longPress {
@@ -423,6 +425,7 @@ NSString * const VideoCacheListCellIdentifier = @"VideoCacheListCellIdentifier";
 }
 
 - (void)cancelScanQR {
+    [self.scanVC dismissViewControllerAnimated:NO completion:nil];
     self.scanVC = nil;
 }
 

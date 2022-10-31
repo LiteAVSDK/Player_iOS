@@ -48,15 +48,9 @@ static void printReachabilityFlags(SCNetworkReachabilityFlags flags, const char*
 }
 
 
-static void reachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReachabilityFlags flags, void* info)
+static void txSuperPlayerReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReachabilityFlags flags, void *info)
 {
-#pragma unused (target, flags)
-    NSCAssert(info != NULL, @"info was NULL in ReachabilityCallback");
-    NSCAssert([(__bridge NSObject*) info isKindOfClass: [SuperPlayerReachability class]], @"info was wrong class in ReachabilityCallback");
-
-    SuperPlayerReachability* noteObject = (__bridge SuperPlayerReachability *)info;
-    // Post a notification to notify the client that the network reachability changed.
-    [[NSNotificationCenter defaultCenter] postNotificationName: kTXSuperPlayerReachabilityChangedNotification object: noteObject];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kTXSuperPlayerReachabilityChangedNotification object:nil];
 }
 
 
@@ -128,9 +122,7 @@ static void reachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 - (BOOL)startNotifier
 {
     BOOL returnValue = NO;
-    SCNetworkReachabilityContext context = {0, (__bridge void *)(self), NULL, NULL, NULL};
-
-    if (SCNetworkReachabilitySetCallback(_reachabilityRef, reachabilityCallback, &context))
+    if (SCNetworkReachabilitySetCallback(_reachabilityRef, txSuperPlayerReachabilityCallback, NULL))
     {
         if (SCNetworkReachabilityScheduleWithRunLoop(_reachabilityRef, CFRunLoopGetCurrent(), kCFRunLoopDefaultMode))
         {
