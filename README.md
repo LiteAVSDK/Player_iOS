@@ -36,7 +36,7 @@
 
 - 如果您追求最小化体积增量，可以下载 Player 版：[TXLiteAVSDK_Player.zip](https://cloud.tencent.com/document/product/881/20205)
 - 如果您需要使用多个功能而不希望打包多个 SDK，可以下载专业版：[TXLiteAVSDK_Professional.zip](https://cloud.tencent.com/document/product/647/32689#Professional)
-- 如果您已经通过腾讯云商务购买了企业版License，可以下载企业版：[TXLiteAVSDK_Enterprise.zip](https://cloud.tencent.com/document/product/647/32689#Enterprise)【注意：企业版已停止对外维护，仅供已购买客户使用。如果您需要使用高级美颜特效等功能，可通过集成腾讯特效SDK来实现：https://cloud.tencent.com/document/product/616/11209】
+- 如果您已经通过腾讯云商务购买了企业版License，可以下载企业版：[TXLiteAVSDK_Enterprise.zip](https://cloud.tencent.com/document/product/647/32689#Enterprise)【注意：企业版已停止对外维护，仅供已购买客户使用。如果您需要使用高级美颜特效等功能，可通过集成[腾讯特效SDK](https://cloud.tencent.com/document/product/616/11209)来实现】
 
 ## 相关文档链接
 
