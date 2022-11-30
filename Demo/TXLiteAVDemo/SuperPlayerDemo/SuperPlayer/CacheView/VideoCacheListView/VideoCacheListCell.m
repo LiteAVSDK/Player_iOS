@@ -209,10 +209,7 @@ static NSDictionary *gQualityDic;
 
 - (SuperPlayerModel *)getSuperPlayModel {
     SuperPlayerModel *playModel = [[SuperPlayerModel alloc] init];
-    
-    
-    
-    if (self.mediaInfo.playPath.length > 0 && self.mediaInfo.downloadState == 4) {
+    if (self.mediaInfo.playPath.length > 0 && self.mediaInfo.downloadState == TXVodDownloadMediaInfoStateFinish) {
         SuperPlayerUrl *playerUrl = [[SuperPlayerUrl alloc] init];
         [gQualityDic enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
             if ([obj integerValue] == self.mediaInfo.dataSource.quality) {

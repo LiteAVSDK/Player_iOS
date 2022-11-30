@@ -1,4 +1,6 @@
 # Uncomment the next line to define a global platform for your project
+
+source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '9.0'
 
 def tx_im
@@ -25,7 +27,7 @@ def common_pods_all
   pod 'AFNetworking'
   pod 'BlocksKit', '~> 2.2.5'
   pod 'CWStatusBarNotification', '~> 2.3.5'
-  pod 'TXLiteAVSDK_Player', '~> 10.7.11934'
+  pod 'TXLiteAVSDK_Player', '~> 10.8.12025'
 end
 
 def common_pods_smart

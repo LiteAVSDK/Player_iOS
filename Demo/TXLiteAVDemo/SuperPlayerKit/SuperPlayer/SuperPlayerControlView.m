@@ -5,6 +5,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         _compact = YES;
+        _enableFadeAction = YES;
     }
     return self;
 }

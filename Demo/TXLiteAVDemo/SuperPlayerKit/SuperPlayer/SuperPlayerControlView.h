@@ -15,7 +15,11 @@
 #import "SuperPlayerSettingsView.h"
 #import "SuperPlayerViewConfig.h"
 
-@interface                        SuperPlayerControlView : UIView
+@interface SuperPlayerControlView : UIView
+
+/**
+ * 竖向/横向约束标志位
+ */
 @property(assign, nonatomic) BOOL compact;
 /**
  * 点播放试看时间范围 0.0 - 1.0
@@ -23,6 +27,34 @@
  * 用于试看场景，防止进度条拖动超过试看时长
  */
 @property(assign, nonatomic) float maxPlayableRatio;
+/**
+ * 标题
+ */
+@property (nonatomic, copy) NSString *title;
+/**
+ * 打点信息
+ */
+@property (nonatomic, strong) NSArray<SPVideoFrameDescription *> *pointArray;
+/**
+ * 是否在拖动进度
+ */
+@property (nonatomic, assign) BOOL isDragging;
+/**
+ * 是否显示二级菜单
+ */
+@property (nonatomic, assign) BOOL isShowSecondView;
+/**
+ * 是否允许控件响应点击的 FadeShow/ FadeOut事件，默认为YES
+ */
+@property (nonatomic, assign) BOOL enableFadeAction;
+/**
+ * 回调delegate
+ */
+@property (nonatomic, weak) id<SuperPlayerControlViewDelegate> delegate;
+/**
+ *  播放配置
+ */
+@property (nonatomic, strong) SuperPlayerViewConfig *playerConfig;
 /**
  * 播放进度
  * @param currentTime 当前播放时长
@@ -88,20 +120,14 @@
                   isTimeShifting:(BOOL)isTimeShifting
                        isPlaying:(BOOL)isPlaying;
 
-/// 标题
-@property NSString *title;
-/// 打点信息
-@property NSArray<SPVideoFrameDescription *> *pointArray;
-/// 是否在拖动进度
-@property BOOL isDragging;
-/// 是否显示二级菜单
-@property BOOL isShowSecondView;
-/// 回调delegate
-@property(nonatomic, weak) id<SuperPlayerControlViewDelegate> delegate;
-/// 播放配置
-@property SuperPlayerViewConfig *playerConfig;
-
+/**
+ *  设置竖直方向的约束
+ */
 - (void)setOrientationPortraitConstraint;
+
+/**
+ *  设置横屏方向的约束
+ */
 - (void)setOrientationLandscapeConstraint;
 
 @end

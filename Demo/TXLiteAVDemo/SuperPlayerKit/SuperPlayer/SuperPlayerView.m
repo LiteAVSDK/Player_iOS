@@ -332,10 +332,13 @@ TXLiveBaseDelegate,TXLivePlayListener,TXVodPlayListener>
     [self.controlView setPlayState:YES];
     self.isPauseByUser = NO;
     self.centerPlayBtn.hidden = YES;
-    [self.controlView setSliderState:YES];
-    [self.controlView setTopViewState:YES];
-    if (_playerModel.action == PLAY_ACTION_MANUAL_PLAY) {
-        [self showOrHideBackBtn:YES];
+    
+    if (self.controlView.enableFadeAction) {
+        [self.controlView setSliderState:YES];
+        [self.controlView setTopViewState:YES];
+        if (_playerModel.action == PLAY_ACTION_MANUAL_PLAY) {
+            [self showOrHideBackBtn:YES];
+        }
     }
     
     if (self.isLive) {
@@ -371,7 +374,9 @@ TXLiveBaseDelegate,TXLivePlayListener,TXVodPlayListener>
     if (!self.isLoaded) return;
     if (self.playDidEnd) return;
     self.repeatBtn.hidden     = YES;
-    [[self.controlView fadeShow] fadeOut:1];
+    if (self.controlView.enableFadeAction) {
+        [[self.controlView fadeShow] fadeOut:1];
+    }
     [self.controlView setPlayState:NO];
     self.isPauseByUser = YES;
     self.state         = StatePause;
@@ -545,11 +550,6 @@ TXLiveBaseDelegate,TXLivePlayListener,TXVodPlayListener>
     [self.livePlayer stopPlay];
     [self.vodPlayer removeVideoWidget];
     [self.livePlayer removeVideoWidget];
-    
-    if (_hasStartPip) {
-        [self.vodPlayer exitPictureInPicture];
-    }
-
     _hasStartPip = NO;
     _vodPlayer = nil;
 
@@ -687,7 +687,9 @@ TXLiveBaseDelegate,TXLivePlayListener,TXVodPlayListener>
             [self.controlView setPlayState:YES];
             [self.controlView setSliderState:YES];
         } else {
-            [self.controlView fadeOut:0.2];
+            if (self.controlView.enableFadeAction) {
+                [self.controlView fadeOut:0.2];
+            }
         }
         self.isPauseByUser = NO;
         self.centerPlayBtn.hidden = YES;
@@ -906,6 +908,23 @@ TXLiveBaseDelegate,TXLivePlayListener,TXVodPlayListener>
     }
 }
 
+- (NSArray<NSURL *> *)convertImageSpriteList:(NSArray<NSString *> *)imageSpriteList
+{
+    if (!imageSpriteList) {
+        return nil;
+    }
+    
+    NSMutableArray<NSURL *> *imageSpriteURLs = [NSMutableArray array];
+    for (NSString *imageSpriteStr in imageSpriteList) {
+        NSURL *imageSpriteURL = [NSURL URLWithString:imageSpriteStr];
+        if (imageSpriteURL) {
+            [imageSpriteURLs addObject:imageSpriteURL];
+        }
+    }
+    
+    return [imageSpriteURLs copy];
+}
+
 #pragma mark - KVO
 
 /**
@@ -1076,10 +1095,12 @@ TXLiveBaseDelegate,TXLivePlayListener,TXVodPlayListener>
             [self.delegate singleTapClick];
         }
 
-        if (self.controlView.hidden) {
-            [[self.controlView fadeShow] fadeOut:5];
-        } else {
-            [self.controlView fadeOut:0.2];
+        if (self.controlView.enableFadeAction) {
+            if (self.controlView.hidden) {
+                [[self.controlView fadeShow] fadeOut:5];
+            } else {
+                [self.controlView fadeOut:0.2];
+            }
         }
         
         if (self.isFullScreen) {
@@ -1097,7 +1118,9 @@ TXLiveBaseDelegate,TXLivePlayListener,TXVodPlayListener>
  */
 - (void)doubleTapAction:(UIGestureRecognizer *)gesture {
     // 显示控制层
-    [self.controlView fadeShow];
+    if (self.controlView.enableFadeAction) {
+        [self.controlView fadeShow];
+    }
     
     if (self.playDidEnd) {
         [self.vodPlayer stopPlay];
@@ -1653,6 +1676,16 @@ TXLiveBaseDelegate,TXLivePlayListener,TXVodPlayListener>
 + (UISlider *)volumeViewSlider {
     return _volumeSlider;
 }
+
+- (TXImageSprite *)imageSprite
+{
+    if (!_imageSprite) {
+        _imageSprite = [[TXImageSprite alloc] init];
+    }
+    
+    return _imageSprite;
+}
+
 #pragma mark - SuperPlayerControlViewDelegate
 
 - (void)controlViewPlay:(SuperPlayerControlView *)controlView {
@@ -2063,7 +2096,11 @@ TXLiveBaseDelegate,TXLivePlayListener,TXVodPlayListener>
                 self.videoRatio = (GLfloat)player.width / player.height;
             }
         } else if (EvtID == PLAY_EVT_GET_PLAYINFO_SUCC) {
-            self->_currentVideoUrl = [param objectForKey:@"EVT_PLAY_URL"];
+            self->_currentVideoUrl = [param objectForKey:VOD_PLAY_EVENT_PLAY_URL];
+            NSString *imageSpriteVtt = [param objectForKey:VOD_PLAY_EVENT_IMAGESPRIT_WEBVTTURL]?:@"";
+            NSArray<NSString *> *imageSpriteList = [param objectForKey:VOD_PLAY_EVENT_IMAGESPRIT_IMAGEURL_LIST];
+            NSArray<NSURL *> *imageURLs = [self convertImageSpriteList:imageSpriteList];
+            [self.imageSprite setVTTUrl:[NSURL URLWithString:imageSpriteVtt] imageUrls:imageURLs];
         }
         
         [self onVodPlayEvent:player event:EvtID withParam:param];

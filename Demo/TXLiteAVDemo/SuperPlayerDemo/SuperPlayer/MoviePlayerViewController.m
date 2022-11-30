@@ -1319,12 +1319,16 @@ __weak UITextField *cacheField;
     [self.vodBtn setSelected:YES];
     [self.liveBtn setSelected:NO];
     [self.scrollView scrollRectToVisible:CGRectMake(0, 0, ScreenWidth, self.scrollView.mm_h) animated:YES];
+    [self showControlView:YES];
+    [self.playerView.controlView setEnableFadeAction:YES];
 }
 
 - (void)clickLiveList:(id)sender {
     [self.vodBtn setSelected:NO];
     [self.liveBtn setSelected:YES];
     [self.scrollView scrollRectToVisible:CGRectMake(ScreenWidth, 0, ScreenWidth, self.scrollView.mm_h) animated:YES];
+    [self showControlView:NO];
+    [self.playerView.controlView setEnableFadeAction:NO];
 }
 
 #pragma mark - 弹幕

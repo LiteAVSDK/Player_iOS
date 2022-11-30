@@ -93,27 +93,27 @@ typedef NS_ENUM(NSInteger, SuperPlayerLayoutStyle) {
 /// 是否锁定旋转
 @property(nonatomic, assign) BOOL isLockScreen;
 /// 是否是直播流
-@property(readonly) BOOL isLive;
+@property(nonatomic, assign, readonly) BOOL isLive;
 /// 是否自动播放（在playWithModel前设置)
-@property BOOL autoPlay;
+@property(nonatomic, assign) BOOL autoPlay;
 /// 超级播放器控制层
-@property(nonatomic) SuperPlayerControlView *controlView;
+@property(nonatomic, strong) SuperPlayerControlView *controlView;
 /// 是否允许竖屏手势
-@property(nonatomic) BOOL disableGesture;
+@property(nonatomic, assign) BOOL disableGesture;
 /// 是否在手势中
-@property(readonly) BOOL isDragging;
+@property(nonatomic, assign, readonly) BOOL isDragging;
 /// 是否加载成功
-@property(readonly) BOOL isLoaded;
+@property(nonatomic, assign, readonly) BOOL isLoaded;
 /// 是否允许音量按钮控制，默认是不允许
 @property(nonatomic, assign) BOOL disableVolumControl;
 /// 封面图片
-@property(nonatomic) UIImageView *coverImageView;
+@property(nonatomic, strong) UIImageView *coverImageView;
 /// 设置vipTipView
-@property(nonatomic) TXVipTipView *vipTipView;
+@property(nonatomic, strong) TXVipTipView *vipTipView;
 /// 设置vipWatchView
-@property(nonatomic) TXVipWatchView *vipWatchView;
+@property(nonatomic, strong) TXVipWatchView *vipWatchView;
 /// 设置vip试看的model
-@property(nonatomic) TXVipWatchModel *vipWatchModel;
+@property(nonatomic, strong) TXVipWatchModel *vipWatchModel;
 /// 设置vip试看的model
 @property(nonatomic, assign) BOOL isCanShowVipTipView;
 /// 重播按钮
@@ -123,25 +123,25 @@ typedef NS_ENUM(NSInteger, SuperPlayerLayoutStyle) {
 /// 全屏退出
 @property(nonatomic, strong) UIButton *repeatBackBtn;
 /// 视频总时长
-@property(nonatomic) CGFloat playDuration;
+@property(nonatomic, assign) CGFloat playDuration;
 /// 视频当前播放时间
-@property(nonatomic) CGFloat playCurrentTime;
+@property(nonatomic, assign) CGFloat playCurrentTime;
 /// 起始播放时间，用于从上次位置开播
-@property CGFloat startTime;
+@property(nonatomic, assign) CGFloat startTime;
 /// 播放的视频Model
-@property(readonly) SuperPlayerModel *playerModel;
+@property(nonatomic, strong, readonly) SuperPlayerModel *playerModel;
 /// 播放器配置
-@property SuperPlayerViewConfig *playerConfig;
+@property(nonatomic, strong) SuperPlayerViewConfig *playerConfig;
 /// 循环播放
-@property(nonatomic) BOOL loop;
+@property(nonatomic, assign) BOOL loop;
 /**
  * 视频雪碧图
  */
-@property TXImageSprite *imageSprite;
+@property(nonatomic, strong) TXImageSprite *imageSprite;
 /**
  * 打点信息
  */
-@property NSArray<SPVideoFrameDescription *> *keyFrameDescList;
+@property(nonatomic, strong) NSArray<SPVideoFrameDescription *> *keyFrameDescList;
 /**
  * 播放model
  * 注意：10.7版本开始，需要通过{@link TXLiveBase#setLicence} 设置 Licence后方可成功播放， 否则将播放失败（黑屏），全局仅设置一次即可。
