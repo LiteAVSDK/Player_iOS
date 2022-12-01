@@ -37,9 +37,9 @@ Pod::Spec.new do |spec|
         s.pod_target_xcconfig={
             'HEADER_SEARCH_PATHS'=>["$(PODS_TARGET_SRCROOT)/#{framework_path}/Headers"]
         }
-        s.resource_bundles = {
-              'SuperPlayerKitBundle' => ['SuperPlayer/SuperPlayerLocalized/**/*.strings',]
-        }
+#        s.resource_bundles = {
+#              'SuperPlayerKitBundle' => ['SuperPlayer/SuperPlayerLocalized/**/*.strings',]
+#        }
     end
     spec.subspec "Player_Premium" do |s|
         s.exclude_files = 'SuperPlayer/SDKHeaders/**'
@@ -53,9 +53,9 @@ Pod::Spec.new do |spec|
         s.pod_target_xcconfig={
             'HEADER_SEARCH_PATHS'=>["$(PODS_TARGET_SRCROOT)/#{framework_path}/Headers"]
         }
-        s.resource_bundles = {
-              'SuperPlayerKitBundle' => ['SuperPlayer/SuperPlayerLocalized/**/*.strings',]
-        }
+#        s.resource_bundles = {
+#              'SuperPlayerKitBundle' => ['SuperPlayer/SuperPlayerLocalized/**/*.strings',]
+#        }
     end
     spec.subspec "Professional" do |s|
         s.exclude_files = 'SuperPlayer/SDKHeaders/**'
@@ -66,9 +66,9 @@ Pod::Spec.new do |spec|
         s.pod_target_xcconfig={
             'HEADER_SEARCH_PATHS'=>["$(PODS_TARGET_SRCROOT)/#{framework_path}/Headers"]
         }
-        s.resource_bundles = {
-              'SuperPlayerKitBundle' => ['SuperPlayer/SuperPlayerLocalized/**/*.strings',]
-        }
+#        s.resource_bundles = {
+#              'SuperPlayerKitBundle' => ['SuperPlayer/SuperPlayerLocalized/**/*.strings',]
+#        }
     end
     spec.subspec "UGC" do |s|
         s.exclude_files = 'SuperPlayer/SDKHeaders/**'
@@ -80,9 +80,9 @@ Pod::Spec.new do |spec|
         s.pod_target_xcconfig={
             'HEADER_SEARCH_PATHS'=>["$(PODS_TARGET_SRCROOT)/#{framework_path}/Headers"]
         }
-        s.resource_bundles = {
-              'SuperPlayerKitBundle' => ['SuperPlayer/SuperPlayerLocalized/**/*.strings',]
-        }
+#        s.resource_bundles = {
+#              'SuperPlayerKitBundle' => ['SuperPlayer/SuperPlayerLocalized/**/*.strings',]
+#        }
     end
 #     spec.subspec "UGC_PITU" do |s|
 #         s.dependency 'SuperPlayer/Core'

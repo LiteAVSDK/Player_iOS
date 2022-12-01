@@ -154,8 +154,6 @@
 		ED50C7C429376FAF0061D8DD /* TXVipTipView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TXVipTipView.m; sourceTree = "<group>"; };
 		ED50C7C929376FCE0061D8DD /* SuperPlayerLocalized.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SuperPlayerLocalized.h; sourceTree = "<group>"; };
 		ED50C7CA29376FCE0061D8DD /* SuperPlayerLocalized.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SuperPlayerLocalized.m; sourceTree = "<group>"; };
-		ED50C7CE29376FDF0061D8DD /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/SuperPlayerLocalized.strings"; sourceTree = "<group>"; };
-		ED50C7CF29376FDF0061D8DD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/SuperPlayerLocalized.strings; sourceTree = "<group>"; };
 		F222F66F23F29F3D002D52B7 /* SPSubStreamInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPSubStreamInfo.h; sourceTree = "<group>"; };
 		F222F67023F29F3D002D52B7 /* SPSubStreamInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPSubStreamInfo.m; sourceTree = "<group>"; };
 		F296BE7323F4260300E595B1 /* SuperPlayerModelInternal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SuperPlayerModelInternal.h; sourceTree = "<group>"; };
@@ -235,7 +233,6 @@
 				F296BE7323F4260300E595B1 /* SuperPlayerModelInternal.h */,
 				91A1D5E9214673F400EA9A19 /* SuperPlayerControlViewDelegate.h */,
 				ED50C7C829376FCE0061D8DD /* Localized */,
-				ED50C7CC29376FDF0061D8DD /* SuperPlayerLocalized */,
 				45D5D64323B4A9AC00767C58 /* Model */,
 				917AB0F721ED838400D6B041 /* Skins */,
 				91A1D5E2214673F300EA9A19 /* Category */,
@@ -346,14 +343,6 @@
 			path = Localized;
 			sourceTree = "<group>";
 		};
-		ED50C7CC29376FDF0061D8DD /* SuperPlayerLocalized */ = {
-			isa = PBXGroup;
-			children = (
-				ED50C7CD29376FDF0061D8DD /* SuperPlayerLocalized.strings */,
-			);
-			path = SuperPlayerLocalized;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -451,18 +440,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXVariantGroup section */
-		ED50C7CD29376FDF0061D8DD /* SuperPlayerLocalized.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				ED50C7CE29376FDF0061D8DD /* zh-Hans */,
-				ED50C7CF29376FDF0061D8DD /* en */,
-			);
-			name = SuperPlayerLocalized.strings;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		91A1D5B32146719900EA9A19 /* Debug */ = {

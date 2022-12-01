@@ -110,6 +110,7 @@
 		D6BEF8222040368000CBE2BD /* ListVideoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D6BEF7242040353E00CBE2BD /* ListVideoCell.m */; };
 		D6BEF8232040368000CBE2BD /* MoviePlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6BEF7262040353E00CBE2BD /* MoviePlayerViewController.m */; };
 		ED125AE628BF7D3100F8C9D9 /* PlayerLocalized.strings in Resources */ = {isa = PBXBuildFile; fileRef = ED125AE328BF7D3000F8C9D9 /* PlayerLocalized.strings */; };
+		ED59415E2938C908006FFA17 /* SuperPlayerKitBundle.bundle in Resources */ = {isa = PBXBuildFile; fileRef = ED59415D2938C908006FFA17 /* SuperPlayerKitBundle.bundle */; };
 		EDA70D95288E74FB00A9E10B /* FeedRequestUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = EDA70D93288E74FB00A9E10B /* FeedRequestUtil.m */; };
 		EDC1B2B92847C9A60077A920 /* VideoCacheModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EDC1B2A32847C9A60077A920 /* VideoCacheModel.m */; };
 		EDC1B2BA2847C9A60077A920 /* TXVodDownloadCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = EDC1B2A72847C9A60077A920 /* TXVodDownloadCenter.m */; };
@@ -383,6 +384,7 @@
 		D6E5D1C020B7B61F00812B2F /* ReplayKit2Define.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReplayKit2Define.h; sourceTree = "<group>"; };
 		ED125AE428BF7D3000F8C9D9 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/PlayerLocalized.strings"; sourceTree = "<group>"; };
 		ED125AE528BF7D3100F8C9D9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/PlayerLocalized.strings; sourceTree = "<group>"; };
+		ED59415D2938C908006FFA17 /* SuperPlayerKitBundle.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = SuperPlayerKitBundle.bundle; path = SuperPlayer/Resource/SuperPlayerKitBundle.bundle; sourceTree = "<group>"; };
 		EDA70D93288E74FB00A9E10B /* FeedRequestUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedRequestUtil.m; sourceTree = "<group>"; };
 		EDA70D94288E74FB00A9E10B /* FeedRequestUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedRequestUtil.h; sourceTree = "<group>"; };
 		EDC1B2A32847C9A60077A920 /* VideoCacheModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoCacheModel.m; sourceTree = "<group>"; };
@@ -505,6 +507,7 @@
 		405874162445AA10009B3503 /* SuperPlayerKit */ = {
 			isa = PBXGroup;
 			children = (
+				ED59415D2938C908006FFA17 /* SuperPlayerKitBundle.bundle */,
 				40A7CFED2461102E00E792A5 /* SuperPlayer.bundle */,
 				4030B1EC245563B200CF5926 /* SuperPlayer.podspec */,
 			);
@@ -1322,6 +1325,7 @@
 				47E8C8CC260AECC4001CF672 /* TRTCDemoLocalized.strings in Resources */,
 				4009235A1F4FCC6E009B882D /* LaunchScreen.storyboard in Resources */,
 				47642A9F261491B90020F1BA /* launchimage_en@3x.png in Resources */,
+				ED59415E2938C908006FFA17 /* SuperPlayerKitBundle.bundle in Resources */,
 				47E8C8D9260AECC4001CF672 /* LivePlayerLocalized.strings in Resources */,
 				6BF315D4271E715300D4A72C /* ShortVideo.xcassets in Resources */,
 				40A7CFF02461102E00E792A5 /* SuperPlayer.bundle in Resources */,
@@ -1390,12 +1394,10 @@
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-TXLiteAVDemo_Player/Pods-TXLiteAVDemo_Player-resources.sh",
 				"${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle",
-				"${PODS_CONFIGURATION_BUILD_DIR}/SuperPlayer/SuperPlayerKitBundle.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MJRefresh.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SuperPlayerKitBundle.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
