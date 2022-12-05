@@ -2021,6 +2021,7 @@ TXLiveBaseDelegate,TXLivePlayListener,TXVodPlayListener>
 - (void)_removeOldPlayer {
     for (UIView *w in [self subviews]) {
         if ([w isKindOfClass:NSClassFromString(@"TXCRenderView")]) [w removeFromSuperview];
+        if ([w isKindOfClass:NSClassFromString(@"TXCiOSVideoRenderView")]) [w removeFromSuperview];
         if ([w isKindOfClass:NSClassFromString(@"TXIJKSDLGLView")]) [w removeFromSuperview];
         if ([w isKindOfClass:NSClassFromString(@"TXCAVPlayerView")]) [w removeFromSuperview];
         if ([w isKindOfClass:NSClassFromString(@"TXCThumbPlayerView")]) [w removeFromSuperview];

@@ -40,7 +40,9 @@
 }
 
 - (void)registerListener:(DownloadCallback *)callback info:(TXVodDownloadMediaInfo *)mediaInfo {
-    [self.listenerDic setObject:callback forKey:mediaInfo.playPath];
+    if (mediaInfo.playPath != nil){
+        [self.listenerDic setObject:callback forKey:mediaInfo.playPath];
+    }
 }
 
 - (void)unRegisterListener:(TXVodDownloadMediaInfo *)mediaInfo {
