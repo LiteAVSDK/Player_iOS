@@ -1,0 +1,32 @@
+/* 
+  TXBasePlayerLocalize.strings
+  PlayerApiDemo
+
+  CCopyright (c) 2022 Tencent. All rights reserved.
+  
+*/
+
+
+"BASE_PLAYER-Module.Title" = "基础播放器";
+
+"BASE_PLAYER-Module.Pause" = "暂停";
+"BASE_PLAYER-Module.Resume" = "继续播放";
+"BASE_PLAYER-Module.enterorscan" = "请输入或扫二维码获取播放地址";
+"BASE_PLAYER-Module.ondemand" = "点播媒资";
+"BASE_PLAYER-Module.live" = "直播媒资";
+"BASE_PLAYER-Module.tapplaybutton" = "点击播放按钮";
+"BASE_PLAYER-Module.supporthardware" = "iOS 版本低于8.0，不支持硬件加速";
+"BASE_PLAYER-Module.switchharddecode" = "切换为硬解码. 重启播放流程";
+"BASE_PLAYER-Module.switchsoftdecode" = "切换为软解码. 重启播放流程";
+"BASE_PLAYER-Module.switchtowifi" = "您要切换到Wifi再观看吗?";
+"BASE_PLAYER-Module.true" = "是";
+"BASE_PLAYER-Module.false" = "否";
+"BASE_PLAYER-Module.auto" = "自适应";
+"BASE_PLAYER-Module.smooth" = "流畅";
+"BASE_PLAYER-Module.SD" = "标清";
+"BASE_PLAYER-Module.FSD" = "全标清";
+"BASE_PLAYER-Module.HD" = "高清";
+"BASE_PLAYER-Module.FHD" = "超清";
+"BASE_PLAYER-Module.2K" = "2K";
+"BASE_PLAYER-Module.4K" = "4K";
+

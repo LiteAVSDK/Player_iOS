@@ -1,0 +1,21 @@
+/* 
+  TXHomeModuleLocalize.strings
+  PlayerApiDemo
+
+  Copyright (c) 2022 Tencent. All rights reserved.
+  
+*/
+
+"PLAYER-API-EXAMPLE.Home.Title" = "Player API Example";
+
+"PLAYER-API-Example.Home.FunctionsZone" = "Functions Zone";
+"PLAYER-API-Example.Home.BasicPlayer" = "Basic Player";
+"PLAYER-API-Example.Home.PreDownloadAndPreloading" = "PreDownload And Preloading";
+"PLAYER-API-Example.Home.SetSpeciResolution" = "Set specific Resolution";
+"PLAYER-API-Example.Home.SetStartTime" = "Set Start Time";
+"PLAYER-API-Example.Home.VideoDownload" = "Video Download";
+"PLAYER-API-Example.Home.ControlPanel" = "Control Panel";
+
+
+"PLAYER-API-Example.Home.ScenesZone" = "Scenes Zone";
+"PLAYER-API-Example.Home.ShortVideoPlay" = "Short Video Play";

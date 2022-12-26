@@ -1,0 +1,30 @@
+/* 
+  TXBasePlayerLocalize.strings
+  PlayerApiDemo
+
+  Copyright (c) 2022 Tencent. All rights reserved.
+  
+*/
+
+"BASE_PLAYER-Module.Title" = "Base Player";
+
+"BASE_PLAYER-Module.Pause" = "pause";
+"BASE_PLAYER-Module.Resume" = "resume";
+"BASE_PLAYER-Module.enterorscan" = "Enter a playback URL or scan QR code.";
+"BASE_PLAYER-Module.ondemand" = "On demand";
+"BASE_PLAYER-Module.live" = "Live";
+"BASE_PLAYER-Module.tapplaybutton" = "Tap the play button";
+"BASE_PLAYER-Module.supporthardware" = "iOS version lower than 8.0 does not support hardware acceleration";
+"BASE_PLAYER-Module.switchharddecode" = "Hardware acceleration enabled. The playback will restart.";
+"BASE_PLAYER-Module.switchsoftdecode" = "Software acceleration enabled. The playback will restart.";
+"BASE_PLAYER-Module.switchtowifi" = "Do you want to switch to Wifi and watch again?";
+"BASE_PLAYER-Module.true" = "true";
+"BASE_PLAYER-Module.false" = "false";
+"BASE_PLAYER-Module.auto" = "auto";
+"BASE_PLAYER-Module.smooth" = "smooth";
+"BASE_PLAYER-Module.SD" = "SD";
+"BASE_PLAYER-Module.FSD" = "FSD";
+"BASE_PLAYER-Module.HD" = "HD";
+"BASE_PLAYER-Module.FHD" = "FHD";
+"BASE_PLAYER-Module.2K" = "2K";
+"BASE_PLAYER-Module.4K" = "4K";

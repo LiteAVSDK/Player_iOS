@@ -1,0 +1,16 @@
+/* 
+  TXVideoDownloadLocalized.strings
+  PlayerApiDemo
+
+  Copyright (c) 2022 Tencent. All rights reserved.
+  
+*/
+
+"TX_VIDEO_DOWNLOAD-Module.Title" = "视频下载播放";
+
+"TX_VIDEO_DOWNLOAD-Module.StartDownload" = "开始下载";
+"TX_VIDEO_DOWNLOAD-Module.StopDownload" = "停止下载";
+
+"TX_VIDEO_DOWNLOAD-Module.DownloadIsStop" = "下载停止";
+"TX_VIDEO_DOWNLOAD-Module.DownloadIsFinish" = "下载完成";
+"TX_VIDEO_DOWNLOAD-Module.DownloadIsError" = "下载失败";

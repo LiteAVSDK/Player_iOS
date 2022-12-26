@@ -1,0 +1,22 @@
+/* 
+  TXHomeModuleLocalize.strings
+  PlayerApiDemo
+
+ Copyright (c) 2022 Tencent. All rights reserved.
+  
+*/
+
+"PLAYER-API-EXAMPLE.Home.Title" = "腾讯云播放器 API Example";
+
+"PLAYER-API-Example.Home.FunctionsZone" = "功能专区";
+"PLAYER-API-Example.Home.BasicPlayer" = "基础播放器";
+"PLAYER-API-Example.Home.PreDownloadAndPreloading" = "预下载&预加载";
+"PLAYER-API-Example.Home.SetSpeciResolution" = "启播指定分辨率";
+"PLAYER-API-Example.Home.SetStartTime" = "设置启播时间";
+"PLAYER-API-Example.Home.VideoDownload" = "视频下载播放";
+"PLAYER-API-Example.Home.ControlPanel" = "控制面板";
+
+
+"PLAYER-API-Example.Home.ScenesZone" = "场景专区";
+"PLAYER-API-Example.Home.ShortVideoPlay" = "短视频播放";
+

@@ -1,0 +1,12 @@
+/*
+  TXControlPanelLocalize.strings
+  PlayerApiDemo
+
+  Copyright (c) 2022 Tencent. All rights reserved.
+  
+*/
+
+"TX_CONTROL_PANEL-Module.Title" = "Control Panel";
+
+"TX_CONTROL_PANEL-Module.Property.Title" = "Avengers";
+"TX_CONTROL_PANEL-Module.Album.Title" = "Tencent Cloud";

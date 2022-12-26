@@ -1,0 +1,1169 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 55;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		6B0AE764287D181A00BE0651 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B0AE763287D181A00BE0651 /* MobileCoreServices.framework */; };
+		6B2E284128A4DEC10014E0CB /* TXBottomToolView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B2E284028A4DEC10014E0CB /* TXBottomToolView.m */; };
+		6B2E284428A4DEE50014E0CB /* TXBasePlayerBottomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B2E284328A4DEE50014E0CB /* TXBasePlayerBottomView.m */; };
+		6B2E28CF28ADE1DD0014E0CB /* TXBasePlayer.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6B2E28CE28ADE1D70014E0CB /* TXBasePlayer.xcassets */; };
+		6B2E292328AE3E1B0014E0CB /* UIImage+TXExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B2E292228AE3E1A0014E0CB /* UIImage+TXExtension.m */; };
+		6B2E292B28AE545B0014E0CB /* UIView+TXAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B2E292A28AE545B0014E0CB /* UIView+TXAdditions.m */; };
+		6B2E293D28AF89490014E0CB /* TXBasePlayerTopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B2E293C28AF89470014E0CB /* TXBasePlayerTopView.m */; };
+		6B2E294128AF89BE0014E0CB /* TXBasePlayerLogView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B2E294028AF89BE0014E0CB /* TXBasePlayerLogView.m */; };
+		6B2E294928B25E840014E0CB /* TXScanQRController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B2E294828B25E840014E0CB /* TXScanQRController.m */; };
+		6B37551228BE14CF003E3268 /* TXControlPanelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B37551128BE14CF003E3268 /* TXControlPanelViewController.m */; };
+		6B37551628BE153F003E3268 /* TengXunYun_logo in Resources */ = {isa = PBXBuildFile; fileRef = 6B37551528BE153F003E3268 /* TengXunYun_logo */; };
+		6B37551A28BE1595003E3268 /* TXControlPanelLocalize.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6B37551C28BE1595003E3268 /* TXControlPanelLocalize.strings */; };
+		6B37552028BE15DE003E3268 /* TXControlPanelLocalized.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B37551F28BE15DE003E3268 /* TXControlPanelLocalized.m */; };
+		6B37552328BE173A003E3268 /* TXVideoBitrate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B37552228BE173A003E3268 /* TXVideoBitrate.m */; };
+		6B5177022851D58900312EBE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6B5177002851D58900312EBE /* Main.storyboard */; };
+		6B5177072851D58C00312EBE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6B5177052851D58C00312EBE /* LaunchScreen.storyboard */; };
+		6B51770A2851D58C00312EBE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B5177092851D58C00312EBE /* main.m */; };
+		6B5177182851D67800312EBE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6B5177162851D67800312EBE /* Assets.xcassets */; };
+		6B5177192851D67800312EBE /* Player.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6B5177172851D67800312EBE /* Player.plist */; };
+		6B51771C2851D72700312EBE /* ShortVideoPlayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B51771B2851D72700312EBE /* ShortVideoPlayViewController.m */; };
+		6B5177262851D81700312EBE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B5177252851D81700312EBE /* AppDelegate.m */; };
+		6B51772C2851D84E00312EBE /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B51772B2851D84E00312EBE /* MainViewController.m */; };
+		6B51772F2851D85500312EBE /* TXApiConfigManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B51772D2851D85500312EBE /* TXApiConfigManager.m */; };
+		6B5177612853370C00312EBE /* TXBasePlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B51775F2853370C00312EBE /* TXBasePlayerViewController.m */; };
+		6B578E68288FEE1600DE0FC7 /* TXAppHomeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B578E67288FEE1600DE0FC7 /* TXAppHomeModel.m */; };
+		6B578E6F2890DEA000DE0FC7 /* TXHomeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B578E6E2890DEA000DE0FC7 /* TXHomeTableViewCell.m */; };
+		6B578E7428913BFE00DE0FC7 /* TXHomeCellModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B578E7328913BFE00DE0FC7 /* TXHomeCellModel.m */; };
+		6B578E7828923ACC00DE0FC7 /* TXHomeModuleLocalize.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6B578E7A28923ACC00DE0FC7 /* TXHomeModuleLocalize.strings */; };
+		6B578E802892665D00DE0FC7 /* TXAppLocalized.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B578E7F2892665D00DE0FC7 /* TXAppLocalized.m */; };
+		6B710AA828FD5BDF000B6EF2 /* TXPreDownloadAndPreloadingLocalized.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B710A8028FD5BDE000B6EF2 /* TXPreDownloadAndPreloadingLocalized.m */; };
+		6B710AA928FD5BDF000B6EF2 /* TXPreDownloadAndPreloadingLocalize.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6B710A8128FD5BDE000B6EF2 /* TXPreDownloadAndPreloadingLocalize.strings */; };
+		6B710AAA28FD5BDF000B6EF2 /* TXPreDownloadAndPreloadingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B710A8628FD5BDE000B6EF2 /* TXPreDownloadAndPreloadingViewController.m */; };
+		6B710AAB28FD5BDF000B6EF2 /* TXSetStartTimeLocalize.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6B710A8E28FD5BDF000B6EF2 /* TXSetStartTimeLocalize.strings */; };
+		6B710AAC28FD5BDF000B6EF2 /* TXSetStartTimeLocalized.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B710A9228FD5BDF000B6EF2 /* TXSetStartTimeLocalized.m */; };
+		6B710AAD28FD5BDF000B6EF2 /* TXSetStartTimeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B710A9528FD5BDF000B6EF2 /* TXSetStartTimeViewController.m */; };
+		6B710AAE28FD5BDF000B6EF2 /* TXSetSpeciResolutionLocalize.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6B710A9C28FD5BDF000B6EF2 /* TXSetSpeciResolutionLocalize.strings */; };
+		6B710AAF28FD5BDF000B6EF2 /* TXSetSpeciResolutionLocalized.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B710A9F28FD5BDF000B6EF2 /* TXSetSpeciResolutionLocalized.m */; };
+		6B710AB028FD5BDF000B6EF2 /* TXSetSpeciResolutionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B710AA328FD5BDF000B6EF2 /* TXSetSpeciResolutionViewController.m */; };
+		6B92861628B3624D00B53E05 /* TXBitrateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B92861528B3624D00B53E05 /* TXBitrateView.m */; };
+		6B92861928B3700D00B53E05 /* TXConfigViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B92861828B3700D00B53E05 /* TXConfigViewController.m */; };
+		6B92861D28B3711B00B53E05 /* TXConfigCheckBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B92861C28B3711B00B53E05 /* TXConfigCheckBox.m */; };
+		6B92862328B372AD00B53E05 /* TXConfigBlockButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B92862228B372AD00B53E05 /* TXConfigBlockButton.m */; };
+		6B92862628B3737900B53E05 /* TXConfigCellText.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B92862528B3737900B53E05 /* TXConfigCellText.m */; };
+		6B92862928B373DC00B53E05 /* TXConfigText.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B92862828B373DC00B53E05 /* TXConfigText.m */; };
+		6B92862C28B3848600B53E05 /* TXConfigTableMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B92862B28B3848600B53E05 /* TXConfigTableMenu.m */; };
+		6BB152E82897B77400CA13B6 /* TXBasePlayerLocalize.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6BB152EA2897B77400CA13B6 /* TXBasePlayerLocalize.strings */; };
+		6BB152EF2897B94B00CA13B6 /* TXVideoDownloadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BB152EE2897B94B00CA13B6 /* TXVideoDownloadViewController.m */; };
+		6BB152F82898C60F00CA13B6 /* TXVideoDownloadLocalize.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6BB152FA2898C60F00CA13B6 /* TXVideoDownloadLocalize.strings */; };
+		6BB152FE2898C71100CA13B6 /* TXVideoDownloadLocalized.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BB152FD2898C71100CA13B6 /* TXVideoDownloadLocalized.m */; };
+		6BB153212899497A00CA13B6 /* TXBasePlayerLocalized.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BB153202899497A00CA13B6 /* TXBasePlayerLocalized.m */; };
+		D08AB56F4FB499AA23AB5E2D /* Pods_PlayerApiDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC3946C9CE84E724EF41CFE3 /* Pods_PlayerApiDemo.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		659B40909F7FBB873B44658E /* Pods-PlayerApiDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PlayerApiDemo.debug.xcconfig"; path = "Target Support Files/Pods-PlayerApiDemo/Pods-PlayerApiDemo.debug.xcconfig"; sourceTree = "<group>"; };
+		6B0AE763287D181A00BE0651 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		6B2E283F28A4DEC10014E0CB /* TXBottomToolView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TXBottomToolView.h; sourceTree = "<group>"; };
+		6B2E284028A4DEC10014E0CB /* TXBottomToolView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TXBottomToolView.m; sourceTree = "<group>"; };
+		6B2E284228A4DEE50014E0CB /* TXBasePlayerBottomView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TXBasePlayerBottomView.h; sourceTree = "<group>"; };
+		6B2E284328A4DEE50014E0CB /* TXBasePlayerBottomView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TXBasePlayerBottomView.m; sourceTree = "<group>"; };
+		6B2E28CE28ADE1D70014E0CB /* TXBasePlayer.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = TXBasePlayer.xcassets; sourceTree = "<group>"; };
+		6B2E292128AE3E1A0014E0CB /* UIImage+TXExtension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImage+TXExtension.h"; sourceTree = "<group>"; };
+		6B2E292228AE3E1A0014E0CB /* UIImage+TXExtension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImage+TXExtension.m"; sourceTree = "<group>"; };
+		6B2E292928AE545B0014E0CB /* UIView+TXAdditions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+TXAdditions.h"; sourceTree = "<group>"; };
+		6B2E292A28AE545B0014E0CB /* UIView+TXAdditions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+TXAdditions.m"; sourceTree = "<group>"; };
+		6B2E293B28AF89470014E0CB /* TXBasePlayerTopView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TXBasePlayerTopView.h; sourceTree = "<group>"; };
+		6B2E293C28AF89470014E0CB /* TXBasePlayerTopView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TXBasePlayerTopView.m; sourceTree = "<group>"; };
+		6B2E293F28AF89BE0014E0CB /* TXBasePlayerLogView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TXBasePlayerLogView.h; sourceTree = "<group>"; };
+		6B2E294028AF89BE0014E0CB /* TXBasePlayerLogView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TXBasePlayerLogView.m; sourceTree = "<group>"; };
+		6B2E294728B25E840014E0CB /* TXScanQRController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TXScanQRController.h; sourceTree = "<group>"; };
+		6B2E294828B25E840014E0CB /* TXScanQRController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TXScanQRController.m; sourceTree = "<group>"; };
+		6B37551028BE14CF003E3268 /* TXControlPanelViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TXControlPanelViewController.h; sourceTree = "<group>"; };
+		6B37551128BE14CF003E3268 /* TXControlPanelViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TXControlPanelViewController.m; sourceTree = "<group>"; };
+		6B37551328BE1504003E3268 /* TXControlPanelMacro.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TXControlPanelMacro.h; sourceTree = "<group>"; };
+		6B37551528BE153F003E3268 /* TengXunYun_logo */ = {isa = PBXFileReference; lastKnownFileType = file; path = TengXunYun_logo; sourceTree = "<group>"; };
+		6B37551B28BE1595003E3268 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/TXControlPanelLocalize.strings; sourceTree = "<group>"; };
+		6B37551D28BE1597003E3268 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/TXControlPanelLocalize.strings"; sourceTree = "<group>"; };
+		6B37551E28BE15DE003E3268 /* TXControlPanelLocalized.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TXControlPanelLocalized.h; sourceTree = "<group>"; };
+		6B37551F28BE15DE003E3268 /* TXControlPanelLocalized.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TXControlPanelLocalized.m; sourceTree = "<group>"; };
+		6B37552128BE1739003E3268 /* TXVideoBitrate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TXVideoBitrate.h; sourceTree = "<group>"; };
+		6B37552228BE173A003E3268 /* TXVideoBitrate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TXVideoBitrate.m; sourceTree = "<group>"; };
+		6B5176F42851D58900312EBE /* PlayerApiDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PlayerApiDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		6B5177012851D58900312EBE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		6B5177062851D58C00312EBE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		6B5177082851D58C00312EBE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6B5177092851D58C00312EBE /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		6B5177162851D67800312EBE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		6B5177172851D67800312EBE /* Player.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Player.plist; sourceTree = "<group>"; };
+		6B51771A2851D72700312EBE /* ShortVideoPlayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShortVideoPlayViewController.h; sourceTree = "<group>"; };
+		6B51771B2851D72700312EBE /* ShortVideoPlayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShortVideoPlayViewController.m; sourceTree = "<group>"; };
+		6B5177242851D81700312EBE /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		6B5177252851D81700312EBE /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		6B51772A2851D84D00312EBE /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
+		6B51772B2851D84E00312EBE /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
+		6B51772D2851D85500312EBE /* TXApiConfigManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TXApiConfigManager.m; sourceTree = "<group>"; };
+		6B51772E2851D85500312EBE /* TXApiConfigManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TXApiConfigManager.h; sourceTree = "<group>"; };
+		6B51775F2853370C00312EBE /* TXBasePlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TXBasePlayerViewController.m; sourceTree = "<group>"; };
+		6B5177602853370C00312EBE /* TXBasePlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TXBasePlayerViewController.h; sourceTree = "<group>"; };
+		6B578E66288FEE1600DE0FC7 /* TXAppHomeModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TXAppHomeModel.h; sourceTree = "<group>"; };
+		6B578E67288FEE1600DE0FC7 /* TXAppHomeModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TXAppHomeModel.m; sourceTree = "<group>"; };
+		6B578E6D2890DEA000DE0FC7 /* TXHomeTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TXHomeTableViewCell.h; sourceTree = "<group>"; };
+		6B578E6E2890DEA000DE0FC7 /* TXHomeTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TXHomeTableViewCell.m; sourceTree = "<group>"; };
+		6B578E7228913BFE00DE0FC7 /* TXHomeCellModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TXHomeCellModel.h; sourceTree = "<group>"; };
+		6B578E7328913BFE00DE0FC7 /* TXHomeCellModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TXHomeCellModel.m; sourceTree = "<group>"; };
+		6B578E7928923ACC00DE0FC7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/TXHomeModuleLocalize.strings; sourceTree = "<group>"; };
+		6B578E7B28923AE400DE0FC7 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/TXHomeModuleLocalize.strings"; sourceTree = "<group>"; };
+		6B578E7E2892665D00DE0FC7 /* TXAppLocalized.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TXAppLocalized.h; sourceTree = "<group>"; };
+		6B578E7F2892665D00DE0FC7 /* TXAppLocalized.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TXAppLocalized.m; sourceTree = "<group>"; };
+		6B710A8028FD5BDE000B6EF2 /* TXPreDownloadAndPreloadingLocalized.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TXPreDownloadAndPreloadingLocalized.m; sourceTree = "<group>"; };
+		6B710A8228FD5BDE000B6EF2 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/TXPreDownloadAndPreloadingLocalize.strings"; sourceTree = "<group>"; };
+		6B710A8328FD5BDE000B6EF2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/TXPreDownloadAndPreloadingLocalize.strings; sourceTree = "<group>"; };
+		6B710A8428FD5BDE000B6EF2 /* TXPreDownloadAndPreloadingLocalized.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TXPreDownloadAndPreloadingLocalized.h; sourceTree = "<group>"; };
+		6B710A8628FD5BDE000B6EF2 /* TXPreDownloadAndPreloadingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TXPreDownloadAndPreloadingViewController.m; sourceTree = "<group>"; };
+		6B710A8728FD5BDE000B6EF2 /* TXPreDownloadAndPreloadingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TXPreDownloadAndPreloadingViewController.h; sourceTree = "<group>"; };
+		6B710A8928FD5BDE000B6EF2 /* TXPreDownloadAndPreloadingResource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TXPreDownloadAndPreloadingResource.h; sourceTree = "<group>"; };
+		6B710A8A28FD5BDE000B6EF2 /* TXPreDownloadAndPreloadingColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TXPreDownloadAndPreloadingColor.h; sourceTree = "<group>"; };
+		6B710A8B28FD5BDE000B6EF2 /* TXPreDownloadAndPreloadingLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TXPreDownloadAndPreloadingLayout.h; sourceTree = "<group>"; };
+		6B710A8F28FD5BDF000B6EF2 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/TXSetStartTimeLocalize.strings"; sourceTree = "<group>"; };
+		6B710A9028FD5BDF000B6EF2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/TXSetStartTimeLocalize.strings; sourceTree = "<group>"; };
+		6B710A9128FD5BDF000B6EF2 /* TXSetStartTimeLocalized.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TXSetStartTimeLocalized.h; sourceTree = "<group>"; };
+		6B710A9228FD5BDF000B6EF2 /* TXSetStartTimeLocalized.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TXSetStartTimeLocalized.m; sourceTree = "<group>"; };
+		6B710A9428FD5BDF000B6EF2 /* TXSetStartTimeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TXSetStartTimeViewController.h; sourceTree = "<group>"; };
+		6B710A9528FD5BDF000B6EF2 /* TXSetStartTimeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TXSetStartTimeViewController.m; sourceTree = "<group>"; };
+		6B710A9728FD5BDF000B6EF2 /* TXSetStartTimeResource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TXSetStartTimeResource.h; sourceTree = "<group>"; };
+		6B710A9828FD5BDF000B6EF2 /* TXSetStartTimeLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TXSetStartTimeLayout.h; sourceTree = "<group>"; };
+		6B710A9928FD5BDF000B6EF2 /* TXSetStartTimeColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TXSetStartTimeColor.h; sourceTree = "<group>"; };
+		6B710A9D28FD5BDF000B6EF2 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/TXSetSpeciResolutionLocalize.strings"; sourceTree = "<group>"; };
+		6B710A9E28FD5BDF000B6EF2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/TXSetSpeciResolutionLocalize.strings; sourceTree = "<group>"; };
+		6B710A9F28FD5BDF000B6EF2 /* TXSetSpeciResolutionLocalized.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TXSetSpeciResolutionLocalized.m; sourceTree = "<group>"; };
+		6B710AA028FD5BDF000B6EF2 /* TXSetSpeciResolutionLocalized.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TXSetSpeciResolutionLocalized.h; sourceTree = "<group>"; };
+		6B710AA228FD5BDF000B6EF2 /* TXSetSpeciResolutionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TXSetSpeciResolutionViewController.h; sourceTree = "<group>"; };
+		6B710AA328FD5BDF000B6EF2 /* TXSetSpeciResolutionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TXSetSpeciResolutionViewController.m; sourceTree = "<group>"; };
+		6B710AA528FD5BDF000B6EF2 /* TXSetSpeciResolutionLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TXSetSpeciResolutionLayout.h; sourceTree = "<group>"; };
+		6B710AA628FD5BDF000B6EF2 /* TXSetSpeciResolutionResource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TXSetSpeciResolutionResource.h; sourceTree = "<group>"; };
+		6B710AA728FD5BDF000B6EF2 /* TXSetSpeciResolutionColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TXSetSpeciResolutionColor.h; sourceTree = "<group>"; };
+		6B92861428B3624D00B53E05 /* TXBitrateView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TXBitrateView.h; sourceTree = "<group>"; };
+		6B92861528B3624D00B53E05 /* TXBitrateView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TXBitrateView.m; sourceTree = "<group>"; };
+		6B92861728B3700D00B53E05 /* TXConfigViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TXConfigViewController.h; sourceTree = "<group>"; };
+		6B92861828B3700D00B53E05 /* TXConfigViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TXConfigViewController.m; sourceTree = "<group>"; };
+		6B92861B28B3711B00B53E05 /* TXConfigCheckBox.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TXConfigCheckBox.h; sourceTree = "<group>"; };
+		6B92861C28B3711B00B53E05 /* TXConfigCheckBox.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TXConfigCheckBox.m; sourceTree = "<group>"; };
+		6B92862128B372AD00B53E05 /* TXConfigBlockButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TXConfigBlockButton.h; sourceTree = "<group>"; };
+		6B92862228B372AD00B53E05 /* TXConfigBlockButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TXConfigBlockButton.m; sourceTree = "<group>"; };
+		6B92862428B3737900B53E05 /* TXConfigCellText.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TXConfigCellText.h; sourceTree = "<group>"; };
+		6B92862528B3737900B53E05 /* TXConfigCellText.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TXConfigCellText.m; sourceTree = "<group>"; };
+		6B92862728B373DC00B53E05 /* TXConfigText.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TXConfigText.h; sourceTree = "<group>"; };
+		6B92862828B373DC00B53E05 /* TXConfigText.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TXConfigText.m; sourceTree = "<group>"; };
+		6B92862A28B3848600B53E05 /* TXConfigTableMenu.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TXConfigTableMenu.h; sourceTree = "<group>"; };
+		6B92862B28B3848600B53E05 /* TXConfigTableMenu.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TXConfigTableMenu.m; sourceTree = "<group>"; };
+		6BB152E92897B77400CA13B6 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/TXBasePlayerLocalize.strings; sourceTree = "<group>"; };
+		6BB152EB2897B77700CA13B6 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/TXBasePlayerLocalize.strings"; sourceTree = "<group>"; };
+		6BB152ED2897B94B00CA13B6 /* TXVideoDownloadViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TXVideoDownloadViewController.h; sourceTree = "<group>"; };
+		6BB152EE2897B94B00CA13B6 /* TXVideoDownloadViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TXVideoDownloadViewController.m; sourceTree = "<group>"; };
+		6BB152F22897C44300CA13B6 /* TXVideoDownloadMacro.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TXVideoDownloadMacro.h; sourceTree = "<group>"; };
+		6BB152F92898C60F00CA13B6 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/TXVideoDownloadLocalize.strings; sourceTree = "<group>"; };
+		6BB152FB2898C61100CA13B6 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/TXVideoDownloadLocalize.strings"; sourceTree = "<group>"; };
+		6BB152FC2898C71100CA13B6 /* TXVideoDownloadLocalized.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TXVideoDownloadLocalized.h; sourceTree = "<group>"; };
+		6BB152FD2898C71100CA13B6 /* TXVideoDownloadLocalized.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TXVideoDownloadLocalized.m; sourceTree = "<group>"; };
+		6BB1531E2899418A00CA13B6 /* TXBasePlayerMacro.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TXBasePlayerMacro.h; sourceTree = "<group>"; };
+		6BB1531F2899497A00CA13B6 /* TXBasePlayerLocalized.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TXBasePlayerLocalized.h; sourceTree = "<group>"; };
+		6BB153202899497A00CA13B6 /* TXBasePlayerLocalized.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TXBasePlayerLocalized.m; sourceTree = "<group>"; };
+		6BB1532328994B2C00CA13B6 /* TXAppModuleMacro.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TXAppModuleMacro.h; sourceTree = "<group>"; };
+		AF426C7993A080903404FB1F /* Pods-PlayerApiDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PlayerApiDemo.release.xcconfig"; path = "Target Support Files/Pods-PlayerApiDemo/Pods-PlayerApiDemo.release.xcconfig"; sourceTree = "<group>"; };
+		EC3946C9CE84E724EF41CFE3 /* Pods_PlayerApiDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PlayerApiDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		6B5176F12851D58900312EBE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D08AB56F4FB499AA23AB5E2D /* Pods_PlayerApiDemo.framework in Frameworks */,
+				6B0AE764287D181A00BE0651 /* MobileCoreServices.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		339F5DEBFD7ECC439A0B86B7 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				659B40909F7FBB873B44658E /* Pods-PlayerApiDemo.debug.xcconfig */,
+				AF426C7993A080903404FB1F /* Pods-PlayerApiDemo.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		6B2E283C28A4DC870014E0CB /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				6B92861328B361E100B53E05 /* BitratesView */,
+				6B2E293E28AF89980014E0CB /* LogView */,
+				6B2E293A28AF89230014E0CB /* TopView */,
+				6B2E292028AE3DF90014E0CB /* Category */,
+				6B2E283E28A4DE630014E0CB /* BottomView */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		6B2E283E28A4DE630014E0CB /* BottomView */ = {
+			isa = PBXGroup;
+			children = (
+				6B2E283F28A4DEC10014E0CB /* TXBottomToolView.h */,
+				6B2E284028A4DEC10014E0CB /* TXBottomToolView.m */,
+				6B2E284228A4DEE50014E0CB /* TXBasePlayerBottomView.h */,
+				6B2E284328A4DEE50014E0CB /* TXBasePlayerBottomView.m */,
+			);
+			path = BottomView;
+			sourceTree = "<group>";
+		};
+		6B2E289928A626FE0014E0CB /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				6B2E28CE28ADE1D70014E0CB /* TXBasePlayer.xcassets */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
+		6B2E292028AE3DF90014E0CB /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				6B2E292128AE3E1A0014E0CB /* UIImage+TXExtension.h */,
+				6B2E292228AE3E1A0014E0CB /* UIImage+TXExtension.m */,
+				6B2E292928AE545B0014E0CB /* UIView+TXAdditions.h */,
+				6B2E292A28AE545B0014E0CB /* UIView+TXAdditions.m */,
+			);
+			path = Category;
+			sourceTree = "<group>";
+		};
+		6B2E293A28AF89230014E0CB /* TopView */ = {
+			isa = PBXGroup;
+			children = (
+				6B2E293B28AF89470014E0CB /* TXBasePlayerTopView.h */,
+				6B2E293C28AF89470014E0CB /* TXBasePlayerTopView.m */,
+			);
+			path = TopView;
+			sourceTree = "<group>";
+		};
+		6B2E293E28AF89980014E0CB /* LogView */ = {
+			isa = PBXGroup;
+			children = (
+				6B2E293F28AF89BE0014E0CB /* TXBasePlayerLogView.h */,
+				6B2E294028AF89BE0014E0CB /* TXBasePlayerLogView.m */,
+			);
+			path = LogView;
+			sourceTree = "<group>";
+		};
+		6B2E294628B25E360014E0CB /* TXScanQRController */ = {
+			isa = PBXGroup;
+			children = (
+				6B2E294728B25E840014E0CB /* TXScanQRController.h */,
+				6B2E294828B25E840014E0CB /* TXScanQRController.m */,
+			);
+			path = TXScanQRController;
+			sourceTree = "<group>";
+		};
+		6B37550C28BE134A003E3268 /* TXControlPanelModule */ = {
+			isa = PBXGroup;
+			children = (
+				6B37550F28BE136B003E3268 /* Resource */,
+				6B37550E28BE135E003E3268 /* Macro */,
+				6B37550D28BE1354003E3268 /* Controller */,
+			);
+			path = TXControlPanelModule;
+			sourceTree = "<group>";
+		};
+		6B37550D28BE1354003E3268 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				6B37551028BE14CF003E3268 /* TXControlPanelViewController.h */,
+				6B37551128BE14CF003E3268 /* TXControlPanelViewController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		6B37550E28BE135E003E3268 /* Macro */ = {
+			isa = PBXGroup;
+			children = (
+				6B37551328BE1504003E3268 /* TXControlPanelMacro.h */,
+			);
+			path = Macro;
+			sourceTree = "<group>";
+		};
+		6B37550F28BE136B003E3268 /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				6B37551728BE1553003E3268 /* Localized */,
+				6B37551428BE1525003E3268 /* TXControlPanelResource */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
+		6B37551428BE1525003E3268 /* TXControlPanelResource */ = {
+			isa = PBXGroup;
+			children = (
+				6B37551528BE153F003E3268 /* TengXunYun_logo */,
+			);
+			path = TXControlPanelResource;
+			sourceTree = "<group>";
+		};
+		6B37551728BE1553003E3268 /* Localized */ = {
+			isa = PBXGroup;
+			children = (
+				6B37551C28BE1595003E3268 /* TXControlPanelLocalize.strings */,
+				6B37551E28BE15DE003E3268 /* TXControlPanelLocalized.h */,
+				6B37551F28BE15DE003E3268 /* TXControlPanelLocalized.m */,
+			);
+			path = Localized;
+			sourceTree = "<group>";
+		};
+		6B5176EB2851D58900312EBE = {
+			isa = PBXGroup;
+			children = (
+				6B5176F62851D58900312EBE /* PlayerApiDemo */,
+				6B5176F52851D58900312EBE /* Products */,
+				339F5DEBFD7ECC439A0B86B7 /* Pods */,
+				8F7686C2AA9F8C87CEB03DCE /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		6B5176F52851D58900312EBE /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				6B5176F42851D58900312EBE /* PlayerApiDemo.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		6B5176F62851D58900312EBE /* PlayerApiDemo */ = {
+			isa = PBXGroup;
+			children = (
+				6B5177142851D64100312EBE /* SceneModule */,
+				6B5177132851D63700312EBE /* FunctionModule */,
+				6B5177122851D62900312EBE /* Resource */,
+				6B5177102851D60D00312EBE /* AppModule */,
+				6B5177002851D58900312EBE /* Main.storyboard */,
+				6B5177052851D58C00312EBE /* LaunchScreen.storyboard */,
+				6B5177082851D58C00312EBE /* Info.plist */,
+				6B5177092851D58C00312EBE /* main.m */,
+			);
+			path = PlayerApiDemo;
+			sourceTree = "<group>";
+		};
+		6B5177102851D60D00312EBE /* AppModule */ = {
+			isa = PBXGroup;
+			children = (
+				6B5177242851D81700312EBE /* AppDelegate.h */,
+				6B5177252851D81700312EBE /* AppDelegate.m */,
+				6BB1532228994B1200CA13B6 /* Macro */,
+				6BB153012898F7D800CA13B6 /* Localized */,
+				6B5177232851D7FB00312EBE /* View */,
+				6B5177222851D7F000312EBE /* Controller */,
+				6B5177212851D7E500312EBE /* Config */,
+				6B578E65288FEDD400DE0FC7 /* Model */,
+			);
+			path = AppModule;
+			sourceTree = "<group>";
+		};
+		6B5177122851D62900312EBE /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				6B5177162851D67800312EBE /* Assets.xcassets */,
+				6B5177172851D67800312EBE /* Player.plist */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
+		6B5177132851D63700312EBE /* FunctionModule */ = {
+			isa = PBXGroup;
+			children = (
+				6B710A7E28FD5BDE000B6EF2 /* PreDownloadAndPreloadingModule */,
+				6B710A9A28FD5BDF000B6EF2 /* SetSpeciResolutionModule */,
+				6B710A8C28FD5BDE000B6EF2 /* SetStartTimeModule */,
+				6B37550C28BE134A003E3268 /* TXControlPanelModule */,
+				6BB152EC2897B90E00CA13B6 /* TXVideoDownloadModule */,
+				6B51771D2851D74600312EBE /* TXBasePlayerModule */,
+			);
+			path = FunctionModule;
+			sourceTree = "<group>";
+		};
+		6B5177142851D64100312EBE /* SceneModule */ = {
+			isa = PBXGroup;
+			children = (
+				6B5177152851D64F00312EBE /* ShortVideoModule */,
+			);
+			path = SceneModule;
+			sourceTree = "<group>";
+		};
+		6B5177152851D64F00312EBE /* ShortVideoModule */ = {
+			isa = PBXGroup;
+			children = (
+				6B51771A2851D72700312EBE /* ShortVideoPlayViewController.h */,
+				6B51771B2851D72700312EBE /* ShortVideoPlayViewController.m */,
+			);
+			path = ShortVideoModule;
+			sourceTree = "<group>";
+		};
+		6B51771D2851D74600312EBE /* TXBasePlayerModule */ = {
+			isa = PBXGroup;
+			children = (
+				6B92861A28B370E600B53E05 /* ConfigViewController */,
+				6B2E294628B25E360014E0CB /* TXScanQRController */,
+				6B2E289928A626FE0014E0CB /* Resource */,
+				6B2E283C28A4DC870014E0CB /* Views */,
+				6BB1531D2899416100CA13B6 /* Macro */,
+				6BB1531C2899410B00CA13B6 /* Controller */,
+				6BB152E52897B74D00CA13B6 /* TXBasePlayerLocalized */,
+			);
+			path = TXBasePlayerModule;
+			sourceTree = "<group>";
+		};
+		6B5177212851D7E500312EBE /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				6B51772E2851D85500312EBE /* TXApiConfigManager.h */,
+				6B51772D2851D85500312EBE /* TXApiConfigManager.m */,
+			);
+			path = Config;
+			sourceTree = "<group>";
+		};
+		6B5177222851D7F000312EBE /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				6B51772A2851D84D00312EBE /* MainViewController.h */,
+				6B51772B2851D84E00312EBE /* MainViewController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		6B5177232851D7FB00312EBE /* View */ = {
+			isa = PBXGroup;
+			children = (
+				6B578E6D2890DEA000DE0FC7 /* TXHomeTableViewCell.h */,
+				6B578E6E2890DEA000DE0FC7 /* TXHomeTableViewCell.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		6B578E65288FEDD400DE0FC7 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				6B578E66288FEE1600DE0FC7 /* TXAppHomeModel.h */,
+				6B578E67288FEE1600DE0FC7 /* TXAppHomeModel.m */,
+				6B578E7228913BFE00DE0FC7 /* TXHomeCellModel.h */,
+				6B578E7328913BFE00DE0FC7 /* TXHomeCellModel.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		6B710A7E28FD5BDE000B6EF2 /* PreDownloadAndPreloadingModule */ = {
+			isa = PBXGroup;
+			children = (
+				6B710A7F28FD5BDE000B6EF2 /* Localized */,
+				6B710A8528FD5BDE000B6EF2 /* Controller */,
+				6B710A8828FD5BDE000B6EF2 /* Macro */,
+			);
+			path = PreDownloadAndPreloadingModule;
+			sourceTree = "<group>";
+		};
+		6B710A7F28FD5BDE000B6EF2 /* Localized */ = {
+			isa = PBXGroup;
+			children = (
+				6B710A8028FD5BDE000B6EF2 /* TXPreDownloadAndPreloadingLocalized.m */,
+				6B710A8128FD5BDE000B6EF2 /* TXPreDownloadAndPreloadingLocalize.strings */,
+				6B710A8428FD5BDE000B6EF2 /* TXPreDownloadAndPreloadingLocalized.h */,
+			);
+			path = Localized;
+			sourceTree = "<group>";
+		};
+		6B710A8528FD5BDE000B6EF2 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				6B710A8628FD5BDE000B6EF2 /* TXPreDownloadAndPreloadingViewController.m */,
+				6B710A8728FD5BDE000B6EF2 /* TXPreDownloadAndPreloadingViewController.h */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		6B710A8828FD5BDE000B6EF2 /* Macro */ = {
+			isa = PBXGroup;
+			children = (
+				6B710A8928FD5BDE000B6EF2 /* TXPreDownloadAndPreloadingResource.h */,
+				6B710A8A28FD5BDE000B6EF2 /* TXPreDownloadAndPreloadingColor.h */,
+				6B710A8B28FD5BDE000B6EF2 /* TXPreDownloadAndPreloadingLayout.h */,
+			);
+			path = Macro;
+			sourceTree = "<group>";
+		};
+		6B710A8C28FD5BDE000B6EF2 /* SetStartTimeModule */ = {
+			isa = PBXGroup;
+			children = (
+				6B710A8D28FD5BDF000B6EF2 /* Localized */,
+				6B710A9328FD5BDF000B6EF2 /* Controller */,
+				6B710A9628FD5BDF000B6EF2 /* Macro */,
+			);
+			path = SetStartTimeModule;
+			sourceTree = "<group>";
+		};
+		6B710A8D28FD5BDF000B6EF2 /* Localized */ = {
+			isa = PBXGroup;
+			children = (
+				6B710A8E28FD5BDF000B6EF2 /* TXSetStartTimeLocalize.strings */,
+				6B710A9128FD5BDF000B6EF2 /* TXSetStartTimeLocalized.h */,
+				6B710A9228FD5BDF000B6EF2 /* TXSetStartTimeLocalized.m */,
+			);
+			path = Localized;
+			sourceTree = "<group>";
+		};
+		6B710A9328FD5BDF000B6EF2 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				6B710A9428FD5BDF000B6EF2 /* TXSetStartTimeViewController.h */,
+				6B710A9528FD5BDF000B6EF2 /* TXSetStartTimeViewController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		6B710A9628FD5BDF000B6EF2 /* Macro */ = {
+			isa = PBXGroup;
+			children = (
+				6B710A9728FD5BDF000B6EF2 /* TXSetStartTimeResource.h */,
+				6B710A9828FD5BDF000B6EF2 /* TXSetStartTimeLayout.h */,
+				6B710A9928FD5BDF000B6EF2 /* TXSetStartTimeColor.h */,
+			);
+			path = Macro;
+			sourceTree = "<group>";
+		};
+		6B710A9A28FD5BDF000B6EF2 /* SetSpeciResolutionModule */ = {
+			isa = PBXGroup;
+			children = (
+				6B710A9B28FD5BDF000B6EF2 /* Localized */,
+				6B710AA128FD5BDF000B6EF2 /* Controller */,
+				6B710AA428FD5BDF000B6EF2 /* Macro */,
+			);
+			path = SetSpeciResolutionModule;
+			sourceTree = "<group>";
+		};
+		6B710A9B28FD5BDF000B6EF2 /* Localized */ = {
+			isa = PBXGroup;
+			children = (
+				6B710A9C28FD5BDF000B6EF2 /* TXSetSpeciResolutionLocalize.strings */,
+				6B710A9F28FD5BDF000B6EF2 /* TXSetSpeciResolutionLocalized.m */,
+				6B710AA028FD5BDF000B6EF2 /* TXSetSpeciResolutionLocalized.h */,
+			);
+			path = Localized;
+			sourceTree = "<group>";
+		};
+		6B710AA128FD5BDF000B6EF2 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				6B710AA228FD5BDF000B6EF2 /* TXSetSpeciResolutionViewController.h */,
+				6B710AA328FD5BDF000B6EF2 /* TXSetSpeciResolutionViewController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		6B710AA428FD5BDF000B6EF2 /* Macro */ = {
+			isa = PBXGroup;
+			children = (
+				6B710AA528FD5BDF000B6EF2 /* TXSetSpeciResolutionLayout.h */,
+				6B710AA628FD5BDF000B6EF2 /* TXSetSpeciResolutionResource.h */,
+				6B710AA728FD5BDF000B6EF2 /* TXSetSpeciResolutionColor.h */,
+			);
+			path = Macro;
+			sourceTree = "<group>";
+		};
+		6B92861328B361E100B53E05 /* BitratesView */ = {
+			isa = PBXGroup;
+			children = (
+				6B37552128BE1739003E3268 /* TXVideoBitrate.h */,
+				6B37552228BE173A003E3268 /* TXVideoBitrate.m */,
+				6B92861428B3624D00B53E05 /* TXBitrateView.h */,
+				6B92861528B3624D00B53E05 /* TXBitrateView.m */,
+			);
+			path = BitratesView;
+			sourceTree = "<group>";
+		};
+		6B92861A28B370E600B53E05 /* ConfigViewController */ = {
+			isa = PBXGroup;
+			children = (
+				6B92861F28B3728100B53E05 /* View */,
+				6B92861E28B3712100B53E05 /* Tools */,
+				6B92861728B3700D00B53E05 /* TXConfigViewController.h */,
+				6B92861828B3700D00B53E05 /* TXConfigViewController.m */,
+			);
+			path = ConfigViewController;
+			sourceTree = "<group>";
+		};
+		6B92861E28B3712100B53E05 /* Tools */ = {
+			isa = PBXGroup;
+			children = (
+				6B92861B28B3711B00B53E05 /* TXConfigCheckBox.h */,
+				6B92861C28B3711B00B53E05 /* TXConfigCheckBox.m */,
+			);
+			path = Tools;
+			sourceTree = "<group>";
+		};
+		6B92861F28B3728100B53E05 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				6B92862128B372AD00B53E05 /* TXConfigBlockButton.h */,
+				6B92862228B372AD00B53E05 /* TXConfigBlockButton.m */,
+				6B92862428B3737900B53E05 /* TXConfigCellText.h */,
+				6B92862528B3737900B53E05 /* TXConfigCellText.m */,
+				6B92862728B373DC00B53E05 /* TXConfigText.h */,
+				6B92862828B373DC00B53E05 /* TXConfigText.m */,
+				6B92862A28B3848600B53E05 /* TXConfigTableMenu.h */,
+				6B92862B28B3848600B53E05 /* TXConfigTableMenu.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		6BB152E52897B74D00CA13B6 /* TXBasePlayerLocalized */ = {
+			isa = PBXGroup;
+			children = (
+				6BB152EA2897B77400CA13B6 /* TXBasePlayerLocalize.strings */,
+				6BB1531F2899497A00CA13B6 /* TXBasePlayerLocalized.h */,
+				6BB153202899497A00CA13B6 /* TXBasePlayerLocalized.m */,
+			);
+			path = TXBasePlayerLocalized;
+			sourceTree = "<group>";
+		};
+		6BB152EC2897B90E00CA13B6 /* TXVideoDownloadModule */ = {
+			isa = PBXGroup;
+			children = (
+				6BB152F52898C5CD00CA13B6 /* Localized */,
+				6BB152F12897C3DC00CA13B6 /* Macro */,
+				6BB152F02897B95000CA13B6 /* Controller */,
+			);
+			path = TXVideoDownloadModule;
+			sourceTree = "<group>";
+		};
+		6BB152F02897B95000CA13B6 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				6BB152ED2897B94B00CA13B6 /* TXVideoDownloadViewController.h */,
+				6BB152EE2897B94B00CA13B6 /* TXVideoDownloadViewController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		6BB152F12897C3DC00CA13B6 /* Macro */ = {
+			isa = PBXGroup;
+			children = (
+				6BB152F22897C44300CA13B6 /* TXVideoDownloadMacro.h */,
+			);
+			path = Macro;
+			sourceTree = "<group>";
+		};
+		6BB152F52898C5CD00CA13B6 /* Localized */ = {
+			isa = PBXGroup;
+			children = (
+				6BB152FA2898C60F00CA13B6 /* TXVideoDownloadLocalize.strings */,
+				6BB152FC2898C71100CA13B6 /* TXVideoDownloadLocalized.h */,
+				6BB152FD2898C71100CA13B6 /* TXVideoDownloadLocalized.m */,
+			);
+			path = Localized;
+			sourceTree = "<group>";
+		};
+		6BB153012898F7D800CA13B6 /* Localized */ = {
+			isa = PBXGroup;
+			children = (
+				6B578E7E2892665D00DE0FC7 /* TXAppLocalized.h */,
+				6B578E7F2892665D00DE0FC7 /* TXAppLocalized.m */,
+				6B578E7A28923ACC00DE0FC7 /* TXHomeModuleLocalize.strings */,
+			);
+			path = Localized;
+			sourceTree = "<group>";
+		};
+		6BB1531C2899410B00CA13B6 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				6B5177602853370C00312EBE /* TXBasePlayerViewController.h */,
+				6B51775F2853370C00312EBE /* TXBasePlayerViewController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		6BB1531D2899416100CA13B6 /* Macro */ = {
+			isa = PBXGroup;
+			children = (
+				6BB1531E2899418A00CA13B6 /* TXBasePlayerMacro.h */,
+			);
+			path = Macro;
+			sourceTree = "<group>";
+		};
+		6BB1532228994B1200CA13B6 /* Macro */ = {
+			isa = PBXGroup;
+			children = (
+				6BB1532328994B2C00CA13B6 /* TXAppModuleMacro.h */,
+			);
+			path = Macro;
+			sourceTree = "<group>";
+		};
+		8F7686C2AA9F8C87CEB03DCE /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				6B0AE763287D181A00BE0651 /* MobileCoreServices.framework */,
+				EC3946C9CE84E724EF41CFE3 /* Pods_PlayerApiDemo.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		6B5176F32851D58900312EBE /* PlayerApiDemo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6B51770D2851D58C00312EBE /* Build configuration list for PBXNativeTarget "PlayerApiDemo" */;
+			buildPhases = (
+				4086E3152A3EFEE9DF619E6E /* [CP] Check Pods Manifest.lock */,
+				6B5176F02851D58900312EBE /* Sources */,
+				6B5176F12851D58900312EBE /* Frameworks */,
+				6B5176F22851D58900312EBE /* Resources */,
+				355BE853C54E9669F91913EB /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PlayerApiDemo;
+			productName = PlayerApiDemo;
+			productReference = 6B5176F42851D58900312EBE /* PlayerApiDemo.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		6B5176EC2851D58900312EBE /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastUpgradeCheck = 1320;
+				TargetAttributes = {
+					6B5176F32851D58900312EBE = {
+						CreatedOnToolsVersion = 13.2.1;
+					};
+				};
+			};
+			buildConfigurationList = 6B5176EF2851D58900312EBE /* Build configuration list for PBXProject "PlayerApiDemo" */;
+			compatibilityVersion = "Xcode 13.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+				"zh-Hans",
+			);
+			mainGroup = 6B5176EB2851D58900312EBE;
+			productRefGroup = 6B5176F52851D58900312EBE /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				6B5176F32851D58900312EBE /* PlayerApiDemo */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		6B5176F22851D58900312EBE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6BB152E82897B77400CA13B6 /* TXBasePlayerLocalize.strings in Resources */,
+				6BB152F82898C60F00CA13B6 /* TXVideoDownloadLocalize.strings in Resources */,
+				6B710AAB28FD5BDF000B6EF2 /* TXSetStartTimeLocalize.strings in Resources */,
+				6B37551A28BE1595003E3268 /* TXControlPanelLocalize.strings in Resources */,
+				6B710AAE28FD5BDF000B6EF2 /* TXSetSpeciResolutionLocalize.strings in Resources */,
+				6B578E7828923ACC00DE0FC7 /* TXHomeModuleLocalize.strings in Resources */,
+				6B5177072851D58C00312EBE /* LaunchScreen.storyboard in Resources */,
+				6B5177182851D67800312EBE /* Assets.xcassets in Resources */,
+				6B37551628BE153F003E3268 /* TengXunYun_logo in Resources */,
+				6B2E28CF28ADE1DD0014E0CB /* TXBasePlayer.xcassets in Resources */,
+				6B5177022851D58900312EBE /* Main.storyboard in Resources */,
+				6B710AA928FD5BDF000B6EF2 /* TXPreDownloadAndPreloadingLocalize.strings in Resources */,
+				6B5177192851D67800312EBE /* Player.plist in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		355BE853C54E9669F91913EB /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-PlayerApiDemo/Pods-PlayerApiDemo-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-PlayerApiDemo/Pods-PlayerApiDemo-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-PlayerApiDemo/Pods-PlayerApiDemo-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		4086E3152A3EFEE9DF619E6E /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-PlayerApiDemo-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		6B5176F02851D58900312EBE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6B578E7428913BFE00DE0FC7 /* TXHomeCellModel.m in Sources */,
+				6B37552328BE173A003E3268 /* TXVideoBitrate.m in Sources */,
+				6B51771C2851D72700312EBE /* ShortVideoPlayViewController.m in Sources */,
+				6B2E292B28AE545B0014E0CB /* UIView+TXAdditions.m in Sources */,
+				6B2E294928B25E840014E0CB /* TXScanQRController.m in Sources */,
+				6B51770A2851D58C00312EBE /* main.m in Sources */,
+				6BB153212899497A00CA13B6 /* TXBasePlayerLocalized.m in Sources */,
+				6B710AAD28FD5BDF000B6EF2 /* TXSetStartTimeViewController.m in Sources */,
+				6B710AAA28FD5BDF000B6EF2 /* TXPreDownloadAndPreloadingViewController.m in Sources */,
+				6B92861628B3624D00B53E05 /* TXBitrateView.m in Sources */,
+				6B5177612853370C00312EBE /* TXBasePlayerViewController.m in Sources */,
+				6B710AAF28FD5BDF000B6EF2 /* TXSetSpeciResolutionLocalized.m in Sources */,
+				6B2E292328AE3E1B0014E0CB /* UIImage+TXExtension.m in Sources */,
+				6B710AAC28FD5BDF000B6EF2 /* TXSetStartTimeLocalized.m in Sources */,
+				6B92862C28B3848600B53E05 /* TXConfigTableMenu.m in Sources */,
+				6B578E68288FEE1600DE0FC7 /* TXAppHomeModel.m in Sources */,
+				6B51772C2851D84E00312EBE /* MainViewController.m in Sources */,
+				6B710AA828FD5BDF000B6EF2 /* TXPreDownloadAndPreloadingLocalized.m in Sources */,
+				6B2E284428A4DEE50014E0CB /* TXBasePlayerBottomView.m in Sources */,
+				6B37552028BE15DE003E3268 /* TXControlPanelLocalized.m in Sources */,
+				6B578E6F2890DEA000DE0FC7 /* TXHomeTableViewCell.m in Sources */,
+				6BB152FE2898C71100CA13B6 /* TXVideoDownloadLocalized.m in Sources */,
+				6B5177262851D81700312EBE /* AppDelegate.m in Sources */,
+				6B2E294128AF89BE0014E0CB /* TXBasePlayerLogView.m in Sources */,
+				6B37551228BE14CF003E3268 /* TXControlPanelViewController.m in Sources */,
+				6B92862928B373DC00B53E05 /* TXConfigText.m in Sources */,
+				6B710AB028FD5BDF000B6EF2 /* TXSetSpeciResolutionViewController.m in Sources */,
+				6B92861D28B3711B00B53E05 /* TXConfigCheckBox.m in Sources */,
+				6B92862328B372AD00B53E05 /* TXConfigBlockButton.m in Sources */,
+				6B51772F2851D85500312EBE /* TXApiConfigManager.m in Sources */,
+				6B2E284128A4DEC10014E0CB /* TXBottomToolView.m in Sources */,
+				6B92861928B3700D00B53E05 /* TXConfigViewController.m in Sources */,
+				6B578E802892665D00DE0FC7 /* TXAppLocalized.m in Sources */,
+				6B2E293D28AF89490014E0CB /* TXBasePlayerTopView.m in Sources */,
+				6B92862628B3737900B53E05 /* TXConfigCellText.m in Sources */,
+				6BB152EF2897B94B00CA13B6 /* TXVideoDownloadViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		6B37551C28BE1595003E3268 /* TXControlPanelLocalize.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6B37551B28BE1595003E3268 /* en */,
+				6B37551D28BE1597003E3268 /* zh-Hans */,
+			);
+			name = TXControlPanelLocalize.strings;
+			sourceTree = "<group>";
+		};
+		6B5177002851D58900312EBE /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6B5177012851D58900312EBE /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		6B5177052851D58C00312EBE /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6B5177062851D58C00312EBE /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		6B578E7A28923ACC00DE0FC7 /* TXHomeModuleLocalize.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6B578E7928923ACC00DE0FC7 /* en */,
+				6B578E7B28923AE400DE0FC7 /* zh-Hans */,
+			);
+			name = TXHomeModuleLocalize.strings;
+			sourceTree = "<group>";
+		};
+		6B710A8128FD5BDE000B6EF2 /* TXPreDownloadAndPreloadingLocalize.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6B710A8228FD5BDE000B6EF2 /* zh-Hans */,
+				6B710A8328FD5BDE000B6EF2 /* en */,
+			);
+			name = TXPreDownloadAndPreloadingLocalize.strings;
+			sourceTree = "<group>";
+		};
+		6B710A8E28FD5BDF000B6EF2 /* TXSetStartTimeLocalize.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6B710A8F28FD5BDF000B6EF2 /* zh-Hans */,
+				6B710A9028FD5BDF000B6EF2 /* en */,
+			);
+			name = TXSetStartTimeLocalize.strings;
+			sourceTree = "<group>";
+		};
+		6B710A9C28FD5BDF000B6EF2 /* TXSetSpeciResolutionLocalize.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6B710A9D28FD5BDF000B6EF2 /* zh-Hans */,
+				6B710A9E28FD5BDF000B6EF2 /* en */,
+			);
+			name = TXSetSpeciResolutionLocalize.strings;
+			sourceTree = "<group>";
+		};
+		6BB152EA2897B77400CA13B6 /* TXBasePlayerLocalize.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6BB152E92897B77400CA13B6 /* en */,
+				6BB152EB2897B77700CA13B6 /* zh-Hans */,
+			);
+			name = TXBasePlayerLocalize.strings;
+			sourceTree = "<group>";
+		};
+		6BB152FA2898C60F00CA13B6 /* TXVideoDownloadLocalize.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6BB152F92898C60F00CA13B6 /* en */,
+				6BB152FB2898C61100CA13B6 /* zh-Hans */,
+			);
+			name = TXVideoDownloadLocalize.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		6B51770B2851D58C00312EBE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		6B51770C2851D58C00312EBE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		6B51770E2851D58C00312EBE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 659B40909F7FBB873B44658E /* Pods-PlayerApiDemo.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 2ZNSKQLPTK;
+				ENABLE_BITCODE = NO;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = PlayerApiDemo/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "腾讯云视立方需要访问你的相机权限，开启后用于视频录制，连麦互动，访问您实时互动的面部信息用于美颜功能的体验，扫描二维码获取视频播放地址";
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.yunxiao.dev.liteav.demo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "Yunxiao Develop Profile";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		6B51770F2851D58C00312EBE /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = AF426C7993A080903404FB1F /* Pods-PlayerApiDemo.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 2ZNSKQLPTK;
+				ENABLE_BITCODE = NO;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = PlayerApiDemo/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "腾讯云视立方需要访问你的相机权限，开启后用于视频录制，连麦互动，访问您实时互动的面部信息用于美颜功能的体验，扫描二维码获取视频播放地址";
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.yunxiao.dev.liteav.demo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "Yunxiao Develop Profile";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		6B5176EF2851D58900312EBE /* Build configuration list for PBXProject "PlayerApiDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6B51770B2851D58C00312EBE /* Debug */,
+				6B51770C2851D58C00312EBE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6B51770D2851D58C00312EBE /* Build configuration list for PBXNativeTarget "PlayerApiDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6B51770E2851D58C00312EBE /* Debug */,
+				6B51770F2851D58C00312EBE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 6B5176EC2851D58900312EBE /* Project object */;
+}

@@ -1,0 +1,22 @@
+# Uncomment the next line to define a global platform for your project
+platform :ios, '9.0'
+
+def common_pods_all
+  pod 'Bugly' # 检测bug使用，非必须依赖
+  pod 'SDWebImage'
+  pod 'Masonry'
+  pod 'MBProgressHUD', '~> 1.2.0'
+  pod 'MJExtension'
+  pod 'MJRefresh'
+  pod 'AFNetworking'
+  pod 'Masonry'
+  pod 'TXLiteAVSDK_Player'
+end
+
+target 'PlayerApiDemo' do
+  # Comment the next line if you don't want to use dynamic frameworks
+  use_frameworks!
+  common_pods_all
+  # Pods for PlayerApiDemo
+
+end

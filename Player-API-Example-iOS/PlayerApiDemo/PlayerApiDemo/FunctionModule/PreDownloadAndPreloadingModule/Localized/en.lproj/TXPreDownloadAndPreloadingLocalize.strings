@@ -1,0 +1,10 @@
+/* 
+  TXPreDownloadAndPreloadingLocalize.strings
+  PlayerApiDemo
+
+  Copyright (c) 2022 Tencent. All rights reserved.
+  
+*/
+
+"PLAYER-API-Example.Function.PreDownloadAndPreloading.title" = "PreDownload And Preloading";
+"PLAYER-API-Example.Function.PreDownloadAndPreloading.startBtn" = "Play the pre-download video";
