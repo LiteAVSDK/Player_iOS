@@ -1,0 +1,16 @@
+/* 
+  TXVideoDownloadLocalized.strings
+  PlayerApiDemo
+
+  Copyright (c) 2022 Tencent. All rights reserved.
+  
+*/
+
+"TX_VIDEO_DOWNLOAD-Module.Title" = "Video Download And Play";
+
+"TX_VIDEO_DOWNLOAD-Module.StartDownload" = "start download";
+"TX_VIDEO_DOWNLOAD-Module.StopDownload" = "stop download";
+
+"TX_VIDEO_DOWNLOAD-Module.DownloadIsStop" = "download stop";
+"TX_VIDEO_DOWNLOAD-Module.DownloadIsFinish" = "download finish";
+"TX_VIDEO_DOWNLOAD-Module.DownloadIsError" = "download error";

@@ -1,0 +1,9 @@
+/* 
+  TXSetStartTimeLocalize.strings
+  PlayerApiDemo
+
+  Copyright (c) 2022 Tencent. All rights reserved.
+  
+*/
+
+"PLAYER-API-Example.Function.SetStartTime.title" = "设置启播时间";
