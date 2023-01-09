@@ -35,6 +35,12 @@
                        isPlaying:(BOOL)isAutoPlay {
 }
 
+- (void)resetWithTracks:(NSMutableArray *)tracks
+      currentTrackIndex:(NSInteger)trackIndex
+              subtitles:(NSMutableArray *)subtitles
+  currentSubtitlesIndex:(NSInteger)subtitleIndex {
+}
+
 - (void)setPlayState:(BOOL)isPlay {
 }
 
@@ -51,6 +57,12 @@
 }
 
 - (void)setNextBtnState:(BOOL)isShow {
+}
+
+- (void)setTrackBtnState:(BOOL)isShow {
+}
+
+- (void)setSubtitlesBtnState:(BOOL)isShow {
 }
 
 - (void)setDisableOfflineBtn:(BOOL)disableOfflineBtn {

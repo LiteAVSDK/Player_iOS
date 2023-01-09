@@ -3,6 +3,7 @@
 
 @class SuperPlayerUrl;
 @class SuperPlayerControlView;
+@class TXTrackInfo;
 
 @protocol SuperPlayerControlViewDelegate <NSObject>
 
@@ -25,6 +26,10 @@
 - (void)controlViewSnapshot:(UIView *)controlView;
 /** 切换分辨率按钮事件 */
 - (void)controlViewSwitch:(UIView *)controlView withDefinition:(NSString *)definition;
+/** 切换音轨按钮事件 */
+- (void)controlViewSwitch:(UIView *)controlView withTrackInfo:(TXTrackInfo *)info preTrackInfo:(TXTrackInfo *)preInfo;
+/** 切换字幕按钮事件 */
+- (void)controlViewSwitch:(UIView *)controlView withSubtitlesInfo:(TXTrackInfo *)info preSubtitlesInfo:(TXTrackInfo *)preInfo;
 /** 修改配置 */
 - (void)controlViewConfigUpdate:(SuperPlayerControlView *)controlView withReload:(BOOL)reload;
 /** 重新播放 */

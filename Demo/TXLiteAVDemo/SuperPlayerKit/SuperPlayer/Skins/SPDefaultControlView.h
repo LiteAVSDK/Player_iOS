@@ -38,6 +38,14 @@
 @property(nonatomic, strong) UIButton *offlineBtn;
 /// 是否禁用离线缓存
 @property(nonatomic, assign) BOOL disableOfflineBtn;
+/** 音轨切换按钮 */
+@property(nonatomic, strong) UIButton *trackBtn;
+/// 是否禁用音轨切换
+@property(nonatomic, assign) BOOL disableTrackBtn;
+/** 字幕切换按钮 */
+@property(nonatomic, strong) UIButton *subtitlesBtn;
+/// 是否禁用字幕切换
+@property(nonatomic, assign) BOOL disableSubtitlesBtn;
 /** 截图按钮 */
 @property(nonatomic, strong) UIButton *captureBtn;
 /// 是否禁用截图
@@ -68,6 +76,10 @@
 @property(nonatomic, strong) NSArray<NSString *> *resolutionArray;
 /** 更多设置View */
 @property(nonatomic, strong) SuperPlayerSettingsView *moreContentView;
+/** 音轨View*/
+@property (nonatomic, strong) SuperPlayerTrackView *trackView;
+/** 字幕View*/
+@property (nonatomic, strong) SuperPlayerSubtitlesView *subtitlesView;
 /** 返回直播 */
 @property(nonatomic, strong) UIButton *backLiveBtn;
 

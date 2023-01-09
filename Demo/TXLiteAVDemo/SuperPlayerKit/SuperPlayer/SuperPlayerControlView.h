@@ -13,6 +13,8 @@
 #import "SuperPlayerControlViewDelegate.h"
 #import "SuperPlayerFastView.h"
 #import "SuperPlayerSettingsView.h"
+#import "SuperPlayerTrackView.h"
+#import "SuperPlayerSubtitlesView.h"
 #import "SuperPlayerViewConfig.h"
 
 @interface SuperPlayerControlView : UIView
@@ -107,6 +109,18 @@
 - (void)setDisableOfflineBtn:(BOOL)disableOfflineBtn;
 
 /**
+ * 是否隐藏音轨控件
+ * @param isShow  YES显示，NO隐藏
+ */
+- (void)setTrackBtnState:(BOOL)isShow;
+
+/**
+ * 是否隐藏字幕控件
+ * @param isShow  YES显示，NO隐藏
+ */
+- (void)setSubtitlesBtnState:(BOOL)isShow;
+
+/**
  * 重置播放控制面板
  * @param resolutionNames 清晰度名称
  * @param resolutionIndex 正在播放的清晰度的下标
@@ -119,6 +133,18 @@
                           isLive:(BOOL)isLive
                   isTimeShifting:(BOOL)isTimeShifting
                        isPlaying:(BOOL)isPlaying;
+
+/**
+ * 重置字幕音轨面板
+ * @param tracks 音轨数组
+ * @param trackIndex 正在播放的音轨下标
+ * @param subtitles 字幕数组
+ * @param subtitleIndex 正在播放的字幕下标
+ */
+- (void)resetWithTracks:(NSMutableArray *)tracks
+      currentTrackIndex:(NSInteger)trackIndex
+              subtitles:(NSMutableArray *)subtitles
+  currentSubtitlesIndex:(NSInteger)subtitleIndex;
 
 /**
  *  设置竖直方向的约束

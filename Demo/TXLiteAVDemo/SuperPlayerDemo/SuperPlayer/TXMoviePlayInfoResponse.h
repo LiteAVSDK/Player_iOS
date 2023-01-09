@@ -12,8 +12,8 @@
 
 @property(nonatomic, readonly) NSDictionary *responseDict;
 
-@property(nonatomic, readonly) NSString *coverUrl;
-@property(nonatomic, readonly) NSString *name;
+@property(nonatomic, strong) NSString *coverUrl;
+@property(nonatomic, strong)   NSString *name;
 @property(nonatomic, readonly) NSString *videoDescription;
 @property(nonatomic, readonly) int       duration;
 @property(nonatomic, readonly) NSString *title;
@@ -22,6 +22,7 @@
 @property (nonatomic, strong) NSString *fileId;
 @property (nonatomic, strong) NSString *pSign;
 @property (nonatomic, assign) BOOL isCache;
+@property (nonatomic, strong) NSString *videoUrl;
 
 - (instancetype)initWithResponse:(NSDictionary *)dict;
 

@@ -41,7 +41,16 @@
 #define VIDEO_OFFLINE_CACHE_DEFAULT_URL    @"http://1400155958.vod2.myqcloud.com/facd87c8vodcq1400155958/0183245d387702299939234236/c7yiepstuHcA.png"
 
 #define LOCAL_LIVE_COVERURL @"http://1500005830.vod2.myqcloud.com/6c9a5118vodcq1500005830/66bc542f387702300661648850/0RyP1rZfkdQA.png"
-#define LOCAL_LIVE_URL      @"http://liteavapp.qcloud.com/live/liteavdemoplayerstreamid.flv"
+#define LOCAL_LIVE_FLV_URL      @"http://liteavapp.qcloud.com/live/liteavdemoplayerstreamid.flv"
+#define LOCAL_LIVE_RTMP_URL      @"rtmp://liteavapp.qcloud.com/live/liteavdemoplayerstreamid"
+#define LOCAL_LIVE_WEBRTC_URL      @"webrtc://liteavapp.qcloud.com/live/liteavdemoplayerstreamid"
+#define LOCAL_LIVE_HLS_URL      @"http://liteavapp.qcloud.com/live/liteavdemoplayerstreamid.m3u8"
+
+#define MULTI_TRACK_VIDEO  @"http://1500005830.vod2.myqcloud.com/6c9a5118vodcq1500005830/3a76d6ac387702303793151471/iP3rnDdxMH4A.mov";
+#define MULTI_SUBTITLES_VIDEO @"http://1500005830.vod2.myqcloud.com/6c9a5118vodcq1500005830/dc455d1d387702306937256938/mUAS0RDnhLwA.mp4";
+
+#define TRACK_COVERURL @"http://1500005830.vod2.myqcloud.com/6c9a5118vodcq1500005830/3a76d6ac387702303793151471/387702307093360124.png";
+#define SUBTITLES_COVERURL @"http://1500005830.vod2.myqcloud.com/43843ec0vodtranscq1500005830/dc455d1d387702306937256938/coverBySnapshot_10_0.jpg";
 
 
 __weak UITextField *appField;
@@ -429,6 +438,24 @@ __weak UITextField *cacheField;
         [videoArray addObject:p];
         [_authParamArray addObject:videoArray];
         
+        videoArray = [NSMutableArray array];
+        TXMoviePlayInfoResponse *trackInfoResponse = [[TXMoviePlayInfoResponse alloc] init];
+        trackInfoResponse.name = playerLocalize(@"SuperPlayerDemo.MoviePlayer.multitrackvideo");
+        trackInfoResponse.videoUrl = MULTI_TRACK_VIDEO;
+        trackInfoResponse.isCache = NO;
+        trackInfoResponse.coverUrl = TRACK_COVERURL;
+        [videoArray addObject:trackInfoResponse];
+        [_authParamArray addObject:videoArray];
+        
+        videoArray = [NSMutableArray array];
+        TXMoviePlayInfoResponse *subtitleInfoResponse = [[TXMoviePlayInfoResponse alloc] init];
+        subtitleInfoResponse.name = playerLocalize(@"SuperPlayerDemo.MoviePlayer.multisubtitledvideo");
+        subtitleInfoResponse.videoUrl = MULTI_SUBTITLES_VIDEO;
+        subtitleInfoResponse.isCache = NO;
+        subtitleInfoResponse.coverUrl = SUBTITLES_COVERURL;
+        [videoArray addObject:subtitleInfoResponse];
+        [_authParamArray addObject:videoArray];
+        
         // 增加轮播视频源
         [self loadVideoListData];
         // 增加离线缓存视频源
@@ -517,12 +544,35 @@ __weak UITextField *cacheField;
     BOOL mUseLocalLiveData = true;
     NSMutableArray *allList = @[].mutableCopy;
     if (mUseLocalLiveData) {
-        ListVideoModel *model = [ListVideoModel new];
-        model.url = LOCAL_LIVE_URL;
-        model.title = playerLocalize(@"SuperPlayerDemo.MoviePlayer.testvideo");
-        model.coverUrl = LOCAL_LIVE_COVERURL;
-        model.type = 1;
-        [allList addObject:model];
+        ListVideoModel *flvModel = [ListVideoModel new];
+        flvModel.url = LOCAL_LIVE_FLV_URL;
+        flvModel.title = playerLocalize(@"SuperPlayerDemo.MoviePlayer.flv_live_video");
+        flvModel.coverUrl = LOCAL_LIVE_COVERURL;
+        flvModel.type = 1;
+        [allList addObject:flvModel];
+        
+        ListVideoModel *rtmpModel = [ListVideoModel new];
+        rtmpModel.url = LOCAL_LIVE_RTMP_URL;
+        rtmpModel.title = playerLocalize(@"SuperPlayerDemo.MoviePlayer.rtmp_live_video");
+        rtmpModel.coverUrl = LOCAL_LIVE_COVERURL;
+        rtmpModel.type = 1;
+        [allList addObject:rtmpModel];
+        
+        
+        ListVideoModel *webrtcModel = [ListVideoModel new];
+        webrtcModel.url = LOCAL_LIVE_WEBRTC_URL;
+        webrtcModel.title = playerLocalize(@"SuperPlayerDemo.MoviePlayer.webrtc_live_video");
+        webrtcModel.coverUrl = LOCAL_LIVE_COVERURL;
+        webrtcModel.type = 1;
+        [allList addObject:webrtcModel];
+        
+        ListVideoModel *hlsModel = [ListVideoModel new];
+        hlsModel.url = LOCAL_LIVE_HLS_URL;
+        hlsModel.title = playerLocalize(@"SuperPlayerDemo.MoviePlayer.hls_live_video");
+        hlsModel.coverUrl = LOCAL_LIVE_COVERURL;
+        hlsModel.type = 1;
+        [allList addObject:hlsModel];
+        
         self.liveDataSourceArray = allList;
         [self.liveListView reloadData];
     } else {
@@ -693,6 +743,7 @@ __weak UITextField *cacheField;
         NSArray *array = [playInfo.name componentsSeparatedByString:@"."];
         m.title           = playInfo.videoDescription.length > 0 ? playInfo.videoDescription : array.firstObject;
         m.isEnableCache   = playInfo.isCache;
+        m.url             = playInfo.videoUrl;
         if (!m.title || [m.title isEqualToString:@""]) {
             if (playInfo.name && playInfo.name.length >0) {
                 m.title = playInfo.name;
@@ -724,6 +775,32 @@ __weak UITextField *cacheField;
             model.textFont = 30;
             model.textColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:0/255.0 alpha:0.8];
             m.dynamicWaterModel = model;
+        }
+        
+        if ([m.title isEqualToString:playerLocalize(@"SuperPlayerDemo.MoviePlayer.multisubtitledvideo")]) {
+            
+            NSMutableArray *subtitlesArray = [NSMutableArray array];
+            
+            // 添加需要挂载的字幕
+            SuperPlayerSubtitles *subtitleModel = [[SuperPlayerSubtitles alloc] init];
+            subtitleModel.subtitlesUrl = @"https://mediacloud-76607.gzc.vod.tencent-cloud.com/DemoResource/TED-CN.srt";
+            subtitleModel.subtitlesName = @"ex-cn-srt";
+            subtitleModel.subtitlesType = 0;
+            [subtitlesArray addObject:subtitleModel];
+            
+            subtitleModel = [SuperPlayerSubtitles new];
+            subtitleModel.subtitlesUrl = @"https://mediacloud-76607.gzc.vod.tencent-cloud.com/DemoResource/TED-EN.vtt";
+            subtitleModel.subtitlesName = @"ex-en-vtt";
+            subtitleModel.subtitlesType = 1;
+            [subtitlesArray addObject:subtitleModel];
+            
+            subtitleModel = [SuperPlayerSubtitles new];
+            subtitleModel.subtitlesUrl = @"https://mediacloud-76607.gzc.vod.tencent-cloud.com/DemoResource/TED-IN.srt";
+            subtitleModel.subtitlesName = @"ex-in-srt";
+            subtitleModel.subtitlesType = 0;
+            [subtitlesArray addObject:subtitleModel];
+            
+            m.subtitlesArray = subtitlesArray;
         }
         
         m.coverUrl = playInfo.coverUrl;
@@ -780,34 +857,41 @@ __weak UITextField *cacheField;
     }
     
     NSMutableArray *resultArray = [NSMutableArray array];
-    dispatch_queue_t serialQueue = dispatch_queue_create("serialQueue", DISPATCH_QUEUE_SERIAL);
-    dispatch_async(serialQueue, ^{
-        dispatch_semaphore_t sem = dispatch_semaphore_create(0);
-        for (TXPlayerAuthParams *p in videoArray) {
-            __weak __typeof(self) wself = self;
-            [self.getInfoNetApi getplayinfo:p.appId
-                                     fileId:p.fileId
-                                      psign:p.sign
-                                 completion:^(TXMoviePlayInfoResponse *resp, NSError *error) {
-                                     if (error) {
-                                         dispatch_async(dispatch_get_main_queue(), ^{
-                                             [wself hudMessage:LivePlayerLocalize(@"SuperPlayerDemo.MoviePlayer.fileidrequesterror")];
-                                         });
-                                     } else {
-                                         resp.isCache = isCache;
-                                         [resultArray addObject:resp];
-                                     }
-                                     dispatch_semaphore_signal(sem);
-                                 }];
-            dispatch_semaphore_wait(sem, DISPATCH_TIME_FOREVER);
+    if ([videoArray.firstObject isKindOfClass:[TXMoviePlayInfoResponse class]]) {
+        for (TXMoviePlayInfoResponse *resp in videoArray) {
+            [resultArray addObject:resp];
         }
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            if (resultArray.count > 0) {
-                [self onNetSuccess:resultArray];
+        [self onNetSuccess:resultArray];
+    } else {
+        dispatch_queue_t serialQueue = dispatch_queue_create("serialQueue", DISPATCH_QUEUE_SERIAL);
+        dispatch_async(serialQueue, ^{
+            dispatch_semaphore_t sem = dispatch_semaphore_create(0);
+            for (TXPlayerAuthParams *p in videoArray) {
+                __weak __typeof(self) wself = self;
+                [self.getInfoNetApi getplayinfo:p.appId
+                                         fileId:p.fileId
+                                          psign:p.sign
+                                     completion:^(TXMoviePlayInfoResponse *resp, NSError *error) {
+                                         if (error) {
+                                             dispatch_async(dispatch_get_main_queue(), ^{
+                                                 [wself hudMessage:LivePlayerLocalize(@"SuperPlayerDemo.MoviePlayer.fileidrequesterror")];
+                                             });
+                                         } else {
+                                             resp.isCache = isCache;
+                                             [resultArray addObject:resp];
+                                         }
+                                         dispatch_semaphore_signal(sem);
+                                     }];
+                dispatch_semaphore_wait(sem, DISPATCH_TIME_FOREVER);
             }
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (resultArray.count > 0) {
+                    [self onNetSuccess:resultArray];
+                }
+            });
         });
-    });
+    }
 }
 
 #pragma mark - 从其他APP拉起播放
@@ -997,7 +1081,7 @@ __weak UITextField *cacheField;
         //仅支持普通URL传参方式
         [self _fillModel:model withURL:result];
         isLive = NO;
-    } else if ([result hasPrefix:@"rtmp"] || ([result hasPrefix:@"http"] && [result hasSuffix:@".flv"])) {
+    } else if ([result hasPrefix:@"rtmp"] || ([result hasPrefix:@"http"] && [result hasSuffix:@".flv"]) || [result hasPrefix:@"webrtc"]) {
         model.videoURL = result;
         isLive         = YES;
     } else {

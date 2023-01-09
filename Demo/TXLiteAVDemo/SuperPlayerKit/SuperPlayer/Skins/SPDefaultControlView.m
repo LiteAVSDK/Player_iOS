@@ -20,7 +20,8 @@
 #define MODEL_TAG_BEGIN          20
 #define BOTTOM_IMAGE_VIEW_HEIGHT 50
 
-@interface     SPDefaultControlView () <UIGestureRecognizerDelegate, PlayerSliderDelegate>
+@interface     SPDefaultControlView () <UIGestureRecognizerDelegate, PlayerSliderDelegate,
+SuperPlayerTrackViewDelegate, SuperPlayerSubtitlesViewDelegate>
 @property BOOL isLive;
 @end
 
@@ -42,6 +43,8 @@
         [self.topImageView addSubview:self.captureBtn];
         [self.topImageView addSubview:self.danmakuBtn];
         [self.topImageView addSubview:self.offlineBtn];
+        [self.topImageView addSubview:self.trackBtn];
+        [self.topImageView addSubview:self.subtitlesBtn];
         [self.topImageView addSubview:self.moreBtn];
         [self addSubview:self.lockBtn];
         [self addSubview:self.pipBtn];
@@ -60,9 +63,13 @@
         self.pipBtn.hidden          = YES;
         self.danmakuBtn.hidden      = YES;
         self.offlineBtn.hidden      = YES;
+        self.trackBtn.hidden        = YES;
+        self.subtitlesBtn.hidden    = YES;
         self.moreBtn.hidden         = YES;
         self.resolutionBtn.hidden   = YES;
         self.moreContentView.hidden = YES;
+        self.trackView.hidden       = YES;
+        self.subtitlesView.hidden   = YES;
         self.nextBtn.hidden         = YES;
         // 初始化时重置controlView
         [self playerResetControlView];
@@ -100,20 +107,12 @@
         make.trailing.equalTo(self.moreBtn.mas_leading).offset(-10);
         make.centerY.equalTo(self.backBtn.mas_centerY);
     }];
-
-    [self.danmakuBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.mas_equalTo(40);
-        make.height.mas_equalTo(49);
-        make.trailing.equalTo(self.captureBtn.mas_leading).offset(-10);
-        make.centerY.equalTo(self.backBtn.mas_centerY);
-    }];
     
-    [self.offlineBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.mas_equalTo(40);
-        make.height.mas_equalTo(49);
-        make.trailing.equalTo(self.danmakuBtn.mas_leading).offset(-10);
-        make.centerY.equalTo(self.backBtn.mas_centerY);
-    }];
+    NSArray *buttonStatusArr = @[[NSNumber numberWithBool:self.disableDanmakuBtn],
+                                 [NSNumber numberWithBool:self.disableOfflineBtn],
+                                 [NSNumber numberWithBool:self.disableSubtitlesBtn],
+                                 [NSNumber numberWithBool:self.disableTrackBtn]];
+    [self setTopButtonConstranintsWithStatus:buttonStatusArr];
 
     [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.leading.equalTo(self.backBtn.mas_trailing).offset(5);
@@ -282,11 +281,39 @@
     [self fadeOut:3];
 }
 
+- (void)trackBtnClick:(UIButton *)sender {
+    self.topImageView.hidden    = YES;
+    self.bottomImageView.hidden = YES;
+    self.lockBtn.hidden         = YES;
+    self.pipBtn.hidden          = YES;
+    self.moreContentView.hidden = YES;
+    self.subtitlesView.hidden   = YES;
+    self.trackView.hidden       = NO;
+    
+    [self cancelFadeOut];
+    self.isShowSecondView = YES;
+}
+
+- (void)subtitlesBtnClick:(UIButton *)sender {
+    self.topImageView.hidden    = YES;
+    self.bottomImageView.hidden = YES;
+    self.lockBtn.hidden         = YES;
+    self.pipBtn.hidden          = YES;
+    self.moreContentView.hidden = YES;
+    self.trackView.hidden       = YES;
+    self.subtitlesView.hidden   = NO;
+    
+    [self cancelFadeOut];
+    self.isShowSecondView = YES;
+}
+
 - (void)moreBtnClick:(UIButton *)sender {
     self.topImageView.hidden    = YES;
     self.bottomImageView.hidden = YES;
     self.lockBtn.hidden         = YES;
     self.pipBtn.hidden          = YES;
+    self.trackView.hidden       = YES;
+    self.subtitlesView.hidden   = YES;
 
     self.moreContentView.playerConfig = self.playerConfig;
     [self.moreContentView update];
@@ -405,6 +432,20 @@
     }
 }
 
+- (void)setDisableTrackBtn:(BOOL)disableTrackBtn {
+    _disableTrackBtn = disableTrackBtn;
+    if (self.fullScreen) {
+        self.trackBtn.hidden = disableTrackBtn;
+    }
+}
+
+- (void)setDisableSubtitlesBtn:(BOOL)disableSubtitlesBtn {
+    _disableSubtitlesBtn = disableSubtitlesBtn;
+    if (self.fullScreen) {
+        self.subtitlesBtn.hidden = disableSubtitlesBtn;
+    }
+}
+
 - (void)nextJumpClick:(UIButton *)sender {
     if (self.delegate && [self.delegate respondsToSelector:@selector(controlViewNextClick:)]) {
         [self.delegate controlViewNextClick:self];
@@ -428,6 +469,14 @@
     self.captureBtn.hidden      = self.disableCaptureBtn;
     self.danmakuBtn.hidden      = self.disableDanmakuBtn;
     self.offlineBtn.hidden      = self.disableOfflineBtn;
+    self.trackBtn.hidden        = self.disableTrackBtn;
+    self.subtitlesBtn.hidden    = self.disableSubtitlesBtn;
+
+    NSArray *buttonStatusArr = @[[NSNumber numberWithBool:self.danmakuBtn.hidden],
+                                 [NSNumber numberWithBool:self.offlineBtn.hidden],
+                                 [NSNumber numberWithBool:self.subtitlesBtn.hidden],
+                                 [NSNumber numberWithBool:self.trackBtn.hidden]];
+    [self setTopButtonConstranintsWithStatus:buttonStatusArr];
 
     [self.backBtn setImage:SuperPlayerImage(@"back_full") forState:UIControlStateNormal];
     
@@ -478,7 +527,11 @@
     self.captureBtn.hidden      = YES;
     self.danmakuBtn.hidden      = YES;
     self.offlineBtn.hidden      = YES;
+    self.trackBtn.hidden        = YES;
+    self.subtitlesBtn.hidden    = YES;
     self.moreContentView.hidden = YES;
+    self.trackView.hidden       = YES;
+    self.subtitlesView.hidden   = YES;
     self.resolutionView.hidden  = YES;
 
     [self.totalTimeLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
@@ -501,6 +554,26 @@
 }
 
 #pragma mark - Private Method
+
+- (void)setTopButtonConstranintsWithStatus:(NSArray *)buttonStatusArr {
+    NSArray *buttonArray = @[self.danmakuBtn, self.offlineBtn, self.subtitlesBtn, self.trackBtn];
+    
+    int k = 0;
+    for (int i = 0; i < buttonStatusArr.count; i++) {
+        NSNumber *status = buttonStatusArr[i];
+        if (![status boolValue]) {
+            UIButton *btn = buttonArray[i];
+            [btn mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.width.mas_equalTo(40);
+                make.height.mas_equalTo(49);
+                make.trailing.equalTo(self.captureBtn.mas_leading).offset(-((k * 40) + ((k + 1) * 10)));
+                make.centerY.equalTo(self.backBtn.mas_centerY);
+            }];
+            k++;
+        }
+    }
+    
+}
 
 #pragma mark - setter
 
@@ -644,6 +717,24 @@
     return _offlineBtn;
 }
 
+- (UIButton *)trackBtn {
+    if (!_trackBtn) {
+        _trackBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_trackBtn setImage:SuperPlayerImage(@"track") forState:UIControlStateNormal];
+        [_trackBtn addTarget:self action:@selector(trackBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _trackBtn;
+}
+
+- (UIButton *)subtitlesBtn {
+    if (!_subtitlesBtn) {
+        _subtitlesBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_subtitlesBtn setImage:SuperPlayerImage(@"subtitles") forState:UIControlStateNormal];
+        [_subtitlesBtn addTarget:self action:@selector(subtitlesBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _subtitlesBtn;
+}
+
 - (UIButton *)moreBtn {
     if (!_moreBtn) {
         _moreBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -709,6 +800,40 @@
     return _moreContentView;
 }
 
+- (SuperPlayerTrackView *)trackView {
+    if (!_trackView) {
+        _trackView = [[SuperPlayerTrackView alloc] initWithFrame:CGRectZero];
+        _trackView.hidden = YES;
+        [self addSubview:_trackView];
+        [_trackView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.width.mas_equalTo(330);
+            make.height.mas_equalTo(self.mas_height);
+            make.trailing.equalTo(self.mas_trailing).offset(0);
+            make.top.equalTo(self.mas_top).offset(0);
+        }];
+        _trackView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
+        _trackView.delegate = self;
+    }
+    return _trackView;
+}
+
+- (SuperPlayerSubtitlesView *)subtitlesView {
+    if (!_subtitlesView) {
+        _subtitlesView = [[SuperPlayerSubtitlesView alloc] initWithFrame:CGRectZero];
+        _subtitlesView.hidden = YES;
+        [self addSubview:_subtitlesView];
+        [_subtitlesView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.width.mas_equalTo(330);
+            make.height.mas_equalTo(self.mas_height);
+            make.trailing.equalTo(self.mas_trailing).offset(0);
+            make.top.equalTo(self.mas_top).offset(0);
+        }];
+        _subtitlesView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
+        _subtitlesView.delegate = self;
+    }
+    return _subtitlesView;
+}
+
 - (UIButton *)nextBtn {
     if (!_nextBtn) {
         _nextBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -728,6 +853,22 @@
     return YES;
 }
 
+#pragma mark - SuperPlayerTrackViewDelegate
+
+- (void)chooseTrackInfo:(TXTrackInfo *)info preTrackInfo:(TXTrackInfo *)preInfo {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(controlViewSwitch:withTrackInfo:preTrackInfo:)]) {
+        [self.delegate controlViewSwitch:self withTrackInfo:info preTrackInfo:preInfo];
+    }
+}
+
+#pragma mark - SuperPlayerSubtitlesViewDelegate
+
+- (void)chooseSubtitlesInfo:(TXTrackInfo *)info preSubtitlesInfo:(TXTrackInfo *)preInfo {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(controlViewSwitch:withSubtitlesInfo:preSubtitlesInfo:)]) {
+        [self.delegate controlViewSwitch:self withSubtitlesInfo:info preSubtitlesInfo:preInfo];
+    }
+}
+
 #pragma mark - Public method
 
 - (void)setHidden:(BOOL)hidden {
@@ -735,6 +876,8 @@
     if (hidden) {
         self.resolutionView.hidden  = YES;
         self.moreContentView.hidden = YES;
+        self.trackView.hidden       = YES;
+        self.subtitlesView.hidden   = YES;
         if (!self.isLockScreen) {
             self.topImageView.hidden    = NO;
             self.bottomImageView.hidden = NO;
@@ -771,6 +914,8 @@
     
     self.danmakuBtn.enabled = YES;
     self.offlineBtn.enabled = YES;
+    self.trackBtn.enabled   = YES;
+    self.subtitlesBtn.enabled = YES;
     self.captureBtn.enabled = YES;
     self.backLiveBtn.hidden = YES;
 }
@@ -883,6 +1028,24 @@
     self.resolutionBtn.userInteractionEnabled = !isTimeShifting;
 }
 
+- (void)resetWithTracks:(NSMutableArray *)tracks
+      currentTrackIndex:(NSInteger)trackIndex
+              subtitles:(NSMutableArray *)subtitles
+  currentSubtitlesIndex:(NSInteger)subtitleIndex {
+    [self.trackView removeFromSuperview];
+    self.trackView = nil;
+    
+    [self.subtitlesView removeFromSuperview];
+    self.subtitlesView = nil;
+    [self.trackView initTrackViewWithTrackArray:tracks currentTrackIndex:trackIndex];
+    
+    if (subtitles.count <= 0) {
+        return;
+    }
+    
+    [self.subtitlesView initSubtitlesViewWithTrackArray:subtitles currentSubtitlesIndex:subtitleIndex];
+}
+
 /** 播放按钮状态 */
 - (void)setPlayState:(BOOL)state {
     self.startBtn.selected = state;
@@ -911,6 +1074,16 @@
 
 - (void)setNextBtnState:(BOOL)isShow {
     self.nextBtn.hidden = !isShow;
+}
+
+- (void)setTrackBtnState:(BOOL)isShow {
+    self.trackBtn.hidden = !isShow;
+    self.disableTrackBtn = !isShow;
+}
+
+- (void)setSubtitlesBtnState:(BOOL)isShow {
+    self.subtitlesBtn.hidden = !isShow;
+    self.disableSubtitlesBtn = !isShow;
 }
 
 - (void)setOfflineBtnState:(BOOL)isShow {

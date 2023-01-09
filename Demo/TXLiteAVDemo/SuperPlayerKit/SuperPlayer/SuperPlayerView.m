@@ -39,6 +39,8 @@
 #import "DynamicWatermarkView.h"
 #import "DynamicWaterModel.h"
 #import "SuperPlayerLocalized.h"
+#import "SuperPlayerTrackView.h"
+#import "SuperPlayerSubtitles.h"
 #ifdef ENABLE_UGC
 #import "TXUGCBase.h"
 #import "TXUGCPartsManager.h"
@@ -86,7 +88,7 @@ TXLiveBaseDelegate,TXLivePlayListener,TXVodPlayListener>
     BOOL                   _isVideoList;
     NSArray                *_videoModelList;
     DynamicWatermarkView   *_watermarkView;
-
+    NSInteger              _lastSubtitleIndex;
 }
 
 #pragma mark - life Cycle
@@ -169,6 +171,7 @@ TXLiveBaseDelegate,TXLivePlayListener,TXVodPlayListener>
     _hasStartPip = NO;
     _restoreUI = NO;
     _hasStartPipLoading = NO;
+    _lastSubtitleIndex = -1;
 }
 
 - (void)dealloc {
@@ -632,6 +635,13 @@ TXLiveBaseDelegate,TXLivePlayListener,TXVodPlayListener>
     config.preferredResolution = 720 * 1280;
     [self.vodPlayer setConfig:config];
     
+    // 挂载字幕
+    if (_playerModel.subtitlesArray.count > 0) {
+        for (SuperPlayerSubtitles *subtitles in _playerModel.subtitlesArray) {
+            [self.vodPlayer addSubtitleSource:subtitles.subtitlesUrl name:subtitles.subtitlesName mimeType:(NSInteger)subtitles.subtitlesType];
+        }
+    }
+    
     self.vodPlayer.token    = self.playerModel.drmToken;
 
     self.vodPlayer.enableHWAcceleration = self.playerConfig.hwAcceleration;
@@ -831,6 +841,40 @@ TXLiveBaseDelegate,TXLivePlayListener,TXVodPlayListener>
         self.isPauseByUser = NO;
         [self.controlView setPlayState:YES];
         self.centerPlayBtn.hidden = YES;
+    }
+}
+
+- (void)detailTrackAndSubtitlesWithPlayer:(TXVodPlayer *)player {
+    
+    NSMutableArray *trackArray = [NSMutableArray array];
+    NSMutableArray *subtitlesArray = [NSMutableArray array];
+    TXTrackInfo *offInfo = [[TXTrackInfo alloc] init];
+    offInfo.name = superPlayerLocalized(@"SuperPlayer.off");
+    offInfo.trackIndex = -1;
+    offInfo.isInternal = false;
+    offInfo.trackType = TX_VOD_MEDIA_TRACK_TYPE_SUBTITLE;
+    
+    NSInteger subtitlesIndex = 0;
+    if (player.getSubtitleTrackInfo.count > 0) {
+        [subtitlesArray addObjectsFromArray:player.getSubtitleTrackInfo];
+        [subtitlesArray insertObject:offInfo atIndex:0];
+        
+        for (int i = 0; i < subtitlesArray.count; i++) {
+            TXTrackInfo *info = subtitlesArray[i];
+            if (info.trackIndex == self->_lastSubtitleIndex) {
+                subtitlesIndex = i;
+                break;
+            }
+        }
+    }
+    
+    [trackArray addObjectsFromArray:player.getAudioTrackInfo];
+    [trackArray insertObject:offInfo atIndex:0];
+    
+    [self.controlView resetWithTracks:trackArray currentTrackIndex:1 subtitles:subtitlesArray currentSubtitlesIndex:subtitlesIndex];
+    
+    if (self->_lastSubtitleIndex != -1) {
+        [self.vodPlayer selectTrack:self->_lastSubtitleIndex];
     }
 }
 
@@ -1137,6 +1181,14 @@ TXLiveBaseDelegate,TXLivePlayListener,TXVodPlayListener>
 
 /** 全屏 */
 - (void)setFullScreen:(BOOL)fullScreen {
+    if (fullScreen) {
+        if (self.vodPlayer.getSubtitleTrackInfo.count <= 0) {
+            [self.controlView setSubtitlesBtnState:NO];
+        } else {
+            [self.controlView setSubtitlesBtnState:YES];
+        }
+    }
+    
     if (_isFullScreen != fullScreen) {
         [self _adjustTransform:[self _orientationForFullScreen:fullScreen]];
         [self _switchToFullScreen:fullScreen];
@@ -2015,6 +2067,34 @@ TXLiveBaseDelegate,TXLivePlayListener,TXVodPlayListener>
     _vodPlayer = nil;
 }
 
+- (void)controlViewSwitch:(UIView *)controlView withTrackInfo:(TXTrackInfo *)info preTrackInfo:(TXTrackInfo *)preInfo {
+    if (info.trackIndex == -1) {
+        [self.vodPlayer deselectTrack:preInfo.trackIndex];
+    } else {
+        if (preInfo.trackIndex != -1) {
+            [self.vodPlayer deselectTrack:preInfo.trackIndex];
+            [self.vodPlayer selectTrack:info.trackIndex];
+        }
+    }
+    
+    [self.controlView fadeOut:1];
+}
+
+- (void)controlViewSwitch:(UIView *)controlView withSubtitlesInfo:(TXTrackInfo *)info preSubtitlesInfo:(TXTrackInfo *)preInfo {
+    if (info.trackIndex == -1) {
+        [self.vodPlayer deselectTrack:preInfo.trackIndex];
+        self->_lastSubtitleIndex = -1;
+    } else {
+        if (preInfo.trackIndex != -1) {
+            [self.vodPlayer deselectTrack:preInfo.trackIndex];
+        }
+        [self.vodPlayer selectTrack:info.trackIndex];
+        self->_lastSubtitleIndex = info.trackIndex;
+    }
+    
+    [self.controlView fadeOut:1];
+}
+
 #pragma clang diagnostic pop
 #pragma mark - 点播回调
 
@@ -2066,6 +2146,7 @@ TXLiveBaseDelegate,TXLivePlayListener,TXVodPlayListener>
         if (EvtID == PLAY_EVT_VOD_PLAY_PREPARED) {
             [self updateBitrates:player.supportedBitrates];
             [self detailPrepareState];
+            [self detailTrackAndSubtitlesWithPlayer:player];
         }
         if (EvtID == PLAY_EVT_PLAY_PROGRESS) {
             [self detailProgress];
@@ -2270,7 +2351,7 @@ TXLiveBaseDelegate,TXLivePlayListener,TXVodPlayListener>
     NSString *       videoURL   = self.playerModel.videoURL;
     NSURLComponents *components = [NSURLComponents componentsWithString:videoURL];
     NSString *       scheme     = [[components scheme] lowercaseString];
-    if ([scheme isEqualToString:@"rtmp"]) {
+    if ([scheme isEqualToString:@"rtmp"] || [scheme isEqualToString:@"webrtc"]) {
         playType = PLAY_TYPE_LIVE_RTMP;
     } else if ([scheme hasPrefix:@"http"] && [[components path].lowercaseString hasSuffix:@".flv"]) {
         playType = PLAY_TYPE_LIVE_FLV;

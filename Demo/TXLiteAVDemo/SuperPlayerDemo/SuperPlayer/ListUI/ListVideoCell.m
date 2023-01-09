@@ -52,6 +52,7 @@
     model.duration              = self.duration;
     model.name                  = self.title;
     model.isEnableCache         = self.isEnableCache;
+    model.subtitlesArray        = self.subtitlesArray;
     if (self.dynamicWaterModel) {
         model.dynamicWaterModel = self.dynamicWaterModel;
     }

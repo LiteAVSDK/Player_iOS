@@ -32,3 +32,11 @@
 "SuperPlayer.tryagain" = "Try Again";
 "SuperPlayer.backtolive" = "Back to Live Streaming";
 "SuperPlayer.notsupportpip" = "This device does not support picture-in-picture";
+"SuperPlayer.off" = "OFF";
+"SuperPlayer.subtitles" = "Subtitles";
+"SuperPlayer.choosefontcolor" = "Choose Font Color";
+"SuperPlayer.choosebontfont" = "Choose Bont Font";
+"SuperPlayer.chooseoutlinewidth" = "Choose Outline Width";
+"SuperPlayer.chooseoutlinecolor" = "Choose Outline Color";
+"SuperPlayer.subtitlessetting" = "Subtitles Setting";
+"SuperPlayer.track" = "Track";

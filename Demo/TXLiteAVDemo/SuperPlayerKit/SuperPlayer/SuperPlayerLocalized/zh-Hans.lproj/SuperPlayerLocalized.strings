@@ -31,3 +31,11 @@
 "SuperPlayer.tryagain" = "重新试看";
 "SuperPlayer.backtolive" = "返回直播";
 "SuperPlayer.notsupportpip" = "该设备不支持画中画";
+"SuperPlayer.off" = "关闭";
+"SuperPlayer.subtitles" = "字幕";
+"SuperPlayer.choosefontcolor" = "选择字体颜色";
+"SuperPlayer.choosebontfont" = "选择字体类型";
+"SuperPlayer.chooseoutlinewidth" = "选择描边宽度";
+"SuperPlayer.chooseoutlinecolor" = "选择描边颜色";
+"SuperPlayer.subtitlessetting" = "字幕设置";
+"SuperPlayer.track" = "音轨";
