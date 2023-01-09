@@ -110,7 +110,6 @@
 		D6BEF8222040368000CBE2BD /* ListVideoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D6BEF7242040353E00CBE2BD /* ListVideoCell.m */; };
 		D6BEF8232040368000CBE2BD /* MoviePlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6BEF7262040353E00CBE2BD /* MoviePlayerViewController.m */; };
 		ED125AE628BF7D3100F8C9D9 /* PlayerLocalized.strings in Resources */ = {isa = PBXBuildFile; fileRef = ED125AE328BF7D3000F8C9D9 /* PlayerLocalized.strings */; };
-		ED59415E2938C908006FFA17 /* SuperPlayerKitBundle.bundle in Resources */ = {isa = PBXBuildFile; fileRef = ED59415D2938C908006FFA17 /* SuperPlayerKitBundle.bundle */; };
 		EDA70D95288E74FB00A9E10B /* FeedRequestUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = EDA70D93288E74FB00A9E10B /* FeedRequestUtil.m */; };
 		EDC1B2B92847C9A60077A920 /* VideoCacheModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EDC1B2A32847C9A60077A920 /* VideoCacheModel.m */; };
 		EDC1B2BA2847C9A60077A920 /* TXVodDownloadCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = EDC1B2A72847C9A60077A920 /* TXVodDownloadCenter.m */; };
@@ -1325,7 +1324,6 @@
 				47E8C8CC260AECC4001CF672 /* TRTCDemoLocalized.strings in Resources */,
 				4009235A1F4FCC6E009B882D /* LaunchScreen.storyboard in Resources */,
 				47642A9F261491B90020F1BA /* launchimage_en@3x.png in Resources */,
-				ED59415E2938C908006FFA17 /* SuperPlayerKitBundle.bundle in Resources */,
 				47E8C8D9260AECC4001CF672 /* LivePlayerLocalized.strings in Resources */,
 				6BF315D4271E715300D4A72C /* ShortVideo.xcassets in Resources */,
 				40A7CFF02461102E00E792A5 /* SuperPlayer.bundle in Resources */,
