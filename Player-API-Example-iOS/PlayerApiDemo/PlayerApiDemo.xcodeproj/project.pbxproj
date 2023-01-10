@@ -16,10 +16,6 @@
 		6B2E293D28AF89490014E0CB /* TXBasePlayerTopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B2E293C28AF89470014E0CB /* TXBasePlayerTopView.m */; };
 		6B2E294128AF89BE0014E0CB /* TXBasePlayerLogView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B2E294028AF89BE0014E0CB /* TXBasePlayerLogView.m */; };
 		6B2E294928B25E840014E0CB /* TXScanQRController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B2E294828B25E840014E0CB /* TXScanQRController.m */; };
-		6B37551228BE14CF003E3268 /* TXControlPanelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B37551128BE14CF003E3268 /* TXControlPanelViewController.m */; };
-		6B37551628BE153F003E3268 /* TengXunYun_logo in Resources */ = {isa = PBXBuildFile; fileRef = 6B37551528BE153F003E3268 /* TengXunYun_logo */; };
-		6B37551A28BE1595003E3268 /* TXControlPanelLocalize.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6B37551C28BE1595003E3268 /* TXControlPanelLocalize.strings */; };
-		6B37552028BE15DE003E3268 /* TXControlPanelLocalized.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B37551F28BE15DE003E3268 /* TXControlPanelLocalized.m */; };
 		6B37552328BE173A003E3268 /* TXVideoBitrate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B37552228BE173A003E3268 /* TXVideoBitrate.m */; };
 		6B5177022851D58900312EBE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6B5177002851D58900312EBE /* Main.storyboard */; };
 		6B5177072851D58C00312EBE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6B5177052851D58C00312EBE /* LaunchScreen.storyboard */; };
@@ -58,6 +54,10 @@
 		6BB152FE2898C71100CA13B6 /* TXVideoDownloadLocalized.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BB152FD2898C71100CA13B6 /* TXVideoDownloadLocalized.m */; };
 		6BB153212899497A00CA13B6 /* TXBasePlayerLocalized.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BB153202899497A00CA13B6 /* TXBasePlayerLocalized.m */; };
 		D08AB56F4FB499AA23AB5E2D /* Pods_PlayerApiDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC3946C9CE84E724EF41CFE3 /* Pods_PlayerApiDemo.framework */; };
+		EDC5CD76296D8DBA0021256A /* TXControlPanelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDC5CD69296D8DBA0021256A /* TXControlPanelViewController.m */; };
+		EDC5CD77296D8DBA0021256A /* TXControlPanelLocalize.strings in Resources */ = {isa = PBXBuildFile; fileRef = EDC5CD6F296D8DBA0021256A /* TXControlPanelLocalize.strings */; };
+		EDC5CD78296D8DBA0021256A /* TXControlPanelLocalized.m in Sources */ = {isa = PBXBuildFile; fileRef = EDC5CD72296D8DBA0021256A /* TXControlPanelLocalized.m */; };
+		EDC5CD79296D8DBA0021256A /* TengXunYun_logo in Resources */ = {isa = PBXBuildFile; fileRef = EDC5CD75296D8DBA0021256A /* TengXunYun_logo */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -78,14 +78,6 @@
 		6B2E294028AF89BE0014E0CB /* TXBasePlayerLogView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TXBasePlayerLogView.m; sourceTree = "<group>"; };
 		6B2E294728B25E840014E0CB /* TXScanQRController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TXScanQRController.h; sourceTree = "<group>"; };
 		6B2E294828B25E840014E0CB /* TXScanQRController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TXScanQRController.m; sourceTree = "<group>"; };
-		6B37551028BE14CF003E3268 /* TXControlPanelViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TXControlPanelViewController.h; sourceTree = "<group>"; };
-		6B37551128BE14CF003E3268 /* TXControlPanelViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TXControlPanelViewController.m; sourceTree = "<group>"; };
-		6B37551328BE1504003E3268 /* TXControlPanelMacro.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TXControlPanelMacro.h; sourceTree = "<group>"; };
-		6B37551528BE153F003E3268 /* TengXunYun_logo */ = {isa = PBXFileReference; lastKnownFileType = file; path = TengXunYun_logo; sourceTree = "<group>"; };
-		6B37551B28BE1595003E3268 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/TXControlPanelLocalize.strings; sourceTree = "<group>"; };
-		6B37551D28BE1597003E3268 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/TXControlPanelLocalize.strings"; sourceTree = "<group>"; };
-		6B37551E28BE15DE003E3268 /* TXControlPanelLocalized.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TXControlPanelLocalized.h; sourceTree = "<group>"; };
-		6B37551F28BE15DE003E3268 /* TXControlPanelLocalized.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TXControlPanelLocalized.m; sourceTree = "<group>"; };
 		6B37552128BE1739003E3268 /* TXVideoBitrate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TXVideoBitrate.h; sourceTree = "<group>"; };
 		6B37552228BE173A003E3268 /* TXVideoBitrate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TXVideoBitrate.m; sourceTree = "<group>"; };
 		6B5176F42851D58900312EBE /* PlayerApiDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PlayerApiDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -171,6 +163,14 @@
 		6BB1532328994B2C00CA13B6 /* TXAppModuleMacro.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TXAppModuleMacro.h; sourceTree = "<group>"; };
 		AF426C7993A080903404FB1F /* Pods-PlayerApiDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PlayerApiDemo.release.xcconfig"; path = "Target Support Files/Pods-PlayerApiDemo/Pods-PlayerApiDemo.release.xcconfig"; sourceTree = "<group>"; };
 		EC3946C9CE84E724EF41CFE3 /* Pods_PlayerApiDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PlayerApiDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		EDC5CD69296D8DBA0021256A /* TXControlPanelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TXControlPanelViewController.m; sourceTree = "<group>"; };
+		EDC5CD6A296D8DBA0021256A /* TXControlPanelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TXControlPanelViewController.h; sourceTree = "<group>"; };
+		EDC5CD6C296D8DBA0021256A /* TXControlPanelMacro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TXControlPanelMacro.h; sourceTree = "<group>"; };
+		EDC5CD70296D8DBA0021256A /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/TXControlPanelLocalize.strings"; sourceTree = "<group>"; };
+		EDC5CD71296D8DBA0021256A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/TXControlPanelLocalize.strings; sourceTree = "<group>"; };
+		EDC5CD72296D8DBA0021256A /* TXControlPanelLocalized.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TXControlPanelLocalized.m; sourceTree = "<group>"; };
+		EDC5CD73296D8DBA0021256A /* TXControlPanelLocalized.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TXControlPanelLocalized.h; sourceTree = "<group>"; };
+		EDC5CD75296D8DBA0021256A /* TengXunYun_logo */ = {isa = PBXFileReference; lastKnownFileType = file; path = TengXunYun_logo; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -264,60 +264,6 @@
 			path = TXScanQRController;
 			sourceTree = "<group>";
 		};
-		6B37550C28BE134A003E3268 /* TXControlPanelModule */ = {
-			isa = PBXGroup;
-			children = (
-				6B37550F28BE136B003E3268 /* Resource */,
-				6B37550E28BE135E003E3268 /* Macro */,
-				6B37550D28BE1354003E3268 /* Controller */,
-			);
-			path = TXControlPanelModule;
-			sourceTree = "<group>";
-		};
-		6B37550D28BE1354003E3268 /* Controller */ = {
-			isa = PBXGroup;
-			children = (
-				6B37551028BE14CF003E3268 /* TXControlPanelViewController.h */,
-				6B37551128BE14CF003E3268 /* TXControlPanelViewController.m */,
-			);
-			path = Controller;
-			sourceTree = "<group>";
-		};
-		6B37550E28BE135E003E3268 /* Macro */ = {
-			isa = PBXGroup;
-			children = (
-				6B37551328BE1504003E3268 /* TXControlPanelMacro.h */,
-			);
-			path = Macro;
-			sourceTree = "<group>";
-		};
-		6B37550F28BE136B003E3268 /* Resource */ = {
-			isa = PBXGroup;
-			children = (
-				6B37551728BE1553003E3268 /* Localized */,
-				6B37551428BE1525003E3268 /* TXControlPanelResource */,
-			);
-			path = Resource;
-			sourceTree = "<group>";
-		};
-		6B37551428BE1525003E3268 /* TXControlPanelResource */ = {
-			isa = PBXGroup;
-			children = (
-				6B37551528BE153F003E3268 /* TengXunYun_logo */,
-			);
-			path = TXControlPanelResource;
-			sourceTree = "<group>";
-		};
-		6B37551728BE1553003E3268 /* Localized */ = {
-			isa = PBXGroup;
-			children = (
-				6B37551C28BE1595003E3268 /* TXControlPanelLocalize.strings */,
-				6B37551E28BE15DE003E3268 /* TXControlPanelLocalized.h */,
-				6B37551F28BE15DE003E3268 /* TXControlPanelLocalized.m */,
-			);
-			path = Localized;
-			sourceTree = "<group>";
-		};
 		6B5176EB2851D58900312EBE = {
 			isa = PBXGroup;
 			children = (
@@ -378,10 +324,10 @@
 		6B5177132851D63700312EBE /* FunctionModule */ = {
 			isa = PBXGroup;
 			children = (
+				EDC5CD67296D8DBA0021256A /* TXControlPanelViewController */,
 				6B710A7E28FD5BDE000B6EF2 /* PreDownloadAndPreloadingModule */,
 				6B710A9A28FD5BDF000B6EF2 /* SetSpeciResolutionModule */,
 				6B710A8C28FD5BDE000B6EF2 /* SetStartTimeModule */,
-				6B37550C28BE134A003E3268 /* TXControlPanelModule */,
 				6BB152EC2897B90E00CA13B6 /* TXVideoDownloadModule */,
 				6B51771D2851D74600312EBE /* TXBasePlayerModule */,
 			);
@@ -711,6 +657,60 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		EDC5CD67296D8DBA0021256A /* TXControlPanelViewController */ = {
+			isa = PBXGroup;
+			children = (
+				EDC5CD68296D8DBA0021256A /* Controller */,
+				EDC5CD6B296D8DBA0021256A /* Macro */,
+				EDC5CD6D296D8DBA0021256A /* Resource */,
+			);
+			path = TXControlPanelViewController;
+			sourceTree = "<group>";
+		};
+		EDC5CD68296D8DBA0021256A /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				EDC5CD69296D8DBA0021256A /* TXControlPanelViewController.m */,
+				EDC5CD6A296D8DBA0021256A /* TXControlPanelViewController.h */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		EDC5CD6B296D8DBA0021256A /* Macro */ = {
+			isa = PBXGroup;
+			children = (
+				EDC5CD6C296D8DBA0021256A /* TXControlPanelMacro.h */,
+			);
+			path = Macro;
+			sourceTree = "<group>";
+		};
+		EDC5CD6D296D8DBA0021256A /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				EDC5CD6E296D8DBA0021256A /* Localized */,
+				EDC5CD74296D8DBA0021256A /* TXControlPanelResource */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
+		EDC5CD6E296D8DBA0021256A /* Localized */ = {
+			isa = PBXGroup;
+			children = (
+				EDC5CD6F296D8DBA0021256A /* TXControlPanelLocalize.strings */,
+				EDC5CD72296D8DBA0021256A /* TXControlPanelLocalized.m */,
+				EDC5CD73296D8DBA0021256A /* TXControlPanelLocalized.h */,
+			);
+			path = Localized;
+			sourceTree = "<group>";
+		};
+		EDC5CD74296D8DBA0021256A /* TXControlPanelResource */ = {
+			isa = PBXGroup;
+			children = (
+				EDC5CD75296D8DBA0021256A /* TengXunYun_logo */,
+			);
+			path = TXControlPanelResource;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -773,16 +773,16 @@
 			files = (
 				6BB152E82897B77400CA13B6 /* TXBasePlayerLocalize.strings in Resources */,
 				6BB152F82898C60F00CA13B6 /* TXVideoDownloadLocalize.strings in Resources */,
+				EDC5CD79296D8DBA0021256A /* TengXunYun_logo in Resources */,
 				6B710AAB28FD5BDF000B6EF2 /* TXSetStartTimeLocalize.strings in Resources */,
-				6B37551A28BE1595003E3268 /* TXControlPanelLocalize.strings in Resources */,
 				6B710AAE28FD5BDF000B6EF2 /* TXSetSpeciResolutionLocalize.strings in Resources */,
 				6B578E7828923ACC00DE0FC7 /* TXHomeModuleLocalize.strings in Resources */,
 				6B5177072851D58C00312EBE /* LaunchScreen.storyboard in Resources */,
 				6B5177182851D67800312EBE /* Assets.xcassets in Resources */,
-				6B37551628BE153F003E3268 /* TengXunYun_logo in Resources */,
 				6B2E28CF28ADE1DD0014E0CB /* TXBasePlayer.xcassets in Resources */,
 				6B5177022851D58900312EBE /* Main.storyboard in Resources */,
 				6B710AA928FD5BDF000B6EF2 /* TXPreDownloadAndPreloadingLocalize.strings in Resources */,
+				EDC5CD77296D8DBA0021256A /* TXControlPanelLocalize.strings in Resources */,
 				6B5177192851D67800312EBE /* Player.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -855,13 +855,12 @@
 				6B51772C2851D84E00312EBE /* MainViewController.m in Sources */,
 				6B710AA828FD5BDF000B6EF2 /* TXPreDownloadAndPreloadingLocalized.m in Sources */,
 				6B2E284428A4DEE50014E0CB /* TXBasePlayerBottomView.m in Sources */,
-				6B37552028BE15DE003E3268 /* TXControlPanelLocalized.m in Sources */,
 				6B578E6F2890DEA000DE0FC7 /* TXHomeTableViewCell.m in Sources */,
 				6BB152FE2898C71100CA13B6 /* TXVideoDownloadLocalized.m in Sources */,
 				6B5177262851D81700312EBE /* AppDelegate.m in Sources */,
 				6B2E294128AF89BE0014E0CB /* TXBasePlayerLogView.m in Sources */,
-				6B37551228BE14CF003E3268 /* TXControlPanelViewController.m in Sources */,
 				6B92862928B373DC00B53E05 /* TXConfigText.m in Sources */,
+				EDC5CD78296D8DBA0021256A /* TXControlPanelLocalized.m in Sources */,
 				6B710AB028FD5BDF000B6EF2 /* TXSetSpeciResolutionViewController.m in Sources */,
 				6B92861D28B3711B00B53E05 /* TXConfigCheckBox.m in Sources */,
 				6B92862328B372AD00B53E05 /* TXConfigBlockButton.m in Sources */,
@@ -869,6 +868,7 @@
 				6B2E284128A4DEC10014E0CB /* TXBottomToolView.m in Sources */,
 				6B92861928B3700D00B53E05 /* TXConfigViewController.m in Sources */,
 				6B578E802892665D00DE0FC7 /* TXAppLocalized.m in Sources */,
+				EDC5CD76296D8DBA0021256A /* TXControlPanelViewController.m in Sources */,
 				6B2E293D28AF89490014E0CB /* TXBasePlayerTopView.m in Sources */,
 				6B92862628B3737900B53E05 /* TXConfigCellText.m in Sources */,
 				6BB152EF2897B94B00CA13B6 /* TXVideoDownloadViewController.m in Sources */,
@@ -878,15 +878,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		6B37551C28BE1595003E3268 /* TXControlPanelLocalize.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				6B37551B28BE1595003E3268 /* en */,
-				6B37551D28BE1597003E3268 /* zh-Hans */,
-			);
-			name = TXControlPanelLocalize.strings;
-			sourceTree = "<group>";
-		};
 		6B5177002851D58900312EBE /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -955,6 +946,15 @@
 				6BB152FB2898C61100CA13B6 /* zh-Hans */,
 			);
 			name = TXVideoDownloadLocalize.strings;
+			sourceTree = "<group>";
+		};
+		EDC5CD6F296D8DBA0021256A /* TXControlPanelLocalize.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				EDC5CD70296D8DBA0021256A /* zh-Hans */,
+				EDC5CD71296D8DBA0021256A /* en */,
+			);
+			name = TXControlPanelLocalize.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
