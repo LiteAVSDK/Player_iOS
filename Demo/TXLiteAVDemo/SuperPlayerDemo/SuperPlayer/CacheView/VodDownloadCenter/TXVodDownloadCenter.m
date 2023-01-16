@@ -57,6 +57,10 @@
     [self.manager startDownload:mediaInfo.dataSource];
 }
 
+- (void)startDownloadWithDRMBuilder:(TXPlayerDrmBuilder *)drmBuilder {
+    [self.manager startDownloadDrm:drmBuilder resolution:-1 userName:@"default"];
+}
+
 - (void)stopDownload:(TXVodDownloadMediaInfo *)mediaInfo {
     [self.manager stopDownload:mediaInfo];
 }

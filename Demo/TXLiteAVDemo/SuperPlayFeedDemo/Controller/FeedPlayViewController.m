@@ -260,46 +260,55 @@
     FeedVideoModel *model1 = [FeedVideoModel new];
     model1.videoURL = @"http://1500004424.vod2.myqcloud.com/4383a13evodtranscq1500004424/baff45348602268011141077324/adp.20.mpd";
     model1.title = playerLocalize(@"SuperPlayerDemo.VideoFeeds.dash.asingle.morebitrate");
+    model1.duration = 90;
     [result addObject:model1];
     
     FeedVideoModel *model2 = [FeedVideoModel new];
     model2.videoURL = @"http://1500004424.vod2.myqcloud.com/4383a13evodtranscq1500004424/baff45348602268011141077324/adp.22.mpd";
     model2.title = playerLocalize(@"SuperPlayerDemo.VideoFeeds.dash.asingle.morebitrate");
+    model2.duration = 90;
     [result addObject:model2];
     
     FeedVideoModel *model3 = [FeedVideoModel new];
     model3.videoURL = @"http://1500004424.vod2.myqcloud.com/4383a13evodtranscq1500004424/baff45348602268011141077324/adp.1163819.mpd";
     model3.title = playerLocalize(@"SuperPlayerDemo.VideoFeeds.dash.asingle.morebitrate");
+    model3.duration = 90;
     [result addObject:model3];
     
     FeedVideoModel *model4 = [FeedVideoModel new];
     model4.videoURL = @"http://1500004424.vod2.myqcloud.com/4383a13evodtranscq1500004424/baff45348602268011141077324/adp.1163820.mpd";
     model4.title = playerLocalize(@"SuperPlayerDemo.VideoFeeds.dash.asingle.morebitrate");
+    model4.duration = 90;
     [result addObject:model4];
     
     FeedVideoModel *model5 = [FeedVideoModel new];
     model5.videoURL = @"http://1500004424.vod2.myqcloud.com/4383a13evodtranscq1500004424/baff45348602268011141077324/adp.9101.mpd";
     model5.title = playerLocalize(@"SuperPlayerDemo.VideoFeeds.dash.DRMwidevine");
+    model5.duration = 90;
     [result addObject:model5];
     
     FeedVideoModel *model6 = [FeedVideoModel new];
     model6.videoURL = @"https://bitmovin-a.akamaihd.net/content/MI201109210084_1/mpds/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.mpd";
     model6.title = playerLocalize(@"SuperPlayerDemo.VideoFeeds.dash.numberbased");
+    model6.duration = 210;
     [result addObject:model6];
     
     FeedVideoModel *model7 = [FeedVideoModel new];
     model7.videoURL = @"https://dash.akamaized.net/dash264/TestCases/2c/qualcomm/1/MultiResMPEG2.mpd";
     model7.title = playerLocalize(@"SuperPlayerDemo.VideoFeeds.dash.timebased");
+    model7.duration = 654;
     [result addObject:model7];
     
     FeedVideoModel *model8 = [FeedVideoModel new];
     model8.videoURL = @"https://dash.akamaized.net/akamai/bbb_30fps/bbb_30fps.mpd";
     model8.title = playerLocalize(@"SuperPlayerDemo.VideoFeeds.dash.30fps");
+    model8.duration = 634;
     [result addObject:model8];
     
     FeedVideoModel *model9 = [FeedVideoModel new];
     model9.videoURL = @"https://dash.akamaized.net/akamai/test/caption_test/ElephantsDream/elephants_dream_480p_heaac5_1_https.mpd";
     model9.title = playerLocalize(@"SuperPlayerDemo.VideoFeeds.dash.withsubtitle");
+    model9.duration = 653;
     [result addObject:model9];
     
     return result;

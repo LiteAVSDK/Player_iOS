@@ -63,6 +63,8 @@ NSString * const TXShortVideoCellIdentifier = @"TXShortVideoCellIdentifier";
 
 @property (nonatomic, assign) NSInteger                  currentPlayIndex;
 
+@property (nonatomic, strong) TXVideoModel              *currentPlayingModel;
+
 @end
 
 @implementation SuperShortVideoView
@@ -288,6 +290,7 @@ NSString * const TXShortVideoCellIdentifier = @"TXShortVideoCellIdentifier";
 - (void)getVideoPlayer:(TXVideoModel *)currentModel preloadOtherPlayer:(NSArray *)modelArray {
     [[TXPlayerCacheManager shareInstance] updatePlayerCache:modelArray];
     if (currentModel != nil) {
+        self.currentPlayingModel = currentModel;
         self.currentPlayer = [[TXPlayerCacheManager shareInstance] getVideoPlayer:currentModel];
         self.currentPlayer.delegate = self;
         if (self.playmode == TXVideoPlayModeOneLoop) {
@@ -428,6 +431,9 @@ NSString * const TXShortVideoCellIdentifier = @"TXShortVideoCellIdentifier";
     dispatch_async(dispatch_get_main_queue(), ^{
         STRONGIFY(self);
         [self.currentPlayingCell setProgress:progress];
+        if( [self.currentPlayingModel.duration floatValue] == 0) {
+            self.currentPlayingModel.duration = [NSString stringWithFormat:@"%f", totalTime];
+        }
         int intCurrentTime = currentTime;
         int intTotalTime = totalTime;
         if (intCurrentTime <= intTotalTime) {

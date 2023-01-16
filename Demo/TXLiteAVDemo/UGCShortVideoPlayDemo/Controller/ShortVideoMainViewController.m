@@ -136,38 +136,47 @@
     
     TXVideoModel *model1 = [[TXVideoModel alloc] init];
     model1.videourl = @"http://1500004424.vod2.myqcloud.com/4383a13evodtranscq1500004424/baff45348602268011141077324/adp.20.mpd";
+    model1.duration = @"90";
     [array addObject:model1];
     
     TXVideoModel *model2 = [[TXVideoModel alloc] init];
     model2.videourl = @"http://1500004424.vod2.myqcloud.com/4383a13evodtranscq1500004424/baff45348602268011141077324/adp.22.mpd";
+    model2.duration = @"90";
     [array addObject:model2];
     
     TXVideoModel *model3 = [[TXVideoModel alloc] init];
     model3.videourl = @"http://1500004424.vod2.myqcloud.com/4383a13evodtranscq1500004424/baff45348602268011141077324/adp.1163819.mpd";
+    model3.duration = @"90";
     [array addObject:model3];
     
     TXVideoModel *model4 = [[TXVideoModel alloc] init];
     model4.videourl = @"http://1500004424.vod2.myqcloud.com/4383a13evodtranscq1500004424/baff45348602268011141077324/adp.1163820.mpd";
+    model4.duration = @"90";
     [array addObject:model4];
     
     TXVideoModel *model5 = [[TXVideoModel alloc] init];
     model5.videourl = @"http://1500004424.vod2.myqcloud.com/4383a13evodtranscq1500004424/baff45348602268011141077324/adp.9101.mpd";
+    model5.duration = @"90";
     [array addObject:model5];
     
     TXVideoModel *model6 = [[TXVideoModel alloc] init];
     model6.videourl = @"https://bitmovin-a.akamaihd.net/content/MI201109210084_1/mpds/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.mpd";
+    model6.duration = @"210";
     [array addObject:model6];
     
     TXVideoModel *model7 = [[TXVideoModel alloc] init];
     model7.videourl = @"https://dash.akamaized.net/dash264/TestCases/2c/qualcomm/1/MultiResMPEG2.mpd";
+    model7.duration = @"654";
     [array addObject:model7];
     
     TXVideoModel *model8 = [[TXVideoModel alloc] init];
     model8.videourl = @"https://dash.akamaized.net/akamai/bbb_30fps/bbb_30fps.mpd";
+    model8.duration = @"634";
     [array addObject:model8];
     
     TXVideoModel *model9 = [[TXVideoModel alloc] init];
     model9.videourl = @"https://dash.akamaized.net/akamai/test/caption_test/ElephantsDream/elephants_dream_480p_heaac5_1_https.mpd";
+    model9.duration = @"653";
     [array addObject:model9];
     
     [self.videosArray removeAllObjects];

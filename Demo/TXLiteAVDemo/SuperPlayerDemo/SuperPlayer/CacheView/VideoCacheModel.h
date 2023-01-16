@@ -6,6 +6,7 @@
 //  Copyright © 2022年 Tencent. All rights reserved.
 
 #import <Foundation/Foundation.h>
+#import "TXPlayerDrmBuilder.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -24,6 +25,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString *pSign;
 
 @property (nonatomic, strong) NSString *url;
+
+@property (nonatomic, strong) TXPlayerDrmBuilder *drmBuilder;
 
 @end
 

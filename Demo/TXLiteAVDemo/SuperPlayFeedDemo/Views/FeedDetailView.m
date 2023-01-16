@@ -120,9 +120,9 @@ NSString * const FeedDetailVideoCellIdentifier = @"FeedDetailVideoCellIdentifier
 
     playerModel.appId = model.appId;
     videoId.fileId    = model.fileId;
-    videoId.psign = nil;
+    videoId.psign = [model valueForKey:@"pSign"];
     playerModel.videoId = videoId;
-    playerModel.videoURL = nil;
+    playerModel.videoURL = [model valueForKey:@"videoURL"];
     playerModel.action = PLAY_ACTION_AUTO_PLAY;
     playerModel.defaultCoverImageUrl = model.coverUrl;
 

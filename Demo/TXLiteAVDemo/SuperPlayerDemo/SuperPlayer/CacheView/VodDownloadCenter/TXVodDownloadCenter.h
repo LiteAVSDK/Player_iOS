@@ -7,6 +7,7 @@
 
 #import <Foundation/Foundation.h>
 #import "DownloadCallback.h"
+#import "TXPlayerDrmBuilder.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -41,6 +42,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)deleteAllListener;
 
 - (void)startDownload:(TXVodDownloadMediaInfo *)mediaInfo;
+
+- (void)startDownloadWithDRMBuilder:(TXPlayerDrmBuilder *)drmBuilder;
 
 - (void)stopDownload:(TXVodDownloadMediaInfo *)mediaInfo;
 

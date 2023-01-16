@@ -134,7 +134,9 @@ static NSDictionary *gQualityDic;
 }
 
 - (void)setModel:(VideoCacheListModel *)model {
+    
     _model = model;
+    
     self.mediaInfo = model.mediaInfo;
     
     [self.manager registerListener:self.callback info:self.mediaInfo];
@@ -144,7 +146,11 @@ static NSDictionary *gQualityDic;
     [self updateProgress:self.mediaInfo.progress];
     [self updateCacheState:self.mediaInfo.downloadState];
     
-    NSString *key = [NSString stringWithFormat:@"%d%@%ld",dataSource.appId,dataSource.fileId,(long)dataSource.quality];
+    NSString *key = nil;
+    if (dataSource.appId != 0 && dataSource.fileId.length != 0) {
+        key = [NSString stringWithFormat:@"%d%@%ld",dataSource.appId,dataSource.fileId,(long)dataSource.quality];
+    }
+
     NSDictionary *dic = [[NSUserDefaults standardUserDefaults] objectForKey:key];
     if (dic.count > 0) {
         model.videoName = [dic objectForKey:@"videoName"];
@@ -158,36 +164,49 @@ static NSDictionary *gQualityDic;
             self.durationLabel.text = model.durationStr;
             self.videoNameLabel.text = model.videoName;
         });
+    } else {
+        NSInteger duration = model.mediaInfo.duration;
+        NSString *durationStr = [NSString stringWithFormat:@"%02ld:%02ld", duration /60, duration % 60];
+        model.durationStr = durationStr;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (model.coverImageStr.length > 0) {
+                [self.videoImageView sd_setImageWithURL:[NSURL URLWithString:model.coverImageStr] placeholderImage:[UIImage imageNamed:@"img_video_loading"]];
+            }
+            self.durationLabel.text = model.durationStr;
+            self.videoNameLabel.text = model.videoName;
+        });
     }
     
     __weak typeof(self) weakSelf = self;
-    [self getPlayInfo:dataSource.appId fileId:dataSource.fileId psign:dataSource.pSign completion:^(NSMutableDictionary *dic, NSError *error) {
-        if (error) {
-            NSLog(@"%@",error.userInfo);
-        } else {
-            NSString *name = [dic objectForKey:@"videoDescription"];
-            NSString *videoName = name.length > 0 ? name : [dic objectForKey:@"name"];
-            NSString *coverImage = [dic objectForKey:@"coverUrl"];
-            NSInteger duration = [[dic objectForKey:@"duration"] integerValue];
-            NSString *durationStr = [NSString stringWithFormat:@"%02ld:%02ld", duration /60, duration % 60];
-            weakSelf.model.videoName = videoName;
-            weakSelf.model.coverImageStr = coverImage;
-            weakSelf.model.durationStr = durationStr;
-            
-            NSDictionary *dic = @{@"videoName" : videoName, @"coverImage" : coverImage, @"duration" : durationStr};
-            NSString *keyStr = [NSString stringWithFormat:@"%d%@%ld",dataSource.appId,dataSource.fileId,(long)dataSource.quality];
-            [[NSUserDefaults standardUserDefaults] setObject:dic forKey:keyStr];
-            [[NSUserDefaults standardUserDefaults] synchronize];
-            
-            dispatch_async(dispatch_get_main_queue(), ^{
-                if (coverImage.length > 0) {
-                    [weakSelf.videoImageView sd_setImageWithURL:[NSURL URLWithString:coverImage] placeholderImage:[UIImage imageNamed:@"img_video_loading"]];
-                }
-                weakSelf.durationLabel.text = durationStr;
-                weakSelf.videoNameLabel.text = videoName;
-            });
-        }
-    }];
+    if (dataSource.appId != 0 && dataSource.fileId.length != 0) { // 增加参数判断，减少非必要的请求
+        [self getPlayInfo:dataSource.appId fileId:dataSource.fileId psign:dataSource.pSign completion:^(NSMutableDictionary *dic, NSError *error) {
+            if (error) {
+                NSLog(@"%@",error.userInfo);
+            } else {
+                NSString *name = [dic objectForKey:@"videoDescription"];
+                NSString *videoName = name.length > 0 ? name : [dic objectForKey:@"name"];
+                NSString *coverImage = [dic objectForKey:@"coverUrl"];
+                NSInteger duration = [[dic objectForKey:@"duration"] integerValue];
+                NSString *durationStr = [NSString stringWithFormat:@"%02ld:%02ld", duration /60, duration % 60];
+                weakSelf.model.videoName = videoName;
+                weakSelf.model.coverImageStr = coverImage;
+                weakSelf.model.durationStr = durationStr;
+                
+                NSDictionary *dic = @{@"videoName" : videoName, @"coverImage" : coverImage, @"duration" : durationStr};
+                NSString *keyStr = [NSString stringWithFormat:@"%d%@%ld",dataSource.appId,dataSource.fileId,(long)dataSource.quality];
+                [[NSUserDefaults standardUserDefaults] setObject:dic forKey:keyStr];
+                [[NSUserDefaults standardUserDefaults] synchronize];
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    if (coverImage.length > 0) {
+                        [weakSelf.videoImageView sd_setImageWithURL:[NSURL URLWithString:coverImage] placeholderImage:[UIImage imageNamed:@"img_video_loading"]];
+                    }
+                    weakSelf.durationLabel.text = durationStr;
+                    weakSelf.videoNameLabel.text = videoName;
+                });
+            }
+        }];
+    }
     
     TXVodDownloadMediaInfo *info = [[TXVodDownloadManager shareInstance] getDownloadMediaInfo:self.mediaInfo];
     [self updateQuality:info.dataSource.quality];
@@ -198,7 +217,12 @@ static NSDictionary *gQualityDic;
 - (void)startDownload {
     [self updateCacheState:1];
     _model.mediaInfo.downloadState = 1;
-    [self.manager startDownload:self.mediaInfo];
+    id drmbuilder = [self.mediaInfo valueForKey:@"drmBuilder"];
+    if (drmbuilder) {
+        [self.manager startDownloadWithDRMBuilder:drmbuilder];
+    } else {
+        [self.manager startDownload:self.mediaInfo];
+    }
 }
 
 - (void)stopDownload {
