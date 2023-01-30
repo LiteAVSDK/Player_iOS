@@ -215,8 +215,11 @@ TXLiveBaseDelegate,TXLivePlayListener,TXVodPlayListener>
     [super layoutSubviews];
     if (self.subviews.count > 0) {
         UIView *innerView = self.subviews[0];
-        if ([innerView isKindOfClass:NSClassFromString(@"TXIJKSDLGLView")] || [innerView isKindOfClass:NSClassFromString(@"TXCAVPlayerView")] || [innerView isKindOfClass:NSClassFromString(@"TXCThumbPlayerView")]) {
-            innerView.frame = self.bounds;
+        NSString *innerStr = NSStringFromClass([innerView class]);
+        if ([innerStr isEqualToString:@"TXIJKSDLGLView"]
+            || [innerStr isEqualToString:@"TXCAVPlayerView"]
+            || [innerStr isEqualToString:@"TXCThumbPlayerView"]) {
+                innerView.frame = self.bounds;
         }
     }
 }
