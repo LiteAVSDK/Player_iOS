@@ -12,6 +12,9 @@
     └── SuperPlayerKit    // 播放器组件
     ├── SuperPlayFeedDemo   // Feed流播放器Demo
     └── UGCShortVideoPlayDemo    // 短视频播放器Demo
+├─ Demo // 播放器Demo
+├─ Player-API-Example-iOS // 播放器API相关Demo
+├─ Swift-Call-OC-Example  // Swift调用SDK API的实现样例
 ```
 ## **集成说明**
 请参考[Wiki部分相关内容](https://github.com/LiteAVSDK/Player_iOS/wiki)

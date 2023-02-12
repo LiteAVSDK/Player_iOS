@@ -12,6 +12,8 @@ This directory contains the demo source code of the Player SDK for iOS, which sh
     ├── App               // Program entry UI
     ├── SuperPlayerDemo   // Superplayer demo
     └── SuperPlayerKit    // Superplayer component
+├─ Player-API-Example-iOS // Player API Demo
+├─ Swift-Call-OC-Example  // Swift Call OC Demo
 ```
 
 ## Upgrade Notes
