@@ -29,3 +29,5 @@
 "SuperPlayer.tryagain" = "Try Again";
 "SuperPlayer.backtolive" = "Back to Live Streaming";
 "SuperPlayer.notsupportpip" = "This device does not support picture-in-picture";
+"SuperPlayerDemo.MoviePlayer.multitrackvideo" = "multi track video";
+"SuperPlayerDemo.MoviePlayer.multisubtitledvideo" = "multi subtitled video";

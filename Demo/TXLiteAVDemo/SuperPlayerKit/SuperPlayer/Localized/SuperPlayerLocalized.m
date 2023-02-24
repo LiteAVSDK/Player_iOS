@@ -15,6 +15,7 @@ NSString *superPlayerLocalizeFromTable(NSString *key, NSString *table) {
     
     NSString *preferredLang = [languages objectAtIndex:0]; // zh-Hant-GB
     NSString *languageProj = [preferredLang stringByReplacingOccurrencesOfString:@"-GB" withString:@""];
+    languageProj = [languageProj stringByReplacingOccurrencesOfString:@"-CN" withString:@""];
     NSString *resourceDict = [[NSBundle mainBundle] pathForResource:@"SuperPlayerKitBundle" ofType:@"bundle"];
     if (resourceDict.length == 0) { // 资源Bundle文件目录
         return key;

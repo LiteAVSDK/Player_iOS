@@ -28,3 +28,5 @@
 "SuperPlayer.tryagain" = "重新试看";
 "SuperPlayer.backtolive" = "返回直播";
 "SuperPlayer.notsupportpip" = "该设备不支持画中画";
+"SuperPlayerDemo.MoviePlayer.multitrackvideo" = "多音轨视频";
+"SuperPlayerDemo.MoviePlayer.multisubtitledvideo" = "多字幕视频";

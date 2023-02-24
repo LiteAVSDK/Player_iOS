@@ -31,6 +31,9 @@
     }
 
     NSMutableDictionary *params = [NSMutableDictionary new];
+    
+    // V4协议子版本号,值为1标识为V4.1版本
+    params[@"subversion"] = @"1";
 
     if (psign) {
         params[@"psign"] = psign;

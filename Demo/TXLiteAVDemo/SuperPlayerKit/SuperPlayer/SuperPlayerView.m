@@ -953,6 +953,11 @@ TXLiveBaseDelegate,TXLivePlayListener,TXVodPlayListener>
     if ([self.delegate respondsToSelector:@selector(superPlayerDidStart:)]) {
         [self.delegate superPlayerDidStart:self];
     }
+    
+    // 重新添加字幕
+    if (self->_lastSubtitleIndex != -1) {
+        [self.vodPlayer selectTrack:self->_lastSubtitleIndex];
+    }
 }
 
 - (NSArray<NSURL *> *)convertImageSpriteList:(NSArray<NSString *> *)imageSpriteList
@@ -2104,7 +2109,6 @@ TXLiveBaseDelegate,TXLivePlayListener,TXVodPlayListener>
 - (void)_removeOldPlayer {
     for (UIView *w in [self subviews]) {
         if ([w isKindOfClass:NSClassFromString(@"TXCRenderView")]) [w removeFromSuperview];
-        if ([w isKindOfClass:NSClassFromString(@"TXCiOSVideoRenderView")]) [w removeFromSuperview];
         if ([w isKindOfClass:NSClassFromString(@"TXIJKSDLGLView")]) [w removeFromSuperview];
         if ([w isKindOfClass:NSClassFromString(@"TXCAVPlayerView")]) [w removeFromSuperview];
         if ([w isKindOfClass:NSClassFromString(@"TXCThumbPlayerView")]) [w removeFromSuperview];

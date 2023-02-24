@@ -121,6 +121,7 @@
 		EDC1B2C02847C9A60077A920 /* VideoCacheListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EDC1B2AE2847C9A60077A920 /* VideoCacheListCell.m */; };
 		EDC1B2C12847C9A60077A920 /* VideoCacheListView.m in Sources */ = {isa = PBXBuildFile; fileRef = EDC1B2AF2847C9A60077A920 /* VideoCacheListView.m */; };
 		EDC1B2C22847C9A60077A920 /* VideoCacheListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EDC1B2B32847C9A60077A920 /* VideoCacheListModel.m */; };
+		EDF0D82929A8BC4600EA1238 /* SuperPlayerKitBundle.bundle in Resources */ = {isa = PBXBuildFile; fileRef = ED59415D2938C908006FFA17 /* SuperPlayerKitBundle.bundle */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1324,6 +1325,7 @@
 				47E8C8CC260AECC4001CF672 /* TRTCDemoLocalized.strings in Resources */,
 				4009235A1F4FCC6E009B882D /* LaunchScreen.storyboard in Resources */,
 				47642A9F261491B90020F1BA /* launchimage_en@3x.png in Resources */,
+				EDF0D82929A8BC4600EA1238 /* SuperPlayerKitBundle.bundle in Resources */,
 				47E8C8D9260AECC4001CF672 /* LivePlayerLocalized.strings in Resources */,
 				6BF315D4271E715300D4A72C /* ShortVideo.xcassets in Resources */,
 				40A7CFF02461102E00E792A5 /* SuperPlayer.bundle in Resources */,

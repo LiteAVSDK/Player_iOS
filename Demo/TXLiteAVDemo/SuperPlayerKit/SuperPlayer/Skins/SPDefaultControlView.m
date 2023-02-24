@@ -533,7 +533,11 @@ SuperPlayerTrackViewDelegate, SuperPlayerSubtitlesViewDelegate>
     self.trackView.hidden       = YES;
     self.subtitlesView.hidden   = YES;
     self.resolutionView.hidden  = YES;
-
+    [self.nextBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.trailing.equalTo(self.bottomImageView.mas_trailing).offset(-35);
+        make.centerY.equalTo(self.startBtn.mas_centerY);
+        make.width.height.mas_equalTo(30);
+    }];
     [self.totalTimeLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
         if (!self.nextBtn.hidden) {
             make.trailing.equalTo(self.nextBtn.mas_leading);
