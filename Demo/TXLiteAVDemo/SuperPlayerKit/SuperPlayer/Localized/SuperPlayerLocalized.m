@@ -10,7 +10,7 @@
 NSString *superPlayerLocalizeFromTable(NSString *key, NSString *table) {
     NSArray *languages = [[NSUserDefaults standardUserDefaults] objectForKey:@"AppleLanguages"];
     if ([languages count] <= 0) {  // 语言包判断
-        return key;
+        languages = [NSArray arrayWithObject:@"en"];
     }
     
     NSString *preferredLang = [languages objectAtIndex:0]; // zh-Hant-GB
@@ -24,7 +24,8 @@ NSString *superPlayerLocalizeFromTable(NSString *key, NSString *table) {
     NSString *bundleOfPath = [NSBundle pathForResource:languageProj ofType:@"lproj" inDirectory:resourceDict];
     NSBundle *bundle = [NSBundle bundleWithPath:bundleOfPath];
     if (!bundle) { // 语言lproj的判断
-        return key;
+        bundleOfPath = [NSBundle pathForResource:@"en" ofType:@"lproj" inDirectory:resourceDict];
+        bundle = [NSBundle bundleWithPath:bundleOfPath];
     }
     
     return [bundle localizedStringForKey:key value:@"" table:table];

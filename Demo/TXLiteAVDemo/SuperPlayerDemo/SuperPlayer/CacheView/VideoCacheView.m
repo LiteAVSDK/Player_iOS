@@ -209,14 +209,22 @@ NSString * const ResolutionCellIdentifier = @"ResolutionCellIdentifier";
 }
 
 - (int)getCurrentQuality {
-    __block int quality;
+    __block int quality = TXVodQuality720P;
+    __block NSString *title;
     [self.currentModel.multiVideoURLs enumerateObjectsUsingBlock:^(SuperPlayerUrl * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         if ([obj.title containsString:self.currentResolutionStr]) {
             quality = obj.qualityIndex;
+            title = obj.title;
             *stop = YES;
         }
     }];
-
+    //根据分辨率指定清晰度
+    NSArray *titlesArray = [title componentsSeparatedByString:@"（"];
+    NSArray *resoluArray = [titlesArray.lastObject componentsSeparatedByString:@"P）"];
+    NSString *resolution = resoluArray.firstObject;
+    if(resolution.length > 0){
+        quality = [resolution intValue];
+    }
     return quality;
 }
 

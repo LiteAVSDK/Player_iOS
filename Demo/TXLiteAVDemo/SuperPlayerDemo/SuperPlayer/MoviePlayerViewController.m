@@ -439,6 +439,13 @@ __weak UITextField *cacheField;
         [_authParamArray addObject:videoArray];
         
         videoArray = [NSMutableArray array];
+        p        = [[TXPlayerAuthParams alloc] init];
+        p.appId  = 1500005830;
+        p.fileId = @"243791578431393746";
+        [videoArray addObject:p];
+        [_authParamArray addObject:videoArray];
+        
+        videoArray = [NSMutableArray array];
         TXMoviePlayInfoResponse *trackInfoResponse = [[TXMoviePlayInfoResponse alloc] init];
         trackInfoResponse.name = playerLocalize(@"SuperPlayerDemo.MoviePlayer.multitrackvideo");
         trackInfoResponse.videoUrl = MULTI_TRACK_VIDEO;

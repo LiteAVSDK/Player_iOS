@@ -34,6 +34,8 @@
 
 @property (nonatomic, strong) UILabel *cacheProgressLabel;
 
+@property (nonatomic, strong) UILabel *sizeLabel;
+
 @property (nonatomic, strong) UIView *statusView;
 
 @property (nonatomic, strong) UILabel *statusLabel;
@@ -57,13 +59,20 @@ static NSDictionary *gQualityDic;
 + (void)initialize {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        gQualityDic = @ {playerLocalize(@"SuperPlayerDemo.MoviePlayer.original") : @(TXVodQualityOD),
-                        playerLocalize(@"SuperPlayerDemo.MoviePlayer.smooth") : @(TXVodQualityFLU),
-                        playerLocalize(@"SuperPlayerDemo.MoviePlayer.SD") : @(TXVodQualitySD),
-                        playerLocalize(@"SuperPlayerDemo.MoviePlayer.HD") : @(TXVodQualityHD),
-                        playerLocalize(@"SuperPlayerDemo.MoviePlayer.FHD") : @(TXVodQualityFHD),
-                        playerLocalize(@"SuperPlayerDemo.MoviePlayer.2K") : @(TXVodQuality2K),
-                        playerLocalize(@"SuperPlayerDemo.MoviePlayer.4K") : @(TXVodQuality4K)};
+        gQualityDic = @ {
+            @(TXVodQualityOD) : playerLocalize(@"SuperPlayerDemo.MoviePlayer.original"),
+            @(TXVodQualityFLU) : playerLocalize(@"SuperPlayerDemo.MoviePlayer.smooth"),
+            @(TXVodQualitySD) : playerLocalize(@"SuperPlayerDemo.MoviePlayer.SD"),
+            @(TXVodQualityHD) : playerLocalize(@"SuperPlayerDemo.MoviePlayer.HD"),
+            @(TXVodQualityFHD) : playerLocalize(@"SuperPlayerDemo.MoviePlayer.FHD"),
+            @(TXVodQuality2K) : playerLocalize(@"SuperPlayerDemo.MoviePlayer.2K"),
+            @(TXVodQuality4K) : playerLocalize(@"SuperPlayerDemo.MoviePlayer.4K"),
+            @(TXVodQuality240P) : playerLocalize(@"SuperPlayerDemo.MoviePlayer.smooth"),
+            @(TXVodQuality360P) : playerLocalize(@"SuperPlayerDemo.MoviePlayer.smooth"),
+            @(TXVodQuality480P) : playerLocalize(@"SuperPlayerDemo.MoviePlayer.SD"),
+            @(TXVodQuality540P) : playerLocalize(@"SuperPlayerDemo.MoviePlayer.SD"),
+            @(TXVodQuality720P) : playerLocalize(@"SuperPlayerDemo.MoviePlayer.HD"),
+            @(TXVodQuality1080p) : playerLocalize(@"SuperPlayerDemo.MoviePlayer.HD")};
     });
 }
 
@@ -96,12 +105,18 @@ static NSDictionary *gQualityDic;
             make.width.mas_equalTo(140);
         }];
         
-        [self addSubview:self.cacheProgressLabel];
-        [self.cacheProgressLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        [self addSubview:self.sizeLabel];
+        [self.sizeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self).offset(20 + 114 + 10);
             make.top.equalTo(self).offset(10 + 16 + 24 + 4);
             make.height.mas_equalTo(16);
-            make.width.mas_equalTo(120);
+        }];
+        
+        [self addSubview:self.cacheProgressLabel];
+        [self.cacheProgressLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.sizeLabel.mas_right).offset(5);
+            make.top.equalTo(self).offset(10 + 16 + 24 + 4);
+            make.height.mas_equalTo(16);
         }];
         
         [self addSubview:self.resolutionLabel];
@@ -145,7 +160,8 @@ static NSDictionary *gQualityDic;
     [self updateQuality:dataSource.quality];
     [self updateProgress:self.mediaInfo.progress];
     [self updateCacheState:self.mediaInfo.downloadState];
-    
+    CGFloat size = model.mediaInfo.size * 1.0f / 1024 / 1024;
+    self.sizeLabel.text = [NSString stringWithFormat:@"%0.2fM",size];
     NSString *key = nil;
     if (dataSource.appId != 0 && dataSource.fileId.length != 0) {
         key = [NSString stringWithFormat:@"%d%@%ld",dataSource.appId,dataSource.fileId,(long)dataSource.quality];
@@ -233,11 +249,14 @@ static NSDictionary *gQualityDic;
 
 - (SuperPlayerModel *)getSuperPlayModel {
     SuperPlayerModel *playModel = [[SuperPlayerModel alloc] init];
-    if (self.mediaInfo.playPath.length > 0 && self.mediaInfo.downloadState == TXVodDownloadMediaInfoStateFinish) {
+    
+    
+    
+    if (self.mediaInfo.playPath.length > 0 && self.mediaInfo.downloadState == 4) {
         SuperPlayerUrl *playerUrl = [[SuperPlayerUrl alloc] init];
         [gQualityDic enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
-            if ([obj integerValue] == self.mediaInfo.dataSource.quality) {
-                playerUrl.title = key;
+            if ([key integerValue] == self.mediaInfo.dataSource.quality) {
+                playerUrl.title = obj;
                 *stop = YES;
             }
         }];
@@ -275,8 +294,8 @@ static NSDictionary *gQualityDic;
 - (void)updateQuality:(NSInteger)quality {
     __weak __typeof(self) weakSelf = self;
     [gQualityDic enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
-        if ([obj integerValue] == quality) {
-            weakSelf.resolutionLabel.text = key;
+        if ([key integerValue] == quality) {
+            weakSelf.resolutionLabel.text = obj;
             *stop = YES;
         }
     }];
@@ -465,8 +484,22 @@ static NSDictionary *gQualityDic;
         _cacheProgressLabel.font = [UIFont systemFontOfSize:12];
         _cacheProgressLabel.textColor = [UIColor grayColor];
         _cacheProgressLabel.textAlignment = NSTextAlignmentLeft;
+        [_cacheProgressLabel setContentHuggingPriority:UILayoutPriorityRequired
+                                       forAxis:UILayoutConstraintAxisHorizontal];
     }
     return _cacheProgressLabel;
+}
+
+- (UILabel *)sizeLabel {
+    if (!_sizeLabel) {
+        _sizeLabel = [[UILabel alloc] init];
+        _sizeLabel.font = [UIFont systemFontOfSize:12];
+        _sizeLabel.textColor = [UIColor grayColor];
+        _sizeLabel.textAlignment = NSTextAlignmentLeft;
+        [_sizeLabel setContentHuggingPriority:UILayoutPriorityRequired
+                                       forAxis:UILayoutConstraintAxisHorizontal];
+    }
+    return _sizeLabel;
 }
 
 - (UILabel *)resolutionLabel {
