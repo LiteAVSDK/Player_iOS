@@ -121,7 +121,7 @@
         NSArray *fontColorArr = [weakSelf fontColorArray];
         SuperPlayerTableMenu *menu = [SuperPlayerTableMenu title:superPlayerLocalized(@"SuperPlayer.choosefontcolor") array:fontColorArr];
         [menu clickCellWithResultblock:^(NSInteger index) {
-            weakSelf.fontColorType = index + 1;
+            weakSelf.fontColorType = index;
             [weakSelf.fontColorBtn setChooseTitle:fontColorArr[index] name:[weakSelf stringFontColor]];
         }];
     }];
@@ -130,7 +130,7 @@
         NSArray *bondFontArr = [weakSelf bondFontArray];
         SuperPlayerTableMenu *menu = [SuperPlayerTableMenu title:superPlayerLocalized(@"SuperPlayer.choosebontfont") array:bondFontArr];
         [menu clickCellWithResultblock:^(NSInteger index) {
-            weakSelf.fontColorType = index + 1;
+            weakSelf.bondFontType = index;
             [weakSelf.bondFontBtn setChooseTitle:bondFontArr[index] name:[weakSelf stringBondFont]];
         }];
     }];
@@ -139,7 +139,7 @@
         NSArray *outlineWidthArr = [weakSelf outlineWidthArray];
         SuperPlayerTableMenu *menu = [SuperPlayerTableMenu title:superPlayerLocalized(@"SuperPlayer.chooseoutlinewidth") array:outlineWidthArr];
         [menu clickCellWithResultblock:^(NSInteger index) {
-            weakSelf.fontColorType = index + 1;
+            weakSelf.outlineWidthType = index;
             [weakSelf.outlineWidthBtn setChooseTitle:outlineWidthArr[index] name:[weakSelf stringOutLineWidth]];
         }];
     }];
@@ -148,7 +148,7 @@
         NSArray *outlineColorArr = [weakSelf outlineColorArray];
         SuperPlayerTableMenu *menu = [SuperPlayerTableMenu title:superPlayerLocalized(@"SuperPlayer.chooseoutlinecolor") array:outlineColorArr];
         [menu clickCellWithResultblock:^(NSInteger index) {
-            weakSelf.fontColorType = index + 1;
+            weakSelf.outlineColorType = index;
             [weakSelf.outlineColorBtn setChooseTitle:outlineColorArr[index] name:[weakSelf stringOutlineColor]];
         }];
     }];
@@ -177,7 +177,7 @@
     
     self.outlineColorType = [[dic objectForKey:@"outlineColor"] integerValue];
     NSArray *outlineColorArray = [self outlineColorArray];
-    [self.outlineColorBtn setChooseTitle:outlineColorArray[self.outlineColorType] name:[self stringFontColor]];
+    [self.outlineColorBtn setChooseTitle:outlineColorArray[self.outlineColorType] name:[self stringOutlineColor]];
 }
 
 - (NSArray *)fontColorArray {
@@ -185,8 +185,19 @@
              @"Green", @"Yellow" ,@"Magenta", @"Cyan"];
 }
 
+- (uint32_t)getFontColor:(NSInteger)index {
+    NSArray<NSNumber *> *array = @[@(0xFFFFFFFF), @(0xFF000000), @(0xFFFF0000), @(0xFF0000FF),
+                       @(0xFF00FF00), @(0xFFFFFF00), @(0xFFFF00FF), @(0xFF00FFFF)];
+    return [array[index] unsignedIntValue];
+}
+
 - (NSArray *)bondFontArray {
     return @[@"Normal(默认)",@"BoldFace"];
+}
+
+- (BOOL)getBondFont:(NSInteger)index{
+    NSArray<NSNumber *> *array = @[@(0),@(1)];
+    return [array[index] boolValue];
 }
 
 - (NSArray *)outlineWidthArray {
@@ -194,9 +205,21 @@
              @"150%", @"175%" ,@"200%", @"300%", @"400%"];
 }
 
+- (CGFloat)getOutlineWidth:(NSInteger)index{
+    NSArray<NSNumber *> *array = @[@(0.5), @(0.75), @(1) ,@(1.25),
+                       @(1.5), @(1.75) ,@(2), @(3), @(4)];
+    return [array[index] floatValue];
+}
+
 - (NSArray *)outlineColorArray {
     return @[@"Black(默认)", @"White", @"Red" ,@"Blue",
              @"Green", @"Yellow" ,@"Magenta", @"Cyan"];
+}
+
+- (uint32_t)getOutlineColor:(NSInteger)index {
+    NSArray<NSNumber *> *array = @[@(0xFF000000), @(0xFFFFFFFF), @(0xFFFF0000), @(0xFF0000FF),
+                       @(0xFF00FF00), @(0xFFFFFF00), @(0xFFFF00FF), @(0xFF00FFFF)];
+    return [array[index] unsignedIntValue];
 }
 
 - (NSString *)stringFontColor {
@@ -237,10 +260,11 @@
 - (void)doneBtnClick {
     
     NSMutableDictionary *mDic = [[NSMutableDictionary alloc] init];
-    [mDic setObject:@(self.fontColorType) forKey:@"fontColor"];
-    [mDic setObject:@(self.bondFontType) forKey:@"bondFont"];
-    [mDic setObject:@(self.outlineWidthType) forKey:@"outlineWidth"];
-    [mDic setObject:@(self.outlineColorType) forKey:@"outlineColor"];
+    
+    [mDic setObject:@([self getFontColor:self.fontColorType]) forKey:@"fontColor"];
+    [mDic setObject:@([self getBondFont:self.bondFontType]) forKey:@"bondFont"];
+    [mDic setObject:@([self getOutlineWidth:self.outlineWidthType]) forKey:@"outlineWidth"];
+    [mDic setObject:@([self getOutlineColor:self.outlineColorType]) forKey:@"outlineColor"];
     
     [[NSUserDefaults standardUserDefaults] setObject:mDic forKey:@"subtitlesConfig"];
     [[NSUserDefaults standardUserDefaults] synchronize];

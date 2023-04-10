@@ -39,3 +39,5 @@
 "SuperPlayer.chooseoutlinecolor" = "选择描边颜色";
 "SuperPlayer.subtitlessetting" = "字幕设置";
 "SuperPlayer.track" = "音轨";
+"SuperPlayer.fastForward" = "快进";
+"SuperPlayer.rewind" = "快退";

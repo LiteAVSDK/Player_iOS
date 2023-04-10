@@ -125,7 +125,10 @@
 }
 
 - (void)onSettingViewDoneClickWithDic:(NSMutableDictionary *)dic {
-    // todo:回调给SuperPlayerView调用SDK设置字幕样式
+    // 回调给SuperPlayerView调用SDK设置字幕样式
+    if (self.delegate && [self.delegate respondsToSelector:@selector(onSettingViewDoneClickWithDic:)]) {
+        [self.delegate onSettingViewDoneClickWithDic:dic];
+    }
 }
 
 #pragma mark - 懒加载

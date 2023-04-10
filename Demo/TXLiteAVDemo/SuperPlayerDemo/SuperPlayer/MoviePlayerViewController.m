@@ -440,28 +440,38 @@ __weak UITextField *cacheField;
         
         videoArray = [NSMutableArray array];
         p        = [[TXPlayerAuthParams alloc] init];
+        p.appId  = 1252463788;
+        p.fileId = @"5285890781763144364";
+        [videoArray addObject:p];
+        [_authParamArray addObject:videoArray];
+        
+        videoArray = [NSMutableArray array];
+        p        = [[TXPlayerAuthParams alloc] init];
         p.appId  = 1500005830;
         p.fileId = @"243791578431393746";
         [videoArray addObject:p];
         [_authParamArray addObject:videoArray];
         
-        videoArray = [NSMutableArray array];
-        TXMoviePlayInfoResponse *trackInfoResponse = [[TXMoviePlayInfoResponse alloc] init];
-        trackInfoResponse.name = playerLocalize(@"SuperPlayerDemo.MoviePlayer.multitrackvideo");
-        trackInfoResponse.videoUrl = MULTI_TRACK_VIDEO;
-        trackInfoResponse.isCache = NO;
-        trackInfoResponse.coverUrl = TRACK_COVERURL;
-        [videoArray addObject:trackInfoResponse];
-        [_authParamArray addObject:videoArray];
-        
-        videoArray = [NSMutableArray array];
-        TXMoviePlayInfoResponse *subtitleInfoResponse = [[TXMoviePlayInfoResponse alloc] init];
-        subtitleInfoResponse.name = playerLocalize(@"SuperPlayerDemo.MoviePlayer.multisubtitledvideo");
-        subtitleInfoResponse.videoUrl = MULTI_SUBTITLES_VIDEO;
-        subtitleInfoResponse.isCache = NO;
-        subtitleInfoResponse.coverUrl = SUBTITLES_COVERURL;
-        [videoArray addObject:subtitleInfoResponse];
-        [_authParamArray addObject:videoArray];
+        NSDictionary *userDic = [[NSUserDefaults standardUserDefaults] objectForKey:@"vodConfig"];
+        if (userDic != nil && userDic.count > 0 && [[userDic objectForKey:@"resources"] intValue] == 1) {
+            videoArray = [NSMutableArray array];
+            TXMoviePlayInfoResponse *trackInfoResponse = [[TXMoviePlayInfoResponse alloc] init];
+            trackInfoResponse.name = playerLocalize(@"SuperPlayerDemo.MoviePlayer.multitrackvideo");
+            trackInfoResponse.videoUrl = MULTI_TRACK_VIDEO;
+            trackInfoResponse.isCache = NO;
+            trackInfoResponse.coverUrl = TRACK_COVERURL;
+            [videoArray addObject:trackInfoResponse];
+            [_authParamArray addObject:videoArray];
+            
+            videoArray = [NSMutableArray array];
+            TXMoviePlayInfoResponse *subtitleInfoResponse = [[TXMoviePlayInfoResponse alloc] init];
+            subtitleInfoResponse.name = playerLocalize(@"SuperPlayerDemo.MoviePlayer.multisubtitledvideo");
+            subtitleInfoResponse.videoUrl = MULTI_SUBTITLES_VIDEO;
+            subtitleInfoResponse.isCache = NO;
+            subtitleInfoResponse.coverUrl = SUBTITLES_COVERURL;
+            [videoArray addObject:subtitleInfoResponse];
+            [_authParamArray addObject:videoArray];
+        }
         
         // 增加轮播视频源
         [self loadVideoListData];
@@ -1284,6 +1294,7 @@ __weak UITextField *cacheField;
     if (cell) {
         if ([[cell getSource].title containsString:playerLocalize(@"SuperPlayerDemo.MoviePlayer.videopreview")]) {
             [self.playerView showVipTipView];
+            defaultControlView.disablePipBtn = YES;
         }
         
         if ([[cell getSource].title containsString:playerLocalize(@"SuperPlayerDemo.MoviePlayer.videoplaylist")]) {

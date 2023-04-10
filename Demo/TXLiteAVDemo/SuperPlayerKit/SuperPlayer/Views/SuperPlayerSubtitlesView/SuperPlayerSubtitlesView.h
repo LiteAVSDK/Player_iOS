@@ -14,6 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
     
 - (void)chooseSubtitlesInfo:(TXTrackInfo *)info preSubtitlesInfo:(TXTrackInfo *)preInfo;
 
+- (void)onSettingViewDoneClickWithDic:(NSMutableDictionary *)dic;
+
 @end
 
 @interface SuperPlayerSubtitlesView : UIView

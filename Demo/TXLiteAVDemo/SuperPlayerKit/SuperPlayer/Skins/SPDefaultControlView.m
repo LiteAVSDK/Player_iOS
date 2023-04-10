@@ -19,6 +19,7 @@
 
 #define MODEL_TAG_BEGIN          20
 #define BOTTOM_IMAGE_VIEW_HEIGHT 50
+#define FADEOUTTIME              5
 
 @interface     SPDefaultControlView () <UIGestureRecognizerDelegate, PlayerSliderDelegate,
 SuperPlayerTrackViewDelegate, SuperPlayerSubtitlesViewDelegate>
@@ -71,6 +72,10 @@ SuperPlayerTrackViewDelegate, SuperPlayerSubtitlesViewDelegate>
         self.trackView.hidden       = YES;
         self.subtitlesView.hidden   = YES;
         self.nextBtn.hidden         = YES;
+        
+        UILongPressGestureRecognizer *longPress=[[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(longPressAction:)];
+        longPress.numberOfTouchesRequired = 1;
+        [self addGestureRecognizer:longPress];
         // 初始化时重置controlView
         [self playerResetControlView];
     }
@@ -81,6 +86,14 @@ SuperPlayerTrackViewDelegate, SuperPlayerSubtitlesViewDelegate>
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
+-(void)longPressAction:(UILongPressGestureRecognizer *)longPress{
+    if (!self.isFullScreen) {
+        return;
+    }
+    if ([self.delegate respondsToSelector:@selector(onLongPressAction:)]) {
+        [self.delegate onLongPressAction:longPress];
+    }
+}
 - (void)makeSubViewsConstraints {
     [self.topImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.leading.trailing.equalTo(self);
@@ -369,9 +382,19 @@ SuperPlayerTrackViewDelegate, SuperPlayerSubtitlesViewDelegate>
 }
 
 - (void)progressSliderTouchEnded:(UISlider *)sender {
-    [self.delegate controlViewSeek:self where:sender.value];
+    [self seekTo:sender.value];
+}
+
+- (void)onClickProgress:(UITapGestureRecognizer *)gesture{
+    CGPoint point = [gesture locationInView:self.videoSlider];
+    CGFloat progress = point.x / CGRectGetWidth(self.videoSlider.frame);
+    [self seekTo:progress];
+}
+
+- (void)seekTo:(CGFloat)pos{
+    [self.delegate controlViewSeek:self where:pos];
     self.isDragging = NO;
-    [self fadeOut:5];
+    [self fadeOut:FADEOUTTIME];
 }
 
 - (void)backLiveClick:(UIButton *)sender {
@@ -668,6 +691,9 @@ SuperPlayerTrackViewDelegate, SuperPlayerSubtitlesViewDelegate>
         [_videoSlider addTarget:self action:@selector(progressSliderValueChanged:) forControlEvents:UIControlEventValueChanged];
         // slider结束滑动事件
         [_videoSlider addTarget:self action:@selector(progressSliderTouchEnded:) forControlEvents:UIControlEventTouchUpInside | UIControlEventTouchUpOutside];
+        // slider点击seek事件
+        UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onClickProgress:)];
+        [_videoSlider addGestureRecognizer:tapGesture];
         _videoSlider.delegate = self;
     }
     return _videoSlider;
@@ -870,6 +896,12 @@ SuperPlayerTrackViewDelegate, SuperPlayerSubtitlesViewDelegate>
 - (void)chooseSubtitlesInfo:(TXTrackInfo *)info preSubtitlesInfo:(TXTrackInfo *)preInfo {
     if (self.delegate && [self.delegate respondsToSelector:@selector(controlViewSwitch:withSubtitlesInfo:preSubtitlesInfo:)]) {
         [self.delegate controlViewSwitch:self withSubtitlesInfo:info preSubtitlesInfo:preInfo];
+    }
+}
+
+- (void)onSettingViewDoneClickWithDic:(NSMutableDictionary *)dic{
+    if (self.delegate && [self.delegate respondsToSelector:@selector(onSettingViewDoneClickWithDic:)]) {
+        [self.delegate onSettingViewDoneClickWithDic:dic];
     }
 }
 

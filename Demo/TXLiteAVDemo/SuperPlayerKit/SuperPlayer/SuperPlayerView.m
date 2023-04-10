@@ -59,6 +59,8 @@ static UISlider *_volumeSlider;
 #define CellPlayerFatherViewTag     200
 #define SUPPORT_PARAM_MAJOR_VERSION (8)
 #define SUPPORT_PARAM_MINOR_VERSION (2)
+#define PLAY_FORWARD_SPEED_RATE     3
+#define PLAY_BACKWARD_SEEK_TIME     5
 
 //忽略编译器的警告
 #pragma clang diagnostic push
@@ -68,6 +70,13 @@ static UISlider *_volumeSlider;
 TXLiveBaseDelegate,TXLivePlayListener,TXVodPlayListener>
 
 @property (nonatomic, strong) UIActivityIndicatorView  *pipLoadingView;
+@property (nonatomic, strong) dispatch_source_t         timer;
+@property (nonatomic, strong) UIImageView              *playforwardImageView;
+@property (nonatomic, strong) UIImageView              *playforwardView;
+@property (nonatomic, strong) UILabel                  *playforwardLabel;
+@property (nonatomic, strong) UIImageView              *playbackwardImageView;
+@property (nonatomic, strong) UIImageView              *playbackwardView;
+@property (nonatomic, strong) UILabel                  *playbackwardLabel;
 
 @end
 
@@ -153,6 +162,7 @@ TXLiveBaseDelegate,TXLivePlayListener,TXVodPlayListener>
     __weak __typeof(self) weakSelf = self;
     SuperPlayerWindowShared.closeHandler = ^{
         __strong __typeof(weakSelf) self = weakSelf;
+        if (!self) { return; }
         if (self->_watermarkView) {
             [self->_watermarkView releaseDynamicWater];
             [self->_watermarkView removeFromSuperview];
@@ -166,6 +176,8 @@ TXLiveBaseDelegate,TXLivePlayListener,TXVodPlayListener>
     [self addNotifications];
     // 添加手势
     [self createGesture];
+    //添加快进快退view
+    [self setUIView];
     
     self.autoPlay = YES;
     _hasStartPip = NO;
@@ -188,6 +200,11 @@ TXLiveBaseDelegate,TXLivePlayListener,TXVodPlayListener>
         [_vodPlayer stopPlay];
         [_vodPlayer removeVideoWidget];
         _vodPlayer = nil;
+    }
+    
+    if (_timer) {
+        dispatch_source_cancel(_timer);
+        _timer = nil;
     }
 }
 
@@ -215,11 +232,8 @@ TXLiveBaseDelegate,TXLivePlayListener,TXVodPlayListener>
     [super layoutSubviews];
     if (self.subviews.count > 0) {
         UIView *innerView = self.subviews[0];
-        NSString *innerStr = NSStringFromClass([innerView class]);
-        if ([innerStr isEqualToString:@"TXIJKSDLGLView"]
-            || [innerStr isEqualToString:@"TXCAVPlayerView"]
-            || [innerStr isEqualToString:@"TXCThumbPlayerView"]) {
-                innerView.frame = self.bounds;
+        if ([innerView isKindOfClass:NSClassFromString(@"TXIJKSDLGLView")] || [innerView isKindOfClass:NSClassFromString(@"TXCAVPlayerView")] || [innerView isKindOfClass:NSClassFromString(@"TXCThumbPlayerView")]) {
+            innerView.frame = self.bounds;
         }
     }
 }
@@ -645,6 +659,14 @@ TXLiveBaseDelegate,TXLivePlayListener,TXVodPlayListener>
         }
     }
     
+    //设置字幕默认样式
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+    [dic setObject:@(0xFFFFFFFF) forKey:@"fontColor"];
+    [dic setObject:@(0) forKey:@"bondFont"];
+    [dic setObject:@(1) forKey:@"outlineWidth"];
+    [dic setObject:@(0xFF000000) forKey:@"outlineColor"];
+    [self setSubtitleStyle:dic];
+        
     self.vodPlayer.token    = self.playerModel.drmToken;
 
     self.vodPlayer.enableHWAcceleration = self.playerConfig.hwAcceleration;
@@ -816,6 +838,11 @@ TXLiveBaseDelegate,TXLivePlayListener,TXVodPlayListener>
     self.doubleTap.numberOfTouchesRequired = 1;  //手指数
     self.doubleTap.numberOfTapsRequired    = 2;
     [self addGestureRecognizer:self.doubleTap];
+    
+    // 长按(快进/快退)
+    self.longPress                         =[[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressAction:)];
+    self.longPress.numberOfTouchesRequired = 1;  //手指数
+    [self addGestureRecognizer:self.longPress];
 
     // 解决点击当前view时候响应其他控件事件
     [self.singleTap setDelaysTouchesBegan:YES];
@@ -893,7 +920,6 @@ TXLiveBaseDelegate,TXLivePlayListener,TXVodPlayListener>
         };
     }
     
-    self.state = StatePlaying;
     if (self.state == StatePlaying) {
         self.centerPlayBtn.hidden = YES;
         self.repeatBtn.hidden = YES;
@@ -1187,6 +1213,70 @@ TXLiveBaseDelegate,TXLivePlayListener,TXVodPlayListener>
     }
 }
 
+/**
+ *  长按快进/快退
+ *
+ *  @param gesture UITapGestureRecognizer
+ */
+-(void)longPressAction:(UILongPressGestureRecognizer *)gesture{
+    if (!self.isFullScreen) {
+        return;
+    }
+    CGPoint forwardPoint = [gesture locationInView:self.playforwardView];
+    BOOL forward = [self.playforwardView.layer containsPoint:forwardPoint];
+    CGPoint backwardPoint = [gesture locationInView:self.playbackwardView];
+    BOOL backward = [self.playbackwardView.layer containsPoint:backwardPoint];
+    if (!(forward || backward)) {
+        return;
+    }
+    if (gesture.state == UIGestureRecognizerStateBegan) {
+        if (forward) {
+            [self setPlayforwardHide:NO];
+        }
+        if (backward) {
+            [self setPlaybackwardHide:NO];
+        }
+    }else if (gesture.state == UIGestureRecognizerStateEnded){
+        if (forward) {
+            [self setPlayforwardHide:YES];
+        }
+        if (backward) {
+            [self setPlaybackwardHide:YES];
+        }
+    }
+}
+
+/**
+ 快退
+ */
+- (void)setPlaybackwardHide:(BOOL)hide{
+    self.playbackwardView.hidden = hide;
+    self.playbackwardLabel.hidden = hide;
+    self.playbackwardImageView.hidden = hide;
+    if (!hide) {
+        [self setTimer];
+    }else{
+        if (_timer) {
+            dispatch_source_cancel(_timer);
+            _timer = nil;
+        }
+    }
+}
+
+/**
+ 快进
+ */
+- (void)setPlayforwardHide:(BOOL)hide{
+    self.playforwardView.hidden = hide;
+    self.playforwardLabel.hidden = hide;
+    self.playforwardImageView.hidden = hide;
+    if (!hide) {
+        [self.vodPlayer setRate:PLAY_FORWARD_SPEED_RATE];
+    }else{
+        [self.vodPlayer setRate:self.playerConfig.playRate];
+    }
+}
+
 /** 全屏 */
 - (void)setFullScreen:(BOOL)fullScreen {
     if (fullScreen) {
@@ -1372,6 +1462,7 @@ TXLiveBaseDelegate,TXLivePlayListener,TXVodPlayListener>
             [self restart];
         } else {
             [self.vodPlayer resume];
+            [self.spinner startAnimating];
             [self.vodPlayer seek:dragedSeconds];
             [self.controlView setPlayState:YES];
         }
@@ -2075,6 +2166,31 @@ TXLiveBaseDelegate,TXLivePlayListener,TXVodPlayListener>
     _vodPlayer = nil;
 }
 
+//配置SPVideoFrameDescription
+-(NSArray<SPVideoFrameDescription *> *)getKeyFrameDescList:(NSArray *)contentList
+                                                  timeList:(NSArray *)timeList{
+    NSMutableArray<SPVideoFrameDescription *> *keyFrameDescLists = [NSMutableArray new];
+    NSInteger min = MIN(contentList.count, timeList.count);
+    for (int i = 0; i < min; i++) {
+        SPVideoFrameDescription *frame = [[SPVideoFrameDescription alloc] init];
+        frame.text = contentList[i];
+        frame.time = [timeList[i] doubleValue];
+        [keyFrameDescLists addObject:frame];
+    }
+    return keyFrameDescLists;
+}
+
+-(void)setSubtitleStyle:(NSDictionary *)dic{
+    TXPlayerSubtitleRenderModel *model = [[TXPlayerSubtitleRenderModel alloc] init];
+    model.canvasWidth = 1920;  // 字幕渲染画布的宽
+    model.canvasHeight = 1080;  // 字幕渲染画布的高
+    model.isBondFontStyle = [dic[@"bondFont"] boolValue];  // 设置字幕字体是否为粗体
+    model.fontColor = [(NSNumber *)dic[@"fontColor"] unsignedIntValue]; // 设置字幕字体颜色，默认白色
+    model.outlineWidth = [(NSNumber *)dic[@"outlineWidth"] floatValue]; //描边宽度
+    model.outlineColor = [(NSNumber *)dic[@"outlineColor"] unsignedIntValue]; //描边颜色
+    [self.vodPlayer setSubtitleStyle:model];
+}
+
 - (void)controlViewSwitch:(UIView *)controlView withTrackInfo:(TXTrackInfo *)info preTrackInfo:(TXTrackInfo *)preInfo {
     if (info.trackIndex == -1) {
         [self.vodPlayer deselectTrack:preInfo.trackIndex];
@@ -2101,6 +2217,33 @@ TXLiveBaseDelegate,TXLivePlayListener,TXVodPlayListener>
     }
     
     [self.controlView fadeOut:1];
+}
+
+- (void)onSettingViewDoneClickWithDic:(NSMutableDictionary *)dic{
+    [self setSubtitleStyle:dic];
+}
+
+- (void)onLongPressAction:(UILongPressGestureRecognizer *)gesture{
+    [self longPressAction:gesture];
+}
+
+- (void)setTimer{
+    if (!_timer) {
+        dispatch_queue_t queue = dispatch_get_main_queue();
+        _timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, queue);
+        dispatch_source_set_timer(_timer, DISPATCH_TIME_NOW, NSEC_PER_SEC, 0.0 * NSEC_PER_SEC);
+    }
+    //快退5秒，播放1秒
+    __weak __typeof(self)weakSelf = self;
+    dispatch_source_set_event_handler(_timer, ^{
+        __strong typeof(self) strongSelf = weakSelf;
+        float seekTime = strongSelf.playCurrentTime - PLAY_BACKWARD_SEEK_TIME;
+        if (seekTime < 0 ) {
+            seekTime = 0;
+        }
+        [self.vodPlayer seek:seekTime];
+    });
+    dispatch_resume(_timer);
 }
 
 #pragma clang diagnostic pop
@@ -2185,6 +2328,10 @@ TXLiveBaseDelegate,TXLivePlayListener,TXVodPlayListener>
                 self.videoRatio = (GLfloat)player.width / player.height;
             }
         } else if (EvtID == PLAY_EVT_GET_PLAYINFO_SUCC) {
+            self.keyFrameDescList = [self getKeyFrameDescList:
+            [param objectForKey:VOD_PLAY_EVENT_KEY_FRAME_CONTENT_LIST]
+            timeList:[param objectForKey:VOD_PLAY_EVENT_KEY_FRAME_TIME_LIST]];
+            self.controlView.pointArray = self.keyFrameDescList;
             self->_currentVideoUrl = [param objectForKey:VOD_PLAY_EVENT_PLAY_URL];
             NSString *imageSpriteVtt = [param objectForKey:VOD_PLAY_EVENT_IMAGESPRIT_WEBVTTURL]?:@"";
             NSArray<NSString *> *imageSpriteList = [param objectForKey:VOD_PLAY_EVENT_IMAGESPRIT_IMAGEURL_LIST];
@@ -2532,6 +2679,115 @@ TXLiveBaseDelegate,TXLivePlayListener,TXVodPlayListener>
         }];
     }
     return _repeatBtn;
+}
+
+- (void)setUIView{
+    
+    [self addSubview:self.playforwardView];
+    [_playforwardView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.mas_equalTo(180);
+        make.top.equalTo(self.mas_top);
+        make.bottom.equalTo(self.mas_bottom);
+        make.trailing.equalTo(self.mas_trailing);
+    }];
+    
+    [self addSubview:self.playforwardImageView];
+    [_playforwardImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.leading.equalTo(_playforwardView.mas_leading).offset(70);
+        make.centerY.equalTo(self.mas_centerY);
+        make.width.height.mas_equalTo(40);
+    }];
+    
+    [self addSubview:self.playforwardLabel];
+    [_playforwardLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(_playforwardImageView.mas_bottom).offset(5);
+        make.centerX.equalTo(_playforwardImageView.mas_centerX);
+        make.width.mas_equalTo(70);
+        make.height.mas_equalTo(40);
+    }];
+    
+    [self addSubview:self.playbackwardView];
+    [_playbackwardView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.leading.equalTo(self.mas_leading);
+        make.top.equalTo(self.mas_top);
+        make.bottom.equalTo(self.mas_bottom);
+        make.width.mas_equalTo(180);
+    }];
+    
+    [self addSubview:self.playbackwardImageView];
+    [_playbackwardImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.leading.equalTo(self.mas_leading).offset(70);
+        make.centerY.equalTo(self.mas_centerY);
+        make.width.height.mas_equalTo(40);
+    }];
+    
+    [self addSubview:self.playbackwardLabel];
+    [_playbackwardLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(_playbackwardImageView.mas_bottom).offset(5);
+        make.centerX.equalTo(_playbackwardImageView.mas_centerX);
+        make.width.mas_equalTo(70);
+        make.height.mas_equalTo(40);
+    }];
+}
+
+- (UIImageView *)playforwardImageView{
+    if (!_playforwardImageView) {
+        UIImage *image = SuperPlayerImage(@"playforward");
+        _playforwardImageView = [[UIImageView alloc] init];
+        [_playforwardImageView setImage:image];
+        _playforwardImageView.hidden = YES;
+    }
+    return _playforwardImageView;
+}
+
+- (UILabel *)playforwardLabel{
+    if (!_playforwardLabel) {
+        _playforwardLabel = [[UILabel alloc] init];
+        _playforwardLabel.font = [UIFont systemFontOfSize:16];
+        _playforwardLabel.textColor = [UIColor whiteColor];
+        _playforwardLabel.textAlignment = NSTextAlignmentCenter;
+        _playforwardLabel.text = superPlayerLocalized(@"SuperPlayer.fastForward");
+        _playforwardLabel.hidden = YES;
+    }
+    return _playforwardLabel;
+}
+- (UIImageView *)playforwardView{
+    if (!_playforwardView) {
+        UIImage *image = SuperPlayerImage(@"playforward_bg");
+        _playforwardView = [[UIImageView alloc] init];
+        [_playforwardView setImage:image];
+        _playforwardView.hidden = YES;
+    }
+    return _playforwardView;
+}
+- (UIImageView *)playbackwardImageView{
+    if (!_playbackwardImageView) {
+        UIImage *image = SuperPlayerImage(@"playbackward");
+        _playbackwardImageView = [[UIImageView alloc] init];
+        [_playbackwardImageView setImage:image];
+        _playbackwardImageView.hidden = YES;
+    }
+    return _playbackwardImageView;
+}
+- (UILabel *)playbackwardLabel{
+    if (!_playbackwardLabel) {
+        _playbackwardLabel = [[UILabel alloc] init];
+        _playbackwardLabel.font = [UIFont systemFontOfSize:16];
+        _playbackwardLabel.textColor = [UIColor whiteColor];
+        _playbackwardLabel.textAlignment = NSTextAlignmentCenter;
+        _playbackwardLabel.text = superPlayerLocalized(@"SuperPlayer.rewind");
+        _playbackwardLabel.hidden = YES;
+    }
+    return _playbackwardLabel;
+}
+- (UIImageView *)playbackwardView{
+    if (!_playbackwardView) {
+        UIImage *image = SuperPlayerImage(@"playbackward_bg");
+        _playbackwardView = [[UIImageView alloc] init];
+        [_playbackwardView setImage:image];
+        _playbackwardView.hidden = YES;
+    }
+    return _playbackwardView;
 }
 
 - (UIButton *)repeatBackBtn {

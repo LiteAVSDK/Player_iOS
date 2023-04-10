@@ -51,6 +51,8 @@ typedef NS_ENUM(NSInteger, ButtonAction) {
 @property(nonatomic, assign) BOOL didEnterBackground;
 /** 单击 */
 @property(nonatomic, strong) UITapGestureRecognizer *singleTap;
+/** 长按 */
+@property(nonatomic, strong) UILongPressGestureRecognizer *longPress;
 /** 双击 */
 @property(nonatomic, strong) UITapGestureRecognizer *doubleTap;
 /** 快进快退、View*/

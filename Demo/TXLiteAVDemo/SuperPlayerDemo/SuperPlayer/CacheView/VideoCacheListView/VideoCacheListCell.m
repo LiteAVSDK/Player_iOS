@@ -270,17 +270,6 @@ static NSDictionary *gQualityDic;
         playModel.videoId = videoId;
     }
     
-    // 获取overlayKey和overlayIv
-    NSString *overlayStr = [[TXVodDownloadManager shareInstance] getOverlayKeyIv:self.mediaInfo.dataSource.appId
-                                                 userName:self.mediaInfo.dataSource.userName
-                                                   fileId:self.mediaInfo.dataSource.fileId
-                                                qualityId:(int)self.mediaInfo.dataSource.quality];
-    if (overlayStr.length > 0) {
-        NSArray *overlayArray = [overlayStr componentsSeparatedByString:@"_"];
-        playModel.overlayKey = overlayArray.firstObject;
-        playModel.overlayIv = overlayArray.lastObject;
-    }
-    
     playModel.customCoverImageUrl = _model.coverImageStr;
     playModel.action = 0;
     playModel.name = _model.videoName;

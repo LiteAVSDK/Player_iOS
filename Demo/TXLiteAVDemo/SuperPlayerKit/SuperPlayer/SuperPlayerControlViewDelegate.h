@@ -30,6 +30,8 @@
 - (void)controlViewSwitch:(UIView *)controlView withTrackInfo:(TXTrackInfo *)info preTrackInfo:(TXTrackInfo *)preInfo;
 /** 切换字幕按钮事件 */
 - (void)controlViewSwitch:(UIView *)controlView withSubtitlesInfo:(TXTrackInfo *)info preSubtitlesInfo:(TXTrackInfo *)preInfo;
+/** 设置字幕样式按钮事件 */
+- (void)onSettingViewDoneClickWithDic:(NSMutableDictionary *)dic;
 /** 修改配置 */
 - (void)controlViewConfigUpdate:(SuperPlayerControlView *)controlView withReload:(BOOL)reload;
 /** 重新播放 */
@@ -48,6 +50,8 @@
 - (void)onRepeatClick;
 /** 显示VipView */
 - (void)showVipView;
+/** 快进/快退按钮*/
+- (void)onLongPressAction:(UILongPressGestureRecognizer *)gesture;
 
 @end
 
