@@ -18,7 +18,6 @@
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
 
 #define MODEL_TAG_BEGIN          20
-#define BOTTOM_IMAGE_VIEW_HEIGHT 50
 #define FADEOUTTIME              5
 
 @interface     SPDefaultControlView () <UIGestureRecognizerDelegate, PlayerSliderDelegate,
@@ -134,14 +133,19 @@ SuperPlayerTrackViewDelegate, SuperPlayerSubtitlesViewDelegate>
     }];
 
     [self.bottomImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.leading.trailing.bottom.mas_equalTo(0);
-        make.height.mas_equalTo(BOTTOM_IMAGE_VIEW_HEIGHT);
+        make.leading.leading.trailing.mas_offset(0);
+        make.bottom.equalTo(self.mas_bottom);
     }];
 
     [self.startBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.leading.equalTo(self.bottomImageView.mas_leading).offset(5);
         make.top.equalTo(self.bottomImageView.mas_top).offset(10);
         make.width.height.mas_equalTo(30);
+        if (@available(iOS 11.0, *)) {
+            make.bottom.equalTo(self.mas_safeAreaLayoutGuideBottom).offset(-10);
+        } else {
+            make.bottom.equalTo(self.mas_bottom).offset(-10);
+        }
     }];
 
     [self.currentTimeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -239,8 +243,12 @@ SuperPlayerTrackViewDelegate, SuperPlayerSubtitlesViewDelegate>
 }
 
 - (void)exitFullScreen:(UIButton *)sender {
-    if ([self.delegate respondsToSelector:@selector(controlViewChangeScreen:withFullScreen:)]) {
-        [self.delegate controlViewChangeScreen:self withFullScreen:NO];
+    if ([self.delegate respondsToSelector:@selector(controlViewChangeScreen:withFullScreen:successBlock:failuerBlock:)]) {
+        [self.delegate controlViewChangeScreen:self withFullScreen:NO successBlock:^{
+            
+        } failuerBlock:^{
+            
+        }];
     }
 }
 
@@ -275,7 +283,12 @@ SuperPlayerTrackViewDelegate, SuperPlayerSubtitlesViewDelegate>
 - (void)fullScreenBtnClick:(UIButton *)sender {
     sender.selected = !sender.selected;
     self.fullScreen = !self.fullScreen;
-    [self.delegate controlViewChangeScreen:self withFullScreen:YES];
+    [self.delegate controlViewChangeScreen:self withFullScreen:self.fullScreen successBlock:^{
+        
+    } failuerBlock:^{
+        sender.selected = !sender.selected;
+        self.fullScreen = !self.fullScreen;
+    }];
     [self fadeOut:3];
 }
 
@@ -475,10 +488,10 @@ SuperPlayerTrackViewDelegate, SuperPlayerSubtitlesViewDelegate>
     }
 }
 /**
- *  屏幕方向发生变化会调用这里
+ *  横屏约束
  */
 - (void)setOrientationLandscapeConstraint {
-    self.fullScreen             = YES;
+    self.fullScreen = YES;
     self.lockBtn.hidden         = NO;
     self.pipBtn.hidden          = YES;
     self.fullScreenBtn.selected = self.isLockScreen;
@@ -529,10 +542,6 @@ SuperPlayerTrackViewDelegate, SuperPlayerSubtitlesViewDelegate>
         make.width.mas_equalTo(self.isLive ? 10 : 60);
     }];
 
-    [self.bottomImageView mas_updateConstraints:^(MASConstraintMaker *make) {
-        CGFloat b = self.superview.mm_safeAreaBottomGap;
-        make.height.mas_equalTo(BOTTOM_IMAGE_VIEW_HEIGHT + b);
-    }];
 
     self.videoSlider.hiddenPoints = NO;
 }
@@ -540,7 +549,7 @@ SuperPlayerTrackViewDelegate, SuperPlayerSubtitlesViewDelegate>
  *  设置竖屏的约束
  */
 - (void)setOrientationPortraitConstraint {
-    self.fullScreen             = NO;
+    self.fullScreen = NO;
     self.lockBtn.hidden         = YES;
     self.pipBtn.hidden          = self.disablePipBtn;
     self.fullScreenBtn.selected = NO;
@@ -572,9 +581,6 @@ SuperPlayerTrackViewDelegate, SuperPlayerSubtitlesViewDelegate>
         make.width.mas_equalTo(self.isLive ? 10 : 60);
     }];
 
-    [self.bottomImageView mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.height.mas_equalTo(BOTTOM_IMAGE_VIEW_HEIGHT);
-    }];
 
     self.videoSlider.hiddenPoints = YES;
     self.pointJumpBtn.hidden      = YES;
@@ -713,6 +719,7 @@ SuperPlayerTrackViewDelegate, SuperPlayerSubtitlesViewDelegate>
     if (!_fullScreenBtn) {
         _fullScreenBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [_fullScreenBtn setImage:SuperPlayerImage(@"fullscreen") forState:UIControlStateNormal];
+        [_fullScreenBtn setImage:SuperPlayerImage(@"fullscreen") forState:UIControlStateSelected];
         [_fullScreenBtn addTarget:self action:@selector(fullScreenBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _fullScreenBtn;
@@ -1124,6 +1131,10 @@ SuperPlayerTrackViewDelegate, SuperPlayerSubtitlesViewDelegate>
 
 - (void)setOfflineBtnState:(BOOL)isShow {
     self.disableOfflineBtn = !isShow;
+}
+
+- (void)fullScreenButtonSelectState:(BOOL)state{
+    self.fullScreenBtn.selected = state;
 }
 
 #pragma clang diagnostic pop

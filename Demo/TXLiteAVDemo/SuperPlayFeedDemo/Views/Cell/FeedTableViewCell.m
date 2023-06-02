@@ -26,11 +26,11 @@
     return self;
 }
 
-- (void)prepareForReuse {
-    [super prepareForReuse];
-    [self.baseView.superPlayView removeFromSuperview];
-    self.baseView.superPlayView = nil;
-}
+//- (void)prepareForReuse {
+//    [super prepareForReuse];
+    //Mars [self.baseView.superPlayView removeFromSuperview];
+    //Mars self.baseView.superPlayView = nil;
+//}
 
 #pragma mark - Public Method
 - (void)setModel:(FeedVideoModel *)model {
@@ -74,7 +74,16 @@
         [self.delegate superPlayerDidStartWithCell:self];
     }
 }
-
+-(void)showFullScreenViewWithPlayView:(SuperPlayerView *)superPlayerView {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(showFullScreenViewWithPlayView:cell:)]){
+        [self.delegate showFullScreenViewWithPlayView:superPlayerView cell:self];
+    }
+}
+- (void)screenRotation:(BOOL)fullScreen {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(screenRotation:)]) {
+        [self.delegate screenRotation:fullScreen];
+    }
+}
 #pragma mark - 懒加载
 - (FeedBaseView *)baseView {
     if (!_baseView) {

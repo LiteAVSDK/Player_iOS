@@ -34,3 +34,9 @@ typedef void (^SuperPlayerWindowEventHandler)(void);
 @property(readonly) BOOL isShowing;  //
 
 @end
+/**
+ SuperPlayerWindow控制器
+ */
+@interface SuperPlayerWindowViewController : UIViewController
+
+@end

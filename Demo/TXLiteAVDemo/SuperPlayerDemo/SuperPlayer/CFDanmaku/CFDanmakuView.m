@@ -281,17 +281,14 @@ static NSTimeInterval const timeMargin = 0.5;
     CGRect   endFrame = CGRectMake(-Width(label), Y(label), Width(label), Height(label));
 
     [UIView animateWithDuration:duration
-        delay:0
-        options:UIViewAnimationOptionCurveLinear
-        animations:^{
-            label.frame = endFrame;
-        }
-        completion:^(BOOL finished) {
-            if (finished) {
-                [label removeFromSuperview];
-                [self.subDanmakuInfos removeObject:info];
-            }
-        }];
+                          delay:0
+                        options:UIViewAnimationOptionCurveLinear
+                     animations:^{
+        label.frame = endFrame;
+    } completion:^(BOOL finished) {
+        [label removeFromSuperview];
+        [self.subDanmakuInfos removeObject:info];
+    }];
 }
 
 // 检测碰撞 -- 默认从右到左

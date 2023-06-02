@@ -15,17 +15,20 @@
 #import "FeedVideoModel.h"
 #import "FeedRequestUtil.h"
 #import "AppLocalized.h"
-
+#import "AppDelegate.h"
 @interface FeedPlayViewController ()<SuperFeedPlayViewDelegate, CAAnimationDelegate>
 
 @property (nonatomic, strong) SuperFeedPlayView *feedPlayView;
 
 @property (nonatomic, assign) BOOL              isPushToDetail;
+/// 是否进入全屏
+@property (nonatomic, assign) BOOL              isPushToFullScreen;
 
 @property (nonatomic, strong) UIView            *superPlayView;
 
 @property (nonatomic, assign) BOOL              isDash;
-
+///背景色
+@property (nonatomic, strong) CAGradientLayer *gradientLayer;
 @end
 
 @implementation FeedPlayViewController
@@ -47,14 +50,8 @@
     
     // 背景色
     self.view.backgroundColor = [UIColor whiteColor];
-    NSArray *colors = @[(__bridge id)[UIColor colorWithRed:19.0 / 255.0 green:41.0 / 255.0 blue:75.0 / 255.0 alpha:1].CGColor,
-                        (__bridge id)[UIColor colorWithRed:5.0 / 255.0 green:12.0 / 255.0 blue:23.0 / 255.0 alpha:1].CGColor];
-    CAGradientLayer *gradientLayer = [CAGradientLayer layer];
-    gradientLayer.colors = colors;
-    gradientLayer.startPoint = CGPointMake(0, 0);
-    gradientLayer.endPoint = CGPointMake(1, 1);
-    gradientLayer.frame = self.view.bounds;
-    [self.view.layer insertSublayer:gradientLayer atIndex:0];
+    [self.view.layer insertSublayer:self.gradientLayer atIndex:0];
+    self.gradientLayer.frame = self.view.bounds;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -63,15 +60,29 @@
         [self.feedPlayView addSuperPlayView:self.superPlayView];
         self.isPushToDetail = NO;
     }
+    if (self.isPushToFullScreen) {
+        [self.feedPlayView addSuperPlayView:self.superPlayView];
+        self.isPushToFullScreen = NO;
+    }
+}
+-(void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear: animated];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
     [self.view addSubview:self.feedPlayView];
-    
-    // 初始化feedPlayView的子组件
-    [self.feedPlayView initChildView];
+    [self.feedPlayView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.view.mas_left);
+        if (@available(iOS 11.0, *)) {
+            make.top.equalTo(self.view.mas_safeAreaLayoutGuideTop);
+        } else {
+            make.top.equalTo(self.view.mas_top);
+        }
+        make.right.equalTo(self.view.mas_right);
+        make.bottom.equalTo(self.view.mas_bottom);
+    }];
+    [self refreshNewFeedData];
 }
 
 #pragma mark - click
@@ -99,7 +110,9 @@
     }];
 }
 
-- (void)showFeedDetailViewWithHeadModel:(FeedHeadModel *)model videoModel:(FeedVideoModel *)videoModel playView:(UIView *)superPlayView {
+- (void)showFeedDetailViewWithHeadModel:(FeedHeadModel *)model
+                             videoModel:(FeedVideoModel *)videoModel
+                               playView:(SuperPlayerView *)superPlayView {
     self.isPushToDetail = YES;
     self.superPlayView = superPlayView;
     
@@ -112,17 +125,33 @@
     detailVC.videoModel = videoModel;
     [self.navigationController pushViewController:detailVC animated:NO];
 }
-
+- (void)showFullScreenViewWithPlayView:(SuperPlayerView *)superPlayerView {
+    self.isPushToFullScreen = YES;
+    self.superPlayView = superPlayerView;
+    FeedBaseFullScreenViewController *vc = [FeedBaseFullScreenViewController new];
+    vc.playerView = superPlayerView;
+    [self.navigationController pushViewController:vc animated:NO];
+   
+}
 #pragma mark - 懒加载
 - (SuperFeedPlayView *)feedPlayView {
     if (!_feedPlayView) {
         _feedPlayView = [[SuperFeedPlayView alloc] init];
-        _feedPlayView.frame = CGRectMake(0, kNavBarAndStatusBarHeight, SCREEN_WIDTH, SCREEN_HEIGHT - kNavBarAndStatusBarHeight);
         _feedPlayView.delegate = self;
     }
     return _feedPlayView;
 }
-
+- (CAGradientLayer *)gradientLayer {
+    if (!_gradientLayer) {
+        NSArray *colors = @[(__bridge id)[UIColor colorWithRed:19.0 / 255.0 green:41.0 / 255.0 blue:75.0 / 255.0 alpha:1].CGColor,
+                            (__bridge id)[UIColor colorWithRed:5.0 / 255.0 green:12.0 / 255.0 blue:23.0 / 255.0 alpha:1].CGColor];
+        _gradientLayer = [CAGradientLayer layer];
+        _gradientLayer.colors = colors;
+        _gradientLayer.startPoint = CGPointMake(0, 0);
+        _gradientLayer.endPoint = CGPointMake(1, 1);
+    }
+    return _gradientLayer;
+}
 #pragma mark - 测试数据
 - (void)loadTestDataWithsuccess:(void(^)(NSMutableArray *list))success {
     NSMutableArray *result = [self loadVideoResources];
@@ -327,5 +356,134 @@
         }
     }
 }
+@end
+
+///全屏窗口
+@interface FeedBaseFullScreenViewController()<SuperPlayerDelegate>
+///视频窗口父view
+@property (nonatomic, strong) UIView *faterView;
+@end
+
+@implementation FeedBaseFullScreenViewController
+
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    AppDelegate *delegate  = (AppDelegate*)[[UIApplication sharedApplication] delegate];
+    delegate.interfaceOrientationMask = UIInterfaceOrientationMaskLandscapeRight;
+    [self movRotateToInterfaceOrientation:UIInterfaceOrientationLandscapeRight];
+    [self movSetNeedsUpdateOfSupportedInterfaceOrientations];
+    [self.navigationController setNavigationBarHidden:YES animated:NO];
+}
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    AppDelegate *delegate  = (AppDelegate*)[[UIApplication sharedApplication] delegate];
+    delegate.interfaceOrientationMask = UIInterfaceOrientationMaskPortrait;
+    [self movRotateToInterfaceOrientation:UIInterfaceOrientationPortrait];
+    [self movSetNeedsUpdateOfSupportedInterfaceOrientations];
+    [self.navigationController setNavigationBarHidden:NO animated:NO];
+}
+-(void)viewDidLoad{
+    [super viewDidLoad];
+    
+    self.view.backgroundColor = [UIColor blackColor];
+    [self.view addSubview:self.faterView];
+    [self.faterView mas_makeConstraints:^(MASConstraintMaker *make) {
+        if (@available(iOS 11.0, *)) {
+            make.left.equalTo(self.view.mas_safeAreaLayoutGuideLeft);
+            make.right.equalTo(self.view.mas_safeAreaLayoutGuideRight);
+        } else {
+            make.left.equalTo(self.view.mas_left);
+            make.right.equalTo(self.view.mas_right);
+        }
+        make.top.equalTo(self.view.mas_top);
+        make.bottom.equalTo(self.view.mas_bottom);
+    }];
+    
+}
+- (UIView *)faterView {
+    if(!_faterView){
+        _faterView = [UIView new];
+        _faterView.backgroundColor = UIColor.blackColor;
+    }
+    return _faterView;
+}
+
+- (void)setPlayerView:(SuperPlayerView *)playerView {
+    _playerView = playerView;
+    _playerView.delegate = self;
+    _playerView.fatherView = self.faterView;
+    [self.faterView addSubview:playerView];
+    [playerView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.faterView);
+    }];
+}
+
+///SuperPlayerDelegate
+-(void)backHookAction{
+    
+    [self.navigationController popViewControllerAnimated:NO];
+}
+
+- (BOOL)movRotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+    
+#ifdef __IPHONE_16_0
+    if (@available(iOS 16.0, *)) {
+        [self setNeedsUpdateOfSupportedInterfaceOrientations];
+        __block BOOL result = YES;
+        UIInterfaceOrientationMask mask = 1 << interfaceOrientation;
+        UIWindow *window = self.view.window ?: UIApplication.sharedApplication.delegate.window;
+        [window.windowScene requestGeometryUpdateWithPreferences:
+         [[UIWindowSceneGeometryPreferencesIOS alloc] initWithInterfaceOrientations:mask] errorHandler:^(NSError * _Nonnull error) {
+            if (error) {
+                result = NO;
+            }
+        }];
+        return result;
+    }  else {
+        if ([[UIDevice currentDevice] respondsToSelector:@selector(setOrientation:)]) {
+            NSNumber *orientationUnknown = @(UIInterfaceOrientationUnknown);
+            [[UIDevice currentDevice] setValue:orientationUnknown forKey:@"orientation"];
+            [[UIDevice currentDevice] setValue:[NSNumber numberWithInteger:interfaceOrientation] forKey:@"orientation"];
+        }
+        /// 延时一下调用，否则无法横屏
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+          [UIViewController attemptRotationToDeviceOrientation];
+        });
+        
+        return YES;
+    }
+#else
+    if ([[UIDevice currentDevice] respondsToSelector:@selector(setOrientation:)]) {
+        NSNumber *orientationUnknown = @(UIInterfaceOrientationUnknown);
+        [[UIDevice currentDevice] setValue:orientationUnknown forKey:@"orientation"];
+        [[UIDevice currentDevice] setValue:[NSNumber numberWithInteger:interfaceOrientation] forKey:@"orientation"];
+    }
+    [UIViewController attemptRotationToDeviceOrientation];
+    return YES;
+#endif
+}
+- (void)movSetNeedsUpdateOfSupportedInterfaceOrientations {
+
+if (@available(iOS 16.0, *)) {
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 160000
+    [self setNeedsUpdateOfSupportedInterfaceOrientations];
+#else
+    
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+        SEL supportedInterfaceSelector = NSSelectorFromString(@"setNeedsUpdateOfSupportedInterfaceOrientations");
+        [self performSelector:supportedInterfaceSelector];
+#pragma clang diagnostic pop
+    
+#endif
+    });
+    
+}
+
+}
 
 @end
+

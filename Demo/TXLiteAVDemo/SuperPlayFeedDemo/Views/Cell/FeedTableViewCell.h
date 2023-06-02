@@ -21,7 +21,7 @@ typedef NS_ENUM(NSUInteger, FeedCellStyle) {
 @class FeedTableViewCell;
 
 @protocol FeedTableViewCellDelegate <NSObject>
-
+@optional
 /**
  点击进入详情页的Click
 */
@@ -31,7 +31,12 @@ typedef NS_ENUM(NSUInteger, FeedCellStyle) {
  视频播放开始
 */
 - (void)superPlayerDidStartWithCell:(FeedTableViewCell *)cell;
-
+/**
+ 全屏
+ */
+- (void)showFullScreenViewWithPlayView:(SuperPlayerView *)superPlayerView cell:(FeedTableViewCell *)cell;
+///屏幕旋转
+- (void)screenRotation:(BOOL)fullScreen;
 @end
 
 @interface FeedTableViewCell : UITableViewCell

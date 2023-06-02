@@ -13,7 +13,10 @@
 #import "SuperPlayer.h"
 
 NS_ASSUME_NONNULL_BEGIN
-
+@protocol FeedDetailViewDelegate <NSObject>
+///屏幕旋转
+- (void)screenRotation:(BOOL)fullScreen;
+@end
 @interface FeedDetailView : UIView
 
 @property (nonatomic, strong) FeedDetailHeadView  *headView;
@@ -23,6 +26,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) FeedVideoModel      *videoModel;
 
 @property (nonatomic, strong) SuperPlayerView     *superPlayView;
+///delegate
+@property (nonatomic, weak) id<FeedDetailViewDelegate> delegate;
 
 /**
  * 设置列表数据

@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "FeedHeadModel.h"
 #import "FeedVideoModel.h"
-
+#import "SuperPlayer.h"
 NS_ASSUME_NONNULL_BEGIN
 
 @interface FeedDetailViewController : UIViewController
@@ -18,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) FeedVideoModel *videoModel;
 
-@property (nonatomic, strong) UIView         *superPlayView;
+@property (nonatomic, strong) SuperPlayerView         *superPlayView;
 
 @property (nonatomic, strong) NSMutableArray *detailListData;
 

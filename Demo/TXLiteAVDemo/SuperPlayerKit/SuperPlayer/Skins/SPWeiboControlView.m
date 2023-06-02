@@ -228,7 +228,11 @@
 
 - (void)fullScreenBtnClick:(UIButton *)sender {
     sender.selected = !sender.selected;
-    [self.delegate controlViewChangeScreen:self withFullScreen:sender.selected];
+    [self.delegate controlViewChangeScreen:self withFullScreen:sender.selected successBlock:^{
+        
+    } failuerBlock:^{
+        sender.selected = !sender.selected;
+    }];
 }
 
 - (void)progressSliderTouchBegan:(UISlider *)sender {

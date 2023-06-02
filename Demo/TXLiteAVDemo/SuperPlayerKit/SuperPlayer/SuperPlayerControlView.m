@@ -13,7 +13,6 @@
 - (void)layoutSubviews {
     [super layoutSubviews];
 
-    //    UIInterfaceOrientation currentOrientation = [UIApplication sharedApplication].statusBarOrientation;
     if (self.compact) {
         [self setOrientationPortraitConstraint];
     } else {
@@ -21,7 +20,14 @@
     }
     [self.delegate controlViewDidChangeScreen:self];
 }
-
+-(void)setCompact:(BOOL)compact {
+    _compact = compact;
+    if (compact == YES) {
+        [self setOrientationPortraitConstraint];
+    } else {
+        [self setOrientationLandscapeConstraint];
+    }
+}
 - (void)setOrientationPortraitConstraint {
 }
 

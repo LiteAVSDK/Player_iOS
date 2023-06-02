@@ -22,7 +22,10 @@
 /// http头，跟进情况自行设置
 @property NSDictionary *headers;
 /// 播放器最大缓存个数
-@property(nonatomic) NSInteger maxCacheItem;
+@property(nonatomic) NSInteger maxCacheItem __attribute__((deprecated("This property is obsolete and the setting is invalid")));
+///设置播放器最大缓存的Cache Size大小（单位MB）,默认500MB
+///设置后会根据设定值自动清理Cache目录的文件
+@property(nonatomic, assign)NSInteger maxCacheSizeMB;
 /// 时移域名，默认为playtimeshift.live.myqcloud.com
 @property NSString *playShiftDomain;
 /// log打印

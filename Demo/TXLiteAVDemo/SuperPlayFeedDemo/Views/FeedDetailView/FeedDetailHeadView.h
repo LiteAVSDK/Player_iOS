@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface FeedDetailHeadView : UIView
 
-- (void)setHeadModel:(FeedHeadModel *)model subLableHeight:(CGFloat)subHeight;
+- (void)setHeadModel:(FeedHeadModel *)model;
 
 @end
 

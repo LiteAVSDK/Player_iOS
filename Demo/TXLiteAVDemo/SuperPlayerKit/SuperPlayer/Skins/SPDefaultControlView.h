@@ -99,4 +99,7 @@
 @property(nonatomic, assign, getter=isLockScreen) BOOL isLockScreen;
 @property(nonatomic, strong) UIButton *                pointJumpBtn;
 
+//反向设置横屏按钮的选中状态
+- (void)fullScreenButtonSelectState:(BOOL)state;
+
 @end

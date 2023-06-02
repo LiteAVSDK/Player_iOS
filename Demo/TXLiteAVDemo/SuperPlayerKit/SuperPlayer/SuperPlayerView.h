@@ -56,6 +56,14 @@
 // 需要通知到父view的事件在此添加
 /// 轻拍事件回调
 - (void)singleTapClick;
+///锁屏
+- (void)lockScreen:(BOOL)lock;
+///屏幕旋转
+- (void)screenRotation:(BOOL)fullScreen;
+///全屏按钮hook事件
+- (void)fullScreenHookAction;
+///返回按钮hook事件
+- (void)backHookAction;
 @end
 
 /// 播放器的状态

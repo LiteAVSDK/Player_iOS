@@ -9,7 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "FeedHeadModel.h"
 #import "FeedVideoModel.h"
-
+#import "SuperPlayer.h"
+#import "FeedTableViewCell.h"
 NS_ASSUME_NONNULL_BEGIN
 
 @protocol SuperFeedPlayViewDelegate <NSObject>
@@ -28,18 +29,19 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  显示详情页的处理
 */
-- (void)showFeedDetailViewWithHeadModel:(FeedHeadModel *)model videoModel:(FeedVideoModel *)videoModel playView:(UIView *)superPlayView;
+- (void)showFeedDetailViewWithHeadModel:(FeedHeadModel *)model videoModel:(FeedVideoModel *)videoModel playView:(SuperPlayerView *)superPlayView;
+/**
+ 全屏
+ */
+- (void)showFullScreenViewWithPlayView:(SuperPlayerView *)superPlayerView ;
+///屏幕旋转
+- (void)screenRotation:(BOOL)fullScreen;
 
 @end
 
 @interface SuperFeedPlayView : UIView
 
 @property (nonatomic, weak) id<SuperFeedPlayViewDelegate> delegate;
-
-/**
- * 初始化子组件
-*/
-- (void)initChildView;
 
 /**
  * 设置数据

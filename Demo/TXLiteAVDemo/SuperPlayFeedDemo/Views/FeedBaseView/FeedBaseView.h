@@ -25,6 +25,12 @@ NS_ASSUME_NONNULL_BEGIN
  视频播放开始
 */
 - (void)superPlayerDidStart;
+/**
+ 全屏
+ */
+- (void)showFullScreenViewWithPlayView:(SuperPlayerView *)superPlayerView;
+///屏幕旋转
+- (void)screenRotation:(BOOL)fullScreen;
 
 @end
 
@@ -70,5 +76,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)addSuperPlayView:(UIView *)view;
 
 @end
+
 
 NS_ASSUME_NONNULL_END

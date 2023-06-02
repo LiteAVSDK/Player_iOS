@@ -16,7 +16,11 @@
 /** 播放下一个 */
 - (void)controlViewNextClick:(UIView *)controlView;
 /** 播放器全屏 */
-- (void)controlViewChangeScreen:(UIView *)controlView withFullScreen:(BOOL)isFullScreen;
+- (void)controlViewChangeScreen:(UIView *)controlView
+                 withFullScreen:(BOOL)isFullScreen
+                   successBlock:(void(^)(void))successBlock
+                   failuerBlock:(void(^)(void))failuerBlock;
+
 - (void)controlViewDidChangeScreen:(UIView *)controlView;
 /** 锁定屏幕方向 */
 - (void)controlViewLockScreen:(UIView *)controlView withLock:(BOOL)islock;

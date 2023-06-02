@@ -33,44 +33,39 @@
         [self addSubview:self.videoNameLabel];
         [self addSubview:self.videoSubTitleLabel];
         [self addSubview:self.videoDesLabel];
+        
+        [self.headImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self).offset(16);
+            make.top.equalTo(self).offset(8);
+            make.width.mas_equalTo(40);
+            make.height.mas_equalTo(40);
+        }];
+        [self.videoNameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.headImageView.mas_right).offset(16);
+            make.top.equalTo(self).offset(8);
+            make.right.equalTo(self);
+            make.height.mas_equalTo(20);
+        }];
+        [self.videoSubTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.videoNameLabel.mas_left);
+            make.top.equalTo(self.videoNameLabel.mas_bottom).offset(6);
+            make.right.equalTo(self);
+        }];
+        [self.videoDesLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self).offset(16);
+            make.bottom.equalTo(self).offset(-2);
+            make.right.equalTo(self).offset(-16);
+            make.top.equalTo(self.videoSubTitleLabel.mas_bottom).offset(6);
+        }];
+        
     }
     return self;
 }
 
-- (void)layoutChildViewsWithsubLableHeight:(CGFloat)subHeight {
-    [self.headImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self).offset(16);
-        make.top.equalTo(self).offset(8);
-        make.width.mas_equalTo(40);
-        make.height.mas_equalTo(40);
-    }];
-    
-    [self.videoNameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self).offset(8 + 40 + 16);
-        make.top.equalTo(self).offset(8);
-        make.right.equalTo(self);
-        make.height.mas_equalTo(20);
-    }];
-    
-    [self.videoSubTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self).offset(8 + 40 + 16);
-        make.top.equalTo(self).offset(8 + 20 + 6);
-        make.right.equalTo(self);
-        make.height.mas_equalTo(subHeight);
-    }];
-    
-    [self.videoDesLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self).offset(16);
-        make.bottom.equalTo(self).offset(-2);
-        make.right.equalTo(self).offset(-16);
-        make.top.equalTo(self).offset(36 + subHeight);
-    }];
-}
 
 #pragma mark - Public Method
-- (void)setHeadModel:(FeedHeadModel *)model subLableHeight:(CGFloat)subHeight {
+- (void)setHeadModel:(FeedHeadModel *)model  {
     
-    [self layoutChildViewsWithsubLableHeight:subHeight];
     
     NSURL *url = [NSURL URLWithString:model.headImageUrl];
     [self.headImageView sd_setImageWithURL:url placeholderImage:[UIImage imageNamed:@"img_video_loading"]];

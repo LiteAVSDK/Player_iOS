@@ -22,7 +22,6 @@
 		917AB0FC21ED838400D6B041 /* SPDefaultControlView.m in Sources */ = {isa = PBXBuildFile; fileRef = 917AB0F921ED838400D6B041 /* SPDefaultControlView.m */; };
 		917AB0FD21ED838400D6B041 /* SPWeiboControlView.m in Sources */ = {isa = PBXBuildFile; fileRef = 917AB0FB21ED838400D6B041 /* SPWeiboControlView.m */; };
 		919D18F521533DAC00947BF5 /* UINavigationController+SuperPlayerRotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 919D18F221533DAB00947BF5 /* UINavigationController+SuperPlayerRotation.m */; };
-		919D18F621533DAC00947BF5 /* UIViewController+SuperPlayerRotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 919D18F421533DAB00947BF5 /* UIViewController+SuperPlayerRotation.m */; };
 		91A1D63F214770C900EA9A19 /* UIView+MMLayout.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 91A1D5E5214673F300EA9A19 /* UIView+MMLayout.h */; };
 		91A1D640214770C900EA9A19 /* SuperPlayerControlViewDelegate.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 91A1D5E9214673F400EA9A19 /* SuperPlayerControlViewDelegate.h */; };
 		91A1D642214770C900EA9A19 /* SuperPlayerModel.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 91A1D5C4214673F300EA9A19 /* SuperPlayerModel.h */; };
@@ -52,6 +51,13 @@
 		ED50C7C629376FAF0061D8DD /* TXVipWatchView.m in Sources */ = {isa = PBXBuildFile; fileRef = ED50C7C329376FAF0061D8DD /* TXVipWatchView.m */; };
 		ED50C7C729376FAF0061D8DD /* TXVipTipView.m in Sources */ = {isa = PBXBuildFile; fileRef = ED50C7C429376FAF0061D8DD /* TXVipTipView.m */; };
 		ED50C7CB29376FCE0061D8DD /* SuperPlayerLocalized.m in Sources */ = {isa = PBXBuildFile; fileRef = ED50C7CA29376FCE0061D8DD /* SuperPlayerLocalized.m */; };
+		EDD7ED542A299915003491CB /* SuperPlayerSubtitles.m in Sources */ = {isa = PBXBuildFile; fileRef = EDD7ED532A299915003491CB /* SuperPlayerSubtitles.m */; };
+		EDD7ED572A299923003491CB /* UIInterface+TXRotation.m in Sources */ = {isa = PBXBuildFile; fileRef = EDD7ED562A299923003491CB /* UIInterface+TXRotation.m */; };
+		EDD7ED652A299967003491CB /* SuperPlayerTrackView.m in Sources */ = {isa = PBXBuildFile; fileRef = EDD7ED5A2A299967003491CB /* SuperPlayerTrackView.m */; };
+		EDD7ED662A299967003491CB /* SuperPlayerSubtitlesView.m in Sources */ = {isa = PBXBuildFile; fileRef = EDD7ED5C2A299967003491CB /* SuperPlayerSubtitlesView.m */; };
+		EDD7ED672A299967003491CB /* SuperPlayerSubSettingView.m in Sources */ = {isa = PBXBuildFile; fileRef = EDD7ED5F2A299967003491CB /* SuperPlayerSubSettingView.m */; };
+		EDD7ED682A299967003491CB /* SuperPlayerTableMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = EDD7ED612A299967003491CB /* SuperPlayerTableMenu.m */; };
+		EDD7ED692A299967003491CB /* SuperPlayerSubParamView.m in Sources */ = {isa = PBXBuildFile; fileRef = EDD7ED632A299967003491CB /* SuperPlayerSubParamView.m */; };
 		F222F67123F29F3D002D52B7 /* SPSubStreamInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = F222F67023F29F3D002D52B7 /* SPSubStreamInfo.m */; };
 /* End PBXBuildFile section */
 
@@ -107,8 +113,6 @@
 		917AB0FB21ED838400D6B041 /* SPWeiboControlView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPWeiboControlView.m; sourceTree = "<group>"; };
 		919D18F121533DAB00947BF5 /* UINavigationController+SuperPlayerRotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+SuperPlayerRotation.h"; sourceTree = "<group>"; };
 		919D18F221533DAB00947BF5 /* UINavigationController+SuperPlayerRotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+SuperPlayerRotation.m"; sourceTree = "<group>"; };
-		919D18F321533DAB00947BF5 /* UIViewController+SuperPlayerRotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+SuperPlayerRotation.h"; sourceTree = "<group>"; };
-		919D18F421533DAB00947BF5 /* UIViewController+SuperPlayerRotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+SuperPlayerRotation.m"; sourceTree = "<group>"; };
 		91A1D5B12146719900EA9A19 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		91A1D5C1214673F200EA9A19 /* SuperPlayerWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SuperPlayerWindow.m; sourceTree = "<group>"; };
 		91A1D5C2214673F200EA9A19 /* SuperPlayerWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SuperPlayerWindow.h; sourceTree = "<group>"; };
@@ -154,6 +158,20 @@
 		ED50C7C429376FAF0061D8DD /* TXVipTipView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TXVipTipView.m; sourceTree = "<group>"; };
 		ED50C7C929376FCE0061D8DD /* SuperPlayerLocalized.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SuperPlayerLocalized.h; sourceTree = "<group>"; };
 		ED50C7CA29376FCE0061D8DD /* SuperPlayerLocalized.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SuperPlayerLocalized.m; sourceTree = "<group>"; };
+		EDD7ED522A299915003491CB /* SuperPlayerSubtitles.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SuperPlayerSubtitles.h; sourceTree = "<group>"; };
+		EDD7ED532A299915003491CB /* SuperPlayerSubtitles.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SuperPlayerSubtitles.m; sourceTree = "<group>"; };
+		EDD7ED552A299923003491CB /* UIInterface+TXRotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIInterface+TXRotation.h"; sourceTree = "<group>"; };
+		EDD7ED562A299923003491CB /* UIInterface+TXRotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIInterface+TXRotation.m"; sourceTree = "<group>"; };
+		EDD7ED592A299967003491CB /* SuperPlayerTrackView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SuperPlayerTrackView.h; sourceTree = "<group>"; };
+		EDD7ED5A2A299967003491CB /* SuperPlayerTrackView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SuperPlayerTrackView.m; sourceTree = "<group>"; };
+		EDD7ED5C2A299967003491CB /* SuperPlayerSubtitlesView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SuperPlayerSubtitlesView.m; sourceTree = "<group>"; };
+		EDD7ED5D2A299967003491CB /* SuperPlayerSubtitlesView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SuperPlayerSubtitlesView.h; sourceTree = "<group>"; };
+		EDD7ED5F2A299967003491CB /* SuperPlayerSubSettingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SuperPlayerSubSettingView.m; sourceTree = "<group>"; };
+		EDD7ED602A299967003491CB /* SuperPlayerSubParamView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SuperPlayerSubParamView.h; sourceTree = "<group>"; };
+		EDD7ED612A299967003491CB /* SuperPlayerTableMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SuperPlayerTableMenu.m; sourceTree = "<group>"; };
+		EDD7ED622A299967003491CB /* SuperPlayerTableMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SuperPlayerTableMenu.h; sourceTree = "<group>"; };
+		EDD7ED632A299967003491CB /* SuperPlayerSubParamView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SuperPlayerSubParamView.m; sourceTree = "<group>"; };
+		EDD7ED642A299967003491CB /* SuperPlayerSubSettingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SuperPlayerSubSettingView.h; sourceTree = "<group>"; };
 		F222F66F23F29F3D002D52B7 /* SPSubStreamInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPSubStreamInfo.h; sourceTree = "<group>"; };
 		F222F67023F29F3D002D52B7 /* SPSubStreamInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPSubStreamInfo.m; sourceTree = "<group>"; };
 		F296BE7323F4260300E595B1 /* SuperPlayerModelInternal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SuperPlayerModelInternal.h; sourceTree = "<group>"; };
@@ -173,6 +191,8 @@
 		45D5D64323B4A9AC00767C58 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				EDD7ED522A299915003491CB /* SuperPlayerSubtitles.h */,
+				EDD7ED532A299915003491CB /* SuperPlayerSubtitles.m */,
 				ED50C7B929376F190061D8DD /* DynamicWaterModel.h */,
 				ED50C7BA29376F190061D8DD /* DynamicWaterModel.m */,
 				ED50C7B829376F190061D8DD /* TXVipWatchModel.h */,
@@ -252,6 +272,8 @@
 		91A1D5C5214673F300EA9A19 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				EDD7ED5B2A299967003491CB /* SuperPlayerSubtitlesView */,
+				EDD7ED582A299967003491CB /* SuperPlayerTrackView */,
 				ED50C7BD29376FAF0061D8DD /* DynamicWaterMarkView */,
 				ED50C7C029376FAF0061D8DD /* VipView */,
 				91A1D5C6214673F300EA9A19 /* MMMaterialDesignSpinner.h */,
@@ -295,12 +317,12 @@
 		91A1D5E2214673F300EA9A19 /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				EDD7ED552A299923003491CB /* UIInterface+TXRotation.h */,
+				EDD7ED562A299923003491CB /* UIInterface+TXRotation.m */,
 				ED50C7B429376F050061D8DD /* NSString+URL.h */,
 				ED50C7B529376F050061D8DD /* NSString+URL.m */,
 				919D18F121533DAB00947BF5 /* UINavigationController+SuperPlayerRotation.h */,
 				919D18F221533DAB00947BF5 /* UINavigationController+SuperPlayerRotation.m */,
-				919D18F321533DAB00947BF5 /* UIViewController+SuperPlayerRotation.h */,
-				919D18F421533DAB00947BF5 /* UIViewController+SuperPlayerRotation.m */,
 				91A1D5E5214673F300EA9A19 /* UIView+MMLayout.h */,
 				91A1D5E6214673F300EA9A19 /* UIView+MMLayout.m */,
 			);
@@ -341,6 +363,38 @@
 				ED50C7CA29376FCE0061D8DD /* SuperPlayerLocalized.m */,
 			);
 			path = Localized;
+			sourceTree = "<group>";
+		};
+		EDD7ED582A299967003491CB /* SuperPlayerTrackView */ = {
+			isa = PBXGroup;
+			children = (
+				EDD7ED592A299967003491CB /* SuperPlayerTrackView.h */,
+				EDD7ED5A2A299967003491CB /* SuperPlayerTrackView.m */,
+			);
+			path = SuperPlayerTrackView;
+			sourceTree = "<group>";
+		};
+		EDD7ED5B2A299967003491CB /* SuperPlayerSubtitlesView */ = {
+			isa = PBXGroup;
+			children = (
+				EDD7ED5C2A299967003491CB /* SuperPlayerSubtitlesView.m */,
+				EDD7ED5D2A299967003491CB /* SuperPlayerSubtitlesView.h */,
+				EDD7ED5E2A299967003491CB /* SubtitlesSettingView */,
+			);
+			path = SuperPlayerSubtitlesView;
+			sourceTree = "<group>";
+		};
+		EDD7ED5E2A299967003491CB /* SubtitlesSettingView */ = {
+			isa = PBXGroup;
+			children = (
+				EDD7ED5F2A299967003491CB /* SuperPlayerSubSettingView.m */,
+				EDD7ED602A299967003491CB /* SuperPlayerSubParamView.h */,
+				EDD7ED612A299967003491CB /* SuperPlayerTableMenu.m */,
+				EDD7ED622A299967003491CB /* SuperPlayerTableMenu.h */,
+				EDD7ED632A299967003491CB /* SuperPlayerSubParamView.m */,
+				EDD7ED642A299967003491CB /* SuperPlayerSubSettingView.h */,
+			);
+			path = SubtitlesSettingView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -403,7 +457,6 @@
 				45D5D65223B4A9AC00767C58 /* SuperPlayerUrl.m in Sources */,
 				ED470D5D28C1C0FD000C2BB8 /* SuperPlayerReachability.m in Sources */,
 				ED50C7BB29376F190061D8DD /* TXVipWatchModel.m in Sources */,
-				919D18F621533DAC00947BF5 /* UIViewController+SuperPlayerRotation.m in Sources */,
 				ED50C7CB29376FCE0061D8DD /* SuperPlayerLocalized.m in Sources */,
 				45D5D65323B4A9AC00767C58 /* SPPlayCGIParseResult.m in Sources */,
 				917AB0FD21ED838400D6B041 /* SPWeiboControlView.m in Sources */,
@@ -411,7 +464,9 @@
 				ED50C7BC29376F190061D8DD /* DynamicWaterModel.m in Sources */,
 				917AB0EC21ED833300D6B041 /* SuperPlayerControlView.m in Sources */,
 				ED50C7B629376F050061D8DD /* NSString+URL.m in Sources */,
+				EDD7ED692A299967003491CB /* SuperPlayerSubParamView.m in Sources */,
 				F222F67123F29F3D002D52B7 /* SPSubStreamInfo.m in Sources */,
+				EDD7ED652A299967003491CB /* SuperPlayerTrackView.m in Sources */,
 				ED470D5C28C1C0FD000C2BB8 /* UILabel+Size.m in Sources */,
 				45D5D65523B4A9AC00767C58 /* AdaptiveStream.m in Sources */,
 				917AB0F421ED836D00D6B041 /* StrUtils.m in Sources */,
@@ -419,15 +474,19 @@
 				91A1D6542147765400EA9A19 /* SuperPlayerModel.m in Sources */,
 				91A1D6552147765400EA9A19 /* SuperPlayerView.m in Sources */,
 				91A1D6592147768C00EA9A19 /* NetWatcher.m in Sources */,
+				EDD7ED572A299923003491CB /* UIInterface+TXRotation.m in Sources */,
 				91A1D64E2147763B00EA9A19 /* UIView+MMLayout.m in Sources */,
 				91A1D6562147765400EA9A19 /* SuperPlayerWindow.m in Sources */,
 				917AB0F621ED836D00D6B041 /* UIView+Fade.m in Sources */,
+				EDD7ED662A299967003491CB /* SuperPlayerSubtitlesView.m in Sources */,
 				919D18F521533DAC00947BF5 /* UINavigationController+SuperPlayerRotation.m in Sources */,
 				ED50C7C529376FAF0061D8DD /* DynamicWatermarkView.m in Sources */,
 				917AB0F521ED836D00D6B041 /* TXBitrateItemHelper.m in Sources */,
 				91A1D65C2147769500EA9A19 /* PlayerSlider.m in Sources */,
 				91A1D65B2147769500EA9A19 /* SuperPlayerSettingsView.m in Sources */,
+				EDD7ED672A299967003491CB /* SuperPlayerSubSettingView.m in Sources */,
 				91A1D65A2147769500EA9A19 /* MMMaterialDesignSpinner.m in Sources */,
+				EDD7ED682A299967003491CB /* SuperPlayerTableMenu.m in Sources */,
 				91A1D6582147768C00EA9A19 /* J2Obj.m in Sources */,
 				ED50C7C729376FAF0061D8DD /* TXVipTipView.m in Sources */,
 				9165F738214FCC9300F5BB88 /* TXCUrl.m in Sources */,
@@ -435,6 +494,7 @@
 				ED50C7C629376FAF0061D8DD /* TXVipWatchView.m in Sources */,
 				45D5D65423B4A9AC00767C58 /* SuperPlayerSprite.m in Sources */,
 				45D5D65123B4A9AC00767C58 /* SPVideoFrameDescription.m in Sources */,
+				EDD7ED542A299915003491CB /* SuperPlayerSubtitles.m in Sources */,
 				917AB0ED21ED833300D6B041 /* SuperPlayerViewConfig.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

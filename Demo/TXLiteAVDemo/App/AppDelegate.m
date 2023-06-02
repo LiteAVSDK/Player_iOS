@@ -424,4 +424,8 @@ NSString *helpUrlDb[] = {
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://itunes.apple.com/us/app/id%@?ls=1&mt=8", appID]];
     [[UIApplication sharedApplication] openURL:url];
 }
+-(UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window {
+    return  self.interfaceOrientationMask ?: UIInterfaceOrientationMaskPortrait;
+}
+
 @end

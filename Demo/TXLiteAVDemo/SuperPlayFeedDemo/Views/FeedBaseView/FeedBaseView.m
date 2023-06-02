@@ -12,10 +12,8 @@
 #import "SuperPlayerHelpers.h"
 #import <SDWebImage.h>
 #import <Masonry/Masonry.h>
-
+#import "AppDelegate.h"
 @interface FeedBaseView()<SuperPlayerDelegate>
-
-@property (nonatomic, strong) SuperPlayerView  *tempPlayView;
 
 @property (nonatomic, strong) UIView           *fatherView;
 
@@ -33,9 +31,9 @@
     if (self = [super init]) {
         self.backgroundColor = [UIColor colorWithRed:14.0/255.0 green:24.0/255.0 blue:47.0/255.0 alpha:1.0];
         [self addSubview:self.fatherView];
+        [self.fatherView addSubview:self.superPlayView];
         [self addSubview:self.headView];
         [self addSubview:self.marginView];
-        [self.fatherView addSubview:self.superPlayView];
         
         [self.fatherView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self).offset(8);
@@ -43,11 +41,14 @@
             make.right.equalTo(self).offset(-8);
             make.height.mas_equalTo(cellHeight);
         }];
+        [self.superPlayView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.edges.equalTo(self.fatherView);
+        }];
         
         [self.headView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self);
             make.right.equalTo(self);
-            make.top.equalTo(self).offset(8 + cellHeight + 8);
+            make.top.equalTo(self.fatherView.mas_bottom).offset(8);
             make.height.mas_equalTo(56);
         }];
         
@@ -55,12 +56,11 @@
             make.left.equalTo(self);
             make.right.equalTo(self);
             make.bottom.equalTo(self);
+            make.top.equalTo(self.headView.mas_bottom);
             make.height.mas_equalTo(8);
         }];
         
-        [self.superPlayView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.edges.equalTo(self.fatherView);
-        }];
+        
         
         [self.headView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handlerTap)]];
     }
@@ -69,8 +69,9 @@
 
 #pragma mark - Public Method
 - (void)setModel:(FeedVideoModel *)model {
-    self.isPrepare = NO;
     _model = model;
+    
+    self.isPrepare = NO;
     FeedHeadModel *headModel = [FeedHeadModel new];
     headModel.headImageUrl = model.coverUrl;
     headModel.videoNameStr = model.title;
@@ -78,7 +79,6 @@
     
     [self.headView setHeadModel:headModel];
     [self.superPlayView.controlView setTitle:model.title];
-    
     [self playVideoWithModel:model];
 }
 
@@ -101,7 +101,6 @@
     self.superPlayView.centerPlayBtn.hidden = NO;
     self.superPlayView.controlView.hidden = YES;
     [self.superPlayView showOrHideBackBtn:NO];
-    
     SPDefaultControlView *defaultControlView = (SPDefaultControlView *)self.superPlayView.controlView;
     defaultControlView.disableDanmakuBtn = YES;
     defaultControlView.disablePipBtn = YES;
@@ -111,7 +110,6 @@
     if (self.isPrepare) {
         return;
     }
-    
     self.isPrepare = YES;
     [self.superPlayView playWithModelNeedLicence:self.playerModel];
 }
@@ -134,6 +132,7 @@
 
 - (void)addSuperPlayView:(UIView *)view {
     self.superPlayView = (SuperPlayerView *)view;
+    self.superPlayView.delegate = self;
     [self addSubview:self.superPlayView];
     self.superPlayView.fatherView = self.fatherView;
     [self.superPlayView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -143,9 +142,6 @@
         make.height.mas_equalTo(cellHeight);
     }];
     
-    if (self.superPlayView.state == StatePause) {
-        [self.superPlayView resume];
-    }
     
 }
 
@@ -174,6 +170,17 @@
     }
 }
 
+- (void)screenRotation:(BOOL)fullScreen {
+    if(self.delegate && [self.delegate respondsToSelector:@selector(screenRotation:)]){
+        [self.delegate screenRotation:fullScreen];
+    }
+}
+
+-(void)fullScreenHookAction {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(showFullScreenViewWithPlayView:)]){
+        [self.delegate showFullScreenViewWithPlayView:self.superPlayView];
+    }
+}
 #pragma mark - 懒加载
 - (UIView *)fatherView {
     if (!_fatherView) {
@@ -210,3 +217,5 @@
 }
 
 @end
+
+

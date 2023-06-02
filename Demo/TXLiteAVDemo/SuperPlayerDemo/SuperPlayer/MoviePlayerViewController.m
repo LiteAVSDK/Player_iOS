@@ -70,9 +70,12 @@ __weak UITextField *cacheField;
 @property(weak, nonatomic) IBOutlet UIButton *backBtn;
 @property(nonatomic, strong) UITextField *    textView;
 
+@property(nonatomic, strong)UIBarButtonItem *navBackBtn;//返回
+@property(nonatomic, strong)UIBarButtonItem *navHelpBtn;//帮助
+@property(nonatomic, strong)UIBarButtonItem *navScanBtn;//扫码
+
 @property(nonatomic, strong) UITableView *vodListView;  // 点播列表
 @property(nonatomic, strong) UITableView *liveListView;
-
 @property(nonatomic, strong) UIButton *vodBtn;   // 点播标签
 @property(nonatomic, strong) UIButton *liveBtn;  // 直播标签
 
@@ -84,23 +87,16 @@ __weak UITextField *cacheField;
 @property(nonatomic, strong) UIButton *addBtn;
 
 @property(nonatomic, strong) SuperPlayerGuideView *guideView;
-
 @property(nonatomic, strong) UIScrollView *scrollView;  //视频列表滑动scrollview
-
-@property(nonatomic, strong) UIButton *                               playerBackBtn;
+@property(nonatomic, strong) UIButton *      playerBackBtn;
 @property(nonatomic, strong) AFHTTPSessionManager *manager;
-
 @property(nonatomic, strong) CFDanmakuView *danmakuView;
-
 @property (nonatomic, strong) VideoCacheView *cacheView;
 
 // 当前正在播放的视频列表，可能是单个视频，可能是一组视频
 @property (nonatomic, strong) NSMutableArray *currentPlayVideoArray;
-
 @property(nonatomic, assign) BOOL stopAutoPlayVOD;  //从外部拉起播放时，停止自动播放VOD视频
-
 @property (nonatomic, assign) BOOL isAddLoopVideo;
-
 @property (nonatomic, strong) NSMutableDictionary *cacheDic;
 
 @end
@@ -173,41 +169,17 @@ __weak UITextField *cacheField;
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:NO];
-    
     [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
 
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:self.view.bounds];
     imageView.image        = [UIImage imageNamed:@"背景"];
     [self.view insertSubview:imageView atIndex:0];
-
-    // 右侧
-    UIButton *buttonh = [UIButton buttonWithType:UIButtonTypeCustom];
-    buttonh.tag       = Help_超级播放器;
-    [buttonh setFrame:CGRectMake(0, 0, 60, 25)];
-    [buttonh setBackgroundImage:[UIImage imageNamed:@"help_small"] forState:UIControlStateNormal];
-    [buttonh addTarget:[[UIApplication sharedApplication] delegate] action:@selector(clickHelp:) forControlEvents:UIControlEventTouchUpInside];
-    [buttonh sizeToFit];
-    UIBarButtonItem *rightItemh = [[UIBarButtonItem alloc] initWithCustomView:buttonh];
-
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    [button setFrame:CGRectMake(0, 0, 60, 25)];
-    [button setBackgroundImage:[UIImage imageNamed:@"扫码"] forState:UIControlStateNormal];
-    [button addTarget:self action:@selector(clickScan:) forControlEvents:UIControlEventTouchUpInside];
-    [button sizeToFit];
-    button.hidden                           = self.videoURL != nil;
-    UIBarButtonItem *rightItem              = [[UIBarButtonItem alloc] initWithCustomView:button];
-    self.navigationItem.rightBarButtonItems = @[ rightItem, rightItemh ];
-
-    // 左侧
-    UIButton *leftbutton = [UIButton buttonWithType:UIButtonTypeCustom];
-    //修改按钮向右移动10pt
-    [leftbutton setFrame:CGRectMake(0, 0, 60, 25)];
-    [leftbutton setBackgroundImage:[UIImage imageNamed:@"返回"] forState:UIControlStateNormal];
-    [leftbutton addTarget:self action:@selector(backClick) forControlEvents:UIControlEventTouchUpInside];
-    [leftbutton sizeToFit];
-    UIBarButtonItem *leftItem              = [[UIBarButtonItem alloc] initWithCustomView:leftbutton];
-    self.navigationItem.leftBarButtonItems = @[ leftItem ];
-
+    if (self.videoURL != nil ){
+        self.navigationItem.rightBarButtonItems = @[ self.navHelpBtn ];
+    } else {
+        self.navigationItem.rightBarButtonItems = @[ self.navScanBtn, self.navHelpBtn ];
+    }
+    self.navigationItem.leftBarButtonItems = @[ self.navBackBtn ];
     self.title = playerLocalize(@"SuperPlayerDemo.MoviePlayer.title");
 
     // guide view
@@ -285,6 +257,21 @@ __weak UITextField *cacheField;
     }
 
     [self.view addSubview:self.playerFatherView];
+    self.playerView.fatherView = self.playerFatherView;
+    [self.view addSubview:self.vodBtn];
+    [self.view addSubview:self.liveBtn];
+    [self.view addSubview:self.scrollView];
+    UIView *container = [UIView new];
+    [self.scrollView addSubview:container];
+    [container addSubview:self.liveListView];
+    [container addSubview:self.vodListView];
+    [self.view addSubview:self.addBtn];
+    self.playerBackBtn = ((SPDefaultControlView *)self.playerView.controlView).backBtn;
+    // 直接获取controlview，想怎样控制界面都行。记得在全屏事件里也要处理，不然内部可能会设其它状态
+    //    self.playerBackBtn.hidden = YES;
+    
+    
+    //layout
     [self.playerFatherView mas_makeConstraints:^(MASConstraintMaker *make) {
         if (@available(iOS 11.0, *)) {
             make.top.equalTo(self.view.mas_safeAreaLayoutGuideTop);
@@ -295,23 +282,6 @@ __weak UITextField *cacheField;
         // 这里宽高比16：9,可自定义宽高比
         make.height.mas_equalTo(self.playerFatherView.mas_width).multipliedBy(9.0f / 16.0f);
     }];
-    self.playerView.fatherView = self.playerFatherView;
-
-    self.vodBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self.view addSubview:self.vodBtn];
-    [self.vodBtn setTitle:LivePlayerLocalize(@"SuperPlayerDemo.MoviePlayer.ondemandlist") forState:UIControlStateNormal];
-    [self.vodBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
-    [self.vodBtn setTitleColor:[UIColor lightTextColor] forState:UIControlStateNormal];
-    [self.vodBtn addTarget:self action:@selector(clickVodList:) forControlEvents:UIControlEventTouchUpInside];
-
-    self.liveBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self.view addSubview:self.liveBtn];
-    [self.liveBtn setTitle:LivePlayerLocalize(@"SuperPlayerDemo.MoviePlayer.livelist") forState:UIControlStateNormal];
-    [self.liveBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
-    [self.liveBtn setTitleColor:[UIColor lightTextColor] forState:UIControlStateNormal];
-    [self.liveBtn addTarget:self action:@selector(clickLiveList:) forControlEvents:UIControlEventTouchUpInside];
-    [self.vodBtn setSelected:YES];
-
     CGFloat btnWidth = self.vodBtn.titleLabel.attributedText.size.width;
     [self.vodBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.playerFatherView.mas_bottom).offset(10);
@@ -322,13 +292,7 @@ __weak UITextField *cacheField;
         make.centerX.mas_equalTo(self.view.mas_centerX).mas_offset(btnWidth);
     }];
 
-    // 视频列表
-    self.scrollView                                = [[UIScrollView alloc] initWithFrame:CGRectZero];
-    self.scrollView.pagingEnabled                  = YES;
-    self.scrollView.showsHorizontalScrollIndicator = NO;
-    self.scrollView.delegate                       = self;
-
-    [self.view addSubview:self.scrollView];
+    // 视频列
     [self.scrollView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.vodBtn.mas_bottom).offset(5);
         make.left.mas_equalTo(0);
@@ -339,61 +303,157 @@ __weak UITextField *cacheField;
             make.bottom.mas_equalTo(self.view.mas_bottom).offset(-30);
         }
     }];
-    UIView *container = [UIView new];
-    [self.scrollView addSubview:container];
+   
     [container mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.scrollView);
         make.width.equalTo(@(ScreenWidth * 2));
         make.height.equalTo(self.scrollView.mas_height);
     }];
-
-    // 直播
-    self.liveListView                 = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
-    self.liveListView.backgroundColor = [UIColor clearColor];
-    [container addSubview:self.liveListView];
-    [self.liveListView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(0);
-        make.left.mas_equalTo(@(ScreenWidth));
-        make.width.equalTo(@(ScreenWidth));
-        make.bottom.mas_equalTo(container.mas_bottom);
-    }];
-    self.liveListView.delegate   = self;
-    self.liveListView.dataSource = self;
-    [self.liveListView registerClass:[ListVideoCell class] forCellReuseIdentifier:LIST_VIDEO_CELL_ID];
-    [self.liveListView setSeparatorColor:[UIColor clearColor]];
-
-    // 点播
-    self.vodListView                 = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
-    self.vodListView.backgroundColor = [UIColor clearColor];
-    [container addSubview:self.vodListView];
     [self.vodListView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(0);
         make.left.mas_equalTo(0);
         make.width.equalTo(@(ScreenWidth));
         make.bottom.mas_equalTo(container.mas_bottom);
     }];
-    self.vodListView.delegate   = self;
-    self.vodListView.dataSource = self;
-    [self.vodListView registerClass:[ListVideoCell class] forCellReuseIdentifier:LIST_VIDEO_CELL_ID];
-    [self.vodListView setSeparatorColor:[UIColor clearColor]];
-
-    // 定义一个button
-    UIButton *addButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [addButton setImage:[UIImage imageNamed:@"addp"] forState:UIControlStateNormal];
-    [self.view addSubview:addButton];
-    [addButton sizeToFit];
-    [addButton addTarget:self action:@selector(onAddClick:) forControlEvents:UIControlEventTouchUpInside];
-    self.addBtn = addButton;
-
+    [self.liveListView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(0);
+        make.left.mas_equalTo(@(ScreenWidth));
+        make.width.equalTo(@(ScreenWidth));
+        make.bottom.mas_equalTo(container.mas_bottom);
+    }];
+    
+    ///loaddata
     [self _refreshVODList];
-
     [self _refreshLiveList];
 
-    self.playerBackBtn = ((SPDefaultControlView *)self.playerView.controlView).backBtn;
-    // 直接获取controlview，想怎样控制界面都行。记得在全屏事件里也要处理，不然内部可能会设其它状态
-    //    self.playerBackBtn.hidden = YES;
 }
 
+#pragma mark - lazyload
+- (UIBarButtonItem *)navBackBtn {
+    if (!_navBackBtn) {
+        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+        [button setFrame:CGRectMake(0, 0, 60, 25)];
+        [button setBackgroundImage:[UIImage imageNamed:@"返回"] forState:UIControlStateNormal];
+        [button addTarget:self action:@selector(backClick) forControlEvents:UIControlEventTouchUpInside];
+        [button sizeToFit];
+        _navBackBtn = [[UIBarButtonItem alloc] initWithCustomView:button];
+    }
+    return _navBackBtn;
+}
+- (UIBarButtonItem *)navHelpBtn {
+    if (!_navHelpBtn) {
+        UIButton *buttonh = [UIButton buttonWithType:UIButtonTypeCustom];
+        buttonh.tag       = Help_超级播放器;
+        [buttonh setFrame:CGRectMake(0, 0, 60, 25)];
+        [buttonh setBackgroundImage:[UIImage imageNamed:@"help_small"] forState:UIControlStateNormal];
+        [buttonh addTarget:[[UIApplication sharedApplication] delegate] action:@selector(clickHelp:) forControlEvents:UIControlEventTouchUpInside];
+        [buttonh sizeToFit];
+        _navHelpBtn = [[UIBarButtonItem alloc] initWithCustomView:buttonh];
+    }
+    return _navHelpBtn;
+}
+- (UIBarButtonItem *)navScanBtn {
+    if (!_navScanBtn) {
+        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+        [button setFrame:CGRectMake(0, 0, 60, 25)];
+        [button setBackgroundImage:[UIImage imageNamed:@"扫码"] forState:UIControlStateNormal];
+        [button addTarget:self action:@selector(clickScan:) forControlEvents:UIControlEventTouchUpInside];
+        [button sizeToFit];
+        _navScanBtn = [[UIBarButtonItem alloc] initWithCustomView:button];
+    }
+    return _navScanBtn;
+}
+- (UIView *)playerFatherView {
+    if (!_playerFatherView) {
+        _playerFatherView = [[UIView alloc] init];
+        _playerFatherView.backgroundColor = [UIColor blackColor];
+    }
+    return _playerFatherView;
+}
+- (SuperPlayerView *)playerView {
+    if (!_playerView) {
+        _playerView            = [[SuperPlayerView alloc] init];
+        _playerView.fatherView = self.playerFatherView;
+        _playerView.disableGesture = YES;
+        // 设置代理
+        _playerView.delegate = self;
+        _playerView.disableVolumControl = YES;
+        // demo的时移域名，请根据您项目实际情况修改这里
+        _playerView.playerConfig.playShiftDomain = @"liteavapp.timeshift.qcloud.com";
+        [self setupDanmakuData];
+    }
+    return _playerView;
+}
+
+- (UIButton *)vodBtn{
+    if (!_vodBtn) {
+        _vodBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_vodBtn setTitle:LivePlayerLocalize(@"SuperPlayerDemo.MoviePlayer.ondemandlist") forState:UIControlStateNormal];
+        [_vodBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
+        [_vodBtn setTitleColor:[UIColor lightTextColor] forState:UIControlStateNormal];
+        [_vodBtn addTarget:self action:@selector(clickVodList:) forControlEvents:UIControlEventTouchUpInside];
+        [_vodBtn setSelected:YES];
+    }
+    return _vodBtn;
+}
+-(UIButton *)liveBtn {
+    if (!_liveBtn) {
+        _liveBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_liveBtn setTitle:LivePlayerLocalize(@"SuperPlayerDemo.MoviePlayer.livelist") forState:UIControlStateNormal];
+        [_liveBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
+        [_liveBtn setTitleColor:[UIColor lightTextColor] forState:UIControlStateNormal];
+        [_liveBtn addTarget:self action:@selector(clickLiveList:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _liveBtn;
+}
+- (UIScrollView *)scrollView {
+    if (!_scrollView) {
+        _scrollView                                = [[UIScrollView alloc] initWithFrame:CGRectZero];
+        _scrollView.pagingEnabled                  = YES;
+        _scrollView.showsHorizontalScrollIndicator = NO;
+        _scrollView.delegate                       = self;
+        if (@available(iOS 11.0, *)) {
+        _scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+        } else {
+        self.automaticallyAdjustsScrollViewInsets = NO;
+        }
+        
+    }
+    
+    return _scrollView;
+}
+- (UITableView *)liveListView {
+    if (!_liveListView) {
+        _liveListView                 = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
+        _liveListView.backgroundColor = [UIColor clearColor];
+        _liveListView.delegate   = self;
+        _liveListView.dataSource = self;
+        [_liveListView registerClass:[ListVideoCell class] forCellReuseIdentifier:LIST_VIDEO_CELL_ID];
+        [_liveListView setSeparatorColor:[UIColor clearColor]];
+    }
+    return _liveListView;
+}
+-(UITableView *)vodListView {
+    if (!_vodListView) {
+        _vodListView                 = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
+        _vodListView.backgroundColor = [UIColor clearColor];
+        _vodListView.delegate   = self;
+        _vodListView.dataSource = self;
+        [_vodListView registerClass:[ListVideoCell class] forCellReuseIdentifier:LIST_VIDEO_CELL_ID];
+        [_vodListView setSeparatorColor:[UIColor clearColor]];
+    }
+    return _vodListView;
+}
+-(UIButton *)addBtn {
+    if (!_addBtn) {
+        _addBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_addBtn setImage:[UIImage imageNamed:@"addp"] forState:UIControlStateNormal];
+        [_addBtn sizeToFit];
+        [_addBtn addTarget:self action:@selector(onAddClick:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _addBtn;
+}
+#pragma mark - dataload
 - (void)_refreshVODList {
     if (nil == self.videoURL) {
         NSMutableArray *videoArray = [NSMutableArray array];
@@ -698,6 +758,40 @@ __weak UITextField *cacheField;
         }];
     }
 }
+- (void)lockScreen:(BOOL)lock {
+    
+}
+- (void)screenRotation:(BOOL)fullScreen {
+    AppDelegate *delegate  = (AppDelegate*)[[UIApplication sharedApplication] delegate];
+    if (fullScreen) {
+        delegate.interfaceOrientationMask = UIInterfaceOrientationMaskLandscapeRight;
+    } else {
+        delegate.interfaceOrientationMask = UIInterfaceOrientationMaskPortrait;
+    }
+    [self movSetNeedsUpdateOfSupportedInterfaceOrientations];
+}
+- (void)movSetNeedsUpdateOfSupportedInterfaceOrientations {
+    
+    if (@available(iOS 16.0, *)) {
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 160000
+        [self setNeedsUpdateOfSupportedInterfaceOrientations];
+#else
+        
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+            SEL supportedInterfaceSelector = NSSelectorFromString(@"setNeedsUpdateOfSupportedInterfaceOrientations");
+            [self performSelector:supportedInterfaceSelector];
+#pragma clang diagnostic pop
+        
+#endif
+        });
+        
+    }
+
+}
 
 #pragma mark - Getter
 - (UGCUploadList *)ugcUplaodList {
@@ -707,28 +801,9 @@ __weak UITextField *cacheField;
     return _ugcUplaodList;
 }
 
-- (SuperPlayerView *)playerView {
-    if (!_playerView) {
-        _playerView            = [[SuperPlayerView alloc] init];
-        _playerView.fatherView = _playerFatherView;
-        _playerView.disableGesture = YES;
-        // 设置代理
-        _playerView.delegate = self;
-        _playerView.disableVolumControl = YES;
-        // demo的时移域名，请根据您项目实际情况修改这里
-        _playerView.playerConfig.playShiftDomain = @"liteavapp.timeshift.qcloud.com";
-        [self setupDanmakuData];
-    }
-    return _playerView;
-}
 
-- (UIView *)playerFatherView {
-    if (!_playerFatherView) {
-        _playerFatherView = [[UIView alloc] init];
-        _playerFatherView.backgroundColor = [UIColor blackColor];
-    }
-    return _playerFatherView;
-}
+
+
 
 - (void)onNetSuccess:(NSArray *)videoArray {
     NSArray *modelArray = [self getVideoModelWithVideoArray:videoArray];

@@ -27,26 +27,23 @@ NSString * const FeedVideoCellIdentifier = @"FeedVideoCellIdentifier";
 @property (nonatomic, assign) NSInteger                currentPlayIndex;
 
 @property (nonatomic, assign) BOOL                     isRefresh;
-
 @end
 
 @implementation SuperFeedPlayView
 
-
-#pragma mark - Public Method
-- (void)initChildView {
-    [self addSubview:self.tableView];
-    MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(getNewFeedData)];
-    header.automaticallyChangeAlpha = YES;
-    header.lastUpdatedTimeLabel.hidden = YES;
-    self.tableView.mj_header = header;
-    
-    self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreData)];
-    
-    self.isRefresh = YES;
-    [self getNewFeedData];
+-(instancetype)initWithFrame:(CGRect)frame{
+    self = [super initWithFrame:frame];
+    if (self) {
+        [self addSubview:self.tableView];
+        [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.edges.equalTo(self);
+        }];
+        self.isRefresh = YES;
+        [self getNewFeedData];
+    }
+    return self;
 }
-
+#pragma mark - Public Method
 - (void)setFeedData:(NSArray *)feedData isCleanData:(BOOL)isNeedCleanData {
     if (isNeedCleanData) {
         [self.feedVideoArray removeAllObjects];
@@ -60,7 +57,7 @@ NSString * const FeedVideoCellIdentifier = @"FeedVideoCellIdentifier";
     if (isNeedCleanData) {
         if (self.currentTableViewCell) {
             [self.currentTableViewCell pause];
-            self.currentTableViewCell = nil;
+             self.currentTableViewCell = nil;
         }
         [self prepareVideo];
         [self playVideoInVisiableCells];
@@ -145,6 +142,14 @@ NSString * const FeedVideoCellIdentifier = @"FeedVideoCellIdentifier";
     
     self.currentPlayIndex = [self indexOfModel:cell.model];
     [self.currentTableViewCell playVideo];
+    
+    NSArray *cells = [self.tableView visibleCells];
+    for (UITableViewCell *cell in cells) {
+        if (cell != self.currentTableViewCell) {
+            FeedTableViewCell *cel = (FeedTableViewCell *)cell;
+            [cel pause];
+        }
+    }
 }
 
 - (void)handleScroll {
@@ -278,8 +283,25 @@ NSString * const FeedVideoCellIdentifier = @"FeedVideoCellIdentifier";
         self.currentTableViewCell = cell;
         cell.baseView.superPlayView.disableVolumControl = YES;
     }
+    NSArray *cells = [self.tableView visibleCells];
+    for (UITableViewCell *cell in cells) {
+        if (cell != self.currentTableViewCell) {
+            FeedTableViewCell *cel = (FeedTableViewCell *)cell;
+            [cel pause];
+        }
+    }
 }
 
+-(void)showFullScreenViewWithPlayView:(SuperPlayerView *)superPlayerView cell:(nonnull FeedTableViewCell *)cell{
+    if (self.delegate && [self.delegate respondsToSelector:@selector(showFullScreenViewWithPlayView:)]){
+        if (cell != self.currentTableViewCell) {
+            [self.currentTableViewCell pause];
+        }
+        self.tapTableViewCell = cell;
+        [cell.baseView.superPlayView removeFromSuperview];
+        [self.delegate showFullScreenViewWithPlayView:superPlayerView];
+    }
+}
 #pragma mark - UITableViewDelegate UITableViewDataSource UIScrollViewDelegate
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.feedVideoArray.count;
@@ -294,10 +316,10 @@ NSString * const FeedVideoCellIdentifier = @"FeedVideoCellIdentifier";
     FeedTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:FeedVideoCellIdentifier];
     if (!cell) {
         cell = [[FeedTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:FeedVideoCellIdentifier];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
 
     if (cell) {
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.indexPath = indexPath;
         cell.model = self.feedVideoArray[indexPath.row];
         cell.delegate = self;
@@ -315,7 +337,6 @@ NSString * const FeedVideoCellIdentifier = @"FeedVideoCellIdentifier";
 
 - (void)tableView:(UITableView *)tableView didEndDisplayingCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (self.currentTableViewCell == cell) {
-        [self.currentTableViewCell removeVideo];
         self.currentTableViewCell = nil;
     }
 }
@@ -345,7 +366,6 @@ NSString * const FeedVideoCellIdentifier = @"FeedVideoCellIdentifier";
 - (UITableView *)tableView {
     if (!_tableView) {
         _tableView = [UITableView new];
-        _tableView.frame = self.bounds;
         _tableView.scrollsToTop = NO;
         _tableView.backgroundColor = [UIColor clearColor];
         _tableView.delegate = self;
@@ -357,6 +377,12 @@ NSString * const FeedVideoCellIdentifier = @"FeedVideoCellIdentifier";
         if (@available(iOS 11.0, *)) {
             _tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
         }
+        MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(getNewFeedData)];
+        header.automaticallyChangeAlpha = YES;
+        header.lastUpdatedTimeLabel.hidden = YES;
+        _tableView.mj_header = header;
+        
+        _tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreData)];
     }
     return _tableView;
 }
@@ -368,4 +394,10 @@ NSString * const FeedVideoCellIdentifier = @"FeedVideoCellIdentifier";
     return _feedVideoArray;
 }
 
+#pragma mark - FeedTableViewCellDelegate
+-(void)screenRotation:(BOOL)fullScreen {
+    if(self.delegate && [self.delegate respondsToSelector:@selector(screenRotation:)]) {
+        [self.delegate screenRotation:fullScreen];
+    }
+}
 @end

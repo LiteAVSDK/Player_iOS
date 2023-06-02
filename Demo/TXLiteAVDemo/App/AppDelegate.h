@@ -14,6 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property(strong, nonatomic) UIWindow *        window;
 @property(strong, nonatomic, nullable) NSData *deviceToken;
+///页面支持的旋转方向
+@property(nonatomic, assign)UIInterfaceOrientationMask interfaceOrientationMask;
 
 - (void)clickHelp:(UIButton *)sender;
 

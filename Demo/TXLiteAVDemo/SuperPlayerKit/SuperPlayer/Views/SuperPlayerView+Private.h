@@ -72,7 +72,7 @@ typedef NS_ENUM(NSInteger, ButtonAction) {
 
 @property(class, readonly) UISlider *volumeViewSlider;
 
-@property MPVolumeView *volumeView;
+@property (nonatomic, strong) MPVolumeView *volumeView;
 
 // add for txvodplayer
 @property BOOL isLoaded;
@@ -93,7 +93,7 @@ typedef NS_ENUM(NSInteger, ButtonAction) {
 
 @property NSDate *reportTime;
 
-@property NetWatcher *netWatcher;
+@property (nonatomic, strong) NetWatcher *netWatcher;
 
 @property(nonatomic) CGFloat videoRatio;
 

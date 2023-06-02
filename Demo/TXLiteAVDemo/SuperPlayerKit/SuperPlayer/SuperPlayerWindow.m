@@ -42,7 +42,7 @@
     self = [super initWithFrame:frame];
 
     self.windowLevel                                    = UIWindowLevelStatusBar - 1;
-    self.rootViewController                             = [UIViewController new];
+    self.rootViewController                             = [SuperPlayerWindowViewController new];
     self.rootViewController.view.backgroundColor        = [UIColor clearColor];
     self.rootViewController.view.userInteractionEnabled = NO;
 
@@ -205,4 +205,13 @@
 - (void)onNetStatus:(TXVodPlayer *)player withParam:(NSDictionary *)param {
 }
 
+@end
+@implementation SuperPlayerWindowViewController
+
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
+    return UIInterfaceOrientationMaskPortrait;
+}
+- (BOOL)shouldAutorotate {
+    return NO;
+}
 @end

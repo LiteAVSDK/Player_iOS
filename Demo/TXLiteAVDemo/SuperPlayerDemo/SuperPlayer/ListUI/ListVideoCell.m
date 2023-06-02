@@ -140,7 +140,9 @@
     _source = source;
 
     int duration = source.duration;
-    [self.thumb sd_setImageWithURL:[NSURL URLWithString:_source.coverUrl] placeholderImage:SuperPlayerImage(@"loading_bgView")];
+    [self.thumb sd_setImageWithURL:[NSURL URLWithString:_source.coverUrl]
+                  placeholderImage:SuperPlayerImage(@"loading_bgView")
+                           options:SDWebImageScaleDownLargeImages ];
     if (source.type == 0 && duration > 0) {
         self.durationLabel.hidden = NO;
         self.durationLabel.text = [NSString stringWithFormat:@"%02d:%02d", duration / 60, duration % 60];

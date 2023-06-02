@@ -60,8 +60,13 @@ NSString * const VideoCacheListCellIdentifier = @"VideoCacheListCellIdentifier";
         self.longPressIndex = -1;
         [self addSubview:self.topView];
         [self.topView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self);
-            make.right.equalTo(self);
+            if (@available(iOS 11.0, *)) {
+                make.left.equalTo(self.mas_safeAreaLayoutGuideLeft);
+                make.right.equalTo(self.mas_safeAreaLayoutGuideRight);
+            } else {
+                make.left.equalTo(self);
+                make.right.equalTo(self);
+            }
             make.top.equalTo(self).offset(kStatusBarHeight);
             make.height.mas_equalTo(44);
         }];
@@ -122,8 +127,13 @@ NSString * const VideoCacheListCellIdentifier = @"VideoCacheListCellIdentifier";
     } else {
         [self addSubview:self.videoTableView];
         [self.videoTableView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self);
-            make.right.equalTo(self);
+            if (@available(iOS 11.0, *)) {
+                make.left.equalTo(self.mas_safeAreaLayoutGuideLeft);
+                make.right.equalTo(self.mas_safeAreaLayoutGuideRight);
+            } else {
+                make.left.equalTo(self);
+                make.right.equalTo(self);
+            }
             make.bottom.equalTo(self);
             make.top.equalTo(self).offset(kStatusBarHeight + 44 + 6);
         }];

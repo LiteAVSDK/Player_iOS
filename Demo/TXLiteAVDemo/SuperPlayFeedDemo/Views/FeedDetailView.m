@@ -51,34 +51,25 @@ NSString * const FeedDetailVideoCellIdentifier = @"FeedDetailVideoCellIdentifier
             make.top.equalTo(self);
             make.height.mas_equalTo(cellHeight);
         }];
+        [self.headView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self);
+            make.top.equalTo(self.videoView.mas_bottom).offset(0);
+            make.right.equalTo(self);
+        }];
+        [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self);
+            make.right.equalTo(self);
+            make.top.equalTo(self.headView.mas_bottom);
+            make.bottom.equalTo(self);
+        }];
     }
     return self;
 }
 
 #pragma mark - Public Method
 - (void)setModel:(FeedHeadModel *)model {
-    CGSize size = CGSizeMake(ScreenWidth, 2000);
-    UIFont *font = [UIFont systemFontOfSize:14];
-    NSDictionary *attrDic = [NSDictionary dictionaryWithObject:font forKey:NSFontAttributeName];
-    CGRect subtitlelabelRect = [model.videoSubTitleStr boundingRectWithSize:size options:(NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading) attributes:attrDic context:nil];
-    CGRect deslabelRect = [model.videoDesStr boundingRectWithSize:size options:(NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading) attributes:attrDic context:nil];
-    CGFloat subHeight = subtitlelabelRect.size.height > 14 ? subtitlelabelRect.size.height : 14;
-    [self.headView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self);
-        make.top.equalTo(self).offset(cellHeight);
-        make.right.equalTo(self);
-        make.height.mas_equalTo(44 + subHeight + deslabelRect.size.height);
-    }];
-
-    [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self);
-        make.right.equalTo(self);
-        make.top.equalTo(self).offset(cellHeight + 44 + subHeight + deslabelRect.size.height);
-        make.bottom.equalTo(self);
-    }];
-    
     _model = model;
-    [self.headView setHeadModel:model subLableHeight:subHeight];
+    [self.headView setHeadModel:model];
 }
 
 - (void)setVideoModel:(FeedVideoModel *)videoModel {
@@ -140,7 +131,11 @@ NSString * const FeedDetailVideoCellIdentifier = @"FeedDetailVideoCellIdentifier
         [player showOrHideBackBtn:NO];
     }
 }
-
+-(void)screenRotation:(BOOL)fullScreen {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(screenRotation:)]) {
+        [self.delegate screenRotation:fullScreen];
+    }
+}
 #pragma mark - UITableViewDelegate  UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.videos.count;

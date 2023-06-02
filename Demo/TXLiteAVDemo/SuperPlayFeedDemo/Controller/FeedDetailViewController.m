@@ -11,8 +11,10 @@
 #import "FeedVideoPlayMem.h"
 #import "SuperPlayer.h"
 #import "AppLocalized.h"
+#import <Masonry/Masonry.h>
+#import "AppDelegate.h"
 
-@interface FeedDetailViewController ()
+@interface FeedDetailViewController ()<SuperPlayerDelegate,FeedDetailViewDelegate>
 
 @property (nonatomic, strong) FeedDetailView    *detailView;
 
@@ -46,18 +48,26 @@
     gradientLayer.frame = self.view.bounds;
     [self.view.layer insertSublayer:gradientLayer atIndex:0];
 }
-
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear: animated];
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    [self.view addSubview:self.detailView];
-    [self.detailView setModel:self.headModel];
-    [self.detailView setVideoModel:self.videoModel];
-    [self.detailView setSuperPlayView:(SuperPlayerView *)self.superPlayView];
     
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self.detailView setListData:self.detailListData];
-    });
+    [self.view addSubview:self.detailView];
+    [self.detailView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.view.mas_left);
+        if (@available(iOS 11.0, *)) {
+            make.top.equalTo(self.view.mas_safeAreaLayoutGuideTop);
+        } else {
+            make.top.equalTo(self.view.mas_top);
+        }
+        make.right.equalTo(self.view.mas_right);
+        make.bottom.equalTo(self.view.mas_bottom);
+    }];
+    
+    
+    
 }
 
 - (void)backClick {
@@ -69,9 +79,61 @@
 - (FeedDetailView *)detailView {
     if (!_detailView) {
         _detailView = [FeedDetailView new];
-        _detailView.frame = CGRectMake(0, kNavBarAndStatusBarHeight, SCREEN_WIDTH, SCREEN_HEIGHT - kNavBarAndStatusBarHeight);
+        _detailView.delegate = self;
     }
     return _detailView;
 }
 
+#pragma mark - setter
+-(void)setDetailListData:(NSMutableArray *)detailListData {
+    _detailListData = detailListData;
+    [self.detailView setListData:detailListData];
+}
+-(void)setHeadModel:(FeedHeadModel *)headModel{
+    _headModel = headModel;
+    [self.detailView setModel:self.headModel];
+}
+-(void)setVideoModel:(FeedVideoModel *)videoModel{
+    _videoModel = videoModel;
+    [self.detailView setVideoModel:self.videoModel];
+}
+-(void)setSuperPlayView:(SuperPlayerView *)superPlayView {
+    _superPlayView = superPlayView;
+    [self.detailView setSuperPlayView:self.superPlayView];
+    self.superPlayView.delegate = self;
+}
+
+#pragma mark - SuperPlayerDelegate
+- (void)screenRotation:(BOOL)fullScreen {
+    AppDelegate *delegate  = (AppDelegate*)[[UIApplication sharedApplication] delegate];
+    if (fullScreen) {
+        delegate.interfaceOrientationMask = UIInterfaceOrientationMaskLandscapeRight;
+    } else {
+        delegate.interfaceOrientationMask = UIInterfaceOrientationMaskPortrait;
+    }
+    [self movSetNeedsUpdateOfSupportedInterfaceOrientations];
+}
+
+- (void)movSetNeedsUpdateOfSupportedInterfaceOrientations {
+    
+    if (@available(iOS 16.0, *)) {
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 160000
+        [self setNeedsUpdateOfSupportedInterfaceOrientations];
+#else
+        
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+            SEL supportedInterfaceSelector = NSSelectorFromString(@"setNeedsUpdateOfSupportedInterfaceOrientations");
+            [self performSelector:supportedInterfaceSelector];
+#pragma clang diagnostic pop
+        
+#endif
+        });
+        
+    }
+
+}
 @end
