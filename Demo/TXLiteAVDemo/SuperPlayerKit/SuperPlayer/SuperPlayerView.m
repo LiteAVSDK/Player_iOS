@@ -107,7 +107,8 @@ TXLiveBaseDelegate,TXLivePlayListener,TXVodPlayListener>
 #pragma mark - life Cycle
 
 + (void)initialize {
-    NSString *path = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *path = [paths objectAtIndex:0];
     NSString *cachePath = [path stringByAppendingString:@"/TXCache"];
     [TXPlayerGlobalSetting setCacheFolderPath:cachePath];
     [TXPlayerGlobalSetting setMaxCacheSize:500];

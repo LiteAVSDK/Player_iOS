@@ -625,7 +625,8 @@ NSString * const ResolutionCellIdentifier = @"ResolutionCellIdentifier";
         _manager = [TXVodDownloadCenter sharedInstance];
         _manager.delegate = self;
         // 设置下载存储路径
-        NSString *cachesDir = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) firstObject];
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+        NSString *cachesDir = [paths objectAtIndex:0];
         NSString *path = [NSString stringWithFormat:@"%@/videoCache",cachesDir];
         [_manager setDownloadPath:path];
     }
