@@ -38,7 +38,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, weak)   id<FeedBaseViewDelegate>  delegate;
 
-@property (nonatomic, strong) SuperPlayerView           *superPlayView;
+@property (nonatomic, strong, nullable) SuperPlayerView           *superPlayView;
 
 @property (nonatomic, strong) FeedHeadView              *headView;
 

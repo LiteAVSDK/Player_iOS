@@ -6,7 +6,7 @@
 //  Copyright © 2022年 Tencent. All rights reserved.
 
 #import <Foundation/Foundation.h>
-#import "TXVodDownloadManager.h"
+@class TXVodDownloadMediaInfo;
 
 NS_ASSUME_NONNULL_BEGIN
 

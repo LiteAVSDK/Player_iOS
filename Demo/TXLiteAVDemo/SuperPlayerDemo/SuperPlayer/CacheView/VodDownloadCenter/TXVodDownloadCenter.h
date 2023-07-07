@@ -7,7 +7,7 @@
 
 #import <Foundation/Foundation.h>
 #import "DownloadCallback.h"
-#import "TXPlayerDrmBuilder.h"
+@class TXPlayerDrmBuilder;
 
 NS_ASSUME_NONNULL_BEGIN
 

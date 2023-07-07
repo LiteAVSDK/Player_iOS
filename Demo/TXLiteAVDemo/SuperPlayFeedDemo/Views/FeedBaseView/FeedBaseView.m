@@ -31,7 +31,8 @@
     if (self = [super init]) {
         self.backgroundColor = [UIColor colorWithRed:14.0/255.0 green:24.0/255.0 blue:47.0/255.0 alpha:1.0];
         [self addSubview:self.fatherView];
-        [self.fatherView addSubview:self.superPlayView];
+        self.superPlayView = [self createSuperPlayView];
+        self.superPlayView.fatherView = self.fatherView;
         [self addSubview:self.headView];
         [self addSubview:self.marginView];
         
@@ -78,6 +79,14 @@
     headModel.videoSubTitleStr  = model.videoIntroduce;
     
     [self.headView setHeadModel:headModel];
+    
+    if (self.superPlayView == nil ) { ///如果为nil 说明这个视频窗口被移动到了横屏VC或者详情VC
+        ///tableview发生了reload导致不再是原来的cell
+        self.superPlayView = [self createSuperPlayView]; ///
+        self.superPlayView.fatherView = self.fatherView;
+    }
+    
+    
     [self.superPlayView.controlView setTitle:model.title];
     [self playVideoWithModel:model];
 }
@@ -98,7 +107,11 @@
     playerModel.multiVideoURLs = model.multiVideoURLs;
     self.playerModel = playerModel;
     [self.superPlayView.coverImageView sd_setImageWithURL:[NSURL URLWithString:model.coverUrl] placeholderImage:SuperPlayerImage(@"defaultCoverImage")];
-    self.superPlayView.centerPlayBtn.hidden = NO;
+    if (self.superPlayView.state == StatePlaying) {
+        self.superPlayView.centerPlayBtn.hidden = YES;
+    } else {
+        self.superPlayView.centerPlayBtn.hidden = NO;
+    }
     self.superPlayView.controlView.hidden = YES;
     [self.superPlayView showOrHideBackBtn:NO];
     SPDefaultControlView *defaultControlView = (SPDefaultControlView *)self.superPlayView.controlView;
@@ -131,9 +144,10 @@
 }
 
 - (void)addSuperPlayView:(UIView *)view {
+    [self.superPlayView pause];
+    [self.superPlayView removeFromSuperview];
     self.superPlayView = (SuperPlayerView *)view;
     self.superPlayView.delegate = self;
-    [self addSubview:self.superPlayView];
     self.superPlayView.fatherView = self.fatherView;
     [self.superPlayView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self).offset(8);
@@ -141,6 +155,12 @@
         make.right.equalTo(self).offset(-8);
         make.height.mas_equalTo(cellHeight);
     }];
+    
+    if (self.superPlayView.state == StatePlaying) {
+        self.superPlayView.centerPlayBtn.hidden = YES;
+    } else {
+        self.superPlayView.centerPlayBtn.hidden = NO;
+    }
     
     
 }
@@ -179,6 +199,7 @@
 -(void)fullScreenHookAction {
     if (self.delegate && [self.delegate respondsToSelector:@selector(showFullScreenViewWithPlayView:)]){
         [self.delegate showFullScreenViewWithPlayView:self.superPlayView];
+        self.superPlayView = nil;
     }
 }
 #pragma mark - 懒加载
@@ -197,16 +218,15 @@
     return _marginView;
 }
 
-- (SuperPlayerView *)superPlayView {
-    if (!_superPlayView) {
-        _superPlayView = [SuperPlayerView new];
-        _superPlayView.fatherView = self.fatherView;
-        _superPlayView.backgroundColor = [UIColor clearColor];
-        _superPlayView.disableGesture = NO;
-        _superPlayView.delegate = self;
-        _superPlayView.disableVolumControl = YES;
-    }
-    return _superPlayView;
+
+- (SuperPlayerView *)createSuperPlayView {
+    SuperPlayerView *superPlayView = [SuperPlayerView new];
+    superPlayView.fatherView = self.fatherView;
+    superPlayView.backgroundColor = [UIColor clearColor];
+    superPlayView.disableGesture = NO;
+    superPlayView.delegate = self;
+    superPlayView.disableVolumControl = YES;
+    return superPlayView;
 }
 
 - (FeedHeadView *)headView {

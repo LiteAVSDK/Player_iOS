@@ -24,6 +24,7 @@
                                                  code:-1
                                              userInfo:@{NSLocalizedDescriptionKey : [NSString stringWithFormat:@"parameter error"]}];
             completion(nil, error);
+            return;
         }
     }
     
@@ -50,6 +51,7 @@
         if (error) {
             if (completion) {
                 completion(nil, error);
+                return;
             }
         }
         
@@ -59,6 +61,7 @@
                                                      code:-1
                                                  userInfo:@{NSLocalizedDescriptionKey : @"request error", NSLocalizedFailureReasonErrorKey : @"content is nil"}];
                 completion(nil, error);
+                return;
             }
         }
         
@@ -71,6 +74,7 @@
                                                          code:-2
                                                      userInfo:@{NSLocalizedDescriptionKey : @"invalid format"}];
                     completion(nil, error);
+                    return;
                 }
             }
             
@@ -81,6 +85,7 @@
                                                          code:code
                                                      userInfo:@{NSLocalizedDescriptionKey : dict[@"message"]}];
                     completion(nil, error);
+                    return;
                 }
             }
             
@@ -103,6 +108,7 @@
             
             if (completion) {
                 completion(dic, nil);
+                return;
             }
             
         } @catch (NSException *exception) {
@@ -111,6 +117,7 @@
                                                      code:-2
                                                  userInfo:@{NSLocalizedDescriptionKey : @"invalid format"}];
                 completion(nil, error);
+                return;
             }
         }
     }];

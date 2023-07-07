@@ -27,6 +27,8 @@ NSString * const FeedVideoCellIdentifier = @"FeedVideoCellIdentifier";
 @property (nonatomic, assign) NSInteger                currentPlayIndex;
 
 @property (nonatomic, assign) BOOL                     isRefresh;
+
+@property (nonatomic, strong) NSIndexPath              *indexPath; ///横屏的cell
 @end
 
 @implementation SuperFeedPlayView
@@ -81,11 +83,12 @@ NSString * const FeedVideoCellIdentifier = @"FeedVideoCellIdentifier";
 }
 
 - (void)addSuperPlayView:(UIView *)view {
+    FeedTableViewCell *cell = [self.tableView cellForRowAtIndexPath:self.indexPath];
     if ([NSThread isMainThread]) {
-        [self.tapTableViewCell addSuperPlayView:view];
+        [cell addSuperPlayView:view];
     } else {
         dispatch_async(dispatch_get_main_queue(), ^{
-            [self.tapTableViewCell addSuperPlayView:view];
+            [cell addSuperPlayView:view];
         });
     }
 }
@@ -147,7 +150,9 @@ NSString * const FeedVideoCellIdentifier = @"FeedVideoCellIdentifier";
     for (UITableViewCell *cell in cells) {
         if (cell != self.currentTableViewCell) {
             FeedTableViewCell *cel = (FeedTableViewCell *)cell;
-            [cel pause];
+            if (cel.baseView.superPlayView.state == StatePlaying) {
+                [cel pause];
+            }
         }
     }
 }
@@ -269,9 +274,11 @@ NSString * const FeedVideoCellIdentifier = @"FeedVideoCellIdentifier";
             [self.currentTableViewCell pause];
         }
         self.tapTableViewCell = cell;
-        [cell.baseView.superPlayView removeFromSuperview];
-        
-        [self.delegate showFeedDetailViewWithHeadModel:headModel videoModel:cell.model playView:cell.baseView.superPlayView];
+        self.indexPath = cell.indexPath;
+        [self.delegate showFeedDetailViewWithHeadModel:headModel
+                                            videoModel:cell.model
+                                              playView:cell.baseView.superPlayView];
+        cell.baseView.superPlayView = nil;
     }
 }
 
@@ -287,18 +294,21 @@ NSString * const FeedVideoCellIdentifier = @"FeedVideoCellIdentifier";
     for (UITableViewCell *cell in cells) {
         if (cell != self.currentTableViewCell) {
             FeedTableViewCell *cel = (FeedTableViewCell *)cell;
-            [cel pause];
+            if (cel.baseView.superPlayView.state == StatePlaying) {
+                [cel pause];
+            }
         }
     }
 }
 
--(void)showFullScreenViewWithPlayView:(SuperPlayerView *)superPlayerView cell:(nonnull FeedTableViewCell *)cell{
+-(void)showFullScreenViewWithPlayView:(SuperPlayerView *)superPlayerView
+                            indexPath:(NSIndexPath *)indexPath{
+    self.indexPath = indexPath;
+    FeedTableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
     if (self.delegate && [self.delegate respondsToSelector:@selector(showFullScreenViewWithPlayView:)]){
         if (cell != self.currentTableViewCell) {
             [self.currentTableViewCell pause];
         }
-        self.tapTableViewCell = cell;
-        [cell.baseView.superPlayView removeFromSuperview];
         [self.delegate showFullScreenViewWithPlayView:superPlayerView];
     }
 }
@@ -339,6 +349,7 @@ NSString * const FeedVideoCellIdentifier = @"FeedVideoCellIdentifier";
     if (self.currentTableViewCell == cell) {
         self.currentTableViewCell = nil;
     }
+    [(FeedTableViewCell *)cell pause];
 }
 
 // 松手时已经静止，只会调用scrollViewDidEndDragging

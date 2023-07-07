@@ -419,6 +419,15 @@
 }
 
 ///SuperPlayerDelegate
+-(void)superPlayerFullScreenChanged:(SuperPlayerView *)player {
+    if (player.isFullScreen) {
+        player.disableGesture = YES;
+        [player showOrHideBackBtn:YES];
+    } else {
+        player.disableGesture = NO;
+        [player showOrHideBackBtn:NO];
+    }
+}
 -(void)backHookAction{
     
     [self.navigationController popViewControllerAnimated:NO];

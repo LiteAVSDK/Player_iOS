@@ -1191,6 +1191,7 @@ __weak UITextField *cacheField;
         m.title = [NSString stringWithFormat:@"%@%lu", LivePlayerLocalize(@"SuperPlayerDemo.MoviePlayer.video"), (unsigned long)_liveDataSourceArray.count + 1];
         [_liveDataSourceArray addObject:m];
         [_liveListView reloadData];
+        [self clickLiveList:self.liveBtn];
     } else {
         if (model.videoId) {
             [m setModel:model];
@@ -1200,6 +1201,7 @@ __weak UITextField *cacheField;
         [videoArray addObject:m];
         [_vodDataSourceArray addObject:videoArray];
         [_vodListView reloadData];
+        [self clickVodList:self.vodBtn];
     }
     self.playerView.isLockScreen = NO;
 }

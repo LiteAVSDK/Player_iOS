@@ -6,7 +6,7 @@
 //  Copyright © 2022年 Tencent. All rights reserved.
 
 #import <UIKit/UIKit.h>
-#import "SuperPlayerModel.h"
+@class SuperPlayerModel;
 
 NS_ASSUME_NONNULL_BEGIN
 

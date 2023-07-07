@@ -13,7 +13,7 @@
 #import "AppLocalized.h"
 #import <Masonry/Masonry.h>
 
-@interface TXVideoListViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,TXCollectionLayoutDelegate>
+@interface TXVideoListViewController ()<UICollectionViewDelegate,UICollectionViewDataSource>
 
 @property (nonatomic, strong) UICollectionView                 *collectionView;
 @property (nonatomic, strong) TXCollectionLayout               *layout;
@@ -57,34 +57,26 @@
         make.centerX.equalTo(self.collectionView);
         make.size.mas_equalTo(CGSizeMake(120, 30));
     }];
+    
+    self.collectionView.delegate = self;
+    self.collectionView.dataSource = self;
+    [self.collectionView registerClass:[TXVideoCell class] forCellWithReuseIdentifier:@"TXVideoCell"];
 }
 
 - (void)reloadData {
+    if (!self.collectionView.dataSource) {
+        self.collectionView.dataSource = self;
+    }
     [self.collectionView reloadData];
 }
-
+- (void)setListArray:(NSArray *)listArray {
+    _listArray = listArray;
+    [self reloadData];
+}
 - (void)backClick {
     if ([self.view.superview isKindOfClass:[UIScrollView class]]) {
         ((UIScrollView *)self.view.superview).contentOffset = CGPointMake(0, 0);
     }
-}
-
-#pragma mark - TXCollectionLayoutDelegate
-- (CGFloat)collectionLayout: (TXCollectionLayout *)layout heightForRowAtIndex:(NSInteger)index itemWidth:(CGFloat)width {
-//    return random()%100 + 80;
-    return 300;
-}
-
-- (CGFloat)columMarginInCollectionLayout:(TXCollectionLayout *)collectionLayout {
-    return 13;
-}
-
-- (CGFloat)rowMarginInCollectionLayout:(TXCollectionLayout *)collectionLayout {
-    return 12;
-}
-
-- (NSInteger)cloumnCountInCollectionLayout:(TXCollectionLayout *)collectionLayout {
-    return 2;
 }
 
 #pragma mark - UICollectionViewDataSource
@@ -115,10 +107,7 @@
         CGFloat naviHeight = self.navigationController.navigationBar.frame.size.height;
         CGRect frame = CGRectMake(0, naviHeight + STATUS_HEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT - naviHeight - STATUS_HEIGHT);
         _collectionView = [[UICollectionView alloc] initWithFrame:frame collectionViewLayout:self.layout];
-        _collectionView.delegate = self;
-        _collectionView.dataSource = self;
         _collectionView.backgroundColor = [UIColor clearColor];
-        [_collectionView registerClass:[TXVideoCell class] forCellWithReuseIdentifier:@"TXVideoCell"];
     }
     return _collectionView;
 }
@@ -126,7 +115,6 @@
 - (TXCollectionLayout *)layout {
     if (!_layout) {
         _layout = [TXCollectionLayout new];
-        _layout.delegate = self;
         _layout.scrollDirection = UICollectionViewScrollDirectionVertical;
     }
     return _layout;

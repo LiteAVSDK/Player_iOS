@@ -34,7 +34,7 @@ typedef NS_ENUM(NSUInteger, FeedCellStyle) {
 /**
  全屏
  */
-- (void)showFullScreenViewWithPlayView:(SuperPlayerView *)superPlayerView cell:(FeedTableViewCell *)cell;
+- (void)showFullScreenViewWithPlayView:(SuperPlayerView *)superPlayerView indexPath:(NSIndexPath *)indexPath;
 ///屏幕旋转
 - (void)screenRotation:(BOOL)fullScreen;
 @end

@@ -585,11 +585,10 @@ TXLiveBaseDelegate,TXLivePlayListener,TXVodPlayListener>
             self.livePlayer.delegate = self;
         }
         [self setLivePlayerConfig];
-
+        [self.controlView setProgressTime:0 totalTime:-1 progressValue:1 playableValue:0];
         [self.livePlayer startLivePlay:self.playerModel.videoURL type:liveType];
         _currentVideoUrl = self.playerModel.videoURL;
         TXCUrl *curl = [[TXCUrl alloc] initWithString:self.playerModel.videoURL];
-        [self.livePlayer prepareLiveSeek:self.playerConfig.playShiftDomain bizId:curl.bizid];
     } else {
         
         [self setVodPlayConfig];
@@ -1365,17 +1364,6 @@ TXLiveBaseDelegate,TXLivePlayListener,TXVodPlayListener>
     }
     if (self.isLive) {
         [DataReport report:@"timeshift" param:nil];
-        int ret = [self.livePlayer seek:dragedSeconds];
-        if (ret != 0) {
-            [self showMiddleBtnMsg:kStrTimeShiftFailed withAction:ActionNone];
-            [self.middleBlackBtn fadeOut:2];
-            [self resetControlViewWithLive:self.isLive shiftPlayback:self.isShiftPlayback isPlaying:YES];
-        } else {
-            if (!self.isShiftPlayback) self.isLoaded = NO;
-            self.isShiftPlayback = YES;
-            self.state           = StateBuffering;
-            [self resetControlViewWithLive:YES shiftPlayback:self.isShiftPlayback isPlaying:YES];  //时移播放不能切码率
-        }
     } else {
         if (!_vodPlayer) {
             [self setVodPlayConfig];
@@ -1766,6 +1754,10 @@ TXLiveBaseDelegate,TXLivePlayListener,TXVodPlayListener>
 #pragma mark - SuperPlayerControlViewDelegate
 
 - (void)controlViewPlay:(SuperPlayerControlView *)controlView {
+    ///播放中断，重新播放的时候隐藏middlemsg
+    if (self.middleBlackBtn.hidden == NO) {
+        self.middleBlackBtn.hidden = YES;
+    }
     if (self.playDidEnd) {
         [self.vodPlayer stopPlay];
         [self setVodPlayConfig];
@@ -1913,7 +1905,6 @@ TXLiveBaseDelegate,TXLivePlayListener,TXVodPlayListener>
     if (self.isLive) {
         self.isShiftPlayback = NO;
         self.isLoaded        = NO;
-        [self.livePlayer resumeLive];
         [self resetControlViewWithLive:self.isLive shiftPlayback:self.isShiftPlayback isPlaying:YES];
     } else {
         self.startTime = [self.vodPlayer currentPlaybackTime];
@@ -2247,7 +2238,11 @@ TXLiveBaseDelegate,TXLivePlayListener,TXVodPlayListener>
         } else if (EvtID == PLAY_EVT_PLAY_END) {
             [self.controlView setProgressTime:[self playDuration] totalTime:[self playDuration] progressValue:player.duration / duration playableValue:player.duration / duration];
             [self moviePlayDidEnd];
-        } else if (EvtID == PLAY_ERR_NET_DISCONNECT || EvtID == PLAY_ERR_FILE_NOT_FOUND || EvtID == PLAY_ERR_HLS_KEY) {
+        } else if (EvtID == PLAY_ERR_NET_DISCONNECT || EvtID == PLAY_ERR_FILE_NOT_FOUND
+                   || EvtID == PLAY_ERR_HLS_KEY || EvtID == VOD_PLAY_ERR_DEMUXER_FAIL ||
+                   EvtID == PLAY_ERR_GET_PLAYINFO_FAIL) {
+            self.playDidEnd = YES;
+            [self.controlView setPlayState:NO];
             [self detailPlayerEvent:player event:EvtID param:param];
             
         } else if (EvtID == PLAY_EVT_PLAY_LOADING) {
@@ -2256,6 +2251,9 @@ TXLiveBaseDelegate,TXLivePlayListener,TXVodPlayListener>
                 self.state = StateBuffering;
             }
         } else if (EvtID == PLAY_EVT_VOD_LOADING_END) {
+            if (self.state == StateBuffering) {
+                self.state = StatePlaying;
+            }
             [self.spinner stopAnimating];
         } else if (EvtID == PLAY_EVT_CHANGE_RESOLUTION) {
             if (player.height != 0) {
@@ -2358,7 +2356,7 @@ TXLiveBaseDelegate,TXLivePlayListener,TXVodPlayListener>
                 [self.livePlayer setupVideoWidget:CGRectZero containView:self insertIndex:0];
                 [self layoutSubviews];  // 防止横屏状态下添加view显示不全
                 self.state = StatePlaying;
-
+                [self.controlView setPlayState:YES];
                 if ([self.delegate respondsToSelector:@selector(superPlayerDidStart:)]) {
                     [self.delegate superPlayerDidStart:self];
                 }
@@ -2544,10 +2542,6 @@ TXLiveBaseDelegate,TXLivePlayListener,TXVodPlayListener>
 #pragma mark - middle btn
 
 - (UIButton *)middleBlackBtn {
-    
-    if (!self.isLive) {
-        return nil;
-    }
     
     if (_middleBlackBtn == nil) {
         _middleBlackBtn = [UIButton buttonWithType:UIButtonTypeSystem];

@@ -29,7 +29,9 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  显示详情页的处理
 */
-- (void)showFeedDetailViewWithHeadModel:(FeedHeadModel *)model videoModel:(FeedVideoModel *)videoModel playView:(SuperPlayerView *)superPlayView;
+- (void)showFeedDetailViewWithHeadModel:(FeedHeadModel *)model
+                             videoModel:(FeedVideoModel *)videoModel
+                               playView:(SuperPlayerView *)superPlayView;
 /**
  全屏
  */

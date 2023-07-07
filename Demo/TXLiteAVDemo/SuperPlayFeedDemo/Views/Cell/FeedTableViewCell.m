@@ -75,8 +75,8 @@
     }
 }
 -(void)showFullScreenViewWithPlayView:(SuperPlayerView *)superPlayerView {
-    if (self.delegate && [self.delegate respondsToSelector:@selector(showFullScreenViewWithPlayView:cell:)]){
-        [self.delegate showFullScreenViewWithPlayView:superPlayerView cell:self];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(showFullScreenViewWithPlayView:indexPath:)]){
+        [self.delegate showFullScreenViewWithPlayView:superPlayerView indexPath:self.indexPath];
     }
 }
 - (void)screenRotation:(BOOL)fullScreen {
