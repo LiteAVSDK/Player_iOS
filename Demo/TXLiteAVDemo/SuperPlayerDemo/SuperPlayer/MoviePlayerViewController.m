@@ -104,17 +104,10 @@ __weak UITextField *cacheField;
 @implementation MoviePlayerViewController
 
 - (instancetype)init {
-    if (SuperPlayerWindowShared.backController) {
-        [SuperPlayerWindowShared hide];
-        MoviePlayerViewController *playerViewCtrl = (MoviePlayerViewController *)SuperPlayerWindowShared.backController;
-        playerViewCtrl.danmakuView.clipsToBounds  = NO;
-        return playerViewCtrl;
-    } else {
-        if (self = [super init]) {
-            _manager = [AFHTTPSessionManager manager];
-        }
-        return self;
+    if (self = [super init]) {
+        _manager = [AFHTTPSessionManager manager];
     }
+    return self;
 }
 
 - (void)addObservers {
@@ -159,21 +152,14 @@ __weak UITextField *cacheField;
 - (void)willMoveToParentViewController:(nullable UIViewController *)parent {
 }
 - (void)didMoveToParentViewController:(nullable UIViewController *)parent {
-    if (parent == nil) {
-        if (!SuperPlayerWindowShared.isShowing) {
-            [self.playerView resetPlayer];
-        }
-    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self.navigationController setNavigationBarHidden:NO animated:NO];
+    if (self.playerView.isFullScreen == NO ){///全屏幕的时候不要显示nav
+        [self.navigationController setNavigationBarHidden:NO animated:NO];
+    }
     [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
-
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:self.view.bounds];
-    imageView.image        = [UIImage imageNamed:@"背景"];
-    [self.view insertSubview:imageView atIndex:0];
     if (self.videoURL != nil ){
         self.navigationItem.rightBarButtonItems = @[ self.navHelpBtn ];
     } else {
@@ -211,7 +197,6 @@ __weak UITextField *cacheField;
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:NO];
-    
     [[UIApplication sharedApplication] endReceivingRemoteControlEvents];
 }
 
@@ -236,6 +221,19 @@ __weak UITextField *cacheField;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    // 背景色
+    self.view.backgroundColor = [UIColor whiteColor];
+    NSArray *colors           = @[
+        (__bridge id)[UIColor colorWithRed:19.0 / 255.0 green:41.0 / 255.0 blue:75.0 / 255.0 alpha:1].CGColor,
+        (__bridge id)[UIColor colorWithRed:5.0 / 255.0 green:12.0 / 255.0 blue:23.0 / 255.0 alpha:1].CGColor
+    ];
+    CAGradientLayer *gradientLayer = [CAGradientLayer layer];
+    gradientLayer.colors           = colors;
+    gradientLayer.startPoint       = CGPointMake(0, 0);
+    gradientLayer.endPoint         = CGPointMake(1, 1);
+    gradientLayer.frame            = self.view.bounds;
+    [self.view.layer insertSublayer:gradientLayer atIndex:0];
+    
     _authParamArray      = [NSMutableArray new];
     _vodDataSourceArray  = [NSMutableArray new];
     _liveDataSourceArray = [NSMutableArray new];
@@ -1041,15 +1039,11 @@ __weak UITextField *cacheField;
     // 是竖屏时候响应关
     if (orientation == UIInterfaceOrientationPortrait && (self.playerView.state == StatePlaying)) {
         self.danmakuView.clipsToBounds = YES;
-        [SuperPlayerWindowShared setSuperPlayer:self.playerView];
-        [SuperPlayerWindowShared show];
-        SuperPlayerWindowShared.backController = self;
         if (self.playerView.isCanShowVipTipView) {
             [self.playerView showVipTipView];
         }
     } else {
         [self.playerView resetPlayer];  //非常重要
-        SuperPlayerWindowShared.backController = nil;
     }
     [self.navigationController popViewControllerAnimated:YES];
 }

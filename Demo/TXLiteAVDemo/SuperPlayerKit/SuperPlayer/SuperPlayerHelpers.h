@@ -21,8 +21,8 @@
 
 #define IsIPhoneX (ScreenHeight >= 812 || ScreenWidth >= 812)
 
-// 小窗单例
-#define SuperPlayerWindowShared [SuperPlayerWindow sharedInstance]
+
+
 
 #define TintColor RGBA(252, 89, 81, 1)
 

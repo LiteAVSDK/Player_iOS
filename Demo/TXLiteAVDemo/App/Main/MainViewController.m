@@ -336,7 +336,7 @@ static NSString *const trtcAppStoreURLString       = @"http://itunes.apple.com/c
         UIViewController *controller = [cellInfo createEntryController];
         if (controller) {
             if (![controller isKindOfClass:NSClassFromString(@"MoviePlayerViewController")]) {
-                [self _hideSuperPlayer];
+                [self hideSuperPlayer];
             }
             [self.navigationController pushViewController:controller animated:YES];
         }
@@ -354,15 +354,10 @@ static NSString *const trtcAppStoreURLString       = @"http://itunes.apple.com/c
 }
 
 #if defined(ENABLE_PLAY) && !defined(DISABLE_VOD)
-- (void)_hideSuperPlayer {
-    if (SuperPlayerWindowShared.isShowing) {
-        [SuperPlayerWindowShared hide];
-        [SuperPlayerWindowShared.superPlayer resetPlayer];
-        SuperPlayerWindowShared.backController = nil;
-    }
+- (void)hideSuperPlayer {
 }
 #else
-- (void)_hideSuperPlayer {
+- (void)hideSuperPlayer {
 }
 #endif
 
