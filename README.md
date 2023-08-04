@@ -37,11 +37,10 @@
 
 ## SDK 分类和下载
 
-腾讯云 Player SDK 基于 LiteAVSDK 统一框架设计和实现，该框架包含直播、点播、短视频、RTC、AI美颜在内的多项功能：
+腾讯云 Player SDK 提供**基础版本和高级版本**，产品功能的差异可查看播放器 SDK 官网[产品简介>产品功能](https://cloud.tencent.com/document/product/881/61375)：
 
-- 如果您追求最小化体积增量，可以下载 Player 版：[TXLiteAVSDK_Player.zip](https://cloud.tencent.com/document/product/881/20205)
-- 如果您需要使用多个功能而不希望打包多个 SDK，可以下载专业版：[TXLiteAVSDK_Professional.zip](https://cloud.tencent.com/document/product/647/32689#Professional)
-- 如果您已经通过腾讯云商务购买了企业版License，可以下载企业版：[TXLiteAVSDK_Enterprise.zip](https://cloud.tencent.com/document/product/647/32689#Enterprise)【注意：企业版已停止对外维护，仅供已购买客户使用。如果您需要使用高级美颜特效等功能，可通过集成[腾讯特效SDK](https://cloud.tencent.com/document/product/616/11209)来实现】
+- 如果您追求最小化体积增量，可以下载 Player 基础版：[TXLiteAVSDK_Player.zip](https://liteav.sdk.qcloud.com/download/latest/TXLiteAVSDK_Player_iOS_latest.zip)
+- 如果您需要使用外挂字幕、多音轨、DRM 播放等高级功能，可以下载 Player 高级版：[TXLiteAVSDK_Player_Premium.zip](https://liteav.sdk.qcloud.com/download/latest/TXLiteAVSDK_Player_Premium_iOS_latest.zip)
 
 ## 相关文档链接
 
