@@ -13,6 +13,11 @@
 @property BOOL mirror;
 /// 是否硬件加速，默认YES
 @property(nonatomic, assign) BOOL hwAcceleration;
+/// Whether to automatically enable picture-in-picture in the backstage,
+/// the default is NO
+/// 退后台是否自动开启画中画，默认NO
+@property(nonatomic, assign) BOOL pipAutomatic;
+/// Play speed, default 1.0
 /// 播放速度，默认1.0
 @property CGFloat playRate;
 /// 是否静音，默认NO

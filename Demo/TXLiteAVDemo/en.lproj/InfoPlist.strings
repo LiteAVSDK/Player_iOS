@@ -6,11 +6,10 @@
   Copyright © 2021 Tencent. All rights reserved.
 */
 
-CFBundleDisplayName = "TCToolkit";
-NSAppleMusicUsageDescription = "The toolkit needs access to your media library to acquire music";
-NSCameraUsageDescription = "The toolkit needs access to your camera to capture video.Access facial data for the beauty function";
-NSMicrophoneUsageDescription = "The toolkit needs access to your mic to capture audio";
-NSPhotoLibraryAddUsageDescription = "The toolkit needs access your photo library to save edited files.";
-NSPhotoLibraryUsageDescription = "The toolkit needs access to your photo library to edit videos";
-"UILaunchStoryboardName" = "LaunchScreen_en";
-
+CFBundleDisplayName = "RT-Cube";
+NSAppleMusicUsageDescription = "RT-Cube needs access to your media library to obtain music.";
+NSCameraUsageDescription = "RT-Cube needs access to your camera to allow you to shoot videos, co-anchor, use beauty filters, scan to obtain playback URL, etc.";
+NSMicrophoneUsageDescription = "RT-Cube needs access to your mic to obtain audio data.";
+NSPhotoLibraryAddUsageDescription = "RT-Cube needs access to your photo library to save screenshots and videos to as well as play videos in your library.";
+NSPhotoLibraryUsageDescription = "RT-Cube needs access to your photo library to save screenshots and videos to as well as play videos in your library.";
+UILaunchStoryboardName = "LaunchScreen";

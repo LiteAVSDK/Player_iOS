@@ -117,7 +117,7 @@ NSString * const VideoCacheListCellIdentifier = @"VideoCacheListCellIdentifier";
         [self addSubview:self.centerView];
         [self.centerView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerX.equalTo(self);
-            make.centerY.equalTo(self).offset(-50);
+            make.top.equalTo(self.topView.mas_bottom).offset(10);
             make.height.mas_equalTo(200);
             make.width.mas_equalTo(200);
         }];

@@ -20,6 +20,7 @@
 "SuperPlayer.speed2p0" = "2.0X";
 "SuperPlayer.mirror" = "镜像";
 "SuperPlayer.handware" = "硬件加速";
+"SuperPlayer.pipAutomatic" = "退后台自动开启画中画";
 "SuperPlayer.piploading" = "正在开启画中画";
 "SuperPlayer.pipfailed" = "开启画中画失败了";
 "SuperPlayer.trywactchtitle" = "可试看15秒，开通VIP观看完整视频";

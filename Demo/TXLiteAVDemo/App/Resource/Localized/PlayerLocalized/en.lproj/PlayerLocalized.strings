@@ -15,6 +15,10 @@
 "SuperPlayerDemo.MoviePlayer.simplerandlighter" = "Simpler and Lighter";
 "SuperPlayerDemo.MoviePlayer.whatisdigitization" = "What is Digitization?";
 "SuperPlayerDemo.MoviePlayer.testvideo" = "Test Video";
+"SuperPlayerDemo.MoviePlayer.flv_live_video" = "FLV Live Play";
+"SuperPlayerDemo.MoviePlayer.rtmp_live_video" = "RTMP Live Play";
+"SuperPlayerDemo.MoviePlayer.webrtc_live_video" = "WebRTC Live Play";
+"SuperPlayerDemo.MoviePlayer.hls_live_video" = "HLS Live Play";
 "SuperPlayerDemo.MoviePlayer.currentquality" = "Quality:";
 "SuperPlayerDemo.MoviePlayer.viewingcachelist" = "video download list";
 "SuperPlayerDemo.MoviePlayer.offlinecache" = "offline download";
@@ -40,6 +44,8 @@
 "SuperPlayerDemo.MoviePlayer.cachepause" = "pause";
 "SuperPlayerDemo.MoviePlayer.cacheend" = "complete";
 "SuperPlayerDemo.MoviePlayer.cacheprogress：xx" = "progress：xxx";
+"SuperPlayerDemo.MoviePlayer.multitrackvideo" = "multi track video";
+"SuperPlayerDemo.MoviePlayer.multisubtitledvideo" = "multi subtitled video";
 
 "SuperPlayerDemo.OndemandPlayer.ondemand" = "On demand";
 "SuperPlayerDemo.OndemandPlayer.live" = "Live";
@@ -94,3 +100,9 @@
 "SuperPlayerDemo.VideoFeeds.tencentcloudAV" = "Tencent Cloud Audio/Video";
 "SuperPlayerDemo.VideoFeeds.tencentcloudAVintroduce" = "Online experiences have never been more real";
 "SuperPlayerDemo.VideoFeeds.tencentcloudAVdetail" = "Tencent Cloud offers a robust set of audio/video PaaS capabilities for you to leverage";
+"SuperPlayerDemo.VideoFeeds.dash.asingle.morebitrate" = "A single,More Bit Rate";
+"SuperPlayerDemo.VideoFeeds.dash.DRMwidevine" = "DRM Widevine";
+"SuperPlayerDemo.VideoFeeds.dash.numberbased" = "number-based";
+"SuperPlayerDemo.VideoFeeds.dash.timebased" = "time-based";
+"SuperPlayerDemo.VideoFeeds.dash.30fps" = "30fps";
+"SuperPlayerDemo.VideoFeeds.dash.withsubtitle" = "with subtitle";

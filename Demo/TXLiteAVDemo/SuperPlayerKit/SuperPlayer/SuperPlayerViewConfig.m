@@ -15,6 +15,7 @@
 - (instancetype)init {
     self                 = [super init];
     self.hwAcceleration  = 1;
+    self.pipAutomatic = NO;
     self.playRate        = 1;
     self.renderMode      = RENDER_MODE_FILL_EDGE;
     self.maxCacheSizeMB  = 500;

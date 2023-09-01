@@ -29,6 +29,8 @@
 @property(nonatomic) UIView *speedCell;
 @property(nonatomic) UIView *mirrorCell;
 @property(nonatomic) UIView *hwCell;
+@property (nonatomic, strong) UIView *pipCell;
+@property (nonatomic, strong) UISwitch *pipSwitch;
 @property BOOL               isVolume;
 @property NSDate *volumeEndTime;
 @end
@@ -52,6 +54,7 @@
     [self addSubview:[self speedCell]];
     [self addSubview:[self mirrorCell]];
     [self addSubview:[self hwCell]];
+    [self addSubview:[self pipCell]];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(volumeSettingChanged:) name:VOLUME_NOTIFICATION_NAME object:nil];
 
@@ -97,6 +100,9 @@
 
     _hwCell.m_top(_contentHeight);
     _contentHeight += _hwCell.mm_h;
+    
+    _pipCell.m_top(_contentHeight);
+    _contentHeight += _pipCell.mm_h;
 }
 
 - (UIView *)soundCell {
@@ -285,6 +291,27 @@
     return _hwCell;
 }
 
+- (UIView *)pipCell {
+    if (!_pipCell) {
+        _pipCell = [UIView new];
+        _pipCell.m_width(MoreViewWidth).m_height(50).m_left(10);
+        
+        UILabel *hd = [UILabel new];
+        hd.text     = superPlayerLocalized(@"SuperPlayer.pipAutomatic");
+        
+        hd.textColor = [UIColor whiteColor];
+        [hd sizeToFit];
+        [_pipCell addSubview:hd];
+        hd.m_centerY();
+        
+        UISwitch *switcher = [UISwitch new];
+        _pipSwitch          = switcher;
+        [switcher addTarget:self action:@selector(changePip:) forControlEvents:UIControlEventValueChanged];
+        [_pipCell addSubview:switcher];
+        switcher.m_right(30).m_centerY();
+    }
+    return _pipCell;
+}
 - (void)soundSliderTouchBegan:(UISlider *)sender {
     self.isVolume = YES;
 }
@@ -333,6 +360,11 @@
     [DataReport report:sender.on ? @"hw_decode" : @"soft_decode" param:nil];
 }
 
+- (void)changePip:(UISwitch *)sender {
+    self.playerConfig.pipAutomatic = sender.on;
+    [self.controlView.delegate controlViewConfigUpdate:self.controlView withReload:YES];
+   // [DataReport report:sender.on ? @"pipAutomatic_on" : @"pipAutomatic_off" param:nil];
+}
 - (void)update {
     self.soundSlider.value = [SuperPlayerView volumeViewSlider].value;
     self.lightSlider.value = [UIScreen mainScreen].brightness;

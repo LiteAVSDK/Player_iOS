@@ -165,6 +165,11 @@ NSString *helpUrlDb[] = {
         self.didLaunched = YES;
         [self playVideoFromLaunchInfo:self.launchInfo];
     }
+    
+    // 移除点播播放器配置UD
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"vodConfig"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
     return YES;
 }
 
