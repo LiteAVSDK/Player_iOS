@@ -44,7 +44,6 @@
 		40A1DF79263841950011E532 /* UIImage+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 47E8CAC3260B5C05001CF672 /* UIImage+Additions.m */; };
 		40A1DF8F2638419E0011E532 /* UIView+CustomAutoLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 47E8CABD260B5C05001CF672 /* UIView+CustomAutoLayout.m */; };
 		40A1DFA5263841AB0011E532 /* UIViewController+BackButtonHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 47E8CAB7260B5C05001CF672 /* UIViewController+BackButtonHandler.m */; };
-		40A7CFF02461102E00E792A5 /* SuperPlayer.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 40A7CFED2461102E00E792A5 /* SuperPlayer.bundle */; };
 		45D8449523B643A5001CD3A9 /* UGCUploadList.m in Sources */ = {isa = PBXBuildFile; fileRef = 45D8448C23B64395001CD3A9 /* UGCUploadList.m */; };
 		47642A9F261491B90020F1BA /* launchimage_en@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 47642A99261491B90020F1BA /* launchimage_en@3x.png */; };
 		47642AA7261491B90020F1BA /* launchimage_en@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 47642A9A261491B90020F1BA /* launchimage_en@2x.png */; };
@@ -122,7 +121,6 @@
 		EDC1B2C12847C9A60077A920 /* VideoCacheListView.m in Sources */ = {isa = PBXBuildFile; fileRef = EDC1B2AF2847C9A60077A920 /* VideoCacheListView.m */; };
 		EDC1B2C22847C9A60077A920 /* VideoCacheListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EDC1B2B32847C9A60077A920 /* VideoCacheListModel.m */; };
 		EDD28B1A2AA0685C0052D106 /* TXVodPlayer.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EDD28B192AA0685C0052D106 /* TXVodPlayer.bundle */; };
-		EDF0D82929A8BC4600EA1238 /* SuperPlayerKitBundle.bundle in Resources */ = {isa = PBXBuildFile; fileRef = ED59415D2938C908006FFA17 /* SuperPlayerKitBundle.bundle */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -191,7 +189,6 @@
 		40407ACA1F3035CA006C7301 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		4071CF702444477A000B7707 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
 		40A49D5E24598CD200BFCB18 /* UGCKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = UGCKit.xcodeproj; path = UGCKit/UGCKit.xcodeproj; sourceTree = "<group>"; };
-		40A7CFED2461102E00E792A5 /* SuperPlayer.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = SuperPlayer.bundle; path = SuperPlayer/Resource/SuperPlayer.bundle; sourceTree = "<group>"; };
 		40AA533524458EC800303EF7 /* TCBeautyPanel.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = TCBeautyPanel.xcodeproj; sourceTree = "<group>"; };
 		40AA539724459DF900303EF7 /* UGCKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = UGCKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		40F853221EE8FC7300EE47D7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -385,7 +382,6 @@
 		D6E5D1C020B7B61F00812B2F /* ReplayKit2Define.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReplayKit2Define.h; sourceTree = "<group>"; };
 		ED125AE428BF7D3000F8C9D9 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/PlayerLocalized.strings"; sourceTree = "<group>"; };
 		ED125AE528BF7D3100F8C9D9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/PlayerLocalized.strings; sourceTree = "<group>"; };
-		ED59415D2938C908006FFA17 /* SuperPlayerKitBundle.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = SuperPlayerKitBundle.bundle; path = SuperPlayer/Resource/SuperPlayerKitBundle.bundle; sourceTree = "<group>"; };
 		EDA70D93288E74FB00A9E10B /* FeedRequestUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedRequestUtil.m; sourceTree = "<group>"; };
 		EDA70D94288E74FB00A9E10B /* FeedRequestUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedRequestUtil.h; sourceTree = "<group>"; };
 		EDC1B2A32847C9A60077A920 /* VideoCacheModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoCacheModel.m; sourceTree = "<group>"; };
@@ -510,8 +506,6 @@
 		405874162445AA10009B3503 /* SuperPlayerKit */ = {
 			isa = PBXGroup;
 			children = (
-				ED59415D2938C908006FFA17 /* SuperPlayerKitBundle.bundle */,
-				40A7CFED2461102E00E792A5 /* SuperPlayer.bundle */,
 				4030B1EC245563B200CF5926 /* SuperPlayer.podspec */,
 			);
 			path = SuperPlayerKit;
@@ -1337,10 +1331,8 @@
 				47E8C8CC260AECC4001CF672 /* TRTCDemoLocalized.strings in Resources */,
 				4009235A1F4FCC6E009B882D /* LaunchScreen.storyboard in Resources */,
 				47642A9F261491B90020F1BA /* launchimage_en@3x.png in Resources */,
-				EDF0D82929A8BC4600EA1238 /* SuperPlayerKitBundle.bundle in Resources */,
 				47E8C8D9260AECC4001CF672 /* LivePlayerLocalized.strings in Resources */,
 				6BF315D4271E715300D4A72C /* ShortVideo.xcassets in Resources */,
-				40A7CFF02461102E00E792A5 /* SuperPlayer.bundle in Resources */,
 				ED125AE628BF7D3100F8C9D9 /* PlayerLocalized.strings in Resources */,
 				47E8C898260AECC4001CF672 /* AppPortalLocalized.strings in Resources */,
 				C603F92D2603729D009E3AB2 /* InfoPlist.strings in Resources */,
