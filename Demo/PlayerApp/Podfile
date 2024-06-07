@@ -1,0 +1,42 @@
+# Uncomment the next line to define a global platform for your project
+# platform :ios, '9.0'
+
+target 'Player' do
+  # Comment the next line if you don't want to use dynamic frameworks
+  use_frameworks!
+
+  # Pods for Player
+  pod 'SuperPlayer/Player',:path => '../SuperPlayerKit/'
+  pod 'PlayerKit/Player',:path => '../PlayerKit/'
+end
+
+target 'Player_Premium' do
+  # Comment the next line if you don't want to use dynamic frameworks
+  use_frameworks!
+
+  # Pods for Player_Premium
+  pod 'SuperPlayer/Player_Premium',:path => '../SuperPlayerKit/'
+  pod 'PlayerKit/Player_Premium',:path => '../PlayerKit/'
+end
+
+post_install do |installer|
+  installer.generated_projects.each do |project|
+          project.targets.each do |target|
+                target.build_configurations.each do |config|
+                     config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '11.0'
+                end
+          end
+    end
+   installer.pods_project.targets.each do |target|
+     target.build_configurations.each do |config|
+       config.build_settings['ENABLE_BITCODE'] = 'NO'
+     end
+   end
+   installer.pods_project.targets.each do |target|
+     if target.respond_to?(:product_type) and target.product_type == "com.apple.product-type.bundle"
+       target.build_configurations.each do |config|
+           config.build_settings['CODE_SIGNING_ALLOWED'] = 'NO'
+       end
+     end
+   end
+ end

@@ -6,13 +6,9 @@
 
 ```
 ├─ Demo // 播放器Demo
-└── TXLiteAVDemo
-    ├── App               // 程序入口界面
-    ├── SuperPlayerDemo   // 播放器组件Demo
+    ├── PlayerApp   // 程序入口界面
+    ├── PlayerKit   // 播放器界面逻辑
     └── SuperPlayerKit    // 播放器组件
-    ├── SuperPlayFeedDemo   // Feed流播放器Demo
-    └── UGCShortVideoPlayDemo    // 短视频播放器Demo
-├─ Demo // 播放器Demo
 ├─ Player-API-Example-iOS // 播放器API相关Demo
 ├─ Swift-Call-OC-Example  // Swift调用SDK API的实现样例
 ```
@@ -28,13 +24,15 @@
 
 
 ### 特别提醒
-1.申请到Licence URL 和 Licence URL 后，请用它们赋值给`Demo/TXLiteAVDemo/App/config/Player.plist`文件的 licenceUrl 和 licenceKey 字段。
+1.先进入目录PlayerApp 并进行 `pod install` 
 
-2.如果要体验高级版画中画功能，可前往 [腾讯云视立方控制台 > License 管理 > 移动端 License](https://console.cloud.tencent.com/vcube/mobile) 获取对应 LicenseURL 和 LicenseKey。如果没有申请 Player 高级套餐 License，进入画中画将无效。
+2.申请到Licence URL 和 Licence URL 后，请用它们赋值给`Demo/PlayerKit/PlayerKit/App/config/Player.plist`文件的 licenceUrl 和 licenceKey 字段。
 
-3.如果要体验高级功能（短视频、透明动画、VR播放、终端极速高清等），请前往[腾讯云官网 > 播放器SDK > 高级功能 ](https://cloud.tencent.com/document/product/881/96686)
+3.如果要体验高级版画中画功能，可前往 [腾讯云视立方控制台 > License 管理 > 移动端 License](https://console.cloud.tencent.com/vcube/mobile) 获取对应 LicenseURL 和 LicenseKey。如果没有申请 Player 高级套餐 License，进入画中画将无效。
 
-4.播放器SDK已经适配苹果最新的隐私清单，可以通过pod install 升级到 11.7.15343 及以后的版本
+4.如果要体验高级功能（短视频、透明动画、VR播放、终端极速高清等），请前往[腾讯云官网 > 播放器SDK > 高级功能 ](https://cloud.tencent.com/document/product/881/96686)
+
+5.播放器SDK已经适配苹果最新的隐私清单，可以通过pod install 升级到 11.7.15343 及以后的版本
 
 
 ## **升级说明**
@@ -43,7 +41,7 @@
 播放器 SDK 移动端10.1（Android & iOS & Flutter）开始 版本采用“腾讯视频”同款播放内核打造，视频播放能力获得全面优化升级。同时从该版本开始将增加对“视频播放”功能模块的授权校验，
 
   1、如果您的APP已经拥有直播推流 License 或者短视频 License 授权 ，当您升级至10.1 版本后仍可以继续正常使用，不受到此次变更影响，您可以登录 [腾讯云视立方控制台](https://console.cloud.tencent.com/vcube) 查看您当前的 License 授权信息。
-  
+
   2、如果您在此之前从未获得过上述License授权，且需要使用新版本SDK（10.1及其更高版本）中的直播播放或点播播放功能，则需购买指定 License 获得授权，详情参见[授权说明](https://cloud.tencent.com/document/product/881/74199#.E6.8E.88.E6.9D.83.E8.AF.B4.E6.98.8E)；若您无需使用相关功能或未升级至最新版本SDK，将不受到此次变更的影响。
 
 #### **SDK结构调整说明**

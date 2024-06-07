@@ -5,13 +5,10 @@ English| [简体中文](./README.md)
 This directory contains the demo source code of the Player SDK for iOS, which shows you how to call the APIs to implement basic features.
 
 ```
-├─ SDK 
-|  ├─ TXLiteAVSDK_Player.framework   // Player's static framework
-├─ Demo // Superplayer demo
-└── TXLiteAVDemo
-    ├── App               // Program entry UI
-    ├── SuperPlayerDemo   // Superplayer demo
-    └── SuperPlayerKit    // Superplayer component
+├─ Demo // Player Demo
+    ├── PlayerApp   // Program entry UI
+    ├── PlayerKit   // Player Kit
+    └── SuperPlayerKit    // Superplayer Kit
 ├─ Player-API-Example-iOS // Player API Demo
 ├─ Swift-Call-OC-Example  // Swift Call OC Demo
 ```

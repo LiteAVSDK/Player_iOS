@@ -1,0 +1,136 @@
+{
+  "shaderType" : 6,
+  "distortionList" : [
+      {
+        "radius" : 500,
+        "distortion" : 3,
+        "strength" : 0.067099999189376831,
+        "position" : 9,
+        "direction" : 2
+      },
+    {
+      "radius" : 280,
+      "distortion" : 3,
+      "strength" : 0.021999998211860657,
+      "position" : 0,
+      "direction" : 3
+    },
+    {
+      "radius" : 280,
+      "distortion" : 3,
+      "strength" : 0.021999998211860657,
+      "position" : 18,
+      "direction" : 1
+    },
+    {
+      "radius" : 260,
+      "distortion" : 3,
+      "strength" : 0.055800000846385956,
+      "position" : 2,
+      "direction" : 6
+    },
+    {
+      "radius" : 260,
+      "distortion" : 3,
+      "strength" : 0.055800000846385956,
+      "position" : 16,
+      "direction" : 5
+    },
+    {
+      "radius" : 240,
+      "position" : 5,
+      "dy" : -5,
+      "distortion" : 3,
+      "strength" : 0.06719999670982361,
+      "direction" : 6,
+      "dx" : -10
+    },
+    {
+      "radius" : 240,
+      "position" : 13,
+      "dy" : -5,
+      "distortion" : 3,
+      "strength" : 0.06719999670982361,
+      "direction" : 5,
+      "dx" : 10
+    },
+    {
+      "radius" : 200,
+      "position" : 7,
+      "dy" : 0,
+      "distortion" : 3,
+      "strength" : 0.077000001668930054,
+      "direction" : 6,
+      "dx" : 5
+    },
+    {
+      "radius" : 200,
+      "position" : 11,
+      "dy" : 0,
+      "distortion" : 3,
+      "strength" : 0.077000001668930054,
+      "direction" : 5,
+      "dx" : -5
+    },
+    
+    {
+      "radius" : 220,
+      "position" : 9,
+      "dy" : -20,
+      "targetDx" : 0,
+      "distortion" : 3,
+      "strength" : 0.127099999189376831,
+      "direction" : 2,
+      "dx" : 0,
+      "targetDy" : 0
+    },
+    {
+      "radius" : 80,
+      "position" : 8,
+      "dy" : 10,
+      "targetDx" : 0,
+      "distortion" : 3,
+      "strength" : 0.029999999105930328,
+      "direction" : 6,
+      "dx" : 0,
+      "targetDy" : 0
+    },
+    {
+      "radius" : 80,
+      "position" : 10,
+      "dy" : 10,
+      "targetDx" : 0,
+      "distortion" : 3,
+      "strength" : 0.029999999105930328,
+      "direction" : 5,
+      "dx" : 0,
+      "targetDy" : 0
+    },
+    {
+      "radius" : 320,
+      "distortion" : 3,
+      "strength" : 0.030,
+      "position" : 9,
+      "direction" : 2
+    },
+    {
+      "radius" : 180,
+      "position" : 57,
+      "dy" : -10,
+      "distortion" : 3,
+      "strength" : 0.05000000596046448,
+      "direction" : 3,
+      "dx" : 10
+    },
+    {
+      "radius" : 180,
+      "position" : 61,
+      "dy" : -10,
+      "distortion" : 3,
+      "strength" : 0.05000000596046448,
+      "direction" : 1,
+      "dx" : -10
+    },
+  ],
+  "minAppVersion" : 400
+}

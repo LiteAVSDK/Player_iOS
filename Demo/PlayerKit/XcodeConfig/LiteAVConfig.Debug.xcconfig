@@ -1,0 +1,16 @@
+//
+//  LiteAVConfig.Debug.xcconfig
+//  ToolkitApp
+//
+//  Created by aby on 2022/6/7.
+//  Copyright © 2022 Tencent. All rights reserved.
+//
+
+// Configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974
+#include "../../LiteAVConfig.xcconfig"
+OTHER_LDFLAGS = $(inherited) -framework "${TXLiteAVSDK_NAME}"
+GCC_PREPROCESSOR_DEFINITIONS = $(inherited) ${TXLiteAVSDK_NAME}=1
+HEADER_SEARCH_PATHS = ${inherited} $(BUILT_PRODUCTS_DIR)/${TXLiteAVSDK_NAME}.framework/Headers $(BUILT_PRODUCTS_DIR)/${TXLiteAVSDK_NAME}.xcframework/**/${TXLiteAVSDK_NAME}.framework/Headers $(PROJECT_DIR)/../../../SDK/${TXLiteAVSDK_NAME}.framework/Headers $(PROJECT_DIR)/../../../SDK/${TXLiteAVSDK_NAME}.xcframework/**/${TXLiteAVSDK_NAME}.framework/Headers
+PROJECT_VERSION=10.0.1000
+MARKETING_VERSION=10.0.2000

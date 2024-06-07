@@ -1,0 +1,6 @@
+framework module TUIPlayerShortVideo {
+  umbrella header "TUIPlayerShortVideo-umbrella.h"
+
+  export *
+  module * { export * }
+}

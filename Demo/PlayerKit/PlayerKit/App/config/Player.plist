@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>licenceConfig</key>
+	<dict>
+		<key>licenceUrl</key>
+		<string>...</string>
+		<key>licenceKey</key>
+		<string>...</string>
+	</dict>
+	<key>menuConfig</key>
+	<array>
+		<dict>
+			<key>subMenus</key>
+			<array>
+				<dict>
+					<key>title</key>
+					<string>MLVB.MainMenu.SuperPlayer</string>
+					<key>class</key>
+					<string>MoviePlayerViewController</string>
+				</dict>
+				<dict>
+					<key>debug</key>
+					<true/>
+					<key>title</key>
+					<string>MLVB.MainMenu.VodPlayer</string>
+					<key>class</key>
+					<string>PlayVodViewController</string>
+				</dict>
+				<dict>
+					<key>title</key>
+					<string>MLVB.MainMenu.TUIShortVideoPlay</string>
+					<key>class</key>
+					<string>TUIShortVideoPlayViewController</string>
+				</dict>
+				<dict>
+					<key>title</key>
+					<string>MLVB.MainMenu.shortVideoPlay</string>
+					<key>class</key>
+					<string>ShortVideoPlayViewController</string>
+				</dict>
+				<dict>
+					<key>class</key>
+					<string>FeedPlayViewController</string>
+					<key>title</key>
+					<string>MLVB.MainMenu.FeedVideoPlay</string>
+				</dict>
+			</array>
+			<key>title</key>
+			<string>MLVB.MainMenu.Player</string>
+		</dict>
+	</array>
+</dict>
+</plist>
