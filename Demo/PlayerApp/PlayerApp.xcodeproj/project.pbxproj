@@ -690,6 +690,8 @@
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 2ZNSKQLPTK;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "PlayerApp/Player_Premium-Info.plist";
+				INFOPLIST_KEY_NSCameraUsageDescription = "二维码扫描，需使用Camera权限";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "二维码扫描，需使用相册权限";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -728,6 +730,8 @@
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 2ZNSKQLPTK;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "PlayerApp/Player_Premium-Info.plist";
+				INFOPLIST_KEY_NSCameraUsageDescription = "二维码扫描，需使用Camera权限";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "二维码扫描，需使用相册权限";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
