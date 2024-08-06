@@ -25,6 +25,7 @@ Pod::Spec.new do |spec|
            'PlayerKit/TUIShortVideoPlayDemo/TUISDK/TUIPlayerShortVideo/TUIPlayerShortVideo.bundle',
            'PlayerKit/SuperPlayerDemo/SuperPlayer/CFDanmaku/danmakufile']
         }
+        s.resource = 'PlayerKit/App/Resource/**/*.bundle'
     end
     
     spec.subspec "Player" do |s|
