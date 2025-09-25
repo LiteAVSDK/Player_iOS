@@ -12,12 +12,11 @@
 #import "PlayerKitCommonHeaders.h"
 #import "VideoCacheModel.h"
 #import "ResolutionModel.h"
-//#import "TXVodDownloadManager.h"
-//#import "TXPlayerAuthParams.h"
 #import "PlayerKitCommonHeaders.h"
 #import "VideoCacheListView.h"
 #import "TXVodDownloadCenter.h"
 #import "AppLocalized.h"
+#import "TXVideoResourceStorage.h"
 
 NSString * const VideoCacheCellIdentifier = @"VideoCacheCellIdentifier";
 NSString * const ResolutionCellIdentifier = @"ResolutionCellIdentifier";
@@ -126,6 +125,10 @@ NSString * const ResolutionCellIdentifier = @"ResolutionCellIdentifier";
     }
     
     [self setResolutionArray:currentModel.playDefinitions currentResolution:currentModel.playingDefinition];
+    [self updateVideoModel];
+}
+
+- (void)refreshData {
     [self updateVideoModel];
 }
 
@@ -252,26 +255,7 @@ NSString * const ResolutionCellIdentifier = @"ResolutionCellIdentifier";
 
         [self.videoArray addObject:cacheModel];
     }
-
-    // cacheModel1
-    VideoCacheModel *cacheModel1 = [[VideoCacheModel alloc] init];
-    TXPlayerDrmBuilder *drmBuilder1 = [[TXPlayerDrmBuilder alloc] init];
-    drmBuilder1.deviceCertificateUrl = @"https://cert.drm.vod-qcloud.com/cert/v1/59ca267fdd87903b933cb845b844eda2/fairplay.cer";
-    drmBuilder1.keyLicenseUrl = @"https://fairplay-test.drm.vod-qcloud.com/fairplay/getlicense/v2?drmToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9~eyJ0eXBlIjoiRHJtVG9rZW4iLCJhcHBJZCI6MTUwMDAxMzc4OCwiZmlsZUlkIjoiNTI4Nzg1MjEwOTg0ODE0NzI1MSIsImN1cnJlbnRUaW1lU3RhbXAiOjAsImV4cGlyZVRpbWVTdGFtcCI6MTk2MDk5NTE3MCwicmFuZG9tIjowLCJvdmVybGF5S2V5IjoiIiwib3ZlcmxheUl2IjoiIiwiY2lwaGVyZWRPdmVybGF5S2V5IjoiIiwiY2lwaGVyZWRPdmVybGF5SXYiOiIiLCJrZXlJZCI6MCwic3RyaWN0TW9kZSI6MCwicGVyc2lzdGVudCI6Ik9OIiwicmVudGFsRHVyYXRpb24iOjEwMDAwMH0~wbXINOOUyEoi3Qh5hIaISbD9gcv9QHGn89mjjHVcHPo";
-    drmBuilder1.playUrl = @"https://1500013788.vod2.myqcloud.com/43953aebvodtranscq1500013788/986b43ec5287852109848147251/adp.153829.m3u8";
-    cacheModel1.drmBuilder = drmBuilder1;
-    cacheModel1.videoTitle = @"FairPlay HLS(license 长期有效)";
-    [self.videoArray addObject:cacheModel1];
-    
-    // cacheModel2
-    VideoCacheModel *cacheModel2 = [[VideoCacheModel alloc] init];
-    TXPlayerDrmBuilder *drmBuilder2 = [[TXPlayerDrmBuilder alloc] init];
-    drmBuilder2.deviceCertificateUrl = @"https://cert.drm.vod-qcloud.com/cert/v1/59ca267fdd87903b933cb845b844eda2/fairplay.cer";
-    drmBuilder2.keyLicenseUrl = @"https://fairplay-test.drm.vod-qcloud.com/fairplay/getlicense/v2?drmToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9~eyJ0eXBlIjoiRHJtVG9rZW4iLCJhcHBJZCI6MTUwMDAxMzc4OCwiZmlsZUlkIjoiNTI4Nzg1MjEwOTg0OTE1NDY1OSIsImN1cnJlbnRUaW1lU3RhbXAiOjAsImV4cGlyZVRpbWVTdGFtcCI6Mjk2MDk5NTE3MCwicmFuZG9tIjowLCJvdmVybGF5S2V5IjoiIiwib3ZlcmxheUl2IjoiIiwiY2lwaGVyZWRPdmVybGF5S2V5IjoiIiwiY2lwaGVyZWRPdmVybGF5SXYiOiIiLCJrZXlJZCI6MCwic3RyaWN0TW9kZSI6MCwicGVyc2lzdGVudCI6Ik9OIiwicmVudGFsRHVyYXRpb24iOjYwMH0~Wnj6epGrf_drf9AOTGBfF1QOIEQVGN0A0_Hjty_kOUk";
-    drmBuilder2.playUrl = @"https://1500013788.vod2.myqcloud.com/43953aebvodtranscq1500013788/e57605175287852109849154659/adp.153829.m3u8";
-    cacheModel2.drmBuilder = drmBuilder2;
-    cacheModel2.videoTitle = @"FairPlay HLS(license 有效期为10分钟)";
-    [self.videoArray addObject:cacheModel2];
+    [self.videoArray addObjectsFromArray:[TXVideoResourceStorage cacheVideoResource]];
 
     [self.tableView reloadData];
 }

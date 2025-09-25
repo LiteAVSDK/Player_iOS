@@ -19,6 +19,9 @@
 /// the default is NO
 /// 退后台是否自动开启画中画，默认NO
 @property(nonatomic, assign) BOOL pipAutomatic;
+/// Forced Picture-in-Picture
+/// 强制画中画
+@property(nonatomic, assign) BOOL forcedPIP;
 /// Play speed, default 1.0
 /// 播放速度，默认1.0
 @property CGFloat playRate;

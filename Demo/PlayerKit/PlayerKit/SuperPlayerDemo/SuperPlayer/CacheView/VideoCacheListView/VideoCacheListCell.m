@@ -12,6 +12,7 @@
 #import "DownloadCallback.h"
 #import "AppLocalized.h"
 #import "TXAppInstance.h"
+#import "TXVideoResourceStorage.h"
 #define BASE_URL   @"http://playvideo.qcloud.com/getplayinfo/v4"
 
 @class TXVodDownloadMediaInfo;
@@ -178,6 +179,8 @@ static NSDictionary *gQualityDic;
         NSInteger duration = model.mediaInfo.duration;
         NSString *durationStr = [NSString stringWithFormat:@"%02ld:%02ld", duration /60, duration % 60];
         model.durationStr = durationStr;
+        model.videoName = model.videoName.length ? model.videoName : [TXVideoResourceStorage videoTitleWithURL:model.mediaInfo.url];
+        model.coverImageStr = model.coverImageStr.length ?model.coverImageStr : [TXVideoResourceStorage videoCoverWithURL:model.mediaInfo.url];
         dispatch_async(dispatch_get_main_queue(), ^{
             if (model.coverImageStr.length > 0) {
                 [self.videoImageView sd_setImageWithURL:[NSURL URLWithString:model.coverImageStr] placeholderImage:[TXAppInstance imageFromPlayerBundleNamed:@"img_video_loading"]];

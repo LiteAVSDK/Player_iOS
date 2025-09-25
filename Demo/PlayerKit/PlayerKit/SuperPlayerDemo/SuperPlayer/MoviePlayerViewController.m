@@ -49,6 +49,11 @@
 #define TRACK_COVERURL @"http://1500005830.vod2.myqcloud.com/6c9a5118vodcq1500005830/3a76d6ac387702303793151471/387702307093360124.png";
 #define SUBTITLES_COVERURL @"http://1500005830.vod2.myqcloud.com/43843ec0vodtranscq1500005830/dc455d1d387702306937256938/coverBySnapshot_10_0.jpg";
 
+#define DRM_COVER_URL @"http://1500005830.vod2.myqcloud.com/6c9a5118vodcq1500005830/4ff64b01387702299774574470/387702304138941858.png"
+#define DRM_VIDEO_URL @"https://1500017640.vod2.myqcloud.com/439767a2vodtranscq1500017640/30eb640e243791578648828779/adp.1434418.m3u8"
+#define DRM_LICENSE @"https://fairplay.drm.vod-qcloud.com/fairplay/getlicense/v2?drmToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9~eyJ0eXBlIjoiRHJtVG9rZW4iLCJhcHBJZCI6MTUwMDAxNzY0MCwiZmlsZUlkIjoiMjQzNzkxNTc4NjQ4ODI4Nzc5IiwiY3VycmVudFRpbWVTdGFtcCI6MCwiZXhwaXJlVGltZVN0YW1wIjoyMTQ3NDgzNjQ3LCJyYW5kb20iOjAsIm92ZXJsYXlLZXkiOiIiLCJvdmVybGF5SXYiOiIiLCJjaXBoZXJlZE92ZXJsYXlLZXkiOiIiLCJjaXBoZXJlZE92ZXJsYXlJdiI6IiIsImtleUlkIjowLCJzdHJpY3RNb2RlIjowLCJwZXJzaXN0ZW50IjoiT04iLCJyZW50YWxEdXJhdGlvbiI6MCwiZm9yY2VMMVRyYWNrVHlwZXMiOm51bGx9~bTRTEni3j96XeRa17olRo6KT_dvSNrjJCZQ4b7Wb-qw"
+#define DRM_CERTIFICATE @"https://cert.drm.vod-qcloud.com/cert/v1/816de426e6caa23d680a0198171aef89/fairplay.cer?updateTime=1673872343"
+
 
 __weak UITextField *appField;
 __weak UITextField *fileidField;
@@ -553,26 +558,32 @@ __weak UITextField *cacheField;
         [videoArray addObject:p];
         [_authParamArray addObject:videoArray];
         
-        NSDictionary *userDic = [[NSUserDefaults standardUserDefaults] objectForKey:@"vodConfig"];
-        if (userDic != nil && userDic.count > 0 && [[userDic objectForKey:@"resources"] intValue] == 1) {
-            videoArray = [NSMutableArray array];
-            TXMoviePlayInfoResponse *trackInfoResponse = [[TXMoviePlayInfoResponse alloc] init];
-            trackInfoResponse.name = playerLocalize(@"SuperPlayerDemo.MoviePlayer.multitrackvideo");
-            trackInfoResponse.videoUrl = MULTI_TRACK_VIDEO;
-            trackInfoResponse.isCache = NO;
-            trackInfoResponse.coverUrl = TRACK_COVERURL;
-            [videoArray addObject:trackInfoResponse];
-            [_authParamArray addObject:videoArray];
-            
-            videoArray = [NSMutableArray array];
-            TXMoviePlayInfoResponse *subtitleInfoResponse = [[TXMoviePlayInfoResponse alloc] init];
-            subtitleInfoResponse.name = playerLocalize(@"SuperPlayerDemo.MoviePlayer.multisubtitledvideo");
-            subtitleInfoResponse.videoUrl = MULTI_SUBTITLES_VIDEO;
-            subtitleInfoResponse.isCache = NO;
-            subtitleInfoResponse.coverUrl = SUBTITLES_COVERURL;
-            [videoArray addObject:subtitleInfoResponse];
-            [_authParamArray addObject:videoArray];
-        }
+        videoArray = [NSMutableArray array];
+        TXMoviePlayInfoResponse *trackInfoResponse = [[TXMoviePlayInfoResponse alloc] init];
+        trackInfoResponse.name = playerLocalize(@"SuperPlayerDemo.MoviePlayer.multitrackvideo");
+        trackInfoResponse.videoUrl = MULTI_TRACK_VIDEO;
+        trackInfoResponse.isCache = NO;
+        trackInfoResponse.coverUrl = TRACK_COVERURL;
+        [videoArray addObject:trackInfoResponse];
+        [_authParamArray addObject:videoArray];
+        
+        videoArray = [NSMutableArray array];
+        TXMoviePlayInfoResponse *subtitleInfoResponse = [[TXMoviePlayInfoResponse alloc] init];
+        subtitleInfoResponse.name = playerLocalize(@"SuperPlayerDemo.MoviePlayer.multisubtitledvideo");
+        subtitleInfoResponse.videoUrl = MULTI_SUBTITLES_VIDEO;
+        subtitleInfoResponse.isCache = NO;
+        subtitleInfoResponse.coverUrl = SUBTITLES_COVERURL;
+        [videoArray addObject:subtitleInfoResponse];
+        [_authParamArray addObject:videoArray];
+        
+        videoArray = [NSMutableArray array];
+        TXMoviePlayInfoResponse *drmInfoResponse = [[TXMoviePlayInfoResponse alloc] init];
+        drmInfoResponse.name = playerLocalize(@"SuperPlayerDemo.MoviePlayer.drmplay");
+        drmInfoResponse.drmBuilder = [[TXPlayerDrmBuilder alloc] initWithDeviceCertificateUrl:DRM_CERTIFICATE licenseUrl:DRM_LICENSE videoUrl:DRM_VIDEO_URL];
+        drmInfoResponse.coverUrl = DRM_COVER_URL;
+        drmInfoResponse.isCache = YES;
+        [videoArray addObject:drmInfoResponse];
+        [_authParamArray addObject:videoArray];
         
         // 增加轮播视频源
         [self loadVideoListData];
@@ -877,6 +888,7 @@ __weak UITextField *cacheField;
         m.title           = playInfo.videoDescription.length > 0 ? playInfo.videoDescription : array.firstObject;
         m.isEnableCache   = playInfo.isCache;
         m.url             = playInfo.videoUrl;
+        m.drmBuilder = playInfo.drmBuilder;
         if (!m.title || [m.title isEqualToString:@""]) {
             if (playInfo.name && playInfo.name.length >0) {
                 m.title = playInfo.name;
@@ -1604,6 +1616,7 @@ static NSTimeInterval danmaku_start_time;  // 测试用的，因为demo里的直
 }
 
 - (void)cacheViewShow {
+    [self.cacheView refreshData];
     [UIView animateWithDuration:1.0 animations:^{
         self->_cacheView.transform = CGAffineTransformMakeTranslation(-(OFFLINE_VIDEOCATCHVIEW_HEIGHT + HomeIndicator_Height), 0);
     }];

@@ -1,4 +1,4 @@
-/* 
+/*
   PlayerLocalized.strings
   TXLiteAVDemo
 
@@ -12,6 +12,7 @@
 "SuperPlayerDemo.MoviePlayer.customthumbnail" = "Custom Thumbnails";
 "SuperPlayerDemo.MoviePlayer.videoplaylist" = "Video Playlist";
 "SuperPlayerDemo.MoviePlayer.downloadforofflineplayback" = "Download for Offline Playback";
+"SuperPlayerDemo.MoviePlayer.drmplay" = "DRM play";
 "SuperPlayerDemo.MoviePlayer.tencentcloudaudiovideo" = "Tencent Cloud Audio/Video";
 "SuperPlayerDemo.MoviePlayer.simplerandlighter" = "Simpler and Lighter";
 "SuperPlayerDemo.MoviePlayer.whatisdigitization" = "What is Digitization?";

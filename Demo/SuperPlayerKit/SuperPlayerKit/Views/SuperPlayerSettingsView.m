@@ -391,7 +391,13 @@
 
     _mirrorSwitch.on = self.playerConfig.mirror;
     _hwSwitch.on     = self.playerConfig.hwAcceleration;
-
+    if (self.playerConfig.forcedPIP) {
+        [self.pipSwitch setOn:YES];
+        [self.pipSwitch setEnabled:NO];
+    } else {
+        [self.pipSwitch setOn:self.playerConfig.pipAutomatic];
+        [self.pipSwitch setEnabled:YES];
+    }
     [self sizeToFit];
 }
 

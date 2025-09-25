@@ -57,7 +57,7 @@ static NSInteger trackSelectedIndex = 0;
         }];
         btn.tag = TRACK_MODEL_TAG_BEGIN + i;
         
-        if (i == currentTrackIndex) {
+        if (info.trackIndex == currentTrackIndex) {
             btn.selected = YES;
             btn.backgroundColor = RGBA(34, 30, 24, 1);
             self.trackCurrentBtn = btn;

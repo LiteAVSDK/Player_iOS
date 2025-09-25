@@ -53,6 +53,7 @@
     model.name                  = self.title;
     model.isEnableCache         = self.isEnableCache;
     model.subtitlesArray        = self.subtitlesArray;
+    model.drmBuilder = self.drmBuilder;
     if (self.dynamicWaterModel) {
         model.dynamicWaterModel = self.dynamicWaterModel;
     }
