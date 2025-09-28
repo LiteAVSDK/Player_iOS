@@ -13,10 +13,10 @@ Pod::Spec.new do |spec|
     spec.default_subspec = 'Player'
     spec.frameworks = 'CoreMotion'
     spec.subspec "Core" do |s|
-        s.source_files = 'SuperPlayerKit/**/*.{h,m}'
-        s.private_header_files = ['SuperPlayerKit/Utils/TXBitrateItemHelper.h','SuperPlayerKit/Views/SuperPlayerView+Private.h']
+        s.source_files = 'Demo/SuperPlayerKit/SuperPlayerKit/**/*.{h,m}'
+        s.private_header_files = ['Demo/SuperPlayerKit/SuperPlayerKit/Utils/TXBitrateItemHelper.h','Demo/SuperPlayerKit/SuperPlayerKit/Views/SuperPlayerView+Private.h']
         s.resource_bundles = {
-           'SuperPlayerKitBundle' => ['Resource/**/*','SuperPlayerKit/SuperPlayerLocalized/**/*']
+           'SuperPlayerKitBundle' => ['Demo/SuperPlayerKit/Resource/**/*','Demo/SuperPlayerKit/SuperPlayerKit/SuperPlayerLocalized/**/*']
         }
     end
     spec.subspec "Player" do |s|
