@@ -6,7 +6,7 @@ Pod::Spec.new do |spec|
     spec.authors = 'tencent video cloud'
     spec.summary = '超级播放器'
     spec.source = { :git => 'https://github.com/tencentyun/SuperPlayer_iOS.git', :tag => '12.7.19272' }
-    spec.ios.deployment_target = '12.0'
+    spec.ios.deployment_target = '9.0'
     spec.dependency 'SDWebImage'
     spec.dependency 'Masonry'
     spec.static_framework = true
@@ -25,7 +25,10 @@ Pod::Spec.new do |spec|
     spec.subspec "Player" do |s|
         s.dependency 'SuperPlayer/Core'
         s.dependency 'TXLiteAVSDK_Player'
-        s.pod_target_xcconfig = {'HEADER_SEARCH_PATHS' =>['${PODS_ROOT}/TXLiteAVSDK_Player/TXLiteAVSDK_Player/TXLiteAVSDK_Player.xcframework/ios-arm64_armv7/TXLiteAVSDK_Player.framework/Headers/']}
+        s.pod_target_xcconfig = {
+            'HEADER_SEARCH_PATHS' =>['${PODS_ROOT}/TXLiteAVSDK_Player/TXLiteAVSDK_Player/TXLiteAVSDK_Player.xcframework/ios-arm64_armv7/TXLiteAVSDK_Player.framework/Headers/'],
+            'IPHONEOS_DEPLOYMENT_TARGET' => '9.0'
+        }
     end
     
     spec.subspec "Player_Premium" do |s|
