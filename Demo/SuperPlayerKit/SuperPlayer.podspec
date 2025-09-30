@@ -18,6 +18,8 @@ Pod::Spec.new do |spec|
         s.resource_bundles = {
            'SuperPlayerKitBundle' => ['Demo/SuperPlayerKit/Resource/**/*','Demo/SuperPlayerKit/SuperPlayerKit/SuperPlayerLocalized/**/*']
         }
+        s.dependency 'TXLiteAVSDK_Player'
+        s.pod_target_xcconfig = {'HEADER_SEARCH_PATHS' =>['${PODS_ROOT}/TXLiteAVSDK_Player/TXLiteAVSDK_Player/TXLiteAVSDK_Player.xcframework/ios-arm64_armv7/TXLiteAVSDK_Player.framework/Headers/']}
     end
     spec.subspec "Player" do |s|
         s.dependency 'SuperPlayer/Core'
