@@ -10,7 +10,7 @@ Pod::Spec.new do |spec|
     spec.dependency 'SDWebImage'
     spec.dependency 'Masonry'
     spec.static_framework = true
-    spec.default_subspec = 'Player'
+    spec.default_subspec = 'Core'
     spec.frameworks = 'CoreMotion'
     spec.subspec "Core" do |s|
         s.source_files = 'Demo/SuperPlayerKit/SuperPlayerKit/**/*.{h,m}'
