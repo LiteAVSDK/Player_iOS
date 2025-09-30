@@ -6,7 +6,7 @@ Pod::Spec.new do |spec|
     spec.authors = 'tencent video cloud'
     spec.summary = '超级播放器'
     spec.source = { :git => 'https://github.com/tencentyun/SuperPlayer_iOS.git', :tag => '12.7.19272' }
-    spec.ios.deployment_target = '9.0'
+    spec.ios.deployment_target = '12.0'
     spec.dependency 'SDWebImage'
     spec.dependency 'Masonry'
     spec.static_framework = true
