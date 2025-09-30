@@ -27,16 +27,6 @@ Pod::Spec.new do |spec|
         s.pod_target_xcconfig = {'HEADER_SEARCH_PATHS' =>['${PODS_ROOT}/TXLiteAVSDK_Player/TXLiteAVSDK_Player/TXLiteAVSDK_Player.xcframework/ios-arm64_armv7/TXLiteAVSDK_Player.framework/Headers/']}
     end
     
-    spec.subspec "Player_Premium" do |s|
-        s.dependency 'SuperPlayer/Core'
-        s.dependency 'TXLiteAVSDK_Player_Premium'
-        s.pod_target_xcconfig = {'HEADER_SEARCH_PATHS' =>['${PODS_ROOT}/TXLiteAVSDK_Player_Premium/TXLiteAVSDK_Player_Premium/TXLiteAVSDK_Player_Premium.xcframework/ios-arm64_armv7/TXLiteAVSDK_Player_Premium.framework/Headers/']}
-    end
-    
-    spec.subspec "Professional" do |s|
-        s.dependency 'SuperPlayer/Core'
-        s.dependency 'TXLiteAVSDK_Professional'
-        s.pod_target_xcconfig = {'HEADER_SEARCH_PATHS' =>['${PODS_ROOT}/TXLiteAVSDK_Professional/TXLiteAVSDK_Professional/TXLiteAVSDK_Professional.xcframework/ios-arm64_armv7/TXLiteAVSDK_Professional.framework/Headers/']}
-    end
+
    
 end
