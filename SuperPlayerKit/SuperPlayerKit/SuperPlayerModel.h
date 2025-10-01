@@ -30,8 +30,15 @@
 @class SuperPlayerVideoId;
 @class SuperPlayerVideoIdV2;
 @class DynamicWaterModel;
-@class TXVodDownloadMediaInfo;
 @class SuperPlayerSubtitles;
+
+#if __has_include("TXVodDownloadManager.h")
+@class TXVodDownloadMediaInfo;
+#else
+// 如果没有 SDK，定义一个简单的 TXVodDownloadMediaInfo 接口
+@interface TXVodDownloadMediaInfo : NSObject
+@end
+#endif
 // play mode
 // 播放模式
 typedef NS_ENUM(NSInteger, SuperPlayerAction) {

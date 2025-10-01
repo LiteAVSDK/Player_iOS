@@ -11,7 +11,9 @@
 #import "SuperPlayerHelpers.h"
 #import "SuperPlayerLocalized.h"
 #import "Masonry.h"
+#if __has_include("TXTrackInfo.h")
 #import "TXTrackInfo.h"
+#endif
 #define SUBTITLES_MODEL_TAG_BEGIN 70
 
 @interface SuperPlayerSubtitlesView()<SuperPlayerSubSettingViewDelegate>

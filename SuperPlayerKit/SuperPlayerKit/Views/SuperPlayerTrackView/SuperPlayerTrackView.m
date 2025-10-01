@@ -9,7 +9,9 @@
 #import "SuperPlayerHelpers.h"
 #import "SuperPlayerLocalized.h"
 #import "Masonry.h"
+#if __has_include("TXTrackInfo.h")
 #import "TXTrackInfo.h"
+#endif
 
 #define TRACK_MODEL_TAG_BEGIN 50
 

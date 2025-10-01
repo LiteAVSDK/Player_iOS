@@ -4,8 +4,12 @@
 #import "J2Obj.h"
 #import "SuperPlayer.h"
 #import "SuperPlayerModelInternal.h"
+#if __has_include("TXVodPlayer.h")
 #import "TXVodPlayer.h"
+#endif
+#if __has_include("TXBitrateItem.h")
 #import "TXBitrateItem.h"
+#endif
 
 const NSString *kPlayCGIHostname          = @"playvideo.qcloud.com";
 NSString *const kErrorDomain              = @"SuperPlayerCGI";

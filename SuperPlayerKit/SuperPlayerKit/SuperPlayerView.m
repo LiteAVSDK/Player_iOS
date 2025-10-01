@@ -24,11 +24,21 @@
 #import "UIView+MMLayout.h"
 #import "UIInterface+TXRotation.h"
 // TODO: 处理头部引用
+#if __has_include("TXAudioCustomProcessDelegate.h")
 #import "TXAudioCustomProcessDelegate.h"
+#endif
+#if __has_include("TXAudioRawDataDelegate.h")
 #import "TXAudioRawDataDelegate.h"
+#endif
+#if __has_include("TXBitrateItem.h")
 #import "TXBitrateItem.h"
+#endif
+#if __has_include("TXImageSprite.h")
 #import "TXImageSprite.h"
+#endif
+#if __has_include("TXLiteAVCode.h")
 #import "TXLiteAVCode.h"
+#endif
 #import "TXLiveAudioSessionDelegate.h"
 #import "TXLiveBase.h"
 #import "TXLivePlayConfig.h"
@@ -36,8 +46,12 @@
 #import "TXLivePlayer.h"
 #import "TXLiveRecordListener.h"
 #import "TXLiveRecordTypeDef.h"
+#if __has_include("TXLiveSDKEventDef.h")
 #import "TXLiveSDKEventDef.h"
+#endif
+#if __has_include("TXLiveSDKTypeDef.h")
 #import "TXLiveSDKTypeDef.h"
+#endif
 #import "TXPlayerAuthParams.h"
 #import "TXVipTipView.h"
 #import "TXVipWatchView.h"
