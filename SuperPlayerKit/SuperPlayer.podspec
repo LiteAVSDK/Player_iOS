@@ -6,7 +6,7 @@ Pod::Spec.new do |spec|
     spec.authors = 'tencent video cloud'
     spec.summary = '超级播放器'
     spec.source = { :git => 'https://github.com/tencentyun/SuperPlayer_iOS.git', :tag => '12.7.19272' }
-    spec.ios.deployment_target = '11.0'
+    spec.ios.deployment_target = '12.0'
     spec.dependency 'SDWebImage'
     spec.dependency 'Masonry'
     spec.static_framework = true
@@ -15,12 +15,27 @@ Pod::Spec.new do |spec|
     
     spec.subspec "Core" do |s|
         s.source_files = 'SuperPlayerKit/**/*.{h,m}'
-        s.private_header_files = ['SuperPlayerKit/Utils/TXBitrateItemHelper.h','SuperPlayerKit/Views/SuperPlayerView+Private.h']
+        s.private_header_files = ['SuperPlayerKit/SuperPlayerKit/Utils/TXBitrateItemHelper.h','SuperPlayerKit/SuperPlayerKit/Views/SuperPlayerView+Private.h']
         s.resource_bundles = {
-           'SuperPlayerKitBundle' => ['Resource/**/*','SuperPlayerKit/SuperPlayerLocalized/**/*']
+           'SuperPlayerKitBundle' => ['SuperPlayerKit/Resource/**/*','SuperPlayerKit/SuperPlayerKit/SuperPlayerLocalized/**/*']
         }
         # Core 不依赖任何 SDK，由具体的 subspec 来决定
     end
++++++++ REPLACE</div>
+</replace_in_file>
+
+<replace_in_file id="mf0jdrirk6h5pux001ij263rm1o89xbc">
+<path>SuperPlayerKit/SuperPlayer.podspec</path>
+<diff>------- SEARCH
+        s.pod_target_xcconfig = {
+            'HEADER_SEARCH_PATHS' =>['${PODS_ROOT}/TXLiteAVSDK_Player/TXLiteAVSDK_Player/TXLiteAVSDK_Player.xcframework/ios-arm64_armv7/TXLiteAVSDK_Player.framework/Headers/'],
+            'IPHONEOS_DEPLOYMENT_TARGET' => '11.0'
+        }
+=======
+        s.pod_target_xcconfig = {
+            'HEADER_SEARCH_PATHS' =>['${PODS_ROOT}/TXLiteAVSDK_Player/TXLiteAVSDK_Player/TXLiteAVSDK_Player.xcframework/ios-arm64_armv7/TXLiteAVSDK_Player.framework/Headers/'],
+            'IPHONEOS_DEPLOYMENT_TARGET' => '12.0'
+        }
     
     spec.subspec "Player" do |s|
         s.dependency 'SuperPlayer/Core'
