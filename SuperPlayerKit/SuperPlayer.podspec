@@ -21,28 +21,13 @@ Pod::Spec.new do |spec|
         }
         # Core 不依赖任何 SDK，由具体的 subspec 来决定
     end
-+++++++ REPLACE</div>
-</replace_in_file>
-
-<replace_in_file id="mf0jdrirk6h5pux001ij263rm1o89xbc">
-<path>SuperPlayerKit/SuperPlayer.podspec</path>
-<diff>------- SEARCH
-        s.pod_target_xcconfig = {
-            'HEADER_SEARCH_PATHS' =>['${PODS_ROOT}/TXLiteAVSDK_Player/TXLiteAVSDK_Player/TXLiteAVSDK_Player.xcframework/ios-arm64_armv7/TXLiteAVSDK_Player.framework/Headers/'],
-            'IPHONEOS_DEPLOYMENT_TARGET' => '11.0'
-        }
-=======
-        s.pod_target_xcconfig = {
-            'HEADER_SEARCH_PATHS' =>['${PODS_ROOT}/TXLiteAVSDK_Player/TXLiteAVSDK_Player/TXLiteAVSDK_Player.xcframework/ios-arm64_armv7/TXLiteAVSDK_Player.framework/Headers/'],
-            'IPHONEOS_DEPLOYMENT_TARGET' => '12.0'
-        }
     
     spec.subspec "Player" do |s|
         s.dependency 'SuperPlayer/Core'
         s.dependency 'TXLiteAVSDK_Player'
         s.pod_target_xcconfig = {
             'HEADER_SEARCH_PATHS' =>['${PODS_ROOT}/TXLiteAVSDK_Player/TXLiteAVSDK_Player/TXLiteAVSDK_Player.xcframework/ios-arm64_armv7/TXLiteAVSDK_Player.framework/Headers/'],
-            'IPHONEOS_DEPLOYMENT_TARGET' => '11.0'
+            'IPHONEOS_DEPLOYMENT_TARGET' => '12.0'
         }
     end
     
