@@ -36,7 +36,9 @@
 #if __has_include("TXImageSprite.h")
 #import "TXImageSprite.h"
 #endif
+#if __has_include("TXLiteAVCode.h")
 #import "TXLiteAVCode.h"
+#endif
 #import "TXLiveAudioSessionDelegate.h"
 #import "TXLiveBase.h"
 #import "TXLivePlayConfig.h"
