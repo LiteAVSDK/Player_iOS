@@ -15,20 +15,24 @@ target 'Player' do
   # Pods for Player
   pod 'SuperPlayer/Player',:path => '../../SuperPlayerKit/'
   pod 'PlayerKit/Player',:path => '../PlayerKit/'
+  
+  # Pods for Player_Premium
+  #pod 'SuperPlayer/Player_Premium',:path => '../../SuperPlayerKit/'
+  #pod 'PlayerKit/Player_Premium',:path => '../PlayerKit/'
 end
 
-target 'Player_Premium' do
-  # Comment the next line if you don't want to use dynamic frameworks
-  use_frameworks!
-  
-  shared_pods
-  # Pods for Player_Premium - 只使用 Premium SDK，避免框架冲突
-  pod 'SuperPlayer/Player_Premium',:path => '../../SuperPlayerKit/'
-  pod 'PlayerKit/Player_Premium',:path => '../PlayerKit/'
-  
-  # 明确排除普通版本的 SDK 以避免冲突
-  pod 'TXLiteAVSDK_Player_Premium'
-end
+#target 'Player_Premium' do
+#  # Comment the next line if you don't want to use dynamic frameworks
+#  use_frameworks!
+#  
+#  shared_pods
+#  # Pods for Player_Premium - 只使用 Premium SDK，避免框架冲突
+#  pod 'SuperPlayer/Player_Premium',:path => '../../SuperPlayerKit/'
+#  pod 'PlayerKit/Player_Premium',:path => '../PlayerKit/'
+#  
+#  # 明确排除普通版本的 SDK 以避免冲突
+#  pod 'TXLiteAVSDK_Player_Premium'
+#end
 
 # 加载框架冲突修复脚本
 require_relative 'fix_framework_conflict.rb'
