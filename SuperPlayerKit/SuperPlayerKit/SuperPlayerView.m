@@ -33,7 +33,9 @@
 #if __has_include("TXBitrateItem.h")
 #import "TXBitrateItem.h"
 #endif
+#if __has_include("TXImageSprite.h")
 #import "TXImageSprite.h"
+#endif
 #import "TXLiteAVCode.h"
 #import "TXLiveAudioSessionDelegate.h"
 #import "TXLiveBase.h"

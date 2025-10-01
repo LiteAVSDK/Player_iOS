@@ -4,7 +4,9 @@
 #import "J2Obj.h"
 #import "SuperPlayer.h"
 #import "SuperPlayerModelInternal.h"
+#if __has_include("TXVodPlayer.h")
 #import "TXVodPlayer.h"
+#endif
 #import "TXBitrateItem.h"
 
 const NSString *kPlayCGIHostname          = @"playvideo.qcloud.com";
