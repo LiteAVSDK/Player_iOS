@@ -27,8 +27,12 @@
 #if __has_include("TXAudioCustomProcessDelegate.h")
 #import "TXAudioCustomProcessDelegate.h"
 #endif
+#if __has_include("TXAudioRawDataDelegate.h")
 #import "TXAudioRawDataDelegate.h"
+#endif
+#if __has_include("TXBitrateItem.h")
 #import "TXBitrateItem.h"
+#endif
 #import "TXImageSprite.h"
 #import "TXLiteAVCode.h"
 #import "TXLiveAudioSessionDelegate.h"
@@ -38,7 +42,9 @@
 #import "TXLivePlayer.h"
 #import "TXLiveRecordListener.h"
 #import "TXLiveRecordTypeDef.h"
+#if __has_include("TXLiveSDKEventDef.h")
 #import "TXLiveSDKEventDef.h"
+#endif
 #if __has_include("TXLiveSDKTypeDef.h")
 #import "TXLiveSDKTypeDef.h"
 #endif
