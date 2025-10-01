@@ -8,7 +8,14 @@
 #import "SuperPlayerViewConfig.h"
 
 #import "SuperPlayer.h"
+#if __has_include("TXLiveSDKTypeDef.h")
 #import "TXLiveSDKTypeDef.h"
+#else
+// 如果没有 SDK，定义默认的渲染模式常量
+#ifndef RENDER_MODE_FILL_EDGE
+#define RENDER_MODE_FILL_EDGE 1
+#endif
+#endif
 
 @implementation SuperPlayerViewConfig
 

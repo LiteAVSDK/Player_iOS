@@ -24,7 +24,9 @@
 #import "UIView+MMLayout.h"
 #import "UIInterface+TXRotation.h"
 // TODO: 处理头部引用
+#if __has_include("TXAudioCustomProcessDelegate.h")
 #import "TXAudioCustomProcessDelegate.h"
+#endif
 #import "TXAudioRawDataDelegate.h"
 #import "TXBitrateItem.h"
 #import "TXImageSprite.h"
@@ -37,7 +39,9 @@
 #import "TXLiveRecordListener.h"
 #import "TXLiveRecordTypeDef.h"
 #import "TXLiveSDKEventDef.h"
+#if __has_include("TXLiveSDKTypeDef.h")
 #import "TXLiveSDKTypeDef.h"
+#endif
 #import "TXPlayerAuthParams.h"
 #import "TXVipTipView.h"
 #import "TXVipWatchView.h"
