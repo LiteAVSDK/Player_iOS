@@ -6,7 +6,7 @@ target 'Player' do
   use_frameworks!
 
   # Pods for Player
-  pod 'SuperPlayer/Player',:path => '../SuperPlayerKit/'
+  pod 'SuperPlayer/Player',:path => '../../SuperPlayerKit/'
   pod 'PlayerKit/Player',:path => '../PlayerKit/'
 end
 
@@ -15,7 +15,7 @@ target 'Player_Premium' do
   use_frameworks!
 
   # Pods for Player_Premium
-  pod 'SuperPlayer/Player_Premium',:path => '../SuperPlayerKit/'
+  pod 'SuperPlayer/Player_Premium',:path => '../../SuperPlayerKit/'
   pod 'PlayerKit/Player_Premium',:path => '../PlayerKit/'
 end
 
