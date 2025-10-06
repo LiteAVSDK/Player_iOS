@@ -39,6 +39,7 @@
 @property(nonatomic, strong) NSArray<ListVideoUrl *> *hdUrl;
 @property(nonatomic, assign) int type;  /// 0 - 点播；1 - 直播 & 0 - vod; 1 - live
 @property(nonatomic, strong) NSString *psign;
+@property(nonatomic, strong) TXPlayerDrmBuilder *drmBuilder;
 @property(nonatomic, strong) DynamicWaterModel *dynamicWaterModel;
 /// 0 - autoplay; 1 - manual playback 2 - preload
 /// 0 - 自动播放；1 - 手动播放  2 - 预加载

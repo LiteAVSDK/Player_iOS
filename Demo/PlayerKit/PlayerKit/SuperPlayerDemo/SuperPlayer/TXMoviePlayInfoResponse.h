@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "PlayerKitCommonHeaders.h"
 
 @interface TXMoviePlayInfoResponse : NSObject
 
@@ -23,6 +24,9 @@
 @property (nonatomic, strong) NSString *pSign;
 @property (nonatomic, assign) BOOL isCache;
 @property (nonatomic, strong) NSString *videoUrl;
+
+@property (nonatomic, strong) TXPlayerDrmBuilder *drmBuilder;
+
 ///ghost watermark Info
 ///幽灵水印信息
 @property (nonatomic, strong) NSString *ghostWatermarkInfo;

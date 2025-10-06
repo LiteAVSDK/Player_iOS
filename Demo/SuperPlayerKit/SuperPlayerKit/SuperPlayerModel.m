@@ -6,6 +6,7 @@
 #import "SuperPlayerModelInternal.h"
 #import "TXVodPlayer.h"
 #import "TXBitrateItem.h"
+#import "TXPlayerDrmBuilder.h"
 
 const NSString *kPlayCGIHostname          = @"playvideo.qcloud.com";
 NSString *const kErrorDomain              = @"SuperPlayerCGI";

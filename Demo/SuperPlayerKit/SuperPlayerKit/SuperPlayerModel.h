@@ -1,7 +1,7 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-
 #import "SuperPlayerUrl.h"
+@class TXPlayerDrmBuilder;
 
 /**
   * SuperPlayerModel
@@ -98,6 +98,10 @@ typedef NS_ENUM(NSInteger, SuperPlayerAction) {
 /// Used to be compatible with the old version (V2) Tencent Cloud VOD File ID playback parameters (to be discarded soon, not recommended)
 /// 用于兼容旧版本(V2)腾讯云点播 File ID 播放参数（即将废弃，不推荐使用）
 @property SuperPlayerVideoIdV2 *videoIdV2;
+
+/// DRM视频信息
+/// DRM video info
+@property (nonatomic, strong) TXPlayerDrmBuilder *drmBuilder;
 
 /// User-defined cover image URL
 /// 用户自定义的封面图片URL

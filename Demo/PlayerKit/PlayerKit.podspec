@@ -31,6 +31,7 @@ Pod::Spec.new do |spec|
     spec.subspec "Player" do |s|
         s.dependency 'PlayerKit/Core'
         s.dependency 'SuperPlayer/Player'
+        s.dependency 'TXLiteAVSDK_Player'
         s.vendored_frameworks = ['PlayerKit/TUIShortVideoPlayDemo/TUISDK/TUIPlayerCore/TUIPlayerCore.xcframework',
                                  'PlayerKit/TUIShortVideoPlayDemo/TUISDK/TUIPlayerShortVideo/TUIPlayerShortVideo.xcframework']
     end
@@ -38,6 +39,7 @@ Pod::Spec.new do |spec|
     spec.subspec "Player_Premium" do |s|
         s.dependency 'PlayerKit/Core'
         s.dependency 'SuperPlayer/Player_Premium'
+        s.dependency 'TXLiteAVSDK_Player_Premium'
         s.vendored_frameworks = ['PlayerKit/TUIShortVideoPlayDemo/TUISDK/TUIPlayerCore/TUIPlayerCore.xcframework',
                                  'PlayerKit/TUIShortVideoPlayDemo/TUISDK/TUIPlayerShortVideo/TUIPlayerShortVideo.xcframework']
     end

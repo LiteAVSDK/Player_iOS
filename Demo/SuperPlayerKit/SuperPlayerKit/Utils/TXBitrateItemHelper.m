@@ -6,31 +6,9 @@
 //
 
 #import "TXBitrateItemHelper.h"
-#import "SuperPlayerLocalized.h"
-
-// 条件引用 SDK 头文件
-#if __has_include("TXBitrateItem.h")
+#import "TXVodDownloadManager.h"
 #import "TXBitrateItem.h"
-#else
-// 如果没有 SDK，定义一个简单的 TXBitrateItem 接口
-@interface TXBitrateItem : NSObject
-@property (nonatomic, assign) NSInteger width;
-@property (nonatomic, assign) NSInteger height;
-@property (nonatomic, assign) NSInteger index;
-@end
-@implementation TXBitrateItem
-@end
-#endif
-
-// 定义质量常量，如果 SDK 不可用则使用默认值
-#ifndef TXVodQualityFLU
-#define TXVodQualityFLU 1
-#define TXVodQualitySD 2
-#define TXVodQualityHD 3
-#define TXVodQualityFHD 4
-#define TXVodQuality2K 5
-#define TXVodQuality4K 6
-#endif
+#import "SuperPlayerLocalized.h"
 
 @implementation TXBitrateItemHelper
 

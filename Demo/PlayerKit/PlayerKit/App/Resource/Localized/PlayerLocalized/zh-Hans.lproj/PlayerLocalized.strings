@@ -1,4 +1,4 @@
-/* 
+/*
   PlayerLocalized.strings
   TXLiteAVDemo
 
@@ -12,6 +12,7 @@
 "SuperPlayerDemo.MoviePlayer.customthumbnail" = "自定义封面";
 "SuperPlayerDemo.MoviePlayer.videoplaylist" = "视频列表轮播演示";
 "SuperPlayerDemo.MoviePlayer.downloadforofflineplayback" = "离线缓存(全屏)演示";
+"SuperPlayerDemo.MoviePlayer.drmplay" = "DRM播放";
 "SuperPlayerDemo.MoviePlayer.tencentcloudaudiovideo" = "腾讯云音视频";
 "SuperPlayerDemo.MoviePlayer.simplerandlighter" = "化繁为简，以小建大";
 "SuperPlayerDemo.MoviePlayer.whatisdigitization" = "数字是什么";

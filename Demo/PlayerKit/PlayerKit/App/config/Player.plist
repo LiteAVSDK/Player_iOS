@@ -5,9 +5,9 @@
 	<key>licenceConfig</key>
 	<dict>
 		<key>licenceUrl</key>
-		<string>...</string>
+		<string></string>
 		<key>licenceKey</key>
-		<string>...</string>
+		<string></string>
 	</dict>
 	<key>menuConfig</key>
 	<array>

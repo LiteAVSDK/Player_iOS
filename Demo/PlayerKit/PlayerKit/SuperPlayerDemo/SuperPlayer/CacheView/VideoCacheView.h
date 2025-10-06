@@ -14,6 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)setVideoModels:(NSArray *)models currentPlayingModel:(SuperPlayerModel *)currentModel;
 
+- (void)refreshData;
+
 @end
 
 NS_ASSUME_NONNULL_END

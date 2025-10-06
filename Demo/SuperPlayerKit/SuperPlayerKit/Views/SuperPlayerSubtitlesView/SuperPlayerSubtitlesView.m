@@ -83,7 +83,7 @@
         }];
         btn.tag = SUBTITLES_MODEL_TAG_BEGIN + i;
         
-        if (i == currentSubtitlesIndex) {
+        if (info.getTrackIndex == currentSubtitlesIndex) {
             btn.selected = YES;
             btn.backgroundColor = RGBA(34, 30, 24, 1);
             self.subtitlesCurrentBtn = btn;
