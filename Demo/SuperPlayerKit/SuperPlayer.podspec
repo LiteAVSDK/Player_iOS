@@ -1,7 +1,7 @@
 Pod::Spec.new do |spec|
     spec.name = 'SuperPlayer'
     spec.version = '12.8.19666'
-    spec.license = { :type => 'MIT', :file => 'SuperPlayerKit/LICENSE' }
+    spec.license = { :type => 'MIT', :file => 'LICENSE' }
     spec.homepage = 'https://cloud.tencent.com/product/player'
     spec.authors = 'tencent video cloud'
     spec.summary = '超级播放器'
@@ -17,7 +17,7 @@ Pod::Spec.new do |spec|
         s.source_files = 'SuperPlayerKit/**/*.{h,m}'
 
         s.resource_bundles = {
-           'SuperPlayerKitBundle' => ['SuperPlayerKit/Resource/**/*','SuperPlayerKit/SuperPlayerKit/SuperPlayerLocalized/**/*']
+           'SuperPlayerKitBundle' => ['Resource/**/*','SuperPlayerKit/SuperPlayerLocalized/**/*','SuperPlayerKit/Localized/**/*']
         }
     
         s.dependency 'TXLiteAVSDK_Player'
@@ -30,7 +30,7 @@ Pod::Spec.new do |spec|
     spec.subspec "Player_Premium" do |s|
         s.source_files = 'SuperPlayerKit/**/*.{h,m}'
         s.resource_bundles = {
-           'SuperPlayerKitBundle' => ['SuperPlayerKit/Resource/**/*','SuperPlayerKit/SuperPlayerKit/SuperPlayerLocalized/**/*']
+           'SuperPlayerKitBundle' => ['Resource/**/*','SuperPlayerKit/SuperPlayerLocalized/**/*','SuperPlayerKit/Localized/**/*']
         }
   
         s.dependency 'TXLiteAVSDK_Player_Premium'
@@ -45,7 +45,7 @@ Pod::Spec.new do |spec|
     spec.subspec "Professional" do |s|
         s.source_files = 'SuperPlayerKit/**/*.{h,m}'
         s.resource_bundles = {
-           'SuperPlayerKitBundle' => ['SuperPlayerKit/Resource/**/*','SuperPlayerKit/SuperPlayerKit/SuperPlayerLocalized/**/*']
+           'SuperPlayerKitBundle' => ['Resource/**/*','SuperPlayerKit/SuperPlayerLocalized/**/*','SuperPlayerKit/Localized/**/*']
         }
        
         s.dependency 'TXLiteAVSDK_Professional'
