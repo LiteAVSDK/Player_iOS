@@ -1,11 +1,11 @@
 Pod::Spec.new do |spec|
     spec.name = 'SuperPlayer'
-    spec.version = '12.8.19667'
-    spec.license = { :type => 'MIT', :file => 'LICENSE' }
+    spec.version = '12.8.19666'
+    spec.license = { :type => 'MIT', :file => 'SuperPlayerKit/LICENSE' }
     spec.homepage = 'https://cloud.tencent.com/product/player'
     spec.authors = 'tencent video cloud'
     spec.summary = '超级播放器'
-    spec.source = { :git => 'https://github.com/LiteAVSDK/Player_iOS.git', :tag => '12.8.19667' }
+    spec.source = { :git => 'https://github.com/LiteAVSDK/Player_iOS.git', :tag => '12.8.19666' }
     spec.ios.deployment_target = '9.0'
     spec.dependency 'SDWebImage'
     spec.dependency 'Masonry'
@@ -17,7 +17,7 @@ Pod::Spec.new do |spec|
         s.source_files = 'SuperPlayerKit/**/*.{h,m}'
 
         s.resource_bundles = {
-           'SuperPlayerKitBundle' => ['Resource/**/*','SuperPlayerKit/SuperPlayerLocalized/**/*','SuperPlayerKit/Localized/**/*']
+           'SuperPlayerKitBundle' => ['SuperPlayerKit/Resource/**/*','SuperPlayerKit/SuperPlayerKit/SuperPlayerLocalized/**/*']
         }
     
         s.dependency 'TXLiteAVSDK_Player'
@@ -30,7 +30,7 @@ Pod::Spec.new do |spec|
     spec.subspec "Player_Premium" do |s|
         s.source_files = 'SuperPlayerKit/**/*.{h,m}'
         s.resource_bundles = {
-           'SuperPlayerKitBundle' => ['Resource/**/*','SuperPlayerKit/SuperPlayerLocalized/**/*','SuperPlayerKit/Localized/**/*']
+           'SuperPlayerKitBundle' => ['SuperPlayerKit/Resource/**/*','SuperPlayerKit/SuperPlayerKit/SuperPlayerLocalized/**/*']
         }
   
         s.dependency 'TXLiteAVSDK_Player_Premium'
@@ -45,7 +45,7 @@ Pod::Spec.new do |spec|
     spec.subspec "Professional" do |s|
         s.source_files = 'SuperPlayerKit/**/*.{h,m}'
         s.resource_bundles = {
-           'SuperPlayerKitBundle' => ['Resource/**/*','SuperPlayerKit/SuperPlayerLocalized/**/*','SuperPlayerKit/Localized/**/*']
+           'SuperPlayerKitBundle' => ['SuperPlayerKit/Resource/**/*','SuperPlayerKit/SuperPlayerKit/SuperPlayerLocalized/**/*']
         }
        
         s.dependency 'TXLiteAVSDK_Professional'
