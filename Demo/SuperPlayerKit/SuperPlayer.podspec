@@ -14,10 +14,10 @@ Pod::Spec.new do |spec|
     spec.frameworks = 'CoreMotion'
     
     spec.subspec "Player" do |s|
-        s.source_files = 'Demo/SuperPlayerKit/SuperPlayerKit/**/*.{h,m}'
+        s.source_files = 'SuperPlayerKit/**/*.{h,m}'
 
         s.resource_bundles = {
-           'SuperPlayerKitBundle' => ['Demo/SuperPlayerKit/Resource/**/*','Demo/SuperPlayerKit/SuperPlayerKit/SuperPlayerLocalized/**/*']
+           'SuperPlayerKitBundle' => ['SuperPlayerKit/Resource/**/*','SuperPlayerKit/SuperPlayerKit/SuperPlayerLocalized/**/*']
         }
     
         s.dependency 'TXLiteAVSDK_Player'
@@ -28,9 +28,9 @@ Pod::Spec.new do |spec|
     end
     
     spec.subspec "Player_Premium" do |s|
-        s.source_files = 'Demo/SuperPlayerKit/SuperPlayerKit/**/*.{h,m}'
+        s.source_files = 'SuperPlayerKit/**/*.{h,m}'
         s.resource_bundles = {
-           'SuperPlayerKitBundle' => ['Demo/SuperPlayerKit/Resource/**/*','Demo/SuperPlayerKit/SuperPlayerKit/SuperPlayerLocalized/**/*']
+           'SuperPlayerKitBundle' => ['SuperPlayerKit/Resource/**/*','SuperPlayerKit/SuperPlayerKit/SuperPlayerLocalized/**/*']
         }
   
         s.dependency 'TXLiteAVSDK_Player_Premium'
@@ -43,9 +43,9 @@ Pod::Spec.new do |spec|
     end
     
     spec.subspec "Professional" do |s|
-        s.source_files = 'Demo/SuperPlayerKit/SuperPlayerKit/**/*.{h,m}'
+        s.source_files = 'SuperPlayerKit/**/*.{h,m}'
         s.resource_bundles = {
-           'SuperPlayerKitBundle' => ['Demo/SuperPlayerKit/Resource/**/*','Demo/SuperPlayerKit/SuperPlayerKit/SuperPlayerLocalized/**/*']
+           'SuperPlayerKitBundle' => ['SuperPlayerKit/Resource/**/*','SuperPlayerKit/SuperPlayerKit/SuperPlayerLocalized/**/*']
         }
        
         s.dependency 'TXLiteAVSDK_Professional'

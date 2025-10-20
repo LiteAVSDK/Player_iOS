@@ -1,0 +1,14 @@
+//
+//  LiteAVConfig.xcconfig
+//  SuperPlayerKit
+//
+//  Created by SuperPlayer on 2024/10/20.
+//  Copyright © 2024 Tencent. All rights reserved.
+//
+
+// Configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974
+
+// Default SDK configuration
+TXLiteAVSDK_NAME = TXLiteAVSDK_Player
+IPHONEOS_DEPLOYMENT_TARGET = 12.0

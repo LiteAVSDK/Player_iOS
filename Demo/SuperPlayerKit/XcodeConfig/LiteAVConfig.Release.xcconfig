@@ -12,5 +12,5 @@
 OTHER_LDFLAGS = $(inherited) -Objc -lc++ -framework "${TXLiteAVSDK_NAME}"
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) ${TXLiteAVSDK_NAME}=1
 FRAMEWORK_SEARCH_PATHS = ${inherited} $(PROJECT_DIR)/../../../SDK/
-HEADER_SEARCH_PATHS = ${inherited} $(BUILT_PRODUCTS_DIR)/${TXLiteAVSDK_NAME}.framework/Headers $(BUILT_PRODUCTS_DIR)/${TXLiteAVSDK_NAME}.xcframework/**/${TXLiteAVSDK_NAME}.framework/Headers $(PROJECT_DIR)/../../../SDK/${TXLiteAVSDK_NAME}.framework/Headers $(PROJECT_DIR)/../../../SDK/${TXLiteAVSDK_NAME}.xcframework/**/${TXLiteAVSDK_NAME}.framework/Headers $(PROJECT_DIR)/../../../Src/Base/ToolkitBase/ThirdPart/Masonry/Masonry/
+HEADER_SEARCH_PATHS = ${inherited} $(BUILT_PRODUCTS_DIR)/${TXLiteAVSDK_NAME}.framework/Headers $(BUILT_PRODUCTS_DIR)/${TXLiteAVSDK_NAME}.xcframework/**/${TXLiteAVSDK_NAME}.framework/Headers $(PROJECT_DIR)/../../../SDK/${TXLiteAVSDK_NAME}.framework/Headers $(PROJECT_DIR)/../../../SDK/${TXLiteAVSDK_NAME}.xcframework/**/${TXLiteAVSDK_NAME}.framework/Headers
 PROJECT_VERSION=10.0.1000
