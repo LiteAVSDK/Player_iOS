@@ -22,6 +22,7 @@ Pod::Spec.new do |spec|
            'PlayerKit/App/AppCommon/EnterprisePITU/**/*',
            'PlayerKit/UGCShortVideoPlayDemo/ShortVideo.xcassets',
            'PlayerKit/TUIShortVideoPlayDemo/Data/TUIShortVideoPlayer.plist',
+           'PlayerKit/TUIShortVideoPlayDemo/TUIDemo/Resource/TUIPlayer.plist',
            'PlayerKit/TUIShortVideoPlayDemo/TUISDK/TUIPlayerShortVideo/TUIPlayerShortVideo.bundle',
            'PlayerKit/SuperPlayerDemo/SuperPlayer/CFDanmaku/danmakufile']
         }

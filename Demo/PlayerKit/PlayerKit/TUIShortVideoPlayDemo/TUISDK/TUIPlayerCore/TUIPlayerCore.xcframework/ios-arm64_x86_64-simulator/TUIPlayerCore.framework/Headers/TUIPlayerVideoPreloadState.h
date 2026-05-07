@@ -4,7 +4,14 @@
 #import <Foundation/Foundation.h>
 
 NS_ASSUME_NONNULL_BEGIN
-/// 视频文件预下载的状态
+/**
+ 视频文件预下载的状态 
+ 
+ None       ->  0
+ Start      ->  1
+ Finished   ->  2
+ Failed     ->  3
+ */
 typedef NS_ENUM(NSUInteger, TUIPlayerVideoPreloadState) {
     TUIPlayerVideoPreloadStateNone     = 0,  // None
     TUIPlayerVideoPreloadStateStart    = 1 , // 开始预下载

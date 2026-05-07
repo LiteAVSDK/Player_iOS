@@ -315,8 +315,11 @@
              playerLocalize(@"SuperPlayerDemo.Vod.Config.PrioritySoftSolution")];
 }
 
-- (NSArray *)resourcesArray {
-    return @[playerLocalize(@"SuperPlayerDemo.Vod.Config.HLS"),
+- (NSArray *)resourcesArray {    
+    return @[playerLocalize(@"SuperPlayerDemo.Vod.Config.AUTO"),
+             playerLocalize(@"SuperPlayerDemo.Vod.Config.HLS_VOD"),
+             playerLocalize(@"SuperPlayerDemo.Vod.Config.HLS_LIVE"),
+             playerLocalize(@"SuperPlayerDemo.Vod.Config.FILE_VOD"),
              playerLocalize(@"SuperPlayerDemo.Vod.Config.Dash")];
 }
 

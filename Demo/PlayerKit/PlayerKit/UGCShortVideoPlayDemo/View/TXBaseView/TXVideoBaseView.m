@@ -142,9 +142,9 @@
 }
 
 -(void)onSeek:(UISlider *)slider {
-    int progress = slider.value + 0.5;
-    int duration = slider.maximumValue + 0.5;
-    [_timeView setTXtimeLabel:[self detailCurrentTime:progress totalTime:duration]];
+    int duration = [self.model.duration intValue];
+    int currentTime = (int)(slider.value * duration);
+    [_timeView setTXtimeLabel:[self detailCurrentTime:currentTime totalTime:duration]];
     [_sliderView.slider setValue:slider.value];
 }
 

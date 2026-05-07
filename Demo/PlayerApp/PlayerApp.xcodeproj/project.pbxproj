@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		087E451E7923F8531E237122 /* Pods_Player.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF8F5218111A79364A35C6DD /* Pods_Player.framework */; };
 		09947C2B2B343C0300BBFE84 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 09947C2A2B343C0300BBFE84 /* AppDelegate.m */; };
 		09947C312B343C0300BBFE84 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 09947C302B343C0300BBFE84 /* ViewController.m */; };
 		09947C342B343C0300BBFE84 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 09947C322B343C0300BBFE84 /* Main.storyboard */; };
@@ -29,13 +30,21 @@
 		09947CBB2B34676600BBFE84 /* PlayerLocalized.m in Sources */ = {isa = PBXBuildFile; fileRef = 09947CB92B34676600BBFE84 /* PlayerLocalized.m */; };
 		09947CBE2B34690D00BBFE84 /* AppConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = 09947CBD2B34690D00BBFE84 /* AppConfig.plist */; };
 		09947CBF2B34690D00BBFE84 /* AppConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = 09947CBD2B34690D00BBFE84 /* AppConfig.plist */; };
-		229EEA5E1F5742A72583F0FF /* Pods_Player_Premium.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 878704140C3E47361D83AB1A /* Pods_Player_Premium.framework */; };
-		35AF13DB3C7DD85673271FA3 /* Pods_Player.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCB1ED86B863D661ED749BB6 /* Pods_Player.framework */; };
+		4A5A8B9DC6A27B7748BE7449 /* Pods_Player_Premium.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEDB7A7D3B82D4CDF99A8738 /* Pods_Player_Premium.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0902A9BB2B39312B00854F1B /* TXSoundTouch.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = TXSoundTouch.xcframework; path = ../../../SDK/TXSoundTouch.xcframework; sourceTree = "<group>"; };
+		0902A9BC2B39312C00854F1B /* TXFFmpeg.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = TXFFmpeg.xcframework; path = ../../../SDK/TXFFmpeg.xcframework; sourceTree = "<group>"; };
+		0902A9BD2B39312C00854F1B /* TXLiteAVSDK_Player.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = TXLiteAVSDK_Player.xcframework; path = ../../../SDK/TXLiteAVSDK_Player.xcframework; sourceTree = "<group>"; };
+		0902A9C82B39315D00854F1B /* TXLiteAVSDK_Player_Premium.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = TXLiteAVSDK_Player_Premium.xcframework; path = ../../../SDK/TXLiteAVSDK_Player_Premium.xcframework; sourceTree = "<group>"; };
 		0902A9F02B3EAF3800854F1B /* Player_Premium.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = Player_Premium.entitlements; sourceTree = "<group>"; };
 		0902A9F12B3EAF3900854F1B /* Player.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = Player.entitlements; sourceTree = "<group>"; };
+		095BE3852B35360D00F4637B /* PlayerKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PlayerKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		095BE3862B35360D00F4637B /* SuperPlayerKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SuperPlayerKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		095BE38C2B35361B00F4637B /* PlayerKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PlayerKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		095BE38D2B35361B00F4637B /* SuperPlayerKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SuperPlayerKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		095BE3982B35390400F4637B /* ToolkitBase.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = ToolkitBase.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		095BE3AB2B3562BA00F4637B /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		095BE3AD2B3562C900F4637B /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		095BE3AE2B3562C900F4637B /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = System/Library/Frameworks/AVKit.framework; sourceTree = SDKROOT; };
@@ -48,6 +57,10 @@
 		095BE3BD2B35636200F4637B /* MetalKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MetalKit.framework; path = System/Library/Frameworks/MetalKit.framework; sourceTree = SDKROOT; };
 		095BE3BF2B35638600F4637B /* VideoToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VideoToolbox.framework; path = System/Library/Frameworks/VideoToolbox.framework; sourceTree = SDKROOT; };
 		095BE3C12B3563A700F4637B /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		095BE3C32B3563DF00F4637B /* ToolkitBase.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = ToolkitBase.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		095BE3C62B356A8200F4637B /* PlayerKitBundle.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; path = PlayerKitBundle.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		095BE3C72B356A8200F4637B /* SuperPlayerKitBundle.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; path = SuperPlayerKitBundle.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		095BE3C82B356A8200F4637B /* ToolkitBaseBundle.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; path = ToolkitBaseBundle.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		095BE3CE2B35704300F4637B /* TUIPlayerShortVideo.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = TUIPlayerShortVideo.bundle; path = ../PlayerKit/PlayerKit/TUIShortVideoPlayDemo/TUISDK/TUIPlayerShortVideo/TUIPlayerShortVideo.bundle; sourceTree = "<group>"; };
 		09947C262B343C0300BBFE84 /* Player.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Player.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		09947C292B343C0300BBFE84 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -63,6 +76,10 @@
 		09947C772B3453E400BBFE84 /* TUIPlayerShortVideo.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = TUIPlayerShortVideo.xcframework; path = ../PlayerKit/PlayerKit/TUIShortVideoPlayDemo/TUISDK/TUIPlayerShortVideo/TUIPlayerShortVideo.xcframework; sourceTree = "<group>"; };
 		09947C8D2B34555000BBFE84 /* Player_Premium-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Player_Premium-Info.plist"; sourceTree = "<group>"; };
 		09947C8E2B34555000BBFE84 /* Player-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Player-Info.plist"; sourceTree = "<group>"; };
+		09947C9D2B34560400BBFE84 /* TXSoundTouch.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = TXSoundTouch.xcframework; path = ../../SDK/TXSoundTouch.xcframework; sourceTree = "<group>"; };
+		09947C9E2B34560400BBFE84 /* TXFFmpeg.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = TXFFmpeg.xcframework; path = ../../SDK/TXFFmpeg.xcframework; sourceTree = "<group>"; };
+		09947CA32B34575700BBFE84 /* TXLiteAVSDK_Player.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = TXLiteAVSDK_Player.xcframework; path = ../../SDK/TXLiteAVSDK_Player.xcframework; sourceTree = "<group>"; };
+		09947CA72B34576700BBFE84 /* TXLiteAVSDK_Player_Premium.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = TXLiteAVSDK_Player_Premium.xcframework; path = ../../SDK/TXLiteAVSDK_Player_Premium.xcframework; sourceTree = "<group>"; };
 		09947CAE2B34669700BBFE84 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
 		09947CAF2B34669700BBFE84 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		09947CB22B34672500BBFE84 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/PlayerLocalized.strings"; sourceTree = "<group>"; };
@@ -70,12 +87,12 @@
 		09947CB82B34676600BBFE84 /* PlayerLocalized.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerLocalized.h; sourceTree = "<group>"; };
 		09947CB92B34676600BBFE84 /* PlayerLocalized.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerLocalized.m; sourceTree = "<group>"; };
 		09947CBD2B34690D00BBFE84 /* AppConfig.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = AppConfig.plist; sourceTree = "<group>"; };
-		0E41D3F09716B81528BFA900 /* Pods-Player.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Player.release.xcconfig"; path = "Target Support Files/Pods-Player/Pods-Player.release.xcconfig"; sourceTree = "<group>"; };
-		1549A2047FD9CC6E38FCDE68 /* Pods-Player_Premium.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Player_Premium.release.xcconfig"; path = "Target Support Files/Pods-Player_Premium/Pods-Player_Premium.release.xcconfig"; sourceTree = "<group>"; };
-		491DB4CABCBBAD0C7BCD7D8D /* Pods-Player.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Player.debug.xcconfig"; path = "Target Support Files/Pods-Player/Pods-Player.debug.xcconfig"; sourceTree = "<group>"; };
-		865F1B6F20BE47C96D6416D8 /* Pods-Player_Premium.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Player_Premium.debug.xcconfig"; path = "Target Support Files/Pods-Player_Premium/Pods-Player_Premium.debug.xcconfig"; sourceTree = "<group>"; };
-		878704140C3E47361D83AB1A /* Pods_Player_Premium.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Player_Premium.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		FCB1ED86B863D661ED749BB6 /* Pods_Player.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Player.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3371586637874A715FEE5A07 /* Pods-Player_Premium.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Player_Premium.release.xcconfig"; path = "Target Support Files/Pods-Player_Premium/Pods-Player_Premium.release.xcconfig"; sourceTree = "<group>"; };
+		37763A167BD9C0A7D130F20F /* Pods-Player.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Player.release.xcconfig"; path = "Target Support Files/Pods-Player/Pods-Player.release.xcconfig"; sourceTree = "<group>"; };
+		5B1B6D3BB7B1D08891F2A43E /* Pods-Player_Premium.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Player_Premium.debug.xcconfig"; path = "Target Support Files/Pods-Player_Premium/Pods-Player_Premium.debug.xcconfig"; sourceTree = "<group>"; };
+		6C0ECA0921324DF944411CF4 /* Pods-Player.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Player.debug.xcconfig"; path = "Target Support Files/Pods-Player/Pods-Player.debug.xcconfig"; sourceTree = "<group>"; };
+		CEDB7A7D3B82D4CDF99A8738 /* Pods_Player_Premium.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Player_Premium.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CF8F5218111A79364A35C6DD /* Pods_Player.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Player.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,7 +100,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				35AF13DB3C7DD85673271FA3 /* Pods_Player.framework in Frameworks */,
+				087E451E7923F8531E237122 /* Pods_Player.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -91,7 +108,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				229EEA5E1F5742A72583F0FF /* Pods_Player_Premium.framework in Frameworks */,
+				4A5A8B9DC6A27B7748BE7449 /* Pods_Player_Premium.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -142,7 +159,15 @@
 		09947C582B34526000BBFE84 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0902A9C82B39315D00854F1B /* TXLiteAVSDK_Player_Premium.xcframework */,
+				0902A9BC2B39312C00854F1B /* TXFFmpeg.xcframework */,
+				0902A9BD2B39312C00854F1B /* TXLiteAVSDK_Player.xcframework */,
+				0902A9BB2B39312B00854F1B /* TXSoundTouch.xcframework */,
 				095BE3CE2B35704300F4637B /* TUIPlayerShortVideo.bundle */,
+				095BE3C62B356A8200F4637B /* PlayerKitBundle.bundle */,
+				095BE3C72B356A8200F4637B /* SuperPlayerKitBundle.bundle */,
+				095BE3C82B356A8200F4637B /* ToolkitBaseBundle.bundle */,
+				095BE3C32B3563DF00F4637B /* ToolkitBase.framework */,
 				095BE3C12B3563A700F4637B /* libz.tbd */,
 				095BE3BF2B35638600F4637B /* VideoToolbox.framework */,
 				095BE3BD2B35636200F4637B /* MetalKit.framework */,
@@ -155,10 +180,19 @@
 				095BE3AD2B3562C900F4637B /* AVFoundation.framework */,
 				095BE3AE2B3562C900F4637B /* AVKit.framework */,
 				095BE3AB2B3562BA00F4637B /* Accelerate.framework */,
+				095BE3982B35390400F4637B /* ToolkitBase.framework */,
+				095BE38C2B35361B00F4637B /* PlayerKit.framework */,
+				095BE38D2B35361B00F4637B /* SuperPlayerKit.framework */,
+				095BE3852B35360D00F4637B /* PlayerKit.framework */,
+				095BE3862B35360D00F4637B /* SuperPlayerKit.framework */,
+				09947CA72B34576700BBFE84 /* TXLiteAVSDK_Player_Premium.xcframework */,
+				09947CA32B34575700BBFE84 /* TXLiteAVSDK_Player.xcframework */,
+				09947C9E2B34560400BBFE84 /* TXFFmpeg.xcframework */,
+				09947C9D2B34560400BBFE84 /* TXSoundTouch.xcframework */,
 				09947C762B3453E400BBFE84 /* TUIPlayerCore.xcframework */,
 				09947C772B3453E400BBFE84 /* TUIPlayerShortVideo.xcframework */,
-				FCB1ED86B863D661ED749BB6 /* Pods_Player.framework */,
-				878704140C3E47361D83AB1A /* Pods_Player_Premium.framework */,
+				CEDB7A7D3B82D4CDF99A8738 /* Pods_Player_Premium.framework */,
+				CF8F5218111A79364A35C6DD /* Pods_Player.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -199,10 +233,10 @@
 		5959DD154A9F61F9CE370CC1 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				491DB4CABCBBAD0C7BCD7D8D /* Pods-Player.debug.xcconfig */,
-				0E41D3F09716B81528BFA900 /* Pods-Player.release.xcconfig */,
-				865F1B6F20BE47C96D6416D8 /* Pods-Player_Premium.debug.xcconfig */,
-				1549A2047FD9CC6E38FCDE68 /* Pods-Player_Premium.release.xcconfig */,
+				5B1B6D3BB7B1D08891F2A43E /* Pods-Player_Premium.debug.xcconfig */,
+				3371586637874A715FEE5A07 /* Pods-Player_Premium.release.xcconfig */,
+				6C0ECA0921324DF944411CF4 /* Pods-Player.debug.xcconfig */,
+				37763A167BD9C0A7D130F20F /* Pods-Player.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -214,12 +248,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 09947C3F2B343C0400BBFE84 /* Build configuration list for PBXNativeTarget "Player" */;
 			buildPhases = (
-				B1FF7D1CB5DC06B8A182CD1E /* [CP] Check Pods Manifest.lock */,
+				A23BCEE67074DA3441071E6C /* [CP] Check Pods Manifest.lock */,
 				09947C222B343C0300BBFE84 /* Sources */,
 				09947C232B343C0300BBFE84 /* Frameworks */,
 				09947C242B343C0300BBFE84 /* Resources */,
-				7DB0D4D46D8EB826BA1F1DE6 /* [CP] Embed Pods Frameworks */,
-				907FFE8761FEB13EAAAFC6BF /* [CP] Copy Pods Resources */,
+				27FCE2C43ABA92F25C73ECD3 /* [CP] Embed Pods Frameworks */,
+				73A6638892F485497AD952E6 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -234,12 +268,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 09947C532B34421300BBFE84 /* Build configuration list for PBXNativeTarget "Player_Premium" */;
 			buildPhases = (
-				2B53712664A492E3B2A11F5F /* [CP] Check Pods Manifest.lock */,
+				5C5A0AE2573CE6254C8959AC /* [CP] Check Pods Manifest.lock */,
 				09947C492B34421300BBFE84 /* Sources */,
 				09947C4E2B34421300BBFE84 /* Frameworks */,
 				09947C4F2B34421300BBFE84 /* Resources */,
-				AB63A97F896F42F411751877 /* [CP] Embed Pods Frameworks */,
-				434DAE1B65B18C7E527568A8 /* [CP] Copy Pods Resources */,
+				2782ECB393E6F53F8BA7CF7F /* [CP] Embed Pods Frameworks */,
+				4B430C0A44CCBFB7C2BEA5EC /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -316,7 +350,58 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		2B53712664A492E3B2A11F5F /* [CP] Check Pods Manifest.lock */ = {
+		2782ECB393E6F53F8BA7CF7F /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Player_Premium/Pods-Player_Premium-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Player_Premium/Pods-Player_Premium-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Player_Premium/Pods-Player_Premium-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		27FCE2C43ABA92F25C73ECD3 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Player/Pods-Player-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Player/Pods-Player-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Player/Pods-Player-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		4B430C0A44CCBFB7C2BEA5EC /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Player_Premium/Pods-Player_Premium-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Player_Premium/Pods-Player_Premium-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Player_Premium/Pods-Player_Premium-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		5C5A0AE2573CE6254C8959AC /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -338,41 +423,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		434DAE1B65B18C7E527568A8 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Player_Premium/Pods-Player_Premium-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Player_Premium/Pods-Player_Premium-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Player_Premium/Pods-Player_Premium-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		7DB0D4D46D8EB826BA1F1DE6 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Player/Pods-Player-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Player/Pods-Player-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Player/Pods-Player-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		907FFE8761FEB13EAAAFC6BF /* [CP] Copy Pods Resources */ = {
+		73A6638892F485497AD952E6 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -389,24 +440,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Player/Pods-Player-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		AB63A97F896F42F411751877 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Player_Premium/Pods-Player_Premium-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Player_Premium/Pods-Player_Premium-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Player_Premium/Pods-Player_Premium-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		B1FF7D1CB5DC06B8A182CD1E /* [CP] Check Pods Manifest.lock */ = {
+		A23BCEE67074DA3441071E6C /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -600,7 +634,7 @@
 		};
 		09947C402B343C0400BBFE84 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 491DB4CABCBBAD0C7BCD7D8D /* Pods-Player.debug.xcconfig */;
+			baseConfigurationReference = 6C0ECA0921324DF944411CF4 /* Pods-Player.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -613,8 +647,6 @@
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 2ZNSKQLPTK;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "PlayerApp/Player-Info.plist";
-				INFOPLIST_KEY_NSCameraUsageDescription = "二维码扫描，需使用Camera权限";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "二维码扫描，需使用相册权限";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -631,6 +663,7 @@
 					"$(inherited)",
 					"-all_load",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.yunxiao.dev.liteav.demo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Yunxiao Develop Profile";
@@ -641,7 +674,7 @@
 		};
 		09947C412B343C0400BBFE84 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0E41D3F09716B81528BFA900 /* Pods-Player.release.xcconfig */;
+			baseConfigurationReference = 37763A167BD9C0A7D130F20F /* Pods-Player.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -654,8 +687,6 @@
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 2ZNSKQLPTK;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "PlayerApp/Player-Info.plist";
-				INFOPLIST_KEY_NSCameraUsageDescription = "二维码扫描，需使用Camera权限";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "二维码扫描，需使用相册权限";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -672,6 +703,7 @@
 					"$(inherited)",
 					"-all_load",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.yunxiao.dev.liteav.demo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Yunxiao Develop Profile";
@@ -682,7 +714,7 @@
 		};
 		09947C542B34421300BBFE84 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 865F1B6F20BE47C96D6416D8 /* Pods-Player_Premium.debug.xcconfig */;
+			baseConfigurationReference = 5B1B6D3BB7B1D08891F2A43E /* Pods-Player_Premium.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -694,8 +726,6 @@
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 2ZNSKQLPTK;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "PlayerApp/Player_Premium-Info.plist";
-				INFOPLIST_KEY_NSCameraUsageDescription = "二维码扫描，需使用Camera权限";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "二维码扫描，需使用相册权限";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -712,6 +742,7 @@
 					"-Objc",
 					"$(inherited)",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.yunxiao.dev.liteav.demo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Yunxiao Develop Profile";
@@ -722,7 +753,7 @@
 		};
 		09947C552B34421300BBFE84 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1549A2047FD9CC6E38FCDE68 /* Pods-Player_Premium.release.xcconfig */;
+			baseConfigurationReference = 3371586637874A715FEE5A07 /* Pods-Player_Premium.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -734,8 +765,6 @@
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 2ZNSKQLPTK;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "PlayerApp/Player_Premium-Info.plist";
-				INFOPLIST_KEY_NSCameraUsageDescription = "二维码扫描，需使用Camera权限";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "二维码扫描，需使用相册权限";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -752,6 +781,7 @@
 					"-Objc",
 					"$(inherited)",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.yunxiao.dev.liteav.demo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Yunxiao Develop Profile";

@@ -32,7 +32,7 @@
 					<key>title</key>
 					<string>MLVB.MainMenu.TUIShortVideoPlay</string>
 					<key>class</key>
-					<string>TUIShortVideoPlayViewController</string>
+					<string>TUIPSDMainViewController</string>
 				</dict>
 				<dict>
 					<key>title</key>

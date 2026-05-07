@@ -51,7 +51,6 @@
     NSString *   _playUrl;
 
     UILabel *_labProgress;
-    UIButton *_mediaAssetsBtn;
 
     BOOL           _enableCache;
     TXBitrateView *_bitrateView;
@@ -60,6 +59,10 @@
     BOOL          _isFullScreen;
     CGRect        _smallFrame;
     UIView        *_coverView;
+    
+    // 音量均衡相关
+    BOOL          _volumeBalanceEnabled;
+    UIButton      *_volumeBalanceBtn;
 }
 
 - (void)viewDidLoad {
@@ -87,13 +90,15 @@
     //    self.wantsFullScreenLayout = YES;
     self.title = V2Localize(@"MLVB.MainMenu.VodPlayer");
     
-    UIButton *helpbtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [helpbtn setFrame:CGRectMake(0, 0, 60, 25)];
+    // 音量均衡按钮
+    _volumeBalanceEnabled = NO;  // 默认关闭
+    _volumeBalanceBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_volumeBalanceBtn setFrame:CGRectMake(0, 0, 30, 30)];
     
-    [helpbtn setBackgroundImage:[[TXAppInstance class] imageFromPlayerBundleNamed:@"help_small"] forState:UIControlStateNormal];
-    [helpbtn addTarget:[TXAppInstance class] action:@selector(clickHelp:) forControlEvents:UIControlEventTouchUpInside];
-    [helpbtn sizeToFit];
-    UIBarButtonItem *rightItem              = [[UIBarButtonItem alloc] initWithCustomView:helpbtn];
+    [_volumeBalanceBtn setImage:[[TXAppInstance class] imageFromPlayerBundleNamed:@"volume_balance_off"] forState:UIControlStateNormal];
+    [_volumeBalanceBtn addTarget:self action:@selector(clickVolumeBalance:) forControlEvents:UIControlEventTouchUpInside];
+    [_volumeBalanceBtn sizeToFit];
+    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithCustomView:_volumeBalanceBtn];
     
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     [button setFrame:CGRectMake(0, 0, 60, 25)];
@@ -168,15 +173,6 @@
     }
     
     const CGFloat speed_y       = hh - 40;
-    
-    _mediaAssetsBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    _mediaAssetsBtn.backgroundColor = [UIColor lightTextColor];
-    _mediaAssetsBtn.frame = CGRectMake([UIScreen mainScreen].bounds.size.width - 100, speed_y - 40, 100, 40);
-    [_mediaAssetsBtn setTitle:playerLocalize(@"SuperPlayerDemo.OndemandPlayer.ondemand") forState:UIControlStateSelected];
-    [_mediaAssetsBtn setTitle:playerLocalize(@"SuperPlayerDemo.OndemandPlayer.live") forState:UIControlStateNormal];
-    _mediaAssetsBtn.selected = YES;
-    [_mediaAssetsBtn addTarget:self action:@selector(clickMediaAsset:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:_mediaAssetsBtn];
     
     _speedProgress              = [[UISlider alloc] initWithFrame:CGRectMake(70, speed_y, [[UIScreen mainScreen] bounds].size.width - 140, 30)];
     _speedProgress.minimumValue = -1.f;
@@ -437,6 +433,9 @@
             return NO;
         }
         [_txVodPlayer setRate:[self getRate:_speedProgress.value]];
+        
+        // 设置音量均衡初始状态
+        [self enableVolumeBalance:_volumeBalanceEnabled];
 
         if (_screenPortrait) {
             [_txVodPlayer setRenderRotation:HOME_ORIENTATION_RIGHT];
@@ -498,6 +497,7 @@
         _config.maxPreloadSize = [[dic objectForKey:@"maxPreloadSize"] intValue];
         _config.maxBufferSize = [[dic objectForKey:@"maxBufferSize"] intValue];
         _config.preferredResolution = [[dic objectForKey:@"preferredResolution"] longValue];
+        _config.mediaType = [[dic objectForKey:@"resources"] integerValue];
     }
     
     [_txVodPlayer setConfig:_config];
@@ -509,6 +509,7 @@
     if (_txVodPlayer != nil) {
         [_txVodPlayer stopPlay];
     }
+    [_bitrateView setDataSource:@[]];
     [[AFNetworkReachabilityManager sharedManager] setReachabilityStatusChangeBlock:nil];
 }
 
@@ -624,7 +625,6 @@
     } completion:^(BOOL finished) {
         [self->mVideoContainer setNeedsLayout];
     }];
-    [_txVodPlayer setRenderMode:RENDER_MODE_FILL_SCREEN];
 }
 
 - (void)dismissFullScreen {
@@ -655,9 +655,7 @@
         [self->mVideoContainer setNeedsLayout];
     }];
     [self.view insertSubview:mVideoContainer atIndex:0];
-    [_txVodPlayer setRenderMode:RENDER_MODE_FILL_EDGE];
     _screenPortrait = NO;
-    _renderFillScreen = NO;
 }
 
 - (void)clickRenderMode:(UIButton *)sender {
@@ -683,14 +681,6 @@
         [_txVodPlayer setMute:YES];
         [sender setSelected:YES];
         [sender setImage:[[TXAppInstance class] imageFromPlayerBundleNamed:@"play_mute"] forState:UIControlStateNormal];
-    }
-}
-
-- (void)clickMediaAsset:(UIButton *)sender {
-    if (sender.isSelected) {
-        [sender setSelected:NO];
-    } else {
-        [sender setSelected:YES];
     }
 }
 
@@ -741,6 +731,24 @@
 - (void)clickConfig {
     TXConfigViewController *configVC = [[TXConfigViewController alloc] init];
     [self.navigationController pushViewController:configVC animated:NO];
+}
+
+- (void)clickVolumeBalance:(UIButton *)sender {
+    _volumeBalanceEnabled = !_volumeBalanceEnabled;
+    
+    // 更新按钮图标和状态
+    NSString *imageName = _volumeBalanceEnabled ? @"volume_balance_on" : @"volume_balance_off";
+    NSString *tipMessage = _volumeBalanceEnabled ? @"音量均衡已开启" : @"音量均衡已关闭";
+    
+    [_volumeBalanceBtn setImage:[[TXAppInstance class] imageFromPlayerBundleNamed:imageName] forState:UIControlStateNormal];
+    [self toastTip:tipMessage];
+    [self enableVolumeBalance:_volumeBalanceEnabled];
+}
+
+- (void)enableVolumeBalance:(BOOL)enabled {
+    if (_txVodPlayer) {
+        [_txVodPlayer setAudioNormalization:enabled ? AUDIO_NORMALIZATION_STANDARD : AUDIO_NORMALIZATION_OFF];
+    }
 }
 
 #pragma-- UISlider - play seek
@@ -894,6 +902,11 @@
         } else if (EvtID == PLAY_EVT_CHANGE_ROTATION) {
             return;
         }
+        if (EvtID == VOD_PLAY_EVT_PLAY_PAUSE) {
+            self->_videoPause = YES;
+            [self->_btnPlay setImage:[[TXAppInstance class] imageFromPlayerBundleNamed:@"start"] forState:UIControlStateNormal];
+            [[UIApplication sharedApplication] setIdleTimerDisabled:NO];
+        }
         //        NSLog(@"evt:%d,%@", EvtID, dict);
         long long time = [(NSNumber *)[dict valueForKey:EVT_TIME] longLongValue];
         int       mil  = time % 1000;
@@ -933,6 +946,17 @@
     });
 }
 
+- (void)onPlayer:(TXVodPlayer *)player pictureInPictureStateDidChange:(TX_VOD_PLAYER_PIP_STATE)pipState withParam:(NSDictionary *)param {
+    switch (pipState) {
+        case TX_VOD_PLAYER_PIP_STATE_DID_STOP: {
+            NSString *imageName = _txVodPlayer.isPlaying ? @"suspend" : @"start";
+            [_btnPlay setImage:[[TXAppInstance class] imageFromPlayerBundleNamed:imageName] forState:UIControlStateNormal];
+        }
+        default:
+            break;
+    }
+}
+
 - (void)detailProgresswithParam:(NSDictionary *)dict {
     if (self->_startSeek) {
         return;
@@ -953,7 +977,7 @@
     }
     [self->_playableProgress setValue:[dict[EVT_PLAYABLE_DURATION] floatValue]];
     
-    if (progress < duration) {
+    if (progress < duration && _txVodPlayer.isPlaying) {
         [_btnPlay setImage:[[TXAppInstance class] imageFromPlayerBundleNamed:@"suspend"] forState:UIControlStateNormal];
         _play_switch = YES;
     }

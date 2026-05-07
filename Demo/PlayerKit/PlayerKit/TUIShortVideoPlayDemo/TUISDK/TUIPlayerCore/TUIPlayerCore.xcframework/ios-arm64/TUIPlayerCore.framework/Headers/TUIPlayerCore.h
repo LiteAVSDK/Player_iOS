@@ -1,5 +1,5 @@
 // Copyright (c) 2023 Tencent. All rights reserved.
-// SDKVersion: 1.3.0.29
+// SDKVersion: 2.1.0.75
 #import <Foundation/Foundation.h>
 #import "TUIPlayerConfig.h"
 

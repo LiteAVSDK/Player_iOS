@@ -52,6 +52,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)startDownloadWithDRMBuilder:(TXPlayerDrmBuilder *)drmBuilder;
 
+- (void)startDownloadDrm:(TXPlayerDrmBuilder *)drmBuilder resolution:(long)resolution;
+
 - (void)stopDownload:(TXVodDownloadMediaInfo *)mediaInfo;
 
 - (void)setDownloadPath:(NSString *)path;

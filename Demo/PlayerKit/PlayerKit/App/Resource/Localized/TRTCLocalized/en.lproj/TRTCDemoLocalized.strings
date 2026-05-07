@@ -509,7 +509,7 @@
 "Demo.TRTC.Live.turnOnCapture" = "Capture Video";
 "Demo.TRTC.Live.turnOnPush" = "Push Video";
 "Demo.TRTC.Live.turnOnBlackFrame" = "Black Frame Insertion";
-"Demo.TRTC.Live.blackFrameRatio" = "Black Frame Aspect Ratio";
+"Demo.TRTC.Live.blackFrameRatio" = "Black Frame Size";
 "Demo.TRTC.Live.previewMirror" = "Mirror";
 "Demo.TRTC.Live.beauty" = "Beauty Filters";
 "Demo.TRTC.Live.brightness" = "Brightness";

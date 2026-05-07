@@ -53,4 +53,9 @@
 #import "SDWebImage.h"
 #endif
 
+#if __has_include(<SDCycleScrollView/SDCycleScrollView.h>)
+#import <SDCycleScrollView/SDCycleScrollView.h>
+#else
+#import "SDCycleScrollView.h"
+#endif
 

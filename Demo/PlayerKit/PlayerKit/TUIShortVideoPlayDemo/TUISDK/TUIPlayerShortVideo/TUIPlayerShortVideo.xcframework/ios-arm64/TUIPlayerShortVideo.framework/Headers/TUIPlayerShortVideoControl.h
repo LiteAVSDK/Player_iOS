@@ -2,7 +2,7 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-#import <TUIPlayerCore/TUITXVodPlayerWrapper.h>
+#import <TUIPlayerCore/TUITXVodPlayer.h>
 @class TUIPlayerVideoModel;
 @protocol TUIPlayerShortVideoControlDelegate <NSObject>
 /**
@@ -39,7 +39,7 @@
 @protocol TUIPlayerShortVideoControl <NSObject>
 @required
 @property (nonatomic, weak) id<TUIPlayerShortVideoControlDelegate>delegate; ///代理
-@property (nonatomic, strong) TUIPlayerVideoModel *videoModel; ///当前播放的视频模型
+@property (nonatomic, strong) TUIPlayerVideoModel *model; ///当前播放的视频模型
 ///当前播放器的播放状态
 @property (nonatomic, assign) TUITXVodPlayerStatus currentPlayerStatus;
 #pragma mark - CenterView
@@ -102,7 +102,7 @@
 
 #pragma mark - Player
 /**
- * 获取播放器对象
+ * 获取播放器对象，保存在self中
  */
 - (void)getPlayer:(TUITXVodPlayer *)player;
 
@@ -126,5 +126,14 @@
  * @param view 视频渲染图层
  */
 - (void)getVideoWidget:(UIView *)view;
+
+/**
+ * 播放器回调字幕信息
+ * @param player 播放器对象
+ * @param subtitleData 字幕信息
+ * @discussion 此接口在子线程返回
+ */
+- (void)onPlayer:(TUITXVodPlayer *)player subtitleData:(TXVodSubtitleData *)subtitleData;
+
 @end
 

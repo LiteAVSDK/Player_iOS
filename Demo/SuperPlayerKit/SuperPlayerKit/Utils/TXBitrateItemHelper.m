@@ -5,9 +5,20 @@
 //  Created by annidyfeng on 2018/9/28.
 //
 
+#if __has_include(<TXLiteAVSDK_Player/TXLiteAVSDK.h>)
+#import <TXLiteAVSDK_Player/TXBitrateItem.h>
+#import <TXLiteAVSDK_Player/TXVodDownloadManager.h>
+#elif __has_include(<TXLiteAVSDK_Player_Premium/TXLiteAVSDK.h>)
+#import <TXLiteAVSDK_Player_Premium/TXBitrateItem.h>
+#import <TXLiteAVSDK_Player_Premium/TXVodDownloadManager.h>
+#elif __has_include(<TXLiteAVSDK_Professional/TXLiteAVSDK.h>)
+#import <TXLiteAVSDK_Professional/TXBitrateItem.h>
+#import <TXLiteAVSDK_Professional/TXVodDownloadManager.h>
+#elif __has_include(<TXLiteAVSDK_UGC/TXLiteAVSDK.h>)
+#import <TXLiteAVSDK_UGC/TXBitrateItem.h>
+#import <TXLiteAVSDK_UGC/TXVodDownloadManager.h>
+#endif
 #import "TXBitrateItemHelper.h"
-#import "TXVodDownloadManager.h"
-#import "TXBitrateItem.h"
 #import "SuperPlayerLocalized.h"
 
 @implementation TXBitrateItemHelper

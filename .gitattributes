@@ -1,0 +1,2 @@
+Demo/PlayerKit/PlayerKit/SuperPlayerVRDemo/SDK/TXCMonetPlugin.xcframework/ios-arm64/TXCMonetPlugin.framework/TXCMonetPlugin filter=lfs diff=lfs merge=lfs -text
+Demo/PlayerKit/PlayerKit/SuperPlayerVRDemo/SDK/TXCMonetPlugin.xcframework/ios-arm64_x86_64-simulator/TXCMonetPlugin.framework/TXCMonetPlugin filter=lfs diff=lfs merge=lfs -text

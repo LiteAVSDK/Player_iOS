@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		090207042B306FD5008DA9CB /* TUIShortVideoPlayer.plist in Resources */ = {isa = PBXBuildFile; fileRef = 09A814A72B21B8E9007D9CB3 /* TUIShortVideoPlayer.plist */; };
 		0902A9702B35816500854F1B /* Player.plist in Resources */ = {isa = PBXBuildFile; fileRef = 09A814AC2B21B8E9007D9CB3 /* Player.plist */; };
 		0902A97F2B39264000854F1B /* LiteAVConfig.Release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 0902A97D2B39264000854F1B /* LiteAVConfig.Release.xcconfig */; };
 		0902A9802B39264000854F1B /* LiteAVConfig.Debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 0902A97E2B39264000854F1B /* LiteAVConfig.Debug.xcconfig */; };
@@ -399,13 +398,6 @@
 		09A816D12B21B8EB007D9CB3 /* SDImageAssetManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 09A814902B21B8E9007D9CB3 /* SDImageAssetManager.h */; };
 		09A816D22B21B8EB007D9CB3 /* SDAsyncBlockOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 09A814912B21B8E9007D9CB3 /* SDAsyncBlockOperation.m */; };
 		09A816D32B21B8EB007D9CB3 /* SDAssociatedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 09A814922B21B8E9007D9CB3 /* SDAssociatedObject.m */; };
-		09A816D42B21B8EB007D9CB3 /* TUIShortVideoPlayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 09A8149A2B21B8E9007D9CB3 /* TUIShortVideoPlayViewController.m */; };
-		09A816D52B21B8EB007D9CB3 /* TUIShortVideoPlayViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 09A8149B2B21B8E9007D9CB3 /* TUIShortVideoPlayViewController.h */; };
-		09A816D92B21B8EB007D9CB3 /* TUIShortVideoPlayerViewNavView.m in Sources */ = {isa = PBXBuildFile; fileRef = 09A814A32B21B8E9007D9CB3 /* TUIShortVideoPlayerViewNavView.m */; };
-		09A816DA2B21B8EB007D9CB3 /* TUIShortVideoPlayerViewNavView.h in Headers */ = {isa = PBXBuildFile; fileRef = 09A814A42B21B8E9007D9CB3 /* TUIShortVideoPlayerViewNavView.h */; };
-		09A816DB2B21B8EB007D9CB3 /* TUIShortVideoPlayerDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 09A814A62B21B8E9007D9CB3 /* TUIShortVideoPlayerDataManager.m */; };
-		09A816DC2B21B8EB007D9CB3 /* TUIShortVideoPlayer.plist in Resources */ = {isa = PBXBuildFile; fileRef = 09A814A72B21B8E9007D9CB3 /* TUIShortVideoPlayer.plist */; };
-		09A816DD2B21B8EB007D9CB3 /* TUIShortVideoPlayerDataManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 09A814A82B21B8E9007D9CB3 /* TUIShortVideoPlayerDataManager.h */; };
 		09A816DE2B21B8EB007D9CB3 /* TXConfigManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 09A814AA2B21B8E9007D9CB3 /* TXConfigManager.m */; };
 		09A816DF2B21B8EB007D9CB3 /* Player.plist in Resources */ = {isa = PBXBuildFile; fileRef = 09A814AC2B21B8E9007D9CB3 /* Player.plist */; };
 		09A816E02B21B8EB007D9CB3 /* TCHttpUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 09A814AF2B21B8E9007D9CB3 /* TCHttpUtil.m */; };
@@ -522,21 +514,109 @@
 		09A8192C2B21C95C007D9CB3 /* ToolkitBase.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 09A8192A2B21C95C007D9CB3 /* ToolkitBase.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		09A81A5F2B22F1A3007D9CB3 /* VodPlayerRouter.h in Headers */ = {isa = PBXBuildFile; fileRef = 09A81A5D2B22F1A3007D9CB3 /* VodPlayerRouter.h */; };
 		09A81A602B22F1A3007D9CB3 /* VodPlayerRouter.m in Sources */ = {isa = PBXBuildFile; fileRef = 09A81A5E2B22F1A3007D9CB3 /* VodPlayerRouter.m */; };
-		410B8C192BD244E800E8F786 /* TUIPSDLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 410B8C022BD244E800E8F786 /* TUIPSDLoadingView.m */; };
-		410B8C1A2BD244E800E8F786 /* TUIPSDLoadingView.h in Headers */ = {isa = PBXBuildFile; fileRef = 410B8C032BD244E800E8F786 /* TUIPSDLoadingView.h */; };
-		410B8C1B2BD244E800E8F786 /* TUIPlayerShortVideoControlView.h in Headers */ = {isa = PBXBuildFile; fileRef = 410B8C052BD244E800E8F786 /* TUIPlayerShortVideoControlView.h */; };
-		410B8C1C2BD244E800E8F786 /* TUIPlayerShortVideoControlView.m in Sources */ = {isa = PBXBuildFile; fileRef = 410B8C062BD244E800E8F786 /* TUIPlayerShortVideoControlView.m */; };
-		410B8C1D2BD244E800E8F786 /* TUISVLineLoadingView.h in Headers */ = {isa = PBXBuildFile; fileRef = 410B8C082BD244E800E8F786 /* TUISVLineLoadingView.h */; };
-		410B8C1E2BD244E800E8F786 /* TUISVLineLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 410B8C092BD244E800E8F786 /* TUISVLineLoadingView.m */; };
-		410B8C1F2BD244E800E8F786 /* TUIShortVideoTimeView.h in Headers */ = {isa = PBXBuildFile; fileRef = 410B8C0B2BD244E800E8F786 /* TUIShortVideoTimeView.h */; };
-		410B8C202BD244E800E8F786 /* TUIShortVideoTimeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 410B8C0C2BD244E800E8F786 /* TUIShortVideoTimeView.m */; };
-		410B8C212BD244E800E8F786 /* TUIShortVideoSliderView.h in Headers */ = {isa = PBXBuildFile; fileRef = 410B8C0E2BD244E800E8F786 /* TUIShortVideoSliderView.h */; };
-		410B8C222BD244E800E8F786 /* TUIShortVideoSliderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 410B8C0F2BD244E800E8F786 /* TUIShortVideoSliderView.m */; };
 		410B8C282BD2533400E8F786 /* LiteAVConfig.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 410B8C272BD2533400E8F786 /* LiteAVConfig.xcconfig */; };
+		4E7518EF2D8BF8A800C1B038 /* DRMPlayerControlViewModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E7518ED2D8BF8A800C1B038 /* DRMPlayerControlViewModel.h */; };
+		4E7518F02D8BF8A800C1B038 /* DRMPlayerControlViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E7518EE2D8BF8A800C1B038 /* DRMPlayerControlViewModel.m */; };
+		4E7518F32D8C37CA00C1B038 /* DRMPlayerControlModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E7518F12D8C37CA00C1B038 /* DRMPlayerControlModel.h */; };
+		4E7518F42D8C37CA00C1B038 /* DRMPlayerControlModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E7518F22D8C37CA00C1B038 /* DRMPlayerControlModel.m */; };
+		4E79AE082D8AB36600AB4B6E /* DRMPlayerViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E79AE062D8AB36600AB4B6E /* DRMPlayerViewController.h */; };
+		4E79AE092D8AB36600AB4B6E /* DRMPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E79AE072D8AB36600AB4B6E /* DRMPlayerViewController.m */; };
+		4E8880D82D8AC00C0000CE89 /* DRMPlayerControlCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E8880D72D8AC00C0000CE89 /* DRMPlayerControlCollectionCell.m */; };
+		4E8880D92D8AC00C0000CE89 /* DRMPlayerControlCollectionCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E8880D62D8AC00C0000CE89 /* DRMPlayerControlCollectionCell.h */; };
+		4E8880DC2D8AC2450000CE89 /* UIView+Layout.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E8880DB2D8AC2450000CE89 /* UIView+Layout.m */; };
+		4E8880DD2D8AC2450000CE89 /* UIView+Layout.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E8880DA2D8AC2450000CE89 /* UIView+Layout.h */; };
+		4E8880E02D8AC91D0000CE89 /* DRMPlayerSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E8880DF2D8AC91D0000CE89 /* DRMPlayerSlider.m */; };
+		4E8880E12D8AC91D0000CE89 /* DRMPlayerSlider.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E8880DE2D8AC91D0000CE89 /* DRMPlayerSlider.h */; };
+		4E8B4B9C2D92D05A00409A51 /* DRMPlayerLandscapeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E8B4B9B2D92D05A00409A51 /* DRMPlayerLandscapeController.m */; };
+		4E8B4B9D2D92D05A00409A51 /* DRMPlayerLandscapeController.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E8B4B9A2D92D05A00409A51 /* DRMPlayerLandscapeController.h */; };
+		4E9584FD2CEF03CA00CE724B /* TUIPSDMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9584FC2CEF03CA00CE724B /* TUIPSDMainViewController.m */; };
+		4E9584FE2CEF03CA00CE724B /* TUIPSDMainViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E9584FB2CEF03CA00CE724B /* TUIPSDMainViewController.h */; };
+		4E9585182CEF043900CE724B /* TUIPSDFullScreenControlView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E95850F2CEF043900CE724B /* TUIPSDFullScreenControlView.m */; };
+		4E9585192CEF043900CE724B /* TUIPSDLiveRoomViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9585162CEF043900CE724B /* TUIPSDLiveRoomViewController.m */; };
+		4E95851A2CEF043900CE724B /* TUIPSVDResourceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9585072CEF043900CE724B /* TUIPSVDResourceManager.m */; };
+		4E95851B2CEF043900CE724B /* TUIPSVDCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9585032CEF043900CE724B /* TUIPSVDCommentViewController.m */; };
+		4E95851C2CEF043900CE724B /* UIView+TUIPSVD.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9585092CEF043900CE724B /* UIView+TUIPSVD.m */; };
+		4E95851D2CEF043900CE724B /* TUIPSDLiveRoomControlView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9585142CEF043900CE724B /* TUIPSDLiveRoomControlView.m */; };
+		4E95851E2CEF043900CE724B /* TUIPSDCommentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9585012CEF043900CE724B /* TUIPSDCommentView.m */; };
+		4E95851F2CEF043900CE724B /* TUIPSDFullScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9585112CEF043900CE724B /* TUIPSDFullScreenViewController.m */; };
+		4E9585202CEF043900CE724B /* TUIPlayerConfigManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E95850C2CEF043900CE724B /* TUIPlayerConfigManager.m */; };
+		4E9585212CEF043900CE724B /* TUIPSDFullScreenControlView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E95850E2CEF043900CE724B /* TUIPSDFullScreenControlView.h */; };
+		4E9585222CEF043900CE724B /* UIView+TUIPSVD.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E9585082CEF043900CE724B /* UIView+TUIPSVD.h */; };
+		4E9585232CEF043900CE724B /* TUIPSDLiveRoomControlView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E9585132CEF043900CE724B /* TUIPSDLiveRoomControlView.h */; };
+		4E9585242CEF043900CE724B /* TUIPSVDCommentViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E9585022CEF043900CE724B /* TUIPSVDCommentViewController.h */; };
+		4E9585252CEF043900CE724B /* TUIPSDFullScreenViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E9585102CEF043900CE724B /* TUIPSDFullScreenViewController.h */; };
+		4E9585262CEF043900CE724B /* TUIPSVDResourceManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E9585062CEF043900CE724B /* TUIPSVDResourceManager.h */; };
+		4E9585272CEF043900CE724B /* TUIPSDCommentView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E9585002CEF043900CE724B /* TUIPSDCommentView.h */; };
+		4E9585282CEF043900CE724B /* TUIPSVDCommonDefine.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E9585052CEF043900CE724B /* TUIPSVDCommonDefine.h */; };
+		4E9585292CEF043900CE724B /* TUIPlayerConfigManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E95850B2CEF043900CE724B /* TUIPlayerConfigManager.h */; };
+		4E95852A2CEF043900CE724B /* TUIPSDLiveRoomViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E9585152CEF043900CE724B /* TUIPSDLiveRoomViewController.h */; };
+		4E9585642CEF044000CE724B /* TUIShortVideoSliderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9585532CEF044000CE724B /* TUIShortVideoSliderView.m */; };
+		4E9585652CEF044000CE724B /* TUIShortVideoTimeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9585562CEF044000CE724B /* TUIShortVideoTimeView.m */; };
+		4E9585662CEF044000CE724B /* TUISVLineLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E95854A2CEF044000CE724B /* TUISVLineLoadingView.m */; };
+		4E9585672CEF044000CE724B /* TUIPSDLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E95854D2CEF044000CE724B /* TUIPSDLoadingView.m */; };
+		4E9585682CEF044000CE724B /* TUIPSDVodConfigSettingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9585322CEF044000CE724B /* TUIPSDVodConfigSettingView.m */; };
+		4E9585692CEF044000CE724B /* TUIPSDSettingTestView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E95853B2CEF044000CE724B /* TUIPSDSettingTestView.m */; };
+		4E95856A2CEF044000CE724B /* TUIPSDLiveConfigSettingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E95852C2CEF044000CE724B /* TUIPSDLiveConfigSettingView.m */; };
+		4E95856B2CEF044000CE724B /* TUIPSupRefreshView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E95855A2CEF044000CE724B /* TUIPSupRefreshView.m */; };
+		4E95856C2CEF044000CE724B /* TUIPSControlCustomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9585412CEF044000CE724B /* TUIPSControlCustomView.m */; };
+		4E95856D2CEF044000CE724B /* TUIPSDToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9585612CEF044000CE724B /* TUIPSDToolBar.m */; };
+		4E95856E2CEF044000CE724B /* TUIPSLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9585472CEF044000CE724B /* TUIPSLoadingView.m */; };
+		4E95856F2CEF044000CE724B /* TUIPSDSettingDataView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9585382CEF044000CE724B /* TUIPSDSettingDataView.m */; };
+		4E9585702CEF044000CE724B /* TUIPADConfigManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E95852F2CEF044000CE724B /* TUIPADConfigManager.m */; };
+		4E9585712CEF044000CE724B /* TUIPSResolutionSwitchView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E95855E2CEF044000CE724B /* TUIPSResolutionSwitchView.m */; };
+		4E9585722CEF044000CE724B /* TUIPSControlLiveView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9585432CEF044000CE724B /* TUIPSControlLiveView.m */; };
+		4E9585732CEF044000CE724B /* TUIPSDSettingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E95853E2CEF044000CE724B /* TUIPSDSettingView.m */; };
+		4E9585742CEF044000CE724B /* TUIPSControlView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9585452CEF044000CE724B /* TUIPSControlView.m */; };
+		4E9585752CEF044000CE724B /* TUIPlayerShortVideoControlView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9585502CEF044000CE724B /* TUIPlayerShortVideoControlView.m */; };
+		4E9585762CEF044000CE724B /* TUIPADConfigSettingButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9585352CEF044000CE724B /* TUIPADConfigSettingButton.m */; };
+		4E9585772CEF044000CE724B /* TUIPSDLiveConfigSettingView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E95852B2CEF044000CE724B /* TUIPSDLiveConfigSettingView.h */; };
+		4E9585782CEF044000CE724B /* TUIPSDVodConfigSettingView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E9585312CEF044000CE724B /* TUIPSDVodConfigSettingView.h */; };
+		4E9585792CEF044000CE724B /* TUIPSDToolBar.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E9585602CEF044000CE724B /* TUIPSDToolBar.h */; };
+		4E95857A2CEF044000CE724B /* TUIPSDLoadingView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E95854C2CEF044000CE724B /* TUIPSDLoadingView.h */; };
+		4E95857B2CEF044000CE724B /* TUIPSupRefreshView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E9585592CEF044000CE724B /* TUIPSupRefreshView.h */; };
+		4E95857C2CEF044000CE724B /* TUISVLineLoadingView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E9585492CEF044000CE724B /* TUISVLineLoadingView.h */; };
+		4E95857D2CEF044000CE724B /* TUIPlayerShortVideoControlView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E95854F2CEF044000CE724B /* TUIPlayerShortVideoControlView.h */; };
+		4E95857E2CEF044000CE724B /* TUIShortVideoSliderView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E9585522CEF044000CE724B /* TUIShortVideoSliderView.h */; };
+		4E95857F2CEF044000CE724B /* TUIPSControlLiveView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E9585422CEF044000CE724B /* TUIPSControlLiveView.h */; };
+		4E9585802CEF044000CE724B /* TUIPSControlCustomView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E9585402CEF044000CE724B /* TUIPSControlCustomView.h */; };
+		4E9585812CEF044000CE724B /* TUIShortVideoTimeView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E9585552CEF044000CE724B /* TUIShortVideoTimeView.h */; };
+		4E9585822CEF044000CE724B /* TUIPSControlView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E9585442CEF044000CE724B /* TUIPSControlView.h */; };
+		4E9585832CEF044000CE724B /* TUIPSDSettingView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E95853D2CEF044000CE724B /* TUIPSDSettingView.h */; };
+		4E9585842CEF044000CE724B /* TUIPSDSettingTestView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E95853A2CEF044000CE724B /* TUIPSDSettingTestView.h */; };
+		4E9585852CEF044000CE724B /* TUIPSDSettingDataView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E9585372CEF044000CE724B /* TUIPSDSettingDataView.h */; };
+		4E9585862CEF044000CE724B /* TUIPADConfigSettingButton.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E9585342CEF044000CE724B /* TUIPADConfigSettingButton.h */; };
+		4E9585872CEF044000CE724B /* TUIPSLoadingView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E9585462CEF044000CE724B /* TUIPSLoadingView.h */; };
+		4E9585882CEF044000CE724B /* TUIPSResolutionSwitchView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E95855D2CEF044000CE724B /* TUIPSResolutionSwitchView.h */; };
+		4E9585892CEF044000CE724B /* TUIPADConfigManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E95852E2CEF044000CE724B /* TUIPADConfigManager.h */; };
+		4E9585B92CEF0A5900CE724B /* TADotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9585AE2CEF0A5900CE724B /* TADotView.m */; };
+		4E9585BA2CEF0A5900CE724B /* TAAbstractDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9585AA2CEF0A5900CE724B /* TAAbstractDotView.m */; };
+		4E9585BB2CEF0A5900CE724B /* SDCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9585B32CEF0A5900CE724B /* SDCollectionViewCell.m */; };
+		4E9585BC2CEF0A5900CE724B /* SDCycleScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9585B52CEF0A5900CE724B /* SDCycleScrollView.m */; };
+		4E9585BD2CEF0A5900CE724B /* TAPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9585B02CEF0A5900CE724B /* TAPageControl.m */; };
+		4E9585BE2CEF0A5900CE724B /* TAAnimatedDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9585AC2CEF0A5900CE724B /* TAAnimatedDotView.m */; };
+		4E9585BF2CEF0A5900CE724B /* UIView+SDExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9585B72CEF0A5900CE724B /* UIView+SDExtension.m */; };
+		4E9585C02CEF0A5900CE724B /* SDCollectionViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E9585B22CEF0A5900CE724B /* SDCollectionViewCell.h */; };
+		4E9585C12CEF0A5900CE724B /* UIView+SDExtension.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E9585B62CEF0A5900CE724B /* UIView+SDExtension.h */; };
+		4E9585C22CEF0A5900CE724B /* SDCycleScrollView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E9585B42CEF0A5900CE724B /* SDCycleScrollView.h */; };
+		4E9585C32CEF0A5900CE724B /* TAPageControl.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E9585AF2CEF0A5900CE724B /* TAPageControl.h */; };
+		4E9585C42CEF0A5900CE724B /* TADotView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E9585AD2CEF0A5900CE724B /* TADotView.h */; };
+		4E9585C52CEF0A5900CE724B /* TAAbstractDotView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E9585A92CEF0A5900CE724B /* TAAbstractDotView.h */; };
+		4E9585C62CEF0A5900CE724B /* TAAnimatedDotView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E9585AB2CEF0A5900CE724B /* TAAnimatedDotView.h */; };
+		4E9585DA2CEF1A7A00CE724B /* TUIPlayer.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4E9585D92CEF1A7A00CE724B /* TUIPlayer.plist */; };
+		4E9585DB2CEF1A7A00CE724B /* TUIPlayer.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4E9585D92CEF1A7A00CE724B /* TUIPlayer.plist */; };
+		4E9585DD2CEF1A8B00CE724B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4E9585DC2CEF1A8B00CE724B /* Images.xcassets */; };
+		4E9585DE2CEF1A8B00CE724B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4E9585DC2CEF1A8B00CE724B /* Images.xcassets */; };
+		4EE499F42DE6A9FD00E68986 /* TXVideoResourceStorage.h in Headers */ = {isa = PBXBuildFile; fileRef = 4EE499F22DE6A9FD00E68986 /* TXVideoResourceStorage.h */; };
+		4EE499F52DE6A9FD00E68986 /* TXVideoResourceStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EE499F32DE6A9FD00E68986 /* TXVideoResourceStorage.m */; };
 		ED23C60B2B399C2400CE3CF8 /* UIImage+bundle.h in Headers */ = {isa = PBXBuildFile; fileRef = ED23C6092B399C2400CE3CF8 /* UIImage+bundle.h */; };
 		ED23C60C2B399C2400CE3CF8 /* UIImage+bundle.m in Sources */ = {isa = PBXBuildFile; fileRef = ED23C60A2B399C2400CE3CF8 /* UIImage+bundle.m */; };
 		ED23C6312B39BBB600CE3CF8 /* back_full@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ED23C62B2B39B62200CE3CF8 /* back_full@2x.png */; };
 		ED23C6322B39BBBA00CE3CF8 /* back_full@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = ED23C62C2B39B62200CE3CF8 /* back_full@3x.png */; };
+		F01C90D22CC5FB6B009AA9A4 /* TRTCVODViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F01C90D02CC5FB6A009AA9A4 /* TRTCVODViewController.m */; };
+		F01C90D32CC5FB6B009AA9A4 /* TRTCVODViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = F01C90D12CC5FB6B009AA9A4 /* TRTCVODViewController.h */; };
+		FE2FD6BB2D6C5FE9002B84AD /* TXCMonetPlugin.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = FEDA02042D6C54A50019362C /* TXCMonetPlugin.xcframework */; };
+		FEDA01BD2D38F7740019362C /* SuperPlayerVRViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = FEDA01BB2D38F7740019362C /* SuperPlayerVRViewController.h */; };
+		FEDA01BE2D38F7740019362C /* SuperPlayerVRViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FEDA01BC2D38F7740019362C /* SuperPlayerVRViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -954,13 +1034,6 @@
 		09A814902B21B8E9007D9CB3 /* SDImageAssetManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDImageAssetManager.h; sourceTree = "<group>"; };
 		09A814912B21B8E9007D9CB3 /* SDAsyncBlockOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDAsyncBlockOperation.m; sourceTree = "<group>"; };
 		09A814922B21B8E9007D9CB3 /* SDAssociatedObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDAssociatedObject.m; sourceTree = "<group>"; };
-		09A8149A2B21B8E9007D9CB3 /* TUIShortVideoPlayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TUIShortVideoPlayViewController.m; sourceTree = "<group>"; };
-		09A8149B2B21B8E9007D9CB3 /* TUIShortVideoPlayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TUIShortVideoPlayViewController.h; sourceTree = "<group>"; };
-		09A814A32B21B8E9007D9CB3 /* TUIShortVideoPlayerViewNavView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TUIShortVideoPlayerViewNavView.m; sourceTree = "<group>"; };
-		09A814A42B21B8E9007D9CB3 /* TUIShortVideoPlayerViewNavView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TUIShortVideoPlayerViewNavView.h; sourceTree = "<group>"; };
-		09A814A62B21B8E9007D9CB3 /* TUIShortVideoPlayerDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TUIShortVideoPlayerDataManager.m; sourceTree = "<group>"; };
-		09A814A72B21B8E9007D9CB3 /* TUIShortVideoPlayer.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = TUIShortVideoPlayer.plist; sourceTree = "<group>"; };
-		09A814A82B21B8E9007D9CB3 /* TUIShortVideoPlayerDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TUIShortVideoPlayerDataManager.h; sourceTree = "<group>"; };
 		09A814AA2B21B8E9007D9CB3 /* TXConfigManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TXConfigManager.m; sourceTree = "<group>"; };
 		09A814AC2B21B8E9007D9CB3 /* Player.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Player.plist; sourceTree = "<group>"; };
 		09A814AF2B21B8E9007D9CB3 /* TCHttpUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCHttpUtil.m; sourceTree = "<group>"; };
@@ -1072,21 +1145,108 @@
 		09A8192E2B21CDAD007D9CB3 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk/usr/lib/libsqlite3.0.tbd; sourceTree = DEVELOPER_DIR; };
 		09A81A5D2B22F1A3007D9CB3 /* VodPlayerRouter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VodPlayerRouter.h; sourceTree = "<group>"; };
 		09A81A5E2B22F1A3007D9CB3 /* VodPlayerRouter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VodPlayerRouter.m; sourceTree = "<group>"; };
-		410B8C022BD244E800E8F786 /* TUIPSDLoadingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TUIPSDLoadingView.m; sourceTree = "<group>"; };
-		410B8C032BD244E800E8F786 /* TUIPSDLoadingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TUIPSDLoadingView.h; sourceTree = "<group>"; };
-		410B8C052BD244E800E8F786 /* TUIPlayerShortVideoControlView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TUIPlayerShortVideoControlView.h; sourceTree = "<group>"; };
-		410B8C062BD244E800E8F786 /* TUIPlayerShortVideoControlView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TUIPlayerShortVideoControlView.m; sourceTree = "<group>"; };
-		410B8C082BD244E800E8F786 /* TUISVLineLoadingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TUISVLineLoadingView.h; sourceTree = "<group>"; };
-		410B8C092BD244E800E8F786 /* TUISVLineLoadingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TUISVLineLoadingView.m; sourceTree = "<group>"; };
-		410B8C0B2BD244E800E8F786 /* TUIShortVideoTimeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TUIShortVideoTimeView.h; sourceTree = "<group>"; };
-		410B8C0C2BD244E800E8F786 /* TUIShortVideoTimeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TUIShortVideoTimeView.m; sourceTree = "<group>"; };
-		410B8C0E2BD244E800E8F786 /* TUIShortVideoSliderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TUIShortVideoSliderView.h; sourceTree = "<group>"; };
-		410B8C0F2BD244E800E8F786 /* TUIShortVideoSliderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TUIShortVideoSliderView.m; sourceTree = "<group>"; };
 		410B8C272BD2533400E8F786 /* LiteAVConfig.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = LiteAVConfig.xcconfig; path = ../../LiteAVConfig.xcconfig; sourceTree = "<group>"; };
+		4E7518ED2D8BF8A800C1B038 /* DRMPlayerControlViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DRMPlayerControlViewModel.h; sourceTree = "<group>"; };
+		4E7518EE2D8BF8A800C1B038 /* DRMPlayerControlViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DRMPlayerControlViewModel.m; sourceTree = "<group>"; };
+		4E7518F12D8C37CA00C1B038 /* DRMPlayerControlModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DRMPlayerControlModel.h; sourceTree = "<group>"; };
+		4E7518F22D8C37CA00C1B038 /* DRMPlayerControlModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DRMPlayerControlModel.m; sourceTree = "<group>"; };
+		4E79AE062D8AB36600AB4B6E /* DRMPlayerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DRMPlayerViewController.h; sourceTree = "<group>"; };
+		4E79AE072D8AB36600AB4B6E /* DRMPlayerViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DRMPlayerViewController.m; sourceTree = "<group>"; };
+		4E8880D62D8AC00C0000CE89 /* DRMPlayerControlCollectionCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DRMPlayerControlCollectionCell.h; sourceTree = "<group>"; };
+		4E8880D72D8AC00C0000CE89 /* DRMPlayerControlCollectionCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DRMPlayerControlCollectionCell.m; sourceTree = "<group>"; };
+		4E8880DA2D8AC2450000CE89 /* UIView+Layout.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+Layout.h"; sourceTree = "<group>"; };
+		4E8880DB2D8AC2450000CE89 /* UIView+Layout.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+Layout.m"; sourceTree = "<group>"; };
+		4E8880DE2D8AC91D0000CE89 /* DRMPlayerSlider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DRMPlayerSlider.h; sourceTree = "<group>"; };
+		4E8880DF2D8AC91D0000CE89 /* DRMPlayerSlider.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DRMPlayerSlider.m; sourceTree = "<group>"; };
+		4E8B4B9A2D92D05A00409A51 /* DRMPlayerLandscapeController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DRMPlayerLandscapeController.h; sourceTree = "<group>"; };
+		4E8B4B9B2D92D05A00409A51 /* DRMPlayerLandscapeController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DRMPlayerLandscapeController.m; sourceTree = "<group>"; };
+		4E9584FB2CEF03CA00CE724B /* TUIPSDMainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TUIPSDMainViewController.h; sourceTree = "<group>"; };
+		4E9584FC2CEF03CA00CE724B /* TUIPSDMainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TUIPSDMainViewController.m; sourceTree = "<group>"; };
+		4E9585002CEF043900CE724B /* TUIPSDCommentView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TUIPSDCommentView.h; sourceTree = "<group>"; };
+		4E9585012CEF043900CE724B /* TUIPSDCommentView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TUIPSDCommentView.m; sourceTree = "<group>"; };
+		4E9585022CEF043900CE724B /* TUIPSVDCommentViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TUIPSVDCommentViewController.h; sourceTree = "<group>"; };
+		4E9585032CEF043900CE724B /* TUIPSVDCommentViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TUIPSVDCommentViewController.m; sourceTree = "<group>"; };
+		4E9585052CEF043900CE724B /* TUIPSVDCommonDefine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TUIPSVDCommonDefine.h; sourceTree = "<group>"; };
+		4E9585062CEF043900CE724B /* TUIPSVDResourceManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TUIPSVDResourceManager.h; sourceTree = "<group>"; };
+		4E9585072CEF043900CE724B /* TUIPSVDResourceManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TUIPSVDResourceManager.m; sourceTree = "<group>"; };
+		4E9585082CEF043900CE724B /* UIView+TUIPSVD.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+TUIPSVD.h"; sourceTree = "<group>"; };
+		4E9585092CEF043900CE724B /* UIView+TUIPSVD.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+TUIPSVD.m"; sourceTree = "<group>"; };
+		4E95850B2CEF043900CE724B /* TUIPlayerConfigManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TUIPlayerConfigManager.h; sourceTree = "<group>"; };
+		4E95850C2CEF043900CE724B /* TUIPlayerConfigManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TUIPlayerConfigManager.m; sourceTree = "<group>"; };
+		4E95850E2CEF043900CE724B /* TUIPSDFullScreenControlView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TUIPSDFullScreenControlView.h; sourceTree = "<group>"; };
+		4E95850F2CEF043900CE724B /* TUIPSDFullScreenControlView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TUIPSDFullScreenControlView.m; sourceTree = "<group>"; };
+		4E9585102CEF043900CE724B /* TUIPSDFullScreenViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TUIPSDFullScreenViewController.h; sourceTree = "<group>"; };
+		4E9585112CEF043900CE724B /* TUIPSDFullScreenViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TUIPSDFullScreenViewController.m; sourceTree = "<group>"; };
+		4E9585132CEF043900CE724B /* TUIPSDLiveRoomControlView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TUIPSDLiveRoomControlView.h; sourceTree = "<group>"; };
+		4E9585142CEF043900CE724B /* TUIPSDLiveRoomControlView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TUIPSDLiveRoomControlView.m; sourceTree = "<group>"; };
+		4E9585152CEF043900CE724B /* TUIPSDLiveRoomViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TUIPSDLiveRoomViewController.h; sourceTree = "<group>"; };
+		4E9585162CEF043900CE724B /* TUIPSDLiveRoomViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TUIPSDLiveRoomViewController.m; sourceTree = "<group>"; };
+		4E95852B2CEF044000CE724B /* TUIPSDLiveConfigSettingView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TUIPSDLiveConfigSettingView.h; sourceTree = "<group>"; };
+		4E95852C2CEF044000CE724B /* TUIPSDLiveConfigSettingView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TUIPSDLiveConfigSettingView.m; sourceTree = "<group>"; };
+		4E95852E2CEF044000CE724B /* TUIPADConfigManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TUIPADConfigManager.h; sourceTree = "<group>"; };
+		4E95852F2CEF044000CE724B /* TUIPADConfigManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TUIPADConfigManager.m; sourceTree = "<group>"; };
+		4E9585312CEF044000CE724B /* TUIPSDVodConfigSettingView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TUIPSDVodConfigSettingView.h; sourceTree = "<group>"; };
+		4E9585322CEF044000CE724B /* TUIPSDVodConfigSettingView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TUIPSDVodConfigSettingView.m; sourceTree = "<group>"; };
+		4E9585342CEF044000CE724B /* TUIPADConfigSettingButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TUIPADConfigSettingButton.h; sourceTree = "<group>"; };
+		4E9585352CEF044000CE724B /* TUIPADConfigSettingButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TUIPADConfigSettingButton.m; sourceTree = "<group>"; };
+		4E9585372CEF044000CE724B /* TUIPSDSettingDataView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TUIPSDSettingDataView.h; sourceTree = "<group>"; };
+		4E9585382CEF044000CE724B /* TUIPSDSettingDataView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TUIPSDSettingDataView.m; sourceTree = "<group>"; };
+		4E95853A2CEF044000CE724B /* TUIPSDSettingTestView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TUIPSDSettingTestView.h; sourceTree = "<group>"; };
+		4E95853B2CEF044000CE724B /* TUIPSDSettingTestView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TUIPSDSettingTestView.m; sourceTree = "<group>"; };
+		4E95853D2CEF044000CE724B /* TUIPSDSettingView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TUIPSDSettingView.h; sourceTree = "<group>"; };
+		4E95853E2CEF044000CE724B /* TUIPSDSettingView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TUIPSDSettingView.m; sourceTree = "<group>"; };
+		4E9585402CEF044000CE724B /* TUIPSControlCustomView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TUIPSControlCustomView.h; sourceTree = "<group>"; };
+		4E9585412CEF044000CE724B /* TUIPSControlCustomView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TUIPSControlCustomView.m; sourceTree = "<group>"; };
+		4E9585422CEF044000CE724B /* TUIPSControlLiveView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TUIPSControlLiveView.h; sourceTree = "<group>"; };
+		4E9585432CEF044000CE724B /* TUIPSControlLiveView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TUIPSControlLiveView.m; sourceTree = "<group>"; };
+		4E9585442CEF044000CE724B /* TUIPSControlView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TUIPSControlView.h; sourceTree = "<group>"; };
+		4E9585452CEF044000CE724B /* TUIPSControlView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TUIPSControlView.m; sourceTree = "<group>"; };
+		4E9585462CEF044000CE724B /* TUIPSLoadingView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TUIPSLoadingView.h; sourceTree = "<group>"; };
+		4E9585472CEF044000CE724B /* TUIPSLoadingView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TUIPSLoadingView.m; sourceTree = "<group>"; };
+		4E9585492CEF044000CE724B /* TUISVLineLoadingView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TUISVLineLoadingView.h; sourceTree = "<group>"; };
+		4E95854A2CEF044000CE724B /* TUISVLineLoadingView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TUISVLineLoadingView.m; sourceTree = "<group>"; };
+		4E95854C2CEF044000CE724B /* TUIPSDLoadingView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TUIPSDLoadingView.h; sourceTree = "<group>"; };
+		4E95854D2CEF044000CE724B /* TUIPSDLoadingView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TUIPSDLoadingView.m; sourceTree = "<group>"; };
+		4E95854F2CEF044000CE724B /* TUIPlayerShortVideoControlView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TUIPlayerShortVideoControlView.h; sourceTree = "<group>"; };
+		4E9585502CEF044000CE724B /* TUIPlayerShortVideoControlView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TUIPlayerShortVideoControlView.m; sourceTree = "<group>"; };
+		4E9585522CEF044000CE724B /* TUIShortVideoSliderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TUIShortVideoSliderView.h; sourceTree = "<group>"; };
+		4E9585532CEF044000CE724B /* TUIShortVideoSliderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TUIShortVideoSliderView.m; sourceTree = "<group>"; };
+		4E9585552CEF044000CE724B /* TUIShortVideoTimeView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TUIShortVideoTimeView.h; sourceTree = "<group>"; };
+		4E9585562CEF044000CE724B /* TUIShortVideoTimeView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TUIShortVideoTimeView.m; sourceTree = "<group>"; };
+		4E9585592CEF044000CE724B /* TUIPSupRefreshView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TUIPSupRefreshView.h; sourceTree = "<group>"; };
+		4E95855A2CEF044000CE724B /* TUIPSupRefreshView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TUIPSupRefreshView.m; sourceTree = "<group>"; };
+		4E95855D2CEF044000CE724B /* TUIPSResolutionSwitchView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TUIPSResolutionSwitchView.h; sourceTree = "<group>"; };
+		4E95855E2CEF044000CE724B /* TUIPSResolutionSwitchView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TUIPSResolutionSwitchView.m; sourceTree = "<group>"; };
+		4E9585602CEF044000CE724B /* TUIPSDToolBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TUIPSDToolBar.h; sourceTree = "<group>"; };
+		4E9585612CEF044000CE724B /* TUIPSDToolBar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TUIPSDToolBar.m; sourceTree = "<group>"; };
+		4E9585A92CEF0A5900CE724B /* TAAbstractDotView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TAAbstractDotView.h; sourceTree = "<group>"; };
+		4E9585AA2CEF0A5900CE724B /* TAAbstractDotView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TAAbstractDotView.m; sourceTree = "<group>"; };
+		4E9585AB2CEF0A5900CE724B /* TAAnimatedDotView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TAAnimatedDotView.h; sourceTree = "<group>"; };
+		4E9585AC2CEF0A5900CE724B /* TAAnimatedDotView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TAAnimatedDotView.m; sourceTree = "<group>"; };
+		4E9585AD2CEF0A5900CE724B /* TADotView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TADotView.h; sourceTree = "<group>"; };
+		4E9585AE2CEF0A5900CE724B /* TADotView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TADotView.m; sourceTree = "<group>"; };
+		4E9585AF2CEF0A5900CE724B /* TAPageControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TAPageControl.h; sourceTree = "<group>"; };
+		4E9585B02CEF0A5900CE724B /* TAPageControl.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TAPageControl.m; sourceTree = "<group>"; };
+		4E9585B22CEF0A5900CE724B /* SDCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SDCollectionViewCell.h; sourceTree = "<group>"; };
+		4E9585B32CEF0A5900CE724B /* SDCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SDCollectionViewCell.m; sourceTree = "<group>"; };
+		4E9585B42CEF0A5900CE724B /* SDCycleScrollView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SDCycleScrollView.h; sourceTree = "<group>"; };
+		4E9585B52CEF0A5900CE724B /* SDCycleScrollView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SDCycleScrollView.m; sourceTree = "<group>"; };
+		4E9585B62CEF0A5900CE724B /* UIView+SDExtension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+SDExtension.h"; sourceTree = "<group>"; };
+		4E9585B72CEF0A5900CE724B /* UIView+SDExtension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+SDExtension.m"; sourceTree = "<group>"; };
+		4E9585D92CEF1A7A00CE724B /* TUIPlayer.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = TUIPlayer.plist; sourceTree = "<group>"; };
+		4E9585DC2CEF1A8B00CE724B /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		4EE499F22DE6A9FD00E68986 /* TXVideoResourceStorage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TXVideoResourceStorage.h; sourceTree = "<group>"; };
+		4EE499F32DE6A9FD00E68986 /* TXVideoResourceStorage.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TXVideoResourceStorage.m; sourceTree = "<group>"; };
 		ED23C6092B399C2400CE3CF8 /* UIImage+bundle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImage+bundle.h"; sourceTree = "<group>"; };
 		ED23C60A2B399C2400CE3CF8 /* UIImage+bundle.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImage+bundle.m"; sourceTree = "<group>"; };
 		ED23C62B2B39B62200CE3CF8 /* back_full@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back_full@2x.png"; sourceTree = "<group>"; };
 		ED23C62C2B39B62200CE3CF8 /* back_full@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back_full@3x.png"; sourceTree = "<group>"; };
+		F01C90D02CC5FB6A009AA9A4 /* TRTCVODViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TRTCVODViewController.m; sourceTree = "<group>"; };
+		F01C90D12CC5FB6B009AA9A4 /* TRTCVODViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRTCVODViewController.h; sourceTree = "<group>"; };
+		FEDA01BB2D38F7740019362C /* SuperPlayerVRViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SuperPlayerVRViewController.h; sourceTree = "<group>"; };
+		FEDA01BC2D38F7740019362C /* SuperPlayerVRViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SuperPlayerVRViewController.m; sourceTree = "<group>"; };
+		FEDA01BF2D5C8A9D0019362C /* TXCMonetPlugin.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = TXCMonetPlugin.xcframework; path = ../../../SDK/TXCMonetPlugin.xcframework; sourceTree = "<group>"; };
+		FEDA02042D6C54A50019362C /* TXCMonetPlugin.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = TXCMonetPlugin.xcframework; path = PlayerKit/SuperPlayerVRDemo/SDK/TXCMonetPlugin.xcframework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1098,6 +1258,7 @@
 				0902A9922B3928C200854F1B /* TUIPlayerShortVideo.xcframework in Frameworks */,
 				09A8174F2B21BA34007D9CB3 /* SuperPlayerKit.framework in Frameworks */,
 				09A8192B2B21C95C007D9CB3 /* ToolkitBase.framework in Frameworks */,
+				FE2FD6BB2D6C5FE9002B84AD /* TXCMonetPlugin.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1158,6 +1319,9 @@
 		09A812A32B21B843007D9CB3 /* PlayerKit */ = {
 			isa = PBXGroup;
 			children = (
+				4E79AE052D8AB23D00AB4B6E /* DRMPlayerDemo */,
+				FEDA01BA2D38F7680019362C /* SuperPlayerVRDemo */,
+				F01C90CF2CC5FB07009AA9A4 /* TRTC */,
 				ED23C6082B399AEC00CE3CF8 /* Util */,
 				09A81A5C2B22F171007D9CB3 /* Register */,
 				09A812A42B21B843007D9CB3 /* PlayerKit.h */,
@@ -1217,6 +1381,7 @@
 		09A812C02B21B8E7007D9CB3 /* CacheView */ = {
 			isa = PBXGroup;
 			children = (
+				4EE499F12DE6A93600E68986 /* VideoData */,
 				09A812C12B21B8E7007D9CB3 /* VideoCacheModel.m */,
 				09A812C22B21B8E7007D9CB3 /* VodDownloadCenter */,
 				09A812C72B21B8E7007D9CB3 /* VideoCacheCell.m */,
@@ -1583,6 +1748,7 @@
 		09A813502B21B8E7007D9CB3 /* ThirdPart */ = {
 			isa = PBXGroup;
 			children = (
+				4E9585B82CEF0A5900CE724B /* SDCycleScrollView */,
 				09A813512B21B8E7007D9CB3 /* MJExtension */,
 				09A8136A2B21B8E8007D9CB3 /* MJRefresh */,
 				09A813A72B21B8E8007D9CB3 /* WMPageController */,
@@ -2050,41 +2216,10 @@
 		09A814982B21B8E9007D9CB3 /* TUIShortVideoPlayDemo */ = {
 			isa = PBXGroup;
 			children = (
+				4E9584FF2CEF041C00CE724B /* TUIDemo */,
 				0902A98C2B3928C200854F1B /* TUISDK */,
-				09A814992B21B8E9007D9CB3 /* Controller */,
-				09A814A22B21B8E9007D9CB3 /* View */,
-				09A814A52B21B8E9007D9CB3 /* Data */,
 			);
 			path = TUIShortVideoPlayDemo;
-			sourceTree = "<group>";
-		};
-		09A814992B21B8E9007D9CB3 /* Controller */ = {
-			isa = PBXGroup;
-			children = (
-				09A8149A2B21B8E9007D9CB3 /* TUIShortVideoPlayViewController.m */,
-				09A8149B2B21B8E9007D9CB3 /* TUIShortVideoPlayViewController.h */,
-			);
-			path = Controller;
-			sourceTree = "<group>";
-		};
-		09A814A22B21B8E9007D9CB3 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				410B8BF82BD244E800E8F786 /* Skins */,
-				09A814A32B21B8E9007D9CB3 /* TUIShortVideoPlayerViewNavView.m */,
-				09A814A42B21B8E9007D9CB3 /* TUIShortVideoPlayerViewNavView.h */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		09A814A52B21B8E9007D9CB3 /* Data */ = {
-			isa = PBXGroup;
-			children = (
-				09A814A62B21B8E9007D9CB3 /* TUIShortVideoPlayerDataManager.m */,
-				09A814A72B21B8E9007D9CB3 /* TUIShortVideoPlayer.plist */,
-				09A814A82B21B8E9007D9CB3 /* TUIShortVideoPlayerDataManager.h */,
-			);
-			path = Data;
 			sourceTree = "<group>";
 		};
 		09A814A92B21B8E9007D9CB3 /* App */ = {
@@ -2388,6 +2523,8 @@
 		09A8174D2B21BA34007D9CB3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				FEDA01BF2D5C8A9D0019362C /* TXCMonetPlugin.xcframework */,
+				FEDA02042D6C54A50019362C /* TXCMonetPlugin.xcframework */,
 				09A8192E2B21CDAD007D9CB3 /* libsqlite3.0.tbd */,
 				09A8192A2B21C95C007D9CB3 /* ToolkitBase.framework */,
 				09A8174E2B21BA34007D9CB3 /* SuperPlayerKit.framework */,
@@ -2414,78 +2551,382 @@
 			name = "Targets Support File ";
 			sourceTree = "<group>";
 		};
-		410B8BF82BD244E800E8F786 /* Skins */ = {
+		4E79AE052D8AB23D00AB4B6E /* DRMPlayerDemo */ = {
 			isa = PBXGroup;
 			children = (
-				410B8C002BD244E800E8F786 /* Default */,
+				4E8B4BAB2D93E6E900409A51 /* Model */,
+				4E8B4BAA2D93E6DE00409A51 /* View */,
+				4E8B4B992D92D01D00409A51 /* Controller */,
 			);
-			path = Skins;
+			path = DRMPlayerDemo;
 			sourceTree = "<group>";
 		};
-		410B8C002BD244E800E8F786 /* Default */ = {
+		4E8B4B992D92D01D00409A51 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				410B8C012BD244E800E8F786 /* LoadingView */,
-				410B8C042BD244E800E8F786 /* PlayerControl */,
-				410B8C072BD244E800E8F786 /* LineLoadingView */,
-				410B8C0A2BD244E800E8F786 /* TimeView */,
-				410B8C0D2BD244E800E8F786 /* SliderView */,
+				4E79AE062D8AB36600AB4B6E /* DRMPlayerViewController.h */,
+				4E79AE072D8AB36600AB4B6E /* DRMPlayerViewController.m */,
+				4E8B4B9A2D92D05A00409A51 /* DRMPlayerLandscapeController.h */,
+				4E8B4B9B2D92D05A00409A51 /* DRMPlayerLandscapeController.m */,
 			);
-			path = Default;
+			path = Controller;
 			sourceTree = "<group>";
 		};
-		410B8C012BD244E800E8F786 /* LoadingView */ = {
+		4E8B4BAA2D93E6DE00409A51 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				410B8C022BD244E800E8F786 /* TUIPSDLoadingView.m */,
-				410B8C032BD244E800E8F786 /* TUIPSDLoadingView.h */,
+				4E8880D62D8AC00C0000CE89 /* DRMPlayerControlCollectionCell.h */,
+				4E8880D72D8AC00C0000CE89 /* DRMPlayerControlCollectionCell.m */,
+				4E8880DE2D8AC91D0000CE89 /* DRMPlayerSlider.h */,
+				4E8880DF2D8AC91D0000CE89 /* DRMPlayerSlider.m */,
 			);
-			path = LoadingView;
+			path = View;
 			sourceTree = "<group>";
 		};
-		410B8C042BD244E800E8F786 /* PlayerControl */ = {
+		4E8B4BAB2D93E6E900409A51 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				410B8C052BD244E800E8F786 /* TUIPlayerShortVideoControlView.h */,
-				410B8C062BD244E800E8F786 /* TUIPlayerShortVideoControlView.m */,
+				4E7518ED2D8BF8A800C1B038 /* DRMPlayerControlViewModel.h */,
+				4E7518EE2D8BF8A800C1B038 /* DRMPlayerControlViewModel.m */,
+				4E7518F12D8C37CA00C1B038 /* DRMPlayerControlModel.h */,
+				4E7518F22D8C37CA00C1B038 /* DRMPlayerControlModel.m */,
 			);
-			path = PlayerControl;
+			path = Model;
 			sourceTree = "<group>";
 		};
-		410B8C072BD244E800E8F786 /* LineLoadingView */ = {
+		4E9584FF2CEF041C00CE724B /* TUIDemo */ = {
 			isa = PBXGroup;
 			children = (
-				410B8C082BD244E800E8F786 /* TUISVLineLoadingView.h */,
-				410B8C092BD244E800E8F786 /* TUISVLineLoadingView.m */,
+				4E9585D42CEF15AD00CE724B /* Resource */,
+				4E9585632CEF044000CE724B /* Views */,
+				4E9585042CEF043900CE724B /* Comment */,
+				4E95850A2CEF043900CE724B /* Common */,
+				4E95850D2CEF043900CE724B /* Config */,
+				4E9585122CEF043900CE724B /* FullScreen */,
+				4E9585172CEF043900CE724B /* LiveRoom */,
+				4E9584FB2CEF03CA00CE724B /* TUIPSDMainViewController.h */,
+				4E9584FC2CEF03CA00CE724B /* TUIPSDMainViewController.m */,
+			);
+			path = TUIDemo;
+			sourceTree = "<group>";
+		};
+		4E9585042CEF043900CE724B /* Comment */ = {
+			isa = PBXGroup;
+			children = (
+				4E9585002CEF043900CE724B /* TUIPSDCommentView.h */,
+				4E9585012CEF043900CE724B /* TUIPSDCommentView.m */,
+				4E9585022CEF043900CE724B /* TUIPSVDCommentViewController.h */,
+				4E9585032CEF043900CE724B /* TUIPSVDCommentViewController.m */,
+			);
+			path = Comment;
+			sourceTree = "<group>";
+		};
+		4E95850A2CEF043900CE724B /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				4E9585052CEF043900CE724B /* TUIPSVDCommonDefine.h */,
+				4E9585062CEF043900CE724B /* TUIPSVDResourceManager.h */,
+				4E9585072CEF043900CE724B /* TUIPSVDResourceManager.m */,
+				4E9585082CEF043900CE724B /* UIView+TUIPSVD.h */,
+				4E9585092CEF043900CE724B /* UIView+TUIPSVD.m */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		4E95850D2CEF043900CE724B /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				4E95850B2CEF043900CE724B /* TUIPlayerConfigManager.h */,
+				4E95850C2CEF043900CE724B /* TUIPlayerConfigManager.m */,
+			);
+			path = Config;
+			sourceTree = "<group>";
+		};
+		4E9585122CEF043900CE724B /* FullScreen */ = {
+			isa = PBXGroup;
+			children = (
+				4E95850E2CEF043900CE724B /* TUIPSDFullScreenControlView.h */,
+				4E95850F2CEF043900CE724B /* TUIPSDFullScreenControlView.m */,
+				4E9585102CEF043900CE724B /* TUIPSDFullScreenViewController.h */,
+				4E9585112CEF043900CE724B /* TUIPSDFullScreenViewController.m */,
+			);
+			path = FullScreen;
+			sourceTree = "<group>";
+		};
+		4E9585172CEF043900CE724B /* LiveRoom */ = {
+			isa = PBXGroup;
+			children = (
+				4E9585132CEF043900CE724B /* TUIPSDLiveRoomControlView.h */,
+				4E9585142CEF043900CE724B /* TUIPSDLiveRoomControlView.m */,
+				4E9585152CEF043900CE724B /* TUIPSDLiveRoomViewController.h */,
+				4E9585162CEF043900CE724B /* TUIPSDLiveRoomViewController.m */,
+			);
+			path = LiveRoom;
+			sourceTree = "<group>";
+		};
+		4E95852D2CEF044000CE724B /* LIVE */ = {
+			isa = PBXGroup;
+			children = (
+				4E95852B2CEF044000CE724B /* TUIPSDLiveConfigSettingView.h */,
+				4E95852C2CEF044000CE724B /* TUIPSDLiveConfigSettingView.m */,
+			);
+			path = LIVE;
+			sourceTree = "<group>";
+		};
+		4E9585302CEF044000CE724B /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				4E95852E2CEF044000CE724B /* TUIPADConfigManager.h */,
+				4E95852F2CEF044000CE724B /* TUIPADConfigManager.m */,
+			);
+			path = Manager;
+			sourceTree = "<group>";
+		};
+		4E9585332CEF044000CE724B /* VOD */ = {
+			isa = PBXGroup;
+			children = (
+				4E9585312CEF044000CE724B /* TUIPSDVodConfigSettingView.h */,
+				4E9585322CEF044000CE724B /* TUIPSDVodConfigSettingView.m */,
+			);
+			path = VOD;
+			sourceTree = "<group>";
+		};
+		4E9585362CEF044000CE724B /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				4E95852D2CEF044000CE724B /* LIVE */,
+				4E9585302CEF044000CE724B /* Manager */,
+				4E9585332CEF044000CE724B /* VOD */,
+				4E9585342CEF044000CE724B /* TUIPADConfigSettingButton.h */,
+				4E9585352CEF044000CE724B /* TUIPADConfigSettingButton.m */,
+			);
+			path = Config;
+			sourceTree = "<group>";
+		};
+		4E9585392CEF044000CE724B /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				4E9585372CEF044000CE724B /* TUIPSDSettingDataView.h */,
+				4E9585382CEF044000CE724B /* TUIPSDSettingDataView.m */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		4E95853C2CEF044000CE724B /* Test */ = {
+			isa = PBXGroup;
+			children = (
+				4E95853A2CEF044000CE724B /* TUIPSDSettingTestView.h */,
+				4E95853B2CEF044000CE724B /* TUIPSDSettingTestView.m */,
+			);
+			path = Test;
+			sourceTree = "<group>";
+		};
+		4E95853F2CEF044000CE724B /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				4E9585362CEF044000CE724B /* Config */,
+				4E9585392CEF044000CE724B /* Data */,
+				4E95853C2CEF044000CE724B /* Test */,
+				4E95853D2CEF044000CE724B /* TUIPSDSettingView.h */,
+				4E95853E2CEF044000CE724B /* TUIPSDSettingView.m */,
+			);
+			path = Setting;
+			sourceTree = "<group>";
+		};
+		4E9585482CEF044000CE724B /* Custom1 */ = {
+			isa = PBXGroup;
+			children = (
+				4E9585402CEF044000CE724B /* TUIPSControlCustomView.h */,
+				4E9585412CEF044000CE724B /* TUIPSControlCustomView.m */,
+				4E9585422CEF044000CE724B /* TUIPSControlLiveView.h */,
+				4E9585432CEF044000CE724B /* TUIPSControlLiveView.m */,
+				4E9585442CEF044000CE724B /* TUIPSControlView.h */,
+				4E9585452CEF044000CE724B /* TUIPSControlView.m */,
+				4E9585462CEF044000CE724B /* TUIPSLoadingView.h */,
+				4E9585472CEF044000CE724B /* TUIPSLoadingView.m */,
+			);
+			path = Custom1;
+			sourceTree = "<group>";
+		};
+		4E95854B2CEF044000CE724B /* LineLoadingView */ = {
+			isa = PBXGroup;
+			children = (
+				4E9585492CEF044000CE724B /* TUISVLineLoadingView.h */,
+				4E95854A2CEF044000CE724B /* TUISVLineLoadingView.m */,
 			);
 			path = LineLoadingView;
 			sourceTree = "<group>";
 		};
-		410B8C0A2BD244E800E8F786 /* TimeView */ = {
+		4E95854E2CEF044000CE724B /* LoadingView */ = {
 			isa = PBXGroup;
 			children = (
-				410B8C0B2BD244E800E8F786 /* TUIShortVideoTimeView.h */,
-				410B8C0C2BD244E800E8F786 /* TUIShortVideoTimeView.m */,
+				4E95854C2CEF044000CE724B /* TUIPSDLoadingView.h */,
+				4E95854D2CEF044000CE724B /* TUIPSDLoadingView.m */,
+			);
+			path = LoadingView;
+			sourceTree = "<group>";
+		};
+		4E9585512CEF044000CE724B /* PlayerControl */ = {
+			isa = PBXGroup;
+			children = (
+				4E95854F2CEF044000CE724B /* TUIPlayerShortVideoControlView.h */,
+				4E9585502CEF044000CE724B /* TUIPlayerShortVideoControlView.m */,
+			);
+			path = PlayerControl;
+			sourceTree = "<group>";
+		};
+		4E9585542CEF044000CE724B /* SliderView */ = {
+			isa = PBXGroup;
+			children = (
+				4E9585522CEF044000CE724B /* TUIShortVideoSliderView.h */,
+				4E9585532CEF044000CE724B /* TUIShortVideoSliderView.m */,
+			);
+			path = SliderView;
+			sourceTree = "<group>";
+		};
+		4E9585572CEF044000CE724B /* TimeView */ = {
+			isa = PBXGroup;
+			children = (
+				4E9585552CEF044000CE724B /* TUIShortVideoTimeView.h */,
+				4E9585562CEF044000CE724B /* TUIShortVideoTimeView.m */,
 			);
 			path = TimeView;
 			sourceTree = "<group>";
 		};
-		410B8C0D2BD244E800E8F786 /* SliderView */ = {
+		4E9585582CEF044000CE724B /* Default */ = {
 			isa = PBXGroup;
 			children = (
-				410B8C0E2BD244E800E8F786 /* TUIShortVideoSliderView.h */,
-				410B8C0F2BD244E800E8F786 /* TUIShortVideoSliderView.m */,
+				4E95854B2CEF044000CE724B /* LineLoadingView */,
+				4E95854E2CEF044000CE724B /* LoadingView */,
+				4E9585512CEF044000CE724B /* PlayerControl */,
+				4E9585542CEF044000CE724B /* SliderView */,
+				4E9585572CEF044000CE724B /* TimeView */,
 			);
-			path = SliderView;
+			path = Default;
+			sourceTree = "<group>";
+		};
+		4E95855B2CEF044000CE724B /* upRefresh */ = {
+			isa = PBXGroup;
+			children = (
+				4E9585592CEF044000CE724B /* TUIPSupRefreshView.h */,
+				4E95855A2CEF044000CE724B /* TUIPSupRefreshView.m */,
+			);
+			path = upRefresh;
+			sourceTree = "<group>";
+		};
+		4E95855C2CEF044000CE724B /* Skins */ = {
+			isa = PBXGroup;
+			children = (
+				4E9585482CEF044000CE724B /* Custom1 */,
+				4E9585582CEF044000CE724B /* Default */,
+				4E95855B2CEF044000CE724B /* upRefresh */,
+			);
+			path = Skins;
+			sourceTree = "<group>";
+		};
+		4E95855F2CEF044000CE724B /* Resolution */ = {
+			isa = PBXGroup;
+			children = (
+				4E95855D2CEF044000CE724B /* TUIPSResolutionSwitchView.h */,
+				4E95855E2CEF044000CE724B /* TUIPSResolutionSwitchView.m */,
+			);
+			path = Resolution;
+			sourceTree = "<group>";
+		};
+		4E9585622CEF044000CE724B /* ToolBar */ = {
+			isa = PBXGroup;
+			children = (
+				4E95855F2CEF044000CE724B /* Resolution */,
+				4E9585602CEF044000CE724B /* TUIPSDToolBar.h */,
+				4E9585612CEF044000CE724B /* TUIPSDToolBar.m */,
+			);
+			path = ToolBar;
+			sourceTree = "<group>";
+		};
+		4E9585632CEF044000CE724B /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				4E95853F2CEF044000CE724B /* Setting */,
+				4E95855C2CEF044000CE724B /* Skins */,
+				4E9585622CEF044000CE724B /* ToolBar */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		4E9585B12CEF0A5900CE724B /* PageControl */ = {
+			isa = PBXGroup;
+			children = (
+				4E9585A92CEF0A5900CE724B /* TAAbstractDotView.h */,
+				4E9585AA2CEF0A5900CE724B /* TAAbstractDotView.m */,
+				4E9585AB2CEF0A5900CE724B /* TAAnimatedDotView.h */,
+				4E9585AC2CEF0A5900CE724B /* TAAnimatedDotView.m */,
+				4E9585AD2CEF0A5900CE724B /* TADotView.h */,
+				4E9585AE2CEF0A5900CE724B /* TADotView.m */,
+				4E9585AF2CEF0A5900CE724B /* TAPageControl.h */,
+				4E9585B02CEF0A5900CE724B /* TAPageControl.m */,
+			);
+			path = PageControl;
+			sourceTree = "<group>";
+		};
+		4E9585B82CEF0A5900CE724B /* SDCycleScrollView */ = {
+			isa = PBXGroup;
+			children = (
+				4E9585B12CEF0A5900CE724B /* PageControl */,
+				4E9585B22CEF0A5900CE724B /* SDCollectionViewCell.h */,
+				4E9585B32CEF0A5900CE724B /* SDCollectionViewCell.m */,
+				4E9585B42CEF0A5900CE724B /* SDCycleScrollView.h */,
+				4E9585B52CEF0A5900CE724B /* SDCycleScrollView.m */,
+				4E9585B62CEF0A5900CE724B /* UIView+SDExtension.h */,
+				4E9585B72CEF0A5900CE724B /* UIView+SDExtension.m */,
+			);
+			path = SDCycleScrollView;
+			sourceTree = "<group>";
+		};
+		4E9585D42CEF15AD00CE724B /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				4E9585DC2CEF1A8B00CE724B /* Images.xcassets */,
+				4E9585D92CEF1A7A00CE724B /* TUIPlayer.plist */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
+		4EE499F12DE6A93600E68986 /* VideoData */ = {
+			isa = PBXGroup;
+			children = (
+				4EE499F22DE6A9FD00E68986 /* TXVideoResourceStorage.h */,
+				4EE499F32DE6A9FD00E68986 /* TXVideoResourceStorage.m */,
+			);
+			path = VideoData;
 			sourceTree = "<group>";
 		};
 		ED23C6082B399AEC00CE3CF8 /* Util */ = {
 			isa = PBXGroup;
 			children = (
+				4E8880DA2D8AC2450000CE89 /* UIView+Layout.h */,
+				4E8880DB2D8AC2450000CE89 /* UIView+Layout.m */,
 				ED23C6092B399C2400CE3CF8 /* UIImage+bundle.h */,
 				ED23C60A2B399C2400CE3CF8 /* UIImage+bundle.m */,
 			);
 			path = Util;
+			sourceTree = "<group>";
+		};
+		F01C90CF2CC5FB07009AA9A4 /* TRTC */ = {
+			isa = PBXGroup;
+			children = (
+				F01C90D12CC5FB6B009AA9A4 /* TRTCVODViewController.h */,
+				F01C90D02CC5FB6A009AA9A4 /* TRTCVODViewController.m */,
+			);
+			path = TRTC;
+			sourceTree = "<group>";
+		};
+		FEDA01BA2D38F7680019362C /* SuperPlayerVRDemo */ = {
+			isa = PBXGroup;
+			children = (
+				FEDA01BB2D38F7740019362C /* SuperPlayerVRViewController.h */,
+				FEDA01BC2D38F7740019362C /* SuperPlayerVRViewController.m */,
+			);
+			path = SuperPlayerVRDemo;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -2511,10 +2952,12 @@
 				09A815D52B21B8EA007D9CB3 /* MJRefreshBackGifFooter.h in Headers */,
 				09A81A5F2B22F1A3007D9CB3 /* VodPlayerRouter.h in Headers */,
 				09A8154B2B21B8EA007D9CB3 /* VideoCacheListView.h in Headers */,
+				4E8880E12D8AC91D0000CE89 /* DRMPlayerSlider.h in Headers */,
 				09A816062B21B8EA007D9CB3 /* CWStatusBarNotification.h in Headers */,
 				09A816492B21B8EB007D9CB3 /* SDAnimatedImageRep.h in Headers */,
 				09A8169E2B21B8EB007D9CB3 /* SDWebImageIndicator.h in Headers */,
 				09A816722B21B8EB007D9CB3 /* UIButton+WebCache.h in Headers */,
+				4E9584FE2CEF03CA00CE724B /* TUIPSDMainViewController.h in Headers */,
 				09A8165B2B21B8EB007D9CB3 /* SDWebImageDownloaderOperation.h in Headers */,
 				09A815E12B21B8EA007D9CB3 /* MJRefreshNormalTrailer.h in Headers */,
 				09A815502B21B8EA007D9CB3 /* VideoCacheCell.h in Headers */,
@@ -2525,8 +2968,8 @@
 				09A8157F2B21B8EA007D9CB3 /* TXPlayerCacheManager.h in Headers */,
 				09A816552B21B8EB007D9CB3 /* SDImageTransformer.h in Headers */,
 				09A815602B21B8EA007D9CB3 /* FeedVideoPlayMem.h in Headers */,
+				4E8880D92D8AC00C0000CE89 /* DRMPlayerControlCollectionCell.h in Headers */,
 				09A816D12B21B8EB007D9CB3 /* SDImageAssetManager.h in Headers */,
-				410B8C1B2BD244E800E8F786 /* TUIPlayerShortVideoControlView.h in Headers */,
 				09A815A02B21B8EA007D9CB3 /* TXTimeView.h in Headers */,
 				09A816762B21B8EB007D9CB3 /* UIImage+Metadata.h in Headers */,
 				09A816282B21B8EA007D9CB3 /* AFAutoPurgingImageCache.h in Headers */,
@@ -2558,11 +3001,13 @@
 				09A816262B21B8EA007D9CB3 /* AFImageDownloader.h in Headers */,
 				09A8154F2B21B8EA007D9CB3 /* ResolutionModel.h in Headers */,
 				09A816F12B21B8EB007D9CB3 /* UIColor+MLPFlatColors.h in Headers */,
+				4EE499F42DE6A9FD00E68986 /* TXVideoResourceStorage.h in Headers */,
 				09A816322B21B8EA007D9CB3 /* AFNetworkActivityIndicatorManager.h in Headers */,
 				09A8162E2B21B8EA007D9CB3 /* UIRefreshControl+AFNetworking.h in Headers */,
 				09A816C72B21B8EB007D9CB3 /* SDmetamacros.h in Headers */,
 				09A815AC2B21B8EA007D9CB3 /* PlayerKitCommonHeaders.h in Headers */,
 				09A815A42B21B8EA007D9CB3 /* TXVideoCell.h in Headers */,
+				F01C90D32CC5FB6B009AA9A4 /* TRTCVODViewController.h in Headers */,
 				09A816BF2B21B8EB007D9CB3 /* NSBezierPath+SDRoundedCorners.h in Headers */,
 				09A816732B21B8EB007D9CB3 /* SDWebImageDownloaderRequestModifier.h in Headers */,
 				09A8162B2B21B8EA007D9CB3 /* UIProgressView+AFNetworking.h in Headers */,
@@ -2576,7 +3021,6 @@
 				09A816A52B21B8EB007D9CB3 /* SDAnimatedImagePlayer.h in Headers */,
 				09A8168F2B21B8EB007D9CB3 /* UIImageView+HighlightedWebCache.h in Headers */,
 				09A816A22B21B8EB007D9CB3 /* SDWebImageDownloader.h in Headers */,
-				09A816DD2B21B8EB007D9CB3 /* TUIShortVideoPlayerDataManager.h in Headers */,
 				09A817122B21B8EB007D9CB3 /* TCLog.h in Headers */,
 				09A816FF2B21B8EB007D9CB3 /* SmallButton.h in Headers */,
 				09A815402B21B8EA007D9CB3 /* TXVodDownloadCenter.h in Headers */,
@@ -2605,8 +3049,36 @@
 				09A816212B21B8EA007D9CB3 /* WKWebView+AFNetworking.h in Headers */,
 				09A817172B21B8EB007D9CB3 /* TXConfigManager.h in Headers */,
 				09A815C92B21B8EA007D9CB3 /* UIScrollView+MJExtension.h in Headers */,
-				410B8C1A2BD244E800E8F786 /* TUIPSDLoadingView.h in Headers */,
 				09A816402B21B8EA007D9CB3 /* AFCompatibilityMacros.h in Headers */,
+				4E9585212CEF043900CE724B /* TUIPSDFullScreenControlView.h in Headers */,
+				4E9585222CEF043900CE724B /* UIView+TUIPSVD.h in Headers */,
+				4E9585232CEF043900CE724B /* TUIPSDLiveRoomControlView.h in Headers */,
+				4E9585242CEF043900CE724B /* TUIPSVDCommentViewController.h in Headers */,
+				4E9585252CEF043900CE724B /* TUIPSDFullScreenViewController.h in Headers */,
+				4E9585262CEF043900CE724B /* TUIPSVDResourceManager.h in Headers */,
+				4E9585272CEF043900CE724B /* TUIPSDCommentView.h in Headers */,
+				4E9585772CEF044000CE724B /* TUIPSDLiveConfigSettingView.h in Headers */,
+				4E9585782CEF044000CE724B /* TUIPSDVodConfigSettingView.h in Headers */,
+				4E9585792CEF044000CE724B /* TUIPSDToolBar.h in Headers */,
+				4E95857A2CEF044000CE724B /* TUIPSDLoadingView.h in Headers */,
+				4E95857B2CEF044000CE724B /* TUIPSupRefreshView.h in Headers */,
+				4E95857C2CEF044000CE724B /* TUISVLineLoadingView.h in Headers */,
+				4E95857D2CEF044000CE724B /* TUIPlayerShortVideoControlView.h in Headers */,
+				4E95857E2CEF044000CE724B /* TUIShortVideoSliderView.h in Headers */,
+				4E95857F2CEF044000CE724B /* TUIPSControlLiveView.h in Headers */,
+				4E9585802CEF044000CE724B /* TUIPSControlCustomView.h in Headers */,
+				4E9585812CEF044000CE724B /* TUIShortVideoTimeView.h in Headers */,
+				4E9585822CEF044000CE724B /* TUIPSControlView.h in Headers */,
+				4E9585832CEF044000CE724B /* TUIPSDSettingView.h in Headers */,
+				4E9585842CEF044000CE724B /* TUIPSDSettingTestView.h in Headers */,
+				4E9585852CEF044000CE724B /* TUIPSDSettingDataView.h in Headers */,
+				4E9585862CEF044000CE724B /* TUIPADConfigSettingButton.h in Headers */,
+				4E9585872CEF044000CE724B /* TUIPSLoadingView.h in Headers */,
+				4E9585882CEF044000CE724B /* TUIPSResolutionSwitchView.h in Headers */,
+				4E9585892CEF044000CE724B /* TUIPADConfigManager.h in Headers */,
+				4E9585282CEF043900CE724B /* TUIPSVDCommonDefine.h in Headers */,
+				4E9585292CEF043900CE724B /* TUIPlayerConfigManager.h in Headers */,
+				4E95852A2CEF043900CE724B /* TUIPSDLiveRoomViewController.h in Headers */,
 				09A8173F2B21B8EB007D9CB3 /* PlayVodViewController.h in Headers */,
 				09A817142B21B8EB007D9CB3 /* TXAppInfo.h in Headers */,
 				09A816EC2B21B8EB007D9CB3 /* NSTimer+BlcokTimer.h in Headers */,
@@ -2627,15 +3099,18 @@
 				09A816BB2B21B8EB007D9CB3 /* SDDeviceHelper.h in Headers */,
 				09A8168C2B21B8EB007D9CB3 /* SDAnimatedImage.h in Headers */,
 				09A816A02B21B8EB007D9CB3 /* SDImageLoader.h in Headers */,
+				FEDA01BD2D38F7740019362C /* SuperPlayerVRViewController.h in Headers */,
 				09A8158B2B21B8EA007D9CB3 /* ShortVideoPlayViewController.h in Headers */,
 				09A8158F2B21B8EA007D9CB3 /* UITableView+indexPath.h in Headers */,
 				09A816562B21B8EB007D9CB3 /* SDImageCachesManager.h in Headers */,
+				4E8880DD2D8AC2450000CE89 /* UIView+Layout.h in Headers */,
 				09A815A72B21B8EA007D9CB3 /* TXSliderView.h in Headers */,
 				09A8155A2B21B8EA007D9CB3 /* CFDanmakuView.h in Headers */,
 				09A815D12B21B8EA007D9CB3 /* UICollectionViewLayout+MJRefresh.h in Headers */,
 				09A815A62B21B8EA007D9CB3 /* SuperShortVideoView.h in Headers */,
 				09A816C82B21B8EB007D9CB3 /* SDImageIOAnimatedCoderInternal.h in Headers */,
 				09A816862B21B8EB007D9CB3 /* NSImage+Compatibility.h in Headers */,
+				4E79AE082D8AB36600AB4B6E /* DRMPlayerViewController.h in Headers */,
 				09A815362B21B8EA007D9CB3 /* TXMoviePlayerNetApi.h in Headers */,
 				09A815892B21B8EA007D9CB3 /* ShortVideoMainViewController.h in Headers */,
 				09A8164B2B21B8EB007D9CB3 /* SDDiskCache.h in Headers */,
@@ -2644,7 +3119,6 @@
 				09A817162B21B8EB007D9CB3 /* AppLogMgr.h in Headers */,
 				09A815782B21B8EA007D9CB3 /* FeedDetailHeadView.h in Headers */,
 				09A815802B21B8EA007D9CB3 /* TXVideoPlayer.h in Headers */,
-				410B8C1F2BD244E800E8F786 /* TUIShortVideoTimeView.h in Headers */,
 				09A8162D2B21B8EA007D9CB3 /* UIKit+AFNetworking.h in Headers */,
 				09A816CD2B21B8EB007D9CB3 /* SDImageCachesManagerOperation.h in Headers */,
 				09A815B12B21B8EA007D9CB3 /* NSObject+MJProperty.h in Headers */,
@@ -2664,6 +3138,7 @@
 				09A8154D2B21B8EA007D9CB3 /* VideoCacheModel.h in Headers */,
 				09A8153F2B21B8EA007D9CB3 /* DownloadCallback.h in Headers */,
 				09A8154A2B21B8EA007D9CB3 /* VideoCacheListCell.h in Headers */,
+				4E8B4B9D2D92D05A00409A51 /* DRMPlayerLandscapeController.h in Headers */,
 				09A816372B21B8EA007D9CB3 /* AFURLRequestSerialization.h in Headers */,
 				09A817152B21B8EB007D9CB3 /* TXAppInstance.h in Headers */,
 				09A8157A2B21B8EA007D9CB3 /* TXVideoViewModel.h in Headers */,
@@ -2676,7 +3151,6 @@
 				09A816022B21B8EA007D9CB3 /* WMPageController.h in Headers */,
 				09A8165D2B21B8EB007D9CB3 /* SDImageFrame.h in Headers */,
 				09A815B52B21B8EA007D9CB3 /* MJFoundation.h in Headers */,
-				410B8C212BD244E800E8F786 /* TUIShortVideoSliderView.h in Headers */,
 				09A815DB2B21B8EA007D9CB3 /* MJRefreshAutoStateFooter.h in Headers */,
 				09A816B92B21B8EB007D9CB3 /* SDImageCodersManager.h in Headers */,
 				09A816882B21B8EB007D9CB3 /* SDImageHEICCoder.h in Headers */,
@@ -2684,7 +3158,6 @@
 				09A816532B21B8EB007D9CB3 /* NSData+ImageContentType.h in Headers */,
 				09A816592B21B8EB007D9CB3 /* SDImageLoadersManager.h in Headers */,
 				09A816AF2B21B8EB007D9CB3 /* SDWebImagePrefetcher.h in Headers */,
-				09A816D52B21B8EB007D9CB3 /* TUIShortVideoPlayViewController.h in Headers */,
 				09A816572B21B8EB007D9CB3 /* SDWebImageTransition.h in Headers */,
 				09A8169A2B21B8EB007D9CB3 /* SDWebImageDownloaderDecryptor.h in Headers */,
 				09A815BF2B21B8EA007D9CB3 /* NSObject+MJKeyValue.h in Headers */,
@@ -2701,11 +3174,17 @@
 				09A816442B21B8EA007D9CB3 /* MBProgressHUD.h in Headers */,
 				09A817322B21B8EB007D9CB3 /* TXConfigViewController.h in Headers */,
 				09A817302B21B8EB007D9CB3 /* TXConfigCheckBox.h in Headers */,
+				4E9585C02CEF0A5900CE724B /* SDCollectionViewCell.h in Headers */,
+				4E9585C12CEF0A5900CE724B /* UIView+SDExtension.h in Headers */,
+				4E9585C22CEF0A5900CE724B /* SDCycleScrollView.h in Headers */,
+				4E9585C32CEF0A5900CE724B /* TAPageControl.h in Headers */,
+				4E9585C42CEF0A5900CE724B /* TADotView.h in Headers */,
+				4E9585C52CEF0A5900CE724B /* TAAbstractDotView.h in Headers */,
+				4E9585C62CEF0A5900CE724B /* TAAnimatedDotView.h in Headers */,
 				09A815952B21B8EA007D9CB3 /* TXLeftSlideGuideView.h in Headers */,
 				09A815F22B21B8EA007D9CB3 /* MJRefreshHeader.h in Headers */,
 				09A815972B21B8EA007D9CB3 /* TXPauseGuideView.h in Headers */,
 				09A815712B21B8EA007D9CB3 /* SuperFeedPlayView.h in Headers */,
-				410B8C1D2BD244E800E8F786 /* TUISVLineLoadingView.h in Headers */,
 				09A815F52B21B8EA007D9CB3 /* MJRefreshBackFooter.h in Headers */,
 				09A8173A2B21B8EB007D9CB3 /* TXConfigBlockButton.h in Headers */,
 				09A815532B21B8EA007D9CB3 /* ListVideoCell.h in Headers */,
@@ -2722,6 +3201,7 @@
 				09A816B42B21B8EB007D9CB3 /* SDMemoryCache.h in Headers */,
 				09A815392B21B8EA007D9CB3 /* SuperPlayerGuideView.h in Headers */,
 				09A816EE2B21B8EB007D9CB3 /* NSDictionary+Common.h in Headers */,
+				4E7518F32D8C37CA00C1B038 /* DRMPlayerControlModel.h in Headers */,
 				09A817292B21B8EB007D9CB3 /* MainTableViewCell.h in Headers */,
 				09A815D62B21B8EA007D9CB3 /* MJRefreshBackStateFooter.h in Headers */,
 				09A816B12B21B8EB007D9CB3 /* SDImageAPNGCoder.h in Headers */,
@@ -2737,7 +3217,7 @@
 				09A816502B21B8EB007D9CB3 /* SDImageGraphics.h in Headers */,
 				09A8156B2B21B8EA007D9CB3 /* FeedDetailModel.h in Headers */,
 				09A8169B2B21B8EB007D9CB3 /* SDWebImageOperation.h in Headers */,
-				09A816DA2B21B8EB007D9CB3 /* TUIShortVideoPlayerViewNavView.h in Headers */,
+				4E7518EF2D8BF8A800C1B038 /* DRMPlayerControlViewModel.h in Headers */,
 				09A816C42B21B8EB007D9CB3 /* SDAsyncBlockOperation.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2831,9 +3311,9 @@
 				09A817052B21B8EB007D9CB3 /* YTHandDetector.bundle in Resources */,
 				09A817232B21B8EB007D9CB3 /* LivePlayerLocalized.strings in Resources */,
 				09A816DF2B21B8EB007D9CB3 /* Player.plist in Resources */,
-				09A816DC2B21B8EB007D9CB3 /* TUIShortVideoPlayer.plist in Resources */,
 				410B8C282BD2533400E8F786 /* LiteAVConfig.xcconfig in Resources */,
 				09A817082B21B8EB007D9CB3 /* AECore.metallib in Resources */,
+				4E9585DD2CEF1A8B00CE724B /* Images.xcassets in Resources */,
 				09A817072B21B8EB007D9CB3 /* poseest.bundle in Resources */,
 				09A8170E2B21B8EB007D9CB3 /* FilterEngine.bundle in Resources */,
 				09A815CC2B21B8EA007D9CB3 /* MJRefresh.bundle in Resources */,
@@ -2856,6 +3336,7 @@
 				09A8170D2B21B8EB007D9CB3 /* e1 in Resources */,
 				09A817222B21B8EB007D9CB3 /* TRTCDemoLocalized.strings in Resources */,
 				09A8171C2B21B8EB007D9CB3 /* AppPortalLocalized.strings in Resources */,
+				4E9585DB2CEF1A7A00CE724B /* TUIPlayer.plist in Resources */,
 				0902A9802B39264000854F1B /* LiteAVConfig.Debug.xcconfig in Resources */,
 				09A8170B2B21B8EB007D9CB3 /* RPNSegmenter.bundle in Resources */,
 				09A8170A2B21B8EB007D9CB3 /* MSFMLandmarks46_relandmark_models.xbin in Resources */,
@@ -2870,10 +3351,11 @@
 				0902A9EB2B3E9AC200854F1B /* ShortVideo.xcassets in Resources */,
 				ED23C6312B39BBB600CE3CF8 /* back_full@2x.png in Resources */,
 				0902A9702B35816500854F1B /* Player.plist in Resources */,
-				090207042B306FD5008DA9CB /* TUIShortVideoPlayer.plist in Resources */,
+				4E9585DA2CEF1A7A00CE724B /* TUIPlayer.plist in Resources */,
 				09A817402B21B984007D9CB3 /* UserProtocol.html in Resources */,
 				09A817412B21B984007D9CB3 /* Settings.bundle in Resources */,
 				09A817422B21B984007D9CB3 /* AppPortalLocalized.strings in Resources */,
+				4E9585DE2CEF1A8B00CE724B /* Images.xcassets in Resources */,
 				09A817432B21B984007D9CB3 /* LoginNetworkLocalized.strings in Resources */,
 				09A817442B21B984007D9CB3 /* UGCLocalized.strings in Resources */,
 				09A817452B21B984007D9CB3 /* PlayerLocalized.strings in Resources */,
@@ -2897,7 +3379,6 @@
 			files = (
 				09A815672B21B8EA007D9CB3 /* FeedHeadModel.m in Sources */,
 				09A815BD2B21B8EA007D9CB3 /* MJPropertyKey.m in Sources */,
-				410B8C1C2BD244E800E8F786 /* TUIPlayerShortVideoControlView.m in Sources */,
 				09A817392B21B8EB007D9CB3 /* TXConfigTableMenu.m in Sources */,
 				09A816242B21B8EA007D9CB3 /* UIRefreshControl+AFNetworking.m in Sources */,
 				09A815852B21B8EA007D9CB3 /* ShortVideoMainViewController.m in Sources */,
@@ -2937,6 +3418,7 @@
 				09A816EB2B21B8EB007D9CB3 /* NSData+Common.m in Sources */,
 				09A8163E2B21B8EA007D9CB3 /* AFNetworkReachabilityManager.m in Sources */,
 				09A815642B21B8EA007D9CB3 /* FeedDetailViewController.m in Sources */,
+				4E8B4B9C2D92D05A00409A51 /* DRMPlayerLandscapeController.m in Sources */,
 				09A815A82B21B8EA007D9CB3 /* TXSliderView.m in Sources */,
 				09A815F02B21B8EA007D9CB3 /* MJRefreshBackFooter.m in Sources */,
 				09A816A12B21B8EB007D9CB3 /* SDImageCacheDefine.m in Sources */,
@@ -2944,18 +3426,55 @@
 				09A816D22B21B8EB007D9CB3 /* SDAsyncBlockOperation.m in Sources */,
 				09A8156C2B21B8EA007D9CB3 /* FeedHeadView.m in Sources */,
 				09A815442B21B8EA007D9CB3 /* ResolutionModel.m in Sources */,
+				4E9585B92CEF0A5900CE724B /* TADotView.m in Sources */,
+				4E9585BA2CEF0A5900CE724B /* TAAbstractDotView.m in Sources */,
+				4E9585BB2CEF0A5900CE724B /* SDCollectionViewCell.m in Sources */,
+				4E9585BC2CEF0A5900CE724B /* SDCycleScrollView.m in Sources */,
+				4E9585BD2CEF0A5900CE724B /* TAPageControl.m in Sources */,
+				4E9585BE2CEF0A5900CE724B /* TAAnimatedDotView.m in Sources */,
+				4E9585BF2CEF0A5900CE724B /* UIView+SDExtension.m in Sources */,
 				09A816632B21B8EB007D9CB3 /* UIImage+ForceDecode.m in Sources */,
 				09A816892B21B8EB007D9CB3 /* UIImage+ExtendedCacheData.m in Sources */,
 				09A815412B21B8EA007D9CB3 /* TXVodDownloadCenter.m in Sources */,
-				09A816D92B21B8EB007D9CB3 /* TUIShortVideoPlayerViewNavView.m in Sources */,
 				09A815FF2B21B8EA007D9CB3 /* WMScrollView.m in Sources */,
 				09A8166D2B21B8EB007D9CB3 /* SDWebImageCacheSerializer.m in Sources */,
 				09A815F12B21B8EA007D9CB3 /* MJRefreshAutoFooter.m in Sources */,
 				09A8164A2B21B8EB007D9CB3 /* NSImage+Compatibility.m in Sources */,
 				09A815482B21B8EA007D9CB3 /* VideoCacheListView.m in Sources */,
+				4E9585182CEF043900CE724B /* TUIPSDFullScreenControlView.m in Sources */,
+				4E9585192CEF043900CE724B /* TUIPSDLiveRoomViewController.m in Sources */,
+				4E95851A2CEF043900CE724B /* TUIPSVDResourceManager.m in Sources */,
+				4E95851B2CEF043900CE724B /* TUIPSVDCommentViewController.m in Sources */,
+				4E95851C2CEF043900CE724B /* UIView+TUIPSVD.m in Sources */,
+				4E95851D2CEF043900CE724B /* TUIPSDLiveRoomControlView.m in Sources */,
+				4E95851E2CEF043900CE724B /* TUIPSDCommentView.m in Sources */,
+				4E95851F2CEF043900CE724B /* TUIPSDFullScreenViewController.m in Sources */,
+				4E9585202CEF043900CE724B /* TUIPlayerConfigManager.m in Sources */,
 				09A815562B21B8EA007D9CB3 /* CFDanmakuView.m in Sources */,
 				09A8155C2B21B8EA007D9CB3 /* CFDanmakuInfo.m in Sources */,
+				4E9585642CEF044000CE724B /* TUIShortVideoSliderView.m in Sources */,
+				4E9585652CEF044000CE724B /* TUIShortVideoTimeView.m in Sources */,
+				4EE499F52DE6A9FD00E68986 /* TXVideoResourceStorage.m in Sources */,
+				4E9585662CEF044000CE724B /* TUISVLineLoadingView.m in Sources */,
+				4E9585672CEF044000CE724B /* TUIPSDLoadingView.m in Sources */,
+				4E79AE092D8AB36600AB4B6E /* DRMPlayerViewController.m in Sources */,
+				4E9585682CEF044000CE724B /* TUIPSDVodConfigSettingView.m in Sources */,
+				4E9585692CEF044000CE724B /* TUIPSDSettingTestView.m in Sources */,
+				4E95856A2CEF044000CE724B /* TUIPSDLiveConfigSettingView.m in Sources */,
+				4E95856B2CEF044000CE724B /* TUIPSupRefreshView.m in Sources */,
+				4E95856C2CEF044000CE724B /* TUIPSControlCustomView.m in Sources */,
+				4E95856D2CEF044000CE724B /* TUIPSDToolBar.m in Sources */,
+				4E95856E2CEF044000CE724B /* TUIPSLoadingView.m in Sources */,
+				4E95856F2CEF044000CE724B /* TUIPSDSettingDataView.m in Sources */,
+				4E9585702CEF044000CE724B /* TUIPADConfigManager.m in Sources */,
+				4E9585712CEF044000CE724B /* TUIPSResolutionSwitchView.m in Sources */,
+				4E9585722CEF044000CE724B /* TUIPSControlLiveView.m in Sources */,
+				4E9585732CEF044000CE724B /* TUIPSDSettingView.m in Sources */,
+				4E9585742CEF044000CE724B /* TUIPSControlView.m in Sources */,
+				4E9585752CEF044000CE724B /* TUIPlayerShortVideoControlView.m in Sources */,
+				4E9585762CEF044000CE724B /* TUIPADConfigSettingButton.m in Sources */,
 				09A8168E2B21B8EB007D9CB3 /* SDImageGIFCoder.m in Sources */,
+				4E8880DC2D8AC2450000CE89 /* UIView+Layout.m in Sources */,
 				09A816312B21B8EA007D9CB3 /* AFAutoPurgingImageCache.m in Sources */,
 				09A816942B21B8EB007D9CB3 /* SDImageCachesManager.m in Sources */,
 				09A815912B21B8EA007D9CB3 /* UIScrollView+GestureConflict.m in Sources */,
@@ -2972,8 +3491,8 @@
 				09A816392B21B8EA007D9CB3 /* AFHTTPSessionManager.m in Sources */,
 				09A815C82B21B8EA007D9CB3 /* MJRefreshConfig.m in Sources */,
 				09A8162F2B21B8EA007D9CB3 /* UIButton+AFNetworking.m in Sources */,
-				09A816D42B21B8EB007D9CB3 /* TUIShortVideoPlayViewController.m in Sources */,
 				09A815C72B21B8EA007D9CB3 /* MJRefreshConst.m in Sources */,
+				4E8880E02D8AC91D0000CE89 /* DRMPlayerSlider.m in Sources */,
 				09A816C32B21B8EB007D9CB3 /* SDImageAssetManager.m in Sources */,
 				09A815342B21B8EA007D9CB3 /* UGCUploadList.m in Sources */,
 				09A8166F2B21B8EB007D9CB3 /* SDGraphicsImageRenderer.m in Sources */,
@@ -2982,7 +3501,6 @@
 				09A816AA2B21B8EB007D9CB3 /* SDWebImageDefine.m in Sources */,
 				09A8172F2B21B8EB007D9CB3 /* PlayVodViewController.m in Sources */,
 				09A817012B21B8EB007D9CB3 /* TPScanQRController.mm in Sources */,
-				09A816DB2B21B8EB007D9CB3 /* TUIShortVideoPlayerDataManager.m in Sources */,
 				09A816712B21B8EB007D9CB3 /* SDImageCodersManager.m in Sources */,
 				09A815552B21B8EA007D9CB3 /* SuperPlayerGuideView.m in Sources */,
 				09A816EF2B21B8EB007D9CB3 /* HUDHelper.m in Sources */,
@@ -3011,13 +3529,13 @@
 				09A816812B21B8EB007D9CB3 /* NSButton+WebCache.m in Sources */,
 				09A815792B21B8EA007D9CB3 /* FeedDetailHeadView.m in Sources */,
 				09A815DA2B21B8EA007D9CB3 /* MJRefreshBackNormalFooter.m in Sources */,
-				410B8C202BD244E800E8F786 /* TUIShortVideoTimeView.m in Sources */,
 				09A815E22B21B8EA007D9CB3 /* MJRefreshStateTrailer.m in Sources */,
 				09A816B52B21B8EB007D9CB3 /* UIImage+Metadata.m in Sources */,
 				09A816612B21B8EB007D9CB3 /* SDAnimatedImage.m in Sources */,
 				09A815C12B21B8EA007D9CB3 /* MJFoundation.m in Sources */,
 				09A816E42B21B8EB007D9CB3 /* UIColor+MLPFlatColors.m in Sources */,
 				09A815CE2B21B8EA007D9CB3 /* UIScrollView+MJExtension.m in Sources */,
+				4E9584FD2CEF03CA00CE724B /* TUIPSDMainViewController.m in Sources */,
 				09A816672B21B8EB007D9CB3 /* SDAnimatedImagePlayer.m in Sources */,
 				09A815942B21B8EA007D9CB3 /* TXLoadingView.m in Sources */,
 				09A815D32B21B8EA007D9CB3 /* NSBundle+MJRefresh.m in Sources */,
@@ -3025,12 +3543,12 @@
 				09A816992B21B8EB007D9CB3 /* UIImageView+WebCache.m in Sources */,
 				09A816B72B21B8EB007D9CB3 /* UIButton+WebCache.m in Sources */,
 				09A8153E2B21B8EA007D9CB3 /* VideoCacheModel.m in Sources */,
+				4E7518F42D8C37CA00C1B038 /* DRMPlayerControlModel.m in Sources */,
 				09441BE92B26B32300F23295 /* PlayerAppdelegate.m in Sources */,
 				09A816332B21B8EA007D9CB3 /* AFImageDownloader.m in Sources */,
 				09A816C02B21B8EB007D9CB3 /* SDImageCachesManagerOperation.m in Sources */,
 				09A816CB2B21B8EB007D9CB3 /* SDInternalMacros.m in Sources */,
 				09A815A32B21B8EA007D9CB3 /* TXVideoCell.m in Sources */,
-				410B8C222BD244E800E8F786 /* TUIShortVideoSliderView.m in Sources */,
 				09A815662B21B8EA007D9CB3 /* FeedVideoModel.m in Sources */,
 				09A8154C2B21B8EA007D9CB3 /* VideoCacheListModel.m in Sources */,
 				09A8158A2B21B8EA007D9CB3 /* TXVideoListViewController.m in Sources */,
@@ -3068,7 +3586,9 @@
 				09A816FB2B21B8EB007D9CB3 /* NSDictionary+Common.m in Sources */,
 				09A815B42B21B8EA007D9CB3 /* MJProperty.m in Sources */,
 				09A816E82B21B8EB007D9CB3 /* NSObject+CommonBlock.m in Sources */,
+				F01C90D22CC5FB6B009AA9A4 /* TRTCVODViewController.m in Sources */,
 				09A8168D2B21B8EB007D9CB3 /* SDImageCache.m in Sources */,
+				4E7518F02D8BF8A800C1B038 /* DRMPlayerControlViewModel.m in Sources */,
 				09A816ED2B21B8EB007D9CB3 /* UIViewController+BackButtonHandler.m in Sources */,
 				09A8167C2B21B8EB007D9CB3 /* SDImageCoderHelper.m in Sources */,
 				09A816052B21B8EA007D9CB3 /* CWStatusBarNotification.m in Sources */,
@@ -3092,7 +3612,6 @@
 				09A816542B21B8EB007D9CB3 /* SDWebImageDownloaderDecryptor.m in Sources */,
 				09A815822B21B8EA007D9CB3 /* TXVideoPlayer.m in Sources */,
 				09A816872B21B8EB007D9CB3 /* SDAnimatedImageRep.m in Sources */,
-				410B8C192BD244E800E8F786 /* TUIPSDLoadingView.m in Sources */,
 				09A816CC2B21B8EB007D9CB3 /* SDFileAttributeHelper.m in Sources */,
 				09A815AA2B21B8EA007D9CB3 /* TXVideoBaseView.m in Sources */,
 				09A8153C2B21B8EA007D9CB3 /* MoviePlayerViewController.m in Sources */,
@@ -3102,11 +3621,13 @@
 				09A815C62B21B8EA007D9CB3 /* UICollectionViewLayout+MJRefresh.m in Sources */,
 				09A817112B21B8EB007D9CB3 /* TCUtil.m in Sources */,
 				09A815702B21B8EA007D9CB3 /* FeedBaseView.m in Sources */,
+				FEDA01BE2D38F7740019362C /* SuperPlayerVRViewController.m in Sources */,
 				09A815D92B21B8EA007D9CB3 /* MJRefreshBackStateFooter.m in Sources */,
 				09A816932B21B8EB007D9CB3 /* SDImageLoadersManager.m in Sources */,
 				09A815BC2B21B8EA007D9CB3 /* NSString+MJExtension.m in Sources */,
 				09A816952B21B8EB007D9CB3 /* SDWebImageTransition.m in Sources */,
 				09A816382B21B8EA007D9CB3 /* AFURLResponseSerialization.m in Sources */,
+				4E8880D82D8AC00C0000CE89 /* DRMPlayerControlCollectionCell.m in Sources */,
 				09A8173B2B21B8EB007D9CB3 /* TXConfigCellText.m in Sources */,
 				09A816772B21B8EB007D9CB3 /* SDWebImageCompat.m in Sources */,
 				09A816AD2B21B8EB007D9CB3 /* UIView+WebCacheOperation.m in Sources */,
@@ -3120,7 +3641,6 @@
 				09A815752B21B8EA007D9CB3 /* FeedDetailViewCell.m in Sources */,
 				09A817182B21B8EB007D9CB3 /* TXAppInstance.m in Sources */,
 				09A815582B21B8EA007D9CB3 /* CFDanmaku.m in Sources */,
-				410B8C1E2BD244E800E8F786 /* TUISVLineLoadingView.m in Sources */,
 				09A815B82B21B8EA007D9CB3 /* MJExtensionConst.m in Sources */,
 				09A815462B21B8EA007D9CB3 /* VideoCacheView.m in Sources */,
 			);
@@ -3346,6 +3866,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/PlayerKit/TUIShortVideoPlayDemo/TXCMonetPlugin",
+				);
 				GENERATE_INFOPLIST_FILE = YES;
 				HEADER_SEARCH_PATHS = "${inherited}";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
@@ -3384,6 +3908,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/PlayerKit/TUIShortVideoPlayDemo/TXCMonetPlugin",
+				);
 				GENERATE_INFOPLIST_FILE = YES;
 				HEADER_SEARCH_PATHS = "${inherited}";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";

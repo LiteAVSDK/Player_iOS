@@ -110,7 +110,7 @@ static void perceptualCausticColorForColor(float* inputComponents, float* output
     for (int j = 3; j >= 0; j--) outputComponents[j] = causticComponents[j];
 }
 
-static void calc_glossy_color(void* info, const CGFloat* in, CGFloat* out) {
+static void calc_glossy_color(void* info, const double* in, double* out) {
     GlossyParams* params   = (GlossyParams*)info;
     float         progress = *in;
 

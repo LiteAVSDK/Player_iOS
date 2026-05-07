@@ -1,4 +1,4 @@
-/*
+/* 
   PlayerLocalized.strings
   TXLiteAVDemo
 
@@ -139,7 +139,10 @@
 "SuperPlayerDemo.Vod.Config.PrioritySoftSolution" = "优先软解";
 "SuperPlayerDemo.Vod.Config.PlayResourceType" = "播放资源类型";
 "SuperPlayerDemo.Vod.Config.SelectPayResource" = "选中播放资源";
-"SuperPlayerDemo.Vod.Config.HLS" = "HLS(默认)";
+"SuperPlayerDemo.Vod.Config.AUTO" = "AUTO类型(默认)";
+"SuperPlayerDemo.Vod.Config.HLS_VOD" = "HLS点播";
+"SuperPlayerDemo.Vod.Config.HLS_LIVE" = "HLS直播";
+"SuperPlayerDemo.Vod.Config.FILE_VOD" = "通用文件点播";
 "SuperPlayerDemo.Vod.Config.Dash" = "Dash";
 "SuperPlayerDemo.Vod.Config.Save" = "保存";
 "SuperPlayerDemo.Vod.Config.Reset" = "重置";

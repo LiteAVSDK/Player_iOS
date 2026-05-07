@@ -1568,7 +1568,7 @@ __weak UITextField *cacheField;
     [self.liveBtn setSelected:YES];
     [self.scrollView scrollRectToVisible:CGRectMake(ScreenWidth, 0, ScreenWidth, self.scrollView.mm_h) animated:YES];
     [self showControlView:NO];
-    [self.playerView.controlView setEnableFadeAction:NO];
+    [self.playerView.controlView setEnableFadeAction:YES];
 }
 
 #pragma mark - 弹幕

@@ -5,10 +5,15 @@
 //  Created by annidyfeng on 2018/10/18.
 //
 
-#import "SuperPlayerViewConfig.h"
-
+#if __has_include(<TXLiteAVSDK_Player/TXLiveSDKTypeDef.h>)
+#import <TXLiteAVSDK_Player/TXLiveSDKTypeDef.h>
+#elif __has_include(<TXLiteAVSDK_Player_Premium/TXLiveSDKTypeDef.h>)
+#import <TXLiteAVSDK_Player_Premium/TXLiveSDKTypeDef.h>
+#elif __has_include(<TXLiteAVSDK_Professional/TXLiveSDKTypeDef.h>)
+#import <TXLiteAVSDK_Professional/TXLiveSDKTypeDef.h>
+#endif
 #import "SuperPlayer.h"
-#import "TXLiveSDKTypeDef.h"
+#import "SuperPlayerViewConfig.h"
 
 @implementation SuperPlayerViewConfig
 

@@ -12,4 +12,7 @@
 #define TUIPV_WEAK_SELF(object)            __weak __typeof__(object) weak##_##object = object;
 #define TUIPV_STRONG_SELF(object)        __strong __typeof__(object) object = weak##_##object;
 
+// 浮点数是否为0
+#define TUI_FLOAT_EQUAL_TO_ZERO(x) (fabs(x) < FLT_EPSILON)
+
 #endif /* TUIPlayerViewCommonDefine_h */

@@ -1,43 +1,75 @@
 // Copyright (c) 2023 Tencent. All rights reserved.
 
 #import <UIKit/UIKit.h>
-#import "TUIShortVideoView.h"
-#import <TUIPlayerCore/TUITXVodPlayerWrapper.h>
+#import "TUIPlayerContextDefine.h"
 #import "TUIPlayerShortVideoUIManager.h"
 #import "TUIPullUpRefreshControl.h"
 #import "TUIShortVideoDataManager.h"
-@class TUIPlayerStrategyModel;
+@class TUIPlayerVodStrategyModel;
+@class TUIPlayerLiveStrategyModel;
+@class TUIPlayerLiveStrategyManager;
 @class TUIPlayerVideoModel;
+@class TUIPlayerDataModel;
+@class TUIShortVideoView;
 
 /// 播放模式
 typedef NS_ENUM(NSUInteger, TUIPlayMode) {
-    TUIPlayModeOneLoop,       /// 单个循环，当前视频重复播放
-    TUIPlayModeListLoop,      /// 列表循环，自动播放下一个视频，列表播放完毕后从第一个继续播放
-    TUIPlayModeCustomLoop     /// 自定义循环，当前视频播放完毕后停止
+    /// 单个循环，当前视频重复播放
+    TUIPlayModeOneLoop,
+    /// 列表循环，自动播放下一个视频，列表播放完毕后从第一个继续播放
+    TUIPlayModeListLoop,
+    /// 自定义循环，当前视频播放完毕后停止
+    TUIPlayModeCustomLoop
 };
 NS_ASSUME_NONNULL_BEGIN
 
 ///Delegate
 @protocol TUIShortVideoViewDelegate <NSObject>
 
+@optional
+
 /**
- * 视频滑动回调
- * @param videoIndex 当前视频索引
- * @param videoModel 当前视频数据模型
+ * 滑动中
+ * contentOffset 内容偏移量
  */
-- (void)scrollToVideoIndex:(NSInteger )videoIndex
-                videoModel:(TUIPlayerVideoModel *)videoModel;
+- (void)scrollViewDidScrollContentOffset:(CGPoint)contentOffset;
+/**
+ * 手动滑动回调
+ * @param videoIndex 当前索引
+ * @param videoModel 当前数据模型
+ */
+- (void)scrollViewDidEndDeceleratingIndex:(NSInteger)videoIndex videoModel:(TUIPlayerDataModel *)videoModel;
+
+/**
+ * 自动滑动结束回调
+ * @param shortVideoView 回调的短视频View
+ * @param index 当前索引
+ * @param videoModel 当前数据模型
+ */
+- (void)shortVideoView:(TUIShortVideoView *)shortVideoView didEndScrollingAnimationWithIndex:(NSUInteger)index videoModel:(TUIPlayerDataModel *)videoModel;
+
+/**
+ * 滑动回调
+ * @param videoIndex 当前索引
+ * @param videoModel 当前数据模型
+ */
+- (void)scrollToVideoIndex:(NSInteger)videoIndex videoModel:(TUIPlayerDataModel *)videoModel;
+/**
+ * 在滑动到下一个页面前触发，返回上一个页面的数据模型，可以在这里做一些收尾工作
+ * @param lastModel 上一条数据模型
+ */
+- (void)willScrollToNextPageWithLastModel:(TUIPlayerDataModel*)lastModel DEPRECATED_MSG_ATTRIBUTE("Use 'shortVideoView:willDefocusVideo:context:' instead.");
 
 /**
  * 需要加载下一页
- * 回调时机跟TUIPlayerStrategyModel/mPreloadConcurrentCount相关
+ * 回调时机跟TUIPlayerVodStrategyModel/mPreloadConcurrentCount相关
  * 例如：mPreloadConcurrentCount=3时, 此方法会在视频组的倒数第三个回调
  * 提醒加载新的一页数据
  */
 - (void)onReachLast;
 
 /**
- 播放器状态
+ 视频播放器状态
  @param videoModel 当前播放的视频数据模型
  @param status 播放状态
  */
@@ -45,7 +77,7 @@ NS_ASSUME_NONNULL_BEGIN
        statusChanged:(TUITXVodPlayerStatus)status;
 
 /**
- 播放器progress回调
+ 视频播放器progress回调
  @param videoModel 当前播放的视频数据模型
  @param currentTime 当前时间
  @param totalTime 总时长
@@ -56,7 +88,7 @@ NS_ASSUME_NONNULL_BEGIN
            totalTime:(float)totalTime
             progress:(float)progress;
 /**
- * 播放器网络状态
+ * 视频播放器网络状态
  * @param videoModel 当前播放的视频数据模型
  * @param param 网络状态参数
  */
@@ -68,6 +100,36 @@ NS_ASSUME_NONNULL_BEGIN
  * @param videoModel 视频模型
  */
 - (void)videoPreLoadStateWithModel:(TUIPlayerVideoModel *)videoModel;
+
+/**
+ * 即将反聚焦播放器
+ * @param shortVideoView 回调的短视频View
+ * @param video 即将划走的视频数据
+ * @param context 视频上下文信息, 见TUIPlayerContext
+ */
+- (void)shortVideoView:(TUIShortVideoView *)shortVideoView
+      willDefocusVideo:(TUIPlayerDataModel *)video
+               context:(NSDictionary<TUIPlayerContext, id> *)context;
+
+/**
+ * 播放器即将加载视频
+ * @param shortVideoView 回调的短视频View
+ * @param player 播放器实例
+ * @param videoModel 加载的视频信息
+ * @discussion 此接口在播放器加载视频前调用，可做播放器配置
+ */
+- (void)shortVideoView:(TUIShortVideoView *)shortVideoView
+        playerDidReady:(TUITXVodPlayer *)player
+            videoModel:(TUIPlayerVideoModel *)videoModel;
+
+/**
+ * @brief 获取播放器渲染View的frame
+ * @param shortVideoView 短视频View
+ * @param videoModel 加载的视频信息，需外部判断数据类型（直播/点播）
+ * @param containerSize widget superView的size
+ * @discussion 默认为全屏大小
+ */
+- (CGRect)shortVideoView:(TUIShortVideoView *)shortVideoView widgetFrameForVideoModel:(__kindof TUIPlayerDataModel *)videoModel containerSize:(CGSize)containerSize;
 
 @end
 
@@ -83,13 +145,13 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 ///播放器窗口
 @interface TUIShortVideoView : UIView
-/// 首次加载是否自动播放第一个视频，默认YES
+///首次加载是否自动播放第一个视频，默认YES
 @property (nonatomic, assign) BOOL isAutoPlay;
 ///视频数据模型
-@property (nonatomic, strong, readonly) NSMutableArray<TUIPlayerVideoModel *> *videos;
-///当前正在播放的视频模型
-@property (nonatomic, strong, readonly) TUIPlayerVideoModel *currentVideoModel;
-///当前正在播放的视频索引
+@property (nonatomic, strong, readonly) NSMutableArray<TUIPlayerDataModel *> *videos;
+///当前正在播放的模型
+@property (nonatomic, strong, readonly) TUIPlayerDataModel *currentVideoModel;
+///当前正在播放的索引
 @property (nonatomic, assign, readonly) NSInteger currentVideoIndex;
 ///当前播放器的播放状态
 @property (nonatomic, assign, readonly) TUITXVodPlayerStatus currentPlayerStatus;
@@ -113,19 +175,25 @@ NS_ASSUME_NONNULL_BEGIN
  * 视频播放设置
  * @param model 策略数据模型
  */
-- (void)setShortVideoStrategyModel:(TUIPlayerStrategyModel *)model;
+- (void)setShortVideoStrategyModel:(TUIPlayerVodStrategyModel *)model;
+
+/**
+ * 直播播放设置
+ * @param model 策略数据模型
+ */
+- (void)setShortVideoLiveStrategyModel:(TUIPlayerLiveStrategyModel *)model;
 
 /**
  * 首次设置数据源
  * @param models   视频数据源
 */
-- (void)setShortVideoModels:(NSArray<TUIPlayerVideoModel *> *)models;
+- (void)setShortVideoModels:(NSArray<TUIPlayerDataModel *> *)models;
 
 /**
  * 增加数据源
  * @param models   视频数据源
  */
-- (void)appendShortVideoModels:(NSArray<TUIPlayerVideoModel *> *)models;
+- (void)appendShortVideoModels:(NSArray<TUIPlayerDataModel *> *)models;
 
 /**
  *  删除所有视频数据
@@ -203,12 +271,12 @@ NS_ASSUME_NONNULL_BEGIN
                    index:(NSInteger)index;
 
 /**
- * 暂停预加载
+ * 暂停视频预加载
  */
 - (void)pausePreload;
 
 /**
- * 恢复预加载
+ * 恢复视频预加载
  */
 - (void)resumePreload;
 
@@ -216,6 +284,21 @@ NS_ASSUME_NONNULL_BEGIN
  * 获取数据管理器
  */
 - (TUIShortVideoDataManager *)getDataManager;
+/**
+ * 获取点播策略管理器
+ */
+- (TUIPlayerVodStrategyManager *)getVodStrategyManager;
+/**
+ * 获取直播策略管理器
+ */
+- (TUIPlayerLiveStrategyManager *)getLiveStrategyManager;
+
+/**
+ * 设置当前播放器倍速播放
+ * @param rate 播放速度（0.5-3.0）
+ */
+- (void)setPlayRate:(CGFloat)rate;
+
 @end
 
 NS_ASSUME_NONNULL_END

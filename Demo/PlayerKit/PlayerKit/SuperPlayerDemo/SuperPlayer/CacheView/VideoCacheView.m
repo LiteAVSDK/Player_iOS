@@ -255,8 +255,29 @@ NSString * const ResolutionCellIdentifier = @"ResolutionCellIdentifier";
 
         [self.videoArray addObject:cacheModel];
     }
-    [self.videoArray addObjectsFromArray:[TXVideoResourceStorage cacheVideoResource]];
-
+    NSArray<VideoCacheModel *> *videoSources = [TXVideoResourceStorage cacheVideoResource];
+    NSArray<TXVodDownloadMediaInfo *> *downloadList = [[TXVodDownloadManager shareInstance] getDownloadMediaInfoList];
+    for (VideoCacheModel *cacheModel in videoSources) {
+        NSString *videoURL = cacheModel.url.length ? cacheModel.url : cacheModel.drmBuilder.playUrl;
+        cacheModel.isCache = NO;
+        for (TXVodDownloadMediaInfo *mediaInfo in downloadList) {
+            NSInteger quality = mediaInfo.dataSource ? mediaInfo.dataSource.quality : mediaInfo.preferredResolution;
+            NSString *resolutionName = [[VideoCacheView qualityDict] objectForKey:@(quality)] ?: @"";
+            if (mediaInfo.url.length && [mediaInfo.url isEqualToString:videoURL]) {
+                if ([self.currentResolutionStr hasPrefix:resolutionName]) {
+                    cacheModel.isCache = YES;
+                }
+                continue;
+            }
+            if (mediaInfo.dataSource.fileId.length && [mediaInfo.dataSource.fileId isEqualToString:cacheModel.fileId]) {
+                if ([self.currentResolutionStr hasPrefix:resolutionName]) {
+                    cacheModel.isCache = YES;
+                }
+                continue;
+            }
+        }
+    }
+    [self.videoArray addObjectsFromArray:videoSources];
     [self.tableView reloadData];
 }
 
@@ -433,18 +454,18 @@ NSString * const ResolutionCellIdentifier = @"ResolutionCellIdentifier";
         VideoCacheModel *model = self.videoArray[indexPath.row];
         if (!model.isCache) {
             model.isCache = YES;
-            TXVodDownloadMediaInfo *mediaInfo = [[TXVodDownloadMediaInfo alloc] init];
-            TXVodDownloadDataSource *dataSource = [[TXVodDownloadDataSource alloc] init];
-            dataSource.appId = model.appId;
-            dataSource.fileId = model.fileId;
-            dataSource.pSign = model.pSign;
-            dataSource.quality = [self getCurrentQuality];
-            mediaInfo.dataSource = dataSource;
             // 启动下载
             if (!model.drmBuilder) {
+                TXVodDownloadMediaInfo *mediaInfo = [[TXVodDownloadMediaInfo alloc] init];
+                TXVodDownloadDataSource *dataSource = [[TXVodDownloadDataSource alloc] init];
+                dataSource.appId = model.appId;
+                dataSource.fileId = model.fileId;
+                dataSource.pSign = model.pSign;
+                dataSource.quality = [self getCurrentQuality];
+                mediaInfo.dataSource = dataSource;
                 [self.manager startDownload:mediaInfo];
             } else {
-                [self.manager startDownloadWithDRMBuilder:model.drmBuilder];
+                [self.manager startDownloadDrm:model.drmBuilder resolution:[self getCurrentQuality]];
             }
         }
     }
@@ -623,6 +644,24 @@ NSString * const ResolutionCellIdentifier = @"ResolutionCellIdentifier";
     }
     
     return YES;
+}
+
++ (NSDictionary *)qualityDict {
+    static NSDictionary *qualityDict = nil;
+    if (!qualityDict) {
+        qualityDict = @{
+            @(TXVodQualityFLU) : playerLocalize(@"SuperPlayerDemo.MoviePlayer.smooth"),
+            @(TXVodQuality240P) : playerLocalize(@"SuperPlayerDemo.MoviePlayer.smooth"),
+            @(TXVodQuality360P) : playerLocalize(@"SuperPlayerDemo.MoviePlayer.smooth"),
+            @(TXVodQualitySD) : playerLocalize(@"SuperPlayerDemo.MoviePlayer.SD"),
+            @(TXVodQuality480P) : playerLocalize(@"SuperPlayerDemo.MoviePlayer.SD"),
+            @(TXVodQuality540P) : playerLocalize(@"SuperPlayerDemo.MoviePlayer.SD"),
+            @(TXVodQualityHD) : playerLocalize(@"SuperPlayerDemo.MoviePlayer.HD"),
+            @(TXVodQuality720P) : playerLocalize(@"SuperPlayerDemo.MoviePlayer.HD"),
+            @(TXVodQualityFHD) : playerLocalize(@"SuperPlayerDemo.MoviePlayer.FHD"),
+            @(TXVodQuality1080p) : playerLocalize(@"SuperPlayerDemo.MoviePlayer.FHD")};
+    }
+    return qualityDict;
 }
 
 @end

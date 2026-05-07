@@ -6,7 +6,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface TUIPlayerBitrateItem : NSObject
-/// m3u8 文件中的序号
+///m3u8 文件中的序号
 @property(nonatomic, assign) NSInteger index;
 
 ///此流的视频宽度

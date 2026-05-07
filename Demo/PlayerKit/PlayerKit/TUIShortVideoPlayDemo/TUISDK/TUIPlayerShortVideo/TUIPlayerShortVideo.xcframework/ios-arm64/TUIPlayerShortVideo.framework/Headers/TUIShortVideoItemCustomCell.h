@@ -2,6 +2,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#if __has_include(<TUIPlayerCore/TUIPlayerDataModel.h>)
+#import <TUIPlayerCore/TUIPlayerDataModel.h>
+#else
+#import "TUIPlayerDataModel.h"
+#endif
 #import "TUIPlayerShortVideoUIManager.h"
 NS_ASSUME_NONNULL_BEGIN
 @protocol TUIShortVideoItemCustomCellDelegate <NSObject>
@@ -13,9 +18,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 @interface TUIShortVideoItemCustomCell : UITableViewCell
-
 @property (nonatomic, weak)id <TUIShortVideoItemCustomCellDelegate>delegate;///代理
-@property (nonatomic, strong) TUIPlayerVideoModel *model;/// 视频模型
+@property (nonatomic, strong) TUIPlayerDataModel *model;/// 数据模型
 
 
 + (TUIShortVideoItemCustomCell *)cellWithtableView:(UITableView *)tableView

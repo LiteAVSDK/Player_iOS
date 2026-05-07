@@ -203,7 +203,7 @@ TXLiveBaseDelegate,TXLivePlayListener,TXVodPlayListener>
     _restoreUI = NO;
     _hasStartPipLoading = NO;
     _lastSubtitleIndex = SUBTUTLE_INVALID_INDEX;
-    _lastAudioTrackIndex = 0;
+    _lastAudioTrackIndex = INT_MIN;
 }
 
 - (void)dealloc {
@@ -270,15 +270,17 @@ TXLiveBaseDelegate,TXLivePlayListener,TXVodPlayListener>
     _playingIndex = index;
     _isLoopPlayList = isLoop;
     _isVideoList = YES;
+    _lastAudioTrackIndex = INT_MIN;
     [self.vodPlayer stopPlay];
     [self playModelInList:index];
 }
 
-- (void)playWithModelNeedLicence:(SuperPlayerModel *)playerModel {
+- (void)    playWithModelNeedLicence:(SuperPlayerModel *)playerModel {
     LOG_ME;
     _videoModelList = nil;
     _playerModel = playerModel;
     _isVideoList = NO;
+    _lastAudioTrackIndex = INT_MIN;
     [self.controlView setNextBtnState:NO];
     [self setChildViewState];
     [self _playWithModel:playerModel];
@@ -350,6 +352,7 @@ TXLiveBaseDelegate,TXLivePlayListener,TXVodPlayListener>
     [self reportPlay];
 
     self.state = StateStopped;
+    _lastAudioTrackIndex = INT_MIN;
 }
 
 /**
@@ -698,9 +701,11 @@ TXLiveBaseDelegate,TXLivePlayListener,TXVodPlayListener>
     }
     
     //设置字幕默认样式
-    NSDictionary *dic = [(SPDefaultControlView *)self.controlView subtitlesConfig];
-    [self setSubtitleStyle:dic];
-        
+    if ([self.controlView isKindOfClass:SPDefaultControlView.class]) {
+        NSDictionary *dic = [(SPDefaultControlView *)self.controlView subtitlesConfig];
+        [self setSubtitleStyle:dic];
+    }
+    
     self.vodPlayer.token    = self.playerModel.drmToken;
 
     self.vodPlayer.enableHWAcceleration = self.playerConfig.hwAcceleration;
@@ -974,8 +979,24 @@ TXLiveBaseDelegate,TXLivePlayListener,TXVodPlayListener>
     [trackArray enumerateObjectsUsingBlock:^(TXTrackInfo * _Nonnull obj,
                                                            NSUInteger idx,
                                                            BOOL * _Nonnull stop) {
-        if (obj.isSelected) {
-            _lastAudioTrackIndex = obj.getTrackIndex;
+        if (_lastAudioTrackIndex != INT_MIN) {
+            if (obj.getTrackIndex == _lastAudioTrackIndex) {
+                if (!obj.isSelected) {
+                    [player selectTrack:obj.getTrackIndex];
+                }
+            } else {
+                if (obj.isSelected) {
+                    [player deselectTrack:obj.getTrackIndex];
+                }
+            }
+            if (_lastAudioTrackIndex == -1) {
+                [self.vodPlayer setMute:YES];
+            }
+        } else {
+            if (obj.isSelected) {
+                _lastAudioTrackIndex = obj.getTrackIndex;
+            }
+            [self.vodPlayer setMute:NO];
         }
     }];
     [self.controlView resetWithTracks:trackArray currentTrackIndex:_lastAudioTrackIndex subtitles:subtitlesArray currentSubtitlesIndex:_lastSubtitleIndex];
@@ -1260,8 +1281,10 @@ TXLiveBaseDelegate,TXLivePlayListener,TXVodPlayListener>
         [self showOrHideBackBtn:YES];
     }
     _isFullScreen = fullScreen;
+    if ([self.controlView isKindOfClass:SPDefaultControlView.class]) {
+        [(SPDefaultControlView *)self.controlView fullScreenButtonSelectState:fullScreen];
+    }
     
-    [(SPDefaultControlView*)self.controlView fullScreenButtonSelectState:fullScreen];
     self.controlView.compact = !fullScreen;
 }
 ///代码手动旋转屏幕
@@ -1974,7 +1997,11 @@ TXLiveBaseDelegate,TXLivePlayListener,TXVodPlayListener>
     
     [self.vodPlayer setRate:self.playerConfig.playRate];
     [self.vodPlayer setMirror:self.playerConfig.mirror];
-    [self.vodPlayer setMute:self.playerConfig.mute];
+    if (_lastAudioTrackIndex == -1) {
+        [self.vodPlayer setMute:YES];
+    } else {
+        [self.vodPlayer setMute:self.playerConfig.mute];
+    }
     [self.vodPlayer setRenderMode:self.playerConfig.renderMode];
 }
 
@@ -1989,7 +2016,11 @@ TXLiveBaseDelegate,TXLivePlayListener,TXVodPlayListener>
     } else {
         [self.vodPlayer setRate:self.playerConfig.playRate];
         [self.vodPlayer setMirror:self.playerConfig.mirror];
-        [self.vodPlayer setMute:self.playerConfig.mute];
+        if (_lastAudioTrackIndex == -1) {
+            [self.vodPlayer setMute:YES];
+        } else {
+            [self.vodPlayer setMute:self.playerConfig.mute];
+        }
         [self.vodPlayer setRenderMode:self.playerConfig.renderMode];
         [self.vodPlayer setAutoPictureInPictureEnabled:self.playerConfig.pipAutomatic];
     }
@@ -2321,6 +2352,7 @@ TXLiveBaseDelegate,TXLivePlayListener,TXVodPlayListener>
             self.repeatBtn.hidden = YES;
             self.playDidEnd = NO;
             self.controlView.hidden = SuperPlayerWindowShared.isShowing ? YES : NO;
+            [self.controlView setProgressControlStatus:(player.duration > 0)];
             // 不使用vodPlayer.autoPlay的原因是暂停的时候会黑屏，影响体验
             [self prepareAutoplay];
         }
@@ -2357,9 +2389,6 @@ TXLiveBaseDelegate,TXLivePlayListener,TXVodPlayListener>
                 self.state = StateBuffering;
             }
         } else if (EvtID == PLAY_EVT_VOD_LOADING_END) {
-            if (self.state == StateBuffering) {
-                self.state = StatePlaying;
-            }
             [self.spinner stopAnimating];
         } else if (EvtID == PLAY_EVT_CHANGE_RESOLUTION) {
             if (player.height != 0) {
@@ -2393,7 +2422,13 @@ TXLiveBaseDelegate,TXLivePlayListener,TXVodPlayListener>
                 [self.watermarkView setDynamicWaterModel:model];
             }
         }
-        
+        // NOTE:更新12.8及以上播放器版本
+        if (EvtID == VOD_PLAY_EVT_PLAY_PAUSE) {
+            self.repeatBtn.hidden = YES;
+            [self.controlView setPlayState:NO];
+            self.state = StatePause;
+            self.centerPlayBtn.hidden = NO;
+        }
         [self onVodPlayEvent:player event:EvtID withParam:param];
     });
 }
@@ -2482,6 +2517,7 @@ TXLiveBaseDelegate,TXLivePlayListener,TXVodPlayListener>
 
             if (self.state == StateBuffering) self.state = StatePlaying;
             [self.netWatcher loadingEndEvent];
+            self.controlView.hidden = SuperPlayerWindowShared.isShowing ? YES : NO;
         } else if (EvtID == PLAY_EVT_PLAY_END) {
             [self moviePlayDidEnd];
         } else if (EvtID == PLAY_ERR_NET_DISCONNECT) {
@@ -2611,7 +2647,7 @@ TXLiveBaseDelegate,TXLivePlayListener,TXVodPlayListener>
             });
         } else {
             if (!self.didEnterBackground) {
-                if (_playDidEnd || isShowVipWatchView) {
+                if (_playDidEnd) {
                     dispatch_async(dispatch_get_main_queue(), ^{
                         [self pause];
                         [player stopPlay];

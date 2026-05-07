@@ -3,19 +3,21 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-@class TUIPlayerVideoModel;
+@class TUIPlayerDataModel;
+
 @protocol TUIPlayerShortVideoCustomControlDelegate <NSObject>
 @optional
 /**
  * 自定义回调事件
  */
 - (void)customCallbackEvent:(id)info;
+
 @end
 
 @protocol TUIPlayerShortVideoCustomControl <NSObject>
 @required
 @property (nonatomic, weak) id<TUIPlayerShortVideoCustomControlDelegate>delegate; ///代理
-@property (nonatomic, strong) TUIPlayerVideoModel *videoModel; ///当前播放的视频模型
+@property (nonatomic, strong) TUIPlayerDataModel *model; ///当前页面数据模型
 
 /**
  * 刷新视图

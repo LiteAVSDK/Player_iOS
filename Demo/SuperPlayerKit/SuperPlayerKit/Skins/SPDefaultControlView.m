@@ -1066,6 +1066,9 @@ SuperPlayerTrackViewDelegate, SuperPlayerSubtitlesViewDelegate>
             self.resoultionCurrentBtn = btn;
         }
     }
+    self.videoSlider.hidden = isLive;
+    self.currentTimeLabel.hidden = isLive;
+    self.totalTimeLabel.hidden = isLive;
     if (self.isLive != isLive) {
         self.isLive = isLive;
         [self setNeedsLayout];
@@ -1130,6 +1133,12 @@ SuperPlayerTrackViewDelegate, SuperPlayerSubtitlesViewDelegate>
 - (void)setSubtitlesBtnState:(BOOL)isShow {
     self.subtitlesBtn.hidden = !isShow;
     self.disableSubtitlesBtn = !isShow;
+}
+
+- (void)setProgressControlStatus:(BOOL)isShow {
+    self.totalTimeLabel.hidden = !isShow;
+    self.currentTimeLabel.hidden = !isShow;
+    self.videoSlider.hidden = !isShow;
 }
 
 - (void)setOfflineBtnState:(BOOL)isShow {

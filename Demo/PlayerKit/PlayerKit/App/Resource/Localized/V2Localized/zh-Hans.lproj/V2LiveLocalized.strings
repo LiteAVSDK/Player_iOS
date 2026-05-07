@@ -144,6 +144,8 @@
 "V2.Live.PlayerDemo.RetryInterval" = "重连间隔";
 "V2.Live.PlayerDemo.SessionKey" = "FLV会话密钥";
 "V2.Live.PlayerDemo.accPlay" = "低延时播放";
+"V2.Live.PlayerDemo.EnableHdrEnhancement" = "开启了HDR增强";
+"V2.Live.PlayerDemo.DisableHdrEnhancement" = "关闭了HDR增强";
 
 "V2.Live.LinkMicNew.termsandconditions" = "用户协议";
 "V2.Live.LinkMicNew.agree" = "同意";
@@ -257,6 +259,7 @@
 "MLVB.MainMenu.TUIShortVideoPlay" = "短视频组件播放（高级版）";
 "MLVB.MainMenu.shortVideoPlay" = "短视频播放";
 "MLVB.MainMenu.FeedVideoPlay" = "Feed流播放";
+"MLVB.MainMenu.DRMPlayer" = "DRM播放";
 
 "MLVB.MainMenu.Scene" = "场景应用";
 "MLVB.MainMenu.LVBLite" = "小直播";

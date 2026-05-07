@@ -1,14 +1,15 @@
 // Copyright (c) 2023 Tencent. All rights reserved.
 
-#import <UIKit/UIKit.h>
-#import "TUIShortVideoBaseView.h"
-
 #if __has_include(<TUIPlayerCore/TUIPlayerCore-umbrella.h>)
 #import <TUIPlayerCore/TUIPlayerCore-umbrella.h>
 #else
 #import "TUIPlayerCore-umbrella.h"
 #endif
+#import <UIKit/UIKit.h>
 #import "TUIPlayerShortVideoUIManager.h"
+#import "TUIShortVideoBaseView.h"
+#import "TUIShortVideoCellInterface.h"
+
 NS_ASSUME_NONNULL_BEGIN
 ///视频播放控件cell代理
 @class TUIShortVideoItemView;
@@ -39,10 +40,12 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)vodCustomCallbackEvent:(id)info;
 
 @end
+
 ///视频播放控件cell
 @interface TUIShortVideoItemView : UITableViewCell<TUIShortVideoBaseViewDelegate>
 
 @property (nonatomic, weak, nullable) id<TUIShortVideoItemViewDelegate> delegate; ///代理
+@property (nonatomic, weak, nullable) id<TUIShortVideoCellLayoutDelegate> layoutDelegate; /// 布局代理
 @property (nonatomic, strong) TUIShortVideoBaseView *videoBaseView;          ///baseview
 @property (nonatomic, strong) TUIPlayerVideoModel *itemViewModel;           ///数据模型
 @property (nonatomic, strong) NSIndexPath *indexPath;                    ///索引
@@ -51,12 +54,12 @@ NS_ASSUME_NONNULL_BEGIN
 ///当前播放器是否正在播放
 @property (nonatomic, assign) BOOL isPlaying;
 
-
 /**
- *  创建cell
+ *  cell构造方法
  */
-+ (TUIShortVideoItemView *)cellWithtableView:(UITableView *)tableView
-                                   uiManager:(TUIPlayerShortVideoUIManager *)uiManager ;
++ (TUIShortVideoItemView *)tableView:(UITableView *)tableView
+               cellForRowAtIndexPath:(NSIndexPath *)indexPath
+                           uiManager:(TUIPlayerShortVideoUIManager *)uiManager;
 
 /**
  * 设置背景图缩放模式
@@ -74,6 +77,16 @@ NS_ASSUME_NONNULL_BEGIN
  * @param time  当前播放的时长
 */
 - (void)setCurrentTime:(float)time;
+
+/**
+ * 显示中心view
+ */
+- (void)showCenterView;
+
+/**
+ * 隐藏中心view
+ */
+- (void)hideCenterView;
 
 /**
  *  启动Loading
@@ -120,6 +133,19 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)onPlayEvent:(TUITXVodPlayer *)player
               event:(int)EvtID
           withParam:(NSDictionary *)param;
+- (void)vodRenderModeChanged:(TUI_Enum_Type_RenderMode)renderMode;
+
+/**
+ * 回调字幕信息
+ * @param player 播放器对象
+ * @param subtitleData 字幕信息
+ */
+- (void)onPlayer:(TUITXVodPlayer *)player subtitleData:(TXVodSubtitleData *)subtitleData;
+
+/**
+ * 隐藏/显示背景图
+ */
+- (void)hiddenCoverImage:(BOOL)hidden;
 @end
 
 NS_ASSUME_NONNULL_END

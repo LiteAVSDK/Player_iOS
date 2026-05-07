@@ -181,6 +181,17 @@
  * @param isShow  YES显示，NO隐藏
  */
 - (void)setSubtitlesBtnState:(BOOL)isShow;
+
+/**
+  * Whether to hide the progress control
+  * @param isShow YES show, NO hide
+  */
+/**
+ * 是否隐底部进度控件
+ * @param isShow  YES显示，NO隐藏
+ */
+- (void)setProgressControlStatus:(BOOL)isShow;
+
 /**
   * Reset playback control panel
   * @param resolutionNames resolution names

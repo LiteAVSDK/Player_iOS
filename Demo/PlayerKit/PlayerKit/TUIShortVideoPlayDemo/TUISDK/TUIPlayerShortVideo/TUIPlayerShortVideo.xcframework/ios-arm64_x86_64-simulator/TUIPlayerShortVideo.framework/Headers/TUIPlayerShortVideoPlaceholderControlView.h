@@ -7,7 +7,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface TUIPlayerShortVideoPlaceholderControlView : UIView <TUIPlayerShortVideoControl>
 @property (nonatomic, weak) id<TUIPlayerShortVideoControlDelegate>delegate; ///代理
-@property (nonatomic, strong) TUIPlayerVideoModel *videoModel; ///当前播放的视频模型
+@property (nonatomic, strong) TUIPlayerVideoModel *model; ///当前播放的视频模型
 ///当前播放器的播放状态
 @property (nonatomic, assign) TUITXVodPlayerStatus currentPlayerStatus;
 #pragma mark - playBtn

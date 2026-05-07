@@ -7,7 +7,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface TUIPlayerShortVideoPlaceholderCustomControlView : UIView <TUIPlayerShortVideoCustomControl>
 @property (nonatomic, weak) id<TUIPlayerShortVideoCustomControlDelegate>delegate; ///代理
-@property (nonatomic, strong) TUIPlayerVideoModel *videoModel; ///当前播放的视频模型
+@property (nonatomic, strong) TUIPlayerDataModel *model; ///当前页面数据模型
 
 
 - (void)reloadControlData;

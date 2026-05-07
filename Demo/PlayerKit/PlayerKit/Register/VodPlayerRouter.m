@@ -8,9 +8,12 @@
 #import "VodPlayerRouter.h"
 #import "MoviePlayerViewController.h" //  超级播放器
 #import "PlayVodViewController.h"     // 点播播放器
-#import "TUIShortVideoPlayViewController.h"  //短视频（高级版）
+#import "TUIPSDMainViewController.h"  //短视频（高级版）
 #import "ShortVideoPlayViewController.h"   //短视频
 #import "FeedPlayViewController.h"         //Feed流
+#import "SuperPlayerVRViewController.h" // VR播放器
+#import "DRMPlayerViewController.h"     // DRM
+
 @interface VodPlayerRouter ()
 @property(nonatomic, strong) NSArray<TKMainEntrance *> *entranceArr;
 @end
@@ -44,14 +47,7 @@
     TKMainEntrance *tuiShortVideoEntrance = [[TKMainEntrance alloc] init];
     tuiShortVideoEntrance.title = baseLocalized(@"短视频（高级版）");
     tuiShortVideoEntrance.action = ^{
-        TUIShortVideoPlayViewController *vc = [[TUIShortVideoPlayViewController alloc] init];
-        [weakSelf.navigation pushViewController:vc animated:YES];
-    };
-    
-    TKMainEntrance *shortVideoEntrance = [[TKMainEntrance alloc] init];
-    shortVideoEntrance.title = baseLocalized(@"短视频");
-    shortVideoEntrance.action = ^{
-        ShortVideoPlayViewController *vc = [[ShortVideoPlayViewController alloc] init];
+        TUIPSDMainViewController *vc = [[TUIPSDMainViewController alloc] init];
         [weakSelf.navigation pushViewController:vc animated:YES];
     };
     
@@ -61,8 +57,21 @@
         FeedPlayViewController *vc = [[FeedPlayViewController alloc] init];
         [weakSelf.navigation pushViewController:vc animated:YES];
     };
-
-    self.entranceArr = @[superPlayerEntrance ,vodEntrance,tuiShortVideoEntrance, shortVideoEntrance, feedPlayEntrance ];
+    
+    TKMainEntrance *vrPlayerEntrance = [[TKMainEntrance alloc] init];
+    vrPlayerEntrance.title = baseLocalized(@"VR播放器");
+    vrPlayerEntrance.action = ^{
+        SuperPlayerVRViewController *vc = [[SuperPlayerVRViewController alloc] init];
+        [weakSelf.navigation pushViewController:vc animated:YES];
+    };
+    
+    TKMainEntrance *drmPlayerEntrance = [[TKMainEntrance alloc] init];
+    drmPlayerEntrance.title = baseLocalized(@"DRM播放");
+    drmPlayerEntrance.action = ^{
+        DRMPlayerViewController *vc = [[DRMPlayerViewController alloc] init];
+        [weakSelf.navigation pushViewController:vc animated:YES];
+    };
+    self.entranceArr = @[superPlayerEntrance ,vodEntrance,tuiShortVideoEntrance, feedPlayEntrance, vrPlayerEntrance, drmPlayerEntrance];
 }
 
 - (NSArray<TKMainEntrance *> *)entrances {

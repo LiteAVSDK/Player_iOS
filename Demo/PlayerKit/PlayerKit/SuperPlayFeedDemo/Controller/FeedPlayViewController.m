@@ -163,7 +163,9 @@
 - (void)loadTestDataWithsuccess:(void(^)(NSMutableArray *list))success {
     NSMutableArray *result = [self loadVideoResources];
     if (self.isDash) {
-        success(result);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            success(result);
+        });
     } else {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             dispatch_group_t downloadVideoGroup = dispatch_group_create();

@@ -71,6 +71,9 @@
 - (void)setSubtitlesBtnState:(BOOL)isShow {
 }
 
+- (void)setProgressControlStatus:(BOOL)isShow {
+}
+
 - (void)setDisableOfflineBtn:(BOOL)disableOfflineBtn {
 }
 

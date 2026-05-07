@@ -145,6 +145,8 @@
 "V2.Live.PlayerDemo.RetryInterval" = "Player retry interval";
 "V2.Live.PlayerDemo.SessionKey" = "FLV session key";
 "V2.Live.PlayerDemo.accPlay" = "Low latency play";
+"V2.Live.PlayerDemo.EnableHdrEnhancement" = "Enable HDR enhancement";
+"V2.Live.PlayerDemo.DisableHdrEnhancement" = "Disable HDR enhancement";
 
 "V2.Live.LinkMicNew.termsandconditions" = "Terms and Conditions";
 "V2.Live.LinkMicNew.agree" = "Agree";
@@ -252,6 +254,7 @@
 "MLVB.MainMenu.TUIShortVideoPlay" = "Short Video Component Play (Advanced Version)";
 "MLVB.MainMenu.shortVideoPlay" = "short Video Play";
 "MLVB.MainMenu.FeedVideoPlay" = "Feed Video Play";
+"MLVB.MainMenu.DRMPlayer" = "DRM Play";
 
 "MLVB.MainMenu.Scene" = "Scene";
 "MLVB.MainMenu.LVBLite" = "LVB Lite";

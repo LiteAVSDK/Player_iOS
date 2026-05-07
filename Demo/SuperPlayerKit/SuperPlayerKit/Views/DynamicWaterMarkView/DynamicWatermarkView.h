@@ -14,8 +14,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) DynamicWaterModel *dynamicWaterModel;
 
-@property (nonatomic, strong, readonly) UILabel *waterMarkLabel;
-
 /// display view
 /// 显示view
 - (void)showDynamicWateView;

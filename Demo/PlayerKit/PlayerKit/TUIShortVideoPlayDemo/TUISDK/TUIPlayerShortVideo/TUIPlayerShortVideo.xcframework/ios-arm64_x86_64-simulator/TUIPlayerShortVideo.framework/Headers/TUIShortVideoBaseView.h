@@ -14,6 +14,14 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol TUIShortVideoBaseViewDelegate <NSObject>
 
 - (void)layoutSubviewsChange;
+
+@optional
+/**
+ * @brief 获取widget的frame
+ * @param containerSize widget父view的size
+ */
+- (CGRect)widgetFrameWithContainerSize:(CGSize)containerSize;
+
 @end
 
 ///视频控件baseView
@@ -34,7 +42,10 @@ NS_ASSUME_NONNULL_BEGIN
  * @param renderMode 缩放模式
 */
 - (void)setBackgroundImageRenderMode:(TUI_Enum_Type_RenderMode)renderMode;
-
+/**
+ * 隐藏/显示背景图
+ */
+- (void)hiddenCoverImage:(BOOL)hidden;
 @end
 
 NS_ASSUME_NONNULL_END

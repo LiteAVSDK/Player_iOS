@@ -67,7 +67,7 @@ static NSDictionary *gQualityDic;
             @(TXVodQuality480P) : playerLocalize(@"SuperPlayerDemo.MoviePlayer.SD"),
             @(TXVodQuality540P) : playerLocalize(@"SuperPlayerDemo.MoviePlayer.SD"),
             @(TXVodQuality720P) : playerLocalize(@"SuperPlayerDemo.MoviePlayer.HD"),
-            @(TXVodQuality1080p) : playerLocalize(@"SuperPlayerDemo.MoviePlayer.HD")};
+            @(TXVodQuality1080p) : playerLocalize(@"SuperPlayerDemo.MoviePlayer.FHD")};
     });
 }
 
@@ -152,7 +152,6 @@ static NSDictionary *gQualityDic;
     [self.manager registerListener:self.callback info:self.mediaInfo];
     
     __block TXVodDownloadDataSource *dataSource = self.mediaInfo.dataSource;
-    [self updateQuality:dataSource.quality];
     [self updateProgress:self.mediaInfo.progress];
     [self updateCacheState:self.mediaInfo.downloadState];
     CGFloat size = model.mediaInfo.size * 1.0f / 1024 / 1024;
@@ -222,7 +221,8 @@ static NSDictionary *gQualityDic;
     }
     
     TXVodDownloadMediaInfo *info = [[TXVodDownloadManager shareInstance] getDownloadMediaInfo:self.mediaInfo];
-    [self updateQuality:info.dataSource.quality];
+    NSInteger quality = info.dataSource ? info.dataSource.quality : info.preferredResolution;
+    [self updateQuality:quality];
     [self updateProgress:info.progress];
     [self updateCacheState:info.downloadState];
 }
@@ -232,7 +232,8 @@ static NSDictionary *gQualityDic;
     _model.mediaInfo.downloadState = 1;
     id drmbuilder = [self.mediaInfo valueForKey:@"drmBuilder"];
     if (drmbuilder) {
-        [self.manager startDownloadWithDRMBuilder:drmbuilder];
+        NSInteger quality = _model.mediaInfo.dataSource ? _model.mediaInfo.dataSource.quality : _model.mediaInfo.preferredResolution;
+        [self.manager startDownloadDrm:drmbuilder resolution:quality];
     } else {
         [self.manager startDownload:self.mediaInfo];
     }

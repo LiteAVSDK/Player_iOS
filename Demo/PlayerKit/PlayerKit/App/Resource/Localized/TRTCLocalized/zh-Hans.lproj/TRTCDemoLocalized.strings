@@ -555,7 +555,7 @@
 "Demo.TRTC.Live.turnOnCapture" = "开启视频采集";
 "Demo.TRTC.Live.turnOnPush" = "开启视频推送";
 "Demo.TRTC.Live.turnOnBlackFrame" = "开启黑帧";
-"Demo.TRTC.Live.blackFrameRatio" = "黑帧比例";
+"Demo.TRTC.Live.blackFrameRatio" = "黑帧尺寸";
 "Demo.TRTC.Live.previewMirror" = "开启预览镜像";
 "Demo.TRTC.Live.beauty" = "美颜";
 "Demo.TRTC.Live.brightness" = "画面亮度";
