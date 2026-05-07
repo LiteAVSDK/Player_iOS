@@ -82,8 +82,8 @@ static TXConfigManager *_shareInstance = nil;
 }
 
 - (void)setLicence {
-    NSString *licenceUrl = @"https://license-test.vod2.myqcloud.com/test/license/testV2/1253968938_1/v_cube.license";
-    NSString *licenceKey = @"79aa077679db4b0d68643e7af3516719";
+    NSString *licenceUrl = [self.licenceConfig objectForKey:@"licenceUrl"];
+    NSString *licenceKey = [self.licenceConfig objectForKey:@"licenceKey"];
     [TXLiveBase setLicenceURL:licenceUrl key:licenceKey];
 }
 
