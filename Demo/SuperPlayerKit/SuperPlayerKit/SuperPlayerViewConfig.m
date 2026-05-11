@@ -11,7 +11,10 @@
 #import <TXLiteAVSDK_Player_Premium/TXLiveSDKTypeDef.h>
 #elif __has_include(<TXLiteAVSDK_Professional/TXLiveSDKTypeDef.h>)
 #import <TXLiteAVSDK_Professional/TXLiveSDKTypeDef.h>
+#else
+#import "TXLiveSDKTypeDef.h"
 #endif
+
 #import "SuperPlayer.h"
 #import "SuperPlayerViewConfig.h"
 

@@ -10,7 +10,7 @@
 #import "SuperPlayerTableMenu.h"
 #import "SuperPlayerSubParamView.h"
 #import "SuperPlayerLocalized.h"
-#import "Masonry.h"
+#import "TXMasonry.h"
 
 @interface SuperPlayerSubSettingView()
 
@@ -50,51 +50,51 @@
     self.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.6];
     
     [self addSubview:self.backBtn];
-    [self.backBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.backBtn tx_makeConstraints:^(TXConstraintMaker *make) {
         make.left.equalTo(self).offset(20);
         make.top.equalTo(self).offset(20);
-        make.width.mas_equalTo(30);
-        make.height.mas_equalTo(30);
+        make.width.tx_equalTo(30);
+        make.height.tx_equalTo(30);
     }];
     
     [self addSubview:self.titleLabel];
-    [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.titleLabel tx_makeConstraints:^(TXConstraintMaker *make) {
         make.left.equalTo(self).offset(60);
         make.top.equalTo(self).offset(20);
         make.right.equalTo(self).offset(-20);
-        make.height.mas_equalTo(30);
+        make.height.tx_equalTo(30);
     }];
     
     [self addSubview:self.topLineView];
-    [self.topLineView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.topLineView tx_makeConstraints:^(TXConstraintMaker *make) {
         make.left.equalTo(self);
         make.right.equalTo(self);
         make.top.equalTo(self).offset(70);
-        make.height.mas_equalTo(1);
+        make.height.tx_equalTo(1);
     }];
     
     [self addSubview:self.bottomLineView];
-    [self.bottomLineView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.bottomLineView tx_makeConstraints:^(TXConstraintMaker *make) {
         make.left.equalTo(self);
         make.right.equalTo(self);
         make.bottom.equalTo(self).offset(-70);
-        make.height.mas_equalTo(1);
+        make.height.tx_equalTo(1);
     }];
     
     [self addSubview:self.doneBtn];
-    [self.doneBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.doneBtn tx_makeConstraints:^(TXConstraintMaker *make) {
         make.left.equalTo(self).offset(20);
         make.bottom.equalTo(self).offset(-20);
-        make.height.mas_equalTo(30);
-        make.width.mas_equalTo(130);
+        make.height.tx_equalTo(30);
+        make.width.tx_equalTo(130);
     }];
     
     [self addSubview:self.resetBtn];
-    [self.resetBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.resetBtn tx_makeConstraints:^(TXConstraintMaker *make) {
         make.right.equalTo(self).offset(-20);
         make.bottom.equalTo(self).offset(-20);
-        make.height.mas_equalTo(30);
-        make.width.mas_equalTo(130);
+        make.height.tx_equalTo(30);
+        make.width.tx_equalTo(130);
     }];
     
     CGFloat blockBtnHeight = (self.frame.size.height - (71 * 2)) / 4;

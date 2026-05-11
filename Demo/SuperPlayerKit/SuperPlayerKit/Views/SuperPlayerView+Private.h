@@ -9,7 +9,7 @@
 #ifndef SuperPlayerView_Private_h
 #define SuperPlayerView_Private_h
 #import <MediaPlayer/MediaPlayer.h>
-#import "Masonry.h"
+#import "TXMasonry.h"
 #import "NetWatcher.h"
 #import "SuperPlayer.h"
 #import "SuperPlayerControlViewDelegate.h"

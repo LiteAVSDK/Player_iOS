@@ -8,7 +8,6 @@ Pod::Spec.new do |spec|
     spec.source = { :git => 'https://github.com/LiteAVSDK/Player_iOS.git', :tag => '13.3.20845' }
     spec.ios.deployment_target = '9.0'
     spec.dependency 'SDWebImage'
-    spec.dependency 'Masonry'
     spec.static_framework = true
     spec.default_subspec = 'Player'
     spec.frameworks = 'CoreMotion'

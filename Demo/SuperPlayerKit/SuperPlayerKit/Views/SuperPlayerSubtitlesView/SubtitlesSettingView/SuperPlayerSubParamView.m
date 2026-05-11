@@ -7,7 +7,7 @@
 
 #import "SuperPlayerSubParamView.h"
 #import "SuperPlayerHelpers.h"
-#import "Masonry.h"
+#import "TXMasonry.h"
 
 @interface SuperPlayerSubParamView()
 // Left Label
@@ -30,23 +30,23 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
         [self addSubview:self.label];
-        [self.label mas_makeConstraints:^(MASConstraintMaker *make) {
+        [self.label tx_makeConstraints:^(TXConstraintMaker *make) {
             make.left.equalTo(self).offset(20);
             make.top.equalTo(self).offset(0);
             make.bottom.equalTo(self).offset(0);
-            make.width.mas_equalTo(120);
+            make.width.tx_equalTo(120);
         }];
         
         [self addSubview:self.contentView];
-        [self.contentView mas_makeConstraints:^(MASConstraintMaker *make) {
+        [self.contentView tx_makeConstraints:^(TXConstraintMaker *make) {
             make.right.equalTo(self).offset(-20);
             make.top.equalTo(self).offset(10);
             make.bottom.equalTo(self).offset(-10);
-            make.width.mas_equalTo(150);
+            make.width.tx_equalTo(150);
         }];
         
         [self.contentView addSubview:self.chooseBtn];
-        [self.chooseBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        [self.chooseBtn tx_makeConstraints:^(TXConstraintMaker *make) {
             make.left.equalTo(self.contentView);
             make.top.equalTo(self);
             make.bottom.equalTo(self);
@@ -54,11 +54,11 @@
         }];
         
         [self.contentView addSubview:self.imageView];
-        [self.imageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        [self.imageView tx_makeConstraints:^(TXConstraintMaker *make) {
             make.right.equalTo(self.contentView).offset(-5);
             make.top.equalTo(self);
             make.bottom.equalTo(self);
-            make.width.mas_equalTo(25);
+            make.width.tx_equalTo(25);
         }];
     }
     return self;

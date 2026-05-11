@@ -10,7 +10,6 @@
 
 #import "AppLocalized.h"
 #import "PlayerKitCommonHeaders.h"
-#import "PlayerKitCommonHeaders.h"
 
 @interface SuperPlayerGuideView ()
 @property UIButton *iknow_btn;

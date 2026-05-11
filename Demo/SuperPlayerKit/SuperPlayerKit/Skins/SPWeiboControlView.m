@@ -6,7 +6,7 @@
 //
 
 #import "SPWeiboControlView.h"
-#import "Masonry.h"
+#import "TXMasonry.h"
 #import "DataReport.h"
 #import "StrUtils.h"
 #import "SuperPlayer.h"
@@ -41,49 +41,49 @@
 }
 
 - (void)makeSubViewsConstraints {
-    [self.startBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.startBtn tx_makeConstraints:^(TXConstraintMaker *make) {
         make.center.equalTo(self);
     }];
-    [self.currentTimeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.currentTimeLabel tx_makeConstraints:^(TXConstraintMaker *make) {
         make.bottom.equalTo(self).offset(-8);
-        make.left.mas_equalTo(@0);
-        make.width.mas_equalTo(@60);
+        make.left.tx_equalTo(@0);
+        make.width.tx_equalTo(@60);
     }];
-    [self.fullScreenBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.fullScreenBtn tx_makeConstraints:^(TXConstraintMaker *make) {
         make.centerY.equalTo(self.currentTimeLabel);
         make.right.equalTo(self).offset(-12);
     }];
-    [self.resolutionBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.resolutionBtn tx_makeConstraints:^(TXConstraintMaker *make) {
         make.centerY.equalTo(self.currentTimeLabel);
-        make.right.equalTo(self.fullScreenBtn.mas_left);
-        make.width.mas_equalTo(0);
+        make.right.equalTo(self.fullScreenBtn.tx_left);
+        make.width.tx_equalTo(0);
     }];
-    [self.totalTimeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.totalTimeLabel tx_makeConstraints:^(TXConstraintMaker *make) {
         make.centerY.equalTo(self.currentTimeLabel);
-        make.right.equalTo(self.resolutionBtn.mas_left);
-        make.width.mas_equalTo(@60);
+        make.right.equalTo(self.resolutionBtn.tx_left);
+        make.width.tx_equalTo(@60);
     }];
-    [self.videoSlider mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.videoSlider tx_makeConstraints:^(TXConstraintMaker *make) {
         make.centerY.equalTo(self.currentTimeLabel);
-        make.left.equalTo(self.currentTimeLabel.mas_right);
-        make.right.equalTo(self.totalTimeLabel.mas_left);
+        make.left.equalTo(self.currentTimeLabel.tx_right);
+        make.right.equalTo(self.totalTimeLabel.tx_left);
     }];
 
-    [self.backBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.backBtn tx_makeConstraints:^(TXConstraintMaker *make) {
         make.leading.equalTo(self).offset(5);
         make.top.equalTo(self).offset(3);
-        make.width.mas_equalTo(@60);
+        make.width.tx_equalTo(@60);
     }];
 
-    [self.moreBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.moreBtn tx_makeConstraints:^(TXConstraintMaker *make) {
         make.trailing.equalTo(self).offset(-10);
         make.centerY.equalTo(self.backBtn);
-        make.width.mas_equalTo(@40);
+        make.width.tx_equalTo(@40);
     }];
-    [self.muteBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.trailing.equalTo(self.moreBtn.mas_leading).offset(-10);
+    [self.muteBtn tx_makeConstraints:^(TXConstraintMaker *make) {
+        make.trailing.equalTo(self.moreBtn.tx_leading).offset(-10);
         make.centerY.equalTo(self.backBtn);
-        make.width.mas_equalTo(@40);
+        make.width.tx_equalTo(@40);
     }];
 }
 
@@ -186,11 +186,11 @@
         _resolutionView        = [[UIView alloc] initWithFrame:CGRectZero];
         _resolutionView.hidden = YES;
         [self addSubview:_resolutionView];
-        [_resolutionView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.width.mas_equalTo(330);
-            make.height.mas_equalTo(self.mas_height);
-            make.trailing.equalTo(self.mas_trailing).offset(0);
-            make.top.equalTo(self.mas_top).offset(0);
+        [_resolutionView tx_makeConstraints:^(TXConstraintMaker *make) {
+            make.width.tx_equalTo(330);
+            make.height.tx_equalTo(self.tx_height);
+            make.trailing.equalTo(self.tx_trailing).offset(0);
+            make.top.equalTo(self.tx_top).offset(0);
         }];
 
         _resolutionView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
@@ -203,11 +203,11 @@
         _moreContentView             = [[SuperPlayerSettingsView alloc] initWithFrame:CGRectZero];
         _moreContentView.controlView = self;
         [self addSubview:_moreContentView];
-        [_moreContentView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.width.mas_equalTo(330);
-            make.height.mas_equalTo(self.mas_height);
-            make.trailing.equalTo(self.mas_trailing).offset(0);
-            make.top.equalTo(self.mas_top).offset(0);
+        [_moreContentView tx_makeConstraints:^(TXConstraintMaker *make) {
+            make.width.tx_equalTo(330);
+            make.height.tx_equalTo(self.tx_height);
+            make.trailing.equalTo(self.tx_trailing).offset(0);
+            make.top.equalTo(self.tx_top).offset(0);
         }];
         _moreContentView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
     }
@@ -353,11 +353,11 @@
     lable.textAlignment = NSTextAlignmentCenter;
     lable.textColor     = [UIColor whiteColor];
     [self.resolutionView addSubview:lable];
-    [lable mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(self.resolutionView.mas_width);
-        make.height.mas_equalTo(30);
-        make.left.equalTo(self.resolutionView.mas_left);
-        make.top.equalTo(self.resolutionView.mas_top).mas_offset(20);
+    [lable tx_makeConstraints:^(TXConstraintMaker *make) {
+        make.width.equalTo(self.resolutionView.tx_width);
+        make.height.tx_equalTo(30);
+        make.left.equalTo(self.resolutionView.tx_left);
+        make.top.equalTo(self.resolutionView.tx_top).tx_offset(20);
     }];
 
     // 分辨率View上边的Btn
@@ -367,11 +367,11 @@
         [btn setTitleColor:RGBA(252, 89, 81, 1) forState:UIControlStateSelected];
         [self.resolutionView addSubview:btn];
         [btn addTarget:self action:@selector(changeResolution:) forControlEvents:UIControlEventTouchUpInside];
-        [btn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.width.equalTo(self.resolutionView.mas_width);
-            make.height.mas_equalTo(45);
-            make.left.equalTo(self.resolutionView.mas_left);
-            make.centerY.equalTo(self.resolutionView.mas_centerY).offset((i - self.resolutionArray.count / 2.0 + 0.5) * 45);
+        [btn tx_makeConstraints:^(TXConstraintMaker *make) {
+            make.width.equalTo(self.resolutionView.tx_width);
+            make.height.tx_equalTo(45);
+            make.left.equalTo(self.resolutionView.tx_left);
+            make.centerY.equalTo(self.resolutionView.tx_centerY).offset((i - self.resolutionArray.count / 2.0 + 0.5) * 45);
         }];
 
         if (i == currentResolutionIndex) {
@@ -414,8 +414,8 @@
     self.moreBtn.hidden         = NO;
     self.backBtn.hidden         = NO;
     self.muteBtn.hidden         = NO;
-    [self.resolutionBtn mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.width.mas_equalTo(@60);
+    [self.resolutionBtn tx_updateConstraints:^(TXConstraintMaker *make) {
+        make.width.tx_equalTo(@60);
     }];
 
     self.videoSlider.hiddenPoints = NO;
@@ -427,8 +427,8 @@
     self.moreBtn.hidden         = YES;
     self.backBtn.hidden         = YES;
     self.muteBtn.hidden         = YES;
-    [self.resolutionBtn mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.width.mas_equalTo(@0);
+    [self.resolutionBtn tx_updateConstraints:^(TXConstraintMaker *make) {
+        make.width.tx_equalTo(@0);
     }];
 
     self.videoSlider.hiddenPoints = YES;

@@ -64,9 +64,9 @@
         _snapshotView.backgroundColor = [UIColor blackColor];
         [self addSubview:_snapshotView];
 
-        [_snapshotView mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.width.mas_equalTo(THUMB_VIEW_WIDTH);
-            make.height.mas_equalTo(THUMB_VIEW_HEIGHT);
+        [_snapshotView tx_remakeConstraints:^(TXConstraintMaker *make) {
+            make.width.tx_equalTo(THUMB_VIEW_WIDTH);
+            make.height.tx_equalTo(THUMB_VIEW_HEIGHT);
             make.center.equalTo(self);
         }];
     }
@@ -92,42 +92,42 @@
             self.textLabel.hidden = self.thumbView.hidden = self.snapshotView.hidden = YES;
             self.imgView.contentMode                                                 = UIViewContentModeScaleAspectFit;
 
-            [self.imgView mas_remakeConstraints:^(MASConstraintMaker *make) {
+            [self.imgView tx_remakeConstraints:^(TXConstraintMaker *make) {
                 make.center.equalTo(self);
             }];
-            [self.progressView mas_remakeConstraints:^(MASConstraintMaker *make) {
-                make.centerX.mas_equalTo(self);
-                make.top.equalTo(self.imgView.mas_bottom).offset(10);
-                make.width.mas_equalTo(120);
+            [self.progressView tx_remakeConstraints:^(TXConstraintMaker *make) {
+                make.centerX.tx_equalTo(self);
+                make.top.equalTo(self.imgView.tx_bottom).offset(10);
+                make.width.tx_equalTo(120);
             }];
         } break;
         case ImgWithText: {
             self.thumbView.hidden = self.textLabel.hidden = NO;
             self.progressView.hidden = self.imgView.hidden = self.snapshotView.hidden = YES;
 
-            [self.thumbView mas_remakeConstraints:^(MASConstraintMaker *make) {
-                make.centerX.mas_equalTo(self);
-                make.width.mas_equalTo(THUMB_VIEW_WIDTH);
-                make.height.mas_equalTo(THUMB_VIEW_HEIGHT);
-                make.bottom.equalTo(self.mas_centerY).offset(20);
+            [self.thumbView tx_remakeConstraints:^(TXConstraintMaker *make) {
+                make.centerX.tx_equalTo(self);
+                make.width.tx_equalTo(THUMB_VIEW_WIDTH);
+                make.height.tx_equalTo(THUMB_VIEW_HEIGHT);
+                make.bottom.equalTo(self.tx_centerY).offset(20);
             }];
 
-            [self.textLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
-                make.centerX.mas_equalTo(self);
-                make.top.equalTo(self.thumbView.mas_bottom).offset(10);
+            [self.textLabel tx_remakeConstraints:^(TXConstraintMaker *make) {
+                make.centerX.tx_equalTo(self);
+                make.top.equalTo(self.thumbView.tx_bottom).offset(10);
             }];
         } break;
         case TextWithProgress: {
             self.progressView.hidden = self.textLabel.hidden = NO;
             self.imgView.hidden = self.thumbView.hidden = self.snapshotView.hidden = YES;
 
-            [self.textLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+            [self.textLabel tx_remakeConstraints:^(TXConstraintMaker *make) {
                 make.center.equalTo(self);
             }];
-            [self.progressView mas_remakeConstraints:^(MASConstraintMaker *make) {
-                make.centerX.mas_equalTo(self);
-                make.top.equalTo(self.textLabel.mas_bottom).offset(10);
-                make.width.mas_equalTo(120);
+            [self.progressView tx_remakeConstraints:^(TXConstraintMaker *make) {
+                make.centerX.tx_equalTo(self);
+                make.top.equalTo(self.textLabel.tx_bottom).offset(10);
+                make.width.tx_equalTo(120);
             }];
         } break;
         case SnapshotImg: {

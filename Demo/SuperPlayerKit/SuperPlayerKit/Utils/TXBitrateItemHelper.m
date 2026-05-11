@@ -14,9 +14,9 @@
 #elif __has_include(<TXLiteAVSDK_Professional/TXLiteAVSDK.h>)
 #import <TXLiteAVSDK_Professional/TXBitrateItem.h>
 #import <TXLiteAVSDK_Professional/TXVodDownloadManager.h>
-#elif __has_include(<TXLiteAVSDK_UGC/TXLiteAVSDK.h>)
-#import <TXLiteAVSDK_UGC/TXBitrateItem.h>
-#import <TXLiteAVSDK_UGC/TXVodDownloadManager.h>
+#else
+#import "TXBitrateItem.h"
+#import "TXVodDownloadManager.h"
 #endif
 #import "TXBitrateItemHelper.h"
 #import "SuperPlayerLocalized.h"

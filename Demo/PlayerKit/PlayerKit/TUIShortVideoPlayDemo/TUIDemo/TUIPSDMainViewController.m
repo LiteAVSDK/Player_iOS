@@ -50,10 +50,6 @@ TUIPSDSettingViewDelegate>
 
 @implementation TUIPSDMainViewController
 
-- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-    return [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -131,12 +127,17 @@ TUIPSDSettingViewDelegate>
     [[TXCMonetPluginManager sharedManager] setAppInfo:@"1252463788" authId:75 algorithmType:TXCMPAlgorithmType_Standard];
 #endif
 }
+
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    
 }
--(void)dealloc {
-    NSLog(@"");
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+//    [self.navigationController setNavigationBarHidden:NO animated:NO];
 }
+
 - (void)customBackAction {
     [self.videoView destoryPlayer];
     [self.navigationController popViewControllerAnimated:YES];
@@ -159,7 +160,6 @@ TUIPSDSettingViewDelegate>
 
 #pragma mark - TUIShortVideoViewDelegate
 - (void)scrollViewDidScrollContentOffset:(CGPoint)contentOffset {
-    NSLog(@"TUI:scrollViewDidScrollContentOffset:contentOffset:%f",contentOffset.y);
 }
 /**
  * When staying in the current video, this method will be triggered. Here, you can obtain information about the currently fluctuating video and index the video array, and then process your related business here
@@ -200,8 +200,7 @@ TUIPSDSettingViewDelegate>
     if (![shortVideoView isEqual:self.videoView]) {
         return;
     }
-    player.loop = YES;
-    [player setStartTime:0.0];
+    // Do something
 }
 
 -(void)onReachLast {

@@ -9,7 +9,7 @@
 #import "TXVipWatchView.h"
 #import "SuperPlayerHelpers.h"
 #import "SuperPlayerLocalized.h"
-#import "Masonry.h"
+#import "TXMasonry.h"
 
 @interface TXVipWatchView()
 
@@ -41,35 +41,35 @@
     [self addSubview:self.watchEndLabel];
     [self addSubview:self.repeatBtn];
     
-    [self.backBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.backBtn tx_makeConstraints:^(TXConstraintMaker *make) {
         make.left.equalTo(self).offset(VIP_WATCHVIEW_BACKBTN_LEFT);
         make.top.equalTo(self).offset(VIP_WATCHVIEW_BACKBTN_TOP);
-        //make.size.mas_equalTo(CGSizeMake(VIP_WATCHVIEW_BACKBTN_WIDTH * self.scale, VIP_WATCHVIEW_BACKBTN_WIDTH * self.scale));
+        //make.size.tx_equalTo(CGSizeMake(VIP_WATCHVIEW_BACKBTN_WIDTH * self.scale, VIP_WATCHVIEW_BACKBTN_WIDTH * self.scale));
         make.width.equalTo(@(30));
         make.height.equalTo(@(30));
     }];
     
-    [self.openVipBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.openVipBtn tx_makeConstraints:^(TXConstraintMaker *make) {
         make.center.equalTo(self);
-        make.width.mas_equalTo(VIP_WATCHVIEW_OPENVIPBTN_WIDTH * self.scale);
-        make.height.mas_equalTo(VIP_WATCHVIEW_OPENVIPBTN_HEIGHT * self.scale);
+        make.width.tx_equalTo(VIP_WATCHVIEW_OPENVIPBTN_WIDTH * self.scale);
+        make.height.tx_equalTo(VIP_WATCHVIEW_OPENVIPBTN_HEIGHT * self.scale);
     }];
     [_openVipBtn.titleLabel setFont:self.textFontSize > 0 ? [UIFont systemFontOfSize:self.textFontSize] : _openVipBtn.titleLabel.font];
     _openVipBtn.layer.cornerRadius = VIP_WATCHVIEW_OPENVIPBTN_HEIGHT * 0.5 * self.scale;
     _openVipBtn.layer.masksToBounds = YES;
     
-    [self.watchEndLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.watchEndLabel tx_makeConstraints:^(TXConstraintMaker *make) {
         make.centerX.equalTo(self);
         make.width.equalTo(self);
-        make.height.mas_equalTo(VIP_WATCHVIEW_ENDLABEL_HEIGHT * self.scale);
+        make.height.tx_equalTo(VIP_WATCHVIEW_ENDLABEL_HEIGHT * self.scale);
         make.centerY.equalTo(self.openVipBtn).offset(-((VIP_WATCHVIEW_REPEARTBTN_HEIGHT + VIP_WATCHVIEW_MARGIN + VIP_WATCHVIEW_ENDLABEL_HEIGHT * 0.5) * self.scale));
     }];
     self.watchEndLabel.font = self.textFontSize > 0 ? [UIFont systemFontOfSize:self.textFontSize] : self.watchEndLabel.font;
     
-    [self.repeatBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.repeatBtn tx_makeConstraints:^(TXConstraintMaker *make) {
         make.centerX.equalTo(self);
-        make.height.mas_equalTo(VIP_WATCHVIEW_REPEARTBTN_HEIGHT * self.scale);
-        make.width.mas_equalTo(VIP_WATCHVIEW_REPEARTBTN_WIDTH * self.scale);
+        make.height.tx_equalTo(VIP_WATCHVIEW_REPEARTBTN_HEIGHT * self.scale);
+        make.width.tx_equalTo(VIP_WATCHVIEW_REPEARTBTN_WIDTH * self.scale);
         make.centerY.equalTo(self.openVipBtn).offset((VIP_WATCHVIEW_MARGIN + VIP_WATCHVIEW_REPEARTBTN_HEIGHT + VIP_WATCHVIEW_REPEARTBTN_HEIGHT * 0.5) * self.scale);
     }];
     [_repeatBtn.titleLabel setFont:self.textFontSize > 0 ? [UIFont systemFontOfSize:self.textFontSize] : _repeatBtn.titleLabel.font];

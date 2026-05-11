@@ -1,52 +1,40 @@
-#import "SuperPlayerView.h"
+//  Copyright © 2018 Tencent. All rights reserved.
+//
 
 #import <AVFoundation/AVFoundation.h>
 #import <Photos/Photos.h>
-
+#if __has_include(<TXLiteAVSDK_Player/TXLiteAVSDK.h>)
+#import <TXLiteAVSDK_Player/TXLiteAVSDK.h>
+#elif __has_include(<TXLiteAVSDK_Player_Premium/TXLiteAVSDK.h>)
+#import <TXLiteAVSDK_Player_Premium/TXLiteAVSDK.h>
+#elif __has_include(<TXLiteAVSDK_Professional/TXLiteAVSDK.h>)
+#import <TXLiteAVSDK_Professional/TXLiteAVSDK.h>
+#elif __has_include(<TXLiteAVSDK_UGC/TXLiteAVSDK.h>)
+#import <TXLiteAVSDK_UGC/TXLiteAVSDK.h>
+#else
+#import "TXLiteAVSDK.h"
+#endif
 #if __has_include(<SDWebImage/SDWebImage.h>)
 #import <SDWebImage/SDWebImage.h>
 #else
 #import "SDWebImage.h"
 #endif
-
 #import "DataReport.h"
+#import "DynamicWatermarkView.h"
+#import "DynamicWaterModel.h"
 #import "J2Obj.h"
 #import "NSString+URL.h"
-#import "SPDefaultControlView.h"
 #import "StrUtils.h"
 #import "SuperPlayer.h"
-#import "SuperPlayerControlViewDelegate.h"
+#import "SuperPlayerLocalized.h"
 #import "SuperPlayerModelInternal.h"
+#import "SuperPlayerPIPManager.h"
+#import "SuperPlayerSmallWindowManager.h"
+#import "SuperPlayerSubtitles.h"
+#import "SuperPlayerTrackView.h"
 #import "SuperPlayerView+Private.h"
 #import "TXBitrateItemHelper.h"
 #import "TXCUrl.h"
-#import "UIView+Fade.h"
-#import "UIView+MMLayout.h"
-#import "UIInterface+TXRotation.h"
-// TODO: 处理头部引用
-#import "TXAudioCustomProcessDelegate.h"
-#import "TXAudioRawDataDelegate.h"
-#import "TXBitrateItem.h"
-#import "TXImageSprite.h"
-#import "TXLiteAVCode.h"
-#import "TXLiveAudioSessionDelegate.h"
-#import "TXLiveBase.h"
-#import "TXLivePlayConfig.h"
-#import "TXLivePlayListener.h"
-#import "TXLivePlayer.h"
-#import "TXLiveRecordListener.h"
-#import "TXLiveRecordTypeDef.h"
-#import "TXLiveSDKEventDef.h"
-#import "TXLiveSDKTypeDef.h"
-#import "TXPlayerAuthParams.h"
-#import "TXVipTipView.h"
-#import "TXVipWatchView.h"
-#import "TXVipWatchModel.h"
-#import "DynamicWatermarkView.h"
-#import "DynamicWaterModel.h"
-#import "SuperPlayerLocalized.h"
-#import "SuperPlayerTrackView.h"
-#import "SuperPlayerSubtitles.h"
 #ifdef ENABLE_UGC
 #import "TXUGCBase.h"
 #import "TXUGCPartsManager.h"
@@ -54,14 +42,13 @@
 #import "TXUGCRecordListener.h"
 #import "TXUGCRecordTypeDef.h"
 #endif
-#import "TXVideoCustomProcessDelegate.h"
-#import "TXVodPlayConfig.h"
-#import "TXVodPlayListener.h"
-#import "TXVodPlayer.h"
-#import "TXPlayerGlobalSetting.h"
+#import "TXVipTipView.h"
+#import "TXVipWatchModel.h"
+#import "TXVipWatchView.h"
+#import "UIInterface+TXRotation.h"
+#import "UIView+Fade.h"
+#import "UIView+MMLayout.h"
 
-#import "SuperPlayerSmallWindowManager.h"
-#import "SuperPlayerPIPManager.h"
 static UISlider *_volumeSlider;
 
 #define CellPlayerFatherViewTag     200
@@ -314,11 +301,11 @@ TXLiveBaseDelegate,TXLivePlayListener,TXVodPlayListener>
     if (view) {
         [view addSubview:self.fullScreenBlackView];
         [view addSubview:self];
-        [self.fullScreenBlackView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.edges.mas_offset(UIEdgeInsetsZero);
+        [self.fullScreenBlackView tx_makeConstraints:^(TXConstraintMaker *make) {
+            make.edges.tx_offset(UIEdgeInsetsZero);
         }];
-        [self mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.edges.mas_offset(UIEdgeInsetsZero);
+        [self tx_remakeConstraints:^(TXConstraintMaker *make) {
+            make.edges.tx_offset(UIEdgeInsetsZero);
         }];
     }
 }
@@ -433,14 +420,14 @@ TXLiveBaseDelegate,TXLivePlayListener,TXVodPlayListener>
 
     if (SuperPlayerWindowShared.isShowing) {
           self.vipTipView.textFontSize = WINDOW_VIP_TIPVIEW_TEXT_FONT;
-          [self.vipTipView mas_makeConstraints:^(MASConstraintMaker *make) {
+          [self.vipTipView tx_makeConstraints:^(TXConstraintMaker *make) {
               make.bottom.equalTo(self).offset(-WINDOW_VIP_TIPVIEW_BOTTOM);
               make.left.equalTo(self).offset(WINDOW_VIP_TIPVIEW_LEFT);
               make.right.equalTo(self);
-              make.height.mas_equalTo(VIP_TIPVIEW_DEFAULT_HEIGHT);
+              make.height.tx_equalTo(VIP_TIPVIEW_DEFAULT_HEIGHT);
           }];
     } else {
-        [self.vipTipView mas_makeConstraints:^(MASConstraintMaker *make) {
+        [self.vipTipView tx_makeConstraints:^(TXConstraintMaker *make) {
             if (self.isFullScreen) {
                 if (@available(iOS 11.0, *)) {
                     make.bottom.equalTo(self).offset(-VIP_TIPVIEW_DEFAULTX_BOTTOM);
@@ -452,7 +439,7 @@ TXLiveBaseDelegate,TXLivePlayListener,TXVodPlayListener>
             }
             make.left.equalTo(self).offset(VIP_TIPVIEW_DEFAULT_LEFT);
             make.right.equalTo(self);
-            make.height.mas_equalTo(VIP_TIPVIEW_DEFAULT_HEIGHT);
+            make.height.tx_equalTo(VIP_TIPVIEW_DEFAULT_HEIGHT);
         }];
     };
     
@@ -705,8 +692,7 @@ TXLiveBaseDelegate,TXLivePlayListener,TXVodPlayListener>
         NSDictionary *dic = [(SPDefaultControlView *)self.controlView subtitlesConfig];
         [self setSubtitleStyle:dic];
     }
-    
-    self.vodPlayer.token    = self.playerModel.drmToken;
+    self.vodPlayer.token = self.playerModel.drmToken;
 
     self.vodPlayer.enableHWAcceleration = self.playerConfig.hwAcceleration;
     [self.vodPlayer setStartTime:self.startTime];
@@ -1043,7 +1029,7 @@ TXLiveBaseDelegate,TXLivePlayListener,TXVodPlayListener>
     _watermarkView = nil;
     if (_playerModel.dynamicWaterModel) {
         [self addSubview:self.watermarkView];
-        [self.watermarkView mas_makeConstraints:^(MASConstraintMaker *make) {
+        [self.watermarkView tx_makeConstraints:^(TXConstraintMaker *make) {
             make.edges.equalTo(self);
         }];
         [self.watermarkView setDynamicWaterModel:_playerModel.dynamicWaterModel];
@@ -1131,19 +1117,19 @@ TXLiveBaseDelegate,TXLivePlayListener,TXVodPlayListener>
     [self removeFromSuperview];
     [vc.view addSubview:self.fullScreenBlackView];
     [vc.view addSubview:self];
-    [self.fullScreenBlackView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.fullScreenBlackView tx_makeConstraints:^(TXConstraintMaker *make) {
         make.edges.equalTo(vc.view);
     }];
-    [self mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self tx_makeConstraints:^(TXConstraintMaker *make) {
         if (@available(iOS 11.0, *)) {
-            make.left.mas_equalTo(vc.view.mas_safeAreaLayoutGuideLeft);
-            make.right.mas_equalTo(vc.view.mas_safeAreaLayoutGuideRight);
+            make.left.tx_equalTo(vc.view.tx_safeAreaLayoutGuideLeft);
+            make.right.tx_equalTo(vc.view.tx_safeAreaLayoutGuideRight);
         } else {
-            make.left.mas_equalTo(vc.view.mas_left);
-            make.right.mas_equalTo(vc.view.mas_right);
+            make.left.tx_equalTo(vc.view.tx_left);
+            make.right.tx_equalTo(vc.view.tx_right);
         }
-        make.top.mas_equalTo(vc.view.mas_top);
-        make.bottom.mas_equalTo(vc.view.mas_bottom);
+        make.top.tx_equalTo(vc.view.tx_top);
+        make.bottom.tx_equalTo(vc.view.tx_bottom);
     }];
     
 }
@@ -1284,7 +1270,6 @@ TXLiveBaseDelegate,TXLivePlayListener,TXVodPlayListener>
     if ([self.controlView isKindOfClass:SPDefaultControlView.class]) {
         [(SPDefaultControlView *)self.controlView fullScreenButtonSelectState:fullScreen];
     }
-    
     self.controlView.compact = !fullScreen;
 }
 ///代码手动旋转屏幕
@@ -1684,8 +1669,8 @@ TXLiveBaseDelegate,TXLivePlayListener,TXVodPlayListener>
     if (_fastView == nil) {
         _fastView = [[SuperPlayerFastView alloc] init];
         [self addSubview:_fastView];
-        [_fastView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.edges.mas_equalTo(UIEdgeInsetsZero);
+        [_fastView tx_makeConstraints:^(TXConstraintMaker *make) {
+            make.edges.tx_equalTo(UIEdgeInsetsZero);
         }];
     }
     return _fastView;
@@ -1803,8 +1788,8 @@ TXLiveBaseDelegate,TXLivePlayListener,TXVodPlayListener>
     _controlView         = controlView;
     controlView.delegate = self;
     [self addSubview:controlView];
-    [controlView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.mas_equalTo(UIEdgeInsetsZero);
+    [controlView tx_makeConstraints:^(TXConstraintMaker *make) {
+        make.edges.tx_equalTo(UIEdgeInsetsZero);
     }];
     [self resetControlViewWithLive:self.isLive shiftPlayback:self.isShiftPlayback isPlaying:self.state == StatePlaying ? YES : NO];
     [controlView setTitle:_controlView.title];
@@ -2415,7 +2400,7 @@ TXLiveBaseDelegate,TXLivePlayListener,TXVodPlayListener>
                 model.textColor = [UIColor redColor];
                 if (![self.subviews containsObject:self.watermarkView]) {
                     [self addSubview:self.watermarkView];
-                    [self.watermarkView mas_makeConstraints:^(MASConstraintMaker *make) {
+                    [self.watermarkView tx_makeConstraints:^(TXConstraintMaker *make) {
                         make.edges.equalTo(self);
                     }];
                 }
@@ -2711,9 +2696,9 @@ TXLiveBaseDelegate,TXLivePlayListener,TXVodPlayListener>
         _middleBlackBtn.backgroundColor = RGBA(0, 0, 0, 0.7);
         [_middleBlackBtn addTarget:self action:@selector(middleBlackBtnClick:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:_middleBlackBtn];
-        [_middleBlackBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        [_middleBlackBtn tx_makeConstraints:^(TXConstraintMaker *make) {
             make.center.equalTo(self);
-            make.height.mas_equalTo(33);
+            make.height.tx_equalTo(33);
         }];
     }
     return _middleBlackBtn;
@@ -2725,7 +2710,7 @@ TXLiveBaseDelegate,TXLivePlayListener,TXVodPlayListener>
     self.middleBlackBtnAction           = action;
     CGFloat width                       = self.middleBlackBtn.titleLabel.attributedText.size.width;
 
-    [self.middleBlackBtn mas_updateConstraints:^(MASConstraintMaker *make) {
+    [self.middleBlackBtn tx_updateConstraints:^(TXConstraintMaker *make) {
         make.width.equalTo(@(width + 10));
     }];
     [self.middleBlackBtn fadeShow];
@@ -2763,7 +2748,7 @@ TXLiveBaseDelegate,TXLivePlayListener,TXVodPlayListener>
         [_repeatBtn addTarget:self action:@selector(repeatBtnClick:) forControlEvents:UIControlEventTouchUpInside];
         _repeatBtn.hidden = YES;
         [self addSubview:_repeatBtn];
-        [_repeatBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        [_repeatBtn tx_makeConstraints:^(TXConstraintMaker *make) {
             make.center.equalTo(self);
         }];
     }
@@ -2780,39 +2765,39 @@ TXLiveBaseDelegate,TXLivePlayListener,TXVodPlayListener>
     [self addSubview:self.playbackwardLabel];
     
     
-    [_playforwardView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.mas_equalTo(180);
-        make.top.equalTo(self.mas_top);
-        make.bottom.equalTo(self.mas_bottom);
-        make.trailing.equalTo(self.mas_trailing);
+    [_playforwardView tx_makeConstraints:^(TXConstraintMaker *make) {
+        make.width.tx_equalTo(180);
+        make.top.equalTo(self.tx_top);
+        make.bottom.equalTo(self.tx_bottom);
+        make.trailing.equalTo(self.tx_trailing);
     }];
-    [_playforwardImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.leading.equalTo(_playforwardView.mas_leading).offset(70);
-        make.centerY.equalTo(self.mas_centerY);
-        make.width.height.mas_equalTo(40);
+    [_playforwardImageView tx_makeConstraints:^(TXConstraintMaker *make) {
+        make.leading.equalTo(_playforwardView.tx_leading).offset(70);
+        make.centerY.equalTo(self.tx_centerY);
+        make.width.height.tx_equalTo(40);
     }];
-    [_playforwardLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(_playforwardImageView.mas_bottom).offset(5);
-        make.centerX.equalTo(_playforwardImageView.mas_centerX);
-        make.width.mas_equalTo(70);
-        make.height.mas_equalTo(40);
+    [_playforwardLabel tx_makeConstraints:^(TXConstraintMaker *make) {
+        make.top.equalTo(_playforwardImageView.tx_bottom).offset(5);
+        make.centerX.equalTo(_playforwardImageView.tx_centerX);
+        make.width.tx_equalTo(70);
+        make.height.tx_equalTo(40);
     }];
-    [_playbackwardView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.leading.equalTo(self.mas_leading);
-        make.top.equalTo(self.mas_top);
-        make.bottom.equalTo(self.mas_bottom);
-        make.width.mas_equalTo(180);
+    [_playbackwardView tx_makeConstraints:^(TXConstraintMaker *make) {
+        make.leading.equalTo(self.tx_leading);
+        make.top.equalTo(self.tx_top);
+        make.bottom.equalTo(self.tx_bottom);
+        make.width.tx_equalTo(180);
     }];
-    [_playbackwardImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.leading.equalTo(self.mas_leading).offset(70);
-        make.centerY.equalTo(self.mas_centerY);
-        make.width.height.mas_equalTo(40);
+    [_playbackwardImageView tx_makeConstraints:^(TXConstraintMaker *make) {
+        make.leading.equalTo(self.tx_leading).offset(70);
+        make.centerY.equalTo(self.tx_centerY);
+        make.width.height.tx_equalTo(40);
     }];
-    [_playbackwardLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(_playbackwardImageView.mas_bottom).offset(5);
-        make.centerX.equalTo(_playbackwardImageView.mas_centerX);
-        make.width.mas_equalTo(70);
-        make.height.mas_equalTo(40);
+    [_playbackwardLabel tx_makeConstraints:^(TXConstraintMaker *make) {
+        make.top.equalTo(_playbackwardImageView.tx_bottom).offset(5);
+        make.centerX.equalTo(_playbackwardImageView.tx_centerX);
+        make.width.tx_equalTo(70);
+        make.height.tx_equalTo(40);
     }];
 }
 
@@ -2882,10 +2867,10 @@ TXLiveBaseDelegate,TXLivePlayListener,TXVodPlayListener>
         [_repeatBackBtn setImage:SuperPlayerImage(@"back_full") forState:UIControlStateNormal];
         [_repeatBackBtn addTarget:self action:@selector(controlViewBackAction:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:_repeatBackBtn];
-        [_repeatBackBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        [_repeatBackBtn tx_makeConstraints:^(TXConstraintMaker *make) {
             make.left.equalTo(self).offset(15);
             make.top.equalTo(self).offset(15);
-            make.width.mas_equalTo(@30);
+            make.width.tx_equalTo(@30);
         }];
     }
     return _repeatBackBtn;
@@ -2906,9 +2891,9 @@ TXLiveBaseDelegate,TXLivePlayListener,TXVodPlayListener>
         _spinner.hidesWhenStopped = YES;
         _spinner.tintColor        = [[UIColor whiteColor] colorWithAlphaComponent:0.9];
         [self addSubview:_spinner];
-        [_spinner mas_makeConstraints:^(MASConstraintMaker *make) {
+        [_spinner tx_makeConstraints:^(TXConstraintMaker *make) {
             make.center.equalTo(self);
-            make.width.with.height.mas_equalTo(45);
+            make.width.with.height.tx_equalTo(45);
         }];
     }
     return _spinner;
@@ -2921,8 +2906,8 @@ TXLiveBaseDelegate,TXLivePlayListener,TXVodPlayListener>
         _coverImageView.clipsToBounds = YES;
         _coverImageView.contentMode            = UIViewContentModeScaleAspectFill;
         [self insertSubview:_coverImageView belowSubview:self.controlView];
-        [_coverImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.edges.mas_equalTo(UIEdgeInsetsZero);
+        [_coverImageView tx_makeConstraints:^(TXConstraintMaker *make) {
+            make.edges.tx_equalTo(UIEdgeInsetsZero);
         }];
     }
     return _coverImageView;
@@ -2951,10 +2936,10 @@ TXLiveBaseDelegate,TXLivePlayListener,TXVodPlayListener>
         [_centerPlayBtn setImage:SuperPlayerImage(@"play") forState:UIControlStateNormal];
         [_centerPlayBtn addTarget:self action:@selector(centerPlayBtnClick) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:_centerPlayBtn];
-        [_centerPlayBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        [_centerPlayBtn tx_makeConstraints:^(TXConstraintMaker *make) {
             make.center.equalTo(self);
-            make.width.mas_equalTo(120);
-            make.height.mas_equalTo(120);
+            make.width.tx_equalTo(120);
+            make.height.tx_equalTo(120);
         }];
     }
     return _centerPlayBtn;

@@ -6,10 +6,19 @@
 //  Copyright © 2018年 Tencent. All rights reserved.
 //
 
-#import "DownloadViewController.h"
-
-#import "AppLocalized.h"
+#if __has_include(<TXLiteAVSDK_Player/TXVodDownloadManager.h>)
+#import <TXLiteAVSDK_Player/TXVodDownloadManager.h>
+#elif __has_include(<TXLiteAVSDK_Player_Premium/TXVodDownloadManager.h>)
+#import <TXLiteAVSDK_Player_Premium/TXVodDownloadManager.h>
+#elif __has_include(<TXLiteAVSDK_Professional/TXVodDownloadManager.h>)
+#import <TXLiteAVSDK_Professional/TXVodDownloadManager.h>
+#elif __has_include(<TXLiteAVSDK_UGC/TXVodDownloadManager.h>)
+#import <TXLiteAVSDK_UGC/TXVodDownloadManager.h>
+#else
 #import "TXVodDownloadManager.h"
+#endif
+#import "AppLocalized.h"
+#import "DownloadViewController.h"
 #import "PlayerKitCommonHeaders.h"
 
 @interface DownloadViewController () <TXVodDownloadDelegate>

@@ -1,8 +1,21 @@
+//  Copyright © 2018 Tencent. All rights reserved.
+//
+
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-//#import <TXLiteAVSDK_Player/TXPlayerDrmBuilder.h>
-#import "SuperPlayerUrl.h"
+#if __has_include(<TXLiteAVSDK_Player/TXLiteAVSDK.h>)
+#import <TXLiteAVSDK_Player/TXPlayerDrmBuilder.h>
+#elif __has_include(<TXLiteAVSDK_Player_Premium/TXLiteAVSDK.h>)
+#import <TXLiteAVSDK_Player_Premium/TXPlayerDrmBuilder.h>
+#elif __has_include(<TXLiteAVSDK_Professional/TXLiteAVSDK.h>)
+#import <TXLiteAVSDK_Professional/TXPlayerDrmBuilder.h>
+#elif __has_include(<TXLiteAVSDK_UGC/TXLiteAVSDK.h>)
+#import <TXLiteAVSDK_UGC/TXPlayerDrmBuilder.h>
+#else
 @class TXPlayerDrmBuilder;
+#endif
+#import "SuperPlayerUrl.h"
+
 /**
   * SuperPlayerModel
   *

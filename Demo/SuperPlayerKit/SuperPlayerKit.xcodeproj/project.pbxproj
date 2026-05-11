@@ -93,6 +93,31 @@
 		410B8C262BD252F800E8F786 /* LiteAVConfig.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 410B8C252BD252F800E8F786 /* LiteAVConfig.xcconfig */; };
 		41FFEB432BC2B7A0007641EF /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 41FFEB422BC2B7A0007641EF /* PrivacyInfo.xcprivacy */; };
 		41FFEB442BC2B7A0007641EF /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 41FFEB422BC2B7A0007641EF /* PrivacyInfo.xcprivacy */; };
+		4E5F755D2F99F99000AD3BE0 /* TXViewAttribute.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E5F75552F99F99000AD3BE0 /* TXViewAttribute.m */; };
+		4E5F755E2F99F99000AD3BE0 /* TXViewConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E5F75572F99F99000AD3BE0 /* TXViewConstraint.m */; };
+		4E5F755F2F99F99000AD3BE0 /* TXCompositeConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E5F754A2F99F99000AD3BE0 /* TXCompositeConstraint.m */; };
+		4E5F75602F99F99000AD3BE0 /* NSArray+TXAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E5F75452F99F99000AD3BE0 /* NSArray+TXAdditions.m */; };
+		4E5F75612F99F99000AD3BE0 /* TXConstraintMaker.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E5F754F2F99F99000AD3BE0 /* TXConstraintMaker.m */; };
+		4E5F75622F99F99000AD3BE0 /* TXLayoutConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E5F75512F99F99000AD3BE0 /* TXLayoutConstraint.m */; };
+		4E5F75632F99F99000AD3BE0 /* NSLayoutConstraint+TXDebugAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E5F75482F99F99000AD3BE0 /* NSLayoutConstraint+TXDebugAdditions.m */; };
+		4E5F75642F99F99000AD3BE0 /* TXConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E5F754C2F99F99000AD3BE0 /* TXConstraint.m */; };
+		4E5F75652F99F99000AD3BE0 /* View+TXAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E5F75592F99F99000AD3BE0 /* View+TXAdditions.m */; };
+		4E5F75662F99F99000AD3BE0 /* ViewController+TXAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E5F755C2F99F99000AD3BE0 /* ViewController+TXAdditions.m */; };
+		4E5F75672F99F99000AD3BE0 /* TXConstraintMaker.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E5F754E2F99F99000AD3BE0 /* TXConstraintMaker.h */; };
+		4E5F75682F99F99000AD3BE0 /* TXConstraint+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E5F754D2F99F99000AD3BE0 /* TXConstraint+Private.h */; };
+		4E5F75692F99F99000AD3BE0 /* NSArray+TXAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E5F75442F99F99000AD3BE0 /* NSArray+TXAdditions.h */; };
+		4E5F756A2F99F99000AD3BE0 /* NSArray+TXShorthandAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E5F75462F99F99000AD3BE0 /* NSArray+TXShorthandAdditions.h */; };
+		4E5F756B2F99F99000AD3BE0 /* TXLayoutConstraint.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E5F75502F99F99000AD3BE0 /* TXLayoutConstraint.h */; };
+		4E5F756C2F99F99000AD3BE0 /* TXCompositeConstraint.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E5F75492F99F99000AD3BE0 /* TXCompositeConstraint.h */; };
+		4E5F756D2F99F99000AD3BE0 /* NSLayoutConstraint+TXDebugAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E5F75472F99F99000AD3BE0 /* NSLayoutConstraint+TXDebugAdditions.h */; };
+		4E5F756E2F99F99000AD3BE0 /* ViewController+TXAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E5F755B2F99F99000AD3BE0 /* ViewController+TXAdditions.h */; };
+		4E5F756F2F99F99000AD3BE0 /* TXConstraint.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E5F754B2F99F99000AD3BE0 /* TXConstraint.h */; };
+		4E5F75702F99F99000AD3BE0 /* TXUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E5F75532F99F99000AD3BE0 /* TXUtilities.h */; };
+		4E5F75712F99F99000AD3BE0 /* TXViewAttribute.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E5F75542F99F99000AD3BE0 /* TXViewAttribute.h */; };
+		4E5F75722F99F99000AD3BE0 /* View+TXShorthandAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E5F755A2F99F99000AD3BE0 /* View+TXShorthandAdditions.h */; };
+		4E5F75732F99F99000AD3BE0 /* TXViewConstraint.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E5F75562F99F99000AD3BE0 /* TXViewConstraint.h */; };
+		4E5F75742F99F99000AD3BE0 /* TXMasonry.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E5F75522F99F99000AD3BE0 /* TXMasonry.h */; };
+		4E5F75752F99F99000AD3BE0 /* View+TXAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E5F75582F99F99000AD3BE0 /* View+TXAdditions.h */; };
 		7CBB24382B0B835D004EB256 /* SuperPlayerModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 7CBB239C2B0B835D004EB256 /* SuperPlayerModel.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7CBB24392B0B835D004EB256 /* UIView+MMLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = 7CBB239E2B0B835D004EB256 /* UIView+MMLayout.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7CBB243A2B0B835D004EB256 /* NSString+URL.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CBB239F2B0B835D004EB256 /* NSString+URL.m */; };
@@ -284,6 +309,31 @@
 		09A818662B21C6F7007D9CB3 /* SDImageAssetManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDImageAssetManager.h; sourceTree = "<group>"; };
 		410B8C252BD252F800E8F786 /* LiteAVConfig.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = LiteAVConfig.xcconfig; path = ../../LiteAVConfig.xcconfig; sourceTree = "<group>"; };
 		41FFEB422BC2B7A0007641EF /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		4E5F75442F99F99000AD3BE0 /* NSArray+TXAdditions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSArray+TXAdditions.h"; sourceTree = "<group>"; };
+		4E5F75452F99F99000AD3BE0 /* NSArray+TXAdditions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSArray+TXAdditions.m"; sourceTree = "<group>"; };
+		4E5F75462F99F99000AD3BE0 /* NSArray+TXShorthandAdditions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSArray+TXShorthandAdditions.h"; sourceTree = "<group>"; };
+		4E5F75472F99F99000AD3BE0 /* NSLayoutConstraint+TXDebugAdditions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSLayoutConstraint+TXDebugAdditions.h"; sourceTree = "<group>"; };
+		4E5F75482F99F99000AD3BE0 /* NSLayoutConstraint+TXDebugAdditions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSLayoutConstraint+TXDebugAdditions.m"; sourceTree = "<group>"; };
+		4E5F75492F99F99000AD3BE0 /* TXCompositeConstraint.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TXCompositeConstraint.h; sourceTree = "<group>"; };
+		4E5F754A2F99F99000AD3BE0 /* TXCompositeConstraint.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TXCompositeConstraint.m; sourceTree = "<group>"; };
+		4E5F754B2F99F99000AD3BE0 /* TXConstraint.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TXConstraint.h; sourceTree = "<group>"; };
+		4E5F754C2F99F99000AD3BE0 /* TXConstraint.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TXConstraint.m; sourceTree = "<group>"; };
+		4E5F754D2F99F99000AD3BE0 /* TXConstraint+Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TXConstraint+Private.h"; sourceTree = "<group>"; };
+		4E5F754E2F99F99000AD3BE0 /* TXConstraintMaker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TXConstraintMaker.h; sourceTree = "<group>"; };
+		4E5F754F2F99F99000AD3BE0 /* TXConstraintMaker.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TXConstraintMaker.m; sourceTree = "<group>"; };
+		4E5F75502F99F99000AD3BE0 /* TXLayoutConstraint.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TXLayoutConstraint.h; sourceTree = "<group>"; };
+		4E5F75512F99F99000AD3BE0 /* TXLayoutConstraint.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TXLayoutConstraint.m; sourceTree = "<group>"; };
+		4E5F75522F99F99000AD3BE0 /* TXMasonry.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TXMasonry.h; sourceTree = "<group>"; };
+		4E5F75532F99F99000AD3BE0 /* TXUtilities.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TXUtilities.h; sourceTree = "<group>"; };
+		4E5F75542F99F99000AD3BE0 /* TXViewAttribute.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TXViewAttribute.h; sourceTree = "<group>"; };
+		4E5F75552F99F99000AD3BE0 /* TXViewAttribute.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TXViewAttribute.m; sourceTree = "<group>"; };
+		4E5F75562F99F99000AD3BE0 /* TXViewConstraint.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TXViewConstraint.h; sourceTree = "<group>"; };
+		4E5F75572F99F99000AD3BE0 /* TXViewConstraint.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TXViewConstraint.m; sourceTree = "<group>"; };
+		4E5F75582F99F99000AD3BE0 /* View+TXAdditions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "View+TXAdditions.h"; sourceTree = "<group>"; };
+		4E5F75592F99F99000AD3BE0 /* View+TXAdditions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "View+TXAdditions.m"; sourceTree = "<group>"; };
+		4E5F755A2F99F99000AD3BE0 /* View+TXShorthandAdditions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "View+TXShorthandAdditions.h"; sourceTree = "<group>"; };
+		4E5F755B2F99F99000AD3BE0 /* ViewController+TXAdditions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ViewController+TXAdditions.h"; sourceTree = "<group>"; };
+		4E5F755C2F99F99000AD3BE0 /* ViewController+TXAdditions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "ViewController+TXAdditions.m"; sourceTree = "<group>"; };
 		7CBB23892B0B7F49004EB256 /* SuperPlayerKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SuperPlayerKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7CBB239C2B0B835D004EB256 /* SuperPlayerModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SuperPlayerModel.h; sourceTree = "<group>"; };
 		7CBB239E2B0B835D004EB256 /* UIView+MMLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+MMLayout.h"; sourceTree = "<group>"; };
@@ -524,6 +574,38 @@
 			path = Private;
 			sourceTree = "<group>";
 		};
+		4E5F75432F99F94700AD3BE0 /* Masonry */ = {
+			isa = PBXGroup;
+			children = (
+				4E5F75442F99F99000AD3BE0 /* NSArray+TXAdditions.h */,
+				4E5F75452F99F99000AD3BE0 /* NSArray+TXAdditions.m */,
+				4E5F75462F99F99000AD3BE0 /* NSArray+TXShorthandAdditions.h */,
+				4E5F75472F99F99000AD3BE0 /* NSLayoutConstraint+TXDebugAdditions.h */,
+				4E5F75482F99F99000AD3BE0 /* NSLayoutConstraint+TXDebugAdditions.m */,
+				4E5F75492F99F99000AD3BE0 /* TXCompositeConstraint.h */,
+				4E5F754A2F99F99000AD3BE0 /* TXCompositeConstraint.m */,
+				4E5F754B2F99F99000AD3BE0 /* TXConstraint.h */,
+				4E5F754C2F99F99000AD3BE0 /* TXConstraint.m */,
+				4E5F754D2F99F99000AD3BE0 /* TXConstraint+Private.h */,
+				4E5F754E2F99F99000AD3BE0 /* TXConstraintMaker.h */,
+				4E5F754F2F99F99000AD3BE0 /* TXConstraintMaker.m */,
+				4E5F75502F99F99000AD3BE0 /* TXLayoutConstraint.h */,
+				4E5F75512F99F99000AD3BE0 /* TXLayoutConstraint.m */,
+				4E5F75522F99F99000AD3BE0 /* TXMasonry.h */,
+				4E5F75532F99F99000AD3BE0 /* TXUtilities.h */,
+				4E5F75542F99F99000AD3BE0 /* TXViewAttribute.h */,
+				4E5F75552F99F99000AD3BE0 /* TXViewAttribute.m */,
+				4E5F75562F99F99000AD3BE0 /* TXViewConstraint.h */,
+				4E5F75572F99F99000AD3BE0 /* TXViewConstraint.m */,
+				4E5F75582F99F99000AD3BE0 /* View+TXAdditions.h */,
+				4E5F75592F99F99000AD3BE0 /* View+TXAdditions.m */,
+				4E5F755A2F99F99000AD3BE0 /* View+TXShorthandAdditions.h */,
+				4E5F755B2F99F99000AD3BE0 /* ViewController+TXAdditions.h */,
+				4E5F755C2F99F99000AD3BE0 /* ViewController+TXAdditions.m */,
+			);
+			path = Masonry;
+			sourceTree = "<group>";
+		};
 		7C1A20192B109FED00F74D5F /* ThirdPart */ = {
 			isa = PBXGroup;
 			children = (
@@ -635,6 +717,7 @@
 		7CBB23B52B0B835D004EB256 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				4E5F75432F99F94700AD3BE0 /* Masonry */,
 				7CBB23B62B0B835D004EB256 /* UIView+Fade.h */,
 				7CBB23B72B0B835D004EB256 /* TXBitrateItemHelper.h */,
 				7CBB23B82B0B835D004EB256 /* J2Obj.h */,
@@ -833,6 +916,21 @@
 				09A818E52B21C6F7007D9CB3 /* SDInternalMacros.h in Headers */,
 				09A818DC2B21C6F7007D9CB3 /* SDImageCodersManager.h in Headers */,
 				7CBB24C32B0B835E004EB256 /* SuperPlayer.h in Headers */,
+				4E5F75672F99F99000AD3BE0 /* TXConstraintMaker.h in Headers */,
+				4E5F75682F99F99000AD3BE0 /* TXConstraint+Private.h in Headers */,
+				4E5F75692F99F99000AD3BE0 /* NSArray+TXAdditions.h in Headers */,
+				4E5F756A2F99F99000AD3BE0 /* NSArray+TXShorthandAdditions.h in Headers */,
+				4E5F756B2F99F99000AD3BE0 /* TXLayoutConstraint.h in Headers */,
+				4E5F756C2F99F99000AD3BE0 /* TXCompositeConstraint.h in Headers */,
+				4E5F756D2F99F99000AD3BE0 /* NSLayoutConstraint+TXDebugAdditions.h in Headers */,
+				4E5F756E2F99F99000AD3BE0 /* ViewController+TXAdditions.h in Headers */,
+				4E5F756F2F99F99000AD3BE0 /* TXConstraint.h in Headers */,
+				4E5F75702F99F99000AD3BE0 /* TXUtilities.h in Headers */,
+				4E5F75712F99F99000AD3BE0 /* TXViewAttribute.h in Headers */,
+				4E5F75722F99F99000AD3BE0 /* View+TXShorthandAdditions.h in Headers */,
+				4E5F75732F99F99000AD3BE0 /* TXViewConstraint.h in Headers */,
+				4E5F75742F99F99000AD3BE0 /* TXMasonry.h in Headers */,
+				4E5F75752F99F99000AD3BE0 /* View+TXAdditions.h in Headers */,
 				7CBB244B2B0B835D004EB256 /* UIView+Fade.h in Headers */,
 				09033F412B5A586600F751E9 /* SuperPlayerPIPManager.h in Headers */,
 				09033F1A2B550FFB00F751E9 /* SuperPlayerSmallWindowManager.h in Headers */,
@@ -1044,6 +1142,16 @@
 				7CBB24A82B0B835D004EB256 /* SuperPlayerViewConfig.m in Sources */,
 				7CBB24A72B0B835D004EB256 /* SuperPlayerView.m in Sources */,
 				09033F1F2B55241800F751E9 /* SuperPlayerSmallWindowViewController.m in Sources */,
+				4E5F755D2F99F99000AD3BE0 /* TXViewAttribute.m in Sources */,
+				4E5F755E2F99F99000AD3BE0 /* TXViewConstraint.m in Sources */,
+				4E5F755F2F99F99000AD3BE0 /* TXCompositeConstraint.m in Sources */,
+				4E5F75602F99F99000AD3BE0 /* NSArray+TXAdditions.m in Sources */,
+				4E5F75612F99F99000AD3BE0 /* TXConstraintMaker.m in Sources */,
+				4E5F75622F99F99000AD3BE0 /* TXLayoutConstraint.m in Sources */,
+				4E5F75632F99F99000AD3BE0 /* NSLayoutConstraint+TXDebugAdditions.m in Sources */,
+				4E5F75642F99F99000AD3BE0 /* TXConstraint.m in Sources */,
+				4E5F75652F99F99000AD3BE0 /* View+TXAdditions.m in Sources */,
+				4E5F75662F99F99000AD3BE0 /* ViewController+TXAdditions.m in Sources */,
 				7CBB245A2B0B835D004EB256 /* TXCUrl.m in Sources */,
 				7CBB246F2B0B835D004EB256 /* DynamicWaterModel.m in Sources */,
 				7CBB243A2B0B835D004EB256 /* NSString+URL.m in Sources */,

@@ -8,7 +8,7 @@
 
 #import "TXVipTipView.h"
 #import "SuperPlayerHelpers.h"
-#import "Masonry.h"
+#import "TXMasonry.h"
 
 @interface TXVipTipView()
 
@@ -33,27 +33,27 @@
     CGFloat tipWidth = [self getWidthWithTitle:vipWatchModel.tipTtitle font:font];
     
     [self addSubview:self.tipView];
-    [self.tipView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.tipView tx_makeConstraints:^(TXConstraintMaker *make) {
         make.left.equalTo(self);
         make.top.equalTo(self);
         make.height.equalTo(self);
-        make.width.mas_equalTo(tipWidth + VIP_TIPVIEW_MARGIN * 3 + VIP_TIPVIEW_CLOSEBTN_WIDTH);
+        make.width.tx_equalTo(tipWidth + VIP_TIPVIEW_MARGIN * 3 + VIP_TIPVIEW_CLOSEBTN_WIDTH);
     }];
     
     [self.tipView addSubview:self.promptLabel];
-    [self.promptLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.promptLabel tx_makeConstraints:^(TXConstraintMaker *make) {
         make.left.equalTo(self.tipView).offset(VIP_TIPVIEW_MARGIN);
         make.bottom.equalTo(self.tipView).offset(-VIP_TIPVIEW_MARGIN);
         make.top.equalTo(self.tipView).offset(VIP_TIPVIEW_MARGIN);
-        make.width.mas_equalTo(tipWidth);
+        make.width.tx_equalTo(tipWidth);
     }];
     
     [self.tipView addSubview:self.closeBtn];
-    [self.closeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.closeBtn tx_makeConstraints:^(TXConstraintMaker *make) {
         make.right.equalTo(self.tipView).offset(-VIP_TIPVIEW_MARGIN);
         make.top.equalTo(self.tipView).offset(VIP_TIPVIEW_CLOSEBTN_TOP);
-        make.height.mas_equalTo(VIP_TIPVIEW_CLOSEBTN_WIDTH);
-        make.width.mas_equalTo(VIP_TIPVIEW_CLOSEBTN_WIDTH);
+        make.height.tx_equalTo(VIP_TIPVIEW_CLOSEBTN_WIDTH);
+        make.width.tx_equalTo(VIP_TIPVIEW_CLOSEBTN_WIDTH);
     }];
     
     self.promptLabel.text = vipWatchModel.tipTtitle;

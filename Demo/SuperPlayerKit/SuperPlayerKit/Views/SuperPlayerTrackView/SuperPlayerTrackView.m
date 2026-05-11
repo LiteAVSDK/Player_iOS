@@ -8,7 +8,7 @@
 #import "SuperPlayerTrackView.h"
 #import "SuperPlayerHelpers.h"
 #import "SuperPlayerLocalized.h"
-#import "Masonry.h"
+#import "TXMasonry.h"
 #import "TXTrackInfo.h"
 
 #define TRACK_MODEL_TAG_BEGIN 50
@@ -34,11 +34,11 @@ static NSInteger trackSelectedIndex = 0;
 - (void)initTrackViewWithTrackArray:(NSMutableArray<TXTrackInfo *> *)trackArray currentTrackIndex:(NSInteger)currentTrackIndex {
     self.infos = trackArray;
     [self addSubview:self.titleLabel];
-    [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.titleLabel tx_makeConstraints:^(TXConstraintMaker *make) {
         make.centerX.equalTo(self);
         make.top.equalTo(self).offset(25);
-        make.width.mas_equalTo(150);
-        make.height.mas_equalTo(30);
+        make.width.tx_equalTo(150);
+        make.height.tx_equalTo(30);
     }];
     
     // 音轨view上的btn
@@ -49,11 +49,11 @@ static NSInteger trackSelectedIndex = 0;
         [btn setTitleColor:RGBA(252, 89, 81, 1) forState:UIControlStateSelected];
         [self addSubview:btn];
         [btn addTarget:self action:@selector(changeTrack:) forControlEvents:UIControlEventTouchUpInside];
-        [btn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.width.equalTo(self.mas_width);
-            make.height.mas_equalTo(45);
-            make.left.equalTo(self.mas_left);
-            make.centerY.equalTo(self.mas_centerY).offset((i - trackArray.count / 2.0 + 0.5) * 45);
+        [btn tx_makeConstraints:^(TXConstraintMaker *make) {
+            make.width.equalTo(self.tx_width);
+            make.height.tx_equalTo(45);
+            make.left.equalTo(self.tx_left);
+            make.centerY.equalTo(self.tx_centerY).offset((i - trackArray.count / 2.0 + 0.5) * 45);
         }];
         btn.tag = TRACK_MODEL_TAG_BEGIN + i;
         

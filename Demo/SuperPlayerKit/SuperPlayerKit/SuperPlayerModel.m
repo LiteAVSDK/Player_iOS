@@ -1,11 +1,27 @@
-#import "SuperPlayerModel.h"
+//  Copyright © 2018 Tencent. All rights reserved.
+//
 
+#if __has_include(<TXLiteAVSDK_Player/TXLiteAVSDK.h>)
+#import <TXLiteAVSDK_Player/TXBitrateItem.h>
+#import <TXLiteAVSDK_Player/TXVodPlayer.h>
+#elif __has_include(<TXLiteAVSDK_Player_Premium/TXLiteAVSDK.h>)
+#import <TXLiteAVSDK_Player_Premium/TXBitrateItem.h>
+#import <TXLiteAVSDK_Player_Premium/TXVodPlayer.h>
+#elif __has_include(<TXLiteAVSDK_Professional/TXLiteAVSDK.h>)
+#import <TXLiteAVSDK_Professional/TXBitrateItem.h>
+#import <TXLiteAVSDK_Professional/TXVodPlayer.h>
+#elif __has_include(<TXLiteAVSDK_UGC/TXLiteAVSDK.h>)
+#import <TXLiteAVSDK_UGC/TXBitrateItem.h>
+#import <TXLiteAVSDK_UGC/TXVodPlayer.h>
+#else
+#import "TXVodPlayer.h"
+#import "TXBitrateItem.h"
+#endif
 #import "AdaptiveStream.h"
 #import "J2Obj.h"
 #import "SuperPlayer.h"
+#import "SuperPlayerModel.h"
 #import "SuperPlayerModelInternal.h"
-#import "TXVodPlayer.h"
-#import "TXBitrateItem.h"
 
 const NSString *kPlayCGIHostname          = @"playvideo.qcloud.com";
 NSString *const kErrorDomain              = @"SuperPlayerCGI";

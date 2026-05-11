@@ -10,7 +10,7 @@
 #import "SuperPlayerSubSettingView.h"
 #import "SuperPlayerHelpers.h"
 #import "SuperPlayerLocalized.h"
-#import "Masonry.h"
+#import "TXMasonry.h"
 #import "TXTrackInfo.h"
 #define SUBTITLES_MODEL_TAG_BEGIN 70
 
@@ -47,24 +47,24 @@
         }
     }
     [self addSubview:self.contentView];
-    [self.contentView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.contentView tx_makeConstraints:^(TXConstraintMaker *make) {
         make.edges.equalTo(self);
     }];
     
     [self.contentView addSubview:self.titleLabel];
-    [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.titleLabel tx_makeConstraints:^(TXConstraintMaker *make) {
         make.centerX.equalTo(self);
         make.top.equalTo(self).offset(25);
-        make.width.mas_equalTo(150);
-        make.height.mas_equalTo(30);
+        make.width.tx_equalTo(150);
+        make.height.tx_equalTo(30);
     }];
     
     [self.contentView addSubview:self.subtitlesSettingBtn];
-    [self.subtitlesSettingBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.subtitlesSettingBtn tx_makeConstraints:^(TXConstraintMaker *make) {
         make.top.equalTo(self).offset(25);
         make.right.equalTo(self).offset(-20);
-        make.width.mas_equalTo(30);
-        make.height.mas_equalTo(30);
+        make.width.tx_equalTo(30);
+        make.height.tx_equalTo(30);
     }];
     // btn on the track view
     // 音轨view上的btn
@@ -75,11 +75,11 @@
         [btn setTitleColor:RGBA(252, 89, 81, 1) forState:UIControlStateSelected];
         [self.contentView addSubview:btn];
         [btn addTarget:self action:@selector(changeSubtitles:) forControlEvents:UIControlEventTouchUpInside];
-        [btn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.width.equalTo(self.mas_width);
-            make.height.mas_equalTo(45);
-            make.left.equalTo(self.mas_left);
-            make.centerY.equalTo(self.mas_centerY).offset((i - self.infos.count / 2.0 + 0.5) * 45);
+        [btn tx_makeConstraints:^(TXConstraintMaker *make) {
+            make.width.equalTo(self.tx_width);
+            make.height.tx_equalTo(45);
+            make.left.equalTo(self.tx_left);
+            make.centerY.equalTo(self.tx_centerY).offset((i - self.infos.count / 2.0 + 0.5) * 45);
         }];
         btn.tag = SUBTITLES_MODEL_TAG_BEGIN + i;
         

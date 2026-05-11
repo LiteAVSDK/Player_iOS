@@ -7,7 +7,7 @@
 //
 
 #import "PlayerSlider.h"
-#import "Masonry.h"
+#import "TXMasonry.h"
 
 #import "UIView+MMLayout.h"
 
@@ -63,11 +63,11 @@
     self.maximumValue          = 1;
     self.maximumTrackTintColor = [UIColor colorWithRed:0.5 green:0.5 blue:0.5 alpha:0.5];
 
-    [_progressView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [_progressView tx_makeConstraints:^(TXConstraintMaker *make) {
         make.left.equalTo(self);
         make.right.equalTo(self);
-        make.centerY.equalTo(self).mas_offset(0.5);
-        make.height.mas_equalTo(2);
+        make.centerY.equalTo(self).tx_offset(0.5);
+        make.height.tx_equalTo(2);
     }];
     _progressView.layer.masksToBounds = YES;
     _progressView.layer.cornerRadius  = 1;

@@ -6,22 +6,29 @@
 //  Copyright © 2017年 Tencent. All rights reserved.
 //
 
-#import "PlayVodViewController.h"
-#import "TXAppInstance.h"
 #import <mach/mach.h>
-#import "PlayerKitCommonHeaders.h"
-#import "TXAppInstance.h"
-#import "TPScanQRController.h"
-#import "TXConfigViewController.h"
-// TODO: 需要在SDK代码内确认UGC_SMART宏用来约束什么，目前APP层没有用到该宏
-//#ifndef UGC_SMART
-#import "AppLogMgr.h"
-//#endif
+#if __has_include(<TXLiteAVSDK_Player/TXVodPlayConfig.h>)
+#import <TXLiteAVSDK_Player/TXVodPlayConfig.h>
+#elif __has_include(<TXLiteAVSDK_Player_Premium/TXVodPlayConfig.h>)
+#import <TXLiteAVSDK_Player_Premium/TXVodPlayConfig.h>
+#elif __has_include(<TXLiteAVSDK_Professional/TXVodPlayConfig.h>)
+#import <TXLiteAVSDK_Professional/TXVodPlayConfig.h>
+#else
+#import "TXVodPlayConfig.h"
+#endif
 #import "AFNetworkReachabilityManager.h"
 #import "AppLocalized.h"
+#import "AppLogMgr.h"
+#import "PlayerKitCommonHeaders.h"
+#import "PlayVodViewController.h"
+#import "TXAppInstance.h"
+#import "TXAppInstance.h"
 #import "TXBitrateView.h"
+#import "TXConfigViewController.h"
+#import "TPScanQRController.h"
 #import "UIImage+TPAdditions.h"
 #import "UIView+Additions.h"
+
 #define TEST_MUTE 0
 
 @interface PlayVodViewController () <UITextFieldDelegate, TXVodPlayListener, TPScanQRDelegate, TXBitrateViewDelegate>

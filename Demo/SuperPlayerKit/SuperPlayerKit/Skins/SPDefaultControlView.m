@@ -94,30 +94,30 @@ SuperPlayerTrackViewDelegate, SuperPlayerSubtitlesViewDelegate>
     }
 }
 - (void)makeSubViewsConstraints {
-    [self.topImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.topImageView tx_makeConstraints:^(TXConstraintMaker *make) {
         make.leading.trailing.equalTo(self);
-        make.top.equalTo(self.mas_top).offset(0);
-        make.height.mas_equalTo(50);
+        make.top.equalTo(self.tx_top).offset(0);
+        make.height.tx_equalTo(50);
     }];
 
-    [self.backBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.leading.equalTo(self.topImageView.mas_leading).offset(5);
-        make.top.equalTo(self.topImageView.mas_top).offset(3);
-        make.width.height.mas_equalTo(40);
+    [self.backBtn tx_makeConstraints:^(TXConstraintMaker *make) {
+        make.leading.equalTo(self.topImageView.tx_leading).offset(5);
+        make.top.equalTo(self.topImageView.tx_top).offset(3);
+        make.width.height.tx_equalTo(40);
     }];
 
-    [self.moreBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.mas_equalTo(40);
-        make.height.mas_equalTo(49);
-        make.trailing.equalTo(self.topImageView.mas_trailing).offset(-10);
-        make.centerY.equalTo(self.backBtn.mas_centerY);
+    [self.moreBtn tx_makeConstraints:^(TXConstraintMaker *make) {
+        make.width.tx_equalTo(40);
+        make.height.tx_equalTo(49);
+        make.trailing.equalTo(self.topImageView.tx_trailing).offset(-10);
+        make.centerY.equalTo(self.backBtn.tx_centerY);
     }];
 
-    [self.captureBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.mas_equalTo(40);
-        make.height.mas_equalTo(49);
-        make.trailing.equalTo(self.moreBtn.mas_leading).offset(-10);
-        make.centerY.equalTo(self.backBtn.mas_centerY);
+    [self.captureBtn tx_makeConstraints:^(TXConstraintMaker *make) {
+        make.width.tx_equalTo(40);
+        make.height.tx_equalTo(49);
+        make.trailing.equalTo(self.moreBtn.tx_leading).offset(-10);
+        make.centerY.equalTo(self.backBtn.tx_centerY);
     }];
     
     NSArray *buttonStatusArr = @[[NSNumber numberWithBool:self.disableDanmakuBtn],
@@ -126,90 +126,90 @@ SuperPlayerTrackViewDelegate, SuperPlayerSubtitlesViewDelegate>
                                  [NSNumber numberWithBool:self.disableTrackBtn]];
     [self setTopButtonConstranintsWithStatus:buttonStatusArr];
 
-    [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.leading.equalTo(self.backBtn.mas_trailing).offset(5);
-        make.centerY.equalTo(self.backBtn.mas_centerY);
-        make.trailing.equalTo(self.captureBtn.mas_leading).offset(-10);
+    [self.titleLabel tx_makeConstraints:^(TXConstraintMaker *make) {
+        make.leading.equalTo(self.backBtn.tx_trailing).offset(5);
+        make.centerY.equalTo(self.backBtn.tx_centerY);
+        make.trailing.equalTo(self.captureBtn.tx_leading).offset(-10);
     }];
 
-    [self.bottomImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.leading.leading.trailing.mas_offset(0);
-        make.bottom.equalTo(self.mas_bottom);
+    [self.bottomImageView tx_makeConstraints:^(TXConstraintMaker *make) {
+        make.leading.leading.trailing.tx_offset(0);
+        make.bottom.equalTo(self.tx_bottom);
     }];
 
-    [self.startBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.leading.equalTo(self.bottomImageView.mas_leading).offset(5);
-        make.top.equalTo(self.bottomImageView.mas_top).offset(10);
-        make.width.height.mas_equalTo(30);
+    [self.startBtn tx_makeConstraints:^(TXConstraintMaker *make) {
+        make.leading.equalTo(self.bottomImageView.tx_leading).offset(5);
+        make.top.equalTo(self.bottomImageView.tx_top).offset(10);
+        make.width.height.tx_equalTo(30);
         if (@available(iOS 11.0, *)) {
-            make.bottom.equalTo(self.mas_safeAreaLayoutGuideBottom).offset(-10);
+            make.bottom.equalTo(self.tx_safeAreaLayoutGuideBottom).offset(-10);
         } else {
-            make.bottom.equalTo(self.mas_bottom).offset(-10);
+            make.bottom.equalTo(self.tx_bottom).offset(-10);
         }
     }];
 
-    [self.currentTimeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.leading.equalTo(self.startBtn.mas_trailing);
-        make.centerY.equalTo(self.startBtn.mas_centerY);
-        make.width.mas_equalTo(50);
+    [self.currentTimeLabel tx_makeConstraints:^(TXConstraintMaker *make) {
+        make.leading.equalTo(self.startBtn.tx_trailing);
+        make.centerY.equalTo(self.startBtn.tx_centerY);
+        make.width.tx_equalTo(50);
     }];
 
-    [self.fullScreenBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.height.mas_equalTo(30);
-        make.trailing.equalTo(self.bottomImageView.mas_trailing).offset(-5);
-        make.centerY.equalTo(self.startBtn.mas_centerY);
+    [self.fullScreenBtn tx_makeConstraints:^(TXConstraintMaker *make) {
+        make.width.height.tx_equalTo(30);
+        make.trailing.equalTo(self.bottomImageView.tx_trailing).offset(-5);
+        make.centerY.equalTo(self.startBtn.tx_centerY);
     }];
 
-    [self.resolutionBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.height.mas_equalTo(30);
-        make.width.mas_greaterThanOrEqualTo(45);
-        make.trailing.equalTo(self.bottomImageView.mas_trailing).offset(-5);
-        make.centerY.equalTo(self.startBtn.mas_centerY);
+    [self.resolutionBtn tx_makeConstraints:^(TXConstraintMaker *make) {
+        make.height.tx_equalTo(30);
+        make.width.tx_greaterThanOrEqualTo(45);
+        make.trailing.equalTo(self.bottomImageView.tx_trailing).offset(-5);
+        make.centerY.equalTo(self.startBtn.tx_centerY);
     }];
     
-    [self.nextBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.trailing.equalTo(self.bottomImageView.mas_trailing).offset(-35);
-        make.centerY.equalTo(self.startBtn.mas_centerY);
-        make.width.height.mas_equalTo(30);
+    [self.nextBtn tx_makeConstraints:^(TXConstraintMaker *make) {
+        make.trailing.equalTo(self.bottomImageView.tx_trailing).offset(-35);
+        make.centerY.equalTo(self.startBtn.tx_centerY);
+        make.width.height.tx_equalTo(30);
     }];
 
-    [self.totalTimeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.totalTimeLabel tx_makeConstraints:^(TXConstraintMaker *make) {
         if (self.nextBtn.hidden) {
-            make.trailing.equalTo(self.bottomImageView.mas_trailing).offset(-35);
+            make.trailing.equalTo(self.bottomImageView.tx_trailing).offset(-35);
         } else {
-            make.trailing.equalTo(self.bottomImageView.mas_trailing).offset(-65);
+            make.trailing.equalTo(self.bottomImageView.tx_trailing).offset(-65);
         }
-        make.centerY.equalTo(self.startBtn.mas_centerY);
-        make.width.mas_equalTo(50);
+        make.centerY.equalTo(self.startBtn.tx_centerY);
+        make.width.tx_equalTo(50);
     }];
     
 
-    [self.videoSlider mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.leading.equalTo(self.currentTimeLabel.mas_trailing);
-        make.trailing.equalTo(self.totalTimeLabel.mas_leading);
-        make.centerY.equalTo(self.currentTimeLabel.mas_centerY).offset(-1);
+    [self.videoSlider tx_makeConstraints:^(TXConstraintMaker *make) {
+        make.leading.equalTo(self.currentTimeLabel.tx_trailing);
+        make.trailing.equalTo(self.totalTimeLabel.tx_leading);
+        make.centerY.equalTo(self.currentTimeLabel.tx_centerY).offset(-1);
     }];
 
-    [self.lockBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.leading.equalTo(self.mas_leading).offset(15);
-        make.centerY.equalTo(self.mas_centerY);
-        make.width.height.mas_equalTo(32);
+    [self.lockBtn tx_makeConstraints:^(TXConstraintMaker *make) {
+        make.leading.equalTo(self.tx_leading).offset(15);
+        make.centerY.equalTo(self.tx_centerY);
+        make.width.height.tx_equalTo(32);
     }];
     
-    [self.pipBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.trailing.equalTo(self.mas_trailing).offset(-15);
-        make.centerY.equalTo(self.mas_centerY);
-        make.width.height.mas_equalTo(32);
+    [self.pipBtn tx_makeConstraints:^(TXConstraintMaker *make) {
+        make.trailing.equalTo(self.tx_trailing).offset(-15);
+        make.centerY.equalTo(self.tx_centerY);
+        make.width.height.tx_equalTo(32);
     }];
 
-    [self.playeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.height.mas_equalTo(50);
+    [self.playeBtn tx_makeConstraints:^(TXConstraintMaker *make) {
+        make.width.height.tx_equalTo(50);
         make.center.equalTo(self);
     }];
 
-    [self.backLiveBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.mas_equalTo(self.startBtn.mas_top).mas_offset(-15);
-        make.width.mas_equalTo(150);
+    [self.backLiveBtn tx_makeConstraints:^(TXConstraintMaker *make) {
+        make.bottom.tx_equalTo(self.startBtn.tx_top).tx_offset(-15);
+        make.width.tx_equalTo(150);
         make.centerX.equalTo(self);
     }];
 }
@@ -359,11 +359,11 @@ SuperPlayerTrackViewDelegate, SuperPlayerSubtitlesViewDelegate>
         _resolutionView        = [[UIView alloc] initWithFrame:CGRectZero];
         _resolutionView.hidden = YES;
         [self addSubview:_resolutionView];
-        [_resolutionView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.width.mas_equalTo(330);
-            make.height.mas_equalTo(self.mas_height);
-            make.trailing.equalTo(self.mas_trailing).offset(0);
-            make.top.equalTo(self.mas_top).offset(0);
+        [_resolutionView tx_makeConstraints:^(TXConstraintMaker *make) {
+            make.width.tx_equalTo(330);
+            make.height.tx_equalTo(self.tx_height);
+            make.trailing.equalTo(self.tx_trailing).offset(0);
+            make.top.equalTo(self.tx_top).offset(0);
         }];
 
         _resolutionView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
@@ -520,29 +520,29 @@ SuperPlayerTrackViewDelegate, SuperPlayerSubtitlesViewDelegate>
     [self.backBtn setImage:SuperPlayerImage(@"back_full") forState:UIControlStateNormal];
     
     if (!self.nextBtn.hidden) {
-        [self.nextBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+        [self.nextBtn tx_remakeConstraints:^(TXConstraintMaker *make) {
             if (self.resolutionArray.count > 0) {
-                make.trailing.equalTo(self.resolutionBtn.mas_leading);
+                make.trailing.equalTo(self.resolutionBtn.tx_leading);
             } else {
-                make.trailing.equalTo(self.bottomImageView.mas_trailing).offset(-5);
+                make.trailing.equalTo(self.bottomImageView.tx_trailing).offset(-5);
             }
-            make.centerY.equalTo(self.startBtn.mas_centerY);
-            make.width.height.mas_equalTo(30);
+            make.centerY.equalTo(self.startBtn.tx_centerY);
+            make.width.height.tx_equalTo(30);
         }];
     }
     
-    [self.totalTimeLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+    [self.totalTimeLabel tx_remakeConstraints:^(TXConstraintMaker *make) {
         if (!self.nextBtn.hidden) {
-            make.trailing.equalTo(self.nextBtn.mas_leading);
+            make.trailing.equalTo(self.nextBtn.tx_leading);
         } else {
             if (self.resolutionArray.count > 0) {
-                make.trailing.equalTo(self.resolutionBtn.mas_leading);
+                make.trailing.equalTo(self.resolutionBtn.tx_leading);
             } else {
-                make.trailing.equalTo(self.bottomImageView.mas_trailing).offset(-5);
+                make.trailing.equalTo(self.bottomImageView.tx_trailing).offset(-5);
             }
         }
-        make.centerY.equalTo(self.startBtn.mas_centerY);
-        make.width.mas_equalTo(self.isLive ? 10 : 60);
+        make.centerY.equalTo(self.startBtn.tx_centerY);
+        make.width.tx_equalTo(self.isLive ? 10 : 60);
     }];
 
 
@@ -568,20 +568,20 @@ SuperPlayerTrackViewDelegate, SuperPlayerSubtitlesViewDelegate>
     self.trackView.hidden       = YES;
     self.subtitlesView.hidden   = YES;
     self.resolutionView.hidden  = YES;
-    [self.nextBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.trailing.equalTo(self.bottomImageView.mas_trailing).offset(-35);
-        make.centerY.equalTo(self.startBtn.mas_centerY);
-        make.width.height.mas_equalTo(30);
+    [self.nextBtn tx_remakeConstraints:^(TXConstraintMaker *make) {
+        make.trailing.equalTo(self.bottomImageView.tx_trailing).offset(-35);
+        make.centerY.equalTo(self.startBtn.tx_centerY);
+        make.width.height.tx_equalTo(30);
     }];
-    [self.totalTimeLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+    [self.totalTimeLabel tx_remakeConstraints:^(TXConstraintMaker *make) {
         if (!self.nextBtn.hidden) {
-            make.trailing.equalTo(self.nextBtn.mas_leading);
+            make.trailing.equalTo(self.nextBtn.tx_leading);
         } else {
-            make.trailing.equalTo(self.fullScreenBtn.mas_leading);
+            make.trailing.equalTo(self.fullScreenBtn.tx_leading);
         }
         
-        make.centerY.equalTo(self.startBtn.mas_centerY);
-        make.width.mas_equalTo(self.isLive ? 10 : 60);
+        make.centerY.equalTo(self.startBtn.tx_centerY);
+        make.width.tx_equalTo(self.isLive ? 10 : 60);
     }];
 
 
@@ -599,11 +599,11 @@ SuperPlayerTrackViewDelegate, SuperPlayerSubtitlesViewDelegate>
         NSNumber *status = buttonStatusArr[i];
         if (![status boolValue]) {
             UIButton *btn = buttonArray[i];
-            [btn mas_remakeConstraints:^(MASConstraintMaker *make) {
-                make.width.mas_equalTo(40);
-                make.height.mas_equalTo(49);
-                make.trailing.equalTo(self.captureBtn.mas_leading).offset(-((k * 40) + ((k + 1) * 10)));
-                make.centerY.equalTo(self.backBtn.mas_centerY);
+            [btn tx_remakeConstraints:^(TXConstraintMaker *make) {
+                make.width.tx_equalTo(40);
+                make.height.tx_equalTo(49);
+                make.trailing.equalTo(self.captureBtn.tx_leading).offset(-((k * 40) + ((k + 1) * 10)));
+                make.centerY.equalTo(self.backBtn.tx_centerY);
             }];
             k++;
         }
@@ -829,11 +829,11 @@ SuperPlayerTrackViewDelegate, SuperPlayerSubtitlesViewDelegate>
         _moreContentView.controlView = self;
         _moreContentView.hidden      = YES;
         [self addSubview:_moreContentView];
-        [_moreContentView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.width.mas_equalTo(330);
-            make.height.mas_equalTo(self.mas_height);
-            make.trailing.equalTo(self.mas_trailing).offset(0);
-            make.top.equalTo(self.mas_top).offset(0);
+        [_moreContentView tx_makeConstraints:^(TXConstraintMaker *make) {
+            make.width.tx_equalTo(330);
+            make.height.tx_equalTo(self.tx_height);
+            make.trailing.equalTo(self.tx_trailing).offset(0);
+            make.top.equalTo(self.tx_top).offset(0);
         }];
         _moreContentView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
     }
@@ -845,11 +845,11 @@ SuperPlayerTrackViewDelegate, SuperPlayerSubtitlesViewDelegate>
         _trackView = [[SuperPlayerTrackView alloc] initWithFrame:CGRectZero];
         _trackView.hidden = YES;
         [self addSubview:_trackView];
-        [_trackView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.width.mas_equalTo(330);
-            make.height.mas_equalTo(self.mas_height);
-            make.trailing.equalTo(self.mas_trailing).offset(0);
-            make.top.equalTo(self.mas_top).offset(0);
+        [_trackView tx_makeConstraints:^(TXConstraintMaker *make) {
+            make.width.tx_equalTo(330);
+            make.height.tx_equalTo(self.tx_height);
+            make.trailing.equalTo(self.tx_trailing).offset(0);
+            make.top.equalTo(self.tx_top).offset(0);
         }];
         _trackView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
         _trackView.delegate = self;
@@ -862,11 +862,11 @@ SuperPlayerTrackViewDelegate, SuperPlayerSubtitlesViewDelegate>
         _subtitlesView = [[SuperPlayerSubtitlesView alloc] initWithFrame:CGRectZero];
         _subtitlesView.hidden = YES;
         [self addSubview:_subtitlesView];
-        [_subtitlesView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.width.mas_equalTo(330);
-            make.height.mas_equalTo(self.mas_height);
-            make.trailing.equalTo(self.mas_trailing).offset(0);
-            make.top.equalTo(self.mas_top).offset(0);
+        [_subtitlesView tx_makeConstraints:^(TXConstraintMaker *make) {
+            make.width.tx_equalTo(330);
+            make.height.tx_equalTo(self.tx_height);
+            make.trailing.equalTo(self.tx_trailing).offset(0);
+            make.top.equalTo(self.tx_top).offset(0);
         }];
         _subtitlesView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
         _subtitlesView.delegate = self;
@@ -1038,11 +1038,11 @@ SuperPlayerTrackViewDelegate, SuperPlayerSubtitlesViewDelegate>
     lable.textAlignment = NSTextAlignmentCenter;
     lable.textColor     = [UIColor whiteColor];
     [self.resolutionView addSubview:lable];
-    [lable mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(self.resolutionView.mas_width);
-        make.height.mas_equalTo(30);
-        make.left.equalTo(self.resolutionView.mas_left);
-        make.top.equalTo(self.resolutionView.mas_top).mas_offset(20);
+    [lable tx_makeConstraints:^(TXConstraintMaker *make) {
+        make.width.equalTo(self.resolutionView.tx_width);
+        make.height.tx_equalTo(30);
+        make.left.equalTo(self.resolutionView.tx_left);
+        make.top.equalTo(self.resolutionView.tx_top).tx_offset(20);
     }];
 
     // 分辨率View上边的Btn
@@ -1052,11 +1052,11 @@ SuperPlayerTrackViewDelegate, SuperPlayerSubtitlesViewDelegate>
         [btn setTitleColor:RGBA(252, 89, 81, 1) forState:UIControlStateSelected];
         [self.resolutionView addSubview:btn];
         [btn addTarget:self action:@selector(changeResolution:) forControlEvents:UIControlEventTouchUpInside];
-        [btn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.width.equalTo(self.resolutionView.mas_width);
-            make.height.mas_equalTo(45);
-            make.left.equalTo(self.resolutionView.mas_left);
-            make.centerY.equalTo(self.resolutionView.mas_centerY).offset((i - self.resolutionArray.count / 2.0 + 0.5) * 45);
+        [btn tx_makeConstraints:^(TXConstraintMaker *make) {
+            make.width.equalTo(self.resolutionView.tx_width);
+            make.height.tx_equalTo(45);
+            make.left.equalTo(self.resolutionView.tx_left);
+            make.centerY.equalTo(self.resolutionView.tx_centerY).offset((i - self.resolutionArray.count / 2.0 + 0.5) * 45);
         }];
         btn.tag = MODEL_TAG_BEGIN + i;
 
